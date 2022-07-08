@@ -173,11 +173,7 @@ public class Shopping {
             });
             put("Other", new LinkedList<Item>() {
                 {
-                    add(new Item("Orange Zig Zags", "7-Eleven", "Other"));
-                    add(new Item("Djarum Red", "7-Eleven", "Other"));
-                    add(new Item("Visine", "7-Eleven", "Other"));
-                    add(new Item("Lighter", "7-Eleven", "Other"));
-
+                    //
                 }
             });
         }
@@ -254,14 +250,6 @@ public class Shopping {
                     add(new Item("Smarties"));
                 }
             }));
-            add(new Store("7-Eleven", new LinkedList<Item>() {
-                {
-                    add(new Item("Orange Zig Zags"));
-                    add(new Item("Djarum Red"));
-                    add(new Item("Visine"));
-                    add(new Item("Lighter"));
-                }
-            }));
             add(new Store("Sprouts", new LinkedList<Item>() {
                 {
                     add(new Item("Floss"));
@@ -304,4 +292,5 @@ public class Shopping {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
+    
 }
