@@ -1,27 +1,54 @@
-import java.util.List;
-import java.util.LinkedList;
+package ryan.android.shopping;
+
+import java.util.ArrayList;
 
 public class Item {
 
     private String name;
-    private String brand;
-    private String store;
-    private String price;
-    private String category;
+    private String brandType;
+    private ArrayList<Category> categories;
+    private ArrayList<Store> stores;
+    private Status status;
 
-    public Item(String name) {
+    public Item(String name, String brandType, String category, String store) {
         this.name = name;
+        this.brandType = brandType;
+        categories = new ArrayList<>();
+        categories.add(new Category(category, this));
+        stores = new ArrayList<>();
+        stores.add(new Store(store, this));
     }
 
-    public Item(String name, String category) {
-        this.name = name;
-        this.category = category;
+    public String getName() {
+        return name;
     }
 
-    public Item(String name, String store, String category) {
-        this.name = name;
-        this.store = store;
-        this.category = category;
+    public String getBrand() {
+        return brandType;
+    }
+
+    public Category getCategory(int position) {
+        return categories.get(position);
+    }
+
+    public Store getStore(int position) {
+        return stores.get(position);
+    }
+
+    public void addCategory(Category category) {
+        categories.add(category);
+    }
+
+    public void addStore(Store store) {
+        stores.add(store);
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }
