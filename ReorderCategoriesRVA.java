@@ -27,8 +27,8 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
         this.recyclerView = recyclerView;
 
         // Below: Test to see which item is selected
-        Item item = shopping.selectedItem;
-        int position = shopping.selectedItemPosition;
+        Item item = shopping.selectedItemInInventory;
+        int position = shopping.selectedItemPositionInInventory;
         if (item != null) {
             Toast.makeText(shopping, item.getName() + " at #" + position + " is currently selected.", Toast.LENGTH_SHORT).show();
         }
@@ -125,19 +125,19 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
                 shopping.updateCategoryData();
 
                 // Check if selected item is in one of the categories being moved and shift it
-                if (shopping.selectedItemPosition != 0) {
+                if (shopping.selectedItemPositionInInventory != 0) {
 
-                    if (categoryContains(position, shopping.selectedItemPosition)) {
+                    if (categoryContains(position, shopping.selectedItemPositionInInventory)) {
 
                         String category = categoryData.getCategoryList().get(position + 1);
                         int offset = itemData.getCategoryMap().get(category).getItemList().size();
-                        shopping.selectedItemPosition += offset + 1;
+                        shopping.selectedItemPositionInInventory += offset + 1;
 
-                    } else if (categoryContains(position + 1, shopping.selectedItemPosition)) {
+                    } else if (categoryContains(position + 1, shopping.selectedItemPositionInInventory)) {
 
                         String category = categoryData.getCategoryList().get(position);
                         int offset = itemData.getCategoryMap().get(category).getItemList().size();
-                        shopping.selectedItemPosition -= offset + 1;
+                        shopping.selectedItemPositionInInventory -= offset + 1;
 
                     }
                 }
@@ -153,19 +153,19 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
                 shopping.updateCategoryData();
 
                 // Check if selected item is in one of the categories being moved and shift it
-                if (shopping.selectedItemPosition != 0) {
+                if (shopping.selectedItemPositionInInventory != 0) {
 
-                    if (categoryContains(position, shopping.selectedItemPosition)) {
+                    if (categoryContains(position, shopping.selectedItemPositionInInventory)) {
 
                         String category = categoryData.getCategoryList().get(position - 1);
                         int offset = itemData.getCategoryMap().get(category).getItemList().size();
-                        shopping.selectedItemPosition -= offset + 1;
+                        shopping.selectedItemPositionInInventory -= offset + 1;
 
-                    } else if (categoryContains(position - 1, shopping.selectedItemPosition)) {
+                    } else if (categoryContains(position - 1, shopping.selectedItemPositionInInventory)) {
 
                         String category = categoryData.getCategoryList().get(position);
                         int offset = itemData.getCategoryMap().get(category).getItemList().size();
-                        shopping.selectedItemPosition += offset + 1;
+                        shopping.selectedItemPositionInInventory += offset + 1;
 
                     }
                 }

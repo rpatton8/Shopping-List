@@ -9,13 +9,13 @@ public class StoreData {
     private ArrayList<String> storeList;
     private ArrayList<String> storeListWithBlank;
     private ArrayList<String> storeListWithAddNew;
-    private Map<String, Integer> itemsNeededMap;
+    private Map<String, Integer> storeItemsNeededMap;
 
     public StoreData () {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
-        itemsNeededMap = new HashMap<>();
+        storeItemsNeededMap = new HashMap<>();
         storeListWithBlank.add("");
         storeListWithAddNew.add("");
         storeListWithAddNew.add("(add new store)");
@@ -33,15 +33,15 @@ public class StoreData {
         return storeListWithAddNew;
     }
 
-    public Map<String, Integer> getItemsNeededMap() {
-        return itemsNeededMap;
+    public Map<String, Integer> getStoreItemsNeededMap() {
+        return storeItemsNeededMap;
     }
 
     public void readStore(String storeName, int numItemsNeeded) {
         storeList.add(storeName);
         storeListWithBlank.add(storeName);
         storeListWithAddNew.add(storeName);
-        itemsNeededMap.put(storeName, numItemsNeeded);
+        storeItemsNeededMap.put(storeName, numItemsNeeded);
     }
 
 }

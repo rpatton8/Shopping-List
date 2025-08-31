@@ -11,7 +11,7 @@ public class DBStoreHelper extends SQLiteOpenHelper {
     Context context;
 
     private static final String DB_NAME = "Stores";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     private static final String TABLE_NAME = "stores";
     private static final String ID_COL = "id";
     private static final String STORE_NAME = "storeName";
@@ -79,7 +79,7 @@ public class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void setItemsNeeded(String storeName, int numItemsNeeded) {
+    public void setStoreItemsNeeded(String storeName, int numItemsNeeded) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 

@@ -6,8 +6,10 @@ public class Status {
     private Boolean isInStock;
     private Boolean isNeeded;
     private Boolean isPaused;
-    private Boolean isClicked;
-    private Boolean isSelected;
+    private Boolean isClickedInInventory;
+    private Boolean isClickedInShopByStore;
+    private Boolean isSelectedInInventory;
+    private Boolean isSelectedInShopByStore;
     private Boolean isChecked;
 
     public Status(String itemName, String isInStock, String isNeeded, String isPaused) {
@@ -25,33 +27,59 @@ public class Status {
             this.isNeeded = false;
             this.isPaused = true;
         }
-        isClicked = false;
-        isSelected = false;
+        isClickedInInventory = false;
+        isClickedInShopByStore = false;
+        isSelectedInInventory = false;
+        isSelectedInShopByStore = false;
         isChecked = false;
     }
 
-    public void setAsClicked() {
-        this.isClicked = true;
+    public void setAsClickedInInventory() {
+        this.isClickedInInventory = true;
     }
 
-    public void setAsUnclicked() {
-        this.isClicked = false;
+    public void setAsUnclickedInInventory() {
+        this.isClickedInInventory = false;
     }
 
-    public Boolean isClicked() {
-        return isClicked;
+    public Boolean isClickedInInventory() {
+        return isClickedInInventory;
     }
 
-    public void setAsSelected() {
-        this.isSelected = true;
+    public void setAsClickedInShopByStore() {
+        this.isClickedInShopByStore = true;
     }
 
-    public void setAsUnselected() {
-        this.isSelected = false;
+    public void setAsUnclickedInShopByStore() {
+        this.isClickedInShopByStore = false;
     }
 
-    public Boolean isSelected() {
-        return isSelected;
+    public Boolean isClickedInShopByStore() {
+        return isClickedInShopByStore;
+    }
+
+    public void setAsSelectedInInventory() {
+        this.isSelectedInInventory = true;
+    }
+
+    public void setAsUnselectedInInventory() {
+        this.isSelectedInInventory = false;
+    }
+
+    public Boolean isSelectedInInventory() {
+        return isSelectedInInventory;
+    }
+
+    public void setAsSelectedInShopByStore() {
+        this.isSelectedInShopByStore = true;
+    }
+
+    public void setAsUnselectedInShopByStore() {
+        this.isSelectedInShopByStore = false;
+    }
+
+    public Boolean isSelectedInShopByStore() {
+        return isSelectedInShopByStore;
     }
 
     public void setAsChecked() {

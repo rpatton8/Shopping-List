@@ -54,8 +54,13 @@ public class EditItem extends Fragment {
         editItemButton = view.findViewById(R.id.editItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        itemNameInput.setText(shopping.selectedItem.getName());
-        itemTypeInput.setText(shopping.selectedItem.getBrand());
+        if(shopping.editItemInInventory) {
+            itemNameInput.setText(shopping.selectedItemInInventory.getName());
+            itemTypeInput.setText(shopping.selectedItemInInventory.getBrand());
+        } else if (shopping.editItemInShopByStore) {
+            itemNameInput.setText(shopping.selectedItemInShopByStore.getName());
+            itemTypeInput.setText(shopping.selectedItemInShopByStore.getBrand());
+        }
         itemCategoryInput.setText("");
         itemStoreInput.setText("");
 
@@ -64,7 +69,13 @@ public class EditItem extends Fragment {
         ArrayAdapter adapter1 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter1);
-        int categorySpinnerPosition = adapter1.getPosition(shopping.selectedItem.getCategory(0).toString());
+
+        int categorySpinnerPosition = 0;
+        if(shopping.editItemInInventory) {
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory(0).toString());
+        } else if (shopping.editItemInShopByStore) {
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShopByStore.getCategory(0).toString());
+        }
         categorySpinner.setSelection(categorySpinnerPosition);
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
@@ -72,7 +83,13 @@ public class EditItem extends Fragment {
         ArrayAdapter adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter2);
-        int storeSpinnerPosition = adapter2.getPosition(shopping.selectedItem.getStore(0).toString());
+
+        int storeSpinnerPosition = 0;
+        if(shopping.editItemInInventory) {
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore(0).toString());
+        } else if (shopping.editItemInShopByStore) {
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShopByStore.getStore(0).toString());
+        }
         storeSpinner.setSelection(storeSpinnerPosition);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -112,8 +129,12 @@ public class EditItem extends Fragment {
         editItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String oldItemName = shopping.selectedItem.getName();
+                String oldItemName = "";
+                if(shopping.editItemInInventory) {
+                    oldItemName = shopping.selectedItemInInventory.getName();
+                } else if (shopping.editItemInShopByStore) {
+                    oldItemName = shopping.selectedItemInShopByStore.getName();
+                }
                 String newItemName = itemNameInput.getText().toString();
                 String itemType = itemTypeInput.getText().toString();
                 String itemCategory = itemCategoryInput.getText().toString();
@@ -136,9 +157,15 @@ public class EditItem extends Fragment {
                 String isInStock = "false";
                 String isNeeded = "false";
                 String isPaused = "false";
-                if (shopping.selectedItem.getStatus().isInStock()) isInStock = "true";
-                else if (shopping.selectedItem.getStatus().isNeeded()) isNeeded = "true";
-                else if (shopping.selectedItem.getStatus().isNeeded()) isPaused = "true";
+                if(shopping.editItemInInventory) {
+                    if (shopping.selectedItemInInventory.getStatus().isInStock()) isInStock = "true";
+                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isNeeded = "true";
+                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isPaused = "true";
+                } else if (shopping.editItemInShopByStore) {
+                    if (shopping.selectedItemInShopByStore.getStatus().isInStock()) isInStock = "true";
+                    else if (shopping.selectedItemInShopByStore.getStatus().isNeeded()) isNeeded = "true";
+                    else if (shopping.selectedItemInShopByStore.getStatus().isNeeded()) isPaused = "true";
+                }
 
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
                     int numCategories = categoryData.getCategoryList().size();
@@ -164,12 +191,20 @@ public class EditItem extends Fragment {
                 dbStatusHelper.changeStatusName(oldItemName, newItemName, isInStock, isNeeded, isPaused);
                 shopping.updateItemData();
                 shopping.updateStatusData();
-                shopping.selectedItem = shopping.getItemData().getItemMap().get(newItemName);
+                if(shopping.editItemInInventory) {
+                    shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
+                } else if (shopping.editItemInShopByStore) {
+                    shopping.selectedItemInShopByStore = shopping.getItemData().getItemMap().get(newItemName);
+                }
 
                 Toast.makeText(getActivity(), "Item has been edited.", Toast.LENGTH_SHORT).show();
 
                 shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                if(shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInShopByStore) {
+                    shopping.loadFragment(new ShopByStore());
+                }
             }
         });
 

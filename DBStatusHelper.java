@@ -11,7 +11,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
     Context context;
 
     private static final String DB_NAME = "ItemStatus";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID_COL = "id";
     private static final String ITEMNAME_COL = "itemName";

@@ -11,11 +11,16 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
     Context context;
 
     private static final String DB_NAME = "Categories";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
     private static final String TABLE_NAME = "categories";
     private static final String ID_COL = "id";
     private static final String CATEGORY_NAME = "categoryName";
     private static final String CATEGORY_ORDER = "categoryOrder";
+    private static final String CATEGORY_VIEW_ALL = "categoryViewAll";
+    private static final String CATEGORY_IN_STOCK = "categoryInStock";
+    private static final String CATEGORY_NEEDED = "categoryNeeded";
+    private static final String CATEGORY_PAUSED = "categoryPaused";
+
 
     public DBCategoryHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -27,7 +32,11 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + CATEGORY_NAME + " TEXT,"
-                + CATEGORY_ORDER + " INT)";
+                + CATEGORY_ORDER  + " INT,"
+                + CATEGORY_VIEW_ALL  + " INT,"
+                + CATEGORY_IN_STOCK  + " INT,"
+                + CATEGORY_NEEDED  + " INT,"
+                + CATEGORY_PAUSED + " INT)";
         db.execSQL(query);
     }
 
@@ -44,7 +53,8 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         CategoryData categoryData = new CategoryData();
 
         if (cursor.moveToFirst()) {
-            do { categoryData.readCategory(cursor.getString(1));
+            do { categoryData.readCategory(cursor.getString(1), cursor.getInt(3),
+                    cursor.getInt(4), cursor.getInt(5), cursor.getInt(6));
             } while (cursor.moveToNext());
         }
 
@@ -60,6 +70,10 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
 
         values.put(CATEGORY_NAME, categoryName);
         values.put(CATEGORY_ORDER, categoryOrder);
+        values.put(CATEGORY_VIEW_ALL, 0);
+        values.put(CATEGORY_IN_STOCK, 0);
+        values.put(CATEGORY_NEEDED, 0);
+        values.put(CATEGORY_PAUSED, 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -73,6 +87,20 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         values.put(CATEGORY_NAME, newCategoryName);
 
         db.update(TABLE_NAME, values, "categoryName=?", new String[]{originalCategoryName});
+        db.close();
+    }
+
+    public void setCategoryViews(String categoryName, int categoryViewAll, int categoryInStock,
+                                 int categoryNeeded, int categoryPaused) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(CATEGORY_VIEW_ALL, categoryViewAll);
+        values.put(CATEGORY_IN_STOCK, categoryInStock);
+        values.put(CATEGORY_NEEDED, categoryNeeded);
+        values.put(CATEGORY_PAUSED, categoryPaused);
+
+        db.update(TABLE_NAME, values, "categoryName=?", new String[]{categoryName});
         db.close();
     }
 

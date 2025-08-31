@@ -36,7 +36,11 @@ public class RemoveItem extends Fragment {
         removeItemButton = view.findViewById(R.id.removeItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        itemNameInput.setText(shopping.selectedItem.getName());
+        if(shopping.editItemInInventory) {
+            itemNameInput.setText(shopping.selectedItemInInventory.getName());
+        } else if (shopping.editItemInShopByStore) {
+            itemNameInput.setText(shopping.selectedItemInShopByStore.getName());
+        }
 
         removeItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +63,12 @@ public class RemoveItem extends Fragment {
                 dbStatusHelper.deleteStatus(itemName);
                 shopping.updateItemData();
                 shopping.updateStatusData();
-                shopping.itemIsSelected = false;
+
+                if(shopping.editItemInInventory) {
+                    shopping.itemIsSelectedInInventory = false;
+                } else if (shopping.editItemInShopByStore) {
+                    shopping.itemIsSelectedInShopByStore = false;
+                }
 
                 Toast.makeText(getActivity(), "Item has been removed.", Toast.LENGTH_SHORT).show();
 
@@ -73,8 +82,6 @@ public class RemoveItem extends Fragment {
                 shopping.loadFragment(new FullInventory());
             }
         });
-
         return view;
     }
-
 }
