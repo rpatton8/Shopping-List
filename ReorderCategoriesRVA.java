@@ -25,13 +25,6 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
         this.categoryData = categoryData;
         this.dbCategoryHelper = dbCategory;
         this.recyclerView = recyclerView;
-
-        // Below: Test to see which item is selected
-        Item item = shopping.selectedItemInInventory;
-        int position = shopping.selectedItemPositionInInventory;
-        if (item != null) {
-            Toast.makeText(shopping, item.getName() + " at #" + position + " is currently selected.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -71,7 +64,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
         public ImageView arrowDown;
         public ImageView arrowUp;
 
-        public ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
+        ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
                                     ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
 
             super(itemView);
@@ -90,7 +83,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
         }
 
-        public boolean categoryContains(int categoryPosition, int itemPosition) {
+        boolean categoryContains(int categoryPosition, int itemPosition) {
             int index = 0;
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 String category = categoryData.getCategoryList().get(i);
@@ -105,8 +98,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
                 index += numItemsInCategory + 1;
                 if (itemPosition == index) return false;
                 if (index > itemPosition) {
-                    if (categoryPosition == i) return true;
-                    else return false;
+                    return (categoryPosition == i);
                 }
             }
             return false;
@@ -173,7 +165,5 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
                 shopping.loadFragment(new ReorderCategories());
             }
         }
-
     }
-
 }

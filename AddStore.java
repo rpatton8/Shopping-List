@@ -11,28 +11,26 @@ import android.widget.Toast;
 
 public class AddStore extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
 
     private EditText storeInput;
-    private Button addStoreButton;
-    private Button cancelButton;
 
     public AddStore() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.add_store, container, false);
+
+        View view = inflater.inflate(R.layout.add_store, container, false);
 
         shopping = (Shopping) getActivity();
         dbStoreHelper = new DBStoreHelper(getActivity());
         storeData = shopping.getStoreData();
 
         storeInput = view.findViewById(R.id.storeInput);
-        addStoreButton = view.findViewById(R.id.addStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button addStoreButton = view.findViewById(R.id.addStoreButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         storeInput.setText("");
 
@@ -69,5 +67,4 @@ public class AddStore extends Fragment {
 
         return view;
     }
-
 }

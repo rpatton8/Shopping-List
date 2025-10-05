@@ -7,7 +7,7 @@ public class StatusData {
 
     private Map<String, Status> statusMap;
 
-    public StatusData () {
+    StatusData () {
         statusMap = new HashMap<>();
     }
 
@@ -29,7 +29,5 @@ public class StatusData {
         } else {
             statusMap.put(itemName, newStatus);
         }
-
     }
-
 }

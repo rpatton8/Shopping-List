@@ -13,27 +13,24 @@ import java.util.ArrayList;
 
 public class RemoveStore extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
-
     private Spinner storeSpinner;
-    private Button removeStoreButton;
-    private Button cancelButton;
 
     public RemoveStore() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_store, container, false);
+
+        View view = inflater.inflate(R.layout.remove_store, container, false);
 
         shopping = (Shopping) getActivity();
         storeData = shopping.getStoreData();
         dbStoreHelper = new DBStoreHelper(getActivity());
 
-        removeStoreButton = view.findViewById(R.id.removeStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeStoreButton = view.findViewById(R.id.removeStoreButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
@@ -73,5 +70,4 @@ public class RemoveStore extends Fragment {
 
         return view;
     }
-
 }

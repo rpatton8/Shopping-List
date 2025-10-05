@@ -16,7 +16,7 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
     private DBStoreHelper dbStoreHelper;
     private RecyclerView recyclerView;
 
-    public ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
+    ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
         this.shopping = shopping;
         this.storeData = storeData;
         this.dbStoreHelper = dbStore;
@@ -59,7 +59,7 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
         public ImageView arrowDown;
         public ImageView arrowUp;
 
-        public ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
+        ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
 
             super(itemView);
             this.shopping = shopping;
@@ -100,7 +100,5 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
                 shopping.loadFragment(new ReorderStores());
             }
         }
-
     }
-
 }

@@ -17,24 +17,16 @@ import android.widget.Toast;
 
 public class FullInventory extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private ItemData itemData;
-    private StatusData statusData;
-    private CategoryData categoryData;
-    private DBStatusHelper dbStatusHelper;
-    private DBStoreHelper dbStoreHelper;
 
     private String currentBottomMenu;
-    private static final String MENU_ITEM = "item";
-    private static final String MENU_CATEGORY = "category";
-    private static final String MENU_STORE = "store";
-    private static final String MENU_NONE = "none";
+    private final String MENU_ITEM = "item";
+    private final String MENU_CATEGORY = "category";
+    private final String MENU_STORE = "store";
+    private final String MENU_NONE = "none";
 
     private RecyclerView fullInventoryRecyclerView;
-    private Button addRemoveCategory;
-    private Button addEditItem;
-    private Button addRemoveStore;
     private TextView editDataBreak;
     private Button addPopup;
     private Button editPopup;
@@ -44,16 +36,15 @@ public class FullInventory extends Fragment {
     private boolean menuOptionsVisible;
     private boolean searchBoxVisible;
     private boolean editControlsExpanded;
-    private TextView fullInventorySearchButton;
     private EditText searchBox;
     private LinearLayout searchPopup;
-    private TextView fullInventoryEditButton;
     private Button viewAll;
     private Button viewInStock;
     private Button viewNeeded;
     private Button viewPaused;
     private Button expandContractItems;
     private Button expandContractCategories;
+    private Button expandContractStores;
     private Button sortByStore;
     private Button sortByCategory;
 
@@ -63,29 +54,31 @@ public class FullInventory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
-        view = inflater.inflate(R.layout.full_inventory, container, false);
+        View view = inflater.inflate(R.layout.full_inventory, container, false);
 
-        dbStatusHelper = new DBStatusHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        DBStatusHelper dbStatusHelper = new DBStatusHelper(getActivity());
+        DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
+        DBCategoryHelper dbCategoryHelper = new DBCategoryHelper(getActivity());
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
-        statusData = shopping.getStatusData();
-        categoryData = shopping.getCategoryData();
+        StatusData statusData = shopping.getStatusData();
+        CategoryData categoryData = shopping.getCategoryData();
+        StoreData storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
 
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        final FullInventoryRVA adapter = new FullInventoryRVA(shopping, itemData, categoryData, dbStatusHelper, dbStoreHelper);
+        final FullInventoryRVA adapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(adapter);
         fullInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.fullInventoryViewState);
 
         currentBottomMenu = MENU_NONE;
 
-        addRemoveCategory = view.findViewById(R.id.addRemoveCategory);
-        addEditItem = view.findViewById(R.id.addEditItem);
-        addRemoveStore = view.findViewById(R.id.addRemoveStore);
+        Button addRemoveCategory = view.findViewById(R.id.addRemoveCategory);
+        Button addEditItem = view.findViewById(R.id.addEditItem);
+        Button addRemoveStore = view.findViewById(R.id.addRemoveStore);
         editDataBreak = view.findViewById(R.id.editDataBreak);
         addPopup = view.findViewById(R.id.addPopup);
         editPopup = view.findViewById(R.id.editPopup);
@@ -96,61 +89,64 @@ public class FullInventory extends Fragment {
         searchBoxVisible = false;
         editControlsExpanded = false;
 
-        fullInventorySearchButton = view.findViewById(R.id.fullInventorySearchButton);
+        TextView fullInventorySearchButton = view.findViewById(R.id.fullInventorySearchButton);
         searchBox = view.findViewById(R.id.searchBox);
         searchPopup = view.findViewById(R.id.searchPopup);
-        fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
+        TextView fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
         viewAll = view.findViewById(R.id.viewAll);
         viewInStock = view.findViewById(R.id.viewInStock);
         viewNeeded = view.findViewById(R.id.viewNeeded);
         viewPaused = view.findViewById(R.id.viewPaused);
         expandContractItems = view.findViewById(R.id.expandContractItems);
         expandContractCategories = view.findViewById(R.id.expandContractCategories);
+        expandContractStores = view.findViewById(R.id.expandContractStores);
         sortByStore = view.findViewById(R.id.sortByStore);
         sortByCategory = view.findViewById(R.id.sortByCategory);
 
         addRemoveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_NONE) {
-                    editDataBreak.setText("Category");
-                    editDataBreak.setVisibility(View.VISIBLE);
-                    addPopup.setVisibility(View.VISIBLE);
-                    editPopup.setVisibility(View.VISIBLE);
-                    removePopup.setVisibility(View.VISIBLE);
-                    reorderPopup.setVisibility(View.VISIBLE);
-                    currentBottomMenu = MENU_CATEGORY;
-                    editControlsExpanded = true;
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 432, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 485, getResources().getDisplayMetrics());;
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+                ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
+                int height;
 
+                switch (currentBottomMenu) {
 
-                } else if (currentBottomMenu == MENU_CATEGORY) {
-                    editDataBreak.setVisibility(View.GONE);
-                    addPopup.setVisibility(View.GONE);
-                    editPopup.setVisibility(View.GONE);
-                    removePopup.setVisibility(View.GONE);
-                    reorderPopup.setVisibility(View.GONE);
-                    currentBottomMenu = MENU_NONE;
-                    editControlsExpanded = false;
+                    case MENU_NONE:
+                        editDataBreak.setText("Category");
+                        editDataBreak.setVisibility(View.VISIBLE);
+                        addPopup.setVisibility(View.VISIBLE);
+                        editPopup.setVisibility(View.VISIBLE);
+                        removePopup.setVisibility(View.VISIBLE);
+                        reorderPopup.setVisibility(View.VISIBLE);
+                        currentBottomMenu = MENU_CATEGORY;
+                        editControlsExpanded = true;
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 506, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 559, getResources().getDisplayMetrics());;
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());;
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
-                } else {
-                    editDataBreak.setText("Category");
-                    currentBottomMenu = MENU_CATEGORY;
+                    case MENU_CATEGORY:
+                        editDataBreak.setVisibility(View.GONE);
+                        addPopup.setVisibility(View.GONE);
+                        editPopup.setVisibility(View.GONE);
+                        removePopup.setVisibility(View.GONE);
+                        reorderPopup.setVisibility(View.GONE);
+                        currentBottomMenu = MENU_NONE;
+                        editControlsExpanded = false;
+
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());;
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
+                    default:
+                        editDataBreak.setText("Category");
+                        currentBottomMenu = MENU_CATEGORY;
+
                 }
             }
         });
@@ -158,43 +154,46 @@ public class FullInventory extends Fragment {
         addEditItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_NONE) {
-                    editDataBreak.setText("Item");
-                    editDataBreak.setVisibility(View.VISIBLE);
-                    addPopup.setVisibility(View.VISIBLE);
-                    editPopup.setVisibility(View.VISIBLE);
-                    removePopup.setVisibility(View.VISIBLE);
-                    reorderPopup.setVisibility(View.VISIBLE);
-                    currentBottomMenu = MENU_ITEM;
-                    editControlsExpanded = true;
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 432, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 485, getResources().getDisplayMetrics());;
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+                ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
+                int height;
 
-                } else if (currentBottomMenu == MENU_ITEM) {
-                    editDataBreak.setVisibility(View.GONE);
-                    addPopup.setVisibility(View.GONE);
-                    editPopup.setVisibility(View.GONE);
-                    removePopup.setVisibility(View.GONE);
-                    reorderPopup.setVisibility(View.GONE);
-                    currentBottomMenu = MENU_NONE;
-                    editControlsExpanded = false;
+                switch (currentBottomMenu) {
+                    case MENU_NONE:
+                        editDataBreak.setText("Item");
+                        editDataBreak.setVisibility(View.VISIBLE);
+                        addPopup.setVisibility(View.VISIBLE);
+                        editPopup.setVisibility(View.VISIBLE);
+                        removePopup.setVisibility(View.VISIBLE);
+                        reorderPopup.setVisibility(View.VISIBLE);
+                        currentBottomMenu = MENU_ITEM;
+                        editControlsExpanded = true;
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 506, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 559, getResources().getDisplayMetrics());
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-                } else {
-                    editDataBreak.setText("Item");
-                    currentBottomMenu = MENU_ITEM;
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());;
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
+                    case MENU_ITEM:
+                        editDataBreak.setVisibility(View.GONE);
+                        addPopup.setVisibility(View.GONE);
+                        editPopup.setVisibility(View.GONE);
+                        removePopup.setVisibility(View.GONE);
+                        reorderPopup.setVisibility(View.GONE);
+                        currentBottomMenu = MENU_NONE;
+                        editControlsExpanded = false;
+
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
+                    default:
+                        editDataBreak.setText("Item");
+                        currentBottomMenu = MENU_ITEM;
+
                 }
             }
         });
@@ -202,44 +201,48 @@ public class FullInventory extends Fragment {
         addRemoveStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_NONE) {
-                    editDataBreak.setText("Store");
-                    editDataBreak.setVisibility(View.VISIBLE);
-                    addPopup.setVisibility(View.VISIBLE);
-                    editPopup.setVisibility(View.VISIBLE);
-                    removePopup.setVisibility(View.VISIBLE);
-                    reorderPopup.setVisibility(View.VISIBLE);
-                    currentBottomMenu = MENU_STORE;
-                    editControlsExpanded = true;
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 432, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 485, getResources().getDisplayMetrics());
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+                ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
+                int height;
 
-                } else if (currentBottomMenu == MENU_STORE) {
-                    editDataBreak.setVisibility(View.GONE);
-                    addPopup.setVisibility(View.GONE);
-                    editPopup.setVisibility(View.GONE);
-                    removePopup.setVisibility(View.GONE);
-                    reorderPopup.setVisibility(View.GONE);
-                    currentBottomMenu = MENU_NONE;
-                    editControlsExpanded = false;
+                switch (currentBottomMenu) {
 
-                    ViewGroup.LayoutParams recyclerViewParams = fullInventoryRecyclerView.getLayoutParams();
-                    int height;
-                    if (searchBoxVisible) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 506, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 559, getResources().getDisplayMetrics());
-                    recyclerViewParams.height = height;
-                    fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+                    case MENU_NONE:
+                        editDataBreak.setText("Store");
+                        editDataBreak.setVisibility(View.VISIBLE);
+                        addPopup.setVisibility(View.VISIBLE);
+                        editPopup.setVisibility(View.VISIBLE);
+                        removePopup.setVisibility(View.VISIBLE);
+                        reorderPopup.setVisibility(View.VISIBLE);
+                        currentBottomMenu = MENU_STORE;
+                        editControlsExpanded = true;
 
-                } else {
-                    editDataBreak.setText("Store");
-                    currentBottomMenu = MENU_STORE;
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
+                    case MENU_STORE:
+                        editDataBreak.setVisibility(View.GONE);
+                        addPopup.setVisibility(View.GONE);
+                        editPopup.setVisibility(View.GONE);
+                        removePopup.setVisibility(View.GONE);
+                        reorderPopup.setVisibility(View.GONE);
+                        currentBottomMenu = MENU_NONE;
+                        editControlsExpanded = false;
+
+
+                        if (searchBoxVisible) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                        recyclerViewParams.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
+                    default:
+                        editDataBreak.setText("Store");
+                        currentBottomMenu = MENU_STORE;
+
                 }
             }
         });
@@ -247,12 +250,13 @@ public class FullInventory extends Fragment {
         addPopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_CATEGORY) {
-                    shopping.loadFragment(new AddCategory());
-                } else if (currentBottomMenu == MENU_ITEM) {
-                    shopping.loadFragment(new AddItem());
-                } else if (currentBottomMenu == MENU_STORE) {
-                    shopping.loadFragment(new AddStore());
+                switch (currentBottomMenu) {
+                    case MENU_CATEGORY:
+                        shopping.loadFragment(new AddCategory());
+                    case MENU_ITEM:
+                        shopping.loadFragment(new AddItem());
+                    case MENU_STORE:
+                        shopping.loadFragment(new AddStore());
                 }
             }
         });
@@ -260,18 +264,19 @@ public class FullInventory extends Fragment {
         editPopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_CATEGORY) {
-                    shopping.loadFragment(new EditCategory());
-                } else if (currentBottomMenu == MENU_ITEM) {
-                    if (shopping.itemIsSelectedInInventory) {
-                        shopping.editItemInInventory = true;
-                        shopping.editItemInShopByStore = false;
-                        shopping.loadFragment(new EditItem());
-                    } else {
-                        Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (currentBottomMenu == MENU_STORE) {
-                    shopping.loadFragment(new EditStore());
+                switch (currentBottomMenu) {
+                    case MENU_CATEGORY:
+                        shopping.loadFragment(new EditCategory());
+                    case MENU_ITEM:
+                        if (shopping.itemIsSelectedInInventory) {
+                            shopping.editItemInInventory = true;
+                            shopping.editItemInShoppingList = false;
+                            shopping.loadFragment(new EditItem());
+                        } else {
+                            Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT).show();
+                        }
+                    case MENU_STORE:
+                        shopping.loadFragment(new EditStore());
                 }
             }
         });
@@ -279,16 +284,17 @@ public class FullInventory extends Fragment {
         removePopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_CATEGORY) {
-                    shopping.loadFragment(new RemoveCategory());
-                } else if (currentBottomMenu == MENU_ITEM) {
-                    if (shopping.itemIsSelectedInInventory) {
-                        shopping.loadFragment(new RemoveItem());
-                    } else {
-                        Toast.makeText(getActivity(), "Please select an item to remove.", Toast.LENGTH_SHORT).show();
-                    }
-                } else if (currentBottomMenu == MENU_STORE) {
-                    shopping.loadFragment(new RemoveStore());
+                switch (currentBottomMenu) {
+                    case MENU_CATEGORY:
+                        shopping.loadFragment(new RemoveCategory());
+                    case MENU_ITEM:
+                        if (shopping.itemIsSelectedInInventory) {
+                            shopping.loadFragment(new RemoveItem());
+                        } else {
+                            Toast.makeText(getActivity(), "Please select an item to remove.", Toast.LENGTH_SHORT).show();
+                        }
+                    case MENU_STORE:
+                        shopping.loadFragment(new RemoveStore());
                 }
             }
         });
@@ -296,12 +302,13 @@ public class FullInventory extends Fragment {
         reorderPopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentBottomMenu == MENU_CATEGORY) {
-                    shopping.loadFragment(new ReorderCategories());
-                } else if (currentBottomMenu == MENU_ITEM) {
-                    shopping.loadFragment(new ReorderItems());
-                } else if (currentBottomMenu == MENU_STORE) {
-                    shopping.loadFragment(new ReorderStores());
+                switch(currentBottomMenu) {
+                    case MENU_CATEGORY:
+                        shopping.loadFragment(new ReorderCategories());
+                    case MENU_ITEM:
+                        shopping.loadFragment(new ReorderItems());
+                    case MENU_STORE:
+                        shopping.loadFragment(new ReorderStores());
                 }
             }
         });
@@ -317,8 +324,8 @@ public class FullInventory extends Fragment {
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
                     int height;
                     if (editControlsExpanded) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 485, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 559, getResources().getDisplayMetrics());
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                     params.addRule(RelativeLayout.BELOW, R.id.fullInventoryTitle);
                     params.height = height;
                     fullInventoryRecyclerView.setLayoutParams(params);
@@ -331,8 +338,8 @@ public class FullInventory extends Fragment {
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
                     int height;
                     if (editControlsExpanded) {
-                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 432, getResources().getDisplayMetrics());
-                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 506, getResources().getDisplayMetrics());
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                    } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
                     params.height = height;
                     fullInventoryRecyclerView.setLayoutParams(params);
@@ -401,6 +408,7 @@ public class FullInventory extends Fragment {
             @Override
             public void onClick(View view) {
                 //
+                hideMenuOptions();
             }
         });
 
@@ -408,21 +416,39 @@ public class FullInventory extends Fragment {
             @Override
             public void onClick(View view) {
                 //
+                hideMenuOptions();
             }
         });
 
-
-        sortByStore.setOnClickListener(new View.OnClickListener() {
+        expandContractStores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //
+                hideMenuOptions();
             }
         });
 
         sortByCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                shopping.inventorySortBy = shopping.SORT_BY_CATEGORY;
+                shopping.inventoryView = shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                    adapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
+            }
+        });
+
+        sortByStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shopping.inventorySortBy = shopping.SORT_BY_STORE;
+                shopping.inventoryView = shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                    adapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
             }
         });
 
@@ -436,8 +462,9 @@ public class FullInventory extends Fragment {
         viewPaused.setVisibility(View.GONE);
         expandContractItems.setVisibility(View.GONE);
         expandContractCategories.setVisibility(View.GONE);
-        sortByStore.setVisibility(View.GONE);
+        expandContractStores.setVisibility(View.GONE);
         sortByCategory.setVisibility(View.GONE);
+        sortByStore.setVisibility(View.GONE);
         menuOptionsVisible = false;
     }
 
@@ -448,8 +475,9 @@ public class FullInventory extends Fragment {
         viewPaused.setVisibility(View.VISIBLE);
         expandContractItems.setVisibility(View.VISIBLE);
         expandContractCategories.setVisibility(View.VISIBLE);
-        sortByStore.setVisibility(View.VISIBLE);
+        expandContractStores.setVisibility(View.VISIBLE);
         sortByCategory.setVisibility(View.VISIBLE);
+        sortByStore.setVisibility(View.VISIBLE);
         menuOptionsVisible = true;
     }
 
@@ -459,5 +487,4 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView.setAdapter(null);
         super.onDestroyView();
     }
-
 }

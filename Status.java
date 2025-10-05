@@ -2,18 +2,16 @@ package ryan.android.shopping;
 
 public class Status {
 
-    private String itemName;
     private Boolean isInStock;
     private Boolean isNeeded;
     private Boolean isPaused;
     private Boolean isClickedInInventory;
-    private Boolean isClickedInShopByStore;
+    private Boolean isClickedInShoppingList;
     private Boolean isSelectedInInventory;
-    private Boolean isSelectedInShopByStore;
+    private Boolean isSelectedInShoppingList;
     private Boolean isChecked;
 
-    public Status(String itemName, String isInStock, String isNeeded, String isPaused) {
-        this.itemName = itemName;
+    Status(String itemName, String isInStock, String isNeeded, String isPaused) {
         if (isInStock.equals("true")) {
             this.isInStock = true;
             this.isNeeded = false;
@@ -28,9 +26,9 @@ public class Status {
             this.isPaused = true;
         }
         isClickedInInventory = false;
-        isClickedInShopByStore = false;
+        isClickedInShoppingList = false;
         isSelectedInInventory = false;
-        isSelectedInShopByStore = false;
+        isSelectedInShoppingList = false;
         isChecked = false;
     }
 
@@ -46,16 +44,16 @@ public class Status {
         return isClickedInInventory;
     }
 
-    public void setAsClickedInShopByStore() {
-        this.isClickedInShopByStore = true;
+    public void setAsClickedInShoppingList() {
+        this.isClickedInShoppingList = true;
     }
 
-    public void setAsUnclickedInShopByStore() {
-        this.isClickedInShopByStore = false;
+    public void setAsUnclickedInShoppingList() {
+        this.isClickedInShoppingList = false;
     }
 
-    public Boolean isClickedInShopByStore() {
-        return isClickedInShopByStore;
+    public Boolean isClickedInShoppingList() {
+        return isClickedInShoppingList;
     }
 
     public void setAsSelectedInInventory() {
@@ -70,16 +68,16 @@ public class Status {
         return isSelectedInInventory;
     }
 
-    public void setAsSelectedInShopByStore() {
-        this.isSelectedInShopByStore = true;
+    public void setAsSelectedInShoppingList() {
+        this.isSelectedInShoppingList = true;
     }
 
-    public void setAsUnselectedInShopByStore() {
-        this.isSelectedInShopByStore = false;
+    public void setAsUnselectedInShoppingList() {
+        this.isSelectedInShoppingList = false;
     }
 
-    public Boolean isSelectedInShopByStore() {
-        return isSelectedInShopByStore;
+    public Boolean isSelectedInShoppingList() {
+        return isSelectedInShoppingList;
     }
 
     public void setAsChecked() {

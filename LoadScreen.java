@@ -2,39 +2,34 @@ package ryan.android.shopping;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LoadScreen extends Fragment {
 
-    private View view;
     private Shopping shopping;
-
     private boolean menuOptionsVisible;
-    private TextView loadScreenSearchButton;
-    private TextView loadScreenEditButton;
     private Button clearAllData;
     private Button loadSampleData;
-    private Button instructions;
 
     public LoadScreen() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.load_screen, container, false);
+
+        View view = inflater.inflate(R.layout.load_screen, container, false);
 
         shopping = (Shopping) getActivity();
 
         menuOptionsVisible = false;
 
-        loadScreenEditButton = view.findViewById(R.id.loadScreenEditButton);
+        TextView loadScreenEditButton = view.findViewById(R.id.loadScreenEditButton);
         clearAllData = view.findViewById(R.id.clearAllData);
-        loadSampleData = view.findViewById(R.id.loadSampleData);
+        loadSampleData = view.findViewById(R.id.loadSampleData1);
+        Button instructions = view.findViewById(R.id.instructions);
 
         loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +60,13 @@ public class LoadScreen extends Fragment {
             }
         });
 
+        instructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //
+            }
+        });
+
         return view;
     }
-
 }
-

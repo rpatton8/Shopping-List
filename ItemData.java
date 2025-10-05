@@ -7,8 +7,6 @@ import java.util.Map;
 public class ItemData {
 
     private ArrayList<Item> items;
-    private ArrayList<Category> categories;
-    private ArrayList<Store> stores;
 
     private Map<String, Item> itemMap;
     private Map<String, Category> categoryMap;
@@ -16,8 +14,6 @@ public class ItemData {
 
     public ItemData() {
         items = new ArrayList<>();
-        categories = new ArrayList<>();
-        stores = new ArrayList<>();
         itemMap = new HashMap<>();
         categoryMap = new HashMap<>();
         storeMap = new HashMap<>();
@@ -52,11 +48,8 @@ public class ItemData {
         Category newCategory = new Category(category, newItem);
         Store newStore = new Store(store, newItem);
         if (itemMap.containsKey(item)) {
-            Item thisItem = itemMap.get(item);
             if (categoryMap.containsKey(category)) {
-                Category thisCategory = categoryMap.get(category);
                 if (storeMap.containsKey(store)) {
-                    Store thisStore = storeMap.get(store);
                     /* item, category, and store all exist */
                     itemMap.get(item).addCategory(newCategory);
                     itemMap.get(item).addStore(newStore);
@@ -68,7 +61,6 @@ public class ItemData {
                     itemMap.get(item).addStore(newStore);
                     categoryMap.get(category).addItem(newItem);
                     storeMap.put(store, newStore);
-                    stores.add(newStore);
                 }
             } else {
                 if (storeMap.containsKey(store)) {
@@ -77,15 +69,12 @@ public class ItemData {
                     itemMap.get(item).addStore(newStore);
                     storeMap.get(store).addItem(newItem);
                     categoryMap.put(category, newCategory);
-                    categories.add(newCategory);
                 } else {
                     /* item exists, but category and store don't */
                     itemMap.get(item).addCategory(newCategory);
                     itemMap.get(item).addStore(newStore);
                     categoryMap.put(category, newCategory);
-                    categories.add(newCategory);
                     storeMap.put(store, newStore);
-                    stores.add(newStore);
                 }
             }
         } else {
@@ -101,7 +90,6 @@ public class ItemData {
                     itemMap.put(item, newItem);
                     items.add(newItem);
                     storeMap.put(store, newStore);
-                    stores.add(newStore);
                     categoryMap.get(category).addItem(newItem);
                 }
             } else {
@@ -110,22 +98,15 @@ public class ItemData {
                     itemMap.put(item, newItem);
                     items.add(newItem);
                     categoryMap.put(category, newCategory);
-                    categories.add(newCategory);
                     storeMap.get(store).addItem(newItem);
                 } else {
                     /* item, category and store all don't exist */
                     itemMap.put(item, newItem);
                     items.add(newItem);
                     categoryMap.put(category, newCategory);
-                    categories.add(newCategory);
                     storeMap.put(store, newStore);
-                    stores.add(newStore);
                 }
             }
         }
-
-
-
     }
-
 }

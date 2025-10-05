@@ -2,6 +2,7 @@ package ryan.android.shopping;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,28 +12,26 @@ import android.widget.Toast;
 
 public class AddCategory extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
 
     private EditText categoryInput;
-    private Button addCategoryButton;
-    private Button cancelButton;
 
     public AddCategory() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.add_category, container, false);
+
+        View view = inflater.inflate(R.layout.add_category, container, false);
 
         shopping = (Shopping) getActivity();
         categoryData = shopping.getCategoryData();
         dbCategoryHelper = new DBCategoryHelper(getActivity());
 
         categoryInput = view.findViewById(R.id.categoryInput);
-        addCategoryButton = view.findViewById(R.id.addCategoryButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button addCategoryButton = view.findViewById(R.id.addCategoryButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         categoryInput.setText("");
 
@@ -43,7 +42,9 @@ public class AddCategory extends Fragment {
                 String categoryName = categoryInput.getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter a category to add.", Toast.LENGTH_SHORT).show();
+                    Toast toast1 = Toast.makeText(getActivity(), "Please enter a category to add.", Toast.LENGTH_SHORT);
+                    toast1.setGravity(Gravity.CENTER, 0, 0);
+                    toast1.show();
                     return;
                 }
 
@@ -51,11 +52,12 @@ public class AddCategory extends Fragment {
                 dbCategoryHelper.addNewCategory(categoryName, numCategories);
                 shopping.updateCategoryData();
 
-                Toast.makeText(getActivity(), "Category #" + numCategories + " has been added.", Toast.LENGTH_SHORT).show();
+                Toast toast2 = Toast.makeText(getActivity(), "Category #" + numCategories + " has been added.", Toast.LENGTH_SHORT);
+                toast2.setGravity(Gravity.CENTER, 0, 0);
+                toast2.show();
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());
-
             }
         });
 
@@ -69,5 +71,4 @@ public class AddCategory extends Fragment {
 
         return view;
     }
-
 }

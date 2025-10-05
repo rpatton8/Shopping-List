@@ -1,406 +1,101 @@
 package ryan.android.shopping;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class FullInventoryRVA extends RecyclerView.Adapter {
 
     private Shopping shopping;
     private ItemData itemData;
+    private StoreData storeData;
     private CategoryData categoryData;
     private DBStatusHelper dbStatusHelper;
     private DBStoreHelper dbStoreHelper;
+    private DBCategoryHelper dbCategoryHelper;
 
-    public FullInventoryRVA(Shopping shopping, ItemData itemData, CategoryData categoryData,
-                            DBStatusHelper dbStatus, DBStoreHelper dbStore) {
+    FullInventoryRVA(Shopping shopping, ItemData itemData, CategoryData categoryData,
+                             StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
         this.itemData = itemData;
         this.categoryData = categoryData;
+        this.storeData = storeData;
         this.dbStatusHelper = dbStatus;
         this.dbStoreHelper = dbStore;
+        this.dbCategoryHelper = dbCategory;
     }
 
     @Override
     public int getItemViewType(final int position) {
 
-        if (position == 0) return R.layout.full_inventory_rv_title;
-        int index = 0;
-        for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-            String category = categoryData.getCategoryList().get(i);
-            int numItemsInCategory;
-            if (itemData.getCategoryMap().get(category) == null) {
-                numItemsInCategory = 0;
-            } else {
-                numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
-            }
-            index += numItemsInCategory + 1;
-            if (position == index) return R.layout.full_inventory_rv_title;
-        }
-        return R.layout.full_inventory_rv_item;
+        if (shopping.inventorySortBy.equals(shopping.SORT_BY_CATEGORY)) {
 
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.full_inventory_rv_title) {
-            return new FullInventoryTitleRVH(view);
-        } else return new FullInventoryRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbStoreHelper);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        Item thisItem = null;
-        String category = null;
-        boolean isTitle = false;
-        int adjustedPosition = 0;
-
-        if (position == 0) {
-            isTitle = true;
-            category = categoryData.getCategoryList().get(0);
-        } else {
+            if (position == 0) return R.layout.sort_by_category_rv_title;
             int index = 0;
-            adjustedPosition = position;
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                category = categoryData.getCategoryList().get(i);
+                String category = categoryData.getCategoryList().get(i);
                 int numItemsInCategory;
                 if (itemData.getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
                     numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
                 }
-                index += numItemsInCategory;
-                adjustedPosition--;
-                if (index == adjustedPosition) {
-                    isTitle = true;
-                    category = categoryData.getCategoryList().get(i + 1);
-                    break;
-                } else if (index >= adjustedPosition) {
-                    isTitle = false;
-                    thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
-                    break;
-                }
+                index += numItemsInCategory + 1;
+                if (position == index) return R.layout.sort_by_category_rv_title;
             }
-        }
+            return R.layout.sort_by_category_rv_item;
 
-        if (isTitle) { // titles
+        } else if (shopping.inventorySortBy.equals(shopping.SORT_BY_STORE)) {
 
-            FullInventoryTitleRVH titleHolder = (FullInventoryTitleRVH) holder;
+            if (position == 0) return R.layout.sort_by_store_rv_title;
+            int index = 0;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                String store = storeData.getStoreList().get(i);
 
-            titleHolder.fullInventoryRvTitle.setText(category);
-            //titleHolder.fullInventoryRvTitle.setVisibility(View.VISIBLE);
-
-            /*if (categoryData.getCategoryViewAllMap().get(category) == 0) {
-                titleHolder.fullInventoryRvTitle.setVisibility(View.GONE);
-            }
-            if (categoryData.getCategoryViewInStockMap().get(category) == 0) {
-                titleHolder.fullInventoryRvTitle.setVisibility(View.GONE);
-            }
-            if (categoryData.getCategoryViewNeededMap().get(category) == 0) {
-                titleHolder.fullInventoryRvTitle.setVisibility(View.GONE);
-            }
-            if (categoryData.getCategoryViewPausedMap().get(category) == 0) {
-                titleHolder.fullInventoryRvTitle.setVisibility(View.GONE);
-            }*/
-
-        } else {  // item data
-
-            FullInventoryRVH itemHolder = (FullInventoryRVH) holder;
-
-            if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                itemHolder.itemSmallName.setText(thisItem.getName());
-                itemHolder.itemLargeName.setText(thisItem.getName());
-                itemHolder.itemLargeBrand.setText(thisItem.getBrand());
-                itemHolder.itemLargeStore.setText(thisItem.getStore(0).toString());
-                itemHolder.triangleRight.setVisibility(View.GONE);
-                itemHolder.triangleDown.setVisibility(View.VISIBLE);
-                itemHolder.itemSmall.setVisibility(View.GONE);
-                itemHolder.itemLarge.setVisibility(View.VISIBLE);
-            } else {
-                itemHolder.itemSmallName.setText(thisItem.getName());
-                itemHolder.itemLargeName.setText(thisItem.getName());
-                itemHolder.itemLargeBrand.setText(thisItem.getBrand());
-                itemHolder.itemLargeStore.setText(thisItem.getStore(0).toString());
-                itemHolder.triangleDown.setVisibility(View.GONE);
-                itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                itemHolder.itemLarge.setVisibility(View.GONE);
-                itemHolder.itemSmall.setVisibility(View.VISIBLE);
-            }
-            if (thisItem.getStatus().isInStock()) {
-                itemHolder.itemSmallPaused.setVisibility(View.GONE);
-                itemHolder.itemLargePaused.setVisibility(View.GONE);
-                itemHolder.itemSmallNeeded.setVisibility(View.GONE);
-                itemHolder.itemLargeNeeded.setVisibility(View.GONE);
-                itemHolder.itemSmallInStock.setVisibility(View.VISIBLE);
-                itemHolder.itemLargeInStock.setVisibility(View.VISIBLE);
-            } else if (thisItem.getStatus().isNeeded()) {
-                itemHolder.itemSmallInStock.setVisibility(View.GONE);
-                itemHolder.itemLargeInStock.setVisibility(View.GONE);
-                itemHolder.itemSmallPaused.setVisibility(View.GONE);
-                itemHolder.itemLargePaused.setVisibility(View.GONE);
-                itemHolder.itemSmallNeeded.setVisibility(View.VISIBLE);
-                itemHolder.itemLargeNeeded.setVisibility(View.VISIBLE);
-            } else if (thisItem.getStatus().isPaused()) {
-                itemHolder.itemSmallNeeded.setVisibility(View.GONE);
-                itemHolder.itemLargeNeeded.setVisibility(View.GONE);
-                itemHolder.itemSmallInStock.setVisibility(View.GONE);
-                itemHolder.itemLargeInStock.setVisibility(View.GONE);
-                itemHolder.itemSmallPaused.setVisibility(View.VISIBLE);
-                itemHolder.itemLargePaused.setVisibility(View.VISIBLE);
-            }
-            if (thisItem.getStatus().isSelectedInInventory()) {
-                itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
-
-            } else {
-                if (shopping.itemIsSelectedInInventory && shopping.selectedItemPositionInInventory == position) {
-                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
                 } else {
-                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
-                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
                 }
+                index += numItemsInStore + 1;
+                if (position == index) return R.layout.sort_by_store_rv_title;
             }
+            return R.layout.sort_by_store_rv_item;
 
-            if (shopping.inventoryView == shopping.INVENTORY_ALL) {
+        } else return -1;
+    }
 
-                if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                    itemHolder.itemSmall.setVisibility(View.GONE);
-                    itemHolder.itemLarge.setVisibility(View.VISIBLE);
-                    itemHolder.triangleRight.setVisibility(View.GONE);
-                    itemHolder.triangleDown.setVisibility(View.VISIBLE);
-                } else {
-                    itemHolder.itemSmall.setVisibility(View.VISIBLE);
-                    itemHolder.itemLarge.setVisibility(View.GONE);
-                    itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                    itemHolder.triangleDown.setVisibility(View.GONE);
-                }
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-            } else if (shopping.inventoryView == shopping.INVENTORY_INSTOCK) {
-                if (thisItem.getStatus().isInStock()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.VISIBLE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.VISIBLE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.VISIBLE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isNeeded()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isPaused()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                }
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
 
-            } else if (shopping.inventoryView == shopping.INVENTORY_NEEDED) {
-                if (thisItem.getStatus().isInStock()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isNeeded()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.VISIBLE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.VISIBLE);
-
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.VISIBLE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isPaused()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                }
-
-            } else if (shopping.inventoryView == shopping.INVENTORY_PAUSED) {
-                if (thisItem.getStatus().isInStock()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isNeeded()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                } else if (thisItem.getStatus().isPaused()) {
-                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
-                        itemHolder.itemSmall.setVisibility(View.GONE);
-                        itemHolder.itemLarge.setVisibility(View.VISIBLE);
-                        itemHolder.triangleRight.setVisibility(View.GONE);
-                        itemHolder.triangleDown.setVisibility(View.VISIBLE);
-                    } else {
-                        itemHolder.itemSmall.setVisibility(View.VISIBLE);
-                        itemHolder.itemLarge.setVisibility(View.GONE);
-                        itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                        itemHolder.triangleDown.setVisibility(View.GONE);
-                    }
-                }
-            }
+        switch(viewType) {
+            case R.layout.sort_by_category_rv_title:
+                return new SortByCategoryTitleRVH(view);
+            case R.layout.sort_by_category_rv_item:
+                return new SortByCategoryItemRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
+            case R.layout.sort_by_store_rv_title:
+                return new SortByStoreTitleRVH(view);
+            case R.layout.sort_by_store_rv_item:
+                return new SortByStoreItemRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
+            default:
+                return new RecyclerView.ViewHolder(view) {};
         }
     }
 
     @Override
-    public int getItemCount() {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        return (itemData.getItemList().size() + categoryData.getCategoryList().size());
-    }
-
-    public static class FullInventoryTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private TextView fullInventoryRvTitle;
-
-        public FullInventoryTitleRVH(View itemView) {
-
-            super(itemView);
-
-            fullInventoryRvTitle = itemView.findViewById(R.id.fullInventoryRvTitle);
-
-        }
-
-        @Override
-        public void onClick(View view) {
-
-        }
-    }
-
-    public static class FullInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private Shopping shopping;
-        private FullInventoryRVA adapter;
-        private ItemData itemData;
-        private CategoryData categoryData;
-        private DBStatusHelper dbStatusHelper;
-        private DBStoreHelper dbStoreHelper;
-
-        public Button triangleRight;
-        public Button triangleDown;
-        public LinearLayout itemSmall;
-        public LinearLayout itemLarge;
-        public TextView itemSmallName;
-        public TextView itemLargeName;
-        public TextView itemSmallInStock;
-        public TextView itemSmallNeeded;
-        public TextView itemSmallPaused;
-        public TextView itemLargeInStock;
-        public TextView itemLargeNeeded;
-        public TextView itemLargePaused;
-        public TextView itemLargeBrand;
-        public TextView itemLargeStore;
-        public TextView itemLargeBrandLabel;
-        public TextView itemLargeStoreLabel;
-
-        public FullInventoryRVH(final View itemView, Shopping shopping, FullInventoryRVA adapter, ItemData itemData,
-                                CategoryData categoryData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
-
-            super(itemView);
-            this.shopping = shopping;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.categoryData = categoryData;
-            this.dbStatusHelper = dbStatus;
-            this.dbStoreHelper = dbStore;
-
-            triangleRight = itemView.findViewById(R.id.triangleButtonRight);
-            triangleDown = itemView.findViewById(R.id.triangleButtonDown);
-            itemSmall = itemView.findViewById(R.id.itemSmall);
-            itemLarge = itemView.findViewById(R.id.itemLarge);
-            itemSmallName = itemView.findViewById(R.id.itemSmallName);
-            itemLargeName = itemView.findViewById(R.id.itemLargeName);
-            itemSmallInStock = itemView.findViewById(R.id.itemSmallInStock);
-            itemSmallNeeded = itemView.findViewById(R.id.itemSmallNeeded);
-            itemSmallPaused = itemView.findViewById(R.id.itemSmallPaused);
-            itemLargeInStock = itemView.findViewById(R.id.itemLargeInStock);
-            itemLargeNeeded = itemView.findViewById(R.id.itemLargeNeeded);
-            itemLargePaused = itemView.findViewById(R.id.itemLargePaused);
-            itemLargeBrand = itemView.findViewById(R.id.itemLargeBrand);
-            itemLargeStore = itemView.findViewById(R.id.itemLargeStore);
-            itemLargeBrandLabel = itemView.findViewById(R.id.itemLargeBrandLabel);
-            itemLargeStoreLabel = itemView.findViewById(R.id.itemLargeStoreLabel);
-
-            triangleRight.setOnClickListener(this);
-            triangleDown.setOnClickListener(this);
-            itemSmall.setOnClickListener(this);
-            itemLarge.setOnClickListener(this);
-            itemSmallName.setOnClickListener(this);
-            itemLargeName.setOnClickListener(this);
-            itemSmallInStock.setOnClickListener(this);
-            itemSmallNeeded.setOnClickListener(this);
-            itemSmallPaused.setOnClickListener(this);
-            itemLargeInStock.setOnClickListener(this);
-            itemLargeNeeded.setOnClickListener(this);
-            itemLargePaused.setOnClickListener(this);
-            itemLargeBrand.setOnClickListener(this);
-            itemLargeStore.setOnClickListener(this);
-            itemLargeBrandLabel.setOnClickListener(this);
-            itemLargeStoreLabel.setOnClickListener(this);
-        }
-
-        private void selectOrUnselectItem(int position) {
+        if (shopping.inventorySortBy.equals(shopping.SORT_BY_CATEGORY)) {
 
             Item thisItem = null;
             String category = null;
@@ -435,7 +130,501 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
 
+            if (isTitle) { // titles
+
+                SortByCategoryTitleRVH titleHolder = (SortByCategoryTitleRVH) holder;
+
+                titleHolder.sortByCategoryRvTitle.setText(category);
+                titleHolder.sortByCategoryRvTitle.setVisibility(View.VISIBLE);
+                titleHolder.leftArrow.setVisibility(View.VISIBLE);
+                titleHolder.rightArrow.setVisibility(View.VISIBLE);
+
+
+                System.out.println("Category title = " + category);
+
+                if (shopping.inventoryView.equals(shopping.INVENTORY_ALL) && categoryData.getCategoryViewAllMap().get(category) == 0) {
+                    System.out.println("Here Cat 1");
+                    titleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_INSTOCK) && categoryData.getCategoryViewInStockMap().get(category) == 0) {
+                    System.out.println("Here Cat 2");
+                    titleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_NEEDED) && categoryData.getCategoryViewNeededMap().get(category) == 0) {
+                    System.out.println("Here Cat 3");
+                    titleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_PAUSED) && categoryData.getCategoryViewPausedMap().get(category) == 0) {
+                    System.out.println("Here Cat 4");
+                    titleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                }
+
+            } else {  // item data
+
+                SortByCategoryItemRVH itemHolder = (SortByCategoryItemRVH) holder;
+
+                assert thisItem != null;
+
+                if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                    itemHolder.itemSmallName.setText(thisItem.getName());
+                    itemHolder.itemLargeName.setText(thisItem.getName());
+                    itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                    itemHolder.itemLargeStore.setText(thisItem.getStore(0).toString());
+                    itemHolder.triangleRight.setVisibility(View.GONE);
+                    itemHolder.triangleDown.setVisibility(View.VISIBLE);
+                    itemHolder.itemSmall.setVisibility(View.GONE);
+                    itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                } else {
+                    itemHolder.itemSmallName.setText(thisItem.getName());
+                    itemHolder.itemLargeName.setText(thisItem.getName());
+                    itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                    itemHolder.itemLargeStore.setText(thisItem.getStore(0).toString());
+                    itemHolder.triangleDown.setVisibility(View.GONE);
+                    itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                    itemHolder.itemLarge.setVisibility(View.GONE);
+                    itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                }
+                if (thisItem.getStatus().isInStock()) {
+                    itemHolder.itemSmallPaused.setVisibility(View.GONE);
+                    itemHolder.itemLargePaused.setVisibility(View.GONE);
+                    itemHolder.itemSmallNeeded.setVisibility(View.GONE);
+                    itemHolder.itemLargeNeeded.setVisibility(View.GONE);
+                    itemHolder.itemSmallInStock.setVisibility(View.VISIBLE);
+                    itemHolder.itemLargeInStock.setVisibility(View.VISIBLE);
+                } else if (thisItem.getStatus().isNeeded()) {
+                    itemHolder.itemSmallInStock.setVisibility(View.GONE);
+                    itemHolder.itemLargeInStock.setVisibility(View.GONE);
+                    itemHolder.itemSmallPaused.setVisibility(View.GONE);
+                    itemHolder.itemLargePaused.setVisibility(View.GONE);
+                    itemHolder.itemSmallNeeded.setVisibility(View.VISIBLE);
+                    itemHolder.itemLargeNeeded.setVisibility(View.VISIBLE);
+                } else if (thisItem.getStatus().isPaused()) {
+                    itemHolder.itemSmallNeeded.setVisibility(View.GONE);
+                    itemHolder.itemLargeNeeded.setVisibility(View.GONE);
+                    itemHolder.itemSmallInStock.setVisibility(View.GONE);
+                    itemHolder.itemLargeInStock.setVisibility(View.GONE);
+                    itemHolder.itemSmallPaused.setVisibility(View.VISIBLE);
+                    itemHolder.itemLargePaused.setVisibility(View.VISIBLE);
+                }
+                if (thisItem.getStatus().isSelectedInInventory()) {
+                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+
+                } else {
+                    if (shopping.itemIsSelectedInInventory && shopping.selectedItemPositionInInventory == position) {
+                        itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                        itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                    } else {
+                        itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
+                        itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+                    }
+                }
+
+                if (shopping.inventoryView.equals(shopping.INVENTORY_ALL)) {
+
+                    if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                        itemHolder.itemSmall.setVisibility(View.GONE);
+                        itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                        itemHolder.triangleRight.setVisibility(View.GONE);
+                        itemHolder.triangleDown.setVisibility(View.VISIBLE);
+                    } else {
+                        itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                        itemHolder.itemLarge.setVisibility(View.GONE);
+                        itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                        itemHolder.triangleDown.setVisibility(View.GONE);
+                    }
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_INSTOCK)) {
+                    if (thisItem.getStatus().isInStock()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.VISIBLE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isNeeded()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isPaused()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    }
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_NEEDED)) {
+                    if (thisItem.getStatus().isInStock()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isNeeded()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.VISIBLE);
+
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isPaused()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    }
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_PAUSED)) {
+                    if (thisItem.getStatus().isInStock()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isNeeded()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    } else if (thisItem.getStatus().isPaused()) {
+                        if (shopping.getClickedInventoryList().get(adjustedPosition)) {
+                            itemHolder.itemSmall.setVisibility(View.GONE);
+                            itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                            itemHolder.triangleRight.setVisibility(View.GONE);
+                            itemHolder.triangleDown.setVisibility(View.VISIBLE);
+                        } else {
+                            itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                            itemHolder.itemLarge.setVisibility(View.GONE);
+                            itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                            itemHolder.triangleDown.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+        } else if (shopping.inventorySortBy.equals(shopping.SORT_BY_STORE)) {
+
+            Item thisItem = null;
+            String store = null;
+            boolean isTitle = false;
+            int adjustedPosition = 0;
+
+            if (position == 0) {
+                isTitle = true;
+                store = storeData.getStoreList().get(0);
+            } else {
+                int index = 0;
+                adjustedPosition = position;
+                for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                    store = storeData.getStoreList().get(i);
+                    int numItemsInStore;
+                    if (itemData.getStoreMap().get(store) == null) {
+                        numItemsInStore = 0;
+                    } else {
+                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    }
+                    index += numItemsInStore;
+                    adjustedPosition--;
+                    if (index == adjustedPosition) {
+                        isTitle = true;
+                        store = storeData.getStoreList().get(i + 1);
+                        break;
+                    } else if (index >= adjustedPosition) {
+                        isTitle = false;
+                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        break;
+                    }
+                }
+            }
+
+            if (isTitle) { // titles
+
+                SortByStoreTitleRVH titleHolder = (SortByStoreTitleRVH) holder;
+
+                titleHolder.sortByStoreRvTitle.setText(store);
+                titleHolder.sortByStoreRvTitle.setVisibility(View.VISIBLE);
+                titleHolder.leftArrow.setVisibility(View.VISIBLE);
+                titleHolder.rightArrow.setVisibility(View.VISIBLE);
+
+                System.out.println("Store title = " + store);
+
+                if (shopping.inventoryView.equals(shopping.INVENTORY_ALL) && storeData.getStoreViewAllMap().get(store) == 0) {
+                    System.out.println("Here 1");
+                    titleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_INSTOCK) && storeData.getStoreViewInStockMap().get(store) == 0) {
+                    System.out.println("Here 2");
+                    titleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_NEEDED) && storeData.getStoreViewNeededMap().get(store) == 0) {
+                    System.out.println("Here 3");
+                    titleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                } else if (shopping.inventoryView.equals(shopping.INVENTORY_PAUSED) && storeData.getStoreViewPausedMap().get(store) == 0) {
+                    System.out.println("Here 4");
+                    titleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
+                    titleHolder.leftArrow.setVisibility(View.GONE);
+                    titleHolder.rightArrow.setVisibility(View.GONE);
+                }
+
+            } else {  // item data
+
+                SortByStoreItemRVH itemHolder = (SortByStoreItemRVH) holder;
+
+                if (thisItem != null && thisItem.getStatus().isNeeded()) {
+                    if (shopping.getClickedShoppingList().get(adjustedPosition)) {
+                        itemHolder.itemSmallName.setText(thisItem.getName());
+                        itemHolder.itemLargeName.setText(thisItem.getName());
+                        itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                        itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                        itemHolder.triangleRight.setVisibility(View.GONE);
+                        itemHolder.triangleDown.setVisibility(View.VISIBLE);
+                        itemHolder.itemSmall.setVisibility(View.GONE);
+                        itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                    } else {
+                        itemHolder.itemSmallName.setText(thisItem.getName());
+                        itemHolder.itemLargeName.setText(thisItem.getName());
+                        itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                        itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                        itemHolder.triangleDown.setVisibility(View.GONE);
+                        itemHolder.triangleRight.setVisibility(View.VISIBLE);
+                        itemHolder.itemLarge.setVisibility(View.GONE);
+                        itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    itemHolder.triangleDown.setVisibility(View.GONE);
+                    itemHolder.triangleRight.setVisibility(View.GONE);
+                    itemHolder.itemLarge.setVisibility(View.GONE);
+                    itemHolder.itemSmall.setVisibility(View.GONE);
+                }
+
+                assert thisItem != null;
+
+                if (thisItem.getStatus().isSelectedInShoppingList()) {
+                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+
+                } else {
+                    if (shopping.itemIsSelectedInShoppingList && shopping.selectedItemPositionInShoppingList == position) {
+                        itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                        itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                    } else {
+                        itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
+                        itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+                    }
+                }
+
+                if ((shopping.storeNum != 0) &&
+                        !thisItem.getStore(0).toString().equals(storeData.getStoreList().get(shopping.storeNum - 1))) {
+                    itemHolder.triangleDown.setVisibility(View.GONE);
+                    itemHolder.triangleRight.setVisibility(View.GONE);
+                    itemHolder.itemLarge.setVisibility(View.GONE);
+                    itemHolder.itemSmall.setVisibility(View.GONE);
+                }
+            }
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+
+        if (shopping.inventorySortBy.equals(shopping.SORT_BY_CATEGORY)) {
+
+            return (itemData.getItemList().size() + categoryData.getCategoryList().size());
+
+
+        } else if (shopping.inventorySortBy.equals(shopping.SORT_BY_STORE)) {
+
+            return (itemData.getItemList().size() + storeData.getStoreList().size());
+
+        } else return -1;
+
+    }
+
+    public static class SortByCategoryTitleRVH extends RecyclerView.ViewHolder {
+
+        private TextView sortByCategoryRvTitle;
+        private ImageView leftArrow;
+        private ImageView rightArrow;
+
+        SortByCategoryTitleRVH(View itemView) {
+
+            super(itemView);
+
+            sortByCategoryRvTitle = itemView.findViewById(R.id.sortByCategoryRvTitle);
+            leftArrow = itemView.findViewById(R.id.leftArrow);
+            rightArrow = itemView.findViewById(R.id.rightArrow);
+        }
+
+    }
+
+    public static class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Shopping shopping;
+        private FullInventoryRVA adapter;
+        private ItemData itemData;
+        private CategoryData categoryData;
+        private DBStatusHelper dbStatusHelper;
+        private DBCategoryHelper dbCategoryHelper;
+
+        private Button triangleRight;
+        private Button triangleDown;
+        private LinearLayout itemSmall;
+        private LinearLayout itemLarge;
+        private TextView itemSmallName;
+        private TextView itemLargeName;
+        private TextView itemSmallInStock;
+        private TextView itemSmallNeeded;
+        private TextView itemSmallPaused;
+        private TextView itemLargeInStock;
+        private TextView itemLargeNeeded;
+        private TextView itemLargePaused;
+        private TextView itemLargeBrand;
+        private TextView itemLargeBrandLabel;
+        private TextView itemLargeStore;
+        private TextView itemLargeStoreLabel;
+
+        SortByCategoryItemRVH(final View itemView, Shopping shopping, FullInventoryRVA adapter, ItemData itemData,
+                                    CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
+
+            super(itemView);
+            this.shopping = shopping;
+            this.adapter = adapter;
+            this.itemData = itemData;
+            this.categoryData = categoryData;
+            this.dbStatusHelper = dbStatus;
+            this.dbCategoryHelper = dbCategory;
+
+            triangleRight = itemView.findViewById(R.id.triangleButtonRight);
+            triangleDown = itemView.findViewById(R.id.triangleButtonDown);
+            itemSmall = itemView.findViewById(R.id.itemSmall);
+            itemLarge = itemView.findViewById(R.id.itemLarge);
+            itemSmallName = itemView.findViewById(R.id.itemSmallName);
+            itemLargeName = itemView.findViewById(R.id.itemLargeName);
+            itemSmallInStock = itemView.findViewById(R.id.itemSmallInStock);
+            itemSmallNeeded = itemView.findViewById(R.id.itemSmallNeeded);
+            itemSmallPaused = itemView.findViewById(R.id.itemSmallPaused);
+            itemLargeInStock = itemView.findViewById(R.id.itemLargeInStock);
+            itemLargeNeeded = itemView.findViewById(R.id.itemLargeNeeded);
+            itemLargePaused = itemView.findViewById(R.id.itemLargePaused);
+            itemLargeBrand = itemView.findViewById(R.id.itemLargeBrand);
+            itemLargeBrandLabel = itemView.findViewById(R.id.itemLargeBrandLabel);
+            itemLargeStore = itemView.findViewById(R.id.itemLargeStore);
+            itemLargeStoreLabel = itemView.findViewById(R.id.itemLargeStoreLabel);
+
+            triangleRight.setOnClickListener(this);
+            triangleDown.setOnClickListener(this);
+            itemSmall.setOnClickListener(this);
+            itemLarge.setOnClickListener(this);
+            itemSmallName.setOnClickListener(this);
+            itemLargeName.setOnClickListener(this);
+            itemSmallInStock.setOnClickListener(this);
+            itemSmallNeeded.setOnClickListener(this);
+            itemSmallPaused.setOnClickListener(this);
+            itemLargeInStock.setOnClickListener(this);
+            itemLargeNeeded.setOnClickListener(this);
+            itemLargePaused.setOnClickListener(this);
+            itemLargeBrand.setOnClickListener(this);
+            itemLargeBrandLabel.setOnClickListener(this);
+            itemLargeStore.setOnClickListener(this);
+            itemLargeStoreLabel.setOnClickListener(this);
+        }
+
+        private void selectOrUnselectItem(int position) {
+
+            String category;
+            boolean isTitle = false;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            if (position == 0) {
+                isTitle = true;
+            } else {
+                int index = 0;
+                adjustedPosition = position;
+                for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                    category = categoryData.getCategoryList().get(i);
+                    int numItemsInCategory;
+                    if (itemData.getCategoryMap().get(category) == null) {
+                        numItemsInCategory = 0;
+                    } else {
+                        numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                    }
+                    index += numItemsInCategory;
+                    adjustedPosition--;
+                    if (index == adjustedPosition) {
+                        isTitle = true;
+                        break;
+                    } else if (index >= adjustedPosition) {
+                        isTitle = false;
+                        thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                        break;
+                    }
+                }
+            }
+
             if (!isTitle) {
+
+                assert thisItem != null;
+
                 if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.selectedItemInInventory) {
                     // selected item is this item
                     thisItem.getStatus().setAsUnselectedInInventory();
@@ -476,38 +665,29 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
             }
         }
 
-        public Item getItemWithCategories(int position) {
+        Item getItemWithCategories(int position) {
 
+            String category;
             Item thisItem = null;
-            String category = null;
-            boolean isTitle = false;
-            int adjustedPosition = 0;
+            int adjustedPosition;
 
-            if (position == 0) {
-                isTitle = true;
-                category = categoryData.getCategoryList().get(0);
-            } else {
-                int index = 0;
-                adjustedPosition = position;
-                for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                    category = categoryData.getCategoryList().get(i);
-                    int numItemsInCategory;
-                    if (itemData.getCategoryMap().get(category) == null) {
-                        numItemsInCategory = 0;
-                    } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
-                    }
-                    index += numItemsInCategory;
-                    adjustedPosition--;
-                    if (index == adjustedPosition) {
-                        isTitle = true;
-                        category = categoryData.getCategoryList().get(i + 1);
-                        break;
-                    } else if (index >= adjustedPosition) {
-                        isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
-                        break;
-                    }
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                category = categoryData.getCategoryList().get(i);
+                int numItemsInCategory;
+                if (itemData.getCategoryMap().get(category) == null) {
+                    numItemsInCategory = 0;
+                } else {
+                    numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                }
+                index += numItemsInCategory;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                    break;
                 }
             }
             return thisItem;
@@ -515,17 +695,17 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
+
             int id = v.getId();
             int position = getAdapterPosition();
 
-            Item thisItem = null;
-            String category = null;
+            String category;
             boolean isTitle = false;
+            Item thisItem = null;
             int adjustedPosition = 0;
 
             if (position == 0) {
                 isTitle = true;
-                category = categoryData.getCategoryList().get(0);
             } else {
                 int index = 0;
                 adjustedPosition = position;
@@ -541,7 +721,6 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
-                        category = categoryData.getCategoryList().get(i + 1);
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
@@ -552,6 +731,8 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
             }
 
             if (!isTitle) {
+
+                assert thisItem != null;
 
                 if (id == itemSmallName.getId()) {
                     selectOrUnselectItem(position);
@@ -592,14 +773,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallNeeded.setVisibility(View.VISIBLE);
                         itemLargeNeeded.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(item.getName(), "false", "true", "false");
+                        thisItem.getStatus().setAsNeeded();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "true", "false");
 
-                        Store thisStore = thisItem.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                        dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded + 1);
-                        shopping.updateStoreData();
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock - 1, numItemsNeeded + 1, numItemsPaused);
+                        //shopping.updateCategoryData();
                     }
                 } else if (id == itemSmallNeeded.getId()) {
                     if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
@@ -610,17 +793,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallPaused.setVisibility(View.VISIBLE);
                         itemLargePaused.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(item.getName(), "false", "false", "true");
+                        thisItem.getStatus().setAsPaused();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "false", "true");
 
-                        Store thisStore = thisItem.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                        dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
-
-
-
-                        shopping.updateStoreData();
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, numItemsNeeded - 1, numItemsPaused + 1);
+                        //shopping.updateCategoryData();
                     }
                 } else if (id == itemSmallPaused.getId()) {
                     if (itemSmallPaused.getVisibility() == View.VISIBLE) {
@@ -631,9 +813,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallInStock.setVisibility(View.VISIBLE);
                         itemLargeInStock.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
+                        thisItem.getStatus().setAsInStock();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "true", "false", "false");
+
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock + 1, numItemsNeeded, numItemsPaused - 1);
+                        //shopping.updateCategoryData();
                     }
                 } else if (id == itemLargeInStock.getId()) {
                     if (itemLargeInStock.getVisibility() == View.VISIBLE) {
@@ -644,14 +833,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeNeeded.setVisibility(View.VISIBLE);
                         itemSmallNeeded.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(item.getName(), "false", "true", "false");
+                        thisItem.getStatus().setAsNeeded();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "true", "false");
 
-                        Store thisStore = thisItem.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                        dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded + 1);
-                        shopping.updateStoreData();
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock - 1, numItemsNeeded + 1, numItemsPaused);
+                        //shopping.updateCategoryData();
                     }
                 } else if (id == itemLargeNeeded.getId()) {
                     if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
@@ -662,14 +853,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargePaused.setVisibility(View.VISIBLE);
                         itemSmallPaused.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(item.getName(), "false", "false", "true");
+                        thisItem.getStatus().setAsPaused();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "false", "true");
 
-                        Store thisStore = thisItem.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                        dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
-                        shopping.updateStoreData();
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, numItemsNeeded - 1, numItemsPaused + 1);
+                        //shopping.updateCategoryData();
                     }
                 } else if (id == itemLargePaused.getId()) {
                     if (itemLargePaused.getVisibility() == View.VISIBLE) {
@@ -680,15 +873,410 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeInStock.setVisibility(View.VISIBLE);
                         itemSmallInStock.setVisibility(View.VISIBLE);
 
-                        Item item = thisItem;
-                        item.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
+                        thisItem.getStatus().setAsInStock();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "true", "false", "false");
+
+                        String thisCategory = thisItem.getCategory(0).toString();
+                        int numItemsInStock = shopping.getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeeded = shopping.getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPaused = shopping.getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAll = shopping.getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        dbCategoryHelper.setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock + 1, numItemsNeeded, numItemsPaused - 1);
+                        //shopping.updateCategoryData();
                     }
                 }
             }
+        }
+    }
 
+    public static class SortByStoreTitleRVH extends RecyclerView.ViewHolder {
+
+        private TextView sortByStoreRvTitle;
+        private ImageView leftArrow;
+        private ImageView rightArrow;
+
+        SortByStoreTitleRVH(View itemView) {
+
+            super(itemView);
+
+            sortByStoreRvTitle = itemView.findViewById(R.id.sortByStoreRvTitle);
+            leftArrow = itemView.findViewById(R.id.leftArrow);
+            rightArrow = itemView.findViewById(R.id.rightArrow);
         }
 
     }
 
+    public static class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Shopping shopping;
+        private FullInventoryRVA adapter;
+        private ItemData itemData;
+        private StoreData storeData;
+        private DBStatusHelper dbStatusHelper;
+        private DBStoreHelper dbStoreHelper;
+
+        private Button triangleRight;
+        private Button triangleDown;
+        private LinearLayout itemSmall;
+        private LinearLayout itemLarge;
+        private TextView itemSmallName;
+        private TextView itemLargeName;
+        private TextView itemSmallInStock;
+        private TextView itemSmallNeeded;
+        private TextView itemSmallPaused;
+        private TextView itemLargeInStock;
+        private TextView itemLargeNeeded;
+        private TextView itemLargePaused;
+        private TextView itemLargeBrand;
+        private TextView itemLargeBrandLabel;
+        private TextView itemLargeCategory;
+        private TextView itemLargeCategoryLabel;
+
+        SortByStoreItemRVH(final View itemView, Shopping shopping, FullInventoryRVA adapter,
+                                  ItemData itemData, StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
+
+            super(itemView);
+            this.shopping = shopping;
+            this.adapter = adapter;
+            this.itemData = itemData;
+            this.storeData = storeData;
+            this.dbStatusHelper = dbStatus;
+            this.dbStoreHelper = dbStore;
+
+            triangleRight = itemView.findViewById(R.id.triangleButtonRight);
+            triangleDown = itemView.findViewById(R.id.triangleButtonDown);
+            itemSmall = itemView.findViewById(R.id.itemSmall);
+            itemLarge = itemView.findViewById(R.id.itemLarge);
+            itemSmallName = itemView.findViewById(R.id.itemSmallName);
+            itemLargeName = itemView.findViewById(R.id.itemLargeName);
+            itemSmallInStock = itemView.findViewById(R.id.itemSmallInStock);
+            itemSmallNeeded = itemView.findViewById(R.id.itemSmallNeeded);
+            itemSmallPaused = itemView.findViewById(R.id.itemSmallPaused);
+            itemLargeInStock = itemView.findViewById(R.id.itemLargeInStock);
+            itemLargeNeeded = itemView.findViewById(R.id.itemLargeNeeded);
+            itemLargePaused = itemView.findViewById(R.id.itemLargePaused);
+            itemLargeBrand = itemView.findViewById(R.id.itemLargeBrand);
+            itemLargeBrandLabel = itemView.findViewById(R.id.itemLargeBrandLabel);
+            itemLargeCategory = itemView.findViewById(R.id.itemLargeCategory);
+            itemLargeCategoryLabel = itemView.findViewById(R.id.itemLargeCategoryLabel);
+
+            triangleRight.setOnClickListener(this);
+            triangleDown.setOnClickListener(this);
+            itemSmall.setOnClickListener(this);
+            itemLarge.setOnClickListener(this);
+            itemSmallName.setOnClickListener(this);
+            itemLargeName.setOnClickListener(this);
+            itemSmallInStock.setOnClickListener(this);
+            itemSmallNeeded.setOnClickListener(this);
+            itemSmallPaused.setOnClickListener(this);
+            itemLargeInStock.setOnClickListener(this);
+            itemLargeNeeded.setOnClickListener(this);
+            itemLargePaused.setOnClickListener(this);
+            itemLargeBrand.setOnClickListener(this);
+            itemLargeBrandLabel.setOnClickListener(this);
+            itemLargeCategory.setOnClickListener(this);
+            itemLargeCategoryLabel.setOnClickListener(this);
+        }
+
+        private void selectOrUnselectItem(int position) {
+
+            String store;
+            boolean isTitle = false;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            if (position == 0) {
+                isTitle = true;
+            } else {
+                int index = 0;
+                adjustedPosition = position;
+                for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                    store = storeData.getStoreList().get(i);
+                    int numItemsInStore;
+                    if (itemData.getStoreMap().get(store) == null) {
+                        numItemsInStore = 0;
+                    } else {
+                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    }
+                    index += numItemsInStore;
+                    adjustedPosition--;
+                    if (index == adjustedPosition) {
+                        isTitle = true;
+                        break;
+                    } else if (index >= adjustedPosition) {
+                        isTitle = false;
+                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        break;
+                    }
+                }
+            }
+
+            if (!isTitle) {
+
+                assert thisItem != null;
+
+                if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == shopping.selectedItemInShoppingList) {
+                    // selected item is this item
+                    thisItem.getStatus().setAsUnselectedInShoppingList();
+                    itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
+                    itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+
+                    shopping.itemIsSelectedInShoppingList = false;
+                    shopping.selectedItemInShoppingList = null;
+                } else {
+                    if (shopping.itemIsSelectedInShoppingList) {
+                        // selected item is another item
+                        int currentlySelected = shopping.selectedItemPositionInShoppingList;
+                        thisItem.getStatus().setAsSelectedInShoppingList();
+                        itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                        itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+
+                        shopping.selectedItemPositionInShoppingList = position;
+                        shopping.itemIsSelectedInShoppingList = true;
+                        shopping.selectedItemInShoppingList = thisItem;
+
+                        Item lastItem = getItemWithStores(currentlySelected);
+                        if (lastItem != null) {
+                            lastItem.getStatus().setAsUnselectedInShoppingList();
+                            adapter.notifyItemChanged(currentlySelected);
+                        }
+                    } else {
+                        // nothing is selected
+                        thisItem.getStatus().setAsSelectedInShoppingList();
+                        itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
+                        itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+
+                        shopping.selectedItemPositionInShoppingList = position;
+                        shopping.itemIsSelectedInShoppingList = true;
+                        shopping.selectedItemInShoppingList = thisItem;
+                    }
+                }
+            }
+        }
+
+        Item getItemWithStores(int position) {
+
+            String store;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                store = storeData.getStoreList().get(i);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
+                } else {
+                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                }
+                index += numItemsInStore;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                    break;
+                }
+            }
+            return thisItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            int id = v.getId();
+            int position = getAdapterPosition();
+
+            String store;
+            boolean isTitle = false;
+            Item thisItem = null;
+            int adjustedPosition = 0;
+
+            if (position == 0) {
+                isTitle = true;
+            } else {
+                int index = 0;
+                adjustedPosition = position;
+                for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                    store = storeData.getStoreList().get(i);
+                    int numItemsInStore;
+                    if (itemData.getStoreMap().get(store) == null) {
+                        numItemsInStore = 0;
+                    } else {
+                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    }
+                    index += numItemsInStore;
+                    adjustedPosition--;
+                    if (index == adjustedPosition) {
+                        isTitle = true;
+                        break;
+                    } else if (index >= adjustedPosition) {
+                        isTitle = false;
+                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        break;
+                    }
+                }
+            }
+
+            if (!isTitle) {
+
+                assert thisItem != null;
+
+                if (id == itemSmallName.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == itemLargeName.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == itemLargeBrandLabel.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == itemLargeBrand.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == itemLargeCategoryLabel.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == itemLargeCategory.getId()) {
+                    selectOrUnselectItem(position);
+                } else if (id == triangleRight.getId()) {
+                    if (triangleRight.getVisibility() == View.VISIBLE && triangleDown.getVisibility() == View.GONE) {
+                        triangleRight.setVisibility(View.GONE);
+                        triangleDown.setVisibility(View.VISIBLE);
+                        itemSmall.setVisibility(View.GONE);
+                        itemLarge.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsClickedInShoppingList();
+                        shopping.getClickedShoppingList().set(adjustedPosition, true);
+                    }
+                } else if (id == triangleDown.getId()) {
+                    if (triangleDown.getVisibility() == View.VISIBLE && triangleRight.getVisibility() == View.GONE) {
+                        triangleDown.setVisibility(View.GONE);
+                        triangleRight.setVisibility(View.VISIBLE);
+                        itemLarge.setVisibility(View.GONE);
+                        itemSmall.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsUnclickedInShoppingList();
+                        shopping.getClickedShoppingList().set(adjustedPosition, false);
+                    }
+                } else if (id == itemSmallInStock.getId()) {
+                    if (itemSmallInStock.getVisibility() == View.VISIBLE) {
+                        itemSmallInStock.setVisibility(View.GONE);
+                        itemLargeInStock.setVisibility(View.GONE);
+                        itemSmallPaused.setVisibility(View.GONE);
+                        itemLargePaused.setVisibility(View.GONE);
+                        itemSmallNeeded.setVisibility(View.VISIBLE);
+                        itemLargeNeeded.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsNeeded();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "true", "false");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock - 1, numItemsNeeded + 1, numItemsPaused);
+                        //shopping.updateStoreData();
+                    }
+                } else if (id == itemSmallNeeded.getId()) {
+                    if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
+                        itemSmallNeeded.setVisibility(View.GONE);
+                        itemLargeNeeded.setVisibility(View.GONE);
+                        itemSmallInStock.setVisibility(View.GONE);
+                        itemLargeInStock.setVisibility(View.GONE);
+                        itemSmallPaused.setVisibility(View.VISIBLE);
+                        itemLargePaused.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsPaused();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "false", "true");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock, numItemsNeeded - 1, numItemsPaused + 1);
+                        //shopping.updateStoreData();
+                    }
+                } else if (id == itemSmallPaused.getId()) {
+                    if (itemSmallPaused.getVisibility() == View.VISIBLE) {
+                        itemSmallPaused.setVisibility(View.GONE);
+                        itemLargePaused.setVisibility(View.GONE);
+                        itemSmallNeeded.setVisibility(View.GONE);
+                        itemLargeNeeded.setVisibility(View.GONE);
+                        itemSmallInStock.setVisibility(View.VISIBLE);
+                        itemLargeInStock.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsInStock();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "true", "false", "false");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock + 1, numItemsNeeded, numItemsPaused - 1);
+                        //shopping.updateStoreData();
+                    }
+                } else if (id == itemLargeInStock.getId()) {
+                    if (itemLargeInStock.getVisibility() == View.VISIBLE) {
+                        itemLargeInStock.setVisibility(View.GONE);
+                        itemSmallInStock.setVisibility(View.GONE);
+                        itemLargePaused.setVisibility(View.GONE);
+                        itemSmallPaused.setVisibility(View.GONE);
+                        itemLargeNeeded.setVisibility(View.VISIBLE);
+                        itemSmallNeeded.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsNeeded();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "true", "false");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock - 1, numItemsNeeded + 1, numItemsPaused);
+                        //shopping.updateStoreData();
+                    }
+                } else if (id == itemLargeNeeded.getId()) {
+                    if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
+                        itemLargeNeeded.setVisibility(View.GONE);
+                        itemSmallNeeded.setVisibility(View.GONE);
+                        itemLargeInStock.setVisibility(View.GONE);
+                        itemSmallInStock.setVisibility(View.GONE);
+                        itemLargePaused.setVisibility(View.VISIBLE);
+                        itemSmallPaused.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsPaused();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "false", "false", "true");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock, numItemsNeeded - 1, numItemsPaused + 1);
+                        //shopping.updateStoreData();
+                    }
+                } else if (id == itemLargePaused.getId()) {
+                    if (itemLargePaused.getVisibility() == View.VISIBLE) {
+                        itemLargePaused.setVisibility(View.GONE);
+                        itemSmallPaused.setVisibility(View.GONE);
+                        itemLargeNeeded.setVisibility(View.GONE);
+                        itemSmallNeeded.setVisibility(View.GONE);
+                        itemLargeInStock.setVisibility(View.VISIBLE);
+                        itemSmallInStock.setVisibility(View.VISIBLE);
+
+                        thisItem.getStatus().setAsInStock();
+                        dbStatusHelper.updateStatus(thisItem.getName(), "true", "false", "false");
+
+                        String thisStore = thisItem.getStore(0).toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock + 1, numItemsNeeded, numItemsPaused - 1);
+                        //shopping.updateStoreData();
+                    }
+                }
+            }
+        }
+    }
 }

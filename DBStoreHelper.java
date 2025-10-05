@@ -8,17 +8,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBStoreHelper extends SQLiteOpenHelper {
 
-    Context context;
+    private Context context;
 
     private static final String DB_NAME = "Stores";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 9;
     private static final String TABLE_NAME = "stores";
-    private static final String ID_COL = "id";
+    private static final String ID = "id";
     private static final String STORE_NAME = "storeName";
     private static final String STORE_ORDER = "storeOrder";
-    private static final String ITEMS_NEEDED = "numItemsNeeded";
+    private static final String STORE_VIEW_ALL = "storeViewAll";
+    private static final String STORE_IN_STOCK = "storeInStock";
+    private static final String STORE_NEEDED = "storeNeeded";
+    private static final String STORE_PAUSED = "storePaused";
 
-    public DBStoreHelper(Context context) {
+    DBStoreHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -26,10 +29,13 @@ public class DBStoreHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
-                + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + STORE_NAME + " TEXT,"
                 + STORE_ORDER + " INT,"
-                + ITEMS_NEEDED + " INT)";
+                + STORE_VIEW_ALL  + " INT,"
+                + STORE_IN_STOCK  + " INT,"
+                + STORE_NEEDED  + " INT,"
+                + STORE_PAUSED + " INT)";
         db.execSQL(query);
     }
 
@@ -46,7 +52,8 @@ public class DBStoreHelper extends SQLiteOpenHelper {
         StoreData storeData = new StoreData();
 
         if (cursor.moveToFirst()) {
-            do { storeData.readStore(cursor.getString(1), cursor.getInt(3));
+            do { storeData.readStore(cursor.getString(1), cursor.getInt(3),
+                    cursor.getInt(4), cursor.getInt(5), cursor.getInt(6));
             } while (cursor.moveToNext());
         }
 
@@ -62,7 +69,10 @@ public class DBStoreHelper extends SQLiteOpenHelper {
 
         values.put(STORE_NAME, storeName);
         values.put(STORE_ORDER, storeOrder);
-        values.put(ITEMS_NEEDED, 0);
+        values.put(STORE_VIEW_ALL, 0);
+        values.put(STORE_IN_STOCK, 0);
+        values.put(STORE_NEEDED, 0);
+        values.put(STORE_PAUSED, 0);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -79,11 +89,15 @@ public class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void setStoreItemsNeeded(String storeName, int numItemsNeeded) {
+    public void setStoreViews(String storeName, int storeViewAll, int storeInStock,
+                                 int storeNeeded, int storePaused) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMS_NEEDED, numItemsNeeded);
+        values.put(STORE_VIEW_ALL, storeViewAll);
+        values.put(STORE_IN_STOCK, storeInStock);
+        values.put(STORE_NEEDED, storeNeeded);
+        values.put(STORE_PAUSED, storePaused);
 
         db.update(TABLE_NAME, values, "storeName=?", new String[]{storeName});
         db.close();
@@ -130,5 +144,4 @@ public class DBStoreHelper extends SQLiteOpenHelper {
         context.deleteDatabase(DB_NAME);
 
     }
-
 }

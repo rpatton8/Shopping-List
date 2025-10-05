@@ -13,27 +13,24 @@ import java.util.ArrayList;
 
 public class RemoveCategory extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
-
     private Spinner categorySpinner;
-    private Button removeCategoryButton;
-    private Button cancelButton;
 
     public RemoveCategory() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_category, container, false);
+
+        View view = inflater.inflate(R.layout.remove_category, container, false);
 
         shopping = (Shopping) getActivity();
         categoryData = shopping.getCategoryData();
         dbCategoryHelper = new DBCategoryHelper(getActivity());
 
-        removeCategoryButton = view.findViewById(R.id.removeCategoryButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeCategoryButton = view.findViewById(R.id.removeCategoryButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
         categorySpinner = view.findViewById(R.id.categorySpinner);
@@ -73,5 +70,4 @@ public class RemoveCategory extends Fragment {
 
         return view;
     }
-
 }

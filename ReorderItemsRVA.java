@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,18 +16,19 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
     private Shopping shopping;
     private ItemData itemData;
     private StoreData storeData;
-    private DBHelper dbHelper;
+    private DBItemHelper dbItemHelper;
     private DBStoreHelper dbStoreHelper;
     private RecyclerView recyclerView;
 
     private String category;
+    private String store;
 
-    public ReorderItemsRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData,
-                           DBHelper dbHelper, DBStoreHelper dbStore) {
+    ReorderItemsRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData,
+                    DBItemHelper dbItemHelper, DBStoreHelper dbStore) {
         this.shopping = shopping;
         this.itemData = itemData;
         this.storeData = storeData;
-        this.dbHelper = dbHelper;
+        this.dbItemHelper = dbItemHelper;
         this.dbStoreHelper = dbStore;
         this.recyclerView = recyclerView;
         this.category = shopping.reorderItemsCategory;
@@ -70,31 +70,25 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
     }
 
     public void swapOrder(int order1, int order2) {
-        dbHelper.swapOrder(category, order1, order2);
+        dbItemHelper.swapOrder(category, order1, order2);
     }
 
     public static class ReorderItemsRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         ReorderItemsRVA adapter;
-        private ItemData itemData;
-        private StoreData storeData;
-        private DBStoreHelper dbStoreHelper;
         private RecyclerView recyclerView;
 
         public TextView name;
         public ImageView arrowDown;
         public ImageView arrowUp;
 
-        public ReorderItemsRVH(final View itemView, Shopping shopping, ReorderItemsRVA adapter, RecyclerView recyclerView,
+        ReorderItemsRVH(final View itemView, Shopping shopping, ReorderItemsRVA adapter, RecyclerView recyclerView,
                                ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
 
             super(itemView);
             this.shopping = shopping;
             this.adapter = adapter;
-            this.itemData = itemData;
-            this.storeData = storeData;
-            this.dbStoreHelper = dbStore;
             this.recyclerView = recyclerView;
 
             name = itemView.findViewById(R.id.name);
@@ -132,7 +126,5 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
                 shopping.loadFragment(new ReorderItems());
             }
         }
-
     }
-
 }

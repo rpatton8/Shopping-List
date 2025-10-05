@@ -11,35 +11,32 @@ import android.widget.Toast;
 
 public class RemoveItem extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private ItemData itemData;
-    private DBHelper dbHelper;
+    private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
-
     private EditText itemNameInput;
-    private Button removeItemButton;
-    private Button cancelButton;
 
     public RemoveItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_item, container, false);
+
+        View view = inflater.inflate(R.layout.remove_item, container, false);
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
-        dbHelper = new DBHelper(getActivity());
+        dbItemHelper = new DBItemHelper(getActivity());
         dbStatusHelper = new DBStatusHelper(getActivity());
 
         itemNameInput = view.findViewById(R.id.itemNameInput);
-        removeItemButton = view.findViewById(R.id.removeItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeItemButton = view.findViewById(R.id.removeItemButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
-        } else if (shopping.editItemInShopByStore) {
-            itemNameInput.setText(shopping.selectedItemInShopByStore.getName());
+        } else if (shopping.editItemInShoppingList) {
+            itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
         }
 
         removeItemButton.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +53,9 @@ public class RemoveItem extends Fragment {
                 Item item = itemData.getItemMap().get(itemName);
                 String category = item.getCategory(0).toString();
                 int orderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
-                dbHelper.deleteItem(itemName);
+                dbItemHelper.deleteItem(itemName);
                 for (int i = orderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
-                    dbHelper.moveOrderDownOne(category, i);
+                    dbItemHelper.moveOrderDownOne(category, i);
                 }
                 dbStatusHelper.deleteStatus(itemName);
                 shopping.updateItemData();
@@ -66,8 +63,8 @@ public class RemoveItem extends Fragment {
 
                 if(shopping.editItemInInventory) {
                     shopping.itemIsSelectedInInventory = false;
-                } else if (shopping.editItemInShopByStore) {
-                    shopping.itemIsSelectedInShopByStore = false;
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.itemIsSelectedInShoppingList = false;
                 }
 
                 Toast.makeText(getActivity(), "Item has been removed.", Toast.LENGTH_SHORT).show();

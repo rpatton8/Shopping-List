@@ -15,11 +15,10 @@ import java.util.ArrayList;
 
 public class EditItem extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private StoreData storeData;
-    private DBHelper dbHelper;
+    private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
@@ -30,17 +29,16 @@ public class EditItem extends Fragment {
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
-    private Button editItemButton;
-    private Button cancelButton;
 
     public EditItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.edit_item, container, false);
+
+        View view = inflater.inflate(R.layout.edit_item, container, false);
 
         shopping = (Shopping) getActivity();
-        dbHelper = new DBHelper(getActivity());
+        dbItemHelper = new DBItemHelper(getActivity());
         dbStatusHelper = new DBStatusHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
@@ -51,15 +49,15 @@ public class EditItem extends Fragment {
         itemTypeInput = view.findViewById(R.id.itemTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        editItemButton = view.findViewById(R.id.editItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button editItemButton = view.findViewById(R.id.editItemButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
             itemTypeInput.setText(shopping.selectedItemInInventory.getBrand());
-        } else if (shopping.editItemInShopByStore) {
-            itemNameInput.setText(shopping.selectedItemInShopByStore.getName());
-            itemTypeInput.setText(shopping.selectedItemInShopByStore.getBrand());
+        } else if (shopping.editItemInShoppingList) {
+            itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
+            itemTypeInput.setText(shopping.selectedItemInShoppingList.getBrand());
         }
         itemCategoryInput.setText("");
         itemStoreInput.setText("");
@@ -73,8 +71,8 @@ public class EditItem extends Fragment {
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
             categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory(0).toString());
-        } else if (shopping.editItemInShopByStore) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShopByStore.getCategory(0).toString());
+        } else if (shopping.editItemInShoppingList) {
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory(0).toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
@@ -87,8 +85,8 @@ public class EditItem extends Fragment {
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
             storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore(0).toString());
-        } else if (shopping.editItemInShopByStore) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShopByStore.getStore(0).toString());
+        } else if (shopping.editItemInShoppingList) {
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore(0).toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -132,8 +130,8 @@ public class EditItem extends Fragment {
                 String oldItemName = "";
                 if(shopping.editItemInInventory) {
                     oldItemName = shopping.selectedItemInInventory.getName();
-                } else if (shopping.editItemInShopByStore) {
-                    oldItemName = shopping.selectedItemInShopByStore.getName();
+                } else if (shopping.editItemInShoppingList) {
+                    oldItemName = shopping.selectedItemInShoppingList.getName();
                 }
                 String newItemName = itemNameInput.getText().toString();
                 String itemType = itemTypeInput.getText().toString();
@@ -161,10 +159,10 @@ public class EditItem extends Fragment {
                     if (shopping.selectedItemInInventory.getStatus().isInStock()) isInStock = "true";
                     else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isNeeded = "true";
                     else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isPaused = "true";
-                } else if (shopping.editItemInShopByStore) {
-                    if (shopping.selectedItemInShopByStore.getStatus().isInStock()) isInStock = "true";
-                    else if (shopping.selectedItemInShopByStore.getStatus().isNeeded()) isNeeded = "true";
-                    else if (shopping.selectedItemInShopByStore.getStatus().isNeeded()) isPaused = "true";
+                } else if (shopping.editItemInShoppingList) {
+                    if (shopping.selectedItemInShoppingList.getStatus().isInStock()) isInStock = "true";
+                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isNeeded = "true";
+                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isPaused = "true";
                 }
 
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
@@ -187,14 +185,14 @@ public class EditItem extends Fragment {
                     itemStore = storeSpinner.getSelectedItem().toString();
                 }
 
-                dbHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
+                dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
                 dbStatusHelper.changeStatusName(oldItemName, newItemName, isInStock, isNeeded, isPaused);
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 if(shopping.editItemInInventory) {
                     shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
-                } else if (shopping.editItemInShopByStore) {
-                    shopping.selectedItemInShopByStore = shopping.getItemData().getItemMap().get(newItemName);
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
                 }
 
                 Toast.makeText(getActivity(), "Item has been edited.", Toast.LENGTH_SHORT).show();
@@ -202,8 +200,8 @@ public class EditItem extends Fragment {
                 shopping.hideKeyboard();
                 if(shopping.editItemInInventory) {
                     shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShopByStore) {
-                    shopping.loadFragment(new ShopByStore());
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.loadFragment(new ShoppingList());
                 }
             }
         });
@@ -212,11 +210,14 @@ public class EditItem extends Fragment {
             @Override
             public void onClick(View view) {
                 shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                if(shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.loadFragment(new ShoppingList());
+                }
             }
         });
 
         return view;
     }
-
 }

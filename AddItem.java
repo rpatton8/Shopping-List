@@ -15,12 +15,11 @@ import java.util.ArrayList;
 
 public class AddItem extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
-    private DBHelper dbHelper;
+    private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
@@ -31,17 +30,16 @@ public class AddItem extends Fragment {
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
-    private Button addItemButton;
-    private Button cancelButton;
 
     public AddItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.add_item, container, false);
+
+        View view = inflater.inflate(R.layout.add_item, container, false);
 
         shopping = (Shopping) getActivity();
-        dbHelper = new DBHelper(getActivity());
+        dbItemHelper = new DBItemHelper(getActivity());
         dbStatusHelper = new DBStatusHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
@@ -53,8 +51,8 @@ public class AddItem extends Fragment {
         itemTypeInput = view.findViewById(R.id.itemTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        addItemButton = view.findViewById(R.id.addItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button addItemButton = view.findViewById(R.id.addItemButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         itemNameInput.setText("");
         itemTypeInput.setText("");
@@ -153,12 +151,13 @@ public class AddItem extends Fragment {
                 int itemsInCategory;
                 if (itemData.getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
                 else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getItemList().size();
-                dbHelper.addNewItem(itemName, itemType, itemCategory, itemStore, itemsInCategory);
+
+                dbItemHelper.addNewItem(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 dbStatusHelper.addNewStatus(itemName, "true", "false", "false");
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 shopping.itemIsClickedInInventory.add(false);
-                shopping.itemIsClickedInShopByStore.add(false);
+                shopping.itemIsClickedInShoppingList.add(false);
                 shopping.itemIsChecked.add(false);
 
                 Toast.makeText(getActivity(), "Item has been added.", Toast.LENGTH_SHORT).show();
@@ -178,5 +177,4 @@ public class AddItem extends Fragment {
 
         return view;
     }
-
 }
