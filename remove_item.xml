@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:windowBackground"
+    tools:context=".RemoveItem">
+
+    <TextView
+        android:id="@+id/removeItemTitle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Remove Item"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_below="@id/removeItemTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/inputPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Are you sure you want to remove?:"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/itemNameInput"
+                    android:layout_width="360dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:translationX="6dp"
+                    android:hint="Enter Category Name"
+                    android:background="@drawable/spinner_outline"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/itemButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/item">
+
+                <Button
+                    android:id="@+id/removeItemButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Remove Item Data"
+                    android:layout_margin="10dp"
+                    android:layout_below="@id/item"/>
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_margin="10dp"
+                    android:layout_below="@id/item"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="200dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

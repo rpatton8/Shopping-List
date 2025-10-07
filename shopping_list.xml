@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="?android:windowBackground"
+    tools:context=".ShoppingList">
+
+    <TextView
+        android:id="@+id/shoppingListTitle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="All Stores List"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:layout_marginBottom="6dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/shoppingListLeftArrow"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:background="@mipmap/left_arrow" />
+
+    <TextView
+        android:id="@+id/shoppingListRightArrow"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:background="@mipmap/right_arrow" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/shoppingListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="578dp"
+        android:layout_below="@id/shoppingListTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="116dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/buttonsBreak"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text=" "
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/clearCheckedItems"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Clear Checked Items" />
+
+        <Button
+            android:id="@+id/editSelectedItem"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Edit Selected Item" />
+
+    </LinearLayout>
+
+</RelativeLayout>

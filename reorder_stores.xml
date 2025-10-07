@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="?android:windowBackground"
+    tools:context=".ReorderStores">
+
+    <TextView
+        android:id="@+id/reorderStores"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Reorder Stores"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/reorderStoresRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+        android:layout_below="@id/reorderStores"
+        android:layout_marginTop="6dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/reorderStoresRecyclerView">
+
+        <Button
+            android:id="@+id/finishReorderingButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish Reordering"
+            android:layout_margin="10dp"/>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_margin="10dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

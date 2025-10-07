@@ -1,15 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:background="?android:windowBackground"
     tools:context=".FullInventory">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/fullInventoryTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Full Inventory" />
+        android:layout_height="36dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Full Inventory"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/fullInventorySearchButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@mipmap/search_icon" />
+
+    <LinearLayout
+        android:id="@+id/searchPopup"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_below="@+id/fullInventorySearchButton"
+        android:background="@android:color/holo_green_light"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/searchBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Search Here"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fullInventoryEditButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/edit_3dots"/>
+
+    <Button
+        android:id="@+id/viewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:text="View All" />
+
+    <Button
+        android:id="@+id/viewInStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        android:text="View In Stock" />
+
+    <Button
+        android:id="@+id/viewNeeded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        android:text="View Needed" />
+
+    <Button
+        android:id="@+id/viewPaused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        android:text="View Paused" />
+
+    <Button
+        android:id="@+id/expandContractItems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="200dp"
+        android:visibility="gone"
+        android:text="Expand / Contract Items" />
+
+    <Button
+        android:id="@+id/expandContractCategories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="240dp"
+        android:visibility="gone"
+        android:text="Expand / Contract Categories" />
+
+    <Button
+        android:id="@+id/expandContractStores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="280dp"
+        android:visibility="gone"
+        android:text="Expand / Contract Stores" />
+
+    <Button
+        android:id="@+id/sortByCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="320dp"
+        android:visibility="gone"
+        android:text="Sort by Category" />
+
+    <Button
+        android:id="@+id/sortByStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="360dp"
+        android:visibility="gone"
+        android:text="Sort By Store" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fullInventoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:layout_below="@+id/fullInventoryTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/editDataBreak"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_above="@+id/addEditPopups"
+            android:background="@android:color/holo_blue_dark"
+            android:text="Item"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/addEditPopups"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_above="@+id/addEditBreak"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="2dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/addPopup"
+                android:layout_width="102dp"
+                android:layout_height="48dp"
+                android:text="Add"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/editPopup"
+                android:layout_width="102dp"
+                android:layout_height="48dp"
+                android:text="Edit"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/removePopup"
+                android:layout_width="102dp"
+                android:layout_height="48dp"
+                android:text="Remove"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/reorderPopup"
+                android:layout_width="102dp"
+                android:layout_height="48dp"
+                android:text="Reorder"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addEditBreak"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@+id/fullInventoryRecyclerView"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/holo_blue_dark"
+            android:text="Add/Edit/Remove/Reorder"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/addEditButtons"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addRemoveCategory"
+                android:layout_width="136dp"
+                android:layout_height="48dp"
+                android:text="Category" />
+
+            <Button
+                android:id="@+id/addEditItem"
+                android:layout_width="136dp"
+                android:layout_height="48dp"
+                android:text="Item" />
+
+            <Button
+                android:id="@+id/addRemoveStore"
+                android:layout_width="136dp"
+                android:layout_height="48dp"
+                android:text="Store" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

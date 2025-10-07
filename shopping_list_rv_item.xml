@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="6dp"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/triangleButtonRight"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@mipmap/triangle_right"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/triangleButtonDown"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@mipmap/triangle_down"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/itemSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_outline_small_unselected"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/itemSmallName"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:text="Peanuts"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/checkboxUnCheckedSmall"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:src="@mipmap/checkbox_unchecked"
+            android:visibility="visible"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/checkboxCheckedSmall"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:visibility="gone"
+            android:src="@mipmap/checkbox_checked"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/itemLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_outline_unselected"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/itemLargeTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/itemLargeName"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="6dp"
+                android:text="Peanuts"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/checkboxUnCheckedLarge"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:paddingLeft="6dp"
+                android:visibility="visible"
+                android:src="@mipmap/checkbox_unchecked"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                android:id="@+id/checkboxCheckedLarge"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:paddingLeft="6dp"
+                android:visibility="gone"
+                android:src="@mipmap/checkbox_checked"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemLargeBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemLargeTop"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/itemLargeBrandLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:translationY="-4dp"
+                    android:text="Brand/Type: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/itemLargeBrand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:translationY="-4dp"
+                    android:text="brand/type"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/itemLargeCategoryLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:translationY="-4dp"
+                    android:text="Category: "
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/itemLargeCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:translationY="-4dp"
+                    android:text="Category: "
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
