@@ -2,6 +2,7 @@ package ryan.android.shopping;
 
 public class Status {
 
+    //private String itemName;
     private Boolean isInStock;
     private Boolean isNeeded;
     private Boolean isPaused;
@@ -11,25 +12,32 @@ public class Status {
     private Boolean isSelectedInShoppingList;
     private Boolean isChecked;
 
-    Status(String itemName, String isInStock, String isNeeded, String isPaused) {
-        if (isInStock.equals("true")) {
-            this.isInStock = true;
-            this.isNeeded = false;
-            this.isPaused = false;
-        } else if (isNeeded.equals("true")) {
-            this.isInStock = false;
-            this.isNeeded = true;
-            this.isPaused = false;
-        } else if (isPaused.equals("true")) {
-            this.isInStock = false;
-            this.isNeeded = false;
-            this.isPaused = true;
+    Status(String itemName, String status, String checked) {
+        //this.itemName = itemName;
+        switch(status) {
+            case "instock":
+                this.isInStock = true;
+                this.isNeeded = false;
+                this.isPaused = false;
+            case "needed":
+                this.isInStock = false;
+                this.isNeeded = true;
+                this.isPaused = false;
+            case "paused":
+                this.isInStock = false;
+                this.isNeeded = false;
+                this.isPaused = true;
         }
         isClickedInInventory = false;
         isClickedInShoppingList = false;
         isSelectedInInventory = false;
         isSelectedInShoppingList = false;
         isChecked = false;
+        if (isChecked.equals("checked")) {
+            isChecked = false;
+        } else if(isChecked.equals("unchecked")) {
+            isChecked = true;
+        }
     }
 
     public void setAsClickedInInventory() {

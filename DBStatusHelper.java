@@ -15,9 +15,8 @@ public class DBStatusHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID = "id";
     private static final String ITEMNAME = "itemName";
-    private static final String IN_STOCK = "inStock";
     private static final String NEEDED = "needed";
-    private static final String PAUSED = "paused";
+    private static final String CHECKED = "checked";
 
     DBStatusHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -29,9 +28,8 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ITEMNAME + " TEXT,"
-                + IN_STOCK + " TEXT,"
                 + NEEDED + " TEXT,"
-                + PAUSED + " TEXT)";
+                + CHECKED + " TEXT)";
         db.execSQL(query);
     }
 
@@ -50,8 +48,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do { statusData.readItemStatus(cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(3));
             } while (cursor.moveToNext());
         }
 
@@ -60,15 +57,14 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         return statusData;
     }
 
-    public void addNewStatus(String itemName, String isInStock, String isNeeded, String isPaused) {
+    public void addNewStatus(String itemName, String status, String checked) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(ITEMNAME, itemName);
-        values.put(IN_STOCK, isInStock);
-        values.put(NEEDED, isNeeded);
-        values.put(PAUSED, isPaused);
+        values.put(NEEDED, status);
+        values.put(CHECKED, checked);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -81,9 +77,8 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(ITEMNAME, itemName);
-        values.put(IN_STOCK, isInStock);
         values.put(NEEDED, isNeeded);
-        values.put(PAUSED, isPaused);
+        values.put(CHECKED, isPaused);
 
         db.update(TABLE_NAME, values, "itemName=?", new String[]{itemName});
         db.close();
@@ -96,9 +91,8 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(ITEMNAME, itemName);
-        values.put(IN_STOCK, isInStock);
         values.put(NEEDED, isNeeded);
-        values.put(PAUSED, isPaused);
+        values.put(CHECKED, isPaused);
 
         db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
         db.close();

@@ -153,7 +153,7 @@ public class AddItem extends Fragment {
                 else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getItemList().size();
 
                 dbItemHelper.addNewItem(itemName, itemType, itemCategory, itemStore, itemsInCategory);
-                dbStatusHelper.addNewStatus(itemName, "true", "false", "false");
+                dbStatusHelper.addNewStatus(itemName, "instock", "unchecked");
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 shopping.itemIsClickedInInventory.add(false);
