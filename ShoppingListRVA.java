@@ -111,7 +111,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
                     itemHolder.triangleRight.setVisibility(View.GONE);
                     itemHolder.triangleDown.setVisibility(View.VISIBLE);
@@ -122,7 +122,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
                     itemHolder.triangleDown.setVisibility(View.GONE);
                     itemHolder.triangleRight.setVisibility(View.VISIBLE);
@@ -162,7 +162,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
             }
 
             if ((shopping.storeNum != 0) &&
-                    !thisItem.getStore(0).toString().equals(storeData.getStoreList().get(shopping.storeNum - 1))) {
+                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeNum - 1))) {
                 itemHolder.triangleDown.setVisibility(View.GONE);
                 itemHolder.triangleRight.setVisibility(View.GONE);
                 itemHolder.itemLarge.setVisibility(View.GONE);
@@ -174,7 +174,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        return (itemData.getItemList().size() + storeData.getStoreList().size());
+        return (itemData.getItemListByCategory().size() + storeData.getStoreList().size());
 
     }
 

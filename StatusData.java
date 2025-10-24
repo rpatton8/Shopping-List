@@ -26,6 +26,12 @@ public class StatusData {
                 case "paused":
                     thisStatus.setAsPaused();
             }
+            switch(checked) {
+                case "checked":
+                    thisStatus.setAsChecked();
+                case "unchecked":
+                    thisStatus.setAsUnchecked();
+            }
         } else {
             Status newStatus = new Status(itemName, status, checked);
             statusMap.put(itemName, newStatus);

@@ -70,7 +70,7 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
     }
 
     public void swapOrder(int order1, int order2) {
-        dbItemHelper.swapOrder(category, order1, order2);
+        dbItemHelper.swapOrderByCategory(category, order1, order2);
     }
 
     public static class ReorderItemsRVH extends RecyclerView.ViewHolder implements View.OnClickListener {

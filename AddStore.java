@@ -53,7 +53,6 @@ public class AddStore extends Fragment {
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());
-
             }
         });
 

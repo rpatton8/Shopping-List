@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.ReorderCategoriesRVH> {
@@ -18,8 +17,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
     private DBCategoryHelper dbCategoryHelper;
     private RecyclerView recyclerView;
 
-    public ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData,
-                                CategoryData categoryData, DBCategoryHelper dbCategory) {
+    ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, CategoryData categoryData, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
         this.itemData = itemData;
         this.categoryData = categoryData;

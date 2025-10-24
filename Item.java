@@ -1,22 +1,20 @@
 package ryan.android.shopping;
 
-import java.util.ArrayList;
-
 public class Item {
 
     private String name;
     private String brandType;
-    private ArrayList<Category> categories;
-    private ArrayList<Store> stores;
+    private Category category;
+    private Store store;
     private Status status;
+    private int categoryOrder;
+    private int storeOrder;
 
     public Item(String name, String brandType, String category, String store) {
         this.name = name;
         this.brandType = brandType;
-        categories = new ArrayList<>();
-        categories.add(new Category(category, this));
-        stores = new ArrayList<>();
-        stores.add(new Store(store, this));
+        this.category = new Category(category, this);
+        this.store = new Store(store, this);
     }
 
     public String getName() {
@@ -27,28 +25,44 @@ public class Item {
         return brandType;
     }
 
-    public Category getCategory(int position) {
-        return categories.get(position);
+    public Category getCategory() {
+        return category;
     }
 
-    public Store getStore(int position) {
-        return stores.get(position);
+    public Store getStore() {
+        return store;
     }
 
-    public void addCategory(Category category) {
-        categories.add(category);
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public void addStore(Store store) {
-        stores.add(store);
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setCategoryOrder(int categoryOrder) {
+        this.categoryOrder = categoryOrder;
+    }
+
+    public int getCategoryOrder() {
+        return this.categoryOrder;
+    }
+
+    public void setStoreOrder(int storeOrder) {
+        this.storeOrder = storeOrder;
+    }
+
+    public int getStoreOrder() {
+        return this.storeOrder;
     }
 
 }

@@ -32,7 +32,7 @@ public class ReorderItems extends Fragment {
         StatusData statusData = shopping.getStatusData();
         CategoryData categoryData = shopping.getCategoryData();
         StoreData storeData = shopping.getStoreData();
-        itemData.updateStatuses(statusData);
+        itemData.updateStatusesByCategory(statusData);
 
         Button finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);

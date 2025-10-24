@@ -51,11 +51,16 @@ public class RemoveItem extends Fragment {
                 }
 
                 Item item = itemData.getItemMap().get(itemName);
-                String category = item.getCategory(0).toString();
+                String category = item.getCategory().toString();
+                String store = item.getStore().toString();
                 int orderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
                 dbItemHelper.deleteItem(itemName);
                 for (int i = orderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
-                    dbItemHelper.moveOrderDownOne(category, i);
+                    if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                        dbItemHelper.moveOrderDownOneByCategory(category, i);
+                    } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                        dbItemHelper.moveOrderDownOneByStore(store, i);
+                    }
                 }
                 dbStatusHelper.deleteStatus(itemName);
                 shopping.updateItemData();

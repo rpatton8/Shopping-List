@@ -22,14 +22,13 @@ public class ReorderCategories extends Fragment {
         View view = inflater.inflate(R.layout.reorder_categories, container, false);
 
         shopping = (Shopping) getActivity();
-        ItemData itemData = shopping.getItemData();
         CategoryData categoryData = shopping.getCategoryData();
         DBCategoryHelper dbCategoryHelper = new DBCategoryHelper(getActivity());
 
         recyclerView = view.findViewById(R.id.reorderCategoriesRecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        ReorderCategoriesRVA adapter = new ReorderCategoriesRVA(shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
+        ReorderCategoriesRVA adapter = new ReorderCategoriesRVA(shopping, recyclerView, categoryData, dbCategoryHelper);
         recyclerView.setAdapter(adapter);
         recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderCategoriesViewState);
 

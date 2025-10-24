@@ -70,9 +70,9 @@ public class EditItem extends Fragment {
 
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory(0).toString());
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory().toString());
         } else if (shopping.editItemInShoppingList) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory(0).toString());
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory().toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
@@ -84,9 +84,9 @@ public class EditItem extends Fragment {
 
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore(0).toString());
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore().toString());
         } else if (shopping.editItemInShoppingList) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore(0).toString());
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore().toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -186,7 +186,7 @@ public class EditItem extends Fragment {
                 }
 
                 dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                dbStatusHelper.changeStatusName(oldItemName, newItemName, isInStock, isNeeded, isPaused);
+                //dbStatusHelper.changeStatusName(oldItemName, newItemName);
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 if(shopping.editItemInInventory) {

@@ -65,7 +65,7 @@ public class FullInventory extends Fragment {
         StatusData statusData = shopping.getStatusData();
         CategoryData categoryData = shopping.getCategoryData();
         StoreData storeData = shopping.getStoreData();
-        itemData.updateStatuses(statusData);
+        itemData.updateStatusesByCategory(statusData);
 
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);
@@ -113,7 +113,7 @@ public class FullInventory extends Fragment {
                 switch (currentBottomMenu) {
 
                     case MENU_NONE:
-                        editDataBreak.setText("Category");
+                        editDataBreak.setText(R.string.category);
                         editDataBreak.setVisibility(View.VISIBLE);
                         addPopup.setVisibility(View.VISIBLE);
                         editPopup.setVisibility(View.VISIBLE);
@@ -124,7 +124,7 @@ public class FullInventory extends Fragment {
 
                         if (searchBoxVisible) {
                             height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());;
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                         recyclerViewParams.height = height;
                         fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
@@ -139,12 +139,12 @@ public class FullInventory extends Fragment {
 
                         if (searchBoxVisible) {
                             height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());;
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                         recyclerViewParams.height = height;
                         fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
                     default:
-                        editDataBreak.setText("Category");
+                        editDataBreak.setText(R.string.category);
                         currentBottomMenu = MENU_CATEGORY;
 
                 }
@@ -160,7 +160,7 @@ public class FullInventory extends Fragment {
 
                 switch (currentBottomMenu) {
                     case MENU_NONE:
-                        editDataBreak.setText("Item");
+                        editDataBreak.setText(R.string.item);
                         editDataBreak.setVisibility(View.VISIBLE);
                         addPopup.setVisibility(View.VISIBLE);
                         editPopup.setVisibility(View.VISIBLE);
@@ -171,7 +171,7 @@ public class FullInventory extends Fragment {
 
                         if (searchBoxVisible) {
                             height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());;
+                        } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                         recyclerViewParams.height = height;
                         fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
@@ -191,7 +191,7 @@ public class FullInventory extends Fragment {
                         fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
                     default:
-                        editDataBreak.setText("Item");
+                        editDataBreak.setText(R.string.item);
                         currentBottomMenu = MENU_ITEM;
 
                 }
@@ -208,7 +208,7 @@ public class FullInventory extends Fragment {
                 switch (currentBottomMenu) {
 
                     case MENU_NONE:
-                        editDataBreak.setText("Store");
+                        editDataBreak.setText(R.string.store);
                         editDataBreak.setVisibility(View.VISIBLE);
                         addPopup.setVisibility(View.VISIBLE);
                         editPopup.setVisibility(View.VISIBLE);
@@ -240,7 +240,7 @@ public class FullInventory extends Fragment {
                         fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
 
                     default:
-                        editDataBreak.setText("Store");
+                        editDataBreak.setText(R.string.store);
                         currentBottomMenu = MENU_STORE;
 
                 }
@@ -362,8 +362,8 @@ public class FullInventory extends Fragment {
         viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventoryView = shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventoryView = Shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -373,8 +373,8 @@ public class FullInventory extends Fragment {
         viewInStock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventoryView = shopping.INVENTORY_INSTOCK;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventoryView = Shopping.INVENTORY_INSTOCK;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -385,8 +385,8 @@ public class FullInventory extends Fragment {
         viewNeeded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventoryView = shopping.INVENTORY_NEEDED;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventoryView = Shopping.INVENTORY_NEEDED;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -396,8 +396,8 @@ public class FullInventory extends Fragment {
         viewPaused.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventoryView = shopping.INVENTORY_PAUSED;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventoryView = Shopping.INVENTORY_PAUSED;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -431,9 +431,9 @@ public class FullInventory extends Fragment {
         sortByCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventorySortBy = shopping.SORT_BY_CATEGORY;
-                shopping.inventoryView = shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+                shopping.inventoryView = Shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -443,9 +443,9 @@ public class FullInventory extends Fragment {
         sortByStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.inventorySortBy = shopping.SORT_BY_STORE;
-                shopping.inventoryView = shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+                shopping.inventoryView = Shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();

@@ -2,7 +2,6 @@ package ryan.android.shopping;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +41,7 @@ public class AddCategory extends Fragment {
                 String categoryName = categoryInput.getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    Toast toast1 = Toast.makeText(getActivity(), "Please enter a category to add.", Toast.LENGTH_SHORT);
-                    toast1.setGravity(Gravity.CENTER, 0, 0);
-                    toast1.show();
+                    Toast.makeText(getActivity(), "Please enter a category to add.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -52,9 +49,7 @@ public class AddCategory extends Fragment {
                 dbCategoryHelper.addNewCategory(categoryName, numCategories);
                 shopping.updateCategoryData();
 
-                Toast toast2 = Toast.makeText(getActivity(), "Category #" + numCategories + " has been added.", Toast.LENGTH_SHORT);
-                toast2.setGravity(Gravity.CENTER, 0, 0);
-                toast2.show();
+                Toast.makeText(getActivity(), "Category #" + numCategories + " has been added.", Toast.LENGTH_SHORT).show();
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());

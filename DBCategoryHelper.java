@@ -11,7 +11,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Categories";
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 12;
     private static final String TABLE_NAME = "categories";
     private static final String ID = "id";
     private static final String CATEGORY_NAME = "categoryName";
@@ -122,13 +122,6 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteCategory(String categoryName) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "categoryName=?", new String[]{categoryName});
-        db.close();
-    }
-
     public void moveOrderDownOne(int orderNum) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -136,6 +129,13 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         values.put(CATEGORY_ORDER, orderNum - 1);
         db.update(TABLE_NAME, values, "categoryOrder=?", new String[]{Integer.toString(orderNum)});
 
+        db.close();
+    }
+    
+    public void deleteCategory(String categoryName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "categoryName=?", new String[]{categoryName});
         db.close();
     }
 

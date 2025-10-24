@@ -11,11 +11,11 @@ public class DBStatusHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "ItemStatus";
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 12;
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID = "id";
     private static final String ITEMNAME = "itemName";
-    private static final String NEEDED = "needed";
+    private static final String STATUS = "status";
     private static final String CHECKED = "checked";
 
     DBStatusHelper(Context context) {
@@ -28,7 +28,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ITEMNAME + " TEXT,"
-                + NEEDED + " TEXT,"
+                + STATUS + " TEXT,"
                 + CHECKED + " TEXT)";
         db.execSQL(query);
     }
@@ -63,38 +63,23 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(ITEMNAME, itemName);
-        values.put(NEEDED, status);
+        values.put(STATUS, status);
         values.put(CHECKED, checked);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public void updateStatus(String itemName, String isInStock,
-                             String isNeeded, String isPaused) {
+    public void updateStatus(String itemName, String status, String checked) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(ITEMNAME, itemName);
-        values.put(NEEDED, isNeeded);
-        values.put(CHECKED, isPaused);
+        values.put(STATUS, status);
+        values.put(CHECKED, checked);
 
         db.update(TABLE_NAME, values, "itemName=?", new String[]{itemName});
-        db.close();
-    }
-
-    public void changeStatusName(String originalItemName, String itemName, String isInStock,
-                             String isNeeded, String isPaused) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(ITEMNAME, itemName);
-        values.put(NEEDED, isNeeded);
-        values.put(CHECKED, isPaused);
-
-        db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
         db.close();
     }
 

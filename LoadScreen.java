@@ -56,7 +56,10 @@ public class LoadScreen extends Fragment {
         loadSampleData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                shopping.loadSampleData();
+                shopping.loadStoresAndCategories();
+                shopping.loadCategoryData();
+                shopping.loadStoreData();
+                shopping.initializeData();
             }
         });
 

@@ -20,6 +20,7 @@ public class ShoppingList extends Fragment {
     private ItemData itemData;
     private StoreData storeData;
     private DBStatusHelper dbStatusHelper;
+    private DBStoreHelper dbStoreHelper;
     private TextView shoppingListTitle;
     private RecyclerView shoppingListRecyclerView;
 
@@ -35,8 +36,13 @@ public class ShoppingList extends Fragment {
         itemData = shopping.getItemData();
         StatusData statusData = shopping.getStatusData();
         storeData = shopping.getStoreData();
-        itemData.updateStatuses(statusData);
+        if (shopping.inventoryView.equals(Shopping.SORT_BY_CATEGORY)) {
+            itemData.updateStatusesByCategory(statusData);
+        } else if (shopping.inventoryView.equals(Shopping.SORT_BY_CATEGORY)) {
+            itemData.updateStatusesByStore(statusData);
+        }
         dbStatusHelper = new DBStatusHelper(getActivity());
+        dbStoreHelper = new DBStoreHelper(getActivity());
 
         shoppingListRecyclerView = view.findViewById(R.id.shoppingListRecyclerView);
         shoppingListRecyclerView.setHasFixedSize(false);
@@ -52,7 +58,7 @@ public class ShoppingList extends Fragment {
         Button editSelectedItem = view.findViewById(R.id.editSelectedItem);
 
         if (shopping.storeNum == 0) {
-            shoppingListTitle.setText("All Stores");
+            shoppingListTitle.setText(R.string.all_stores);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shoppingListTitle.getLayoutParams();
             params.bottomMargin = 0;
             shoppingListTitle.setLayoutParams(params);
@@ -75,7 +81,7 @@ public class ShoppingList extends Fragment {
                     else shopping.storeNum--;
                 }
 
-                if (shopping.storeNum == 0) shoppingListTitle.setText("All Stores");
+                if (shopping.storeNum == 0) shoppingListTitle.setText(R.string.all_stores);
                 else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeNum - 1));
                 shopping.loadFragment(new ShoppingList());
             }
@@ -99,7 +105,7 @@ public class ShoppingList extends Fragment {
                     if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeNum = 0;
                 }
 
-                if (shopping.storeNum == 0) shoppingListTitle.setText("All Stores");
+                if (shopping.storeNum == 0) shoppingListTitle.setText(R.string.all_stores);
                 else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeNum - 1));
                 shopping.loadFragment(new ShoppingList());
             }
@@ -108,18 +114,21 @@ public class ShoppingList extends Fragment {
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < itemData.getItemList().size(); i++) {
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     if (shopping.getCheckedList().get(i)) {
-                        Item item = shopping.getItemData().getItemList().get(i);
+                        Item item = shopping.getItemData().getItemListByCategory().get(i);
                         item.getStatus().setAsInStock();
                         item.getStatus().setAsUnchecked();
                         shopping.getCheckedList().set(i, false);
-                        dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
+                        dbStatusHelper.updateStatus(item.getName(), "instock", "unchecked");
                         shopping.updateStatusData();
 
-                        Store thisStore = item.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore.toString());
-                        //dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
+                        String thisStore = item.getStore().toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
+                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock + 1, numItemsNeeded - 1, numItemsPaused);
                         shopping.updateStoreData();
                     }
                 }

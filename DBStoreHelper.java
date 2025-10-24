@@ -11,7 +11,7 @@ public class DBStoreHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Stores";
-    private static final int DB_VERSION = 9;
+    private static final int DB_VERSION = 12;
     private static final String TABLE_NAME = "stores";
     private static final String ID = "id";
     private static final String STORE_NAME = "storeName";
@@ -78,12 +78,12 @@ public class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void changeStoreName(String originalStoreName, String newstoreName) {
+    public void changeStoreName(String originalStoreName, String newStoreName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(STORE_NAME, newstoreName);
+        values.put(STORE_NAME, newStoreName);
 
         db.update(TABLE_NAME, values, "storeName=?", new String[]{originalStoreName});
         db.close();

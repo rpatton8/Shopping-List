@@ -32,11 +32,11 @@ public class Status {
         isClickedInShoppingList = false;
         isSelectedInInventory = false;
         isSelectedInShoppingList = false;
-        isChecked = false;
-        if (isChecked.equals("checked")) {
-            isChecked = false;
-        } else if(isChecked.equals("unchecked")) {
-            isChecked = true;
+        switch(checked) {
+            case "checked":
+                isChecked = true;
+            case "unchecked":
+                isChecked = false;
         }
     }
 
@@ -48,9 +48,9 @@ public class Status {
         this.isClickedInInventory = false;
     }
 
-    public Boolean isClickedInInventory() {
-        return isClickedInInventory;
-    }
+    //public Boolean isClickedInInventory() {
+    //    return isClickedInInventory;
+    //}
 
     public void setAsClickedInShoppingList() {
         this.isClickedInShoppingList = true;
@@ -60,9 +60,9 @@ public class Status {
         this.isClickedInShoppingList = false;
     }
 
-    public Boolean isClickedInShoppingList() {
-        return isClickedInShoppingList;
-    }
+    //public Boolean isClickedInShoppingList() {
+    //    return isClickedInShoppingList;
+    //}
 
     public void setAsSelectedInInventory() {
         this.isSelectedInInventory = true;
