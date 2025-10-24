@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="All Stores List"
+        android:text="@string/allStoresList"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -66,13 +66,13 @@
             android:id="@+id/clearCheckedItems"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Clear Checked Items" />
+            android:text="@string/clearCheckedItems" />
 
         <Button
             android:id="@+id/editSelectedItem"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Edit Selected Item" />
+            android:text="@string/editSelectedItem" />
 
     </LinearLayout>
 

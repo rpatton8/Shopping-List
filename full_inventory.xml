@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Full Inventory"
+        android:text="@string/fullInventory"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -40,7 +40,7 @@
             android:id="@+id/searchBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Search Here"
+            android:hint="@string/searchHere"
             android:visibility="gone" />
 
     </LinearLayout>
@@ -62,7 +62,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
-        android:text="View All" />
+        android:text="@string/viewAll" />
 
     <Button
         android:id="@+id/viewInStock"
@@ -73,7 +73,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="80dp"
         android:visibility="gone"
-        android:text="View In Stock" />
+        android:text="@string/viewInStock" />
 
     <Button
         android:id="@+id/viewNeeded"
@@ -84,7 +84,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="120dp"
         android:visibility="gone"
-        android:text="View Needed" />
+        android:text="@string/viewNeeded" />
 
     <Button
         android:id="@+id/viewPaused"
@@ -95,7 +95,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="160dp"
         android:visibility="gone"
-        android:text="View Paused" />
+        android:text="@string/viewPaused" />
 
     <Button
         android:id="@+id/expandContractItems"
@@ -106,7 +106,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="200dp"
         android:visibility="gone"
-        android:text="Expand / Contract Items" />
+        android:text="@string/expandContractItems" />
 
     <Button
         android:id="@+id/expandContractCategories"
@@ -117,7 +117,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="240dp"
         android:visibility="gone"
-        android:text="Expand / Contract Categories" />
+        android:text="@string/expandContractCategories" />
 
     <Button
         android:id="@+id/expandContractStores"
@@ -128,7 +128,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="280dp"
         android:visibility="gone"
-        android:text="Expand / Contract Stores" />
+        android:text="@string/expandContractStores" />
 
     <Button
         android:id="@+id/sortByCategory"
@@ -139,7 +139,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="320dp"
         android:visibility="gone"
-        android:text="Sort by Category" />
+        android:text="@string/sortByCategory" />
 
     <Button
         android:id="@+id/sortByStore"
@@ -150,7 +150,7 @@
         android:layout_marginEnd="25dp"
         android:layout_marginTop="360dp"
         android:visibility="gone"
-        android:text="Sort By Store" />
+        android:text="@string/sortByStore" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fullInventoryRecyclerView"
@@ -171,7 +171,7 @@
             android:layout_height="24dp"
             android:layout_above="@+id/addEditPopups"
             android:background="@android:color/holo_blue_dark"
-            android:text="Item"
+            android:text="@string/item"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="16sp"
@@ -192,28 +192,28 @@
                 android:id="@+id/addPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
-                android:text="Add"
+                android:text="@string/add"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/editPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
-                android:text="Edit"
+                android:text="@string/edit"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/removePopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
-                android:text="Remove"
+                android:text="@string/remove"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/reorderPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
-                android:text="Reorder"
+                android:text="@string/reorder"
                 android:visibility="gone" />
 
         </LinearLayout>
@@ -225,7 +225,7 @@
             android:layout_below="@+id/fullInventoryRecyclerView"
             android:layout_alignParentStart="true"
             android:background="@android:color/holo_blue_dark"
-            android:text="Add/Edit/Remove/Reorder"
+            android:text="@string/addEditRemoveReorder"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="16sp"
@@ -245,19 +245,19 @@
                 android:id="@+id/addRemoveCategory"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="Category" />
+                android:text="@string/category" />
 
             <Button
                 android:id="@+id/addEditItem"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="Item" />
+                android:text="@string/item" />
 
             <Button
                 android:id="@+id/addRemoveStore"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="Store" />
+                android:text="@string/store" />
 
         </LinearLayout>
 
