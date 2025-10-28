@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Edit Item"
+        android:text="@string/editItem"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Enter Item Name:"
+                    android:text="@string/enterItemName"
                     android:textSize="20sp" />
 
                 <EditText
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Enter Brand/Type:"
+                    android:text="@string/enterBrandType"
                     android:textSize="20sp" />
 
                 <EditText
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Select a Category:"
+                    android:text="@string/selectACategory"
                     android:textSize="20sp" />
 
                 <RelativeLayout
@@ -90,13 +90,13 @@
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:spinnerMode="dropdown" />
 
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:src="@mipmap/triangle_down" />
@@ -109,7 +109,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
-                    android:hint=""
+                    android:hint=" "
                     android:background="@drawable/spinner_outline"
                     android:visibility="gone"/>
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="Select a Store:"
+                    android:text="@string/selectAStore"
                     android:textSize="20sp" />
 
                 <RelativeLayout
@@ -136,13 +136,13 @@
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
                         android:spinnerMode="dropdown" />
 
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:src="@mipmap/triangle_down" />
@@ -172,7 +172,7 @@
                     android:id="@+id/editItemButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Edit Item Data"
+                    android:text="@string/editItemData"
                     android:layout_margin="10dp"
                     android:layout_below="@id/item"/>
 
@@ -180,7 +180,7 @@
                     android:id="@+id/cancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_margin="10dp"
                     android:layout_below="@id/item"/>
 

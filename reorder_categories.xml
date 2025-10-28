@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Reorder Categories"
+        android:text="@string/reorderCategories"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -39,14 +39,14 @@
             android:id="@+id/finishReorderingButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finish Reordering"
+            android:text="@string/finishReordering"
             android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:layout_margin="10dp"/>
 
     </LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Add Store"
+        android:text="@string/addStore"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -41,7 +41,7 @@
                     android:layout_height="60dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
-                    android:hint="Enter Store Name"
+                    android:hint="@string/enterStoreName"
                     android:background="@drawable/spinner_outline"/>
 
             </LinearLayout>
@@ -57,7 +57,7 @@
                     android:id="@+id/addStoreButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Add Store"
+                    android:text="@string/addStore"
                     android:layout_margin="10dp"
                     android:layout_below="@id/store"/>
 
@@ -65,7 +65,7 @@
                     android:id="@+id/cancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:layout_margin="10dp"
                     android:layout_below="@id/store"/>
 

@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Reorder Items"
+        android:text="@string/reorderItems"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Choose a category to reorder items:"
+            android:text="@string/chooseCategoryToReorder"
             android:textSize="20sp"/>
 
         <RelativeLayout
@@ -49,13 +49,13 @@
                 android:layout_gravity="center"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:spinnerMode="dropdown" />
 
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:src="@mipmap/triangle_down" />
@@ -84,14 +84,14 @@
             android:id="@+id/finishReorderingButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finish Reordering"
+            android:text="@string/reorderItems"
             android:layout_margin="10dp"/>
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:layout_margin="10dp"/>
 
     </LinearLayout>

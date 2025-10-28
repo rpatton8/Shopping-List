@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="6dp"
+    android:layout_marginEnd="6dp"
     android:orientation="horizontal">
 
     <Button
@@ -32,7 +32,8 @@
             android:id="@+id/itemSmallName"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:text="Peanuts"
             android:textSize="24sp" />
 
@@ -40,7 +41,8 @@
             android:id="@+id/checkboxUnCheckedSmall"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:paddingLeft="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:src="@mipmap/checkbox_unchecked"
             android:visibility="visible"
             app:layout_constraintRight_toRightOf="parent" />
@@ -49,7 +51,8 @@
             android:id="@+id/checkboxCheckedSmall"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:paddingLeft="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:visibility="gone"
             android:src="@mipmap/checkbox_checked"
             app:layout_constraintRight_toRightOf="parent" />
@@ -74,7 +77,8 @@
                 android:id="@+id/itemLargeName"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="Peanuts"
                 android:textSize="24sp" />
 
@@ -82,7 +86,8 @@
                 android:id="@+id/checkboxUnCheckedLarge"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:paddingLeft="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:visibility="visible"
                 android:src="@mipmap/checkbox_unchecked"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -91,7 +96,8 @@
                 android:id="@+id/checkboxCheckedLarge"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:paddingLeft="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:visibility="gone"
                 android:src="@mipmap/checkbox_checked"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -114,9 +120,10 @@
                     android:id="@+id/itemLargeBrandLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
                     android:translationY="-4dp"
-                    android:text="Brand/Type: "
+                    android:text="@string/brandTypeWithColon"
                     android:textSize="20sp" />
 
                 <TextView
@@ -124,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:translationY="-4dp"
-                    android:text="brand/type"
+                    android:text="@string/brandTypeWithColon"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -137,9 +144,10 @@
                     android:id="@+id/itemLargeCategoryLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
                     android:translationY="-4dp"
-                    android:text="Category: "
+                    android:text="@string/categoryWithColon"
                     android:textSize="20sp" />
 
                 <TextView
@@ -147,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:translationY="-4dp"
-                    android:text="Category: "
+                    android:text="@string/categoryWithColon"
                     android:textSize="20sp" />
             </LinearLayout>
 

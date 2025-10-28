@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginRight="6dp"
+    android:layout_marginEnd="6dp"
     android:orientation="horizontal">
 
     <Button
@@ -32,7 +32,8 @@
             android:id="@+id/itemSmallName"
             android:layout_width="225dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:text="Peanuts"
             android:textSize="24sp" />
 
@@ -40,9 +41,10 @@
             android:id="@+id/itemSmallInStock"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:fontFamily="@font/bebas_regular"
-            android:text="In Stock"
+            android:text="@string/inStock"
             android:textAlignment="viewEnd"
             android:textColor="#00E432"
             android:textSize="28sp"
@@ -52,9 +54,10 @@
             android:id="@+id/itemSmallNeeded"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:fontFamily="@font/bebas_regular"
-            android:text="Needed"
+            android:text="@string/needed"
             android:textAlignment="viewEnd"
             android:textColor="@android:color/holo_red_light"
             android:textSize="28sp"
@@ -64,9 +67,10 @@
             android:id="@+id/itemSmallPaused"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             android:fontFamily="@font/bebas_regular"
-            android:text="Paused"
+            android:text="@string/paused"
             android:textAlignment="viewEnd"
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="28sp"
@@ -92,7 +96,8 @@
                 android:id="@+id/itemLargeName"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:text="Peanuts"
                 android:textSize="24sp" />
 
@@ -100,9 +105,10 @@
                 android:id="@+id/itemLargeInStock"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingRight="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:fontFamily="@font/bebas_regular"
-                android:text="In Stock"
+                android:text="@string/inStock"
                 android:textAlignment="viewEnd"
                 android:textColor="#00E432"
                 android:textSize="28sp"
@@ -112,9 +118,10 @@
                 android:id="@+id/itemLargeNeeded"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingRight="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:fontFamily="@font/bebas_regular"
-                android:text="Needed"
+                android:text="@string/needed"
                 android:textAlignment="viewEnd"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="28sp"
@@ -124,9 +131,10 @@
                 android:id="@+id/itemLargePaused"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingRight="6dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
                 android:fontFamily="@font/bebas_regular"
-                android:text="Paused"
+                android:text="@string/paused"
                 android:textAlignment="viewEnd"
                 android:textColor="@android:color/holo_blue_bright"
                 android:textSize="28sp"
@@ -150,15 +158,16 @@
                     android:id="@+id/itemLargeBrandLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp"
-                    android:text="Brand/Type: "
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:text="@string/brandTypeWithColon"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/itemLargeBrand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Brand/Type: "
+                    android:text="@string/brandTypeWithColon"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -171,15 +180,16 @@
                     android:id="@+id/itemLargeStoreLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="6dp"
-                    android:text="Store: "
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:text="@string/storeWithColon"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/itemLargeStore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Store: "
+                    android:text="@string/storeWithColon"
                     android:textSize="20sp" />
             </LinearLayout>
 
