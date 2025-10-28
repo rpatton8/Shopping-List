@@ -61,13 +61,13 @@ public class AddItem extends Fragment {
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        ArrayAdapter adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter1);
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        ArrayAdapter adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter2);
 
@@ -163,7 +163,7 @@ public class AddItem extends Fragment {
                 dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
 
 
-                dbStatusHelper.addNewStatus(itemName, "instock", "unchecked");
+                dbStatusHelper.addNewStatus(itemName, "paused", "unchecked");
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 shopping.itemIsClickedInInventory.add(false);

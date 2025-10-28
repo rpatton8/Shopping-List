@@ -6,16 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBItemHelper extends SQLiteOpenHelper {
+class DBItemHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
 
     private static final String DB_NAME = "Shopping";
     private static final int DB_VERSION = 12;
     private static final String TABLE_NAME = "shopping";
     private static final String ID = "id";
-    private static final String ITEMNAME = "itemName";
-    private static final String BRANDTYPE = "brandType";
+    private static final String ITEM_NAME = "itemName";
+    private static final String BRAND_TYPE = "brandType";
     private static final String CATEGORY = "category";
     private static final String STORE = "store";
     private static final String CATEGORY_ORDER = "categoryOrder";
@@ -30,8 +30,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ITEMNAME + " TEXT,"
-                + BRANDTYPE + " TEXT,"
+                + ITEM_NAME + " TEXT,"
+                + BRAND_TYPE + " TEXT,"
                 + CATEGORY + " TEXT,"
                 + STORE + " TEXT,"
                 + CATEGORY_ORDER + " INT,"
@@ -55,7 +55,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getInt(5));
             } while (cursor.moveToNext());
         }
 
@@ -74,7 +75,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
             do { itemData.readLineOfDataByStore(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
-                    cursor.getString(4));
+                    cursor.getString(4),
+                    cursor.getInt(6));
             } while (cursor.moveToNext());
         }
 
@@ -88,8 +90,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME, itemName);
-        values.put(BRANDTYPE, brandType);
+        values.put(ITEM_NAME, itemName);
+        values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
         values.put(CATEGORY_ORDER, itemOrder);
@@ -103,8 +105,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME, itemName);
-        values.put(BRANDTYPE, brandType);
+        values.put(ITEM_NAME, itemName);
+        values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
         values.put(STORE_ORDER, itemOrder);
@@ -119,8 +121,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME, newItemName);
-        values.put(BRANDTYPE, brandType);
+        values.put(ITEM_NAME, newItemName);
+        values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
 

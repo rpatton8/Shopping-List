@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBStoreHelper extends SQLiteOpenHelper {
+class DBStoreHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
 
     private static final String DB_NAME = "Stores";
     private static final int DB_VERSION = 12;

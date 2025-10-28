@@ -455,7 +455,7 @@ public class FullInventory extends Fragment {
         return view;
     }
 
-    public void hideMenuOptions() {
+    private void hideMenuOptions() {
         viewAll.setVisibility(View.GONE);
         viewInStock.setVisibility(View.GONE);
         viewNeeded.setVisibility(View.GONE);
@@ -468,7 +468,7 @@ public class FullInventory extends Fragment {
         menuOptionsVisible = false;
     }
 
-    public void showMenuOptions() {
+    private void showMenuOptions() {
         viewAll.setVisibility(View.VISIBLE);
         viewInStock.setVisibility(View.VISIBLE);
         viewNeeded.setVisibility(View.VISIBLE);

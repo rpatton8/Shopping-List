@@ -6,15 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBStatusHelper extends SQLiteOpenHelper {
+class DBStatusHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
 
     private static final String DB_NAME = "ItemStatus";
     private static final int DB_VERSION = 12;
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID = "id";
-    private static final String ITEMNAME = "itemName";
+    private static final String ITEM_NAME = "itemName";
     private static final String STATUS = "status";
     private static final String CHECKED = "checked";
 
@@ -27,7 +27,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ITEMNAME + " TEXT,"
+                + ITEM_NAME + " TEXT,"
                 + STATUS + " TEXT,"
                 + CHECKED + " TEXT)";
         db.execSQL(query);
@@ -62,7 +62,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME, itemName);
+        values.put(ITEM_NAME, itemName);
         values.put(STATUS, status);
         values.put(CHECKED, checked);
 
@@ -75,7 +75,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME, itemName);
+        values.put(ITEM_NAME, itemName);
         values.put(STATUS, status);
         values.put(CHECKED, checked);
 

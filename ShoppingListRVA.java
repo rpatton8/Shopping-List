@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ShoppingListRVA extends RecyclerView.Adapter {
+class ShoppingListRVA extends RecyclerView.Adapter {
 
-    private Shopping shopping;
-    private ItemData itemData;
-    private StoreData storeData;
+    private final Shopping shopping;
+    private final ItemData itemData;
+    private final StoreData storeData;
 
     ShoppingListRVA(Shopping shopping, ItemData itemData, StoreData storeData) {
         this.shopping = shopping;
@@ -161,8 +161,8 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
 
-            if ((shopping.storeNum != 0) &&
-                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeNum - 1))) {
+            if ((shopping.storeListOrderNum != 0) &&
+                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
                 itemHolder.triangleDown.setVisibility(View.GONE);
                 itemHolder.triangleRight.setVisibility(View.GONE);
                 itemHolder.itemLarge.setVisibility(View.GONE);
@@ -178,9 +178,9 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
 
     }
 
-    public static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
+    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
 
-        private TextView shoppingListRvTitle;
+        private final TextView shoppingListRvTitle;
 
         ShoppingListTitleRVH(View itemView) {
 
@@ -191,27 +191,27 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    public static class ShoppingListRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ShoppingListRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
-        private ShoppingListRVA adapter;
-        private ItemData itemData;
-        private StoreData storeData;
+        private final Shopping shopping;
+        private final ShoppingListRVA adapter;
+        private final ItemData itemData;
+        private final StoreData storeData;
 
-        Button triangleRight;
-        Button triangleDown;
-        public LinearLayout itemSmall;
-        public LinearLayout itemLarge;
-        public TextView itemSmallName;
-        public TextView itemLargeName;
-        public ImageView checkboxUnCheckedSmall;
-        public ImageView checkboxCheckedSmall;
-        public ImageView checkboxUnCheckedLarge;
-        public ImageView checkboxCheckedLarge;
-        public TextView itemLargeBrand;
-        public TextView itemLargeBrandLabel;
-        public TextView itemLargeCategory;
-        public TextView itemLargeCategoryLabel;
+        final Button triangleRight;
+        final Button triangleDown;
+        final LinearLayout itemSmall;
+        final LinearLayout itemLarge;
+        final TextView itemSmallName;
+        final TextView itemLargeName;
+        final ImageView checkboxUnCheckedSmall;
+        final ImageView checkboxCheckedSmall;
+        final ImageView checkboxUnCheckedLarge;
+        final ImageView checkboxCheckedLarge;
+        final TextView itemLargeBrand;
+        final TextView itemLargeBrandLabel;
+        final TextView itemLargeCategory;
+        final TextView itemLargeCategoryLabel;
 
         ShoppingListRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 

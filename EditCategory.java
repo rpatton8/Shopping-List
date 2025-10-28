@@ -40,7 +40,7 @@ public class EditCategory extends Fragment {
 
         ArrayList<String> spinnerData = categoryData.getCategoryList();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 

@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class ItemData {
 
-    private ArrayList<Item> items;
-    private ArrayList<Item> itemsByCategory;
-    private ArrayList<Item> itemsByStore;
+    private final ArrayList<Item> items;
+    private final ArrayList<Item> itemsByCategory;
+    private final ArrayList<Item> itemsByStore;
 
-    private Map<String, Item> itemMap;
-    private Map<String, Category> categoryMap;
-    private Map<String, Store> storeMap;
+    private final Map<String, Item> itemMap;
+    private final Map<String, Category> categoryMap;
+    private final Map<String, Store> storeMap;
 
     public ItemData() {
         items = new ArrayList<>();
@@ -59,7 +59,7 @@ public class ItemData {
         }
     }
 
-    public void readLineOfDataByCategory(String item, String brandType, String category, String store) {
+    public void readLineOfDataByCategory(String item, String brandType, String category, String store, int itemOrder) {
         Item newItem = new Item(item, brandType, category, store);
         Category newCategory = new Category(category, newItem);
         Store newStore = new Store(store, newItem);
@@ -126,7 +126,7 @@ public class ItemData {
         }
     }
 
-    public void readLineOfDataByStore(String item, String brandType, String category, String store) {
+    public void readLineOfDataByStore(String item, String brandType, String category, String store, int itemOrder) {
         Item newItem = new Item(item, brandType, category, store);
         Category newCategory = new Category(category, newItem);
         Store newStore = new Store(store, newItem);

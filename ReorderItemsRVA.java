@@ -13,12 +13,12 @@ import java.util.List;
 
 public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsRVH> {
 
-    private Shopping shopping;
-    private ItemData itemData;
-    private StoreData storeData;
-    private DBItemHelper dbItemHelper;
-    private DBStoreHelper dbStoreHelper;
-    private RecyclerView recyclerView;
+    private final Shopping shopping;
+    private final ItemData itemData;
+    private final StoreData storeData;
+    private final DBItemHelper dbItemHelper;
+    private final DBStoreHelper dbStoreHelper;
+    private final RecyclerView recyclerView;
 
     private String category;
     private String store;
@@ -65,23 +65,23 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
         shopping.reorderItemsCategory = category;
     }
 
-    public List<Item> getCategoryList() {
+    private List<Item> getCategoryList() {
         return itemData.getCategoryMap().get(category).getItemList();
     }
 
-    public void swapOrder(int order1, int order2) {
+    private void swapOrder(int order1, int order2) {
         dbItemHelper.swapOrderByCategory(category, order1, order2);
     }
 
     public static class ReorderItemsRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
-        ReorderItemsRVA adapter;
-        private RecyclerView recyclerView;
+        private final Shopping shopping;
+        private final ReorderItemsRVA adapter;
+        private final RecyclerView recyclerView;
 
-        public TextView name;
-        public ImageView arrowDown;
-        public ImageView arrowUp;
+        final TextView name;
+        final ImageView arrowDown;
+        final ImageView arrowUp;
 
         ReorderItemsRVH(final View itemView, Shopping shopping, ReorderItemsRVA adapter, RecyclerView recyclerView,
                                ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {

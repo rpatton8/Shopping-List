@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class StatusData {
 
-    private Map<String, Status> statusMap;
+    private final Map<String, Status> statusMap;
 
     StatusData () {
         statusMap = new HashMap<>();

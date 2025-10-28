@@ -18,10 +18,10 @@ public class Shopping extends AppCompatActivity {
     private StatusData statusData;
     private CategoryData categoryData;
     private StoreData storeData;
-    public DBItemHelper dbItemHelper;
-    public DBStatusHelper dbStatusHelper;
-    public DBCategoryHelper dbCategoryHelper;
-    public DBStoreHelper dbStoreHelper;
+    private DBItemHelper dbItemHelper;
+    private DBStatusHelper dbStatusHelper;
+    private DBCategoryHelper dbCategoryHelper;
+    private DBStoreHelper dbStoreHelper;
 
     public Boolean itemIsSelectedInInventory;
     public Boolean itemIsSelectedInShoppingList;
@@ -32,8 +32,10 @@ public class Shopping extends AppCompatActivity {
     public ArrayList<Boolean> itemIsClickedInInventory;
     public ArrayList<Boolean> itemIsClickedInShoppingList;
     public ArrayList<Boolean> itemIsChecked;
-    public int storeNum;
+    public String mainTitle;
+    public int storeListOrderNum;
     public String reorderItemsCategory;
+    public String reorderItemsStore;
     public Boolean editItemInInventory;
     public Boolean editItemInShoppingList;
 
@@ -87,7 +89,7 @@ public class Shopping extends AppCompatActivity {
             itemIsChecked.add(false);
         }
 
-        storeNum = 0;
+        storeListOrderNum = 0;
         reorderItemsCategory = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
@@ -200,7 +202,7 @@ public class Shopping extends AppCompatActivity {
         itemIsClickedInInventory = new ArrayList<>();
         itemIsClickedInShoppingList = new ArrayList<>();
         itemIsChecked = new ArrayList<>();
-        storeNum = 0;
+        storeListOrderNum = 0;
         reorderItemsCategory = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
@@ -1795,13 +1797,11 @@ public class Shopping extends AppCompatActivity {
         for (int i = 0; i < itemData.getItemListByCategory().size(); i ++) {
             itemIsChecked.add(false);
         }
-        storeNum = 0;
+        storeListOrderNum = 0;
         reorderItemsCategory = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
         inventoryView = INVENTORY_ALL;
         inventorySortBy = SORT_BY_CATEGORY;
-
     }
-
 }

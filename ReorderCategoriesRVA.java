@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.ReorderCategoriesRVH> {
 
-    private Shopping shopping;
-    private ItemData itemData;
-    private CategoryData categoryData;
-    private DBCategoryHelper dbCategoryHelper;
-    private RecyclerView recyclerView;
+    private final Shopping shopping;
+    private final ItemData itemData;
+    private final CategoryData categoryData;
+    private final DBCategoryHelper dbCategoryHelper;
+    private final RecyclerView recyclerView;
 
-    ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, CategoryData categoryData, DBCategoryHelper dbCategory) {
+    ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
         this.itemData = itemData;
         this.categoryData = categoryData;
@@ -52,15 +52,15 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
     public static class ReorderCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
-        private ItemData itemData;
-        private CategoryData categoryData;
-        private DBCategoryHelper dbCategoryHelper;
-        private RecyclerView recyclerView;
+        private final Shopping shopping;
+        private final ItemData itemData;
+        private final CategoryData categoryData;
+        private final DBCategoryHelper dbCategoryHelper;
+        private final RecyclerView recyclerView;
 
-        public TextView name;
-        public ImageView arrowDown;
-        public ImageView arrowUp;
+        final TextView name;
+        final ImageView arrowDown;
+        final ImageView arrowUp;
 
         ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
                                     ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {

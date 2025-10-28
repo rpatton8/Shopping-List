@@ -19,7 +19,6 @@ public class EditItem extends Fragment {
     private CategoryData categoryData;
     private StoreData storeData;
     private DBItemHelper dbItemHelper;
-    private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
@@ -39,7 +38,6 @@ public class EditItem extends Fragment {
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
-        dbStatusHelper = new DBStatusHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
         categoryData = shopping.getCategoryData();
@@ -64,7 +62,7 @@ public class EditItem extends Fragment {
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        ArrayAdapter adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter1);
 
@@ -78,7 +76,7 @@ public class EditItem extends Fragment {
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        ArrayAdapter adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter2);
 
@@ -152,7 +150,7 @@ public class EditItem extends Fragment {
                     return;
                 }
 
-                String isInStock = "false";
+                /*String isInStock = "false";
                 String isNeeded = "false";
                 String isPaused = "false";
                 if(shopping.editItemInInventory) {
@@ -163,7 +161,7 @@ public class EditItem extends Fragment {
                     if (shopping.selectedItemInShoppingList.getStatus().isInStock()) isInStock = "true";
                     else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isNeeded = "true";
                     else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isPaused = "true";
-                }
+                }*/
 
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
                     int numCategories = categoryData.getCategoryList().size();

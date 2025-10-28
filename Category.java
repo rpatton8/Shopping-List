@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Category {
 
-    private String categoryName;
-    private ArrayList<Item> categoryItems;
+    private final String categoryName;
+    private final ArrayList<Item> categoryItems;
 
-    public Category(String name, Item item) {
+    Category(String name, Item item) {
         this.categoryName = name;
         categoryItems = new ArrayList<>();
         categoryItems.add(item);

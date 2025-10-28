@@ -39,7 +39,7 @@ public class ReorderItems extends Fragment {
 
         ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
         Spinner categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter spinnerAdapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter spinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(spinnerAdapter);
         int spinnerPosition = spinnerAdapter.getPosition(shopping.reorderItemsCategory);

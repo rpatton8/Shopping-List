@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Store {
 
-    private String storeName;
-    private ArrayList<Item> storeItems;
+    private final String storeName;
+    private final ArrayList<Item> storeItems;
 
-    public Store(String name, Item item) {
+    Store(String name, Item item) {
         this.storeName = name;
         storeItems = new ArrayList<>();
         storeItems.add(item);

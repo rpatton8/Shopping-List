@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class CategoryData {
 
-    private ArrayList<String> categoryList;
-    private ArrayList<String> categoryListWithBlank;
-    private ArrayList<String> categoryListWithAddNew;
-    private Map<String, Integer> categoryViewAllMap;
-    private Map<String, Integer> categoryViewInStockMap;
-    private Map<String, Integer> categoryViewNeededMap;
-    private Map<String, Integer> categoryViewPausedMap;
+    private final ArrayList<String> categoryList;
+    private final ArrayList<String> categoryListWithBlank;
+    private final ArrayList<String> categoryListWithAddNew;
+    private final Map<String, Integer> categoryViewAllMap;
+    private final Map<String, Integer> categoryViewInStockMap;
+    private final Map<String, Integer> categoryViewNeededMap;
+    private final Map<String, Integer> categoryViewPausedMap;
 
     public CategoryData () {
         categoryList = new ArrayList<>();

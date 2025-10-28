@@ -6,13 +6,13 @@ import java.util.Map;
 
 public class StoreData {
 
-    private ArrayList<String> storeList;
-    private ArrayList<String> storeListWithBlank;
-    private ArrayList<String> storeListWithAddNew;
-    private Map<String, Integer> storeViewAllMap;
-    private Map<String, Integer> storeViewInStockMap;
-    private Map<String, Integer> storeViewNeededMap;
-    private Map<String, Integer> storeViewPausedMap;
+    private final ArrayList<String> storeList;
+    private final ArrayList<String> storeListWithBlank;
+    private final ArrayList<String> storeListWithAddNew;
+    private final Map<String, Integer> storeViewAllMap;
+    private final Map<String, Integer> storeViewInStockMap;
+    private final Map<String, Integer> storeViewNeededMap;
+    private final Map<String, Integer> storeViewPausedMap;
 
     public StoreData () {
         storeList = new ArrayList<>();

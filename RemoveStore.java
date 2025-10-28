@@ -34,7 +34,7 @@ public class RemoveStore extends Fragment {
 
         ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 
