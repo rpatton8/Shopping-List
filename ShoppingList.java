@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class ShoppingList extends Fragment {
 
     private Shopping shopping;
@@ -49,7 +51,7 @@ public class ShoppingList extends Fragment {
         shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         ShoppingListRVA adapter = new ShoppingListRVA(shopping, itemData, storeData);
         shoppingListRecyclerView.setAdapter(adapter);
-        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.shoppingListViewState);
+        Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.shoppingListViewState);
 
         shoppingListTitle = view.findViewById(R.id.shoppingListTitle);
         TextView shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
@@ -158,7 +160,7 @@ public class ShoppingList extends Fragment {
 
     @Override
     public void onDestroyView() {
-        shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+        shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
         shoppingListRecyclerView.setAdapter(null);
         super.onDestroyView();
     }

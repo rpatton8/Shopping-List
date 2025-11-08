@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsRVH> {
 
@@ -112,7 +113,7 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
                 adapter.swapOrder(position, position + 1);
                 //dbStoreHelper.swapOrder(position, position + 1);
                 shopping.updateItemData();
-                shopping.reorderItemsViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderItemsViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderItems());
             } else if (id == arrowUp.getId()) {
                 if (position == 0) {
@@ -122,7 +123,7 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
                 adapter.swapOrder(position - 1, position);
                 //dbStoreHelper.swapOrder(position - 1, position);
                 shopping.updateItemData();
-                shopping.reorderItemsViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderItemsViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderItems());
             }
         }

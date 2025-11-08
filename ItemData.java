@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ItemData {
 
-    private final ArrayList<Item> items;
+    private final ArrayList<Item> itemsAZ;
     private final ArrayList<Item> itemsByCategory;
     private final ArrayList<Item> itemsByStore;
 
@@ -15,12 +15,16 @@ public class ItemData {
     private final Map<String, Store> storeMap;
 
     public ItemData() {
-        items = new ArrayList<>();
+        itemsAZ = new ArrayList<>();
         itemsByCategory = new ArrayList<>();
         itemsByStore = new ArrayList<>();
         itemMap = new HashMap<>();
         categoryMap = new HashMap<>();
         storeMap = new HashMap<>();
+    }
+
+    public ArrayList<Item> getItemListAZ() {
+        return itemsAZ;
     }
 
     public ArrayList<Item> getItemListByCategory() {
@@ -98,13 +102,13 @@ public class ItemData {
                 if (storeMap.containsKey(store)) {
                     /* store and category exist, but item doesn't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.get(category).addItem(newItem);
                     storeMap.get(store).addItem(newItem);
                 } else {
                     /* category exists, but item and store don't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     storeMap.put(store, newStore);
                     categoryMap.get(category).addItem(newItem);
                 }
@@ -112,13 +116,13 @@ public class ItemData {
                 if (storeMap.containsKey(store)) {
                     /* store exists, but item and category don't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.put(category, newCategory);
                     storeMap.get(store).addItem(newItem);
                 } else {
                     /* item, category and store all don't exist */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.put(category, newCategory);
                     storeMap.put(store, newStore);
                 }
@@ -165,13 +169,13 @@ public class ItemData {
                 if (storeMap.containsKey(store)) {
                     /* store and category exist, but item doesn't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.get(category).addItem(newItem);
                     storeMap.get(store).addItem(newItem);
                 } else {
                     /* category exists, but item and store don't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     storeMap.put(store, newStore);
                     categoryMap.get(category).addItem(newItem);
                 }
@@ -179,13 +183,13 @@ public class ItemData {
                 if (storeMap.containsKey(store)) {
                     /* store exists, but item and category don't */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.put(category, newCategory);
                     storeMap.get(store).addItem(newItem);
                 } else {
                     /* item, category and store all don't exist */
                     itemMap.put(item, newItem);
-                    items.add(newItem);
+                    itemsAZ.add(newItem);
                     categoryMap.put(category, newCategory);
                     storeMap.put(store, newStore);
                 }

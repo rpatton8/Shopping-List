@@ -130,15 +130,15 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemSmall.setVisibility(View.VISIBLE);
                 }
                 if (thisItem.getStatus().isChecked()) {
-                    itemHolder.checkboxUnCheckedSmall.setVisibility(View.GONE);
-                    itemHolder.checkboxUnCheckedLarge.setVisibility(View.GONE);
+                    itemHolder.checkboxUncheckedSmall.setVisibility(View.GONE);
+                    itemHolder.checkboxUncheckedLarge.setVisibility(View.GONE);
                     itemHolder.checkboxCheckedSmall.setVisibility(View.VISIBLE);
                     itemHolder.checkboxCheckedLarge.setVisibility(View.VISIBLE);
                 } else {
                     itemHolder.checkboxCheckedSmall.setVisibility(View.GONE);
                     itemHolder.checkboxCheckedLarge.setVisibility(View.GONE);
-                    itemHolder.checkboxUnCheckedSmall.setVisibility(View.VISIBLE);
-                    itemHolder.checkboxUnCheckedLarge.setVisibility(View.VISIBLE);
+                    itemHolder.checkboxUncheckedSmall.setVisibility(View.VISIBLE);
+                    itemHolder.checkboxUncheckedLarge.setVisibility(View.VISIBLE);
                 }
             } else {
                 itemHolder.triangleDown.setVisibility(View.GONE);
@@ -204,9 +204,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         final LinearLayout itemLarge;
         final TextView itemSmallName;
         final TextView itemLargeName;
-        final ImageView checkboxUnCheckedSmall;
+        final ImageView checkboxUncheckedSmall;
         final ImageView checkboxCheckedSmall;
-        final ImageView checkboxUnCheckedLarge;
+        final ImageView checkboxUncheckedLarge;
         final ImageView checkboxCheckedLarge;
         final TextView itemLargeBrand;
         final TextView itemLargeBrandLabel;
@@ -227,9 +227,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             itemLarge = itemView.findViewById(R.id.itemLarge);
             itemSmallName = itemView.findViewById(R.id.itemSmallName);
             itemLargeName = itemView.findViewById(R.id.itemLargeName);
-            checkboxUnCheckedSmall = itemView.findViewById(R.id.checkboxUnCheckedSmall);
+            checkboxUncheckedSmall = itemView.findViewById(R.id.checkboxUncheckedSmall);
             checkboxCheckedSmall = itemView.findViewById(R.id.checkboxCheckedSmall);
-            checkboxUnCheckedLarge = itemView.findViewById(R.id.checkboxUnCheckedLarge);
+            checkboxUncheckedLarge = itemView.findViewById(R.id.checkboxUncheckedLarge);
             checkboxCheckedLarge = itemView.findViewById(R.id.checkboxCheckedLarge);
             itemLargeBrand = itemView.findViewById(R.id.itemLargeBrand);
             itemLargeCategory = itemView.findViewById(R.id.itemLargeCategory);
@@ -238,9 +238,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             triangleRight.setOnClickListener(this);
             triangleDown.setOnClickListener(this);
-            checkboxUnCheckedSmall.setOnClickListener(this);
+            checkboxUncheckedSmall.setOnClickListener(this);
             checkboxCheckedSmall.setOnClickListener(this);
-            checkboxUnCheckedLarge.setOnClickListener(this);
+            checkboxUncheckedLarge.setOnClickListener(this);
             checkboxCheckedLarge.setOnClickListener(this);
             itemSmallName.setOnClickListener(this);
             itemLargeName.setOnClickListener(this);
@@ -425,10 +425,10 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         thisItem.getStatus().setAsUnclickedInShoppingList();
                         shopping.getClickedShoppingList().set(adjustedPosition, false);
                     }
-                } else if (id == checkboxUnCheckedSmall.getId()) {
-                    if (checkboxUnCheckedSmall.getVisibility() == View.VISIBLE) {
-                        checkboxUnCheckedSmall.setVisibility(View.GONE);
-                        checkboxUnCheckedLarge.setVisibility(View.GONE);
+                } else if (id == checkboxUncheckedSmall.getId()) {
+                    if (checkboxUncheckedSmall.getVisibility() == View.VISIBLE) {
+                        checkboxUncheckedSmall.setVisibility(View.GONE);
+                        checkboxUncheckedLarge.setVisibility(View.GONE);
                         checkboxCheckedSmall.setVisibility(View.VISIBLE);
                         checkboxCheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
@@ -438,15 +438,15 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     if (checkboxCheckedSmall.getVisibility() == View.VISIBLE) {
                         checkboxCheckedSmall.setVisibility(View.GONE);
                         checkboxCheckedLarge.setVisibility(View.GONE);
-                        checkboxUnCheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxUnCheckedLarge.setVisibility(View.VISIBLE);
+                        checkboxUncheckedSmall.setVisibility(View.VISIBLE);
+                        checkboxUncheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
                         shopping.getCheckedList().set(adjustedPosition, false);
                     }
-                } else if (id == checkboxUnCheckedLarge.getId()) {
-                    if (checkboxUnCheckedLarge.getVisibility() == View.VISIBLE) {
-                        checkboxUnCheckedSmall.setVisibility(View.GONE);
-                        checkboxUnCheckedLarge.setVisibility(View.GONE);
+                } else if (id == checkboxUncheckedLarge.getId()) {
+                    if (checkboxUncheckedLarge.getVisibility() == View.VISIBLE) {
+                        checkboxUncheckedSmall.setVisibility(View.GONE);
+                        checkboxUncheckedLarge.setVisibility(View.GONE);
                         checkboxCheckedSmall.setVisibility(View.VISIBLE);
                         checkboxCheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
@@ -456,8 +456,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     if (checkboxCheckedLarge.getVisibility() == View.VISIBLE) {
                         checkboxCheckedSmall.setVisibility(View.GONE);
                         checkboxCheckedLarge.setVisibility(View.GONE);
-                        checkboxUnCheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxUnCheckedLarge.setVisibility(View.VISIBLE);
+                        checkboxUncheckedSmall.setVisibility(View.VISIBLE);
+                        checkboxUncheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
                         shopping.getCheckedList().set(adjustedPosition, false);
                     }

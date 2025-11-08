@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.ReorderCategoriesRVH> {
 
@@ -131,7 +132,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
                     }
                 }
-                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
 
             } else if (id == arrowUp.getId()) {
@@ -159,7 +160,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
                     }
                 }
-                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
             }
         }

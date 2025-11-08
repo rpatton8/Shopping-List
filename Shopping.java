@@ -32,6 +32,7 @@ public class Shopping extends AppCompatActivity {
     public ArrayList<Boolean> itemIsClickedInInventory;
     public ArrayList<Boolean> itemIsClickedInShoppingList;
     public ArrayList<Boolean> itemIsChecked;
+
     public String mainTitle;
     public int storeListOrderNum;
     public String reorderItemsCategory;
@@ -42,12 +43,13 @@ public class Shopping extends AppCompatActivity {
     public String inventoryView;
     public static final String INVENTORY_ALL = "view all";
     public static final String INVENTORY_INSTOCK = "view instock";
-    public static final String INVENTORY_NEEDED = "view store";
+    public static final String INVENTORY_NEEDED = "view needed";
     public static final String INVENTORY_PAUSED = "view paused";
 
     public String inventorySortBy;
     public static final String SORT_BY_CATEGORY = "category";
     public static final String SORT_BY_STORE = "store";
+    public static final String SORT_ALPHABETICALLY = "alphabetical";
 
     public Parcelable reorderCategoriesViewState;
     public Parcelable reorderStoresViewState;
@@ -64,7 +66,10 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper = new DBStatusHelper(this);
         dbCategoryHelper = new DBCategoryHelper(this);
         dbStoreHelper = new DBStoreHelper(this);
-        itemData = dbItemHelper.readItemDataByCategory();
+
+        itemData = new ItemData();
+        dbItemHelper.readItemDataByCategory(itemData);
+        dbItemHelper.readItemDataByStore(itemData);
         statusData = dbStatusHelper.readStatusData();
         itemData.updateStatusesByCategory(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
@@ -76,6 +81,7 @@ public class Shopping extends AppCompatActivity {
         selectedItemInShoppingList = null;
         selectedItemPositionInInventory = 0;
         selectedItemPositionInShoppingList = 0;
+
         itemIsClickedInInventory = new ArrayList<>();
         for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
             itemIsClickedInInventory.add(false);
@@ -91,6 +97,7 @@ public class Shopping extends AppCompatActivity {
 
         storeListOrderNum = 0;
         reorderItemsCategory = "";
+        reorderItemsStore = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
 
@@ -125,8 +132,8 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void updateItemData() {
-
-        itemData = dbItemHelper.readItemDataByCategory();
+        dbItemHelper.readItemDataByCategory(itemData);
+        dbItemHelper.readItemDataByStore(itemData);
     }
 
     public StatusData getStatusData() {
@@ -187,16 +194,19 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper.deleteDatabase();
         dbCategoryHelper.deleteDatabase();
         dbStoreHelper.deleteDatabase();
+
         dbItemHelper = new DBItemHelper(this);
         dbStatusHelper = new DBStatusHelper(this);
         dbCategoryHelper = new DBCategoryHelper(this);
         dbStoreHelper = new DBStoreHelper(this);
-        itemData = dbItemHelper.readItemDataByCategory();
-        itemData = dbItemHelper.readItemDataByStore();
+
+        dbItemHelper.readItemDataByCategory(itemData);
+        dbItemHelper.readItemDataByStore(itemData);
         statusData = dbStatusHelper.readStatusData();
         itemData.updateStatusesByCategory(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
         storeData = dbStoreHelper.readStoreData();
+
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
         itemIsClickedInInventory = new ArrayList<>();
@@ -1778,7 +1788,9 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper = new DBStatusHelper(this);
         dbCategoryHelper = new DBCategoryHelper(this);
         dbStoreHelper = new DBStoreHelper(this);
-        itemData = dbItemHelper.readItemDataByCategory();
+        itemData = new ItemData();
+        dbItemHelper.readItemDataByCategory(itemData);
+        dbItemHelper.readItemDataByStore(itemData);
         statusData = dbStatusHelper.readStatusData();
         itemData.updateStatusesByCategory(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
@@ -1801,7 +1813,7 @@ public class Shopping extends AppCompatActivity {
         reorderItemsCategory = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
-        inventoryView = INVENTORY_ALL;
-        inventorySortBy = SORT_BY_CATEGORY;
+        //inventoryView = INVENTORY_ALL;
+        //inventorySortBy = SORT_BY_CATEGORY;
     }
 }

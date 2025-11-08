@@ -11,7 +11,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
     private final Context context;
 
     private static final String DB_NAME = "Categories";
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 13;
     private static final String TABLE_NAME = "categories";
     private static final String ID = "id";
     private static final String CATEGORY_NAME = "categoryName";

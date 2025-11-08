@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Objects;
 
 public class FullInventory extends Fragment {
 
@@ -72,7 +73,7 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         final FullInventoryRVA adapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(adapter);
-        fullInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.fullInventoryViewState);
+        Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.fullInventoryViewState);
 
         currentBottomMenu = MENU_NONE;
 
@@ -483,8 +484,9 @@ public class FullInventory extends Fragment {
 
     @Override
     public void onDestroyView() {
-        shopping.fullInventoryViewState = fullInventoryRecyclerView.getLayoutManager().onSaveInstanceState();
+        shopping.fullInventoryViewState = Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onSaveInstanceState();
         fullInventoryRecyclerView.setAdapter(null);
         super.onDestroyView();
     }
+
 }

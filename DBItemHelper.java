@@ -11,7 +11,7 @@ class DBItemHelper extends SQLiteOpenHelper {
     private final Context context;
 
     private static final String DB_NAME = "Shopping";
-    private static final int DB_VERSION = 12;
+    private static final int DB_VERSION = 13;
     private static final String TABLE_NAME = "shopping";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
@@ -45,11 +45,10 @@ class DBItemHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ItemData readItemDataByCategory() {
+    public void readItemDataByCategory(ItemData itemData) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
-        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
@@ -62,14 +61,12 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return itemData;
     }
 
-    public ItemData readItemDataByStore() {
+    public void readItemDataByStore(ItemData itemData) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + STORE + ", " + STORE_ORDER, null);
-        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByStore(cursor.getString(1),
@@ -82,7 +79,6 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return itemData;
     }
 
     public void addNewItemByCategory(String itemName, String brandType, String category, String store, int itemOrder) {

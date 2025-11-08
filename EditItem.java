@@ -62,7 +62,7 @@ public class EditItem extends Fragment {
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter1);
 
@@ -76,7 +76,7 @@ public class EditItem extends Fragment {
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter2);
 
@@ -149,19 +149,6 @@ public class EditItem extends Fragment {
                     Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                /*String isInStock = "false";
-                String isNeeded = "false";
-                String isPaused = "false";
-                if(shopping.editItemInInventory) {
-                    if (shopping.selectedItemInInventory.getStatus().isInStock()) isInStock = "true";
-                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isNeeded = "true";
-                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isPaused = "true";
-                } else if (shopping.editItemInShoppingList) {
-                    if (shopping.selectedItemInShoppingList.getStatus().isInStock()) isInStock = "true";
-                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isNeeded = "true";
-                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isPaused = "true";
-                }*/
 
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
                     int numCategories = categoryData.getCategoryList().size();
