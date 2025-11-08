@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground"
     tools:context=".LoadScreen">
 
     <TextView
-        android:id="@+id/loadScreenTitle"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
@@ -19,12 +18,12 @@
         android:textStyle="bold" />
 
     <TextView
-    android:id="@+id/loadScreenEditButton"
-    android:layout_width="36dp"
-    android:layout_height="36dp"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentTop="true"
-    android:background="@mipmap/edit_3dots"/>
+        android:id="@+id/loadScreenEditButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/edit_3dots"/>
 
     <Button
         android:id="@+id/clearAllData"
@@ -54,7 +53,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:src="@mipmap/shopping_icon_round" />
+        android:src="@mipmap/shopping_icon_round"
+        android:contentDescription="@string/shoppingIconRound" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,7 +71,6 @@
             android:text="@string/instructions" />
 
         <TextView
-            android:id="@+id/copyright"
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:layout_marginBottom="6dp"

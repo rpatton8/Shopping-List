@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/list_outline_small_unselected"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="6dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:visibility="visible">
 
-    <LinearLayout
-        android:id="@+id/listItemCategoryOrStore"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="275dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_outline_small_unselected"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:text="@string/name"
+        android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="275dp"
-            android:layout_height="wrap_content"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:text="Peanuts"
-            android:textSize="24sp" />
+    <ImageView
+        android:id="@+id/arrowDown"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:src="@mipmap/triangle_down"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/triangleDown" />
 
-        <ImageView
-            android:id="@+id/arrowDown"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:src="@mipmap/triangle_down"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <ImageView
-            android:id="@+id/arrowUp"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:src="@mipmap/triangle_up"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/arrowUp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:src="@mipmap/triangle_up"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/triangleUp" />
 
 </LinearLayout>

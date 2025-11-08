@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:background="?android:windowBackground"
+    android:focusable="true"
     tools:context=".FullInventory">
 
     <TextView
@@ -41,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/searchHere"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:inputType="text" />
 
     </LinearLayout>
 
@@ -131,13 +133,24 @@
         android:text="@string/expandContractStores" />
 
     <Button
-        android:id="@+id/sortByCategory"
+        android:id="@+id/sortAlphabetically"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="25dp"
         android:layout_marginTop="320dp"
+        android:visibility="gone"
+        android:text="@string/sortAlphabetically" />
+
+    <Button
+        android:id="@+id/sortByCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="360dp"
         android:visibility="gone"
         android:text="@string/sortByCategory" />
 
@@ -148,7 +161,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="25dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="400dp"
         android:visibility="gone"
         android:text="@string/sortByStore" />
 
@@ -169,7 +182,6 @@
             android:id="@+id/editDataBreak"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:layout_above="@+id/addEditPopups"
             android:background="@android:color/holo_blue_dark"
             android:text="@string/item"
             android:textAlignment="center"
@@ -179,10 +191,8 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:id="@+id/addEditPopups"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_above="@+id/addEditBreak"
             android:layout_marginBottom="2dp"
             android:layout_marginStart="2dp"
             android:orientation="horizontal"
@@ -193,37 +203,38 @@
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/add"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/editPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/edit"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/removePopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/remove"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/reorderPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/reorder"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/addEditBreak"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:layout_below="@+id/fullInventoryRecyclerView"
-            android:layout_alignParentStart="true"
             android:background="@android:color/holo_blue_dark"
             android:text="@string/addEditRemoveReorder"
             android:textAlignment="center"
@@ -232,32 +243,32 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/addEditButtons"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginBottom="2dp"
             android:layout_marginStart="2dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/addRemoveCategory"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/category" />
+                android:text="@string/category"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/addEditItem"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/item" />
+                android:text="@string/item"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/addRemoveStore"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/store" />
+                android:text="@string/store"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 

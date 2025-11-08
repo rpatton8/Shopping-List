@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:windowBackground"
     tools:context=".RemoveItem">
 
     <TextView
@@ -36,7 +36,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/inputPrompt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -50,32 +49,29 @@
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/enterCategoryName"
-                    android:background="@drawable/spinner_outline"/>
+                    android:background="@drawable/spinner_outline"
+                    android:inputType="text" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/itemButtons"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/item">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/removeItemButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/removeItemData"
-                    android:layout_margin="10dp"
-                    android:layout_below="@id/item"/>
+                    android:layout_margin="10dp"/>
 
                 <Button
                     android:id="@+id/cancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
-                    android:layout_margin="10dp"
-                    android:layout_below="@id/item"/>
+                    android:layout_margin="10dp"/>
 
             </LinearLayout>
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -34,18 +36,19 @@
             android:layout_height="wrap_content"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
-            android:text="Peanuts"
+            android:text="@string/smallName"
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/checkboxUnCheckedSmall"
+            android:id="@+id/checkboxUncheckedSmall"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
             android:src="@mipmap/checkbox_unchecked"
             android:visibility="visible"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:contentDescription="@string/uncheckedBoxSmall" />
 
         <ImageView
             android:id="@+id/checkboxCheckedSmall"
@@ -55,7 +58,8 @@
             android:paddingEnd="6dp"
             android:visibility="gone"
             android:src="@mipmap/checkbox_checked"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:contentDescription="@string/checkedBoxSmall" />
 
     </LinearLayout>
 
@@ -68,7 +72,6 @@
         android:visibility="gone">
 
         <LinearLayout
-            android:id="@+id/itemLargeTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -79,18 +82,19 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
-                android:text="Peanuts"
+                android:text="@string/largeName"
                 android:textSize="24sp" />
 
             <ImageView
-                android:id="@+id/checkboxUnCheckedLarge"
+                android:id="@+id/checkboxUncheckedLarge"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
                 android:visibility="visible"
                 android:src="@mipmap/checkbox_unchecked"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                android:contentDescription="@string/uncheckedBoxLarge" />
 
             <ImageView
                 android:id="@+id/checkboxCheckedLarge"
@@ -100,15 +104,14 @@
                 android:paddingEnd="6dp"
                 android:visibility="gone"
                 android:src="@mipmap/checkbox_checked"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                android:contentDescription="@string/checkedBoxLarge" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/itemLargeBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/itemLargeTop"
             android:orientation="vertical">
 
             <LinearLayout
