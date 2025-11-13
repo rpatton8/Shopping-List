@@ -162,9 +162,6 @@ public class AddItem extends Fragment {
 
                 shopping.updateItemData();
                 shopping.updateStatusData();
-                //shopping.itemIsClickedInInventory.add(false);
-                //shopping.itemIsClickedInShoppingList.add(false);
-                //shopping.itemIsChecked.add(false);
 
                 Toast.makeText(getActivity(), "Item has been added.", Toast.LENGTH_SHORT).show();
 

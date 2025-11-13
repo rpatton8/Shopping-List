@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Shopping extends AppCompatActivity {
@@ -30,9 +29,6 @@ public class Shopping extends AppCompatActivity {
     public Item selectedItemInShoppingList;
     public int selectedItemPositionInInventory;
     public int selectedItemPositionInShoppingList;
-    public Map<Item, Boolean> itemIsClickedInInventory;
-    public Map<Item, Boolean> itemIsClickedInShoppingList;
-    public Map<Item, Boolean> itemIsChecked;
 
     public String mainTitle;
     public int storeListOrderNum;
@@ -82,10 +78,6 @@ public class Shopping extends AppCompatActivity {
         selectedItemInShoppingList = null;
         selectedItemPositionInInventory = 0;
         selectedItemPositionInShoppingList = 0;
-
-        //itemIsClickedInInventory = new HashMap<>();
-        //itemIsClickedInShoppingList = new HashMap<>();
-        //itemIsChecked = new HashMap<>();
 
         storeListOrderNum = 0;
         reorderItemsCategory = "";
@@ -152,18 +144,6 @@ public class Shopping extends AppCompatActivity {
         storeData = dbStoreHelper.readStoreData();
     }
 
-    //public Map<Item, Boolean> getClickedInventoryMap() {
-    //    return itemIsClickedInInventory;
-    //}
-
-    //public Map<Item, Boolean> getClickedShoppingListMap() {
-    //    return itemIsClickedInShoppingList;
-    //}
-
-    //public Map<Item, Boolean> getCheckedMap() {
-    //    return itemIsChecked;
-    //}
-
     public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
         View view = this.getCurrentFocus();
@@ -201,9 +181,10 @@ public class Shopping extends AppCompatActivity {
 
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
-        itemIsClickedInInventory = new HashMap<>();
-        itemIsClickedInShoppingList = new HashMap<>();
-        itemIsChecked = new HashMap<>();
+        selectedItemInInventory = null;
+        selectedItemInShoppingList = null;
+        selectedItemPositionInInventory = 0;
+        selectedItemPositionInShoppingList = 0;
 
         storeListOrderNum = 0;
         reorderItemsCategory = "";
@@ -1787,9 +1768,10 @@ public class Shopping extends AppCompatActivity {
 
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
-        itemIsClickedInInventory = new HashMap<>();
-        itemIsClickedInShoppingList = new HashMap<>();
-        itemIsChecked = new HashMap<>();
+        selectedItemInInventory = null;
+        selectedItemInShoppingList = null;
+        selectedItemPositionInInventory = 0;
+        selectedItemPositionInShoppingList = 0;
 
         storeListOrderNum = 0;
         reorderItemsCategory = "";
