@@ -10,7 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Shopping extends AppCompatActivity {
 
@@ -29,9 +30,9 @@ public class Shopping extends AppCompatActivity {
     public Item selectedItemInShoppingList;
     public int selectedItemPositionInInventory;
     public int selectedItemPositionInShoppingList;
-    public ArrayList<Boolean> itemIsClickedInInventory;
-    public ArrayList<Boolean> itemIsClickedInShoppingList;
-    public ArrayList<Boolean> itemIsChecked;
+    public Map<Item, Boolean> itemIsClickedInInventory;
+    public Map<Item, Boolean> itemIsClickedInShoppingList;
+    public Map<Item, Boolean> itemIsChecked;
 
     public String mainTitle;
     public int storeListOrderNum;
@@ -49,7 +50,7 @@ public class Shopping extends AppCompatActivity {
     public String inventorySortBy;
     public static final String SORT_BY_CATEGORY = "category";
     public static final String SORT_BY_STORE = "store";
-    public static final String SORT_ALPHABETICALLY = "alphabetical";
+    public static final String SORT_ALPHABETICAL = "alphabetical";
 
     public Parcelable reorderCategoriesViewState;
     public Parcelable reorderStoresViewState;
@@ -82,18 +83,9 @@ public class Shopping extends AppCompatActivity {
         selectedItemPositionInInventory = 0;
         selectedItemPositionInShoppingList = 0;
 
-        itemIsClickedInInventory = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-            itemIsClickedInInventory.add(false);
-        }
-        itemIsClickedInShoppingList = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-            itemIsClickedInShoppingList.add(false);
-        }
-        itemIsChecked = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-            itemIsChecked.add(false);
-        }
+        //itemIsClickedInInventory = new HashMap<>();
+        //itemIsClickedInShoppingList = new HashMap<>();
+        //itemIsChecked = new HashMap<>();
 
         storeListOrderNum = 0;
         reorderItemsCategory = "";
@@ -160,17 +152,17 @@ public class Shopping extends AppCompatActivity {
         storeData = dbStoreHelper.readStoreData();
     }
 
-    public ArrayList<Boolean> getClickedInventoryList() {
-        return itemIsClickedInInventory;
-    }
+    //public Map<Item, Boolean> getClickedInventoryMap() {
+    //    return itemIsClickedInInventory;
+    //}
 
-    public ArrayList<Boolean> getClickedShoppingList() {
-        return itemIsClickedInShoppingList;
-    }
+    //public Map<Item, Boolean> getClickedShoppingListMap() {
+    //    return itemIsClickedInShoppingList;
+    //}
 
-    public ArrayList<Boolean> getCheckedList() {
-        return itemIsChecked;
-    }
+    //public Map<Item, Boolean> getCheckedMap() {
+    //    return itemIsChecked;
+    //}
 
     public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -209,9 +201,10 @@ public class Shopping extends AppCompatActivity {
 
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
-        itemIsClickedInInventory = new ArrayList<>();
-        itemIsClickedInShoppingList = new ArrayList<>();
-        itemIsChecked = new ArrayList<>();
+        itemIsClickedInInventory = new HashMap<>();
+        itemIsClickedInShoppingList = new HashMap<>();
+        itemIsChecked = new HashMap<>();
+
         storeListOrderNum = 0;
         reorderItemsCategory = "";
         editItemInInventory = false;
@@ -1784,10 +1777,6 @@ public class Shopping extends AppCompatActivity {
 
     public void initializeData() {
 
-        dbItemHelper = new DBItemHelper(this);
-        dbStatusHelper = new DBStatusHelper(this);
-        dbCategoryHelper = new DBCategoryHelper(this);
-        dbStoreHelper = new DBStoreHelper(this);
         itemData = new ItemData();
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
@@ -1795,25 +1784,20 @@ public class Shopping extends AppCompatActivity {
         itemData.updateStatusesByCategory(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
         storeData = dbStoreHelper.readStoreData();
+
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
-        itemIsClickedInInventory = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i ++) {
-            itemIsClickedInInventory.add(false);
-        }
-        itemIsClickedInShoppingList = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i ++) {
-            itemIsClickedInShoppingList.add(false);
-        }
-        itemIsChecked = new ArrayList<>();
-        for (int i = 0; i < itemData.getItemListByCategory().size(); i ++) {
-            itemIsChecked.add(false);
-        }
+        itemIsClickedInInventory = new HashMap<>();
+        itemIsClickedInShoppingList = new HashMap<>();
+        itemIsChecked = new HashMap<>();
+
         storeListOrderNum = 0;
         reorderItemsCategory = "";
+        reorderItemsStore = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
-        //inventoryView = INVENTORY_ALL;
-        //inventorySortBy = SORT_BY_CATEGORY;
+
+        inventoryView = INVENTORY_ALL;
+        inventorySortBy = SORT_BY_CATEGORY;
     }
 }

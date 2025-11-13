@@ -46,8 +46,9 @@ public class FullInventory extends Fragment {
     private Button expandContractItems;
     private Button expandContractCategories;
     private Button expandContractStores;
-    private Button sortByStore;
+    private Button sortAlphabetical;
     private Button sortByCategory;
+    private Button sortByStore;
 
     public FullInventory() {}
 
@@ -103,6 +104,7 @@ public class FullInventory extends Fragment {
         expandContractStores = view.findViewById(R.id.expandContractStores);
         sortByStore = view.findViewById(R.id.sortByStore);
         sortByCategory = view.findViewById(R.id.sortByCategory);
+        sortAlphabetical = view.findViewById(R.id.sortAlphabetical);
 
         addRemoveCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -429,6 +431,18 @@ public class FullInventory extends Fragment {
             }
         });
 
+        sortAlphabetical.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+                shopping.inventoryView = Shopping.INVENTORY_ALL;
+                for (int i = 0; i < itemData.getItemTreeAZ().size(); i++) {
+                    adapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
+            }
+        });
+
         sortByCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -446,7 +460,7 @@ public class FullInventory extends Fragment {
             public void onClick(View view) {
                 shopping.inventorySortBy = Shopping.SORT_BY_STORE;
                 shopping.inventoryView = Shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -464,6 +478,7 @@ public class FullInventory extends Fragment {
         expandContractItems.setVisibility(View.GONE);
         expandContractCategories.setVisibility(View.GONE);
         expandContractStores.setVisibility(View.GONE);
+        sortAlphabetical.setVisibility(View.GONE);
         sortByCategory.setVisibility(View.GONE);
         sortByStore.setVisibility(View.GONE);
         menuOptionsVisible = false;
@@ -477,6 +492,7 @@ public class FullInventory extends Fragment {
         expandContractItems.setVisibility(View.VISIBLE);
         expandContractCategories.setVisibility(View.VISIBLE);
         expandContractStores.setVisibility(View.VISIBLE);
+        sortAlphabetical.setVisibility(View.GONE);
         sortByCategory.setVisibility(View.VISIBLE);
         sortByStore.setVisibility(View.VISIBLE);
         menuOptionsVisible = true;

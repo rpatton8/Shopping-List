@@ -156,19 +156,15 @@ public class AddItem extends Fragment {
                 if (itemData.getStoreMap().get(itemStore) == null) itemsInStore = 0;
                 else itemsInStore = itemData.getStoreMap().get(itemStore).getItemList().size();
 
-
-
                 dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
-
                 dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
-
-
                 dbStatusHelper.addNewStatus(itemName, "paused", "unchecked");
+
                 shopping.updateItemData();
                 shopping.updateStatusData();
-                shopping.itemIsClickedInInventory.add(false);
-                shopping.itemIsClickedInShoppingList.add(false);
-                shopping.itemIsChecked.add(false);
+                //shopping.itemIsClickedInInventory.add(false);
+                //shopping.itemIsClickedInShoppingList.add(false);
+                //shopping.itemIsChecked.add(false);
 
                 Toast.makeText(getActivity(), "Item has been added.", Toast.LENGTH_SHORT).show();
 

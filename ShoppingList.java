@@ -116,25 +116,22 @@ public class ShoppingList extends Fragment {
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                    if (shopping.getCheckedList().get(i)) {
-                        Item item = shopping.getItemData().getItemListByCategory().get(i);
+                for (int i = 0; i < itemData.getItemTreeAZ().size(); i++) {
+                    for(Item item : itemData.getItemTreeAZ())  {
                         item.getStatus().setAsInStock();
                         item.getStatus().setAsUnchecked();
-                        shopping.getCheckedList().set(i, false);
                         dbStatusHelper.updateStatus(item.getName(), "instock", "unchecked");
                         shopping.updateStatusData();
 
-                        String thisStore = item.getStore().toString();
-                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(thisStore);
-                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(thisStore);
-                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(thisStore);
-                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(thisStore);
-                        dbStoreHelper.setStoreViews(thisStore, numItemsViewAll, numItemsInStock + 1, numItemsNeeded - 1, numItemsPaused);
+                        String store = item.getStore().toString();
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(store);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(store);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(store);
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(store);
+                        dbStoreHelper.setStoreViews(store, numItemsViewAll, numItemsInStock + 1, numItemsNeeded - 1, numItemsPaused);
                         shopping.updateStoreData();
                     }
                 }
-
                 shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ShoppingList());
             }

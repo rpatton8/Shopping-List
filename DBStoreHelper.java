@@ -122,13 +122,6 @@ class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteStore(String storeName) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "storeName=?", new String[]{storeName});
-        db.close();
-    }
-
     public void moveOrderDownOne(int orderNum) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -136,6 +129,13 @@ class DBStoreHelper extends SQLiteOpenHelper {
         values.put(STORE_ORDER, orderNum - 1);
         db.update(TABLE_NAME, values, "storeOrder=?", new String[]{Integer.toString(orderNum)});
 
+        db.close();
+    }
+
+    public void deleteStore(String storeName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "storeName=?", new String[]{storeName});
         db.close();
     }
 

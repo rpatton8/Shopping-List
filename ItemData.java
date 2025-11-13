@@ -3,10 +3,11 @@ package ryan.android.shopping;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class ItemData {
 
-    private final ArrayList<Item> itemsAZ;
+    private final TreeSet<Item> itemsAZ;
     private final ArrayList<Item> itemsByCategory;
     private final ArrayList<Item> itemsByStore;
 
@@ -15,7 +16,7 @@ public class ItemData {
     private final Map<String, Store> storeMap;
 
     public ItemData() {
-        itemsAZ = new ArrayList<>();
+        itemsAZ = new TreeSet<>();
         itemsByCategory = new ArrayList<>();
         itemsByStore = new ArrayList<>();
         itemMap = new HashMap<>();
@@ -23,7 +24,7 @@ public class ItemData {
         storeMap = new HashMap<>();
     }
 
-    public ArrayList<Item> getItemListAZ() {
+    public TreeSet<Item> getItemTreeAZ() {
         return itemsAZ;
     }
 
