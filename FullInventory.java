@@ -436,7 +436,7 @@ public class FullInventory extends Fragment {
             public void onClick(View view) {
                 shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
                 shopping.inventoryView = Shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemTreeAZ().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();

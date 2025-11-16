@@ -116,8 +116,8 @@ public class ShoppingList extends Fragment {
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 0; i < itemData.getItemTreeAZ().size(); i++) {
-                    for(Item item : itemData.getItemTreeAZ())  {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    for(Item item : itemData.getItemListAZ())  {
                         item.getStatus().setAsInStock();
                         item.getStatus().setAsUnchecked();
                         dbStatusHelper.updateStatus(item.getName(), "instock", "unchecked");
