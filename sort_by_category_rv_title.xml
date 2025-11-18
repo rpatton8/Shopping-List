@@ -12,21 +12,31 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/leftArrow"
+        android:id="@+id/triangleButtonDown1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:background="@android:color/darker_gray"
         android:src="@mipmap/triangle_down"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:contentDescription="@string/triangleDown" />
+        android:contentDescription="@string/triangleDown"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/triangleButtonRight"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:src="@mipmap/triangle_right"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription="@string/triangleRight"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/sortByCategoryRvTitle"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:background="@android:color/darker_gray"
         android:text="@string/title"
         android:textAlignment="center"
         android:layout_marginTop="6dp"
@@ -36,14 +46,25 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/rightArrow"
+        android:id="@+id/triangleButtonDown2"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
-        android:background="@android:color/darker_gray"
         android:src="@mipmap/triangle_down"
         app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="@string/triangleDown" />
+        android:contentDescription="@string/triangleDown"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/triangleButtonLeft"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:src="@mipmap/triangle_left"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/triangleLeft"
+        android:visibility="gone" />
 
 </LinearLayout>
