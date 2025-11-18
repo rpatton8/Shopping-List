@@ -64,9 +64,9 @@ public class FullInventory extends Fragment {
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
-        StatusData statusData = shopping.getStatusData();
-        CategoryData categoryData = shopping.getCategoryData();
-        StoreData storeData = shopping.getStoreData();
+        final StatusData statusData = shopping.getStatusData();
+        final CategoryData categoryData = shopping.getCategoryData();
+        final StoreData storeData = shopping.getStoreData();
         itemData.updateStatusesByCategory(statusData);
 
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
@@ -234,8 +234,7 @@ public class FullInventory extends Fragment {
                         reorderPopup.setVisibility(View.GONE);
                         currentBottomMenu = MENU_NONE;
                         editControlsExpanded = false;
-
-
+                        
                         if (searchBoxVisible) {
                             height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                         } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
@@ -366,7 +365,7 @@ public class FullInventory extends Fragment {
             @Override
             public void onClick(View view) {
                 shopping.inventoryView = Shopping.INVENTORY_ALL;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -377,19 +376,18 @@ public class FullInventory extends Fragment {
             @Override
             public void onClick(View view) {
                 shopping.inventoryView = Shopping.INVENTORY_INSTOCK;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
             }
         });
 
-
         viewNeeded.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 shopping.inventoryView = Shopping.INVENTORY_NEEDED;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -400,7 +398,7 @@ public class FullInventory extends Fragment {
             @Override
             public void onClick(View view) {
                 shopping.inventoryView = Shopping.INVENTORY_PAUSED;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }
                 hideMenuOptions();
@@ -410,7 +408,18 @@ public class FullInventory extends Fragment {
         expandContractItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+
+                if (shopping.itemExpansion.equals(Shopping.ITEMS_EXPANDED)) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        itemData.getItemListAZ().get(i).getStatus().setAsUnclickedInInventory();
+                    }
+                    shopping.itemExpansion = Shopping.ITEMS_CONTRACTED;
+                } else if (shopping.itemExpansion.equals(Shopping.ITEMS_CONTRACTED)) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        itemData.getItemListAZ().get(i).getStatus().setAsClickedInInventory();
+                    }
+                    shopping.itemExpansion = Shopping.ITEMS_EXPANDED;
+                }
                 hideMenuOptions();
             }
         });
@@ -418,7 +427,18 @@ public class FullInventory extends Fragment {
         expandContractCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+
+                if (shopping.categoryTitles.equals(Shopping.TITLES_EXPANDED)) {
+                    for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsContracted();
+                    }
+                    shopping.categoryTitles = Shopping.TITLES_CONTRACTED;
+                } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
+                    for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsExpanded();
+                    }
+                    shopping.categoryTitles = Shopping.TITLES_EXPANDED;
+                }
                 hideMenuOptions();
             }
         });
@@ -426,7 +446,18 @@ public class FullInventory extends Fragment {
         expandContractStores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+
+                if (shopping.storeTitles.equals(Shopping.TITLES_EXPANDED)) {
+                    for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsContracted();
+                    }
+                    shopping.storeTitles = Shopping.TITLES_CONTRACTED;
+                } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
+                    for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsExpanded();
+                    }
+                    shopping.storeTitles = Shopping.TITLES_EXPANDED;
+                }
                 hideMenuOptions();
             }
         });

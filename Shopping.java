@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import java.util.Map;
 
 public class Shopping extends AppCompatActivity {
 
@@ -47,6 +46,15 @@ public class Shopping extends AppCompatActivity {
     public static final String SORT_BY_CATEGORY = "category";
     public static final String SORT_BY_STORE = "store";
     public static final String SORT_ALPHABETICAL = "alphabetical";
+
+    public String categoryTitles;
+    public String storeTitles;
+    public static final String TITLES_EXPANDED = "titles expanded";
+    public static final String TITLES_CONTRACTED = "titles contracted";
+
+    public String itemExpansion;
+    public static final String ITEMS_EXPANDED = "items expanded";
+    public static final String ITEMS_CONTRACTED = "items contracted";
 
     public Parcelable reorderCategoriesViewState;
     public Parcelable reorderStoresViewState;
@@ -87,6 +95,8 @@ public class Shopping extends AppCompatActivity {
 
         inventoryView = INVENTORY_ALL;
         inventorySortBy = SORT_BY_CATEGORY;
+        categoryTitles = TITLES_EXPANDED;
+        storeTitles = TITLES_EXPANDED;
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {

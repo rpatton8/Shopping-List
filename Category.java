@@ -6,11 +6,15 @@ public class Category {
 
     private final String categoryName;
     private final ArrayList<Item> categoryItems;
+    private boolean isExpanded;
+    private boolean isContracted;
 
     Category(String name, Item item) {
         this.categoryName = name;
         categoryItems = new ArrayList<>();
         categoryItems.add(item);
+        isExpanded = true;
+        isContracted = false;
     }
 
     public String getName() {
@@ -23,6 +27,24 @@ public class Category {
 
     public ArrayList<Item> getItemList() {
         return categoryItems;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setAsExpanded() {
+        isExpanded = true;
+        isContracted = false;
+    }
+
+    public boolean isContracted() {
+        return isExpanded;
+    }
+
+    public void setAsContracted() {
+        isExpanded = false;
+        isContracted = true;
     }
 
     @Override
