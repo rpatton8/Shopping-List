@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="@string/allStoresList"
+        android:text="@string/allStores"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -53,6 +53,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/shoppingListButtonBreak"
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:background="@android:color/holo_blue_dark"
