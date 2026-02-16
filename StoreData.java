@@ -6,25 +6,26 @@ import java.util.Map;
 
 public class StoreData {
 
-    private final ArrayList<String> storeList;
-    private final ArrayList<String> storeListWithBlank;
-    private final ArrayList<String> storeListWithAddNew;
-    private final Map<String, Integer> storeViewAllMap;
-    private final Map<String, Integer> storeViewInStockMap;
-    private final Map<String, Integer> storeViewNeededMap;
-    private final Map<String, Integer> storeViewPausedMap;
+    private ArrayList<String> storeList;
+    private ArrayList<String> storeListWithBlank;
+    private ArrayList<String> storeListWithAddNew;
+    private Map<String, Integer> storeViewAllMap;
+    private Map<String, Integer> storeViewInStockMap;
+    private Map<String, Integer> storeViewNeededMap;
+    private Map<String, Integer> storeViewPausedMap;
+
 
     public StoreData () {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
-        storeListWithBlank.add("");
         storeListWithAddNew = new ArrayList<>();
-        storeListWithAddNew.add("");
-        storeListWithAddNew.add("(add new store)");
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();
         storeViewPausedMap = new HashMap<>();
+        storeListWithBlank.add("");
+        storeListWithAddNew.add("");
+        storeListWithAddNew.add("(add new store)");
     }
 
     public ArrayList<String> getStoreList() {
@@ -56,7 +57,7 @@ public class StoreData {
     }
 
     public void readStore(String storeName, int numItemsInViewAll, int numItemsInViewInStock,
-                          int numItemsInViewNeeded, int numItemsInViewPaused) {
+                             int numItemsInViewNeeded, int numItemsInViewPaused) {
         storeList.add(storeName);
         storeListWithBlank.add(storeName);
         storeListWithAddNew.add(storeName);
@@ -65,4 +66,5 @@ public class StoreData {
         storeViewNeededMap.put(storeName, numItemsInViewNeeded);
         storeViewPausedMap.put(storeName, numItemsInViewPaused);
     }
+
 }

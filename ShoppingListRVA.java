@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-class ShoppingListRVA extends RecyclerView.Adapter {
+public class ShoppingListRVA extends RecyclerView.Adapter {
 
-    private final Shopping shopping;
-    private final ItemData itemData;
-    private final StoreData storeData;
+    private Shopping shopping;
+    private ItemData itemData;
+    private StoreData storeData;
 
     ShoppingListRVA(Shopping shopping, ItemData itemData, StoreData storeData) {
         this.shopping = shopping;
@@ -49,7 +49,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         if (viewType == R.layout.shopping_list_rv_title) {
             return new ShoppingListTitleRVH(view);
-        } else return new ShoppingListRVH(view, shopping, this, itemData, storeData);
+        } else return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
     }
 
     @Override
@@ -58,7 +58,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         Item thisItem = null;
         String store = null;
         boolean isTitle = false;
-        int adjustedPosition;
+        int adjustedPosition = 0;
 
         if (position == 0) {
             isTitle = true;
@@ -88,6 +88,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             }
         }
 
+
         if (isTitle) { // titles
 
             ShoppingListTitleRVH titleHolder = (ShoppingListTitleRVH) holder;
@@ -99,19 +100,20 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 titleHolder.shoppingListRvTitle.setVisibility(View.GONE);
             }
 
+
         } else {  // item data
 
-            ShoppingListRVH itemHolder = (ShoppingListRVH) holder;
+            ShoppingListItemRVH itemHolder = (ShoppingListItemRVH) holder;
 
             assert thisItem != null;
 
             if (thisItem.getStatus().isNeeded()) {
-                if (thisItem.getStatus().isClickedInShoppingList()) {
+                if (thisItem.getStatus().isExpandedInShoppingList()) {
                     itemHolder.itemSmallName.setText(thisItem.getName());
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
 
                     itemHolder.triangleRight.setVisibility(View.GONE);
                     itemHolder.triangleDown.setVisibility(View.VISIBLE);
@@ -122,7 +124,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
 
                     itemHolder.triangleDown.setVisibility(View.GONE);
                     itemHolder.triangleRight.setVisibility(View.VISIBLE);
@@ -162,7 +164,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             }
 
             if ((shopping.storeListOrderNum != 0) &&
-                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
+                    !thisItem.getStore(0).toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
                 itemHolder.triangleDown.setVisibility(View.GONE);
                 itemHolder.triangleRight.setVisibility(View.GONE);
                 itemHolder.itemLarge.setVisibility(View.GONE);
@@ -174,46 +176,51 @@ class ShoppingListRVA extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        return (itemData.getItemListByCategory().size() + storeData.getStoreList().size());
+        return (itemData.getItemList().size() + storeData.getStoreList().size());
 
     }
 
-    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
+    public static class ShoppingListTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final TextView shoppingListRvTitle;
+        private TextView shoppingListRvTitle;
 
-        ShoppingListTitleRVH(View itemView) {
+        public ShoppingListTitleRVH(View itemView) {
 
             super(itemView);
 
             shoppingListRvTitle = itemView.findViewById(R.id.shoppingListRvTitle);
 
         }
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 
-    static class ShoppingListRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final Shopping shopping;
-        private final ShoppingListRVA adapter;
-        private final ItemData itemData;
-        private final StoreData storeData;
+        private Shopping shopping;
+        private ShoppingListRVA adapter;
+        private ItemData itemData;
+        private StoreData storeData;
 
-        final Button triangleRight;
-        final Button triangleDown;
-        final LinearLayout itemSmall;
-        final LinearLayout itemLarge;
-        final TextView itemSmallName;
-        final TextView itemLargeName;
-        final ImageView checkboxUncheckedSmall;
-        final ImageView checkboxCheckedSmall;
-        final ImageView checkboxUncheckedLarge;
-        final ImageView checkboxCheckedLarge;
-        final TextView itemLargeBrand;
-        final TextView itemLargeBrandLabel;
-        final TextView itemLargeCategory;
-        final TextView itemLargeCategoryLabel;
+        public Button triangleRight;
+        public Button triangleDown;
+        public LinearLayout itemSmall;
+        public LinearLayout itemLarge;
+        public TextView itemSmallName;
+        public TextView itemLargeName;
+        public ImageView checkboxUncheckedSmall;
+        public ImageView checkboxCheckedSmall;
+        public ImageView checkboxUncheckedLarge;
+        public ImageView checkboxCheckedLarge;
+        public TextView itemLargeBrand;
+        public TextView itemLargeBrandLabel;
+        public TextView itemLargeCategory;
+        public TextView itemLargeCategoryLabel;
 
-        ShoppingListRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
+        public ShoppingListItemRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
             super(itemView);
             this.shopping = shopping;
@@ -252,13 +259,14 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
         private void selectOrUnselectItem(int position) {
 
-            String store;
-            boolean isTitle = false;
             Item thisItem = null;
-            int adjustedPosition;
+            String store = null;
+            boolean isTitle = false;
+            int adjustedPosition = 0;
 
             if (position == 0) {
                 isTitle = true;
+                store = storeData.getStoreList().get(0);
             } else {
                 int index = 0;
                 adjustedPosition = position;
@@ -274,6 +282,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
+                        store = storeData.getStoreList().get(i + 1);
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
@@ -282,7 +291,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     }
                 }
             }
-
+            
             if (!isTitle) {
 
                 assert thisItem != null;
@@ -327,46 +336,17 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             }
         }
 
-        Item getItemWithStores(int position) {
 
-            String store;
+        public Item getItemWithStores(int position) {
+
             Item thisItem = null;
-            int adjustedPosition;
-
-            int index = 0;
-            adjustedPosition = position;
-            for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                store = storeData.getStoreList().get(i);
-                int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
-                    numItemsInStore = 0;
-                } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
-                }
-                index += numItemsInStore;
-                adjustedPosition--;
-                if (index == adjustedPosition) {
-                    break;
-                } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
-                    break;
-                }
-            }
-            return thisItem;
-        }
-
-        @Override
-        public void onClick(View v) {
-            int id = v.getId();
-            int position = getAdapterPosition();
-
-            String store;
+            String store = null;
             boolean isTitle = false;
-            Item thisItem = null;
-            int adjustedPosition;
+            int adjustedPosition = 0;
 
             if (position == 0) {
                 isTitle = true;
+                store = storeData.getStoreList().get(0);
             } else {
                 int index = 0;
                 adjustedPosition = position;
@@ -382,6 +362,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
+                        store = storeData.getStoreList().get(i + 1);
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
@@ -390,6 +371,48 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     }
                 }
             }
+            return thisItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            int position = getAdapterPosition();
+
+            Item thisItem = null;
+            String store = null;
+            boolean isTitle = false;
+            int adjustedPosition = 0;
+
+            if (position == 0) {
+                isTitle = true;
+                store = storeData.getStoreList().get(0);
+            } else {
+                int index = 0;
+                adjustedPosition = position;
+                for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                    store = storeData.getStoreList().get(i);
+                    int numItemsInStore;
+                    if (itemData.getStoreMap().get(store) == null) {
+                        numItemsInStore = 0;
+                    } else {
+                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    }
+                    index += numItemsInStore;
+                    adjustedPosition--;
+                    if (index == adjustedPosition) {
+                        isTitle = true;
+                        store = storeData.getStoreList().get(i + 1);
+                        break;
+                    } else if (index >= adjustedPosition) {
+                        isTitle = false;
+                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        break;
+                    }
+                }
+            }
+
+
 
             if (!isTitle) {
 
@@ -413,7 +436,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         triangleDown.setVisibility(View.VISIBLE);
                         itemSmall.setVisibility(View.GONE);
                         itemLarge.setVisibility(View.VISIBLE);
-                        thisItem.getStatus().setAsClickedInShoppingList();
+                        thisItem.getStatus().setAsExpandedInShoppingList();
+                        //shopping.getClickedShoppingList().set(adjustedPosition, true);
                     }
                 } else if (id == triangleDown.getId()) {
                     if (triangleDown.getVisibility() == View.VISIBLE && triangleRight.getVisibility() == View.GONE) {
@@ -421,7 +445,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         triangleRight.setVisibility(View.VISIBLE);
                         itemLarge.setVisibility(View.GONE);
                         itemSmall.setVisibility(View.VISIBLE);
-                        thisItem.getStatus().setAsUnclickedInShoppingList();
+                        thisItem.getStatus().setAsContractedInShoppingList();
+                        //shopping.getClickedShoppingList().set(adjustedPosition, false);
                     }
                 } else if (id == checkboxUncheckedSmall.getId()) {
                     if (checkboxUncheckedSmall.getVisibility() == View.VISIBLE) {
@@ -430,6 +455,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         checkboxCheckedSmall.setVisibility(View.VISIBLE);
                         checkboxCheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
+                        //shopping.getCheckedList().set(adjustedPosition, true);
                     }
                 } else if (id == checkboxCheckedSmall.getId()) {
                     if (checkboxCheckedSmall.getVisibility() == View.VISIBLE) {
@@ -438,6 +464,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         checkboxUncheckedSmall.setVisibility(View.VISIBLE);
                         checkboxUncheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
+                        //shopping.getCheckedList().set(adjustedPosition, false);
                     }
                 } else if (id == checkboxUncheckedLarge.getId()) {
                     if (checkboxUncheckedLarge.getVisibility() == View.VISIBLE) {
@@ -446,6 +473,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         checkboxCheckedSmall.setVisibility(View.VISIBLE);
                         checkboxCheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
+                        //shopping.getCheckedList().set(adjustedPosition, true);
                     }
                 } else if (id == checkboxCheckedLarge.getId()) {
                     if (checkboxCheckedLarge.getVisibility() == View.VISIBLE) {
@@ -454,6 +482,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         checkboxUncheckedSmall.setVisibility(View.VISIBLE);
                         checkboxUncheckedLarge.setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
+                        //shopping.getCheckedList().set(adjustedPosition, false);
                     }
                 }
             }

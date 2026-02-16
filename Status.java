@@ -2,67 +2,60 @@ package ryan.android.shopping;
 
 public class Status {
 
+    private String itemName;
     private Boolean isInStock;
     private Boolean isNeeded;
     private Boolean isPaused;
-    private Boolean isClickedInInventory;
-    private Boolean isClickedInShoppingList;
+    private Boolean isExpandedInInventory;
+    private Boolean isExpandedInShoppingList;
     private Boolean isSelectedInInventory;
     private Boolean isSelectedInShoppingList;
     private Boolean isChecked;
 
     Status(String itemName, String status, String checked) {
-
-        switch(status) {
-            case "instock":
-                this.isInStock = true;
-                this.isNeeded = false;
-                this.isPaused = false;
-            case "needed":
-                this.isInStock = false;
-                this.isNeeded = true;
-                this.isPaused = false;
-            case "paused":
-                this.isInStock = false;
-                this.isNeeded = false;
-                this.isPaused = true;
+        this.itemName = itemName;
+        if (status.equals("instock")) {
+            this.isInStock = true;
+            this.isNeeded = false;
+            this.isPaused = false;
+        } else if (status.equals("needed")) {
+            this.isInStock = false;
+            this.isNeeded = true;
+            this.isPaused = false;
+        } else if (status.equals("paused")) {
+            this.isInStock = false;
+            this.isNeeded = false;
+            this.isPaused = true;
         }
-
-        isClickedInInventory = false;
-        isClickedInShoppingList = false;
+        isExpandedInInventory = false;
+        isExpandedInShoppingList = false;
         isSelectedInInventory = false;
         isSelectedInShoppingList = false;
-
-        switch(checked) {
-            case "checked":
-                isChecked = true;
-            case "unchecked":
-                isChecked = false;
-        }
+        isChecked = false;
     }
 
-    public void setAsClickedInInventory() {
-        this.isClickedInInventory = true;
+    public void setAsExpandedInInventory() {
+        this.isExpandedInInventory = true;
     }
 
-    public void setAsUnclickedInInventory() {
-        this.isClickedInInventory = false;
+    public void setAsContractedInInventory() {
+        this.isExpandedInInventory = false;
     }
 
-    public Boolean isClickedInInventory() {
-        return isClickedInInventory;
+    public Boolean isExpandedInInventory() {
+        return isExpandedInInventory;
     }
 
-    public void setAsClickedInShoppingList() {
-        this.isClickedInShoppingList = true;
+    public void setAsExpandedInShoppingList() {
+        this.isExpandedInShoppingList = true;
     }
 
-    public void setAsUnclickedInShoppingList() {
-        this.isClickedInShoppingList = false;
+    public void setAsContractedInShoppingList() {
+        this.isExpandedInShoppingList = false;
     }
 
-    public Boolean isClickedInShoppingList() {
-        return isClickedInShoppingList;
+    public Boolean isExpandedInShoppingList() {
+        return isExpandedInShoppingList;
     }
 
     public void setAsSelectedInInventory() {

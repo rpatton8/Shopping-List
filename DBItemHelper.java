@@ -6,22 +6,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DBItemHelper extends SQLiteOpenHelper {
+public class DBItemHelper extends SQLiteOpenHelper {
 
-    private final Context context;
+    private Context context;
 
     private static final String DB_NAME = "Shopping";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 16;
     private static final String TABLE_NAME = "shopping";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
     private static final String BRAND_TYPE = "brandType";
     private static final String CATEGORY = "category";
     private static final String STORE = "store";
-    private static final String CATEGORY_ORDER = "categoryOrder";
-    private static final String STORE_ORDER = "storeOrder";
+    private static final String CATEGORY_ORDER = "itemCategoryOrder";
+    private static final String STORE_ORDER = "itemStoreOrder";
 
-    DBItemHelper(Context context) {
+    public DBItemHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -45,10 +45,11 @@ class DBItemHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void readItemDataByCategory(ItemData itemData) {
+    public ItemData readItemDataByCategory() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
+        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
@@ -61,12 +62,14 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
+        return itemData;
     }
 
-    public void readItemDataByStore(ItemData itemData) {
+    public ItemData readItemDataByStore() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + STORE + ", " + STORE_ORDER, null);
+        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByStore(cursor.getString(1),
@@ -79,9 +82,10 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
+        return itemData;
     }
 
-    public void addNewItemByCategory(String itemName, String brandType, String category, String store, int itemOrder) {
+    public void addNewItemByCategory(String itemName, String brandType, String category, String store, int itemCategoryOrder) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -90,13 +94,13 @@ class DBItemHelper extends SQLiteOpenHelper {
         values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
-        values.put(CATEGORY_ORDER, itemOrder);
+        values.put(CATEGORY_ORDER, itemCategoryOrder);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public void addNewItemByStore(String itemName, String brandType, String category, String store, int itemOrder) {
+    public void addNewItemByStore(String itemName, String brandType, String category, String store, int itemStoreOrder) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -105,24 +109,24 @@ class DBItemHelper extends SQLiteOpenHelper {
         values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
-        values.put(STORE_ORDER, itemOrder);
+        values.put(STORE_ORDER, itemStoreOrder);
 
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
-    public void updateItem(String oldItemName, String newItemName, String brandType,
+    public void updateItem(String originalItemName, String itemName, String brandType,
                            String category, String store) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEM_NAME, newItemName);
+        values.put(ITEM_NAME, itemName);
         values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
 
-        db.update(TABLE_NAME, values, "itemName=?", new String[]{oldItemName});
+        db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
         db.close();
     }
 
@@ -217,4 +221,5 @@ class DBItemHelper extends SQLiteOpenHelper {
         context.deleteDatabase(DB_NAME);
 
     }
+
 }

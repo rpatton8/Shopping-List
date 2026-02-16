@@ -11,18 +11,21 @@ import android.widget.Toast;
 
 public class RemoveItem extends Fragment {
 
+    private View view;
     private Shopping shopping;
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
+
     private EditText itemNameInput;
+    private Button removeItemButton;
+    private Button cancelButton;
 
     public RemoveItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.remove_item, container, false);
+        view = inflater.inflate(R.layout.remove_item, container, false);
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
@@ -30,8 +33,8 @@ public class RemoveItem extends Fragment {
         dbStatusHelper = new DBStatusHelper(getActivity());
 
         itemNameInput = view.findViewById(R.id.itemNameInput);
-        Button removeItemButton = view.findViewById(R.id.removeItemButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        removeItemButton = view.findViewById(R.id.removeItemButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
@@ -51,16 +54,11 @@ public class RemoveItem extends Fragment {
                 }
 
                 Item item = itemData.getItemMap().get(itemName);
-                String category = item.getCategory().toString();
-                String store = item.getStore().toString();
+                String category = item.getCategory(0).toString();
                 int orderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
                 dbItemHelper.deleteItem(itemName);
                 for (int i = orderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
-                    if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
-                        dbItemHelper.moveOrderDownOneByCategory(category, i);
-                    } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
-                        dbItemHelper.moveOrderDownOneByStore(store, i);
-                    }
+                    dbItemHelper.moveOrderDownOneByCategory(category, i);
                 }
                 dbStatusHelper.deleteStatus(itemName);
                 shopping.updateItemData();

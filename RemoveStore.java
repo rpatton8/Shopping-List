@@ -13,28 +13,31 @@ import java.util.ArrayList;
 
 public class RemoveStore extends Fragment {
 
+    private View view;
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
+
     private Spinner storeSpinner;
+    private Button removeStoreButton;
+    private Button cancelButton;
 
     public RemoveStore() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.remove_store, container, false);
+        view = inflater.inflate(R.layout.remove_store, container, false);
 
         shopping = (Shopping) getActivity();
         storeData = shopping.getStoreData();
         dbStoreHelper = new DBStoreHelper(getActivity());
 
-        Button removeStoreButton = view.findViewById(R.id.removeStoreButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        removeStoreButton = view.findViewById(R.id.removeStoreButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 

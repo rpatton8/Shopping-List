@@ -6,12 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DBStoreHelper extends SQLiteOpenHelper {
+public class DBStoreHelper extends SQLiteOpenHelper {
 
-    private final Context context;
+    private Context context;
 
     private static final String DB_NAME = "Stores";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 16;
     private static final String TABLE_NAME = "stores";
     private static final String ID = "id";
     private static final String STORE_NAME = "storeName";
@@ -21,7 +21,8 @@ class DBStoreHelper extends SQLiteOpenHelper {
     private static final String STORE_NEEDED = "storeNeeded";
     private static final String STORE_PAUSED = "storePaused";
 
-    DBStoreHelper(Context context) {
+
+    public DBStoreHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -31,7 +32,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + STORE_NAME + " TEXT,"
-                + STORE_ORDER + " INT,"
+                + STORE_ORDER  + " INT,"
                 + STORE_VIEW_ALL  + " INT,"
                 + STORE_IN_STOCK  + " INT,"
                 + STORE_NEEDED  + " INT,"
@@ -122,6 +123,12 @@ class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteStore(String storeName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "storeName=?", new String[]{storeName});
+        db.close();
+    }
+
     public void moveOrderDownOne(int orderNum) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -132,16 +139,10 @@ class DBStoreHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteStore(String storeName) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "storeName=?", new String[]{storeName});
-        db.close();
-    }
-
     public void deleteDatabase() {
 
         context.deleteDatabase(DB_NAME);
 
     }
+
 }

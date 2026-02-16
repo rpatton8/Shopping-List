@@ -9,34 +9,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.util.Objects;
-
 public class ReorderStores extends Fragment {
 
+    private View view;
     private Shopping shopping;
+    private StoreData storeData;
+    private DBStoreHelper dbStoreHelper;
+
     private RecyclerView recyclerView;
+    private Button finishReorderingButton;
+    private Button cancelButton;
 
     public ReorderStores() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.reorder_stores, container, false);
+        view = inflater.inflate(R.layout.reorder_stores, container, false);
 
         shopping = (Shopping) getActivity();
-        ItemData itemData = shopping.getItemData();
-        StoreData storeData = shopping.getStoreData();
-        DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
+        storeData = shopping.getStoreData();
+        dbStoreHelper = new DBStoreHelper(getActivity());
 
         recyclerView = view.findViewById(R.id.reorderStoresRecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        ReorderStoresRVA adapter = new ReorderStoresRVA(shopping, recyclerView, itemData, storeData, dbStoreHelper);
+        ReorderStoresRVA adapter = new ReorderStoresRVA(shopping, recyclerView, storeData, dbStoreHelper);
         recyclerView.setAdapter(adapter);
-        Objects.requireNonNull(recyclerView.getLayoutManager()).onRestoreInstanceState(shopping.reorderStoresViewState);
+        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderStoresViewState);
 
-        Button finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         finishReorderingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,4 +62,5 @@ public class ReorderStores extends Fragment {
         recyclerView.setAdapter(null);
         super.onDestroyView();
     }
+    
 }

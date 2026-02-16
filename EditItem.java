@@ -15,10 +15,12 @@ import java.util.ArrayList;
 
 public class EditItem extends Fragment {
 
+    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private StoreData storeData;
     private DBItemHelper dbItemHelper;
+    private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
@@ -28,16 +30,18 @@ public class EditItem extends Fragment {
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
+    private Button editItemButton;
+    private Button cancelButton;
 
     public EditItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.edit_item, container, false);
+        view = inflater.inflate(R.layout.edit_item, container, false);
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
+        dbStatusHelper = new DBStatusHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
         categoryData = shopping.getCategoryData();
@@ -47,8 +51,8 @@ public class EditItem extends Fragment {
         itemTypeInput = view.findViewById(R.id.itemTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        Button editItemButton = view.findViewById(R.id.editItemButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        editItemButton = view.findViewById(R.id.editItemButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
@@ -62,29 +66,29 @@ public class EditItem extends Fragment {
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        ArrayAdapter adapter1 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter1);
 
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory().toString());
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory(0).toString());
         } else if (shopping.editItemInShoppingList) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory().toString());
+            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory(0).toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        ArrayAdapter adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter2);
 
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore().toString());
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore(0).toString());
         } else if (shopping.editItemInShoppingList) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore().toString());
+            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore(0).toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -150,6 +154,19 @@ public class EditItem extends Fragment {
                     return;
                 }
 
+                String isInStock = "false";
+                String isNeeded = "false";
+                String isPaused = "false";
+                if(shopping.editItemInInventory) {
+                    if (shopping.selectedItemInInventory.getStatus().isInStock()) isInStock = "true";
+                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isNeeded = "true";
+                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isPaused = "true";
+                } else if (shopping.editItemInShoppingList) {
+                    if (shopping.selectedItemInShoppingList.getStatus().isInStock()) isInStock = "true";
+                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isNeeded = "true";
+                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isPaused = "true";
+                }
+
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
                     int numCategories = categoryData.getCategoryList().size();
                     dbCategoryHelper.addNewCategory(itemCategory, numCategories);
@@ -171,7 +188,7 @@ public class EditItem extends Fragment {
                 }
 
                 dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                //dbStatusHelper.changeStatusName(oldItemName, newItemName);
+                //dbStatusHelper.changeStatusName(oldItemName, newItemName, isInStock, isNeeded, isPaused);
                 shopping.updateItemData();
                 shopping.updateStatusData();
                 if(shopping.editItemInInventory) {
@@ -205,4 +222,5 @@ public class EditItem extends Fragment {
 
         return view;
     }
+
 }

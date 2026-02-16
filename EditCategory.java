@@ -14,33 +14,35 @@ import java.util.ArrayList;
 
 public class EditCategory extends Fragment {
 
+    private View view;
     private Shopping shopping;
-
+    private CategoryData categoryData;
     private DBItemHelper dbItemHelper;
     private DBCategoryHelper dbCategoryHelper;
 
     private Spinner categorySpinner;
     private EditText categoryInput;
+    private Button editCategoryButton;
+    private Button cancelButton;
 
     public EditCategory() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.edit_category, container, false);
+        view = inflater.inflate(R.layout.edit_category, container, false);
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
-        CategoryData categoryData = shopping.getCategoryData();
+        categoryData = shopping.getCategoryData();
 
         categoryInput = view.findViewById(R.id.categoryInput);
-        Button editCategoryButton = view.findViewById(R.id.editCategoryButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        editCategoryButton = view.findViewById(R.id.editCategoryButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = categoryData.getCategoryList();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
@@ -78,4 +80,5 @@ public class EditCategory extends Fragment {
 
         return view;
     }
+
 }

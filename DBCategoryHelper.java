@@ -6,12 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DBCategoryHelper extends SQLiteOpenHelper {
+public class DBCategoryHelper extends SQLiteOpenHelper {
 
-    private final Context context;
+    private Context context;
 
     private static final String DB_NAME = "Categories";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 16;
     private static final String TABLE_NAME = "categories";
     private static final String ID = "id";
     private static final String CATEGORY_NAME = "categoryName";
@@ -21,7 +21,8 @@ class DBCategoryHelper extends SQLiteOpenHelper {
     private static final String CATEGORY_NEEDED = "categoryNeeded";
     private static final String CATEGORY_PAUSED = "categoryPaused";
 
-    DBCategoryHelper(Context context) {
+
+    public DBCategoryHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -131,9 +132,8 @@ class DBCategoryHelper extends SQLiteOpenHelper {
 
         db.close();
     }
-    
-    public void deleteCategory(String categoryName) {
 
+    public void deleteCategory(String categoryName) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "categoryName=?", new String[]{categoryName});
         db.close();
@@ -144,4 +144,5 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         context.deleteDatabase(DB_NAME);
 
     }
+
 }

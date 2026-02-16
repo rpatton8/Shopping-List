@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class StatusData {
 
-    private final Map<String, Status> statusMap;
+    private Map<String, Status> statusMap;
 
-    StatusData () {
+    public StatusData () {
         statusMap = new HashMap<>();
     }
 
@@ -15,26 +15,21 @@ public class StatusData {
         return statusMap;
     }
 
-    public void readItemStatus(String itemName, String status, String checked) {
+    public void readStatus(String itemName, String status, String checked) {
+        Status newStatus = new Status(itemName, status, checked);
         if (statusMap.containsKey(itemName)) {
             Status thisStatus = statusMap.get(itemName);
-            switch(status) {
-                case "instock":
-                    thisStatus.setAsInStock();
-                case "needed":
-                    thisStatus.setAsNeeded();
-                case "paused":
-                    thisStatus.setAsPaused();
-            }
-            switch(checked) {
-                case "checked":
-                    thisStatus.setAsChecked();
-                case "unchecked":
-                    thisStatus.setAsUnchecked();
+            if (status.equals("instock")) {
+                thisStatus.setAsInStock();
+            } else if (status.equals("needed")) {
+                thisStatus.setAsNeeded();
+            } else if (status.equals("paused")) {
+                thisStatus.setAsPaused();
             }
         } else {
-            Status newStatus = new Status(itemName, status, checked);
             statusMap.put(itemName, newStatus);
         }
+
     }
+
 }

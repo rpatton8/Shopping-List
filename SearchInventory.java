@@ -1,9 +1,4 @@
 package ryan.android.shopping;
 
-class SearchInventory {
-
-
-
-
-
+public class SearchInventory {
 }

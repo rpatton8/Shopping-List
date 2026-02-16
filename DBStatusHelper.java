@@ -6,19 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DBStatusHelper extends SQLiteOpenHelper {
+public class DBStatusHelper extends SQLiteOpenHelper {
 
-    private final Context context;
+    private Context context;
 
     private static final String DB_NAME = "ItemStatus";
-    private static final int DB_VERSION = 13;
+    private static final int DB_VERSION = 16;
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
     private static final String STATUS = "status";
     private static final String CHECKED = "checked";
 
-    DBStatusHelper(Context context) {
+    public DBStatusHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -46,7 +46,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         StatusData statusData = new StatusData();
 
         if (cursor.moveToFirst()) {
-            do { statusData.readItemStatus(cursor.getString(1),
+            do { statusData.readStatus(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3));
             } while (cursor.moveToNext());
@@ -83,6 +83,20 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /*public void changeStatusName(String originalItemName, String itemName, String isInStock,
+                             String isNeeded, String isPaused) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(ITEMNAME_COL, itemName);
+        values.put(STATUS, status);
+        values.put(CHECKED, checked);
+
+        db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
+        db.close();
+    }*/
+
     public void deleteStatus(String itemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -96,4 +110,5 @@ class DBStatusHelper extends SQLiteOpenHelper {
         context.deleteDatabase(DB_NAME);
 
     }
+
 }
