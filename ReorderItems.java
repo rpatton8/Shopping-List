@@ -11,9 +11,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReorderItems extends Fragment {
 
@@ -48,14 +48,13 @@ public class ReorderItems extends Fragment {
         statusData = shopping.getStatusData();
         categoryData = shopping.getCategoryData();
         storeData = shopping.getStoreData();
-        itemData.updateStatuses(statusData);
 
         finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter spinnerAdapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(spinnerAdapter);
         int spinnerPosition = spinnerAdapter.getPosition(shopping.reorderItemsCategory);
@@ -66,7 +65,7 @@ public class ReorderItems extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         final ReorderItemsRVA rvAdapter = new ReorderItemsRVA(shopping, recyclerView, itemData, storeData, dbItemHelper, dbStoreHelper);
         recyclerView.setAdapter(rvAdapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderItemsViewState);
+        Objects.requireNonNull(recyclerView.getLayoutManager()).onRestoreInstanceState(shopping.reorderItemsViewState);
 
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

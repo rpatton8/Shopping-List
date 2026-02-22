@@ -13,22 +13,14 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Objects;
 
 public class ShoppingList extends Fragment {
 
-    private View view;
     private Shopping shopping;
-    private ItemData itemData;
-    private StatusData statusData;
     private StoreData storeData;
-    private DBStatusHelper dbStatusHelper;
-    private DBStoreHelper dbStoreHelper;
 
     private TextView shoppingListTitle;
-    private TextView shoppingListLeftArrow;
-    private TextView shoppingListRightArrow;
-    private Button clearCheckedItems;
-    private Button editSelectedItem;
     private RecyclerView shoppingListRecyclerView;
 
     public ShoppingList() {}
@@ -37,14 +29,11 @@ public class ShoppingList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
 
         container.removeAllViews();
-        view = inflater.inflate(R.layout.shopping_list, container, false);
-
-        dbStatusHelper = new DBStatusHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        View view = inflater.inflate(R.layout.shopping_list, container, false);
 
         shopping = (Shopping) getActivity();
-        itemData = shopping.getItemData();
-        statusData = shopping.getStatusData();
+        ItemData  itemData = shopping.getItemData();
+        StatusData statusData = shopping.getStatusData();
         storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
 
@@ -53,13 +42,13 @@ public class ShoppingList extends Fragment {
         shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         ShoppingListRVA adapter = new ShoppingListRVA(shopping, itemData, storeData);
         shoppingListRecyclerView.setAdapter(adapter);
-        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.shoppingListViewState);
+        Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.shoppingListViewState);
 
         shoppingListTitle = view.findViewById(R.id.shoppingListTitle);
-        shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
-        shoppingListRightArrow = view.findViewById(R.id.shoppingListRightArrow);
-        clearCheckedItems = view.findViewById(R.id.clearCheckedItems);
-        editSelectedItem = view.findViewById(R.id.editSelectedItem);
+        TextView shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
+        TextView shoppingListRightArrow = view.findViewById(R.id.shoppingListRightArrow);
+        Button clearCheckedItems = view.findViewById(R.id.clearCheckedItems);
+        Button editSelectedItem = view.findViewById(R.id.editSelectedItem);
 
         if (shopping.storeListOrderNum == 0) {
             shoppingListTitle.setText("All Stores");
@@ -134,7 +123,7 @@ public class ShoppingList extends Fragment {
                     }
                 }*/
 
-                shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ShoppingList());
             }
         });
@@ -143,7 +132,7 @@ public class ShoppingList extends Fragment {
             @Override
             public void onClick(View view) {
                 if (shopping.itemIsSelectedInShoppingList) {
-                    shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+                    shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
                     shopping.editItemInInventory = false;
                     shopping.editItemInShoppingList = true;
                     shopping.loadFragment(new EditItem());
@@ -159,7 +148,7 @@ public class ShoppingList extends Fragment {
 
     @Override
     public void onDestroyView() {
-        shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+        shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
         shoppingListRecyclerView.setAdapter(null);
         super.onDestroyView();
     }

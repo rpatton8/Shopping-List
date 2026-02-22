@@ -9,19 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.ReorderCategoriesRVH> {
 
     private Shopping shopping;
-    private ItemData itemData;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
     private RecyclerView recyclerView;
 
-    public ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData,
-                                CategoryData categoryData, DBCategoryHelper dbCategory) {
+    ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, CategoryData categoryData, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
-        this.itemData = itemData;
         this.categoryData = categoryData;
         this.dbCategoryHelper = dbCategory;
         this.recyclerView = recyclerView;
@@ -43,7 +41,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
     @Override
     public ReorderCategoriesRVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new ReorderCategoriesRVH(view, shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
+        return new ReorderCategoriesRVH(view, shopping, recyclerView, categoryData, dbCategoryHelper);
     }
 
     @Override
@@ -71,8 +69,8 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
         public ImageView arrowDown;
         public ImageView arrowUp;
 
-        public ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
-                                    ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
+        ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
+                                    CategoryData categoryData, DBCategoryHelper dbCategory) {
 
             super(itemView);
             this.shopping = shopping;
@@ -90,7 +88,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
         }
 
-        public boolean categoryContains(int categoryPosition, int itemPosition) {
+        boolean categoryContains(int categoryPosition, int itemPosition) {
             int index = 0;
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 String category = categoryData.getCategoryList().get(i);
@@ -141,7 +139,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
                     }
                 }
-                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
 
             } else if (id == arrowUp.getId()) {
@@ -169,7 +167,7 @@ public class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategories
 
                     }
                 }
-                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
             }
         }

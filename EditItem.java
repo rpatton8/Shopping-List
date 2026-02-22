@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class EditItem extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private StoreData storeData;
@@ -30,14 +29,13 @@ public class EditItem extends Fragment {
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
-    private Button editItemButton;
-    private Button cancelButton;
 
     public EditItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.edit_item, container, false);
+
+        View view = inflater.inflate(R.layout.edit_item, container, false);
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
@@ -51,8 +49,8 @@ public class EditItem extends Fragment {
         itemTypeInput = view.findViewById(R.id.itemTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        editItemButton = view.findViewById(R.id.editItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button editItemButton = view.findViewById(R.id.editItemButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
@@ -66,29 +64,29 @@ public class EditItem extends Fragment {
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter1);
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
 
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInInventory.getCategory(0).toString());
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInInventory.getCategory().toString());
         } else if (shopping.editItemInShoppingList) {
-            categorySpinnerPosition = adapter1.getPosition(shopping.selectedItemInShoppingList.getCategory(0).toString());
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInShoppingList.getCategory().toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeSpinner.setAdapter(adapter2);
+        ArrayAdapter<String> storeAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        storeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        storeSpinner.setAdapter(storeAdapter);
 
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInInventory.getStore(0).toString());
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInInventory.getStore().toString());
         } else if (shopping.editItemInShoppingList) {
-            storeSpinnerPosition = adapter2.getPosition(shopping.selectedItemInShoppingList.getStore(0).toString());
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInShoppingList.getStore().toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -188,9 +186,10 @@ public class EditItem extends Fragment {
                 }
 
                 dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                //dbStatusHelper.changeStatusName(oldItemName, newItemName, isInStock, isNeeded, isPaused);
+                dbStatusHelper.changeStatusName(oldItemName, newItemName);
                 shopping.updateItemData();
                 shopping.updateStatusData();
+
                 if(shopping.editItemInInventory) {
                     shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
                 } else if (shopping.editItemInShoppingList) {

@@ -7,6 +7,9 @@ public class Store {
     private String storeName;
     private ArrayList<Item> storeItems;
 
+    public boolean isExpanded = true;
+    public boolean isContracted = false;
+
     Store(String name, Item item) {
         this.storeName = name;
         storeItems = new ArrayList<>();

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.Objects;
+
 public class ReorderStores extends Fragment {
 
     private View view;
@@ -35,7 +37,7 @@ public class ReorderStores extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         ReorderStoresRVA adapter = new ReorderStoresRVA(shopping, recyclerView, storeData, dbStoreHelper);
         recyclerView.setAdapter(adapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderStoresViewState);
+        Objects.requireNonNull(recyclerView.getLayoutManager()).onRestoreInstanceState(shopping.reorderStoresViewState);
 
         finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         cancelButton = view.findViewById(R.id.cancelButton);

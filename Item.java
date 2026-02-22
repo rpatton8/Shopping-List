@@ -2,8 +2,8 @@ package ryan.android.shopping;
 
 public class Item {
 
-    private final String name;
-    private final String brandType;
+    private String name;
+    private String brandType;
     private Category category;
     private Store store;
     private Status status;

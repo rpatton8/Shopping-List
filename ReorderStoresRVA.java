@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStoresRVH> {
 
@@ -16,7 +17,7 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
     private DBStoreHelper dbStoreHelper;
     private RecyclerView recyclerView;
 
-    public ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
+    ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
         this.shopping = shopping;
         this.storeData = storeData;
         this.dbStoreHelper = dbStore;
@@ -59,7 +60,8 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
         public ImageView arrowDown;
         public ImageView arrowUp;
 
-        public ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView, StoreData storeData, DBStoreHelper dbStore) {
+        ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
+                                StoreData storeData, DBStoreHelper dbStore) {
 
             super(itemView);
             this.shopping = shopping;
@@ -87,7 +89,7 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
                 }
                 dbStoreHelper.swapOrder(position, position + 1);
                 shopping.updateStoreData();
-                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderStoresViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderStores());
             } else if (id == arrowUp.getId()) {
                 if (position == 0) {
@@ -96,7 +98,7 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
                 }
                 dbStoreHelper.swapOrder(position - 1, position);
                 shopping.updateStoreData();
-                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.reorderStoresViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
                 shopping.loadFragment(new ReorderStores());
             }
         }

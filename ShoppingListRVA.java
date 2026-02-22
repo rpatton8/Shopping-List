@@ -49,7 +49,9 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         if (viewType == R.layout.shopping_list_rv_title) {
             return new ShoppingListTitleRVH(view);
-        } else return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
+        } else if (viewType == R.layout.shopping_list_rv_item) {
+            return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
+        } else return new RecyclerView.ViewHolder(view) {};
     }
 
     @Override
@@ -113,7 +115,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
                     itemHolder.triangleRight.setVisibility(View.GONE);
                     itemHolder.triangleDown.setVisibility(View.VISIBLE);
@@ -124,7 +126,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.itemLargeName.setText(thisItem.getName());
                     itemHolder.itemLargeBrand.setText(thisItem.getBrand());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory(0).toString());
+                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
                     itemHolder.triangleDown.setVisibility(View.GONE);
                     itemHolder.triangleRight.setVisibility(View.VISIBLE);
@@ -164,7 +166,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
             }
 
             if ((shopping.storeListOrderNum != 0) &&
-                    !thisItem.getStore(0).toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
+                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
                 itemHolder.triangleDown.setVisibility(View.GONE);
                 itemHolder.triangleRight.setVisibility(View.GONE);
                 itemHolder.itemLarge.setVisibility(View.GONE);
@@ -176,7 +178,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        return (itemData.getItemList().size() + storeData.getStoreList().size());
+        return (itemData.getItemListAZ().size() + storeData.getStoreList().size());
 
     }
 
@@ -184,7 +186,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
 
         private TextView shoppingListRvTitle;
 
-        public ShoppingListTitleRVH(View itemView) {
+        ShoppingListTitleRVH(View itemView) {
 
             super(itemView);
 
@@ -220,7 +222,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         public TextView itemLargeCategory;
         public TextView itemLargeCategoryLabel;
 
-        public ShoppingListItemRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
+        ShoppingListItemRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
             super(itemView);
             this.shopping = shopping;
@@ -315,6 +317,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                         shopping.selectedItemPositionInShoppingList = position;
                         shopping.itemIsSelectedInShoppingList = true;
                         shopping.selectedItemInShoppingList = thisItem;
+                        System.out.println("thisItem = " + thisItem.toString());
 
                         Item lastItem = getItemWithStores(currentlySelected);
                         if (lastItem != null) {
@@ -331,6 +334,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                         shopping.selectedItemPositionInShoppingList = position;
                         shopping.itemIsSelectedInShoppingList = true;
                         shopping.selectedItemInShoppingList = thisItem;
+                        System.out.println("thisItem = " + thisItem.toString());
                     }
                 }
             }

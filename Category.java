@@ -7,6 +7,9 @@ public class Category {
     private String categoryName;
     private ArrayList<Item> categoryItems;
 
+    public boolean isExpanded = true;
+    public boolean isContracted = false;
+
     public Category(String name, Item item) {
         this.categoryName = name;
         categoryItems = new ArrayList<>();

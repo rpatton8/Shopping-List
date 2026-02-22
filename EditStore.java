@@ -14,35 +14,33 @@ import java.util.ArrayList;
 
 public class EditStore extends Fragment {
 
-    private View view;
     private Shopping shopping;
-    private StoreData storeData;
+
     private DBItemHelper dbItemHelper;
     private DBStoreHelper dbStoreHelper;
 
     private Spinner storeSpinner;
     private EditText storeInput;
-    private Button editStoreButton;
-    private Button cancelButton;
 
     public EditStore() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.edit_store, container, false);
+
+        View view = inflater.inflate(R.layout.edit_store, container, false);
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
-        storeData = shopping.getStoreData();
+        StoreData storeData = shopping.getStoreData();
 
         storeInput = view.findViewById(R.id.storeInput);
-        editStoreButton = view.findViewById(R.id.editStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button editStoreButton = view.findViewById(R.id.editStoreButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = storeData.getStoreList();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 
@@ -80,5 +78,4 @@ public class EditStore extends Fragment {
 
         return view;
     }
-
 }

@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBStatusHelper extends SQLiteOpenHelper {
+class DBStatusHelper extends SQLiteOpenHelper {
 
     private Context context;
 
@@ -18,7 +18,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
     private static final String STATUS = "status";
     private static final String CHECKED = "checked";
 
-    public DBStatusHelper(Context context) {
+    DBStatusHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public StatusData readStatusData() {
+    StatusData readStatusData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
@@ -57,7 +57,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         return statusData;
     }
 
-    public void addNewStatus(String itemName, String status, String checked) {
+    void addNewStatus(String itemName, String status, String checked) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -70,7 +70,7 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateStatus(String itemName, String status, String checked) {
+    void updateStatus(String itemName, String status, String checked) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -83,21 +83,23 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    /*public void changeStatusName(String originalItemName, String itemName, String isInStock,
-                             String isNeeded, String isPaused) {
+
+
+    public void changeStatusName(String originalItemName, String newItemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEMNAME_COL, itemName);
-        values.put(STATUS, status);
-        values.put(CHECKED, checked);
+        values.put(ITEM_NAME, newItemName);
 
         db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
         db.close();
-    }*/
+    }
 
-    public void deleteStatus(String itemName) {
+
+
+
+    void deleteStatus(String itemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -105,10 +107,9 @@ public class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteDatabase() {
+    void deleteDatabase() {
 
         context.deleteDatabase(DB_NAME);
 
     }
-
 }

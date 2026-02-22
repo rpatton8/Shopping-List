@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBCategoryHelper extends SQLiteOpenHelper {
+class DBCategoryHelper extends SQLiteOpenHelper {
 
     private Context context;
 
@@ -21,8 +21,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
     private static final String CATEGORY_NEEDED = "categoryNeeded";
     private static final String CATEGORY_PAUSED = "categoryPaused";
 
-
-    public DBCategoryHelper(Context context) {
+    DBCategoryHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -46,7 +45,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public CategoryData readCategoryData() {
+    CategoryData readCategoryData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY_ORDER, null);
@@ -63,7 +62,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         return categoryData;
     }
 
-    public void addNewCategory(String categoryName, int categoryOrder) {
+    void addNewCategory(String categoryName, int categoryOrder) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -79,7 +78,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void changeCategoryName(String originalCategoryName, String newCategoryName) {
+    void changeCategoryName(String originalCategoryName, String newCategoryName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -90,7 +89,7 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void setCategoryViews(String categoryName, int categoryViewAll, int categoryInStock,
+    void setCategoryViews(String categoryName, int categoryViewAll, int categoryInStock,
                                  int categoryNeeded, int categoryPaused) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -104,13 +103,13 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void swapOrder(int category1, int category2) {
+    void swapOrder(int category1, int category2) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values1 = new ContentValues();
         values1.put(CATEGORY_ORDER, -1);
         db.update(TABLE_NAME, values1, "categoryOrder=?", new String[]{Integer.toString(category1)});
-
 
         ContentValues values2 = new ContentValues();
         values2.put(CATEGORY_ORDER, category1);
@@ -123,7 +122,8 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void moveOrderDownOne(int orderNum) {
+    void moveOrderDownOne(int orderNum) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -133,16 +133,16 @@ public class DBCategoryHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteCategory(String categoryName) {
+    void deleteCategory(String categoryName) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, "categoryName=?", new String[]{categoryName});
         db.close();
     }
 
-    public void deleteDatabase() {
+    void deleteDatabase() {
 
         context.deleteDatabase(DB_NAME);
 
     }
-
 }

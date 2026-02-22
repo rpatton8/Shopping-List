@@ -14,18 +14,17 @@ public class StoreData {
     private Map<String, Integer> storeViewNeededMap;
     private Map<String, Integer> storeViewPausedMap;
 
-
     public StoreData () {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
+        storeListWithBlank.add("");
+        storeListWithAddNew.add("");
+        storeListWithAddNew.add("(add new store)");
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();
         storeViewPausedMap = new HashMap<>();
-        storeListWithBlank.add("");
-        storeListWithAddNew.add("");
-        storeListWithAddNew.add("(add new store)");
     }
 
     public ArrayList<String> getStoreList() {

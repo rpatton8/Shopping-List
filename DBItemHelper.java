@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBItemHelper extends SQLiteOpenHelper {
+class DBItemHelper extends SQLiteOpenHelper {
 
     private Context context;
 
@@ -21,7 +21,7 @@ public class DBItemHelper extends SQLiteOpenHelper {
     private static final String CATEGORY_ORDER = "itemCategoryOrder";
     private static final String STORE_ORDER = "itemStoreOrder";
 
-    public DBItemHelper(Context context) {
+    DBItemHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         this.context = context;
     }
@@ -45,11 +45,10 @@ public class DBItemHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public ItemData readItemDataByCategory() {
+    void readItemDataByCategory(ItemData itemData) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
-        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
@@ -62,14 +61,12 @@ public class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return itemData;
     }
 
-    public ItemData readItemDataByStore() {
+    void readItemDataByStore(ItemData itemData) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + STORE + ", " + STORE_ORDER, null);
-        ItemData itemData = new ItemData();
 
         if (cursor.moveToFirst()) {
             do { itemData.readLineOfDataByStore(cursor.getString(1),
@@ -82,10 +79,9 @@ public class DBItemHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return itemData;
     }
 
-    public void addNewItemByCategory(String itemName, String brandType, String category, String store, int itemCategoryOrder) {
+    void addNewItemByCategory(String itemName, String brandType, String category, String store, int itemCategoryOrder) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -100,7 +96,7 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addNewItemByStore(String itemName, String brandType, String category, String store, int itemStoreOrder) {
+    void addNewItemByStore(String itemName, String brandType, String category, String store, int itemStoreOrder) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -115,13 +111,13 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateItem(String originalItemName, String itemName, String brandType,
+    void updateItem(String originalItemName, String newItemName, String brandType,
                            String category, String store) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ITEM_NAME, itemName);
+        values.put(ITEM_NAME, newItemName);
         values.put(BRAND_TYPE, brandType);
         values.put(CATEGORY, category);
         values.put(STORE, store);
@@ -130,7 +126,7 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void changeCategory(String oldCategoryName, String newCategoryName) {
+    void changeCategory(String oldCategoryName, String newCategoryName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -141,7 +137,7 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void changeStore(String oldStoreName, String newStoreName) {
+    void changeStore(String oldStoreName, String newStoreName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -152,7 +148,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void swapOrderByCategory(String category, int order1, int order2) {
+    void swapOrderByCategory(String category, int order1, int order2) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values1 = new ContentValues();
@@ -170,7 +167,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void swapOrderByStore(String store, int order1, int order2) {
+    void swapOrderByStore(String store, int order1, int order2) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values1 = new ContentValues();
@@ -188,7 +186,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void moveOrderDownOneByCategory(String category, int orderNum) {
+    void moveOrderDownOneByCategory(String category, int orderNum) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -198,7 +197,8 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void moveOrderDownOneByStore(String store, int orderNum) {
+    void moveOrderDownOneByStore(String store, int orderNum) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -208,18 +208,16 @@ public class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteItem(String itemName) {
+    void deleteItem(String itemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         db.delete(TABLE_NAME, "itemName=?", new String[]{itemName});
         db.close();
     }
 
-    public void deleteDatabase() {
+    void deleteDatabase() {
 
         context.deleteDatabase(DB_NAME);
 
     }
-
 }

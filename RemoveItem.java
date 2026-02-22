@@ -54,7 +54,7 @@ public class RemoveItem extends Fragment {
                 }
 
                 Item item = itemData.getItemMap().get(itemName);
-                String category = item.getCategory(0).toString();
+                String category = item.getCategory().toString();
                 int orderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
                 dbItemHelper.deleteItem(itemName);
                 for (int i = orderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {

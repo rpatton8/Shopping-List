@@ -14,18 +14,17 @@ public class CategoryData {
     private Map<String, Integer> categoryViewNeededMap;
     private Map<String, Integer> categoryViewPausedMap;
 
-
     public CategoryData () {
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
+        categoryListWithBlank.add("");
+        categoryListWithAddNew.add("");
+        categoryListWithAddNew.add("(add new category)");
         categoryViewAllMap = new HashMap<>();
         categoryViewInStockMap = new HashMap<>();
         categoryViewNeededMap = new HashMap<>();
         categoryViewPausedMap = new HashMap<>();
-        categoryListWithBlank.add("");
-        categoryListWithAddNew.add("");
-        categoryListWithAddNew.add("(add new category)");
     }
 
     public ArrayList<String> getCategoryList() {

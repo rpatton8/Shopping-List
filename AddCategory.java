@@ -66,5 +66,4 @@ public class AddCategory extends Fragment {
 
         return view;
     }
-
 }

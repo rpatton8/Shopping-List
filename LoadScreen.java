@@ -66,7 +66,7 @@ public class LoadScreen extends Fragment {
         instructions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                // to do
             }
         });
 
