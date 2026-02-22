@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
-        android:text="Main Title"
+        android:text="Alphabetical - In Stock"
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
@@ -31,7 +31,8 @@
     <LinearLayout
         android:id="@+id/searchPopup"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
         android:layout_below="@+id/searchButton"
         android:background="@android:color/holo_green_light"
         android:orientation="vertical"
