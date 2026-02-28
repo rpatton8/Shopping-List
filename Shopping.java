@@ -76,13 +76,17 @@ public class Shopping extends AppCompatActivity {
         dbStoreHelper = new DBStoreHelper(this);
 
         itemData = new ItemData();
+        statusData = new StatusData();
+        categoryData = new CategoryData();
+        storeData = new StoreData();
+
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
         statusData = dbStatusHelper.readStatusData();
-        //itemData.updateStatuses(statusData);
-        itemData.printData();
+        itemData.updateStatuses(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
         storeData = dbStoreHelper.readStoreData();
+        itemData.printData();
 
         itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
@@ -129,6 +133,8 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void updateItemData() {
+        //itemData = dbItemHelper.readItemDataByCategory(itemData);
+        //itemData = dbItemHelper.readItemDataByStore(itemData);
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
     }
@@ -232,30 +238,32 @@ public class Shopping extends AppCompatActivity {
 
         dbItemHelper.addNewItemByCategory("Sausage Biscuits", "Jimmy Dean Frozen", "Meals", "Vons", 0);
         dbStatusHelper.addNewStatus("Sausage Biscuits", "paused", "unchecked");
+        System.out.println("Adding Sausage Biscuits");
 
         dbItemHelper.addNewItemByCategory("Hamburger Helper", "Cheeseburger Macaroni", "Meals", "Vons", 1);
         dbStatusHelper.addNewStatus("Hamburger Helper", "paused", "unchecked");
+        System.out.println("Adding Hamburger Helper");
 
         dbItemHelper.addNewItemByCategory("Buffalo Chicken Bites", "TGIF or Frank's", "Meals", "Vons", 2);
-        dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Terriyaki Chicken Bites", "InnovAsian", "Meals", "Vons", 3);
-        dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 4);
-        dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 5);
-        dbStatusHelper.addNewStatus("Frozen Pizza", "needed", "unchecked");
+        dbStatusHelper.addNewStatus("Frozen Pizza", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 6);
         dbStatusHelper.addNewStatus("Corn Dogs", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 7);
-        dbStatusHelper.addNewStatus("Hot Dogs", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 8);
-        dbStatusHelper.addNewStatus("Hot Dog Buns", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 9);
         dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
@@ -264,10 +272,10 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 11);
-        dbStatusHelper.addNewStatus("Pasta Roni 1", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fetuccini Alfredo", "Meals", "Vons", 12);
-        dbStatusHelper.addNewStatus("Pasta Roni 2", "instock", "unchecked");
+        dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 13);
         dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
@@ -279,10 +287,10 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
 
         categoryData.getCategoryViewAllMap().put("Meals", 16);
-        categoryData.getCategoryViewInStockMap().put("Meals", 7);
-        categoryData.getCategoryViewNeededMap().put("Meals", 1);
-        categoryData.getCategoryViewPausedMap().put("Meals", 8);
-        dbCategoryHelper.setCategoryViews("Meals", 16, 7, 1, 8);
+        categoryData.getCategoryViewInStockMap().put("Meals", 0);
+        categoryData.getCategoryViewNeededMap().put("Meals", 0);
+        categoryData.getCategoryViewPausedMap().put("Meals", 16);
+        dbCategoryHelper.setCategoryViews("Meals", 16, 0, 0, 16);
 
         //------------------------------------Soups-------------------------------------------------
 
@@ -339,7 +347,7 @@ public class Shopping extends AppCompatActivity {
         //------------------------------------Meat--------------------------------------------------
 
         dbItemHelper.addNewItemByCategory("Steak", "USDA", "Meat", "Vons", 0);
-        dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        dbStatusHelper.addNewStatus("Steak", "needed", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Ground Beef", "(1 pound)", "Meat", "Vons", 1);
         dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
@@ -367,9 +375,9 @@ public class Shopping extends AppCompatActivity {
 
         categoryData.getCategoryViewAllMap().put("Meat", 9);
         categoryData.getCategoryViewInStockMap().put("Meat", 0);
-        categoryData.getCategoryViewNeededMap().put("Meat", 0);
-        categoryData.getCategoryViewPausedMap().put("Meat", 9);
-        dbCategoryHelper.setCategoryViews("Meat", 9, 0, 0, 9);
+        categoryData.getCategoryViewNeededMap().put("Meat", 1);
+        categoryData.getCategoryViewPausedMap().put("Meat", 8);
+        dbCategoryHelper.setCategoryViews("Meat", 9, 0, 1, 8);
 
         //------------------------------------Bread/Grains/Cereal-----------------------------------
 
@@ -1069,7 +1077,7 @@ public class Shopping extends AppCompatActivity {
         //dbStatusHelper.addNewStatus("Canned Corn", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 24);
-        //dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Steak", "needed", "unchecked");
 
         dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 25);
         //dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
@@ -1415,9 +1423,9 @@ public class Shopping extends AppCompatActivity {
 
         storeData.getStoreViewAllMap().put("Vons", 139);
         storeData.getStoreViewInStockMap().put("Vons", 0);
-        storeData.getStoreViewNeededMap().put("Vons", 0);
-        storeData.getStoreViewPausedMap().put("Vons", 139);
-        dbStoreHelper.setStoreViews("Vons", 139, 0, 0, 139);
+        storeData.getStoreViewNeededMap().put("Vons", 1);
+        storeData.getStoreViewPausedMap().put("Vons", 138);
+        dbStoreHelper.setStoreViews("Vons", 139, 0, 1, 138);
 
         //------------------------------------Rite Aid----------------------------------------------
 
@@ -1770,11 +1778,11 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
         statusData = dbStatusHelper.readStatusData();
-        //itemData.updateStatuses(statusData);
+        itemData.updateStatuses(statusData);
         categoryData = dbCategoryHelper.readCategoryData();
         storeData = dbStoreHelper.readStoreData();
 
-        itemIsSelectedInInventory = false;
+        /*itemIsSelectedInInventory = false;
         itemIsSelectedInShoppingList = false;
         selectedItemInInventory = null;
         selectedItemInShoppingList = null;
@@ -1791,6 +1799,6 @@ public class Shopping extends AppCompatActivity {
         inventorySortBy = SORT_BY_CATEGORY;
         categoryTitles = TITLES_EXPANDED;
         storeTitles = TITLES_EXPANDED;
-        itemExpansion = ITEMS_CONTRACTED;
+        itemExpansion = ITEMS_CONTRACTED;*/
     }
 }

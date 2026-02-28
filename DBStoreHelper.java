@@ -11,7 +11,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Stores";
-    private static final int DB_VERSION = 16;
+    private static final int DB_VERSION = 17;
     private static final String TABLE_NAME = "stores";
     private static final String ID = "id";
     private static final String STORE_NAME = "storeName";

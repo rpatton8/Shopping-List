@@ -60,6 +60,7 @@ public class LoadScreen extends Fragment {
                 shopping.loadCategoryData();
                 shopping.loadStoreData();
                 shopping.initializeData();
+
             }
         });
 

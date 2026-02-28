@@ -140,7 +140,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByCategoryTitleRVH categoryTitleHolder = (SortByCategoryTitleRVH) holder;
 
-                System.out.println("Category 1: " + category);
+                System.out.println("isTitle");
+                System.out.println("Category: " + category);
+                System.out.println("");
                 categoryTitleHolder.categoryTitleText.setText(category);
                 categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.VISIBLE);
 
@@ -157,12 +159,16 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
                 }
 
                 if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL) && categoryData.getCategoryViewAllMap().get(category) == 0) {
+                    System.out.println("HERE 1");
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
                 } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK) && categoryData.getCategoryViewInStockMap().get(category) == 0) {
+                    System.out.println("HERE 2");
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
                 } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED) && categoryData.getCategoryViewNeededMap().get(category) == 0) {
+                    System.out.println("HERE 3");
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
                 } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED) && categoryData.getCategoryViewPausedMap().get(category) == 0) {
+                    System.out.println("HERE 4");
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
                 }
 
@@ -170,7 +176,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByCategoryItemRVH categoryItemHolder = (SortByCategoryItemRVH) holder;
 
-                assert thisItem != null;
+                System.out.println("Item: " + thisItem.getName());
+
+                //assert thisItem != null;
 
                 if (thisItem.getStatus().isExpandedInInventory()) {
                     categoryItemHolder.itemSmallName.setText(thisItem.getName());
@@ -489,6 +497,11 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+
+            /*(int items = itemData.getItemListAZ().size();
+            System.out.println("# items = " + items);
+            int categories = categoryData.getCategoryList().size();
+            System.out.println("# categories = " + categories);*/
 
             return (itemData.getItemListByCategory().size() + categoryData.getCategoryList().size());
 

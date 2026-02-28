@@ -11,7 +11,7 @@ class DBItemHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Shopping";
-    private static final int DB_VERSION = 16;
+    private static final int DB_VERSION = 17;
     private static final String TABLE_NAME = "shopping";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
@@ -45,17 +45,39 @@ class DBItemHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /*ItemData readItemData() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
+        ItemData itemData = new ItemData();
+
+        if (cursor.moveToFirst()) {
+            do { itemData.readLineOfData(cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5),
+                    cursor.getInt(6));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+    }*/
+
     void readItemDataByCategory(ItemData itemData) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
 
         if (cursor.moveToFirst()) {
+
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(5));
+                //System.out.println("Category = " + cursor.getString(3) + ", Order = " + cursor.getInt(5));
             } while (cursor.moveToNext());
         }
 
@@ -69,11 +91,13 @@ class DBItemHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + STORE + ", " + STORE_ORDER, null);
 
         if (cursor.moveToFirst()) {
+
             do { itemData.readLineOfDataByStore(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(6));
+                //System.out.println("Store = " + cursor.getString(4) + ", Order = " + cursor.getInt(6));
             } while (cursor.moveToNext());
         }
 
