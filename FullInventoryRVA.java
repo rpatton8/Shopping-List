@@ -409,7 +409,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByStoreTitleRVH storeTitleHolder = (SortByStoreTitleRVH) holder;
 
-                System.out.println("Store 1: " + store);
+                System.out.println("isTitle");
+                System.out.println("Store: " + store);
+                System.out.println("");
                 storeTitleHolder.storeTitleText.setText(store);
                 storeTitleHolder.sortByStoreRvTitle.setVisibility(View.VISIBLE);
 
@@ -439,7 +441,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByStoreItemRVH storeItemHolder = (SortByStoreItemRVH) holder;
 
-                assert thisItem != null;
+                System.out.println("Item: " + thisItem.getName());
+
+                //assert thisItem != null;
 
                 if (thisItem.getStatus().isNeeded()) {
                     if (thisItem.getStatus().isExpandedInShoppingList()) {

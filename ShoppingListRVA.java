@@ -178,7 +178,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
 
-        return (itemData.getItemListAZ().size() + storeData.getStoreList().size());
+        return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
 
     }
 
@@ -341,7 +341,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         }
 
 
-        public Item getItemWithStores(int position) {
+        Item getItemWithStores(int position) {
 
             Item thisItem = null;
             String store = null;
@@ -415,8 +415,6 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     }
                 }
             }
-
-
 
             if (!isTitle) {
 

@@ -31,6 +31,7 @@ import static android.app.Activity.RESULT_OK;
 public class FullInventory extends Fragment {
 
     private Shopping shopping;
+    private FullInventoryRVA adapter;
     private View rootView;
 
     private String currentBottomMenu;
@@ -53,6 +54,7 @@ public class FullInventory extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private RecyclerView fullInventoryRecyclerView;
+
     private TextView fullInventoryTitle;
     private EditText searchBox;
     private LinearLayout searchPopup;
@@ -99,16 +101,16 @@ public class FullInventory extends Fragment {
 
         shopping = (Shopping) getActivity();
         final ItemData itemData = shopping.getItemData();
-        StatusData statusData = shopping.getStatusData();
-        CategoryData categoryData = shopping.getCategoryData();
-        StoreData storeData = shopping.getStoreData();
+        final StatusData statusData = shopping.getStatusData();
+        final CategoryData categoryData = shopping.getCategoryData();
+        final StoreData storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
         //itemData.printData();
 
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        final FullInventoryRVA adapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
+        adapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(adapter);
         Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.fullInventoryViewState);
 
@@ -496,7 +498,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - All");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -523,7 +525,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - In Stock");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -550,7 +552,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - Needed");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -577,7 +579,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - Paused");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -623,7 +625,7 @@ public class FullInventory extends Fragment {
                     fullInventoryTitle.setText("Alphabetical - Paused");
                 }
                 adapter.notifyDataSetChanged();
-                /*for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                /*for (int i = 0; i < itemData.getItemListBy().size(); i++) {
                     adapter.notifyItemChanged(i);
                 }*/
                 hideMenuOptions();
@@ -728,7 +730,6 @@ public class FullInventory extends Fragment {
                         shopping.inventorySortBy = Shopping.SORT_BY_STORE;
                         if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
                             fullInventoryTitle.setText("By Store - All");
-                            //adapter.notifyDataSetChanged();
                         } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
                             fullInventoryTitle.setText("By Store - In Stock");
                         } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
@@ -753,7 +754,6 @@ public class FullInventory extends Fragment {
                         shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
                         if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
                             fullInventoryTitle.setText("By Category - All");
-                            //adapter.notifyDataSetChanged();
                         } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
                             fullInventoryTitle.setText("By Category - In Stock");
                         } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
@@ -772,7 +772,7 @@ public class FullInventory extends Fragment {
     public void startVoiceRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toString());
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (Exception e) {

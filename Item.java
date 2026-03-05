@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-public class Item {
+public class Item implements Comparable<Item> {
 
     private String name;
     private String brandType;
@@ -73,6 +73,11 @@ public class Item {
         //System.out.println("Status: " + status.toString());
         System.out.println("Category Order: " + categoryOrder);
         System.out.println("Store Order: " + storeOrder);
+    }
+
+    @Override
+    public int compareTo(Item item) {
+        return this.name.compareTo(item.name);
     }
 
 }
