@@ -83,8 +83,6 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-
-
     public void changeStatusName(String originalItemName, String newItemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -95,9 +93,6 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
         db.close();
     }
-
-
-
 
     void deleteStatus(String itemName) {
 

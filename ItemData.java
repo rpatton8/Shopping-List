@@ -114,18 +114,18 @@ public class ItemData {
     public void printData() {
 
         System.out.println("itemsAZ:");
-        for (int i = 0; i < itemsAZ.size(); i++) {
-            Item  item = itemsAZ.get(i);
+        for (int i = 1; i <= itemsAZ.size(); i++) {
+            Item item = itemsAZ.get(i - 1);
             System.out.println("az item #" + i + " = " + item.getName());
         }
         System.out.println("itemsByCategory:");
-        for (int i = 0; i < itemsByCategory.size(); i++) {
-            Item  item = itemsByCategory.get(i);
+        for (int i = 1; i <= itemsByCategory.size(); i++) {
+            Item item = itemsByCategory.get(i - 1);
             System.out.println("category item #" + i + " = " + item.getName());
         }
         System.out.println("itemsByStore:");
-        for (int i = 0; i < itemsByStore.size(); i++) {
-            Item  item = itemsByStore.get(i);
+        for (int i = 1; i <= itemsByStore.size(); i++) {
+            Item item = itemsByStore.get(i - 1);
             System.out.println("store item #" + i + " = " + item.getName());
         }
     }
