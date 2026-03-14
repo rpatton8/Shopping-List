@@ -7,75 +7,127 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReorderItems extends Fragment {
 
-    private View view;
     private Shopping shopping;
-    private ItemData itemData;
-    private StatusData statusData;
-    private CategoryData categoryData;
-    private StoreData storeData;
-    private DBItemHelper dbItemHelper;
-    private DBStatusHelper dbStatusHelper;
-    private DBStoreHelper dbStoreHelper;
-
+    private ReorderItemsRVA rvAdapter;
+    private ScrollView scrollView;
     private RecyclerView recyclerView;
-    private Spinner categorySpinner;
-    private Button finishReorderingButton;
-    private Button cancelButton;
+    private LinearLayout categoryLayout;
+    private LinearLayout storeLayout;
 
     public ReorderItems() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.reorder_items, container, false);
+        View view = inflater.inflate(R.layout.reorder_items, container, false);
 
         shopping = (Shopping) getActivity();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbStatusHelper = new DBStatusHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        DBItemHelper dbItemHelper = new DBItemHelper(getActivity());
+        DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
 
-        itemData = shopping.getItemData();
-        statusData = shopping.getStatusData();
-        categoryData = shopping.getCategoryData();
-        storeData = shopping.getStoreData();
+        ItemData itemData = shopping.getItemData();
+        CategoryData categoryData = shopping.getCategoryData();
+        StoreData storeData = shopping.getStoreData();
 
-        finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        categoryLayout = view.findViewById(R.id.categoryLayout);
+        storeLayout = view.findViewById(R.id.storeLayout);
+        Button categoryRadioButton = view.findViewById(R.id.categoryRadioButton);
+        Button storeRadioButton = view.findViewById(R.id.storeRadioButton);
+        Button finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
-        categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(spinnerAdapter);
-        int spinnerPosition = spinnerAdapter.getPosition(shopping.reorderItemsCategory);
-        categorySpinner.setSelection(spinnerPosition);
+        ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithBlank();
+        Spinner categorySpinner = view.findViewById(R.id.categorySpinner);
+        ArrayAdapter<String> categorySpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categorySpinnerAdapter);
+        int categorySpinnerPosition = categorySpinnerAdapter.getPosition(shopping.reorderItemsCategory);
+        categorySpinner.setSelection(categorySpinnerPosition);
+
+        ArrayList<String> storeSpinnerData = storeData.getStoreListWithBlank();
+        Spinner storeSpinner = view.findViewById(R.id.storeSpinner);
+        ArrayAdapter<String> storeSpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        storeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        storeSpinner.setAdapter(storeSpinnerAdapter);
+        int storeSpinnerPosition = storeSpinnerAdapter.getPosition(shopping.reorderItemsStore);
+        storeSpinner.setSelection(storeSpinnerPosition);
 
         recyclerView = view.findViewById(R.id.reorderItemsRecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        final ReorderItemsRVA rvAdapter = new ReorderItemsRVA(shopping, recyclerView, itemData, storeData, dbItemHelper, dbStoreHelper);
+        //recyclerView.setNestedScrollingEnabled(false);
+        rvAdapter = new ReorderItemsRVA(shopping, recyclerView, scrollView, itemData, categoryData, storeData, dbItemHelper);
+        //rvAdapter.changeCategory("Candy");
         recyclerView.setAdapter(rvAdapter);
-        Objects.requireNonNull(recyclerView.getLayoutManager()).onRestoreInstanceState(shopping.reorderItemsViewState);
+        Objects.requireNonNull(recyclerView.getLayoutManager()).onRestoreInstanceState(shopping.reorderItemsRecyclerViewState);
+        //Objects.requireNonNull(scrollView.getLayoutManager()).onRestoreInstanceState(shopping.reorderItemsScrollViewState);
 
+        scrollView = view.findViewById(R.id.reorderItemsScrollView);
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                int scrollY = scrollView.getScrollY();
+                if (scrollY < 578) recyclerView.setNestedScrollingEnabled(false);
+                else recyclerView.setNestedScrollingEnabled(true);
+            }
+        });
+
+        categoryRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_CATEGORY;
+                categoryLayout.setVisibility(View.VISIBLE);
+                storeLayout.setVisibility(View.GONE);
+                rvAdapter.notifyDataSetChanged();
+            }
+        });
+
+        storeRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_STORE;
+                storeLayout.setVisibility(View.VISIBLE);
+                categoryLayout.setVisibility(View.GONE);
+                rvAdapter.notifyDataSetChanged();
+            }
+        });
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
-                String selectedItem =  adapter.getItemAtPosition(i).toString();
 
+                String selectedItem =  adapter.getItemAtPosition(i).toString();
                 rvAdapter.changeCategory(selectedItem);
                 rvAdapter.notifyDataSetChanged();
-                
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView adapter, View view, int i, long l) {
+
+                String selectedItem =  adapter.getItemAtPosition(i).toString();
+                rvAdapter.changeStore(selectedItem);
+                rvAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -100,5 +152,4 @@ public class ReorderItems extends Fragment {
 
         return view;
     }
-
 }

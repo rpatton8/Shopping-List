@@ -11,7 +11,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "ItemStatus";
-    private static final int DB_VERSION = 19;
+    private static final int DB_VERSION = 20;
     private static final String TABLE_NAME = "itemStatus";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
@@ -83,7 +83,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void changeStatusName(String originalItemName, String newItemName) {
+    void changeStatusName(String originalItemName, String newItemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

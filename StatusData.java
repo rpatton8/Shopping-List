@@ -7,7 +7,7 @@ public class StatusData {
 
     private Map<String, Status> statusMap;
 
-    public StatusData () {
+    StatusData () {
         statusMap = new HashMap<>();
     }
 
@@ -16,20 +16,25 @@ public class StatusData {
     }
 
     public void readStatus(String itemName, String status, String checked) {
-        Status newStatus = new Status(itemName, status, checked);
         if (statusMap.containsKey(itemName)) {
             Status thisStatus = statusMap.get(itemName);
-            if (status.equals("instock")) {
-                thisStatus.setAsInStock();
-            } else if (status.equals("needed")) {
-                thisStatus.setAsNeeded();
-            } else if (status.equals("paused")) {
-                thisStatus.setAsPaused();
+            switch (status) {
+                case "instock":
+                    thisStatus.setAsInStock();
+                case "needed":
+                    thisStatus.setAsNeeded();
+                case "paused":
+                    thisStatus.setAsPaused();
+            }
+            switch (checked) {
+                case "checked":
+                    thisStatus.setAsChecked();
+                case "unchecked":
+                    thisStatus.setAsUnchecked();
             }
         } else {
+            Status newStatus = new Status(itemName, status, checked);
             statusMap.put(itemName, newStatus);
         }
-
     }
-
 }

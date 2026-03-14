@@ -18,17 +18,15 @@ public class LoadScreen extends Fragment {
     public LoadScreen() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.load_screen, container, false);
-
         shopping = (Shopping) getActivity();
-
         menuOptionsVisible = false;
 
         TextView loadScreenEditButton = view.findViewById(R.id.loadScreenEditButton);
         clearAllData = view.findViewById(R.id.clearAllData);
-        loadSampleData = view.findViewById(R.id.loadSampleData1);
+        loadSampleData = view.findViewById(R.id.loadSampleData);
         Button instructions = view.findViewById(R.id.instructions);
 
         loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +48,7 @@ public class LoadScreen extends Fragment {
             @Override
             public void onClick(View view) {
                 shopping.clearAllData();
+                shopping.initializeData();
             }
         });
 
@@ -59,8 +58,7 @@ public class LoadScreen extends Fragment {
                 shopping.loadStoresAndCategories();
                 shopping.loadCategoryData();
                 shopping.loadStoreData();
-                //shopping.initializeData();
-
+                shopping.initializeData();
             }
         });
 

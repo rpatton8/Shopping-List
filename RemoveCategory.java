@@ -8,32 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RemoveCategory extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
 
     private Spinner categorySpinner;
-    private Button removeCategoryButton;
-    private Button cancelButton;
 
     public RemoveCategory() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_category, container, false);
+
+        View view = inflater.inflate(R.layout.remove_category, container, false);
 
         shopping = (Shopping) getActivity();
         categoryData = shopping.getCategoryData();
         dbCategoryHelper = new DBCategoryHelper(getActivity());
 
-        removeCategoryButton = view.findViewById(R.id.removeCategoryButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeCategoryButton = view.findViewById(R.id.removeCategoryButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
         categorySpinner = view.findViewById(R.id.categorySpinner);
@@ -47,7 +44,7 @@ public class RemoveCategory extends Fragment {
                 String categoryName = categorySpinner.getSelectedItem().toString();
 
                 if (categoryName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Choose a category to remove.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Remove Category", "Choose a category to remove.");
                     return;
                 }
 
@@ -56,10 +53,8 @@ public class RemoveCategory extends Fragment {
                 for (int i = orderNum + 1; i < categoryData.getCategoryList().size(); i++) {
                     dbCategoryHelper.moveOrderDownOne(i);
                 }
+
                 shopping.updateCategoryData();
-
-                Toast.makeText(getActivity(), "Category has been removed.", Toast.LENGTH_SHORT).show();
-
                 shopping.loadFragment(new FullInventory());
             }
         });
@@ -73,5 +68,4 @@ public class RemoveCategory extends Fragment {
 
         return view;
     }
-
 }

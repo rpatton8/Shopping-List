@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class AddItem extends Fragment {
@@ -19,17 +20,21 @@ public class AddItem extends Fragment {
     private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
+
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
     private EditText itemNameInput;
-    private EditText itemTypeInput;
+    private EditText itemBrandTypeInput;
     private Spinner categorySpinner;
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
+    private EditText quantityInput;
+    private EditText priceInput;
+    private EditText locationInput;
 
     public AddItem() {}
 
@@ -48,28 +53,65 @@ public class AddItem extends Fragment {
         storeData = shopping.getStoreData();
 
         itemNameInput = view.findViewById(R.id.itemNameInput);
-        itemTypeInput = view.findViewById(R.id.itemTypeInput);
+        itemBrandTypeInput = view.findViewById(R.id.itemBrandTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
         Button addItemButton = view.findViewById(R.id.addItemButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
         itemNameInput.setText("");
-        itemTypeInput.setText("");
+        itemBrandTypeInput.setText("");
         itemCategoryInput.setText("");
         itemStoreInput.setText("");
 
+        CheckBox quantityCheckbox = view.findViewById(R.id.quantityCheckbox);
+        quantityInput = view.findViewById(R.id.quantityInput);
+        CheckBox priceCheckbox = view.findViewById(R.id.priceCheckbox);
+        priceInput = view.findViewById(R.id.priceInput);
+        CheckBox locationCheckbox = view.findViewById(R.id.locationCheckbox);
+        locationInput = view.findViewById(R.id.locationInput);
+
+        quantityCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) quantityInput.setVisibility(View.VISIBLE);
+                else quantityInput.setVisibility(View.GONE);
+
+            }
+        });
+
+        priceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) priceInput.setVisibility(View.VISIBLE);
+                else priceInput.setVisibility(View.GONE);
+
+            }
+        });
+
+        locationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) locationInput.setVisibility(View.VISIBLE);
+                else locationInput.setVisibility(View.GONE);
+
+            }
+        });
+
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter1);
+        ArrayAdapter categorySpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categorySpinnerAdapter);
 
         ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeSpinner.setAdapter(adapter2);
+        ArrayAdapter storeSpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        storeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        storeSpinner.setAdapter(storeSpinnerAdapter);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,21 +152,21 @@ public class AddItem extends Fragment {
             public void onClick(View view) {
 
                 String itemName = itemNameInput.getText().toString();
-                String itemType = itemTypeInput.getText().toString();
+                String itemType = itemBrandTypeInput.getText().toString();
                 String itemCategory = itemCategoryInput.getText().toString();
                 String itemStore = itemStoreInput.getText().toString();
 
                 if (itemName.isEmpty() || itemType.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
                     return;
                 } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
                     return;
                 }
 
@@ -162,8 +204,6 @@ public class AddItem extends Fragment {
 
                 shopping.updateItemData();
                 shopping.updateStatusData();
-
-                Toast.makeText(getActivity(), "Item has been added.", Toast.LENGTH_SHORT).show();
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());

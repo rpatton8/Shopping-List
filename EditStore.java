@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EditStore extends Fragment {
@@ -38,7 +37,7 @@ public class EditStore extends Fragment {
         Button editStoreButton = view.findViewById(R.id.editStoreButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        ArrayList<String> spinnerData = storeData.getStoreList();
+        ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
         ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,7 +52,7 @@ public class EditStore extends Fragment {
                 String newStore = storeInput.getText().toString();
 
                 if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                    Toast.makeText(getActivity(), "Change store name to edit.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Store", "Change store name to edit.");
                     return;
                 }
 

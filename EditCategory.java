@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EditCategory extends Fragment {
@@ -38,7 +37,7 @@ public class EditCategory extends Fragment {
         Button editCategoryButton = view.findViewById(R.id.editCategoryButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        ArrayList<String> spinnerData = categoryData.getCategoryList();
+        ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
         categorySpinner = view.findViewById(R.id.categorySpinner);
         ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -53,7 +52,7 @@ public class EditCategory extends Fragment {
                 String newCategory = categoryInput.getText().toString();
 
                 if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                    Toast.makeText(getActivity(), "Change category name to edit.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Category", "Change category name to edit.");
                     return;
                 }
 

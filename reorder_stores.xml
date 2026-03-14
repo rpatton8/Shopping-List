@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,31 +23,37 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/reorderStoresRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
-        android:layout_below="@id/reorderStores"
-        android:layout_marginTop="6dp"
-        android:paddingBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="578dp"
+        android:layout_below="@id/reorderStores"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/reorderStoresRecyclerView">
+        android:layout_height="116dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/space"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/finishReorderingButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/finishReordering"
-            android:layout_margin="10dp"/>
+            android:layout_height="48dp"
+            android:text="@string/finishReordering" />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:layout_margin="10dp"/>
+            android:layout_height="48dp"
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

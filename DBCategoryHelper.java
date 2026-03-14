@@ -11,7 +11,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Categories";
-    private static final int DB_VERSION = 19;
+    private static final int DB_VERSION = 20;
     private static final String TABLE_NAME = "categories";
     private static final String ID = "id";
     private static final String CATEGORY_NAME = "categoryName";
@@ -58,7 +58,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         }
 
         cursor.close();
-            db.close();
+        db.close();
         return categoryData;
     }
 

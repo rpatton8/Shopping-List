@@ -1,5 +1,7 @@
 package ryan.android.shopping;
 
+import android.support.annotation.NonNull;
+
 public class Item implements Comparable<Item> {
 
     private String name;
@@ -66,17 +68,18 @@ public class Item implements Comparable<Item> {
     }
 
     public void printItem() {
+        System.out.println("--------------------------");
         System.out.println("Item Name: " + name);
         System.out.println("Brand/Type: " + brandType);
         System.out.println("Category: " + category.toString());
         System.out.println("Store: " + store.toString());
-        //System.out.println("Status: " + status.toString());
+        System.out.println("Status: " + status.toString());
         System.out.println("Category Order: " + categoryOrder);
         System.out.println("Store Order: " + storeOrder);
     }
 
     @Override
-    public int compareTo(Item item) {
+    public int compareTo(@NonNull Item item) {
         return this.name.compareTo(item.name);
     }
 

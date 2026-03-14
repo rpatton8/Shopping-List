@@ -59,7 +59,7 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/itemTypeInput"
+                    android:id="@+id/itemBrandTypeInput"
                     android:layout_width="360dp"
                     android:layout_height="54dp"
                     android:translationX="16dp"
@@ -152,6 +152,66 @@
 
                 <EditText
                     android:id="@+id/itemStoreInput"
+                    android:layout_width="360dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:translationX="6dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline"
+                    android:visibility="gone"
+                    android:inputType="text" />
+
+                <CheckBox
+                    android:id="@+id/quantityCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Quantity:"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/quantityInput"
+                    android:layout_width="360dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:translationX="6dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline"
+                    android:visibility="gone"
+                    android:inputType="text" />
+
+                <CheckBox
+                    android:id="@+id/priceCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Price:"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/priceInput"
+                    android:layout_width="360dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp"
+                    android:translationX="6dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline"
+                    android:visibility="gone"
+                    android:inputType="text" />
+
+                <CheckBox
+                    android:id="@+id/locationCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Location:"
+                    android:textSize="20sp"/>
+
+                <EditText
+                    android:id="@+id/locationInput"
                     android:layout_width="360dp"
                     android:layout_height="60dp"
                     android:layout_margin="10dp"

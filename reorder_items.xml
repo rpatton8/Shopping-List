@@ -2,7 +2,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,82 +17,194 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold" />
-    
-    <LinearLayout
-        android:id="@+id/item"
+
+    <ScrollView
+        android:id="@+id/reorderItemsScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/reorderItemsTitle"
-        android:layout_marginBottom="10dp">
+        android:layout_below="@id/reorderItemsTitle">
 
-        <TextView
-            android:id="@+id/itemNameInput"
+        <LinearLayout
+            android:id="@+id/scrollViewLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/chooseCategoryToReorder"
-            android:textSize="20sp"/>
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
 
-        <RelativeLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:translationX="16dp"
-            android:background="@drawable/spinner_outline"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/categorySpinner"
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/radio_group_options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:layout_marginStart="5dp"
-                android:spinnerMode="dropdown" />
+                android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@mipmap/triangle_down"
-                android:contentDescription="@string/triangleDown" />
+                <RadioButton
+                    android:id="@+id/categoryRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reorder By Category"
+                    android:textSize="24sp"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="true" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/orText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="--- or ---"
+                    android:textSize="24sp"
+                    android:gravity="center"/>
 
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/storeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reorder By Store"
+                    android:textSize="24sp"
+                    android:layout_gravity="center_horizontal"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reorderItemsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="330dp"
-        android:layout_below="@id/item"
-        android:layout_marginTop="6dp"
-        android:paddingBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/categoryLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/categoryInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/chooseCategoryToReorder"
+                    android:textSize="22sp"/>
+
+                <RelativeLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:translationX="16dp"
+                    android:background="@drawable/spinner_outline"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/categorySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal"
+                        android:layout_marginStart="5dp"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/triangle_down"
+                        android:contentDescription="@string/triangleDown" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/storeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/storeInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/chooseStoreToReorder"
+                    android:textSize="22sp"/>
+
+                <RelativeLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:translationX="16dp"
+                    android:background="@drawable/spinner_outline"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/storeSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal"
+                        android:layout_marginStart="5dp"
+                        android:spinnerMode="dialog" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/triangle_down"
+                        android:contentDescription="@string/triangleDown" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@android:color/holo_blue_dark"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reorderItemsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="578dp"
+                android:layout_marginTop="6dp"/>
+
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="116dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="116dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:orientation="vertical"
-        android:layout_below="@id/reorderItemsRecyclerView">
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/holo_blue_dark"/>
 
         <Button
             android:id="@+id/finishReorderingButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/reorderItems"
-            android:layout_margin="10dp"/>
+            android:layout_height="48dp"
+            android:text="@string/finishReordering" />
 
         <Button
             android:id="@+id/cancelButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:layout_margin="10dp"/>
+            android:layout_height="48dp"
+            android:text="@string/cancel" />
 
     </LinearLayout>
 

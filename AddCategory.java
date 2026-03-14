@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddCategory extends Fragment {
 
@@ -41,15 +40,13 @@ public class AddCategory extends Fragment {
                 String categoryName = categoryInput.getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter a category to add.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Category", "Please enter a category to add.");
                     return;
                 }
 
                 int numCategories = categoryData.getCategoryList().size();
                 dbCategoryHelper.addNewCategory(categoryName, numCategories);
                 shopping.updateCategoryData();
-
-                Toast.makeText(getActivity(), "Category #" + numCategories + " has been added.", Toast.LENGTH_SHORT).show();
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());

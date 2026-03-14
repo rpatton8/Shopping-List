@@ -7,13 +7,15 @@ public class Store {
     private String storeName;
     private ArrayList<Item> storeItems;
 
-    public boolean isExpanded = true;
-    public boolean isContracted = false;
+    private boolean isExpanded;
+    private boolean isContracted;
 
     Store(String name, Item item) {
         this.storeName = name;
         storeItems = new ArrayList<>();
         storeItems.add(item);
+        isExpanded = true;
+        isContracted = false;
     }
 
     public String getName() {
@@ -26,6 +28,24 @@ public class Store {
 
     public ArrayList<Item> getItemList() {
         return storeItems;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setAsExpanded() {
+        isExpanded = true;
+        isContracted = false;
+    }
+
+    public boolean isContracted() {
+        return isContracted;
+    }
+
+    public void setAsContracted() {
+        isExpanded = false;
+        isContracted = true;
     }
 
     @Override

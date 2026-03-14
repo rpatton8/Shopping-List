@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddStore extends Fragment {
 
@@ -41,15 +40,13 @@ public class AddStore extends Fragment {
                 String storeName = storeInput.getText().toString();
 
                 if (storeName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter a store to add.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Add Store", "Please enter a store to add.");
                     return;
                 }
 
                 int numStores = storeData.getStoreList().size();
                 dbStoreHelper.addNewStore(storeName, numStores);
                 shopping.updateStoreData();
-
-                Toast.makeText(getActivity(), "Store #" + numStores + " has been added.", Toast.LENGTH_SHORT).show();
 
                 shopping.hideKeyboard();
                 shopping.loadFragment(new FullInventory());

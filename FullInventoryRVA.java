@@ -140,9 +140,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByCategoryTitleRVH categoryTitleHolder = (SortByCategoryTitleRVH) holder;
 
-                System.out.println("isTitle");
-                System.out.println("Category: " + category);
-                System.out.println("");
+                //System.out.println("isTitle");
+                //System.out.println("Category: " + category);
+                //System.out.println("");
                 categoryTitleHolder.categoryTitleText.setText(category);
                 categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.VISIBLE);
 
@@ -176,7 +176,8 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByCategoryItemRVH categoryItemHolder = (SortByCategoryItemRVH) holder;
 
-                System.out.println("Item: " + thisItem.getName());
+                //System.out.println("Item: " + thisItem.getName());
+                thisItem.printItem();
 
                 //assert thisItem != null;
 
@@ -409,9 +410,9 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByStoreTitleRVH storeTitleHolder = (SortByStoreTitleRVH) holder;
 
-                System.out.println("isTitle");
-                System.out.println("Store: " + store);
-                System.out.println("");
+                //System.out.println("isTitle");
+                //System.out.println("Store: " + store);
+                //System.out.println("");
                 storeTitleHolder.storeTitleText.setText(store);
                 storeTitleHolder.sortByStoreRvTitle.setVisibility(View.VISIBLE);
 
@@ -441,7 +442,8 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
 
                 SortByStoreItemRVH storeItemHolder = (SortByStoreItemRVH) holder;
 
-                System.out.println("Item: " + thisItem.getName());
+                //System.out.println("Item: " + thisItem.getName());
+                thisItem.printItem();
 
                 //assert thisItem != null;
 
@@ -507,11 +509,11 @@ public class FullInventoryRVA extends RecyclerView.Adapter {
             int categories = categoryData.getCategoryList().size();
             System.out.println("# categories = " + categories);*/
 
-            return (itemData.getItemListByCategory().size() + categoryData.getCategoryList().size());
+            return (itemData.getItemListAZ().size() + categoryData.getCategoryList().size());
 
         } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
 
-            return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
+            return (itemData.getItemListAZ().size() + storeData.getStoreList().size());
 
         } else return -1;
     }

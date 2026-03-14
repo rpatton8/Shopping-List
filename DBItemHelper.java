@@ -11,7 +11,7 @@ class DBItemHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = "Shopping";
-    private static final int DB_VERSION = 19;
+    private static final int DB_VERSION = 20;
     private static final String TABLE_NAME = "shopping";
     private static final String ID = "id";
     private static final String ITEM_NAME = "itemName";
@@ -51,13 +51,11 @@ class DBItemHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " ORDER BY " + CATEGORY + ", " + CATEGORY_ORDER, null);
 
         if (cursor.moveToFirst()) {
-
             do { itemData.readLineOfDataByCategory(cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(5));
-                System.out.println("Category = " + cursor.getString(3) + ", Order = " + cursor.getInt(5));
             } while (cursor.moveToNext());
         }
 
@@ -77,7 +75,6 @@ class DBItemHelper extends SQLiteOpenHelper {
                     cursor.getString(3),
                     cursor.getString(4),
                     cursor.getInt(6));
-                System.out.println("Store = " + cursor.getString(4) + ", Order = " + cursor.getInt(6));
             } while (cursor.moveToNext());
         }
 
@@ -158,15 +155,15 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         ContentValues values1 = new ContentValues();
         values1.put(CATEGORY_ORDER, -1);
-        db.update(TABLE_NAME, values1, "category=? AND itemOrder=?", new String[]{category, Integer.toString(order1)});
+        db.update(TABLE_NAME, values1, "category=? AND itemCategoryOrder=?", new String[]{category, Integer.toString(order1)});
 
         ContentValues values2 = new ContentValues();
         values2.put(CATEGORY_ORDER, order1);
-        db.update(TABLE_NAME, values2, "category=? AND itemOrder=?", new String[]{category, Integer.toString(order2)});
+        db.update(TABLE_NAME, values2, "category=? AND itemCategoryOrder=?", new String[]{category, Integer.toString(order2)});
 
         ContentValues values3 = new ContentValues();
         values3.put(CATEGORY_ORDER, order2);
-        db.update(TABLE_NAME, values3, "category=? AND itemOrder=?", new String[]{category, Integer.toString(-1)});
+        db.update(TABLE_NAME, values3, "category=? AND itemCategoryOrder=?", new String[]{category, Integer.toString(-1)});
 
         db.close();
     }
@@ -177,15 +174,15 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         ContentValues values1 = new ContentValues();
         values1.put(STORE_ORDER, -1);
-        db.update(TABLE_NAME, values1, "store=? AND itemOrder=?", new String[]{store, Integer.toString(order1)});
+        db.update(TABLE_NAME, values1, "store=? AND itemStoreOrder=?", new String[]{store, Integer.toString(order1)});
 
         ContentValues values2 = new ContentValues();
         values2.put(STORE_ORDER, order1);
-        db.update(TABLE_NAME, values2, "store=? AND itemOrder=?", new String[]{store, Integer.toString(order2)});
+        db.update(TABLE_NAME, values2, "store=? AND itemStoreOrder=?", new String[]{store, Integer.toString(order2)});
 
         ContentValues values3 = new ContentValues();
         values3.put(STORE_ORDER, order2);
-        db.update(TABLE_NAME, values3, "store=? AND itemOrder=?", new String[]{store, Integer.toString(-1)});
+        db.update(TABLE_NAME, values3, "store=? AND itemStoreOrder=?", new String[]{store, Integer.toString(-1)});
 
         db.close();
     }
@@ -196,7 +193,7 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(CATEGORY_ORDER, orderNum - 1);
-        db.update(TABLE_NAME, values, "category=? AND itemOrder=?", new String[]{category, Integer.toString(orderNum)});
+        db.update(TABLE_NAME, values, "category=? AND itemCategoryOrder=?", new String[]{category, Integer.toString(orderNum)});
 
         db.close();
     }
@@ -207,7 +204,7 @@ class DBItemHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(STORE_ORDER, orderNum - 1);
-        db.update(TABLE_NAME, values, "store=? AND itemOrder=?", new String[]{store, Integer.toString(orderNum)});
+        db.update(TABLE_NAME, values, "store=? AND itemStoreOrder=?", new String[]{store, Integer.toString(orderNum)});
 
         db.close();
     }

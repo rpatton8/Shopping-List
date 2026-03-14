@@ -7,25 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class RemoveItem extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
-
     private EditText itemNameInput;
-    private Button removeItemButton;
-    private Button cancelButton;
 
     public RemoveItem() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_item, container, false);
+
+        View view = inflater.inflate(R.layout.remove_item, container, false);
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
@@ -33,8 +29,8 @@ public class RemoveItem extends Fragment {
         dbStatusHelper = new DBStatusHelper(getActivity());
 
         itemNameInput = view.findViewById(R.id.itemNameInput);
-        removeItemButton = view.findViewById(R.id.removeItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeItemButton = view.findViewById(R.id.removeItemButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
@@ -49,17 +45,24 @@ public class RemoveItem extends Fragment {
                 String itemName = itemNameInput.getText().toString();
 
                 if (itemName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter item name to remove.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
                     return;
                 }
 
                 Item item = itemData.getItemMap().get(itemName);
                 String category = item.getCategory().toString();
-                int orderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
-                dbItemHelper.deleteItem(itemName);
-                for (int i = orderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
+                int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
+                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
                     dbItemHelper.moveOrderDownOneByCategory(category, i);
                 }
+
+                String store = item.getStore().toString();
+                int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
+                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
+                    dbItemHelper.moveOrderDownOneByStore(store, i);
+                }
+
+                dbItemHelper.deleteItem(itemName);
                 dbStatusHelper.deleteStatus(itemName);
                 shopping.updateItemData();
                 shopping.updateStatusData();
@@ -69,8 +72,6 @@ public class RemoveItem extends Fragment {
                 } else if (shopping.editItemInShoppingList) {
                     shopping.itemIsSelectedInShoppingList = false;
                 }
-
-                Toast.makeText(getActivity(), "Item has been removed.", Toast.LENGTH_SHORT).show();
 
                 shopping.loadFragment(new FullInventory());
             }

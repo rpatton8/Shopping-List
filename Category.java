@@ -7,13 +7,15 @@ public class Category {
     private String categoryName;
     private ArrayList<Item> categoryItems;
 
-    public boolean isExpanded = true;
-    public boolean isContracted = false;
+    private boolean isExpanded;
+    private boolean isContracted;
 
-    public Category(String name, Item item) {
+    Category(String name, Item item) {
         this.categoryName = name;
         categoryItems = new ArrayList<>();
         categoryItems.add(item);
+        isExpanded = true;
+        isContracted = false;
     }
 
     public String getName() {
@@ -26,6 +28,24 @@ public class Category {
 
     public ArrayList<Item> getItemList() {
         return categoryItems;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setAsExpanded() {
+        isExpanded = true;
+        isContracted = false;
+    }
+
+    public boolean isContracted() {
+        return isContracted;
+    }
+
+    public void setAsContracted() {
+        isExpanded = false;
+        isContracted = true;
     }
 
     @Override

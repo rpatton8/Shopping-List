@@ -31,7 +31,7 @@ public class ShoppingList extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         container.removeAllViews();
         View view = inflater.inflate(R.layout.shopping_list, container, false);

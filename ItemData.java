@@ -51,8 +51,8 @@ public class ItemData {
 
     public void updateStatuses(StatusData statusData) {
         Map<String, Status> statusMap = statusData.getStatusMap();
-        for(int i = 0; i < itemsByCategory.size(); i++) {
-            itemsByCategory.get(i).setStatus(statusMap.get(itemsByCategory.get(i).getName()));
+        for(int i = 0; i < itemsAZ.size(); i++) {
+            itemsAZ.get(i).setStatus(statusMap.get(itemsAZ.get(i).getName()));
         }
     }
 
@@ -66,6 +66,7 @@ public class ItemData {
             newItem.setCategoryOrder(itemCategoryOrder);
         } else {
             // item already exists
+            itemMap.get(item).setCategoryOrder(itemCategoryOrder);
             return;
         }
         if (!categoryMap.containsKey(category)) {
@@ -86,15 +87,16 @@ public class ItemData {
         newItem.setStore(newStore);
         itemMap.put(item, newItem);
         itemsByCategory.add(newItem);
-        insertSorted(itemsAZ, newItem);
+        insertSorted(itemsAZ, newItem);  // alphabetical
 
     }
 
     public void readLineOfDataByStore(String item, String brandType, String category, String store, int itemStoreOrder) {
 
-        Item thisItem = itemMap.get(item);
-        thisItem.setStoreOrder(itemStoreOrder);
-        itemsByStore.add(thisItem);
+        itemMap.get(item).setStoreOrder(itemStoreOrder);
+        if (itemsByStore.contains(itemMap.get(item))) return;
+        itemsByStore.add(itemMap.get(item));
+
     }
 
     private void insertSorted(LinkedList<Item> list, Item item) {
@@ -116,17 +118,17 @@ public class ItemData {
         System.out.println("itemsAZ:");
         for (int i = 1; i <= itemsAZ.size(); i++) {
             Item item = itemsAZ.get(i - 1);
-            System.out.println("az item #" + i + " = " + item.getName());
+            System.out.println("az item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
         System.out.println("itemsByCategory:");
         for (int i = 1; i <= itemsByCategory.size(); i++) {
             Item item = itemsByCategory.get(i - 1);
-            System.out.println("category item #" + i + " = " + item.getName());
+            System.out.println("category item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
         System.out.println("itemsByStore:");
         for (int i = 1; i <= itemsByStore.size(); i++) {
             Item item = itemsByStore.get(i - 1);
-            System.out.println("store item #" + i + " = " + item.getName());
+            System.out.println("store item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
     }
 }

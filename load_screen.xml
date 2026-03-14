@@ -37,7 +37,7 @@
         android:text="@string/clearAllData" />
 
     <Button
-        android:id="@+id/loadSampleData1"
+        android:id="@+id/loadSampleData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

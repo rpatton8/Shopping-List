@@ -33,6 +33,7 @@ public class FullInventory extends Fragment {
     private Shopping shopping;
     private FullInventoryRVA adapter;
     private View rootView;
+    private ItemData itemData;
 
     private String currentBottomMenu;
     private static final String MENU_ITEM = "item";
@@ -74,7 +75,7 @@ public class FullInventory extends Fragment {
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         container.removeAllViews();
         View view = inflater.inflate(R.layout.full_inventory, container, false);
@@ -100,12 +101,11 @@ public class FullInventory extends Fragment {
         DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
 
         shopping = (Shopping) getActivity();
-        final ItemData itemData = shopping.getItemData();
-        final StatusData statusData = shopping.getStatusData();
-        final CategoryData categoryData = shopping.getCategoryData();
-        final StoreData storeData = shopping.getStoreData();
+        itemData = shopping.getItemData();
+        StatusData statusData = shopping.getStatusData();
+        CategoryData categoryData = shopping.getCategoryData();
+        StoreData storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
-        //itemData.printData();
 
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);

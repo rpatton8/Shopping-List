@@ -8,32 +8,29 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class RemoveStore extends Fragment {
 
-    private View view;
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
 
     private Spinner storeSpinner;
-    private Button removeStoreButton;
-    private Button cancelButton;
 
     public RemoveStore() {}
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.remove_store, container, false);
+
+        View view = inflater.inflate(R.layout.remove_store, container, false);
 
         shopping = (Shopping) getActivity();
         storeData = shopping.getStoreData();
         dbStoreHelper = new DBStoreHelper(getActivity());
 
-        removeStoreButton = view.findViewById(R.id.removeStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        Button removeStoreButton = view.findViewById(R.id.removeStoreButton);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
 
         ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
@@ -47,7 +44,7 @@ public class RemoveStore extends Fragment {
                 String storeName = storeSpinner.getSelectedItem().toString();
 
                 if (storeName.isEmpty()) {
-                    Toast.makeText(getActivity(), "Choose a store to remove.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Remove Store", "Choose a store to remove.");
                     return;
                 }
 
@@ -56,10 +53,8 @@ public class RemoveStore extends Fragment {
                 for (int i = orderNum + 1; i < storeData.getStoreList().size(); i++) {
                     dbStoreHelper.moveOrderDownOne(i);
                 }
+
                 shopping.updateStoreData();
-
-                Toast.makeText(getActivity(), "Store has been removed.", Toast.LENGTH_SHORT).show();
-
                 shopping.loadFragment(new FullInventory());
             }
         });

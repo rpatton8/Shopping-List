@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 import java.util.ArrayList;
 
 public class EditItem extends Fragment {
@@ -139,30 +138,17 @@ public class EditItem extends Fragment {
                 String itemStore = itemStoreInput.getText().toString();
 
                 if (newItemName.isEmpty() || itemType.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
                     return;
                 } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please enter all the data.", Toast.LENGTH_SHORT).show();
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
                     return;
-                }
-
-                String isInStock = "false";
-                String isNeeded = "false";
-                String isPaused = "false";
-                if(shopping.editItemInInventory) {
-                    if (shopping.selectedItemInInventory.getStatus().isInStock()) isInStock = "true";
-                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isNeeded = "true";
-                    else if (shopping.selectedItemInInventory.getStatus().isNeeded()) isPaused = "true";
-                } else if (shopping.editItemInShoppingList) {
-                    if (shopping.selectedItemInShoppingList.getStatus().isInStock()) isInStock = "true";
-                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isNeeded = "true";
-                    else if (shopping.selectedItemInShoppingList.getStatus().isNeeded()) isPaused = "true";
                 }
 
                 if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
@@ -196,8 +182,6 @@ public class EditItem extends Fragment {
                     shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
                 }
 
-                Toast.makeText(getActivity(), "Item has been edited.", Toast.LENGTH_SHORT).show();
-
                 shopping.hideKeyboard();
                 if(shopping.editItemInInventory) {
                     shopping.loadFragment(new FullInventory());
@@ -221,5 +205,4 @@ public class EditItem extends Fragment {
 
         return view;
     }
-
 }
