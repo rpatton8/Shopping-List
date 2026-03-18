@@ -682,7 +682,7 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper.addNewStatus("Caramel Popcorn", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 21);
-        //dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
+        dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
 
         categoryData.getCategoryViewAllMap().put("Snacks", 22);
         categoryData.getCategoryViewInStockMap().put("Snacks", 0);
@@ -719,7 +719,7 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 8);
         dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "Jell-O No Bake", "Desserts", "Walmart", 9);
+        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 9);
         dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 10);
@@ -760,8 +760,8 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Dark Choc. M&M's", "na", "Candy", "Target", 8);
         dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Caramel Squares", "na", "Candy", "Sprouts", 9);
-        dbStatusHelper.addNewStatus("Caramel Squares", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 9);
+        dbStatusHelper.addNewStatus("Sea Salt Caramels", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Jelly Beans", "Sizzling Cinnamon", "Candy", "Amazon", 10);
         dbStatusHelper.addNewStatus("Jelly Beans", "paused", "unchecked");
@@ -790,11 +790,17 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Sixlets", "na", "Candy", "Amazon", 18);
         dbStatusHelper.addNewStatus("Sixlets", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Candy", 19);
+        dbItemHelper.addNewItemByCategory("Red Hots", "na", "Candy", "Dollar Tree", 19);
+        dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 20);
+        dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+
+        categoryData.getCategoryViewAllMap().put("Candy", 21);
         categoryData.getCategoryViewInStockMap().put("Candy", 0);
         categoryData.getCategoryViewNeededMap().put("Candy", 0);
-        categoryData.getCategoryViewPausedMap().put("Candy", 19);
-        dbCategoryHelper.setCategoryViews("Candy", 19, 0, 0, 19);
+        categoryData.getCategoryViewPausedMap().put("Candy", 21);
+        dbCategoryHelper.setCategoryViews("Candy", 21, 0, 0, 21);
 
         //------------------------------------Pet Supplies-------------------------------------------
 
@@ -882,7 +888,7 @@ public class Shopping extends AppCompatActivity {
         dbStatusHelper.addNewStatus("Sunscreen", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Moisturizing Lotion", "CVS Health w/ hyaluronic acid", "Toiletries", "CVS", 13);
-        //dbStatusHelper.addNewStatus("Moisturizing Lotion", "paused", "unchecked");
+        dbStatusHelper.addNewStatus("Moisturizing Lotion", "paused", "unchecked");
 
         categoryData.getCategoryViewAllMap().put("Toiletries", 14);
         categoryData.getCategoryViewInStockMap().put("Toiletries", 0);
@@ -1013,7 +1019,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 208
+        // total category items = 210
 
     }
 
@@ -1464,7 +1470,7 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Oreo Muffins", "12 pack", "Desserts", "Costco", 5);
         //dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 6);
+        dbItemHelper.addNewItemByStore("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 6);
         //dbStatusHelper.addNewStatus("Crispy Buffalo Wings", "paused", "unchecked");
 
         storeData.getStoreViewAllMap().put("Costco", 7);
@@ -1499,14 +1505,11 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("72% Intense Dark Chocolate", "Ghiradelli", "Candy", "Walmart", 7);
         //dbStatusHelper.addNewStatus("72% Intense Dark Chocolate", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Oreo Pie Mix", "Jell-O No Bake", "Desserts", "Walmart", 8);
-        //dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
-
-        storeData.getStoreViewAllMap().put("Walmart", 9);
+        storeData.getStoreViewAllMap().put("Walmart", 8);
         storeData.getStoreViewInStockMap().put("Walmart", 0);
         storeData.getStoreViewNeededMap().put("Walmart", 0);
-        storeData.getStoreViewPausedMap().put("Walmart", 9);
-        dbStoreHelper.setStoreViews("Walmart", 9, 0, 0, 9);
+        storeData.getStoreViewPausedMap().put("Walmart", 8);
+        dbStoreHelper.setStoreViews("Walmart", 8, 0, 0, 8);
 
         //------------------------------------Amazon------------------------------------------------
 
@@ -1568,31 +1571,31 @@ public class Shopping extends AppCompatActivity {
         //dbStatusHelper.addNewStatus("Little Trees Air Fresheners", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Triple Omega", "Nature Made", "Supplements", "Amazon", 19);
-        dbStatusHelper.addNewStatus("Triple Omega", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Triple Omega", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Multivitamin", "One a Day Men's", "Supplements", "Amazon", 20);
-        dbStatusHelper.addNewStatus("Multivitamin", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Multivitamin", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Vitamin C", "Amazon Elements 1000 mg", "Supplements", "Amazon", 21);
-        dbStatusHelper.addNewStatus("Vitamin C", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Vitamin C", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Magnesium", "Nature Made 400mg", "Supplements", "Amazon", 22);
-        dbStatusHelper.addNewStatus("Magnesium", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Magnesium", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Zinc", "Sandhu Herbals 50mg", "Supplements", "Amazon", 23);
-        dbStatusHelper.addNewStatus("Zinc", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Zinc", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Calcium", "Nature's Truth 1200 mg", "Supplements", "Amazon", 24);
-        dbStatusHelper.addNewStatus("Calcium", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Calcium", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Biotin", "Natrol 10,000mcg", "Supplements", "Amazon", 25);
-        dbStatusHelper.addNewStatus("Biotin", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Biotin", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Vitamin D3", "Nature Made 5000 IU", "Supplements", "Amazon", 26);
-        dbStatusHelper.addNewStatus("Vitamin D3", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Vitamin D3", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Hyaluronic Acid", "Horbaach 1000mg", "Supplements", "Amazon", 27);
-        dbStatusHelper.addNewStatus("Hyaluronic Acid", "paused", "unchecked");
+        //dbStatusHelper.addNewStatus("Hyaluronic Acid", "paused", "unchecked");
 
         storeData.getStoreViewAllMap().put("Amazon", 28);
         storeData.getStoreViewInStockMap().put("Amazon", 0);
@@ -1628,11 +1631,14 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 0);
         //dbStatusHelper.addNewStatus("Hold the Cone", "paused", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Trader Joe's", 1);
+        dbItemHelper.addNewItemByStore("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 1);
+        //dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+
+        storeData.getStoreViewAllMap().put("Trader Joe's", 2);
         storeData.getStoreViewInStockMap().put("Trader Joe's", 0);
         storeData.getStoreViewNeededMap().put("Trader Joe's", 0);
-        storeData.getStoreViewPausedMap().put("Trader Joe's", 1);
-        dbStoreHelper.setStoreViews("Trader Joe's", 1, 0, 0, 1);
+        storeData.getStoreViewPausedMap().put("Trader Joe's", 2);
+        dbStoreHelper.setStoreViews("Trader Joe's", 2, 0, 0, 2);
 
         //------------------------------------CVS---------------------------------------------------
 
@@ -1669,17 +1675,20 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Smarties", "na", "Candy", "Dollar Tree", 1);
         //dbStatusHelper.addNewStatus("Smarties", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 2);
+        dbItemHelper.addNewItemByStore("Red Hots", "na", "Candy", "Dollar Tree", 2);
+        //dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 3);
         //dbStatusHelper.addNewStatus("Hand Soap", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 3);
+        dbItemHelper.addNewItemByStore("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 4);
         //dbStatusHelper.addNewStatus("Ramen Noodles", "paused", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Dollar Tree", 4);
+        storeData.getStoreViewAllMap().put("Dollar Tree", 5);
         storeData.getStoreViewInStockMap().put("Dollar Tree", 0);
         storeData.getStoreViewNeededMap().put("Dollar Tree", 0);
-        storeData.getStoreViewPausedMap().put("Dollar Tree", 4);
-        dbStoreHelper.setStoreViews("Dollar Tree", 4, 0, 0, 4);
+        storeData.getStoreViewPausedMap().put("Dollar Tree", 5);
+        dbStoreHelper.setStoreViews("Dollar Tree", 5, 0, 0, 5);
 
         //------------------------------------Ralphs------------------------------------------------
 
@@ -1703,11 +1712,17 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Dark Choc. M&M's", "na", "Candy", "Target", 2);
         //dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Target", 3);
+        dbItemHelper.addNewItemByStore("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 3);
+        //dbStatusHelper.addNewStatus("Sea Salt Caramels", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 4);
+        //dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
+
+        storeData.getStoreViewAllMap().put("Target", 5);
         storeData.getStoreViewInStockMap().put("Target", 0);
         storeData.getStoreViewNeededMap().put("Target", 0);
-        storeData.getStoreViewPausedMap().put("Target", 3);
-        dbStoreHelper.setStoreViews("Target", 3, 0, 0, 3);
+        storeData.getStoreViewPausedMap().put("Target", 5);
+        dbStoreHelper.setStoreViews("Target", 5, 0, 0, 5);
 
         //------------------------------------Pet Supplies Plus-------------------------------------
 
@@ -1722,20 +1737,17 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Sprouts-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Caramel Squares", "na", "Candy", "Sprouts", 0);
-        //dbStatusHelper.addNewStatus("Caramel Squares", "paused", "unchecked");
-
-        dbItemHelper.addNewItemByStore("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 1);
+        dbItemHelper.addNewItemByStore("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 0);
         //dbStatusHelper.addNewStatus("Bar Soap", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 2);
+        dbItemHelper.addNewItemByStore("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 1);
         //dbStatusHelper.addNewStatus("Toothbrush Heads", "paused", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Sprouts", 3);
+        storeData.getStoreViewAllMap().put("Sprouts", 2);
         storeData.getStoreViewInStockMap().put("Sprouts", 0);
         storeData.getStoreViewNeededMap().put("Sprouts", 0);
-        storeData.getStoreViewPausedMap().put("Sprouts", 3);
-        dbStoreHelper.setStoreViews("Sprouts", 3, 0, 0, 3);
+        storeData.getStoreViewPausedMap().put("Sprouts", 2);
+        dbStoreHelper.setStoreViews("Sprouts", 2, 0, 0, 2);
 
         //------------------------------------Sam's Club--------------------------------------------
 
@@ -1786,7 +1798,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 208
+        // total store items = 210
 
     }
 

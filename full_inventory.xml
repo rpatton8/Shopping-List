@@ -51,6 +51,7 @@
             android:id="@+id/searchBox"
             android:layout_width="270dp"
             android:layout_height="match_parent"
+            android:hint="@string/space"
             android:inputType="text"
             android:textSize="22sp"/>
 
@@ -61,6 +62,8 @@
             android:background="@mipmap/clear_button" />
 
     </LinearLayout>
+
+    <!-- Search Results Popup goes here. -->
 
     <TextView
         android:id="@+id/voiceSearchButton"

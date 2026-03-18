@@ -25,7 +25,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
-
 import static android.app.Activity.RESULT_OK;
 
 public class FullInventory extends Fragment {
@@ -55,7 +54,6 @@ public class FullInventory extends Fragment {
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     private RecyclerView fullInventoryRecyclerView;
-
     private TextView fullInventoryTitle;
     private EditText searchBox;
     private LinearLayout searchPopup;
@@ -498,7 +496,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - All");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -525,7 +523,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - In Stock");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -552,7 +550,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - Needed");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
@@ -579,7 +577,7 @@ public class FullInventory extends Fragment {
                 } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText("Alphabetical - Paused");
                     //adapter.notifyDataSetChanged();
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         adapter.notifyItemChanged(i);
                     }
                 }
