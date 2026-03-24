@@ -32,11 +32,12 @@ public class RemoveItem extends Fragment {
         Button removeItemButton = view.findViewById(R.id.removeItemButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        if(shopping.editItemInInventory) {
+        /*if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
         } else if (shopping.editItemInShoppingList) {
             itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
-        }
+        }*/
+        itemNameInput.setText(shopping.selectedItemInInventory.getName());
 
         removeItemButton.setOnClickListener(new View.OnClickListener() {
             @Override

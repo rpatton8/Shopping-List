@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Category {
 
-    private String categoryName;
-    private ArrayList<Item> categoryItems;
+    private final String categoryName;
+    private final ArrayList<Item> categoryItems;
 
     private boolean isExpanded;
     private boolean isContracted;

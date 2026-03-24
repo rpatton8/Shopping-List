@@ -8,13 +8,13 @@ import java.util.Map;
 
 public class ItemData {
 
-    private LinkedList<Item> itemsAZ;
-    private ArrayList<Item> itemsByCategory;
-    private ArrayList<Item> itemsByStore;
+    private final LinkedList<Item> itemsAZ;
+    private final ArrayList<Item> itemsByCategory;
+    private final ArrayList<Item> itemsByStore;
 
-    private Map<String, Item> itemMap;
-    private Map<String, Category> categoryMap;
-    private Map<String, Store> storeMap;
+    private final Map<String, Item> itemMap;
+    private final Map<String, Category> categoryMap;
+    private final Map<String, Store> storeMap;
 
     public ItemData() {
         itemsAZ = new LinkedList<>();
@@ -75,6 +75,7 @@ public class ItemData {
         } else {
             // category already exists
             newCategory = categoryMap.get(category);
+            categoryMap.get(category).addItem(newItem);
         }
         if (!storeMap.containsKey(store)) {
             newStore = new Store(store, newItem);
@@ -82,11 +83,13 @@ public class ItemData {
         } else {
             // store already exists
             newStore = storeMap.get(store);
+            storeMap.get(store).addItem(newItem);
         }
         newItem.setCategory(newCategory);
         newItem.setStore(newStore);
         itemMap.put(item, newItem);
         itemsByCategory.add(newItem);
+
         insertSorted(itemsAZ, newItem);  // alphabetical
 
     }
@@ -118,17 +121,20 @@ public class ItemData {
         System.out.println("itemsAZ:");
         for (int i = 1; i <= itemsAZ.size(); i++) {
             Item item = itemsAZ.get(i - 1);
-            System.out.println("az item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println("az item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
+                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
         System.out.println("itemsByCategory:");
         for (int i = 1; i <= itemsByCategory.size(); i++) {
             Item item = itemsByCategory.get(i - 1);
-            System.out.println("category item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println("category item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
+                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
         System.out.println("itemsByStore:");
         for (int i = 1; i <= itemsByStore.size(); i++) {
             Item item = itemsByStore.get(i - 1);
-            System.out.println("store item #" + i + " = " + item.getName() + "; category order (" + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println("store item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
+                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
         }
     }
 }

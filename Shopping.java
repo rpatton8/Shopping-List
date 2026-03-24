@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class Shopping extends AppCompatActivity {
     public static final String INVENTORY_PAUSED = "view paused";
 
     public String inventorySortBy;
-    public String defaultSortBy = SORT_BY_CATEGORY;
+    public String defaultSortBy;
     public static final String SORT_BY_CATEGORY = "category";
     public static final String SORT_BY_STORE = "store";
     public static final String SORT_ALPHABETICAL = "alphabetical";
@@ -65,7 +66,7 @@ public class Shopping extends AppCompatActivity {
     public Parcelable reorderCategoriesViewState;
     public Parcelable reorderStoresViewState;
     public Parcelable reorderItemsRecyclerViewState;
-    public Parcelable reorderItemsScrollViewState;
+    //public Parcelable reorderItemsScrollViewState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,8 @@ public class Shopping extends AppCompatActivity {
         setContentView(R.layout.shopping);
 
         initializeData();
-        itemData.printData();
+        loadSharedPreferences();
+        //itemData.printData();
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +162,26 @@ public class Shopping extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    private void loadSharedPreferences() {
+        SharedPreferences sharedPref = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+        String defaultSortBy = sharedPref.getString("default_sort_by", "Default Sort By");
+
+        switch (defaultSortBy) {
+            case "alphabetical":
+                this.defaultSortBy = SORT_ALPHABETICAL;
+                inventorySortBy = SORT_ALPHABETICAL;
+                break;
+            case "category":
+                this.defaultSortBy = SORT_BY_CATEGORY;
+                inventorySortBy = SORT_BY_CATEGORY;
+                break;
+            case "store":
+                this.defaultSortBy = SORT_BY_STORE;
+                inventorySortBy = SORT_BY_STORE;
+                break;
+        }
+    }
+
     public void clearAllData() {
         dbItemHelper.deleteDatabase();
         dbStatusHelper.deleteDatabase();
@@ -199,7 +221,7 @@ public class Shopping extends AppCompatActivity {
         editItemInShoppingList = false;
 
         inventoryView = INVENTORY_ALL;
-        inventorySortBy = SORT_BY_CATEGORY;
+        inventorySortBy = defaultSortBy;
         categoryTitles = TITLES_EXPANDED;
         storeTitles = TITLES_EXPANDED;
         itemExpansion = ITEMS_CONTRACTED;

@@ -12,11 +12,11 @@ import java.util.Objects;
 
 public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStoresRVH> {
 
-    private Shopping shopping;
-    private ItemData itemData;
-    private StoreData storeData;
-    private DBStoreHelper dbStoreHelper;
-    private RecyclerView recyclerView;
+    private final Shopping shopping;
+    private final ItemData itemData;
+    private final StoreData storeData;
+    private final DBStoreHelper dbStoreHelper;
+    private final RecyclerView recyclerView;
 
     ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
         this.shopping = shopping;
@@ -51,15 +51,15 @@ public class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.Reor
 
     public static class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
-        private ItemData itemData;
-        private StoreData storeData;
-        private DBStoreHelper dbStoreHelper;
-        private RecyclerView recyclerView;
+        private final Shopping shopping;
+        private final ItemData itemData;
+        private final StoreData storeData;
+        private final DBStoreHelper dbStoreHelper;
+        private final RecyclerView recyclerView;
 
-        public TextView storeName;
-        public ImageView arrowDown;
-        public ImageView arrowUp;
+        final TextView storeName;
+        final ImageView arrowDown;
+        final ImageView arrowUp;
 
         ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
                          ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {

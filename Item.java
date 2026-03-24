@@ -23,7 +23,7 @@ public class Item implements Comparable<Item> {
         return name;
     }
 
-    public String getBrand() {
+    public String getBrandType() {
         return brandType;
     }
 

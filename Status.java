@@ -118,6 +118,10 @@ public class Status {
         return isChecked;
     }
 
+    public Boolean isUnchecked() {
+        return !isChecked;
+    }
+
     public Boolean isInStock() {
         return isInStock;
     }

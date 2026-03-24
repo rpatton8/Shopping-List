@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class ShoppingListRVA extends RecyclerView.Adapter {
+class ShoppingListRVA extends RecyclerView.Adapter {
 
-    private Shopping shopping;
-    private ItemData itemData;
-    private StoreData storeData;
+    private final Shopping shopping;
+    private final ItemData itemData;
+    private final StoreData storeData;
 
     ShoppingListRVA(Shopping shopping, ItemData itemData, StoreData storeData) {
         this.shopping = shopping;
@@ -47,11 +47,15 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.shopping_list_rv_title) {
-            return new ShoppingListTitleRVH(view);
-        } else if (viewType == R.layout.shopping_list_rv_item) {
-            return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
-        } else return new RecyclerView.ViewHolder(view) {};
+        switch (viewType) {
+            case R.layout.shopping_list_rv_title:
+                return new ShoppingListTitleRVH(view);
+            case R.layout.shopping_list_rv_item:
+                return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
+            default:
+                return new RecyclerView.ViewHolder(view) {
+                };
+        }
     }
 
     @Override
@@ -60,7 +64,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         Item thisItem = null;
         String store = null;
         boolean isTitle = false;
-        int adjustedPosition = 0;
+        int adjustedPosition;
 
         if (position == 0) {
             isTitle = true;
@@ -113,7 +117,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                 if (thisItem.getStatus().isExpandedInShoppingList()) {
                     itemHolder.itemSmallName.setText(thisItem.getName());
                     itemHolder.itemLargeName.setText(thisItem.getName());
-                    itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                    itemHolder.itemLargeBrand.setText(thisItem.getBrandType());
 
                     itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
@@ -124,7 +128,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                 } else {
                     itemHolder.itemSmallName.setText(thisItem.getName());
                     itemHolder.itemLargeName.setText(thisItem.getName());
-                    itemHolder.itemLargeBrand.setText(thisItem.getBrand());
+                    itemHolder.itemLargeBrand.setText(thisItem.getBrandType());
 
                     itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
 
@@ -138,7 +142,7 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     itemHolder.checkboxUncheckedLarge.setVisibility(View.GONE);
                     itemHolder.checkboxCheckedSmall.setVisibility(View.VISIBLE);
                     itemHolder.checkboxCheckedLarge.setVisibility(View.VISIBLE);
-                } else {
+                } else if (thisItem.getStatus().isUnchecked()) {
                     itemHolder.checkboxCheckedSmall.setVisibility(View.GONE);
                     itemHolder.checkboxCheckedLarge.setVisibility(View.GONE);
                     itemHolder.checkboxUncheckedSmall.setVisibility(View.VISIBLE);
@@ -182,9 +186,9 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
 
     }
 
-    public static class ShoppingListTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView shoppingListRvTitle;
+        private final TextView shoppingListRvTitle;
 
         ShoppingListTitleRVH(View itemView) {
 
@@ -200,27 +204,27 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    public static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
-        private ShoppingListRVA adapter;
-        private ItemData itemData;
-        private StoreData storeData;
+        private final Shopping shopping;
+        private final ShoppingListRVA adapter;
+        private final ItemData itemData;
+        private final StoreData storeData;
 
-        public Button triangleRight;
-        public Button triangleDown;
-        public LinearLayout itemSmall;
-        public LinearLayout itemLarge;
-        public TextView itemSmallName;
-        public TextView itemLargeName;
-        public ImageView checkboxUncheckedSmall;
-        public ImageView checkboxCheckedSmall;
-        public ImageView checkboxUncheckedLarge;
-        public ImageView checkboxCheckedLarge;
-        public TextView itemLargeBrand;
-        public TextView itemLargeBrandLabel;
-        public TextView itemLargeCategory;
-        public TextView itemLargeCategoryLabel;
+        final Button triangleRight;
+        final Button triangleDown;
+        final LinearLayout itemSmall;
+        final LinearLayout itemLarge;
+        final TextView itemSmallName;
+        final TextView itemLargeName;
+        final ImageView checkboxUncheckedSmall;
+        final ImageView checkboxCheckedSmall;
+        final ImageView checkboxUncheckedLarge;
+        final ImageView checkboxCheckedLarge;
+        final TextView itemLargeBrand;
+        final TextView itemLargeBrandLabel;
+        final TextView itemLargeCategory;
+        final TextView itemLargeCategoryLabel;
 
         ShoppingListItemRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
@@ -262,13 +266,12 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
         private void selectOrUnselectItem(int position) {
 
             Item thisItem = null;
-            String store = null;
+            String store;
             boolean isTitle = false;
-            int adjustedPosition = 0;
+            int adjustedPosition;
 
             if (position == 0) {
                 isTitle = true;
-                store = storeData.getStoreList().get(0);
             } else {
                 int index = 0;
                 adjustedPosition = position;
@@ -284,7 +287,6 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
-                        store = storeData.getStoreList().get(i + 1);
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
@@ -340,39 +342,29 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
             }
         }
 
-
         Item getItemWithStores(int position) {
 
+            String store;
             Item thisItem = null;
-            String store = null;
-            boolean isTitle = false;
-            int adjustedPosition = 0;
+            int adjustedPosition;
 
-            if (position == 0) {
-                isTitle = true;
-                store = storeData.getStoreList().get(0);
-            } else {
-                int index = 0;
-                adjustedPosition = position;
-                for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                    store = storeData.getStoreList().get(i);
-                    int numItemsInStore;
-                    if (itemData.getStoreMap().get(store) == null) {
-                        numItemsInStore = 0;
-                    } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
-                    }
-                    index += numItemsInStore;
-                    adjustedPosition--;
-                    if (index == adjustedPosition) {
-                        isTitle = true;
-                        store = storeData.getStoreList().get(i + 1);
-                        break;
-                    } else if (index >= adjustedPosition) {
-                        isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
-                        break;
-                    }
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                store = storeData.getStoreList().get(i);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
+                } else {
+                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                }
+                index += numItemsInStore;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                    break;
                 }
             }
             return thisItem;
@@ -383,14 +375,13 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
             int id = v.getId();
             int position = getAdapterPosition();
 
+            String store;
             Item thisItem = null;
-            String store = null;
             boolean isTitle = false;
-            int adjustedPosition = 0;
+            int adjustedPosition;
 
             if (position == 0) {
                 isTitle = true;
-                store = storeData.getStoreList().get(0);
             } else {
                 int index = 0;
                 adjustedPosition = position;
@@ -406,7 +397,6 @@ public class ShoppingListRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
-                        store = storeData.getStoreList().get(i + 1);
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;

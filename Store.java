@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Store {
 
-    private String storeName;
-    private ArrayList<Item> storeItems;
+    private final String storeName;
+    private final ArrayList<Item> storeItems;
 
     private boolean isExpanded;
     private boolean isContracted;

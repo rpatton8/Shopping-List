@@ -35,8 +35,6 @@ public class ReorderItems extends Fragment {
 
         shopping = (Shopping) getActivity();
         DBItemHelper dbItemHelper = new DBItemHelper(getActivity());
-        DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
-
         ItemData itemData = shopping.getItemData();
         CategoryData categoryData = shopping.getCategoryData();
         StoreData storeData = shopping.getStoreData();

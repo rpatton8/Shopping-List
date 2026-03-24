@@ -90,7 +90,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:layout_marginStart="5dp"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dialog" />
 
                     <ImageView
                         android:layout_width="36dp"
@@ -137,7 +137,7 @@
                         android:background="@android:color/transparent"
                         android:gravity="center"
                         android:layout_marginStart="5dp"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dialog" />
 
                     <ImageView
                         android:layout_width="36dp"
@@ -166,8 +166,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="Quantity:"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/quantity"
                     android:textSize="20sp"/>
 
                 <EditText
@@ -186,8 +186,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="Price:"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/price"
                     android:textSize="20sp"/>
 
                 <EditText
@@ -206,8 +206,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="Location:"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/location"
                     android:textSize="20sp"/>
 
                 <EditText

@@ -56,7 +56,7 @@ public class ShoppingList extends Fragment {
         Button editSelectedItem = view.findViewById(R.id.editSelectedItem);
 
         if (shopping.storeListOrderNum == 0) {
-            shoppingListTitle.setText("All Stores");
+            shoppingListTitle.setText(R.string.allStores);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shoppingListTitle.getLayoutParams();
             params.bottomMargin = 0;
             shoppingListTitle.setLayoutParams(params);
@@ -79,7 +79,7 @@ public class ShoppingList extends Fragment {
                     else shopping.storeListOrderNum--;
                 }
 
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText("All Stores");
+                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
                 else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
                 shopping.loadFragment(new ShoppingList());
             }
@@ -103,7 +103,7 @@ public class ShoppingList extends Fragment {
                     if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
                 }
 
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText("All Stores");
+                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
                 else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
                 shopping.loadFragment(new ShoppingList());
             }
@@ -242,7 +242,7 @@ public class ShoppingList extends Fragment {
         return view;
     }
 
-    public class OnSwipeTouchListener implements View.OnTouchListener {
+    class OnSwipeTouchListener implements View.OnTouchListener {
 
         private final GestureDetector gestureDetector;
 
@@ -250,10 +250,10 @@ public class ShoppingList extends Fragment {
             gestureDetector = new GestureDetector(context, new GestureListener());
         }
 
-        public void onSwipeLeft() {
+        void onSwipeLeft() {
         }
 
-        public void onSwipeRight() {
+        void onSwipeRight() {
         }
 
         @SuppressLint("ClickableViewAccessibility")

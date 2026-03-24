@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class DBStatusHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
 
     private static final String DB_NAME = "ItemStatus";
     private static final int DB_VERSION = 20;
