@@ -510,7 +510,9 @@ public class FullInventory extends Fragment {
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.notifyDataSetChanged();
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    adapter.notifyItemChanged(i);
+                }
             }
         });
         
@@ -532,24 +534,21 @@ public class FullInventory extends Fragment {
                 switch (shopping.inventorySortBy) {
                     case Shopping.SORT_BY_CATEGORY:
                         fullInventoryTitle.setText(R.string.byCategoryAll);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_BY_STORE:
                         fullInventoryTitle.setText(R.string.byStoreAll);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_ALPHABETICAL:
                         fullInventoryTitle.setText(R.string.alphabeticalAll);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                 }
                 hideMenuOptions();
@@ -563,24 +562,21 @@ public class FullInventory extends Fragment {
                 switch (shopping.inventorySortBy) {
                     case Shopping.SORT_BY_CATEGORY:
                         fullInventoryTitle.setText(R.string.byCategoryInStock);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_BY_STORE:
                         fullInventoryTitle.setText(R.string.byStoreInStock);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_ALPHABETICAL:
                         fullInventoryTitle.setText(R.string.alphabeticalInStock);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                 }
                 hideMenuOptions();
@@ -594,24 +590,21 @@ public class FullInventory extends Fragment {
                 switch (shopping.inventorySortBy) {
                     case Shopping.SORT_BY_CATEGORY:
                         fullInventoryTitle.setText(R.string.byCategoryNeeded);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_BY_STORE:
                         fullInventoryTitle.setText(R.string.byStoreNeeded);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_ALPHABETICAL:
                         fullInventoryTitle.setText(R.string.alphabeticalNeeded);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                 }
                 hideMenuOptions();
@@ -625,24 +618,21 @@ public class FullInventory extends Fragment {
                 switch (shopping.inventorySortBy) {
                     case Shopping.SORT_BY_CATEGORY:
                         fullInventoryTitle.setText(R.string.byCategoryPaused);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_BY_STORE:
                         fullInventoryTitle.setText(R.string.byStorePaused);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                     case Shopping.SORT_ALPHABETICAL:
                         fullInventoryTitle.setText(R.string.alphabeticalPaused);
-                        adapter.notifyDataSetChanged();
-                        /*for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                             adapter.notifyItemChanged(i);
-                        }*/
+                        }
                         break;
                 }
                 hideMenuOptions();
@@ -658,14 +648,18 @@ public class FullInventory extends Fragment {
                         Item item = itemData.getItemListByCategory().get(i);
                         item.getStatus().setAsExpandedInInventory();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 } else if (shopping.itemExpansion.equals(Shopping.ITEMS_EXPANDED)) {
                     shopping.itemExpansion = Shopping.ITEMS_CONTRACTED;
                     for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         Item item = itemData.getItemListByCategory().get(i);
                         item.getStatus().setAsContractedInInventory();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 }
                 hideMenuOptions();
             }
@@ -679,13 +673,17 @@ public class FullInventory extends Fragment {
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                         itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsContracted();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
                     shopping.categoryTitles = Shopping.TITLES_EXPANDED;
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                         itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsExpanded();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 }
                 hideMenuOptions();
             }
@@ -699,13 +697,17 @@ public class FullInventory extends Fragment {
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
                         itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsContracted();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
                     shopping.storeTitles = Shopping.TITLES_EXPANDED;
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
                         itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsExpanded();
                     }
-                    adapter.notifyDataSetChanged();
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        adapter.notifyItemChanged(i);
+                    }
                 }
                 hideMenuOptions();
             }
@@ -729,10 +731,9 @@ public class FullInventory extends Fragment {
                         fullInventoryTitle.setText(R.string.alphabeticalPaused);
                         break;
                 }
-                adapter.notifyDataSetChanged();
-                /*for (int i = 0; i < itemData.getItemListBy().size(); i++) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                     adapter.notifyItemChanged(i);
-                }*/
+                }
                 hideMenuOptions();
             }
         });
@@ -755,10 +756,9 @@ public class FullInventory extends Fragment {
                         fullInventoryTitle.setText(R.string.byCategoryPaused);
                         break;
                 }
-                adapter.notifyDataSetChanged();
-                /*for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                     adapter.notifyItemChanged(i);
-                }*/
+                }
                 hideMenuOptions();
             }
         });
@@ -781,10 +781,9 @@ public class FullInventory extends Fragment {
                         fullInventoryTitle.setText(R.string.byStorePaused);
                         break;
                 }
-                adapter.notifyDataSetChanged();
-                /*for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                     adapter.notifyItemChanged(i);
-                }*/
+                }
                 hideMenuOptions();
             }
         });
@@ -818,7 +817,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.alphabeticalPaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                     case Shopping.SORT_BY_STORE:
                         shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
                         switch (shopping.inventoryView) {
@@ -835,7 +836,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.byCategoryPaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                     case Shopping.SORT_ALPHABETICAL:
                         shopping.inventorySortBy = Shopping.SORT_BY_STORE;
                         switch (shopping.inventoryView) {
@@ -852,7 +855,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.byStorePaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                 }
             }
 
@@ -876,7 +881,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.byStorePaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                     case Shopping.SORT_BY_STORE:
                         shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
                         switch (shopping.inventoryView) {
@@ -893,7 +900,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.alphabeticalPaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                     case Shopping.SORT_ALPHABETICAL:
                         shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
                         switch (shopping.inventoryView) {
@@ -910,7 +919,9 @@ public class FullInventory extends Fragment {
                                 fullInventoryTitle.setText(R.string.byCategoryPaused);
                                 break;
                         }
-                        adapter.notifyDataSetChanged();
+                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                            adapter.notifyItemChanged(i);
+                        }
                 }
             }
         });
