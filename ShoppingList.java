@@ -30,7 +30,6 @@ public class ShoppingList extends Fragment {
     public ShoppingList() {}
 
     @SuppressLint("ClickableViewAccessibility")
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         container.removeAllViews();
@@ -286,12 +285,4 @@ public class ShoppingList extends Fragment {
             }
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
-        shoppingListRecyclerView.setAdapter(null);
-        super.onDestroyView();
-    }
-
 }

@@ -18,7 +18,6 @@ public class RemoveItem extends Fragment {
 
     public RemoveItem() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.remove_item, container, false);
@@ -32,11 +31,6 @@ public class RemoveItem extends Fragment {
         Button removeItemButton = view.findViewById(R.id.removeItemButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        /*if(shopping.editItemInInventory) {
-            itemNameInput.setText(shopping.selectedItemInInventory.getName());
-        } else if (shopping.editItemInShoppingList) {
-            itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
-        }*/
         itemNameInput.setText(shopping.selectedItemInInventory.getName());
 
         removeItemButton.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +45,7 @@ public class RemoveItem extends Fragment {
                 }
 
                 Item item = itemData.getItemMap().get(itemName);
+
                 String category = item.getCategory().toString();
                 int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
                 for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
@@ -68,11 +63,7 @@ public class RemoveItem extends Fragment {
                 shopping.updateItemData();
                 shopping.updateStatusData();
 
-                if(shopping.editItemInInventory) {
-                    shopping.itemIsSelectedInInventory = false;
-                } else if (shopping.editItemInShoppingList) {
-                    shopping.itemIsSelectedInShoppingList = false;
-                }
+                shopping.itemIsSelectedInInventory = false;
 
                 shopping.loadFragment(new FullInventory());
             }

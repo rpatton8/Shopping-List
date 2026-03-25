@@ -2,7 +2,7 @@ package ryan.android.shopping;
 
 import android.support.annotation.NonNull;
 
-public class Item implements Comparable<Item> {
+class Item implements Comparable<Item> {
 
     private String name;
     private String brandType;

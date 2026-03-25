@@ -3,7 +3,7 @@ package ryan.android.shopping;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StatusData {
+class StatusData {
 
     private final Map<String, Status> statusMap;
 

@@ -31,7 +31,6 @@ public class EditItem extends Fragment {
 
     public EditItem() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_item, container, false);

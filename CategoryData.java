@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CategoryData {
+class CategoryData {
 
     private final ArrayList<String> categoryList;
     private final ArrayList<String> categoryListWithBlank;

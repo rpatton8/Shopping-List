@@ -75,7 +75,6 @@ public class FullInventory extends Fragment {
     public FullInventory() {}
 
     @SuppressLint("ClickableViewAccessibility")
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         container.removeAllViews();

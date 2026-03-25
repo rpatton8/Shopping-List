@@ -38,7 +38,6 @@ public class AddItem extends Fragment {
 
     public AddItem() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.add_item, container, false);

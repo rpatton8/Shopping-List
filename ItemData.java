@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
 
-public class ItemData {
+class ItemData {
 
     private final LinkedList<Item> itemsAZ;
     private final ArrayList<Item> itemsByCategory;

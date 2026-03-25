@@ -2,7 +2,7 @@ package ryan.android.shopping;
 
 import java.util.ArrayList;
 
-public class Category {
+class Category {
 
     private final String categoryName;
     private final ArrayList<Item> categoryItems;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsRVH> {
+class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsRVH> {
 
     private final Shopping shopping;
     private final ItemData itemData;
@@ -115,9 +115,9 @@ public class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.Reorde
         private final ReorderItemsRVA adapter;
         private final RecyclerView recyclerView;
         private final ScrollView scrollView;
-        private ItemData itemData;
-        private CategoryData categoryData;
-        private StoreData storeData;
+        private final ItemData itemData;
+        private final CategoryData categoryData;
+        private final StoreData storeData;
 
         final TextView itemName;
         final ImageView arrowDown;

@@ -23,7 +23,6 @@ public class EditCategory extends Fragment {
 
     public EditCategory() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_category, container, false);

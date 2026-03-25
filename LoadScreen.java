@@ -1,9 +1,9 @@
 package ryan.android.shopping;
 
 import android.app.Fragment;
+import android.os.Bundle;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,6 @@ public class LoadScreen extends Fragment {
 
     public LoadScreen() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.load_screen, container, false);

@@ -186,20 +186,14 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
     }
 
-    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
 
         private final TextView shoppingListRvTitle;
 
         ShoppingListTitleRVH(View itemView) {
 
             super(itemView);
-
             shoppingListRvTitle = itemView.findViewById(R.id.shoppingListRvTitle);
-
-        }
-
-        @Override
-        public void onClick(View view) {
 
         }
     }

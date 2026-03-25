@@ -23,7 +23,6 @@ public class EditStore extends Fragment {
 
     public EditStore() {}
 
-    @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_store, container, false);

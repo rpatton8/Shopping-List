@@ -2,7 +2,7 @@ package ryan.android.shopping;
 
 import java.util.ArrayList;
 
-public class Store {
+class Store {
 
     private final String storeName;
     private final ArrayList<Item> storeItems;

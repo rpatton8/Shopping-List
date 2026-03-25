@@ -314,7 +314,7 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
         dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fetuccini Alfredo", "Meals", "Vons", 13);
+        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
         dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
@@ -559,8 +559,8 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Seasonings--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Salt & Pepeper", "na", "Seasonings", "Vons", 0);
-        dbStatusHelper.addNewStatus("Salt & Pepeper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory("Salt & Pepper", "na", "Seasonings", "Vons", 0);
+        dbStatusHelper.addNewStatus("Salt & Pepper", "paused", "unchecked");
 
         dbItemHelper.addNewItemByCategory("Garlic Salt", "Lawry's", "Seasonings", "Vons", 1);
         dbStatusHelper.addNewStatus("Garlic Salt", "paused", "unchecked");
@@ -1089,7 +1089,7 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 11);
         //dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fetuccini Alfredo", "Meals", "Vons", 12);
+        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 12);
         //dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 13);
@@ -1236,8 +1236,8 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 60);
         //dbStatusHelper.addNewStatus("Brown Sugar", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Salt & Pepeper", "na", "Seasonings", "Vons", 61);
-        //dbStatusHelper.addNewStatus("Salt & Pepeper", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 61);
+        //dbStatusHelper.addNewStatus("Salt & Pepper", "paused", "unchecked");
 
         dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 62);
         //dbStatusHelper.addNewStatus("Garlic Salt", "paused", "unchecked");

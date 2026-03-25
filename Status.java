@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-public class Status {
+class Status {
 
     private Boolean isInStock;
     private Boolean isNeeded;

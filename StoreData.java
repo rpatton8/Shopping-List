@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StoreData {
+class StoreData {
 
     private final ArrayList<String> storeList;
     private final ArrayList<String> storeListWithBlank;
