@@ -26,6 +26,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         this.recyclerView = recyclerView;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public int getItemViewType(final int position) {
         return R.layout.reorder_stores_rv;
     }

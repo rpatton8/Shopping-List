@@ -90,8 +90,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
         }
-
-
+        
         if (isTitle) { // titles
 
             ShoppingListTitleRVH titleHolder = (ShoppingListTitleRVH) holder;
@@ -102,7 +101,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             if (storeData.getStoreViewNeededMap().get(store) == 0) {
                 titleHolder.shoppingListRvTitle.setVisibility(View.GONE);
             }
-
 
         } else {  // item data
 

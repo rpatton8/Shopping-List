@@ -265,12 +265,6 @@ public class ShoppingList extends Fragment {
             private static final int SWIPE_DISTANCE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
-            @Override
-            public boolean onDown(MotionEvent e) {
-                return true;
-            }
-
-            @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (e1 == null || e2 == null) return false;
                 float distanceX = e2.getX() - e1.getX();

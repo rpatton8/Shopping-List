@@ -44,6 +44,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         this.reorderBy = REORDER_BY_CATEGORY;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public int getItemViewType(final int position) {
         return R.layout.reorder_items_rv;
     }
