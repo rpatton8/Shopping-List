@@ -13,6 +13,7 @@ import java.util.Objects;
 public class ReorderCategories extends Fragment {
 
     private Shopping shopping;
+    private RecyclerView recyclerView;
 
     public ReorderCategories() {}
 
@@ -25,7 +26,7 @@ public class ReorderCategories extends Fragment {
         CategoryData categoryData = shopping.getCategoryData();
         DBCategoryHelper dbCategoryHelper = new DBCategoryHelper(getActivity());
 
-        RecyclerView recyclerView = view.findViewById(R.id.reorderCategoriesRecyclerView);
+        recyclerView = view.findViewById(R.id.reorderCategoriesRecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         ReorderCategoriesRVA adapter = new ReorderCategoriesRVA(shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
@@ -50,5 +51,11 @@ public class ReorderCategories extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        recyclerView.setAdapter(null);
+        super.onDestroyView();
     }
 }

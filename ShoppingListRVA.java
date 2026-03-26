@@ -22,7 +22,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         this.storeData = storeData;
     }
 
-    @Override
     public int getItemViewType(final int position) {
 
         if (position == 0) return R.layout.shopping_list_rv_title;
@@ -44,7 +43,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
     }
 
     @NonNull
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         switch (viewType) {
@@ -58,7 +56,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
@@ -179,7 +176,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    @Override
     public int getItemCount() {
 
         return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
@@ -364,7 +360,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             return thisItem;
         }
 
-        @Override
         public void onClick(View v) {
             int id = v.getId();
             int position = getAdapterPosition();

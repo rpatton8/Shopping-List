@@ -26,25 +26,21 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         this.recyclerView = recyclerView;
     }
 
-    @Override
     public int getItemViewType(final int position) {
         return R.layout.reorder_stores_rv;
     }
 
     @NonNull
-    @Override
     public ReorderStoresRVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ReorderStoresRVH(view, shopping, recyclerView, itemData, storeData, dbStoreHelper);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull ReorderStoresRVH holder, int position) {
         ArrayList<String> storeList = storeData.getStoreList();
         holder.storeName.setText(storeList.get(position));
     }
 
-    @Override
     public int getItemCount() {
         return storeData.getStoreList().size();
     }
@@ -100,7 +96,6 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
             return false;
         }
 
-        @Override
         public void onClick(View v) {
             int id = v.getId();
             int position = getAdapterPosition();

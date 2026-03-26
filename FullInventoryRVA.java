@@ -78,7 +78,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
     @NonNull
-    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
@@ -856,7 +855,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
-    @Override
     public int getItemCount() {
 
         switch (shopping.inventorySortBy) {
@@ -906,7 +904,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         }
 
-        @Override
         public void onClick(View view) {
             int id = view.getId();
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
@@ -1116,7 +1113,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             return thisItem;
         }
 
-        @Override
         public void onClick(View v) {
 
             int id = v.getId();
@@ -1347,7 +1343,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         }
 
-        @Override
         public void onClick(View view) {
             int id = view.getId();
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
@@ -1557,7 +1552,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             return thisItem;
         }
 
-        @Override
         public void onClick(View v) {
 
             int id = v.getId();
@@ -1876,7 +1870,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
         }
 
-        @Override
         public void onClick(View v) {
 
             int id = v.getId();

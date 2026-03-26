@@ -44,19 +44,16 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         this.reorderBy = REORDER_BY_CATEGORY;
     }
 
-    @Override
     public int getItemViewType(final int position) {
         return R.layout.reorder_items_rv;
     }
 
     @NonNull
-    @Override
     public ReorderItemsRVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ReorderItemsRVH(view, shopping, this, scrollView, recyclerView, itemData, categoryData, storeData);
     }
 
-    @Override
     public void onBindViewHolder(@NonNull ReorderItemsRVH holder, int position) {
 
         if (reorderBy.equals(REORDER_BY_CATEGORY)) {
@@ -75,7 +72,6 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
     }
 
-    @Override
     public int getItemCount() {
         switch (reorderBy) {
             case REORDER_BY_CATEGORY:
@@ -183,7 +179,6 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
             return false;
         }
 
-        @Override
         public void onClick(View v) {
             int id = v.getId();
             int position = getAdapterPosition();

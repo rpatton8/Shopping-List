@@ -285,4 +285,11 @@ public class ShoppingList extends Fragment {
             }
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
+        shoppingListRecyclerView.setAdapter(null);
+        super.onDestroyView();
+    }
 }

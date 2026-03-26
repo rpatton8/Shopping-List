@@ -149,4 +149,10 @@ public class ReorderItems extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onDestroyView() {
+        recyclerView.setAdapter(null);
+        super.onDestroyView();
+    }
 }
