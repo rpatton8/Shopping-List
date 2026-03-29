@@ -59,6 +59,7 @@ public class FullInventory extends Fragment {
     private TextView fullInventoryTitle;
     private EditText searchBox;
     private LinearLayout searchPopup;
+    private LinearLayout searchResults;
 
     private Button viewAll;
     private Button viewInStock;
@@ -71,6 +72,8 @@ public class FullInventory extends Fragment {
     private Button sortByStore;
     private Button sortByCategory;
     private Button homeScreen;
+
+    private TextView fullInventoryOptionsBackground;
 
     public FullInventory() {}
 
@@ -146,11 +149,13 @@ public class FullInventory extends Fragment {
         TextView searchButton = view.findViewById(R.id.searchButton);
         searchBox = view.findViewById(R.id.searchBox);
         searchPopup = view.findViewById(R.id.searchPopup);
+        searchResults = view.findViewById(R.id.searchResults);
         TextView voiceSearchButton = view.findViewById(R.id.voiceSearchButton);
         TextView clearSearchButton = view.findViewById(R.id.clearSearchButton);
         TextView refreshButton = view.findViewById(R.id.refreshButton);
         TextView fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
 
+        fullInventoryOptionsBackground = view.findViewById(R.id.fullInventoryOptionsBackground);
         viewAll = view.findViewById(R.id.viewAll);
         viewInStock = view.findViewById(R.id.viewInStock);
         viewNeeded = view.findViewById(R.id.viewNeeded);
@@ -408,6 +413,7 @@ public class FullInventory extends Fragment {
                         // searchBox & keyboard both visible
                         shopping.hideKeyboard();
                         searchPopup.setVisibility(View.GONE);
+                        searchResults.setVisibility(View.GONE);
                         searchBoxVisible = false;
                         keyboardVisible = false;
                     } else {
@@ -431,6 +437,7 @@ public class FullInventory extends Fragment {
                     // searchBox & keyboard both not visible
                     shopping.showKeyboard();
                     searchPopup.setVisibility(View.VISIBLE);
+                    searchResults.setVisibility(View.VISIBLE);
                     searchBox.requestFocus();
                     searchBox.setSelection(searchBox.getText().length());
                     searchBoxVisible = true;
@@ -457,6 +464,7 @@ public class FullInventory extends Fragment {
                         shopping.hideKeyboard();
                         startVoiceRecognition();
                         searchPopup.setVisibility(View.VISIBLE);
+                        searchResults.setVisibility(View.VISIBLE);
                         searchBox.requestFocus();
                         searchBox.setSelection(searchBox.getText().length());
                         searchBoxVisible = true;
@@ -464,6 +472,7 @@ public class FullInventory extends Fragment {
                     } else {
                         // searchBox visible but keyboard not visible
                         searchPopup.setVisibility(View.GONE);
+                        searchResults.setVisibility(View.GONE);
                         searchBoxVisible = false;
                         keyboardVisible = false;
                     }
@@ -967,6 +976,7 @@ public class FullInventory extends Fragment {
         sortByCategory.setVisibility(View.GONE);
         sortByStore.setVisibility(View.GONE);
         homeScreen.setVisibility(View.GONE);
+        fullInventoryOptionsBackground.setVisibility(View.GONE);
         menuOptionsVisible = false;
     }
 
@@ -982,6 +992,7 @@ public class FullInventory extends Fragment {
         sortByCategory.setVisibility(View.VISIBLE);
         sortByStore.setVisibility(View.VISIBLE);
         homeScreen.setVisibility(View.VISIBLE);
+        fullInventoryOptionsBackground.setVisibility(View.VISIBLE);
         menuOptionsVisible = true;
     }
 

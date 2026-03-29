@@ -8,6 +8,7 @@
     tools:context=".LoadScreen">
 
     <TextView
+        android:id="@+id/shoppingTitle"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
@@ -17,80 +18,6 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/loadScreenEditButton"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:background="@mipmap/edit_3dots"/>
-
-    <Button
-        android:id="@+id/clearAllData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="40dp"
-        android:visibility="gone"
-        android:text="@string/clearAllData" />
-
-    <Button
-        android:id="@+id/loadSampleData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="80dp"
-        android:visibility="gone"
-        android:text="@string/loadSampleData" />
-
-    <Button
-        android:id="@+id/changeDefaultSortBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="120dp"
-        android:visibility="gone"
-        android:text="@string/changeDefaultSortBy" />
-
-    <Button
-        android:id="@+id/sortAlphabetical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="75dp"
-        android:layout_marginTop="240dp"
-        android:visibility="gone"
-        android:text="@string/sortAlphabetically" />
-
-    <Button
-        android:id="@+id/sortByCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="75dp"
-        android:layout_marginTop="160dp"
-        android:visibility="gone"
-        android:text="@string/sortByCategory" />
-
-    <Button
-        android:id="@+id/sortByStore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="75dp"
-        android:layout_marginTop="200dp"
-        android:visibility="gone"
-        android:text="@string/sortByStore" />
-
     <ImageView
         android:layout_width="160dp"
         android:layout_height="160dp"
@@ -99,6 +26,203 @@
         android:layout_marginTop="200dp"
         android:src="@mipmap/shopping_icon_round"
         android:contentDescription="@string/shoppingIconRound" />
+
+    <TextView
+        android:id="@+id/loadScreenEditButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/edit_3dots"/>
+
+    <TextView
+        android:id="@+id/shoppingOptionsBackground"
+        android:layout_width="210dp"
+        android:layout_height="565dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/shoppingTitle"
+        android:visibility="gone"
+        android:background="@android:color/holo_green_light" />
+
+    <Button
+        android:id="@+id/clearAllData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:text="@string/clearAllData" />
+
+    <Button
+        android:id="@+id/loadSampleData1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        android:text="@string/loadSampleData1" />
+
+    <Button
+        android:id="@+id/loadSampleData2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        android:text="@string/loadSampleData2" />
+
+    <Button
+        android:id="@+id/changeDefaultSortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultSortBy" />
+
+    <RadioGroup
+        android:id="@+id/changeSortByOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/sortAlphabetical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="210dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortAlphabetically" />
+
+        <RadioButton
+            android:id="@+id/sortByCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortByCategory" />
+
+        <RadioButton
+            android:id="@+id/sortByStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortByStore" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeReorderingMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="305dp"
+        android:visibility="gone"
+        android:text="@string/reorderingMethod" />
+
+    <RadioGroup
+        android:id="@+id/changeReorderOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/dragAndDrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="355dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/dragAndDrop" />
+
+        <RadioButton
+            android:id="@+id/upAndDownArrows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/upAndDownArrows" />
+
+        <RadioButton
+            android:id="@+id/withNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/withNumbers" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeColorScheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="450dp"
+        android:visibility="gone"
+        android:text="@string/changeColorScheme" />
+
+    <RadioGroup
+        android:id="@+id/changeColorSchemeOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/colorScheme1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="500dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme1" />
+
+        <RadioButton
+            android:id="@+id/colorScheme2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme2" />
+
+        <RadioButton
+            android:id="@+id/colorScheme3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme3" />
+
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

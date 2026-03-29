@@ -20,6 +20,12 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fullInventoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
+        android:layout_below="@+id/fullInventoryTitle" />
+
     <TextView
         android:id="@+id/searchButton"
         android:layout_width="30dp"
@@ -63,7 +69,21 @@
 
     </LinearLayout>
 
-    <!-- Search Results Popup goes here. -->
+    <LinearLayout
+        android:id="@+id/searchResults"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="86dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/searchPopup"
+        android:orientation="vertical"
+        android:background="#FFFF00"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/voiceSearchButton"
@@ -89,15 +109,27 @@
         android:layout_alignParentTop="true"
         android:background="@mipmap/edit_3dots"/>
 
+
+
+    <TextView
+        android:id="@+id/fullInventoryOptionsBackground"
+        android:layout_width="match_parent"
+        android:layout_height="297dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/fullInventoryTitle"
+        android:visibility="gone"
+        android:background="@android:color/holo_green_light" />
+
     <Button
         android:id="@+id/viewAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/viewAll" />
 
     <Button
@@ -106,9 +138,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="80dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/viewInStock" />
 
     <Button
@@ -117,9 +150,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="120dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/viewNeeded" />
 
     <Button
@@ -128,9 +162,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="160dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/viewPaused" />
 
     <Button
@@ -139,9 +174,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="200dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/expandContractItems" />
 
     <Button
@@ -150,9 +186,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="240dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/expandContractCategories" />
 
     <Button
@@ -161,60 +198,59 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginTop="280dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/expandContractStores" />
 
     <Button
         android:id="@+id/sortAlphabetical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="40dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/sortAlphabetically" />
 
     <Button
         android:id="@+id/sortByCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="80dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/sortByCategory" />
 
     <Button
         android:id="@+id/sortByStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="120dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/sortByStore" />
 
     <Button
         android:id="@+id/homeScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="160dp"
         android:visibility="gone"
+        android:textSize="18sp"
         android:text="@string/home" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fullInventoryRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="620dp"
-        android:layout_below="@+id/fullInventoryTitle" />
 
     <LinearLayout
         android:layout_width="match_parent"

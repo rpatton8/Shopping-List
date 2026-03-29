@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class ReorderItems extends Fragment {
 
         categoryLayout = view.findViewById(R.id.categoryLayout);
         storeLayout = view.findViewById(R.id.storeLayout);
-        Button categoryRadioButton = view.findViewById(R.id.categoryRadioButton);
-        Button storeRadioButton = view.findViewById(R.id.storeRadioButton);
+        RadioButton categoryRadioButton = view.findViewById(R.id.categoryRadioButton);
+        RadioButton storeRadioButton = view.findViewById(R.id.storeRadioButton);
         Button finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
