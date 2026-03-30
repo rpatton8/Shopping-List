@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Shopping extends AppCompatActivity {
@@ -86,6 +88,17 @@ public class Shopping extends AppCompatActivity {
         initializeData();
         loadSharedPreferences();
         //itemData.printData();
+        SearchInventory searchInventory = new SearchInventory();
+        searchInventory.addNewItem(itemData.getItemListAZ().get(16));
+        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("ai");
+        if (searchResultsList == null) {
+            System.out.println("searchResultList is null");
+        } else {
+            System.out.println("searchResultList size = " + searchResultsList.size());
+        }
+        for (int i = 0; i < searchResultsList.size(); i++) {
+            System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
+        }
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {

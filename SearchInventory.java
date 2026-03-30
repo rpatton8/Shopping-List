@@ -19,15 +19,19 @@ class SearchInventory {
     }
 
     private void populateTermMap(String string, Item item) {
-        for (int i = 0; i < string.length(); i++) {
-            for (int j = 0; j < string.length(); j++) {
+        for (int j = 0; j <= string.length(); j++) {
+            for (int i = 0; i <= j; i++) {
                 String term = string.substring(i, j);
                 ArrayList<Item> itemList = new ArrayList<>();
                 if (termMap.containsKey(term)) {
+                    System.out.println("termMap already contains: " + term);
                     termMap.get(term).add(item);
                 } else {
-                    itemList.add(item);
-                    termMap.put(term, itemList);
+                    if (!term.equals("")) {
+                        System.out.println("adding " + term + " to termMap");
+                        itemList.add(item);
+                        termMap.put(term, itemList);
+                    }
                 }
             }
         }
