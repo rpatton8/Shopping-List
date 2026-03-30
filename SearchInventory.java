@@ -23,7 +23,7 @@ class SearchInventory {
             for (int i = 0; i <= j; i++) {
                 String term = string.substring(i, j).toLowerCase();
                 ArrayList<Item> itemList = new ArrayList<>();
-                if (termMap.containsKey(term)) {
+                if (termMap.containsKey(term) && !termMap.get(term).contains(item)) {
                     termMap.get(term).add(item);
                 } else if (!term.equals("")) {
                     itemList.add(item);
@@ -34,7 +34,11 @@ class SearchInventory {
     }
     
     public ArrayList<Item> getItemListWithTerm(String term) {
-        String termLowerCase = term.toLowerCase();
-        return termMap.get(termLowerCase);
+        return termMap.get(term.toLowerCase());
     }
+
+    public void clearTermMap() {
+        termMap.clear();
+    }
+
 }

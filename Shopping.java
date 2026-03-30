@@ -89,8 +89,11 @@ public class Shopping extends AppCompatActivity {
         loadSharedPreferences();
         //itemData.printData();
         SearchInventory searchInventory = new SearchInventory();
-        searchInventory.addNewItem(itemData.getItemListAZ().get(21));
-        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("korn");
+        //searchInventory.clearTermMap();
+        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+            searchInventory.addNewItem(itemData.getItemListAZ().get(i));
+        }
+        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("ar");
         if (searchResultsList == null) {
             System.out.println("searchResultList is null");
         } else {
@@ -99,7 +102,7 @@ public class Shopping extends AppCompatActivity {
                 System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
             }
         }
-        
+
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
             @Override
