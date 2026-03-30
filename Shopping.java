@@ -89,17 +89,17 @@ public class Shopping extends AppCompatActivity {
         loadSharedPreferences();
         //itemData.printData();
         SearchInventory searchInventory = new SearchInventory();
-        searchInventory.addNewItem(itemData.getItemListAZ().get(16));
-        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("ai");
+        searchInventory.addNewItem(itemData.getItemListAZ().get(21));
+        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("korn");
         if (searchResultsList == null) {
             System.out.println("searchResultList is null");
         } else {
             System.out.println("searchResultList size = " + searchResultsList.size());
+            for (int i = 0; i < searchResultsList.size(); i++) {
+                System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
+            }
         }
-        for (int i = 0; i < searchResultsList.size(); i++) {
-            System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
-        }
-
+        
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
             @Override

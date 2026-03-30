@@ -21,28 +21,20 @@ class SearchInventory {
     private void populateTermMap(String string, Item item) {
         for (int j = 0; j <= string.length(); j++) {
             for (int i = 0; i <= j; i++) {
-                String term = string.substring(i, j);
+                String term = string.substring(i, j).toLowerCase();
                 ArrayList<Item> itemList = new ArrayList<>();
                 if (termMap.containsKey(term)) {
-                    System.out.println("termMap already contains: " + term);
                     termMap.get(term).add(item);
-                } else {
-                    if (!term.equals("")) {
-                        System.out.println("adding " + term + " to termMap");
-                        itemList.add(item);
-                        termMap.put(term, itemList);
-                    }
+                } else if (!term.equals("")) {
+                    itemList.add(item);
+                    termMap.put(term, itemList);
                 }
             }
         }
     }
     
     public ArrayList<Item> getItemListWithTerm(String term) {
-        return termMap.get(term);
+        String termLowerCase = term.toLowerCase();
+        return termMap.get(termLowerCase);
     }
-
-    public void printTermMap() {
-
-    }
-
 }
