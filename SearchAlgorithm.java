@@ -18,6 +18,10 @@ class SearchAlgorithm {
         populateTermMap(brandType, item);
     }
 
+    public void removeItem(Item item) {
+        // to do
+    }
+
     private void populateTermMap(String string, Item item) {
         for (int j = 0; j <= string.length(); j++) {
             for (int i = 0; i <= j; i++) {
@@ -27,7 +31,7 @@ class SearchAlgorithm {
                     // map contains term but not item
                     termMap.get(term).add(item);
                 } else if (!term.equals("")) {
-                    // term is not the empty string and map doesn't contain it already
+                    // term is not the empty string and map doesn't contain it yet
                     itemList.add(item);
                     termMap.put(term, itemList);
                 }
@@ -40,7 +44,6 @@ class SearchAlgorithm {
     }
 
     public int numSearchResults(String term) {
-
         if (termMap.get(term.toLowerCase()) != null)  {
             return termMap.get(term.toLowerCase()).size();
         }  else return 0;

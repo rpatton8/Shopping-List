@@ -40,7 +40,6 @@ public class Shopping extends AppCompatActivity {
     public String currentSearchTerm;
     public Boolean editItemInInventory;
     public Boolean editItemInShoppingList;
-
     private SearchAlgorithm searchAlgorithm;
 
     public String inventoryView;
@@ -92,16 +91,6 @@ public class Shopping extends AppCompatActivity {
         for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
             searchAlgorithm.addNewItem(itemData.getItemListAZ().get(i));
         }
-
-        /*ArrayList<Item> searchResultsList = searchInventory.getSearchResults("dark choc");
-        if (searchResultsList == null) {
-            System.out.println("searchResultList is null");
-        } else {
-            System.out.println("searchResultList size = " + searchResultsList.size());
-            for (int i = 0; i < searchResultsList.size(); i++) {
-                System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
-            }
-        }*/
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
@@ -161,9 +150,13 @@ public class Shopping extends AppCompatActivity {
         return searchAlgorithm;
     }
 
-    /*public void updateSearchInventory() {
+    public void addItemToSearchAlgorithm(Item item) {
+        searchAlgorithm.addNewItem(item);
+    }
 
-    }*/
+    public void removeItemFromSearchAlgorithm(Item item) {
+        searchAlgorithm.removeItem(item);
+    }
 
     public void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

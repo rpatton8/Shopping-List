@@ -69,20 +69,6 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout
-        android:id="@+id/searchResults"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="86dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/searchPopup"
-        android:orientation="vertical"
-        android:background="#FFFF00"
-        android:visibility="gone">
-
-    </LinearLayout>-->
-
     <TextView
         android:id="@+id/voiceSearchButton"
         android:layout_width="36dp"

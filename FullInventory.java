@@ -60,6 +60,7 @@ public class FullInventory extends Fragment {
 
     private RecyclerView fullInventoryRecyclerView;
     private TextView fullInventoryTitle;
+    private String lastMainTitle;
     private EditText searchBox;
     private LinearLayout searchPopup;
     private RecyclerView searchInventoryRecyclerView;
@@ -160,7 +161,6 @@ public class FullInventory extends Fragment {
         TextView searchButton = view.findViewById(R.id.searchButton);
         searchBox = view.findViewById(R.id.searchBox);
         searchPopup = view.findViewById(R.id.searchPopup);
-        //searchResults = view.findViewById(R.id.searchResults);
         TextView voiceSearchButton = view.findViewById(R.id.voiceSearchButton);
         TextView clearSearchButton = view.findViewById(R.id.clearSearchButton);
         TextView refreshButton = view.findViewById(R.id.refreshButton);
@@ -424,14 +424,15 @@ public class FullInventory extends Fragment {
                         // searchBox & keyboard both visible
                         shopping.hideKeyboard();
                         searchPopup.setVisibility(View.GONE);
-                        //searchResults.setVisibility(View.GONE);
                         searchInventoryRecyclerView.setVisibility(View.GONE);
+                        fullInventoryTitle.setText(lastMainTitle);
                         searchBoxVisible = false;
                         keyboardVisible = false;
                     } else {
                         // searchBox visible but keyboard not visible
                         searchPopup.setVisibility(View.GONE);
                         searchInventoryRecyclerView.setVisibility(View.GONE);
+                        fullInventoryTitle.setText(lastMainTitle);
                         searchBoxVisible = false;
                         keyboardVisible = false;
                     }
@@ -450,8 +451,9 @@ public class FullInventory extends Fragment {
                     // searchBox & keyboard both not visible
                     shopping.showKeyboard();
                     searchPopup.setVisibility(View.VISIBLE);
-                    //searchResults.setVisibility(View.VISIBLE);
                     searchInventoryRecyclerView.setVisibility(View.VISIBLE);
+                    lastMainTitle = fullInventoryTitle.getText().toString();
+                    fullInventoryTitle.setText("Search Inventory");
                     searchBox.requestFocus();
                     searchBox.setSelection(searchBox.getText().length());
                     searchBoxVisible = true;
@@ -479,7 +481,8 @@ public class FullInventory extends Fragment {
                         startVoiceRecognition();
                         searchPopup.setVisibility(View.VISIBLE);
                         searchInventoryRecyclerView.setVisibility(View.VISIBLE);
-                        //searchResults.setVisibility(View.VISIBLE);
+                        lastMainTitle = fullInventoryTitle.getText().toString();
+                        fullInventoryTitle.setText("Search Inventory");
                         searchBox.requestFocus();
                         searchBox.setSelection(searchBox.getText().length());
                         searchBoxVisible = true;
@@ -488,7 +491,7 @@ public class FullInventory extends Fragment {
                         // searchBox visible but keyboard not visible
                         searchPopup.setVisibility(View.GONE);
                         searchInventoryRecyclerView.setVisibility(View.GONE);
-                        //searchResults.setVisibility(View.GONE);
+                        fullInventoryTitle.setText(lastMainTitle);
                         searchBoxVisible = false;
                         keyboardVisible = false;
                     }
@@ -508,6 +511,8 @@ public class FullInventory extends Fragment {
                     startVoiceRecognition();
                     searchPopup.setVisibility(View.VISIBLE);
                     searchInventoryRecyclerView.setVisibility(View.VISIBLE);
+                    lastMainTitle = fullInventoryTitle.getText().toString();
+                    fullInventoryTitle.setText("Search Inventory");
                     searchBox.requestFocus();
                     searchBox.setSelection(searchBox.getText().length());
                     searchBoxVisible = true;
