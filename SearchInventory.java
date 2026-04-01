@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 class SearchInventory {
 
-    private HashMap<String, ArrayList<Item>> termMap;
+    private final HashMap<String, ArrayList<Item>> termMap;
 
     SearchInventory() {
         termMap = new HashMap<>();
@@ -24,8 +24,10 @@ class SearchInventory {
                 String term = string.substring(i, j).toLowerCase();
                 ArrayList<Item> itemList = new ArrayList<>();
                 if (termMap.containsKey(term) && !termMap.get(term).contains(item)) {
+                    // map contains term but not item
                     termMap.get(term).add(item);
                 } else if (!term.equals("")) {
+                    // term is not the empty string and map doesn't contain it already
                     itemList.add(item);
                     termMap.put(term, itemList);
                 }
@@ -33,12 +35,14 @@ class SearchInventory {
         }
     }
     
-    public ArrayList<Item> getItemListWithTerm(String term) {
+    public ArrayList<Item> getSearchResults(String term) {
         return termMap.get(term.toLowerCase());
     }
 
-    public void clearTermMap() {
-        termMap.clear();
-    }
+    public int numSearchResults(String term) {
 
+        if (termMap.get(term.toLowerCase()) != null)  {
+            return termMap.get(term.toLowerCase()).size();
+        }  else return 0;
+    }
 }

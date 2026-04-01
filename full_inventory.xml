@@ -69,7 +69,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -81,9 +81,7 @@
         android:background="#FFFF00"
         android:visibility="gone">
 
-    </LinearLayout>
-
-
+    </LinearLayout>-->
 
     <TextView
         android:id="@+id/voiceSearchButton"
@@ -109,7 +107,13 @@
         android:layout_alignParentTop="true"
         android:background="@mipmap/edit_3dots"/>
 
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchInventoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:visibility="gone"
+        android:background="#FFFF00"
+        android:layout_below="@+id/searchPopup" />
 
     <TextView
         android:id="@+id/fullInventoryOptionsBackground"

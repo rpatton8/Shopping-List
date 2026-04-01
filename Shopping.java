@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Shopping extends AppCompatActivity {
@@ -39,8 +37,11 @@ public class Shopping extends AppCompatActivity {
     public int storeListOrderNum;
     public String reorderItemsCategory;
     public String reorderItemsStore;
+    public String currentSearchTerm;
     public Boolean editItemInInventory;
     public Boolean editItemInShoppingList;
+
+    private SearchInventory searchInventory;
 
     public String inventoryView;
     public static final String INVENTORY_ALL = "view all";
@@ -87,13 +88,12 @@ public class Shopping extends AppCompatActivity {
 
         initializeData();
         loadSharedPreferences();
-        //itemData.printData();
-        SearchInventory searchInventory = new SearchInventory();
-        //searchInventory.clearTermMap();
+        searchInventory = new SearchInventory();
         for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
             searchInventory.addNewItem(itemData.getItemListAZ().get(i));
         }
-        ArrayList<Item> searchResultsList = searchInventory.getItemListWithTerm("ar");
+
+        /*ArrayList<Item> searchResultsList = searchInventory.getSearchResults("dark choc");
         if (searchResultsList == null) {
             System.out.println("searchResultList is null");
         } else {
@@ -101,7 +101,7 @@ public class Shopping extends AppCompatActivity {
             for (int i = 0; i < searchResultsList.size(); i++) {
                 System.out.println("Search Result " + i + ": " + searchResultsList.get(i).getName());
             }
-        }
+        }*/
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +156,14 @@ public class Shopping extends AppCompatActivity {
     public void updateStoreData() {
         storeData = dbStoreHelper.readStoreData();
     }
+
+    public SearchInventory getSearchInventory() {
+        return searchInventory;
+    }
+
+    /*public void updateSearchInventory() {
+
+    }*/
 
     public void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -268,6 +276,7 @@ public class Shopping extends AppCompatActivity {
         storeListOrderNum = 0;
         reorderItemsCategory = "";
         reorderItemsStore = "";
+        currentSearchTerm = "";
         editItemInInventory = false;
         editItemInShoppingList = false;
 
