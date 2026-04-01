@@ -120,11 +120,11 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView.setAdapter(fullInventoryAdapter);
         Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.fullInventoryViewState);
 
-        SearchInventory searchInventory = shopping.getSearchInventory();
+        SearchAlgorithm searchAlgorithm = shopping.getSearchAlgorithm();
         searchInventoryRecyclerView = view.findViewById(R.id.searchInventoryRecyclerView);
         searchInventoryRecyclerView.setHasFixedSize(false);
         searchInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        searchInventoryAdapter = new SearchInventoryRVA(shopping, searchInventory);
+        searchInventoryAdapter = new SearchInventoryRVA(shopping, searchAlgorithm);
         searchInventoryRecyclerView.setAdapter(searchInventoryAdapter);
         //Objects.requireNonNull(searchInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.searchInventoryViewState);
 

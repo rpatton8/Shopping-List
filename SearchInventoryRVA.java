@@ -14,12 +14,12 @@ import java.util.ArrayList;
 class SearchInventoryRVA extends RecyclerView.Adapter  {
 
     private final Shopping shopping;
-    private final SearchInventory searchInventory;
+    private final SearchAlgorithm searchAlgorithm;
     private String currentTerm;
 
-    SearchInventoryRVA(Shopping shopping, SearchInventory searchInventory) {
+    SearchInventoryRVA(Shopping shopping, SearchAlgorithm searchAlgorithm) {
         this.shopping = shopping;
-        this.searchInventory = searchInventory;
+        this.searchAlgorithm = searchAlgorithm;
         currentTerm = shopping.currentSearchTerm;
     }
 
@@ -38,7 +38,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         Item thisItem = null;
         if (!currentTerm.equals("")) {
-            ArrayList<Item> searchResultsList = searchInventory.getSearchResults(currentTerm);
+            ArrayList<Item> searchResultsList = searchAlgorithm.getSearchResults(currentTerm);
             thisItem = searchResultsList.get(position);
         }
 
@@ -103,7 +103,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     }
 
     public int getItemCount() {
-        return searchInventory.numSearchResults(currentTerm);
+        return searchAlgorithm.numSearchResults(currentTerm);
     }
 
     public void setCurrentTerm(String term)   {

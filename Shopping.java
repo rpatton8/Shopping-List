@@ -41,7 +41,7 @@ public class Shopping extends AppCompatActivity {
     public Boolean editItemInInventory;
     public Boolean editItemInShoppingList;
 
-    private SearchInventory searchInventory;
+    private SearchAlgorithm searchAlgorithm;
 
     public String inventoryView;
     public static final String INVENTORY_ALL = "view all";
@@ -88,9 +88,9 @@ public class Shopping extends AppCompatActivity {
 
         initializeData();
         loadSharedPreferences();
-        searchInventory = new SearchInventory();
+        searchAlgorithm = new SearchAlgorithm();
         for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-            searchInventory.addNewItem(itemData.getItemListAZ().get(i));
+            searchAlgorithm.addNewItem(itemData.getItemListAZ().get(i));
         }
 
         /*ArrayList<Item> searchResultsList = searchInventory.getSearchResults("dark choc");
@@ -157,8 +157,8 @@ public class Shopping extends AppCompatActivity {
         storeData = dbStoreHelper.readStoreData();
     }
 
-    public SearchInventory getSearchInventory() {
-        return searchInventory;
+    public SearchAlgorithm getSearchAlgorithm() {
+        return searchAlgorithm;
     }
 
     /*public void updateSearchInventory() {
