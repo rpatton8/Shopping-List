@@ -37,33 +37,25 @@ public class RemoveCategory extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
-        removeCategoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String categoryName = categorySpinner.getSelectedItem().toString();
+        removeCategoryButton.setOnClickListener(v -> {
+            String categoryName = categorySpinner.getSelectedItem().toString();
 
-                if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Category", "Choose a category to remove.");
-                    return;
-                }
-
-                int orderNum = categoryData.getCategoryList().indexOf(categoryName);
-                dbCategoryHelper.deleteCategory(categoryName);
-                for (int i = orderNum + 1; i < categoryData.getCategoryList().size(); i++) {
-                    dbCategoryHelper.moveOrderDownOne(i);
-                }
-
-                shopping.updateCategoryData();
-                shopping.loadFragment(new FullInventory());
+            if (categoryName.isEmpty()) {
+                shopping.showAlertDialog("Remove Category", "Choose a category to remove.");
+                return;
             }
+
+            int orderNum = categoryData.getCategoryList().indexOf(categoryName);
+            dbCategoryHelper.deleteCategory(categoryName);
+            for (int i = orderNum + 1; i < categoryData.getCategoryList().size(); i++) {
+                dbCategoryHelper.moveOrderDownOne(i);
+            }
+
+            shopping.updateCategoryData();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
 
         return view;
     }

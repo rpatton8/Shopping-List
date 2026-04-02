@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -73,33 +72,24 @@ public class ReorderItems extends Fragment {
         //Objects.requireNonNull(scrollView.getLayoutManager()).onRestoreInstanceState(shopping.reorderItemsScrollViewState);
 
         scrollView = view.findViewById(R.id.reorderItemsScrollView);
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                int scrollY = scrollView.getScrollY();
-                if (scrollY < 578) recyclerView.setNestedScrollingEnabled(false);
-                else recyclerView.setNestedScrollingEnabled(true);
-            }
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            int scrollY = scrollView.getScrollY();
+            if (scrollY < 578) recyclerView.setNestedScrollingEnabled(false);
+            else recyclerView.setNestedScrollingEnabled(true);
         });
 
-        categoryRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_CATEGORY;
-                categoryLayout.setVisibility(View.VISIBLE);
-                storeLayout.setVisibility(View.GONE);
-                rvAdapter.notifyDataSetChanged();
-            }
+        categoryRadioButton.setOnClickListener(v -> {
+            rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_CATEGORY;
+            categoryLayout.setVisibility(View.VISIBLE);
+            storeLayout.setVisibility(View.GONE);
+            rvAdapter.notifyDataSetChanged();
         });
 
-        storeRadioButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_STORE;
-                storeLayout.setVisibility(View.VISIBLE);
-                categoryLayout.setVisibility(View.GONE);
-                rvAdapter.notifyDataSetChanged();
-            }
+        storeRadioButton.setOnClickListener(v -> {
+            rvAdapter.reorderBy = ReorderItemsRVA.REORDER_BY_STORE;
+            storeLayout.setVisibility(View.VISIBLE);
+            categoryLayout.setVisibility(View.GONE);
+            rvAdapter.notifyDataSetChanged();
         });
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -120,33 +110,18 @@ public class ReorderItems extends Fragment {
 
         storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            @Override
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
-
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 rvAdapter.changeStore(selectedItem);
                 rvAdapter.notifyDataSetChanged();
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> adapterView) {}
 
-            }
         });
 
-        finishReorderingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        finishReorderingButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
+        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
 
         return view;
     }

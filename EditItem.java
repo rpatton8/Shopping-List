@@ -122,83 +122,77 @@ public class EditItem extends Fragment {
             }
         });
 
-        editItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String oldItemName = "";
-                if(shopping.editItemInInventory) {
-                    oldItemName = shopping.selectedItemInInventory.getName();
-                } else if (shopping.editItemInShoppingList) {
-                    oldItemName = shopping.selectedItemInShoppingList.getName();
-                }
-                String newItemName = itemNameInput.getText().toString();
-                String itemType = itemTypeInput.getText().toString();
-                String itemCategory = itemCategoryInput.getText().toString();
-                String itemStore = itemStoreInput.getText().toString();
+        editItemButton.setOnClickListener(v -> {
+            String oldItemName = "";
+            if(shopping.editItemInInventory) {
+                oldItemName = shopping.selectedItemInInventory.getName();
+            } else if (shopping.editItemInShoppingList) {
+                oldItemName = shopping.selectedItemInShoppingList.getName();
+            }
+            String newItemName = itemNameInput.getText().toString();
+            String itemType = itemTypeInput.getText().toString();
+            String itemCategory = itemCategoryInput.getText().toString();
+            String itemStore = itemStoreInput.getText().toString();
 
-                if (newItemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                    return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                    return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                    return;
-                } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                    return;
-                }
+            if (newItemName.isEmpty() || itemType.isEmpty()) {
+                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                return;
+            } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
+                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                return;
+            } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
+                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                return;
+            } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
+                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                return;
+            }
 
-                if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                    int numCategories = categoryData.getCategoryList().size();
-                    dbCategoryHelper.addNewCategory(itemCategory, numCategories);
-                    shopping.updateCategoryData();
-                }
+            if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                int numCategories = categoryData.getCategoryList().size();
+                dbCategoryHelper.addNewCategory(itemCategory, numCategories);
+                shopping.updateCategoryData();
+            }
 
-                if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                    int numStores = storeData.getStoreList().size();
-                    dbStoreHelper.addNewStore(itemStore, numStores);
-                    shopping.updateStoreData();
-                }
+            if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                int numStores = storeData.getStoreList().size();
+                dbStoreHelper.addNewStore(itemStore, numStores);
+                shopping.updateStoreData();
+            }
 
-                if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                    itemCategory = categorySpinner.getSelectedItem().toString();
-                }
+            if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                itemCategory = categorySpinner.getSelectedItem().toString();
+            }
 
-                if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                    itemStore = storeSpinner.getSelectedItem().toString();
-                }
+            if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                itemStore = storeSpinner.getSelectedItem().toString();
+            }
 
-                dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                dbStatusHelper.changeStatusName(oldItemName, newItemName);
-                shopping.updateItemData();
-                shopping.updateStatusData();
+            dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
+            dbStatusHelper.changeStatusName(oldItemName, newItemName);
+            shopping.updateItemData();
+            shopping.updateStatusData();
 
-                if(shopping.editItemInInventory) {
-                    shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
-                } else if (shopping.editItemInShoppingList) {
-                    shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
-                }
+            if(shopping.editItemInInventory) {
+                shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
+            } else if (shopping.editItemInShoppingList) {
+                shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
+            }
 
-                shopping.hideKeyboard();
-                if(shopping.editItemInInventory) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList) {
-                    shopping.loadFragment(new ShoppingList());
-                }
+            shopping.hideKeyboard();
+            if(shopping.editItemInInventory) {
+                shopping.loadFragment(new FullInventory());
+            } else if (shopping.editItemInShoppingList) {
+                shopping.loadFragment(new ShoppingList());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                if(shopping.editItemInInventory) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList) {
-                    shopping.loadFragment(new ShoppingList());
-                }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            if(shopping.editItemInInventory) {
+                shopping.loadFragment(new FullInventory());
+            } else if (shopping.editItemInShoppingList) {
+                shopping.loadFragment(new ShoppingList());
             }
         });
 

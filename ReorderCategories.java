@@ -36,19 +36,9 @@ public class ReorderCategories extends Fragment {
         Button finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
-        finishReorderingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        finishReorderingButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
 
         return view;
     }

@@ -5,12 +5,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import java.util.Objects;
@@ -93,23 +91,17 @@ public class Shopping extends AppCompatActivity {
         }
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
-        fullInventory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
-                if (f instanceof FullInventory) return;
-                loadFragment(new FullInventory());
-            }
+        fullInventory.setOnClickListener(v -> {
+            Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+            if (f instanceof FullInventory) return;
+            loadFragment(new FullInventory());
         });
 
         Button shoppingList = findViewById(R.id.shoppingListTopMenu);
-        shoppingList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
-                if (f instanceof ShoppingList) return;
-                loadFragment(new ShoppingList());
-            }
+        shoppingList.setOnClickListener(v -> {
+            Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+            if (f instanceof ShoppingList) return;
+            loadFragment(new ShoppingList());
         });
     }
 
@@ -162,11 +154,7 @@ public class Shopping extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+        builder.setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
     }

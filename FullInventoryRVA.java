@@ -731,6 +731,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                             alphabeticalItemHolder.triangleRight.setVisibility(View.VISIBLE);
                             alphabeticalItemHolder.triangleDown.setVisibility(View.GONE);
                         }
+                        break;
 
                     case Shopping.INVENTORY_INSTOCK:
                         if (thisItem.getStatus().isInStock()) {
@@ -770,6 +771,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                 alphabeticalItemHolder.triangleDown.setVisibility(View.GONE);
                             }
                         }
+                        break;
 
                     case Shopping.INVENTORY_NEEDED:
                         if (thisItem.getStatus().isInStock()) {
@@ -810,6 +812,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                 alphabeticalItemHolder.triangleDown.setVisibility(View.GONE);
                             }
                         }
+                        break;
 
                     case Shopping.INVENTORY_PAUSED:
                         if (thisItem.getStatus().isInStock()) {
@@ -849,6 +852,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                 alphabeticalItemHolder.triangleDown.setVisibility(View.GONE);
                             }
                         }
+                        break;
                 }
                 break;
             }

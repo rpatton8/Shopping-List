@@ -7,9 +7,12 @@ class Status {
     private Boolean isPaused;
     private Boolean isExpandedInInventory;
     private Boolean isContractedInInventory;
+    private Boolean isExpandedInSearchResults;
+    private Boolean isContractedInSearchResults;
     private Boolean isExpandedInShoppingList;
     private Boolean isContractedInShoppingList;
     private Boolean isSelectedInInventory;
+    private Boolean isSelectedInSearchResults;
     private Boolean isSelectedInShoppingList;
     private Boolean isChecked;
 
@@ -20,28 +23,36 @@ class Status {
                 isInStock = true;
                 isNeeded = false;
                 isPaused = false;
+                break;
             case "needed":
                 isInStock = false;
                 isNeeded = true;
                 isPaused = false;
+                break;
             case "paused":
                 isInStock = false;
                 isNeeded = false;
                 isPaused = true;
+                break;
         }
         
         switch (checked) {
             case "checked":
                 setAsChecked();
+                break;
             case "unchecked":
                 setAsUnchecked();
+                break;
         }
 
         isExpandedInInventory = false;
         isContractedInInventory = true;
+        isExpandedInSearchResults = false;
+        isContractedInSearchResults = true;
         isExpandedInShoppingList = false;
         isContractedInShoppingList = true;
         isSelectedInInventory = false;
+        isSelectedInSearchResults = false;
         isSelectedInShoppingList = false;
         isChecked = false;
     }
@@ -62,6 +73,24 @@ class Status {
 
     public Boolean isContractedInInventory() {
         return isContractedInInventory;
+    }
+
+    public void setAsExpandedInSearchResults() {
+        isExpandedInSearchResults = true;
+        isContractedInSearchResults = false;
+    }
+
+    public void setAsContractedInSearchResults() {
+        isContractedInSearchResults = true;
+        isExpandedInSearchResults = false;
+    }
+
+    public Boolean isExpandedInSearchResults() {
+        return isExpandedInSearchResults;
+    }
+
+    public Boolean isContractedInSearchResults() {
+        return isContractedInSearchResults;
     }
 
     public void setAsExpandedInShoppingList() {
@@ -92,6 +121,18 @@ class Status {
 
     public Boolean isSelectedInInventory() {
         return isSelectedInInventory;
+    }
+
+    public void setAsSelectedInSearchResults() {
+        isSelectedInSearchResults = true;
+    }
+
+    public void setAsUnselectedInSearchResults() {
+        isSelectedInSearchResults = false;
+    }
+
+    public Boolean isSelectedInSearchResults() {
+        return isSelectedInSearchResults;
     }
 
     public void setAsSelectedInShoppingList() {

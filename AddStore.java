@@ -32,32 +32,26 @@ public class AddStore extends Fragment {
 
         storeInput.setText("");
 
-        addStoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addStoreButton.setOnClickListener(v -> {
 
-                String storeName = storeInput.getText().toString();
+            String storeName = storeInput.getText().toString();
 
-                if (storeName.isEmpty()) {
-                    shopping.showAlertDialog("Add Store", "Please enter a store to add.");
-                    return;
-                }
-
-                int numStores = storeData.getStoreList().size();
-                dbStoreHelper.addNewStore(storeName, numStores);
-                shopping.updateStoreData();
-
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+            if (storeName.isEmpty()) {
+                shopping.showAlertDialog("Add Store", "Please enter a store to add.");
+                return;
             }
+
+            int numStores = storeData.getStoreList().size();
+            dbStoreHelper.addNewStore(storeName, numStores);
+            shopping.updateStoreData();
+
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
-            }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
         return view;

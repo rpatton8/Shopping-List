@@ -32,32 +32,26 @@ public class AddCategory extends Fragment {
 
         categoryInput.setText("");
 
-        addCategoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addCategoryButton.setOnClickListener(v -> {
 
-                String categoryName = categoryInput.getText().toString();
+            String categoryName = categoryInput.getText().toString();
 
-                if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog("Add Category", "Please enter a category to add.");
-                    return;
-                }
-
-                int numCategories = categoryData.getCategoryList().size();
-                dbCategoryHelper.addNewCategory(categoryName, numCategories);
-                shopping.updateCategoryData();
-
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+            if (categoryName.isEmpty()) {
+                shopping.showAlertDialog("Add Category", "Please enter a category to add.");
+                return;
             }
+
+            int numCategories = categoryData.getCategoryList().size();
+            dbCategoryHelper.addNewCategory(categoryName, numCategories);
+            shopping.updateCategoryData();
+
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
-            }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
         return view;

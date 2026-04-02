@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
@@ -70,34 +69,25 @@ public class AddItem extends Fragment {
         CheckBox locationCheckbox = view.findViewById(R.id.locationCheckbox);
         locationInput = view.findViewById(R.id.locationInput);
 
-        quantityCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        quantityCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if (isChecked) quantityInput.setVisibility(View.VISIBLE);
-                else quantityInput.setVisibility(View.GONE);
+            if (isChecked) quantityInput.setVisibility(View.VISIBLE);
+            else quantityInput.setVisibility(View.GONE);
 
-            }
         });
 
-        priceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        priceCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if (isChecked) priceInput.setVisibility(View.VISIBLE);
-                else priceInput.setVisibility(View.GONE);
+            if (isChecked) priceInput.setVisibility(View.VISIBLE);
+            else priceInput.setVisibility(View.GONE);
 
-            }
         });
 
-        locationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        locationCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if (isChecked) locationInput.setVisibility(View.VISIBLE);
-                else locationInput.setVisibility(View.GONE);
+            if (isChecked) locationInput.setVisibility(View.VISIBLE);
+            else locationInput.setVisibility(View.GONE);
 
-            }
         });
 
         ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
@@ -146,75 +136,69 @@ public class AddItem extends Fragment {
             }
         });
 
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        addItemButton.setOnClickListener(v -> {
 
-                String itemName = itemNameInput.getText().toString();
-                String itemType = itemBrandTypeInput.getText().toString();
-                String itemCategory = itemCategoryInput.getText().toString();
-                String itemStore = itemStoreInput.getText().toString();
+            String itemName = itemNameInput.getText().toString();
+            String itemType = itemBrandTypeInput.getText().toString();
+            String itemCategory = itemCategoryInput.getText().toString();
+            String itemStore = itemStoreInput.getText().toString();
 
-                if (itemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
-                    return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
-                    return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
-                    return;
-                } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
-                    return;
-                }
-
-                if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                    int numCategories = categoryData.getCategoryList().size();
-                    dbCategoryHelper.addNewCategory(itemCategory, numCategories);
-                    shopping.updateCategoryData();
-                }
-
-                if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                    int numStores = storeData.getStoreList().size();
-                    dbStoreHelper.addNewStore(itemStore, numStores);
-                    shopping.updateStoreData();
-                }
-
-                if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                    itemCategory = categorySpinner.getSelectedItem().toString();
-                }
-
-                if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                    itemStore = storeSpinner.getSelectedItem().toString();
-                }
-
-                int itemsInCategory;
-                if (itemData.getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
-                else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getItemList().size();
-
-                int itemsInStore;
-                if (itemData.getStoreMap().get(itemStore) == null) itemsInStore = 0;
-                else itemsInStore = itemData.getStoreMap().get(itemStore).getItemList().size();
-
-                dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
-                dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
-                dbStatusHelper.addNewStatus(itemName, "paused", "unchecked");
-
-                shopping.updateItemData();
-                shopping.updateStatusData();
-
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+            if (itemName.isEmpty() || itemType.isEmpty()) {
+                shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                return;
+            } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
+                shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                return;
+            } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
+                shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                return;
+            } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
+                shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                return;
             }
+
+            if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                int numCategories = categoryData.getCategoryList().size();
+                dbCategoryHelper.addNewCategory(itemCategory, numCategories);
+                shopping.updateCategoryData();
+            }
+
+            if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                int numStores = storeData.getStoreList().size();
+                dbStoreHelper.addNewStore(itemStore, numStores);
+                shopping.updateStoreData();
+            }
+
+            if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                itemCategory = categorySpinner.getSelectedItem().toString();
+            }
+
+            if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                itemStore = storeSpinner.getSelectedItem().toString();
+            }
+
+            int itemsInCategory;
+            if (itemData.getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
+            else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getItemList().size();
+
+            int itemsInStore;
+            if (itemData.getStoreMap().get(itemStore) == null) itemsInStore = 0;
+            else itemsInStore = itemData.getStoreMap().get(itemStore).getItemList().size();
+
+            dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
+            dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
+            dbStatusHelper.addNewStatus(itemName, "paused", "unchecked");
+
+            shopping.updateItemData();
+            shopping.updateStatusData();
+
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
-            }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
         return view;

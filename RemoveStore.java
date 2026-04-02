@@ -37,33 +37,25 @@ public class RemoveStore extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 
-        removeStoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String storeName = storeSpinner.getSelectedItem().toString();
+        removeStoreButton.setOnClickListener(v -> {
+            String storeName = storeSpinner.getSelectedItem().toString();
 
-                if (storeName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Store", "Choose a store to remove.");
-                    return;
-                }
-
-                int orderNum = storeData.getStoreList().indexOf(storeName);
-                dbStoreHelper.deleteStore(storeName);
-                for (int i = orderNum + 1; i < storeData.getStoreList().size(); i++) {
-                    dbStoreHelper.moveOrderDownOne(i);
-                }
-
-                shopping.updateStoreData();
-                shopping.loadFragment(new FullInventory());
+            if (storeName.isEmpty()) {
+                shopping.showAlertDialog("Remove Store", "Choose a store to remove.");
+                return;
             }
+
+            int orderNum = storeData.getStoreList().indexOf(storeName);
+            dbStoreHelper.deleteStore(storeName);
+            for (int i = orderNum + 1; i < storeData.getStoreList().size(); i++) {
+                dbStoreHelper.moveOrderDownOne(i);
+            }
+
+            shopping.updateStoreData();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
 
         return view;
     }

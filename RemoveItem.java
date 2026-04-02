@@ -33,48 +33,40 @@ public class RemoveItem extends Fragment {
 
         itemNameInput.setText(shopping.selectedItemInInventory.getName());
 
-        removeItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        removeItemButton.setOnClickListener(v -> {
 
-                String itemName = itemNameInput.getText().toString();
+            String itemName = itemNameInput.getText().toString();
 
-                if (itemName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
-                    return;
-                }
-
-                Item item = itemData.getItemMap().get(itemName);
-
-                String category = item.getCategory().toString();
-                int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
-                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
-                    dbItemHelper.moveOrderDownOneByCategory(category, i);
-                }
-
-                String store = item.getStore().toString();
-                int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
-                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
-                    dbItemHelper.moveOrderDownOneByStore(store, i);
-                }
-
-                dbItemHelper.deleteItem(itemName);
-                dbStatusHelper.deleteStatus(itemName);
-                shopping.updateItemData();
-                shopping.updateStatusData();
-
-                shopping.itemIsSelectedInInventory = false;
-
-                shopping.loadFragment(new FullInventory());
+            if (itemName.isEmpty()) {
+                shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
+                return;
             }
+
+            Item item = itemData.getItemMap().get(itemName);
+
+            String category = item.getCategory().toString();
+            int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
+            for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
+                dbItemHelper.moveOrderDownOneByCategory(category, i);
+            }
+
+            String store = item.getStore().toString();
+            int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
+            for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
+                dbItemHelper.moveOrderDownOneByStore(store, i);
+            }
+
+            dbItemHelper.deleteItem(itemName);
+            dbStatusHelper.deleteStatus(itemName);
+            shopping.updateItemData();
+            shopping.updateStatusData();
+
+            shopping.itemIsSelectedInInventory = false;
+
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadFragment(new FullInventory());
-            }
-        });
+        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
         return view;
     }
 }

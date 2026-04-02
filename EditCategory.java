@@ -44,34 +44,28 @@ public class EditCategory extends Fragment {
 
         categoryInput.setText("");
 
-        editCategoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String oldCategory = categorySpinner.getSelectedItem().toString();
-                String newCategory = categoryInput.getText().toString();
+        editCategoryButton.setOnClickListener(v -> {
+            String oldCategory = categorySpinner.getSelectedItem().toString();
+            String newCategory = categoryInput.getText().toString();
 
-                if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                    shopping.showAlertDialog("Edit Category", "Change category name to edit.");
-                    return;
-                }
-
-                dbItemHelper.changeCategory(oldCategory, newCategory);
-                shopping.updateItemData();
-
-                dbCategoryHelper.changeCategoryName(oldCategory, newCategory);
-                shopping.updateCategoryData();
-
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+            if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
+                shopping.showAlertDialog("Edit Category", "Change category name to edit.");
+                return;
             }
+
+            dbItemHelper.changeCategory(oldCategory, newCategory);
+            shopping.updateItemData();
+
+            dbCategoryHelper.changeCategoryName(oldCategory, newCategory);
+            shopping.updateCategoryData();
+
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
-            }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
         return view;

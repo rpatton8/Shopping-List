@@ -21,16 +21,21 @@ class StatusData {
             switch (status) {
                 case "instock":
                     thisStatus.setAsInStock();
+                    break;
                 case "needed":
                     thisStatus.setAsNeeded();
+                    break;
                 case "paused":
                     thisStatus.setAsPaused();
+                    break;
             }
             switch (checked) {
                 case "checked":
                     thisStatus.setAsChecked();
+                    break;
                 case "unchecked":
                     thisStatus.setAsUnchecked();
+                    break;
             }
         } else {
             Status newStatus = new Status(itemName, status, checked);

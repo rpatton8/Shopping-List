@@ -44,34 +44,28 @@ public class EditStore extends Fragment {
 
         storeInput.setText("");
 
-        editStoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String oldStore = storeSpinner.getSelectedItem().toString();
-                String newStore = storeInput.getText().toString();
+        editStoreButton.setOnClickListener(v -> {
+            String oldStore = storeSpinner.getSelectedItem().toString();
+            String newStore = storeInput.getText().toString();
 
-                if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                    shopping.showAlertDialog("Edit Store", "Change store name to edit.");
-                    return;
-                }
-
-                dbItemHelper.changeStore(oldStore, newStore);
-                shopping.updateItemData();
-
-                dbStoreHelper.changeStoreName(oldStore, newStore);
-                shopping.updateStoreData();
-
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+            if (newStore.isEmpty() || oldStore.equals(newStore)) {
+                shopping.showAlertDialog("Edit Store", "Change store name to edit.");
+                return;
             }
+
+            dbItemHelper.changeStore(oldStore, newStore);
+            shopping.updateItemData();
+
+            dbStoreHelper.changeStoreName(oldStore, newStore);
+            shopping.updateStoreData();
+
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
-            }
+        cancelButton.setOnClickListener(v -> {
+            shopping.hideKeyboard();
+            shopping.loadFragment(new FullInventory());
         });
 
         return view;

@@ -66,128 +66,110 @@ public class ShoppingList extends Fragment {
             shoppingListTitle.setLayoutParams(params);
         }
 
-        shoppingListLeftArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
+        shoppingListLeftArrow.setOnClickListener(v -> {
+            if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
+            else shopping.storeListOrderNum--;
+
+            while (shopping.storeListOrderNum != 0) {
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
                 else shopping.storeListOrderNum--;
-
-                while (shopping.storeListOrderNum != 0) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum--;
-                }
-
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-                shopping.loadFragment(new ShoppingList());
             }
+
+            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+            shopping.loadFragment(new ShoppingList());
         });
 
-        shoppingListRightArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
+        shoppingListRightArrow.setOnClickListener(v -> {
+            if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
+            else shopping.storeListOrderNum++;
+
+            while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
+                if (shopping.storeListOrderNum == 0) break;
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
                 else shopping.storeListOrderNum++;
-
-                while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
-                    if (shopping.storeListOrderNum == 0) break;
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum++;
-                }
-
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
-                }
-
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-                shopping.loadFragment(new ShoppingList());
             }
+
+            if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
+            }
+
+            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+            shopping.loadFragment(new ShoppingList());
         });
 
-        clearCheckedItems.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*for (int i = 0; i < itemData.getItemList().size(); i++) {
-                    if (shopping.getCheckedList().get(i)) {
-                        Item item = shopping.getItemData().getItemList().get(i);
-                        item.getStatus().setAsInStock();
-                        item.getStatus().setAsUnchecked();
-                        shopping.getCheckedList().set(i, false);
-                        //dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
-                        shopping.updateStatusData();
+        clearCheckedItems.setOnClickListener(v -> {
+            /*for (int i = 0; i < itemData.getItemList().size(); i++) {
+                if (shopping.getCheckedList().get(i)) {
+                    Item item = shopping.getItemData().getItemList().get(i);
+                    item.getStatus().setAsInStock();
+                    item.getStatus().setAsUnchecked();
+                    shopping.getCheckedList().set(i, false);
+                    //dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
+                    shopping.updateStatusData();
 
-                        Store thisStore = item.getStore(0);
-                        int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                        dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
-                        shopping.updateStoreData();
-                    }
-                }*/
+                    Store thisStore = item.getStore(0);
+                    int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
+                    dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
+                    shopping.updateStoreData();
+                }
+            }*/
 
+            shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
+            shopping.loadFragment(new ShoppingList());
+        });
+
+        editSelectedItem.setOnClickListener(v -> {
+            if (shopping.itemIsSelectedInShoppingList) {
                 shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
-                shopping.loadFragment(new ShoppingList());
+                shopping.editItemInInventory = false;
+                shopping.editItemInShoppingList = true;
+                shopping.loadFragment(new EditItem());
+            } else {
+                Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                toast.show();
             }
         });
 
-        editSelectedItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shopping.itemIsSelectedInShoppingList) {
-                    shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
-                    shopping.editItemInInventory = false;
-                    shopping.editItemInShoppingList = true;
-                    shopping.loadFragment(new EditItem());
-                } else {
-                    Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
-                }
-            }
-        });
+        shoppingListLeftArrow.setOnClickListener(v -> {
+            if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
+            else shopping.storeListOrderNum--;
 
-        shoppingListLeftArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
+            while (shopping.storeListOrderNum != 0) {
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
                 else shopping.storeListOrderNum--;
-
-                while (shopping.storeListOrderNum != 0) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum--;
-                }
-
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-                shopping.loadFragment(new ShoppingList());
             }
+
+            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+            shopping.loadFragment(new ShoppingList());
         });
 
-        shoppingListRightArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
+        shoppingListRightArrow.setOnClickListener(v -> {
+            if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
+            else shopping.storeListOrderNum++;
+
+            while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
+                if (shopping.storeListOrderNum == 0) break;
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
                 else shopping.storeListOrderNum++;
-
-                while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
-                    if (shopping.storeListOrderNum == 0) break;
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum++;
-                }
-
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
-                }
-
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-                shopping.loadFragment(new ShoppingList());
             }
+
+            if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
+                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+                if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
+            }
+
+            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+            shopping.loadFragment(new ShoppingList());
         });
 
         shoppingListRecyclerView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {

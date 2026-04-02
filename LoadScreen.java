@@ -74,225 +74,183 @@ public class LoadScreen extends Fragment {
 
         Button instructions = view.findViewById(R.id.instructions);
 
-        loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (menuOptionsVisible) {
-                    clearAllData.setVisibility(View.GONE);
-                    loadSampleData1.setVisibility(View.GONE);
-                    loadSampleData2.setVisibility(View.GONE);
+        loadScreenEditButton.setOnClickListener(v -> {
+            if (menuOptionsVisible) {
+                clearAllData.setVisibility(View.GONE);
+                loadSampleData1.setVisibility(View.GONE);
+                loadSampleData2.setVisibility(View.GONE);
 
-                    changeDefaultSortBy.setVisibility(View.GONE);
-                    sortAlphabetical.setVisibility(View.GONE);
-                    sortByCategory.setVisibility(View.GONE);
-                    sortByStore.setVisibility(View.GONE);
+                changeDefaultSortBy.setVisibility(View.GONE);
+                sortAlphabetical.setVisibility(View.GONE);
+                sortByCategory.setVisibility(View.GONE);
+                sortByStore.setVisibility(View.GONE);
 
-                    changeReorderingMethod.setVisibility(View.GONE);
-                    dragAndDrop.setVisibility(View.GONE);
-                    upAndDownArrows.setVisibility(View.GONE);
-                    withNumbers.setVisibility(View.GONE);
+                changeReorderingMethod.setVisibility(View.GONE);
+                dragAndDrop.setVisibility(View.GONE);
+                upAndDownArrows.setVisibility(View.GONE);
+                withNumbers.setVisibility(View.GONE);
 
-                    changeColorScheme.setVisibility(View.GONE);
-                    colorScheme1.setVisibility(View.GONE);
-                    colorScheme2.setVisibility(View.GONE);
-                    colorScheme3.setVisibility(View.GONE);
+                changeColorScheme.setVisibility(View.GONE);
+                colorScheme1.setVisibility(View.GONE);
+                colorScheme2.setVisibility(View.GONE);
+                colorScheme3.setVisibility(View.GONE);
 
-                    shoppingOptionsBackground.setVisibility(View.GONE);
-                    menuOptionsVisible = false;
-                } else {
-                    switch (shopping.defaultSortBy) {
-                        case Shopping.SORT_ALPHABETICAL:
-                            sortAlphabetical.setChecked(true);
-                            break;
-                        case Shopping.SORT_BY_CATEGORY:
-                            sortByCategory.setChecked(true);
-                            break;
-                        case Shopping.SORT_BY_STORE:
-                            sortByStore.setChecked(true);
-                            break;
-                    }
-                    switch (shopping.reorderingMethod) {
-                        case Shopping.DRAG_AND_DROP:
-                            dragAndDrop.setChecked(true);
-                            break;
-                        case Shopping.UP_AND_DOWN_ARROWS:
-                            upAndDownArrows.setChecked(true);
-                            break;
-                        case Shopping.WITH_NUMBERS:
-                            withNumbers.setChecked(true);
-                            break;
-                    }
-                    switch (shopping.colorScheme) {
-                        case Shopping.COLOR_SCHEME_1:
-                            colorScheme1.setChecked(true);
-                            break;
-                        case Shopping.COLOR_SCHEME_2:
-                            colorScheme2.setChecked(true);
-                            break;
-                        case Shopping.COLOR_SCHEME_3:
-                            colorScheme3.setChecked(true);
-                            break;
-                    }
-                    clearAllData.setVisibility(View.VISIBLE);
-                    loadSampleData1.setVisibility(View.VISIBLE);
-                    loadSampleData2.setVisibility(View.VISIBLE);
-
-                    changeDefaultSortBy.setVisibility(View.VISIBLE);
-                    sortAlphabetical.setVisibility(View.VISIBLE);
-                    sortByCategory.setVisibility(View.VISIBLE);
-                    sortByStore.setVisibility(View.VISIBLE);
-
-                    changeReorderingMethod.setVisibility(View.VISIBLE);
-                    dragAndDrop.setVisibility(View.VISIBLE);
-                    upAndDownArrows.setVisibility(View.VISIBLE);
-                    withNumbers.setVisibility(View.VISIBLE);
-
-                    changeColorScheme.setVisibility(View.VISIBLE);
-                    colorScheme1.setVisibility(View.VISIBLE);
-                    colorScheme2.setVisibility(View.VISIBLE);
-                    colorScheme3.setVisibility(View.VISIBLE);
-
-                    shoppingOptionsBackground.setVisibility(View.VISIBLE);
-                    menuOptionsVisible = true;
+                shoppingOptionsBackground.setVisibility(View.GONE);
+                menuOptionsVisible = false;
+            } else {
+                switch (shopping.defaultSortBy) {
+                    case Shopping.SORT_ALPHABETICAL:
+                        sortAlphabetical.setChecked(true);
+                        break;
+                    case Shopping.SORT_BY_CATEGORY:
+                        sortByCategory.setChecked(true);
+                        break;
+                    case Shopping.SORT_BY_STORE:
+                        sortByStore.setChecked(true);
+                        break;
                 }
+                switch (shopping.reorderingMethod) {
+                    case Shopping.DRAG_AND_DROP:
+                        dragAndDrop.setChecked(true);
+                        break;
+                    case Shopping.UP_AND_DOWN_ARROWS:
+                        upAndDownArrows.setChecked(true);
+                        break;
+                    case Shopping.WITH_NUMBERS:
+                        withNumbers.setChecked(true);
+                        break;
+                }
+                switch (shopping.colorScheme) {
+                    case Shopping.COLOR_SCHEME_1:
+                        colorScheme1.setChecked(true);
+                        break;
+                    case Shopping.COLOR_SCHEME_2:
+                        colorScheme2.setChecked(true);
+                        break;
+                    case Shopping.COLOR_SCHEME_3:
+                        colorScheme3.setChecked(true);
+                        break;
+                }
+                clearAllData.setVisibility(View.VISIBLE);
+                loadSampleData1.setVisibility(View.VISIBLE);
+                loadSampleData2.setVisibility(View.VISIBLE);
+
+                changeDefaultSortBy.setVisibility(View.VISIBLE);
+                sortAlphabetical.setVisibility(View.VISIBLE);
+                sortByCategory.setVisibility(View.VISIBLE);
+                sortByStore.setVisibility(View.VISIBLE);
+
+                changeReorderingMethod.setVisibility(View.VISIBLE);
+                dragAndDrop.setVisibility(View.VISIBLE);
+                upAndDownArrows.setVisibility(View.VISIBLE);
+                withNumbers.setVisibility(View.VISIBLE);
+
+                changeColorScheme.setVisibility(View.VISIBLE);
+                colorScheme1.setVisibility(View.VISIBLE);
+                colorScheme2.setVisibility(View.VISIBLE);
+                colorScheme3.setVisibility(View.VISIBLE);
+
+                shoppingOptionsBackground.setVisibility(View.VISIBLE);
+                menuOptionsVisible = true;
             }
         });
 
-        clearAllData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.clearAllData();
-                shopping.initializeData();
-            }
+        clearAllData.setOnClickListener(v -> {
+            shopping.clearAllData();
+            shopping.initializeData();
         });
 
-        loadSampleData1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadStoresAndCategories();
-                shopping.loadCategoryData1();
-                shopping.loadStoreData1();
-                shopping.initializeData();
-            }
+        loadSampleData1.setOnClickListener(v -> {
+            shopping.loadStoresAndCategories();
+            shopping.loadCategoryData1();
+            shopping.loadStoreData1();
+            shopping.initializeData();
         });
 
-        loadSampleData2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.loadStoresAndCategories();
-                shopping.loadCategoryData2();
-                shopping.loadStoreData2();
-                shopping.initializeData();
-            }
+        loadSampleData2.setOnClickListener(v -> {
+            shopping.loadStoresAndCategories();
+            shopping.loadCategoryData2();
+            shopping.loadStoreData2();
+            shopping.initializeData();
         });
 
-        sortAlphabetical.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.defaultSortBy = Shopping.SORT_ALPHABETICAL;
-                shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "alphabetical");
-                editor.apply();
-            }
+        sortAlphabetical.setOnClickListener(v -> {
+            shopping.defaultSortBy = Shopping.SORT_ALPHABETICAL;
+            shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("default_sort_by", "alphabetical");
+            editor.apply();
         });
 
-        sortByCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.defaultSortBy = Shopping.SORT_BY_CATEGORY;
-                shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "category");
-                editor.apply();
-            }
+        sortByCategory.setOnClickListener(v -> {
+            shopping.defaultSortBy = Shopping.SORT_BY_CATEGORY;
+            shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("default_sort_by", "category");
+            editor.apply();
         });
 
-        sortByStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.defaultSortBy = Shopping.SORT_BY_STORE;
-                shopping.inventorySortBy = Shopping.SORT_BY_STORE;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "store");
-                editor.apply();
-            }
+        sortByStore.setOnClickListener(v -> {
+            shopping.defaultSortBy = Shopping.SORT_BY_STORE;
+            shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("default_sort_by", "store");
+            editor.apply();
         });
 
-        dragAndDrop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.reorderingMethod  = Shopping.DRAG_AND_DROP;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "drag and drop");
-                editor.apply();
-            }
+        dragAndDrop.setOnClickListener(v -> {
+            shopping.reorderingMethod  = Shopping.DRAG_AND_DROP;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("reorder_method", "drag and drop");
+            editor.apply();
         });
 
-        upAndDownArrows.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.reorderingMethod  = Shopping.UP_AND_DOWN_ARROWS;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "up and down arrows");
-                editor.apply();
-            }
+        upAndDownArrows.setOnClickListener(v -> {
+            shopping.reorderingMethod  = Shopping.UP_AND_DOWN_ARROWS;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("reorder_method", "up and down arrows");
+            editor.apply();
         });
 
-        withNumbers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.reorderingMethod  = Shopping.WITH_NUMBERS;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "with numbers");
-                editor.apply();
-            }
+        withNumbers.setOnClickListener(v -> {
+            shopping.reorderingMethod  = Shopping.WITH_NUMBERS;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("reorder_method", "with numbers");
+            editor.apply();
         });
 
-        colorScheme1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_1;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 1");
-                editor.apply();
-            }
+        colorScheme1.setOnClickListener(v -> {
+            shopping.colorScheme = Shopping.COLOR_SCHEME_1;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("color_scheme", "color scheme 1");
+            editor.apply();
         });
 
-        colorScheme2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_2;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 2");
-                editor.apply();
-            }
+        colorScheme2.setOnClickListener(v -> {
+            shopping.colorScheme = Shopping.COLOR_SCHEME_2;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("color_scheme", "color scheme 2");
+            editor.apply();
         });
 
-        colorScheme3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_3;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 3");
-                editor.apply();
-            }
+        colorScheme3.setOnClickListener(v -> {
+            shopping.colorScheme = Shopping.COLOR_SCHEME_3;
+            SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("color_scheme", "color scheme 3");
+            editor.apply();
         });
 
-        instructions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // to do
-            }
+        instructions.setOnClickListener(v -> {
+            // to do
         });
 
         return view;
