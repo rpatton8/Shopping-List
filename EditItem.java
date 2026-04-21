@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
+//@SuppressWarnings("ALL")
 public class EditItem extends Fragment {
 
     private Shopping shopping;
@@ -24,14 +25,21 @@ public class EditItem extends Fragment {
 
     private EditText itemNameInput;
     private EditText itemTypeInput;
-    private Spinner categorySpinner;
-    private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
+    private Button editItemButton;
+    private Button cancelButton;
+
+    private Spinner categorySpinner;
+    private Spinner storeSpinner;
+    private ArrayList<String> categorySpinnerData;
+    private ArrayAdapter<String> categoryAdapter;
+    private ArrayList<String> storeSpinnerData;
+    private ArrayAdapter<String> storeAdapter;
 
     public EditItem() {}
 
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.edit_item, container, false);
 
@@ -47,8 +55,8 @@ public class EditItem extends Fragment {
         itemTypeInput = view.findViewById(R.id.itemTypeInput);
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        Button editItemButton = view.findViewById(R.id.editItemButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        editItemButton = view.findViewById(R.id.editItemButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
@@ -60,9 +68,9 @@ public class EditItem extends Fragment {
         itemCategoryInput.setText("");
         itemStoreInput.setText("");
 
-        ArrayList<String> categorySpinnerData = categoryData.getCategoryListWithAddNew();
+        categorySpinnerData = categoryData.getCategoryListWithAddNew();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
+        categoryAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
 
@@ -74,9 +82,9 @@ public class EditItem extends Fragment {
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
-        ArrayList<String> storeSpinnerData = storeData.getStoreListWithAddNew();
+        storeSpinnerData = storeData.getStoreListWithAddNew();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter<String> storeAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
+        storeAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         storeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(storeAdapter);
 
@@ -89,7 +97,6 @@ public class EditItem extends Fragment {
         storeSpinner.setSelection(storeSpinnerPosition);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals("(add new category)")) {
@@ -98,15 +105,10 @@ public class EditItem extends Fragment {
                     itemCategoryInput.setVisibility(View.GONE);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
         storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals("(add new store)")) {
@@ -115,84 +117,84 @@ public class EditItem extends Fragment {
                     itemStoreInput.setVisibility(View.GONE);
                 }
             }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        editItemButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String oldItemName = "";
+                if (shopping.editItemInInventory) {
+                    oldItemName = shopping.selectedItemInInventory.getName();
+                } else if (shopping.editItemInShoppingList) {
+                    oldItemName = shopping.selectedItemInShoppingList.getName();
+                }
+                String newItemName = itemNameInput.getText().toString();
+                String itemType = itemTypeInput.getText().toString();
+                String itemCategory = itemCategoryInput.getText().toString();
+                String itemStore = itemStoreInput.getText().toString();
 
+                if (newItemName.isEmpty() || itemType.isEmpty()) {
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                    return;
+                } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                    return;
+                } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                    return;
+                } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
+                    shopping.showAlertDialog("Edit Item", "Please enter all the data.");
+                    return;
+                }
+
+                if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                    int numCategories = categoryData.getCategoryList().size();
+                    dbCategoryHelper.addNewCategory(itemCategory, numCategories);
+                    shopping.updateCategoryData();
+                }
+
+                if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                    int numStores = storeData.getStoreList().size();
+                    dbStoreHelper.addNewStore(itemStore, numStores);
+                    shopping.updateStoreData();
+                }
+
+                if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                    itemCategory = categorySpinner.getSelectedItem().toString();
+                }
+
+                if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                    itemStore = storeSpinner.getSelectedItem().toString();
+                }
+
+                dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
+                dbStatusHelper.changeStatusName(oldItemName, newItemName);
+                shopping.updateItemData();
+                shopping.updateStatusData();
+
+                if (shopping.editItemInInventory) {
+                    shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
+                }
+
+                shopping.hideKeyboard();
+                if (shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.loadFragment(new ShoppingList());
+                }
             }
         });
 
-        editItemButton.setOnClickListener(v -> {
-            String oldItemName = "";
-            if(shopping.editItemInInventory) {
-                oldItemName = shopping.selectedItemInInventory.getName();
-            } else if (shopping.editItemInShoppingList) {
-                oldItemName = shopping.selectedItemInShoppingList.getName();
-            }
-            String newItemName = itemNameInput.getText().toString();
-            String itemType = itemTypeInput.getText().toString();
-            String itemCategory = itemCategoryInput.getText().toString();
-            String itemStore = itemStoreInput.getText().toString();
-
-            if (newItemName.isEmpty() || itemType.isEmpty()) {
-                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                return;
-            } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                return;
-            } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                return;
-            } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                shopping.showAlertDialog("Edit Item", "Please enter all the data.");
-                return;
-            }
-
-            if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                int numCategories = categoryData.getCategoryList().size();
-                dbCategoryHelper.addNewCategory(itemCategory, numCategories);
-                shopping.updateCategoryData();
-            }
-
-            if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                int numStores = storeData.getStoreList().size();
-                dbStoreHelper.addNewStore(itemStore, numStores);
-                shopping.updateStoreData();
-            }
-
-            if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
-                itemCategory = categorySpinner.getSelectedItem().toString();
-            }
-
-            if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
-                itemStore = storeSpinner.getSelectedItem().toString();
-            }
-
-            dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-            dbStatusHelper.changeStatusName(oldItemName, newItemName);
-            shopping.updateItemData();
-            shopping.updateStatusData();
-
-            if(shopping.editItemInInventory) {
-                shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
-            } else if (shopping.editItemInShoppingList) {
-                shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
-            }
-
-            shopping.hideKeyboard();
-            if(shopping.editItemInInventory) {
-                shopping.loadFragment(new FullInventory());
-            } else if (shopping.editItemInShoppingList) {
-                shopping.loadFragment(new ShoppingList());
-            }
-        });
-
-        cancelButton.setOnClickListener(v -> {
-            shopping.hideKeyboard();
-            if(shopping.editItemInInventory) {
-                shopping.loadFragment(new FullInventory());
-            } else if (shopping.editItemInShoppingList) {
-                shopping.loadFragment(new ShoppingList());
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.hideKeyboard();
+                if (shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInShoppingList) {
+                    shopping.loadFragment(new ShoppingList());
+                }
             }
         });
 

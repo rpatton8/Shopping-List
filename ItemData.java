@@ -4,19 +4,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.Map;
 
 class ItemData {
 
-    private final LinkedList<Item> itemsAZ;
-    private final ArrayList<Item> itemsByCategory;
-    private final ArrayList<Item> itemsByStore;
+    private LinkedList<Item> itemsAZ;
+    private ArrayList<Item> itemsByCategory;
+    private ArrayList<Item> itemsByStore;
 
-    private final Map<String, Item> itemMap;
-    private final Map<String, Category> categoryMap;
-    private final Map<String, Store> storeMap;
+    private HashMap<String, Item> itemMap;
+    private HashMap<String, Category> categoryMap;
+    private HashMap<String, Store> storeMap;
 
-    public ItemData() {
+    ItemData() {
         itemsAZ = new LinkedList<>();
         itemsByCategory = new ArrayList<>();
         itemsByStore = new ArrayList<>();
@@ -25,38 +24,38 @@ class ItemData {
         storeMap = new HashMap<>();
     }
 
-    public LinkedList<Item> getItemListAZ() {
+    LinkedList<Item> getItemListAZ() {
         return itemsAZ;
     }
 
-    public ArrayList<Item> getItemListByCategory() {
+    ArrayList<Item> getItemListByCategory() {
         return itemsByCategory;
     }
 
-    public ArrayList<Item> getItemListByStore() {
+    ArrayList<Item> getItemListByStore() {
         return itemsByStore;
     }
 
-    public Map<String, Item> getItemMap() {
+    HashMap<String, Item> getItemMap() {
         return itemMap;
     }
 
-    public Map<String, Category> getCategoryMap() {
+    HashMap<String, Category> getCategoryMap() {
         return categoryMap;
     }
 
-    public Map<String, Store> getStoreMap() {
+    HashMap<String, Store> getStoreMap() {
         return storeMap;
     }
 
-    public void updateStatuses(StatusData statusData) {
-        Map<String, Status> statusMap = statusData.getStatusMap();
+    void updateStatuses(StatusData statusData) {
+        HashMap<String, Status> statusMap = statusData.getStatusMap();
         for(int i = 0; i < itemsAZ.size(); i++) {
             itemsAZ.get(i).setStatus(statusMap.get(itemsAZ.get(i).getName()));
         }
     }
 
-    public void readLineOfDataByCategory(String item, String brandType, String category, String store, int itemCategoryOrder) {
+    void readLineOfDataByCategory(String item, String brandType, String category, String store, int itemCategoryOrder) {
 
         Item newItem;
         Category newCategory;
@@ -94,7 +93,7 @@ class ItemData {
 
     }
 
-    public void readLineOfDataByStore(String item, String brandType, String category, String store, int itemStoreOrder) {
+    void readLineOfDataByStore(String item, String brandType, String category, String store, int itemStoreOrder) {
 
         itemMap.get(item).setStoreOrder(itemStoreOrder);
         if (itemsByStore.contains(itemMap.get(item))) return;
@@ -116,7 +115,7 @@ class ItemData {
         list.add(index, item);
     }
 
-    public void printData() {
+    void printData() {
 
         System.out.println("itemsAZ:");
         for (int i = 1; i <= itemsAZ.size(); i++) {

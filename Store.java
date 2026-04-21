@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 class Store {
 
-    private final String storeName;
-    private final ArrayList<Item> storeItems;
+    private String storeName;
+    private ArrayList<Item> storeItems;
 
     private boolean isExpanded;
     private boolean isContracted;
@@ -18,37 +18,36 @@ class Store {
         isContracted = false;
     }
 
-    public String getName() {
+    String getName() {
         return storeName;
     }
 
-    public void addItem(Item item) {
+    void addItem(Item item) {
         storeItems.add(item);
     }
 
-    public ArrayList<Item> getItemList() {
+    ArrayList<Item> getItemList() {
         return storeItems;
     }
 
-    public boolean isExpanded() {
+    boolean isExpanded() {
         return isExpanded;
     }
 
-    public void setAsExpanded() {
+    void setAsExpanded() {
         isExpanded = true;
         isContracted = false;
     }
 
-    public boolean isContracted() {
+    boolean isContracted() {
         return isContracted;
     }
 
-    public void setAsContracted() {
+    void setAsContracted() {
         isExpanded = false;
         isContracted = true;
     }
 
-    @Override
     public String toString() {
         return storeName;
     }

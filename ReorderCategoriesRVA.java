@@ -1,6 +1,5 @@
 package ryan.android.shopping;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.Objects;
 
+//@SuppressWarnings("ALL")
 class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.ReorderCategoriesRVH> {
 
-    private final Shopping shopping;
-    private final ItemData itemData;
-    private final CategoryData categoryData;
-    private final DBCategoryHelper dbCategoryHelper;
-    private final RecyclerView recyclerView;
+    private Shopping shopping;
+    private ItemData itemData;
+    private CategoryData categoryData;
+    private DBCategoryHelper dbCategoryHelper;
+    private RecyclerView recyclerView;
 
     ReorderCategoriesRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
@@ -26,18 +25,16 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         this.recyclerView = recyclerView;
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public int getItemViewType(final int position) {
+    public int getItemViewType(int position) {
         return R.layout.reorder_categories_rv;
     }
 
-    @NonNull
-    public ReorderCategoriesRVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReorderCategoriesRVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ReorderCategoriesRVH(view, shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
     }
 
-    public void onBindViewHolder(@NonNull ReorderCategoriesRVH holder, int position) {
+    public void onBindViewHolder(ReorderCategoriesRVH holder, int position) {
         ArrayList<String> categoryList = categoryData.getCategoryList();
         holder.categoryName.setText(categoryList.get(position));
     }
@@ -46,19 +43,19 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         return categoryData.getCategoryList().size();
     }
 
-    public static class ReorderCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ReorderCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final Shopping shopping;
-        private final ItemData itemData;
-        private final CategoryData categoryData;
-        private final DBCategoryHelper dbCategoryHelper;
-        private final RecyclerView recyclerView;
+        private Shopping shopping;
+        private ItemData itemData;
+        private CategoryData categoryData;
+        private DBCategoryHelper dbCategoryHelper;
+        private RecyclerView recyclerView;
 
-        final TextView categoryName;
-        final ImageView arrowDown;
-        final ImageView arrowUp;
+        private TextView categoryName;
+        private ImageView arrowDown;
+        private ImageView arrowUp;
 
-        ReorderCategoriesRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
+        ReorderCategoriesRVH(View itemView, Shopping shopping, RecyclerView recyclerView,
                              ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
 
             super(itemView);
@@ -77,7 +74,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
 
         }
 
-        boolean categoryContains(int categoryPosition, int itemPosition) {
+        private boolean categoryContains(int categoryPosition, int itemPosition) {
             int index = 0;
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 String category = categoryData.getCategoryList().get(i);
@@ -125,7 +122,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
 
                     }
                 }
-                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
+                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
 
             } else if (id == arrowUp.getId()) {
@@ -152,7 +149,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
                         shopping.selectedItemPositionInInventory += offset + 1;
                     }
                 }
-                shopping.reorderCategoriesViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
+                shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ReorderCategories());
             }
         }

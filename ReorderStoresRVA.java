@@ -1,6 +1,5 @@
 package ryan.android.shopping;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.Objects;
 
+//@SuppressWarnings("ALL")
 class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStoresRVH> {
 
-    private final Shopping shopping;
-    private final ItemData itemData;
-    private final StoreData storeData;
-    private final DBStoreHelper dbStoreHelper;
-    private final RecyclerView recyclerView;
+    private Shopping shopping;
+    private ItemData itemData;
+    private StoreData storeData;
+    private DBStoreHelper dbStoreHelper;
+    private RecyclerView recyclerView;
 
     ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
         this.shopping = shopping;
@@ -26,18 +25,16 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         this.recyclerView = recyclerView;
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public int getItemViewType(final int position) {
+    public int getItemViewType(int position) {
         return R.layout.reorder_stores_rv;
     }
 
-    @NonNull
-    public ReorderStoresRVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ReorderStoresRVH onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
         return new ReorderStoresRVH(view, shopping, recyclerView, itemData, storeData, dbStoreHelper);
     }
 
-    public void onBindViewHolder(@NonNull ReorderStoresRVH holder, int position) {
+    public void onBindViewHolder(ReorderStoresRVH holder, int position) {
         ArrayList<String> storeList = storeData.getStoreList();
         holder.storeName.setText(storeList.get(position));
     }
@@ -46,19 +43,19 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         return storeData.getStoreList().size();
     }
 
-    public static class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final Shopping shopping;
-        private final ItemData itemData;
-        private final StoreData storeData;
-        private final DBStoreHelper dbStoreHelper;
-        private final RecyclerView recyclerView;
+        private Shopping shopping;
+        private ItemData itemData;
+        private StoreData storeData;
+        private DBStoreHelper dbStoreHelper;
+        private RecyclerView recyclerView;
 
-        final TextView storeName;
-        final ImageView arrowDown;
-        final ImageView arrowUp;
+        private TextView storeName;
+        private ImageView arrowDown;
+        private ImageView arrowUp;
 
-        ReorderStoresRVH(final View itemView, Shopping shopping, RecyclerView recyclerView,
+        ReorderStoresRVH(View itemView, Shopping shopping, RecyclerView recyclerView,
                          ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
 
             super(itemView);
@@ -77,7 +74,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
 
         }
 
-        boolean storeContains(int storePosition, int itemPosition) {
+        private boolean storeContains(int storePosition, int itemPosition) {
             int index = 0;
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
                 String store = storeData.getStoreList().get(i);
@@ -125,7 +122,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
 
                     }
                 }
-                shopping.reorderStoresViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
+                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ReorderStores());
 
             } else if (id == arrowUp.getId()) {
@@ -152,7 +149,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                         shopping.selectedItemPositionInInventory += offset + 1;
                     }
                 }
-                shopping.reorderStoresViewState = Objects.requireNonNull(recyclerView.getLayoutManager()).onSaveInstanceState();
+                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ReorderStores());
             }
         }

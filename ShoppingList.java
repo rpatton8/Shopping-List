@@ -1,6 +1,5 @@
 package ryan.android.shopping;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -17,42 +16,54 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Objects;
 
+//@SuppressWarnings("ALL")
 public class ShoppingList extends Fragment {
 
+    private View view;
     private Shopping shopping;
+    private ItemData itemData;
+    private StatusData statusData;
     private StoreData storeData;
+    private DBStatusHelper dbStatusHelper;
+    private DBStoreHelper dbStoreHelper;
 
     private TextView shoppingListTitle;
     private RecyclerView shoppingListRecyclerView;
+    private ShoppingListRVA shoppingListAdapter;
+
+    private TextView shoppingListLeftArrow;
+    private TextView shoppingListRightArrow;
+    private Button clearCheckedItems;
+    private Button editSelectedItem;
 
     public ShoppingList() {}
 
-    @SuppressLint("ClickableViewAccessibility")
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.shopping_list, container, false);
+        view = inflater.inflate(R.layout.shopping_list, container, false);
 
         shopping = (Shopping) getActivity();
-        ItemData  itemData = shopping.getItemData();
-        StatusData statusData = shopping.getStatusData();
+        itemData = shopping.getItemData();
+        statusData = shopping.getStatusData();
         storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
+        dbStatusHelper  = new DBStatusHelper(getActivity());
+        dbStoreHelper  = new DBStoreHelper(getActivity());
 
         shoppingListRecyclerView = view.findViewById(R.id.shoppingListRecyclerView);
         shoppingListRecyclerView.setHasFixedSize(false);
         shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        ShoppingListRVA adapter = new ShoppingListRVA(shopping, itemData, storeData);
-        shoppingListRecyclerView.setAdapter(adapter);
-        Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.shoppingListViewState);
+        shoppingListAdapter = new ShoppingListRVA(shopping, itemData, storeData);
+        shoppingListRecyclerView.setAdapter(shoppingListAdapter);
+        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.shoppingListViewState);
 
         shoppingListTitle = view.findViewById(R.id.shoppingListTitle);
-        TextView shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
-        TextView shoppingListRightArrow = view.findViewById(R.id.shoppingListRightArrow);
-        Button clearCheckedItems = view.findViewById(R.id.clearCheckedItems);
-        Button editSelectedItem = view.findViewById(R.id.editSelectedItem);
+        shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
+        shoppingListRightArrow = view.findViewById(R.id.shoppingListRightArrow);
+        clearCheckedItems = view.findViewById(R.id.clearCheckedItems);
+        editSelectedItem = view.findViewById(R.id.editSelectedItem);
 
         if (shopping.storeListOrderNum == 0) {
             shoppingListTitle.setText(R.string.allStores);
@@ -66,185 +77,134 @@ public class ShoppingList extends Fragment {
             shoppingListTitle.setLayoutParams(params);
         }
 
-        shoppingListLeftArrow.setOnClickListener(v -> {
-            if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
-            else shopping.storeListOrderNum--;
-
-            while (shopping.storeListOrderNum != 0) {
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                else shopping.storeListOrderNum--;
-            }
-
-            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-            shopping.loadFragment(new ShoppingList());
-        });
-
-        shoppingListRightArrow.setOnClickListener(v -> {
-            if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
-            else shopping.storeListOrderNum++;
-
-            while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
-                if (shopping.storeListOrderNum == 0) break;
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                else shopping.storeListOrderNum++;
-            }
-
-            if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
-            }
-
-            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-            shopping.loadFragment(new ShoppingList());
-        });
-
-        clearCheckedItems.setOnClickListener(v -> {
-            /*for (int i = 0; i < itemData.getItemList().size(); i++) {
-                if (shopping.getCheckedList().get(i)) {
-                    Item item = shopping.getItemData().getItemList().get(i);
-                    item.getStatus().setAsInStock();
-                    item.getStatus().setAsUnchecked();
-                    shopping.getCheckedList().set(i, false);
-                    //dbStatusHelper.updateStatus(item.getName(), "true", "false", "false");
-                    shopping.updateStatusData();
-
-                    Store thisStore = item.getStore(0);
-                    int numItemsNeeded = shopping.getStoreData().getStoreItemsNeededMap().get(thisStore.toString());
-                    dbStoreHelper.setStoreItemsNeeded(thisStore.toString(), numItemsNeeded - 1);
-                    shopping.updateStoreData();
-                }
-            }*/
-
-            shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
-            shopping.loadFragment(new ShoppingList());
-        });
-
-        editSelectedItem.setOnClickListener(v -> {
-            if (shopping.itemIsSelectedInShoppingList) {
-                shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
-                shopping.editItemInInventory = false;
-                shopping.editItemInShoppingList = true;
-                shopping.loadFragment(new EditItem());
-            } else {
-                Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                toast.show();
+        shoppingListLeftArrow.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                moveLeftInShoppingList();
             }
         });
 
-        shoppingListLeftArrow.setOnClickListener(v -> {
-            if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
-            else shopping.storeListOrderNum--;
-
-            while (shopping.storeListOrderNum != 0) {
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                else shopping.storeListOrderNum--;
+        shoppingListRightArrow.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                moveRightInShoppingList();
             }
-
-            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-            shopping.loadFragment(new ShoppingList());
-        });
-
-        shoppingListRightArrow.setOnClickListener(v -> {
-            if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
-            else shopping.storeListOrderNum++;
-
-            while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
-                if (shopping.storeListOrderNum == 0) break;
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                else shopping.storeListOrderNum++;
-            }
-
-            if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
-                String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
-            }
-
-            if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-            else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-            shopping.loadFragment(new ShoppingList());
         });
 
         shoppingListRecyclerView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
-
-            @Override
-            public void onSwipeRight() {
-
-                Toast.makeText(getActivity(), "Swipe Right", Toast.LENGTH_SHORT).show();
-
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
-                else shopping.storeListOrderNum++;
-
-                while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
-                    if (shopping.storeListOrderNum == 0) break;
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum++;
-                }
-
-                if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
-                }
-
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
-                shopping.loadFragment(new ShoppingList());
-
-            }
-
-            @Override
             public void onSwipeLeft() {
+                moveLeftInShoppingList();
+            }
+            public void onSwipeRight() {
+                moveRightInShoppingList();
+            }
+        });
 
-                Toast.makeText(getActivity(), "Swipe Left", Toast.LENGTH_SHORT).show();
+        clearCheckedItems.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
-                if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
-                else shopping.storeListOrderNum--;
+                for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
+                    Item item  = itemData.getItemListAZ().get(i);
+                    if (item.getStatus().isChecked()) {
+                        item.getStatus().setAsInStock();
+                        item.getStatus().setAsUnchecked();
+                        dbStatusHelper.updateStatus(item.getName(), "instock", "unchecked");
+                        shopping.updateStatusData();
 
-                while (shopping.storeListOrderNum != 0) {
-                    String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
-                    if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-                    else shopping.storeListOrderNum--;
+                        String store = item.getStore().toString();
+                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(store);
+                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(store);
+                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(store);
+                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(store);
+                        dbStoreHelper.setStoreViews(store, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
+                        shopping.updateStoreData();
+                    }
                 }
 
-                if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
-                else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+                shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ShoppingList());
+            }
+        });
+
+        editSelectedItem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (shopping.itemIsSelectedInShoppingList) {
+                    shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+                    shopping.editItemInInventory = false;
+                    shopping.editItemInShoppingList = true;
+                    shopping.loadFragment(new EditItem());
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
+                }
             }
         });
 
         return view;
     }
 
-    class OnSwipeTouchListener implements View.OnTouchListener {
+    public void moveRightInShoppingList() {
 
-        private final GestureDetector gestureDetector;
+        Toast.makeText(getActivity(), "Swipe Right", Toast.LENGTH_SHORT).show();
+
+        if (shopping.storeListOrderNum == storeData.getStoreList().size()) shopping.storeListOrderNum = 0;
+        else shopping.storeListOrderNum++;
+
+        while (shopping.storeListOrderNum != storeData.getStoreList().size()) {
+            if (shopping.storeListOrderNum == 0) break;
+            String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+            if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
+            else shopping.storeListOrderNum++;
+        }
+
+        if (shopping.storeListOrderNum == storeData.getStoreList().size()) {
+            String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+            if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.storeListOrderNum = 0;
+        }
+
+        if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+        else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+        shopping.loadFragment(new ShoppingList());
+
+    }
+
+    public void moveLeftInShoppingList() {
+
+        Toast.makeText(getActivity(), "Swipe Left", Toast.LENGTH_SHORT).show();
+
+        if (shopping.storeListOrderNum == 0) shopping.storeListOrderNum = storeData.getStoreList().size();
+        else shopping.storeListOrderNum--;
+
+        while (shopping.storeListOrderNum != 0) {
+            String storeName = storeData.getStoreList().get(shopping.storeListOrderNum - 1);
+            if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
+            else shopping.storeListOrderNum--;
+        }
+
+        if (shopping.storeListOrderNum == 0) shoppingListTitle.setText(R.string.allStores);
+        else shoppingListTitle.setText(storeData.getStoreList().get(shopping.storeListOrderNum - 1));
+        shopping.loadFragment(new ShoppingList());
+    }
+
+    private class OnSwipeTouchListener implements View.OnTouchListener {
+
+        private GestureDetector gestureDetector;
 
         OnSwipeTouchListener(Context context) {
             gestureDetector = new GestureDetector(context, new GestureListener());
         }
 
-        void onSwipeLeft() {
-        }
+        void onSwipeLeft() {}
 
-        void onSwipeRight() {
-        }
+        void onSwipeRight() {}
 
-        @SuppressLint("ClickableViewAccessibility")
         public boolean onTouch(View v, MotionEvent event) {
             return gestureDetector.onTouchEvent(event);
         }
 
-        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        /* Need to redo this function */
+        private class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
-            private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+            private static final int SWIPE_DISTANCE_THRESHOLD = 200;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -262,9 +222,8 @@ public class ShoppingList extends Fragment {
         }
     }
 
-    @Override
     public void onDestroyView() {
-        shopping.shoppingListViewState = Objects.requireNonNull(shoppingListRecyclerView.getLayoutManager()).onSaveInstanceState();
+        shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
         shoppingListRecyclerView.setAdapter(null);
         super.onDestroyView();
     }

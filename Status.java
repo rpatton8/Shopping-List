@@ -18,31 +18,24 @@ class Status {
 
     Status(String itemName, String status, String checked) {
 
-        switch (status) {
-            case "instock":
-                isInStock = true;
-                isNeeded = false;
-                isPaused = false;
-                break;
-            case "needed":
-                isInStock = false;
-                isNeeded = true;
-                isPaused = false;
-                break;
-            case "paused":
-                isInStock = false;
-                isNeeded = false;
-                isPaused = true;
-                break;
+        if (status.equals("instock")) {
+            isInStock = true;
+            isNeeded = false;
+            isPaused = false;
+        } else if (status.equals("needed")) {
+            isInStock = false;
+            isNeeded = true;
+            isPaused = false;
+        } else if (status.equals("paused")) {
+            isInStock = false;
+            isNeeded = false;
+            isPaused = true;
         }
-        
-        switch (checked) {
-            case "checked":
-                setAsChecked();
-                break;
-            case "unchecked":
-                setAsUnchecked();
-                break;
+
+        if (checked.equals("checked")) {
+            setAsChecked();
+        } else if (checked.equals("unchecked")) {
+            setAsUnchecked();
         }
 
         isExpandedInInventory = false;
@@ -57,137 +50,137 @@ class Status {
         isChecked = false;
     }
 
-    public void setAsExpandedInInventory() {
+    void setAsExpandedInInventory() {
         isExpandedInInventory = true;
         isContractedInInventory = false;
     }
 
-    public void setAsContractedInInventory() {
+    void setAsContractedInInventory() {
         isContractedInInventory = true;
         isExpandedInInventory = false;
     }
 
-    public Boolean isExpandedInInventory() {
+    Boolean isExpandedInInventory() {
         return isExpandedInInventory;
     }
 
-    public Boolean isContractedInInventory() {
+    Boolean isContractedInInventory() {
         return isContractedInInventory;
     }
 
-    public void setAsExpandedInSearchResults() {
+    void setAsExpandedInSearchResults() {
         isExpandedInSearchResults = true;
         isContractedInSearchResults = false;
     }
 
-    public void setAsContractedInSearchResults() {
+    void setAsContractedInSearchResults() {
         isContractedInSearchResults = true;
         isExpandedInSearchResults = false;
     }
 
-    public Boolean isExpandedInSearchResults() {
+    Boolean isExpandedInSearchResults() {
         return isExpandedInSearchResults;
     }
 
-    public Boolean isContractedInSearchResults() {
+    Boolean isContractedInSearchResults() {
         return isContractedInSearchResults;
     }
 
-    public void setAsExpandedInShoppingList() {
+    void setAsExpandedInShoppingList() {
         isExpandedInShoppingList = true;
         isContractedInShoppingList = false;
     }
 
-    public void setAsContractedInShoppingList() {
+    void setAsContractedInShoppingList() {
         isContractedInShoppingList = true;
         isExpandedInShoppingList = false;
     }
 
-    public Boolean isExpandedInShoppingList() {
+    Boolean isExpandedInShoppingList() {
         return isExpandedInShoppingList;
     }
 
-    public Boolean isContractedInShoppingList() {
+    Boolean isContractedInShoppingList() {
         return isContractedInShoppingList;
     }
 
-    public void setAsSelectedInInventory() {
+    void setAsSelectedInInventory() {
         isSelectedInInventory = true;
     }
 
-    public void setAsUnselectedInInventory() {
+    void setAsUnselectedInInventory() {
         isSelectedInInventory = false;
     }
 
-    public Boolean isSelectedInInventory() {
+    Boolean isSelectedInInventory() {
         return isSelectedInInventory;
     }
 
-    public void setAsSelectedInSearchResults() {
+    void setAsSelectedInSearchResults() {
         isSelectedInSearchResults = true;
     }
 
-    public void setAsUnselectedInSearchResults() {
+    void setAsUnselectedInSearchResults() {
         isSelectedInSearchResults = false;
     }
 
-    public Boolean isSelectedInSearchResults() {
+    Boolean isSelectedInSearchResults() {
         return isSelectedInSearchResults;
     }
 
-    public void setAsSelectedInShoppingList() {
+    void setAsSelectedInShoppingList() {
         isSelectedInShoppingList = true;
     }
 
-    public void setAsUnselectedInShoppingList() {
+    void setAsUnselectedInShoppingList() {
         isSelectedInShoppingList = false;
     }
 
-    public Boolean isSelectedInShoppingList() {
+    Boolean isSelectedInShoppingList() {
         return isSelectedInShoppingList;
     }
 
-    public void setAsChecked() {
+    void setAsChecked() {
         isChecked = true;
     }
 
-    public void setAsUnchecked() {
+    void setAsUnchecked() {
         isChecked = false;
     }
 
-    public Boolean isChecked() {
+    Boolean isChecked() {
         return isChecked;
     }
 
-    public Boolean isUnchecked() {
+    Boolean isUnchecked() {
         return !isChecked;
     }
 
-    public Boolean isInStock() {
+    Boolean isInStock() {
         return isInStock;
     }
 
-    public Boolean isNeeded() {
+    Boolean isNeeded() {
         return isNeeded;
     }
 
-    public Boolean isPaused() {
+    Boolean isPaused() {
         return isPaused;
     }
 
-    public void setAsInStock() {
+    void setAsInStock() {
         isInStock = true;
         isNeeded = false;
         isPaused = false;
     }
 
-    public void setAsNeeded() {
+    void setAsNeeded() {
         isInStock = false;
         isNeeded = true;
         isPaused = false;
     }
 
-    public void setAsPaused() {
+    void setAsPaused() {
         isInStock = false;
         isNeeded = false;
         isPaused = true;

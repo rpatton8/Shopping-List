@@ -11,61 +11,71 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
+//@SuppressWarnings("ALL")
 public class EditCategory extends Fragment {
 
+    private View view;
     private Shopping shopping;
-
+    private CategoryData categoryData;
     private DBItemHelper dbItemHelper;
     private DBCategoryHelper dbCategoryHelper;
 
-    private Spinner categorySpinner;
     private EditText categoryInput;
+    private Spinner categorySpinner;
+    private ArrayList<String> spinnerData;
+    private ArrayAdapter adapter;
+    private Button editCategoryButton;
+    private Button cancelButton;
 
     public EditCategory() {}
 
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.edit_category, container, false);
+        view = inflater.inflate(R.layout.edit_category, container, false);
 
         shopping = (Shopping) getActivity();
         dbItemHelper = new DBItemHelper(getActivity());
         dbCategoryHelper = new DBCategoryHelper(getActivity());
-        CategoryData categoryData = shopping.getCategoryData();
+        categoryData = shopping.getCategoryData();
 
         categoryInput = view.findViewById(R.id.categoryInput);
-        Button editCategoryButton = view.findViewById(R.id.editCategoryButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        editCategoryButton = view.findViewById(R.id.editCategoryButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
-        ArrayList<String> spinnerData = categoryData.getCategoryListWithBlank();
+        spinnerData = categoryData.getCategoryListWithBlank();
         categorySpinner = view.findViewById(R.id.categorySpinner);
-        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
         categoryInput.setText("");
 
-        editCategoryButton.setOnClickListener(v -> {
-            String oldCategory = categorySpinner.getSelectedItem().toString();
-            String newCategory = categoryInput.getText().toString();
+        editCategoryButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String oldCategory = categorySpinner.getSelectedItem().toString();
+                String newCategory = categoryInput.getText().toString();
 
-            if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                shopping.showAlertDialog("Edit Category", "Change category name to edit.");
-                return;
+                if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
+                    shopping.showAlertDialog("Edit Category", "Change category name to edit.");
+                    return;
+                }
+
+                dbItemHelper.changeCategory(oldCategory, newCategory);
+                shopping.updateItemData();
+
+                dbCategoryHelper.changeCategoryName(oldCategory, newCategory);
+                shopping.updateCategoryData();
+
+                shopping.hideKeyboard();
+                shopping.loadFragment(new FullInventory());
             }
-
-            dbItemHelper.changeCategory(oldCategory, newCategory);
-            shopping.updateItemData();
-
-            dbCategoryHelper.changeCategoryName(oldCategory, newCategory);
-            shopping.updateCategoryData();
-
-            shopping.hideKeyboard();
-            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(v -> {
-            shopping.hideKeyboard();
-            shopping.loadFragment(new FullInventory());
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.hideKeyboard();
+                shopping.loadFragment(new FullInventory());
+            }
         });
 
         return view;

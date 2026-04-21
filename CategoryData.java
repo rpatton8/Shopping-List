@@ -2,19 +2,18 @@ package ryan.android.shopping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 class CategoryData {
 
-    private final ArrayList<String> categoryList;
-    private final ArrayList<String> categoryListWithBlank;
-    private final ArrayList<String> categoryListWithAddNew;
-    private final Map<String, Integer> categoryViewAllMap;
-    private final Map<String, Integer> categoryViewInStockMap;
-    private final Map<String, Integer> categoryViewNeededMap;
-    private final Map<String, Integer> categoryViewPausedMap;
+    private ArrayList<String> categoryList;
+    private ArrayList<String> categoryListWithBlank;
+    private ArrayList<String> categoryListWithAddNew;
+    private HashMap<String, Integer> categoryViewAllMap;
+    private HashMap<String, Integer> categoryViewInStockMap;
+    private HashMap<String, Integer> categoryViewNeededMap;
+    private HashMap<String, Integer> categoryViewPausedMap;
 
-    public CategoryData () {
+    CategoryData () {
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
@@ -27,35 +26,35 @@ class CategoryData {
         categoryViewPausedMap = new HashMap<>();
     }
 
-    public ArrayList<String> getCategoryList() {
+    ArrayList<String> getCategoryList() {
         return categoryList;
     }
 
-    public ArrayList<String> getCategoryListWithBlank() {
+    ArrayList<String> getCategoryListWithBlank() {
         return categoryListWithBlank;
     }
 
-    public ArrayList<String> getCategoryListWithAddNew() {
+    ArrayList<String> getCategoryListWithAddNew() {
         return categoryListWithAddNew;
     }
 
-    public Map<String, Integer> getCategoryViewAllMap() {
+    HashMap<String, Integer> getCategoryViewAllMap() {
         return categoryViewAllMap;
     }
 
-    public Map<String, Integer> getCategoryViewInStockMap() {
+    HashMap<String, Integer> getCategoryViewInStockMap() {
         return categoryViewInStockMap;
     }
 
-    public Map<String, Integer> getCategoryViewNeededMap() {
+    HashMap<String, Integer> getCategoryViewNeededMap() {
         return categoryViewNeededMap;
     }
 
-    public Map<String, Integer> getCategoryViewPausedMap() {
+    HashMap<String, Integer> getCategoryViewPausedMap() {
         return categoryViewPausedMap;
     }
 
-    public void readCategory(String categoryName, int numItemsInViewAll, int numItemsInViewInStock,
+    void readCategory(String categoryName, int numItemsInViewAll, int numItemsInViewInStock,
                              int numItemsInViewNeeded, int numItemsInViewPaused) {
         categoryList.add(categoryName);
         categoryListWithBlank.add(categoryName);

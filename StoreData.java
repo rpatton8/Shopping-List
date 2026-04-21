@@ -2,19 +2,18 @@ package ryan.android.shopping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 class StoreData {
 
-    private final ArrayList<String> storeList;
-    private final ArrayList<String> storeListWithBlank;
-    private final ArrayList<String> storeListWithAddNew;
-    private final Map<String, Integer> storeViewAllMap;
-    private final Map<String, Integer> storeViewInStockMap;
-    private final Map<String, Integer> storeViewNeededMap;
-    private final Map<String, Integer> storeViewPausedMap;
+    private ArrayList<String> storeList;
+    private ArrayList<String> storeListWithBlank;
+    private ArrayList<String> storeListWithAddNew;
+    private HashMap<String, Integer> storeViewAllMap;
+    private HashMap<String, Integer> storeViewInStockMap;
+    private HashMap<String, Integer> storeViewNeededMap;
+    private HashMap<String, Integer> storeViewPausedMap;
 
-    public StoreData () {
+    StoreData () {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
@@ -27,35 +26,35 @@ class StoreData {
         storeViewPausedMap = new HashMap<>();
     }
 
-    public ArrayList<String> getStoreList() {
+    ArrayList<String> getStoreList() {
         return storeList;
     }
 
-    public ArrayList<String> getStoreListWithBlank() {
+    ArrayList<String> getStoreListWithBlank() {
         return storeListWithBlank;
     }
 
-    public ArrayList<String> getStoreListWithAddNew() {
+    ArrayList<String> getStoreListWithAddNew() {
         return storeListWithAddNew;
     }
 
-    public Map<String, Integer> getStoreViewAllMap() {
+    HashMap<String, Integer> getStoreViewAllMap() {
         return storeViewAllMap;
     }
 
-    public Map<String, Integer> getStoreViewInStockMap() {
+    HashMap<String, Integer> getStoreViewInStockMap() {
         return storeViewInStockMap;
     }
 
-    public Map<String, Integer> getStoreViewNeededMap() {
+    HashMap<String, Integer> getStoreViewNeededMap() {
         return storeViewNeededMap;
     }
 
-    public Map<String, Integer> getStoreViewPausedMap() {
+    HashMap<String, Integer> getStoreViewPausedMap() {
         return storeViewPausedMap;
     }
 
-    public void readStore(String storeName, int numItemsInViewAll, int numItemsInViewInStock,
+    void readStore(String storeName, int numItemsInViewAll, int numItemsInViewInStock,
                              int numItemsInViewNeeded, int numItemsInViewPaused) {
         storeList.add(storeName);
         storeListWithBlank.add(storeName);

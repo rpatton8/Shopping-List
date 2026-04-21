@@ -1,6 +1,5 @@
 package ryan.android.shopping;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+//@SuppressWarnings("ALL")
 class ShoppingListRVA extends RecyclerView.Adapter {
 
-    private final Shopping shopping;
-    private final ItemData itemData;
-    private final StoreData storeData;
+    private Shopping shopping;
+    private ItemData itemData;
+    private StoreData storeData;
 
     ShoppingListRVA(Shopping shopping, ItemData itemData, StoreData storeData) {
         this.shopping = shopping;
@@ -22,7 +22,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         this.storeData = storeData;
     }
 
-    public int getItemViewType(final int position) {
+    public int getItemViewType(int position) {
 
         if (position == 0) return R.layout.shopping_list_rv_title;
         int index = 0;
@@ -42,21 +42,16 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
     }
 
-    @NonNull
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        switch (viewType) {
-            case R.layout.shopping_list_rv_title:
-                return new ShoppingListTitleRVH(view);
-            case R.layout.shopping_list_rv_item:
-                return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
-            default:
-                return new RecyclerView.ViewHolder(view) {
-                };
-        }
+        if (viewType == R.layout.shopping_list_rv_title) {
+            return new ShoppingListTitleRVH(view);
+        } else if (viewType == R.layout.shopping_list_rv_item) {
+            return new ShoppingListItemRVH(view, shopping, this, itemData, storeData);
+        } else return new RecyclerView.ViewHolder(view) {};
     }
 
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
         String store = null;
@@ -105,8 +100,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         } else {  // item data
 
             ShoppingListItemRVH itemHolder = (ShoppingListItemRVH) holder;
-
-            assert thisItem != null;
 
             if (thisItem.getStatus().isNeeded()) {
                 if (thisItem.getStatus().isExpandedInShoppingList()) {
@@ -180,11 +173,11 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
     }
 
-    static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
+    private static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
 
-        private final TextView shoppingListRvTitle;
+        private TextView shoppingListRvTitle;
 
-        ShoppingListTitleRVH(View itemView) {
+        private ShoppingListTitleRVH(View itemView) {
 
             super(itemView);
             shoppingListRvTitle = itemView.findViewById(R.id.shoppingListRvTitle);
@@ -192,29 +185,29 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final Shopping shopping;
-        private final ShoppingListRVA adapter;
-        private final ItemData itemData;
-        private final StoreData storeData;
+        private Shopping shopping;
+        private ShoppingListRVA adapter;
+        private ItemData itemData;
+        private StoreData storeData;
 
-        final Button triangleRight;
-        final Button triangleDown;
-        final LinearLayout itemSmall;
-        final LinearLayout itemLarge;
-        final TextView itemSmallName;
-        final TextView itemLargeName;
-        final ImageView checkboxUncheckedSmall;
-        final ImageView checkboxCheckedSmall;
-        final ImageView checkboxUncheckedLarge;
-        final ImageView checkboxCheckedLarge;
-        final TextView itemLargeBrand;
-        final TextView itemLargeBrandLabel;
-        final TextView itemLargeCategory;
-        final TextView itemLargeCategoryLabel;
+        private Button triangleRight;
+        private Button triangleDown;
+        private LinearLayout itemSmall;
+        private LinearLayout itemLarge;
+        private TextView itemSmallName;
+        private TextView itemLargeName;
+        private ImageView checkboxUncheckedSmall;
+        private ImageView checkboxCheckedSmall;
+        private ImageView checkboxUncheckedLarge;
+        private ImageView checkboxCheckedLarge;
+        private TextView itemLargeBrand;
+        private TextView itemLargeBrandLabel;
+        private TextView itemLargeCategory;
+        private TextView itemLargeCategoryLabel;
 
-        ShoppingListItemRVH(final View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
+        private ShoppingListItemRVH(View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
             super(itemView);
             this.shopping = shopping;
@@ -286,8 +279,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             
             if (!isTitle) {
 
-                assert thisItem != null;
-
                 if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == shopping.selectedItemInShoppingList) {
                     // selected item is this item
                     thisItem.getStatus().setAsUnselectedInShoppingList();
@@ -330,7 +321,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             }
         }
 
-        Item getItemWithStores(int position) {
+        private Item getItemWithStores(int position) {
 
             String store;
             Item thisItem = null;
@@ -394,8 +385,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             }
 
             if (!isTitle) {
-
-                assert thisItem != null;
 
                 if (id == itemSmallName.getId()) {
                     selectOrUnselectItem(position);

@@ -5,20 +5,18 @@ import java.util.HashMap;
 
 class SearchAlgorithm {
 
-    private final HashMap<String, ArrayList<Item>> termMap;
+    private HashMap<String, ArrayList<Item>> termMap;
 
     SearchAlgorithm() {
         termMap = new HashMap<>();
     }
 
-    public void addNewItem(Item item) {
-        String itemName = item.getName();
-        String brandType = item.getBrandType();
-        populateTermMap(itemName, item);
-        populateTermMap(brandType, item);
+    void addNewItem(Item item) {
+        populateTermMap(item.getName(), item);
+        populateTermMap(item.getBrandType(), item);
     }
 
-    public void removeItem(Item item) {
+    void removeItem(Item item) {
         // to do
     }
 
@@ -26,12 +24,13 @@ class SearchAlgorithm {
         for (int j = 0; j <= string.length(); j++) {
             for (int i = 0; i <= j; i++) {
                 String term = string.substring(i, j).toLowerCase();
+                if ((term.length() <= 2) && (i != 0)) break;
                 ArrayList<Item> itemList = new ArrayList<>();
                 if (termMap.containsKey(term) && !termMap.get(term).contains(item)) {
                     // map contains term but not item
                     termMap.get(term).add(item);
                 } else if (!term.equals("")) {
-                    // term is not the empty string and map doesn't contain it yet
+                    // term is not the empty string and map doesn't contain it
                     itemList.add(item);
                     termMap.put(term, itemList);
                 }
@@ -39,11 +38,11 @@ class SearchAlgorithm {
         }
     }
 
-    public ArrayList<Item> getSearchResults(String term) {
+    ArrayList<Item> getSearchResults(String term) {
         return termMap.get(term.toLowerCase());
     }
 
-    public int numSearchResults(String term) {
+    int numSearchResults(String term) {
         if (termMap.get(term.toLowerCase()) != null)  {
             return termMap.get(term.toLowerCase()).size();
         }  else return 0;

@@ -1,6 +1,5 @@
 package ryan.android.shopping;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,18 +25,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Objects;
 import static android.app.Activity.RESULT_OK;
 
+//@SuppressWarnings("ALL")
 public class FullInventory extends Fragment {
 
-    private Shopping shopping;
+    private View view;
     private View rootView;
+    private Shopping shopping;
     private ItemData itemData;
+    private StatusData statusData;
     private CategoryData categoryData;
     private StoreData storeData;
-    private FullInventoryRVA fullInventoryAdapter;
-    private SearchInventoryRVA searchInventoryAdapter;
+    private DBStatusHelper dbStatusHelper;
+    private DBCategoryHelper dbCategoryHelper;
+    private DBStoreHelper dbStoreHelper;
 
     private String currentBottomMenu;
     private static final String MENU_ITEM = "item";
@@ -49,20 +52,30 @@ public class FullInventory extends Fragment {
     private Button editPopup;
     private Button removePopup;
     private Button reorderPopup;
+    private Button addRemoveCategory;
+    private Button addEditItem;
+    private Button addRemoveStore;
 
     private boolean menuOptionsVisible;
     private boolean searchBoxVisible;
     private boolean keyboardVisible;
     private boolean editControlsExpanded;
 
-    private final int REQ_CODE_SPEECH_INPUT = 100;
+    private TextView fullInventoryTitle;
+    private TextView fullInventoryOptionsBackground;
+    private String lastMainTitle;
+    private TextView searchButton;
+    private LinearLayout searchPopup;
+    private EditText searchBox;
+    private TextView voiceSearchButton;
+    private TextView clearSearchButton;
+    private TextView refreshButton;
+    private TextView fullInventoryEditButton;
 
     private RecyclerView fullInventoryRecyclerView;
-    private TextView fullInventoryTitle;
-    private String lastMainTitle;
-    private EditText searchBox;
-    private LinearLayout searchPopup;
     private RecyclerView searchInventoryRecyclerView;
+    private FullInventoryRVA fullInventoryAdapter;
+    private SearchInventoryRVA searchInventoryAdapter;
 
     private Button viewAll;
     private Button viewInStock;
@@ -76,36 +89,36 @@ public class FullInventory extends Fragment {
     private Button sortByCategory;
     private Button homeScreen;
 
-    private TextView fullInventoryOptionsBackground;
-
     public FullInventory() {}
 
-    @SuppressLint("ClickableViewAccessibility")
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
-        View view = inflater.inflate(R.layout.full_inventory, container, false);
+        view = inflater.inflate(R.layout.full_inventory, container, false);
         rootView = view.getRootView();
-        rootView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect r = new Rect();
-            rootView.getWindowVisibleDisplayFrame(r);
-            int screenHeight = rootView.getRootView().getHeight();
-            int keypadHeight = screenHeight - r.bottom;
-            if (keypadHeight > screenHeight * 0.15) {
-                if (!keyboardVisible) keyboardVisible = true;
-            }
-            else {
-                if (keyboardVisible) keyboardVisible = false;
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = rootView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+                if (keypadHeight > screenHeight * 0.15) {
+                    if (!keyboardVisible) keyboardVisible = true;
+                }
+                else {
+                    if (keyboardVisible) keyboardVisible = false;
+                }
             }
         });
 
-        DBStatusHelper dbStatusHelper = new DBStatusHelper(getActivity());
-        DBCategoryHelper dbCategoryHelper = new DBCategoryHelper(getActivity());
-        DBStoreHelper dbStoreHelper = new DBStoreHelper(getActivity());
+        dbStatusHelper = new DBStatusHelper(getActivity());
+        dbCategoryHelper = new DBCategoryHelper(getActivity());
+        dbStoreHelper = new DBStoreHelper(getActivity());
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
-        StatusData statusData = shopping.getStatusData();
+        statusData = shopping.getStatusData();
         categoryData = shopping.getCategoryData();
         storeData = shopping.getStoreData();
         itemData.updateStatuses(statusData);
@@ -115,7 +128,7 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         fullInventoryAdapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(fullInventoryAdapter);
-        Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.fullInventoryViewState);
+        fullInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.fullInventoryViewState);
 
         SearchAlgorithm searchAlgorithm = shopping.getSearchAlgorithm();
         searchInventoryRecyclerView = view.findViewById(R.id.searchInventoryRecyclerView);
@@ -123,13 +136,11 @@ public class FullInventory extends Fragment {
         searchInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         searchInventoryAdapter = new SearchInventoryRVA(shopping, searchAlgorithm);
         searchInventoryRecyclerView.setAdapter(searchInventoryAdapter);
-        //Objects.requireNonNull(searchInventoryRecyclerView.getLayoutManager()).onRestoreInstanceState(shopping.searchInventoryViewState);
+        searchInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.searchInventoryViewState);
 
-        currentBottomMenu = MENU_NONE;
-
-        Button addRemoveCategory = view.findViewById(R.id.addRemoveCategory);
-        Button addEditItem = view.findViewById(R.id.addEditItem);
-        Button addRemoveStore = view.findViewById(R.id.addRemoveStore);
+        addRemoveCategory = view.findViewById(R.id.addRemoveCategory);
+        addEditItem = view.findViewById(R.id.addEditItem);
+        addRemoveStore = view.findViewById(R.id.addRemoveStore);
         editDataBreak = view.findViewById(R.id.editDataBreak);
         addPopup = view.findViewById(R.id.addPopup);
         editPopup = view.findViewById(R.id.editPopup);
@@ -140,27 +151,24 @@ public class FullInventory extends Fragment {
         searchBoxVisible = false;
         keyboardVisible = false;
         editControlsExpanded = false;
+        currentBottomMenu = MENU_NONE;
 
         fullInventoryTitle = view.findViewById(R.id.fullInventoryTitle);
-        switch (shopping.inventorySortBy) {
-            case Shopping.SORT_BY_CATEGORY:
-                fullInventoryTitle.setText(R.string.byCategoryAll);
-                break;
-            case Shopping.SORT_BY_STORE:
-                fullInventoryTitle.setText(R.string.byStoreAll);
-                break;
-            case Shopping.SORT_ALPHABETICAL:
-                fullInventoryTitle.setText(R.string.alphabeticalAll);
-                break;
+        if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+            fullInventoryTitle.setText(R.string.byCategoryAll);
+        } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+            fullInventoryTitle.setText(R.string.byStoreAll);
+        } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+            fullInventoryTitle.setText(R.string.alphabeticalAll);
         }
 
-        TextView searchButton = view.findViewById(R.id.searchButton);
+        searchButton = view.findViewById(R.id.searchButton);
         searchBox = view.findViewById(R.id.searchBox);
         searchPopup = view.findViewById(R.id.searchPopup);
-        TextView voiceSearchButton = view.findViewById(R.id.voiceSearchButton);
-        TextView clearSearchButton = view.findViewById(R.id.clearSearchButton);
-        TextView refreshButton = view.findViewById(R.id.refreshButton);
-        TextView fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
+        voiceSearchButton = view.findViewById(R.id.voiceSearchButton);
+        clearSearchButton = view.findViewById(R.id.clearSearchButton);
+        refreshButton = view.findViewById(R.id.refreshButton);
+        fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
 
         fullInventoryOptionsBackground = view.findViewById(R.id.fullInventoryOptionsBackground);
         viewAll = view.findViewById(R.id.viewAll);
@@ -175,9 +183,9 @@ public class FullInventory extends Fragment {
         sortByStore = view.findViewById(R.id.sortByStore);
         homeScreen = view.findViewById(R.id.homeScreen);
 
-        addRemoveCategory.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_NONE: {
+        addRemoveCategory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_NONE)) {
                     editDataBreak.setText(R.string.category);
                     editDataBreak.setVisibility(View.VISIBLE);
                     addPopup.setVisibility(View.VISIBLE);
@@ -195,11 +203,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-
-
-                    break;
-                }
-                case MENU_CATEGORY: {
+                } else if (currentBottomMenu.equals(MENU_CATEGORY)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
                     editPopup.setVisibility(View.GONE);
@@ -216,19 +220,16 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-
-                    break;
-                }
-                default:
+                } else {
                     editDataBreak.setText(R.string.category);
                     currentBottomMenu = MENU_CATEGORY;
-                    break;
+                }
             }
         });
 
-        addEditItem.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_NONE: {
+        addEditItem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_NONE)) {
                     editDataBreak.setText(R.string.item);
                     editDataBreak.setVisibility(View.VISIBLE);
                     addPopup.setVisibility(View.VISIBLE);
@@ -246,10 +247,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-
-                    break;
-                }
-                case MENU_ITEM: {
+                } else if (currentBottomMenu.equals(MENU_ITEM)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
                     editPopup.setVisibility(View.GONE);
@@ -266,18 +264,16 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-                    break;
-                }
-                default:
+                } else {
                     editDataBreak.setText(R.string.item);
                     currentBottomMenu = MENU_ITEM;
-                    break;
+                }
             }
         });
 
-        addRemoveStore.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_NONE: {
+        addRemoveStore.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_NONE)) {
                     editDataBreak.setText(R.string.store);
                     editDataBreak.setVisibility(View.VISIBLE);
                     addPopup.setVisibility(View.VISIBLE);
@@ -295,10 +291,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-
-                    break;
-                }
-                case MENU_STORE: {
+                } else if (currentBottomMenu.equals(MENU_STORE)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
                     editPopup.setVisibility(View.GONE);
@@ -315,140 +308,104 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
-
-                    break;
-                }
-                default:
+                } else {
                     editDataBreak.setText(R.string.store);
                     currentBottomMenu = MENU_STORE;
-                    break;
+                }
             }
         });
 
-        addPopup.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_CATEGORY:
+        addPopup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_CATEGORY)) {
                     shopping.loadFragment(new AddCategory());
-                    break;
-                case MENU_ITEM:
+                } else if (currentBottomMenu.equals(MENU_ITEM)) {
                     shopping.loadFragment(new AddItem());
-                    break;
-                case MENU_STORE:
+                } else if (currentBottomMenu.equals(MENU_STORE)) {
                     shopping.loadFragment(new AddStore());
-                    break;
+                }
             }
         });
 
-        editPopup.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_CATEGORY:
-                    shopping.loadFragment(new EditCategory());
-                    break;
-                case MENU_ITEM:
-                    if (shopping.itemIsSelectedInInventory) {
-                        shopping.editItemInInventory = true;
-                        shopping.editItemInShoppingList = false;
-                        shopping.loadFragment(new EditItem());
-                    } else {
-                        Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-                case MENU_STORE:
-                    shopping.loadFragment(new EditStore());
-                    break;
-            }
+        editPopup.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 if (currentBottomMenu.equals(MENU_CATEGORY)) {
+                     shopping.loadFragment(new EditCategory());
+                 } else if (currentBottomMenu.equals(MENU_ITEM)) {
+                     if (shopping.itemIsSelectedInInventory) {
+                         shopping.editItemInInventory = true;
+                         shopping.editItemInShoppingList = false;
+                         shopping.loadFragment(new EditItem());
+                     } else {
+                         Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT).show();
+                     }
+                 } else if (currentBottomMenu.equals(MENU_STORE)) {
+                     shopping.loadFragment(new EditStore());
+                 }
+             }
         });
 
-        removePopup.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_CATEGORY:
+        removePopup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_CATEGORY)) {
                     shopping.loadFragment(new RemoveCategory());
-                    break;
-                case MENU_ITEM:
+                } else if (currentBottomMenu.equals(MENU_ITEM)) {
                     if (shopping.itemIsSelectedInInventory) {
                         shopping.loadFragment(new RemoveItem());
                     } else {
                         Toast.makeText(getActivity(), "Please select an item to remove.", Toast.LENGTH_SHORT).show();
                     }
-                    break;
-                case MENU_STORE:
+                } else if (currentBottomMenu.equals(MENU_STORE)) {
                     shopping.loadFragment(new RemoveStore());
-                    break;
-            }
-        });
-
-        reorderPopup.setOnClickListener(v -> {
-            switch (currentBottomMenu) {
-                case MENU_CATEGORY:
-                    shopping.loadFragment(new ReorderCategories());
-                    break;
-                case MENU_ITEM:
-                    shopping.loadFragment(new ReorderItems());
-                    break;
-                case MENU_STORE:
-                    shopping.loadFragment(new ReorderStores());
-                    break;
-            }
-        });
-
-        searchButton.setOnClickListener(v -> {
-            if (searchBoxVisible) {
-                if (keyboardVisible) {
-                    // searchBox & keyboard both visible
-                    shopping.hideKeyboard();
-                    searchPopup.setVisibility(View.GONE);
-                    searchInventoryRecyclerView.setVisibility(View.GONE);
-                    fullInventoryTitle.setText(lastMainTitle);
-                    searchBoxVisible = false;
-                    keyboardVisible = false;
-                } else {
-                    // searchBox visible but keyboard not visible
-                    searchPopup.setVisibility(View.GONE);
-                    searchInventoryRecyclerView.setVisibility(View.GONE);
-                    fullInventoryTitle.setText(lastMainTitle);
-                    searchBoxVisible = false;
-                    keyboardVisible = false;
                 }
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                int height;
-                if (editControlsExpanded) {
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                } else
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                params.height = height;
-                fullInventoryRecyclerView.setLayoutParams(params);
-
-            } else {
-                // searchBox & keyboard both not visible
-                shopping.showKeyboard();
-                searchPopup.setVisibility(View.VISIBLE);
-                searchInventoryRecyclerView.setVisibility(View.VISIBLE);
-                lastMainTitle = fullInventoryTitle.getText().toString();
-                fullInventoryTitle.setText(R.string.searchInventory);
-                searchBox.requestFocus();
-                searchBox.setSelection(searchBox.getText().length());
-                searchBoxVisible = true;
-                keyboardVisible = true;
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                int height;
-                if (editControlsExpanded) {
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                params.height = height;
-                fullInventoryRecyclerView.setLayoutParams(params);
             }
         });
 
-        voiceSearchButton.setOnClickListener(v -> {
-            if (searchBoxVisible) {
-                if (keyboardVisible) {
-                    // searchBox & keyboard both visible
-                    shopping.hideKeyboard();
-                    startVoiceRecognition();
+        reorderPopup.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (currentBottomMenu.equals(MENU_CATEGORY)) {
+                    shopping.loadFragment(new ReorderCategories());
+                } else if (currentBottomMenu.equals(MENU_ITEM)) {
+                    shopping.loadFragment(new ReorderItems());
+                } else if (currentBottomMenu.equals(MENU_STORE)) {
+                    shopping.loadFragment(new ReorderStores());
+                }
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (searchBoxVisible) {
+                    if (keyboardVisible) {
+                        // searchBox & keyboard both visible
+                        shopping.hideKeyboard();
+                        searchPopup.setVisibility(View.GONE);
+                        searchInventoryRecyclerView.setVisibility(View.GONE);
+                        fullInventoryTitle.setText(lastMainTitle);
+                        searchBoxVisible = false;
+                        keyboardVisible = false;
+                    } else {
+                        // searchBox visible but keyboard not visible
+                        searchPopup.setVisibility(View.GONE);
+                        searchInventoryRecyclerView.setVisibility(View.GONE);
+                        fullInventoryTitle.setText(lastMainTitle);
+                        searchBoxVisible = false;
+                        keyboardVisible = false;
+                    }
+
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                    int height;
+                    if (editControlsExpanded) {
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                    } else
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                    params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                    params.height = height;
+                    fullInventoryRecyclerView.setLayoutParams(params);
+
+                } else {
+                    // searchBox & keyboard both not visible
+                    shopping.showKeyboard();
                     searchPopup.setVisibility(View.VISIBLE);
                     searchInventoryRecyclerView.setVisibility(View.VISIBLE);
                     lastMainTitle = fullInventoryTitle.getText().toString();
@@ -456,47 +413,78 @@ public class FullInventory extends Fragment {
                     searchBox.requestFocus();
                     searchBox.setSelection(searchBox.getText().length());
                     searchBoxVisible = true;
-                    keyboardVisible = false;
-                } else {
-                    // searchBox visible but keyboard not visible
-                    searchPopup.setVisibility(View.GONE);
-                    searchInventoryRecyclerView.setVisibility(View.GONE);
-                    fullInventoryTitle.setText(lastMainTitle);
-                    searchBoxVisible = false;
-                    keyboardVisible = false;
+                    keyboardVisible = true;
+
+                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                    int height;
+                    if (editControlsExpanded) {
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                    } else
+                        height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                    params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                    params.height = height;
+                    fullInventoryRecyclerView.setLayoutParams(params);
                 }
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                int height;
-                if (editControlsExpanded) {
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                } else
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                params.height = height;
-                fullInventoryRecyclerView.setLayoutParams(params);
-
-            } else {
-                // searchBox & keyboard both not visible
-                startVoiceRecognition();
-                searchPopup.setVisibility(View.VISIBLE);
-                searchInventoryRecyclerView.setVisibility(View.VISIBLE);
-                lastMainTitle = fullInventoryTitle.getText().toString();
-                fullInventoryTitle.setText(R.string.searchInventory);
-                searchBox.requestFocus();
-                searchBox.setSelection(searchBox.getText().length());
-                searchBoxVisible = true;
-                keyboardVisible = false;
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                int height;
-                if (editControlsExpanded) {
-                    height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                } else height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                params.height = height;
-                fullInventoryRecyclerView.setLayoutParams(params);
             }
+        });
+
+        voiceSearchButton.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 if (searchBoxVisible) {
+                     if (keyboardVisible) {
+                         // searchBox & keyboard both visible
+                         shopping.hideKeyboard();
+                         startVoiceRecognition();
+                         searchPopup.setVisibility(View.VISIBLE);
+                         searchInventoryRecyclerView.setVisibility(View.VISIBLE);
+                         lastMainTitle = fullInventoryTitle.getText().toString();
+                         fullInventoryTitle.setText(R.string.searchInventory);
+                         searchBox.requestFocus();
+                         searchBox.setSelection(searchBox.getText().length());
+                         searchBoxVisible = true;
+                         keyboardVisible = false;
+                     } else {
+                         // searchBox visible but keyboard not visible
+                         searchPopup.setVisibility(View.GONE);
+                         searchInventoryRecyclerView.setVisibility(View.GONE);
+                         fullInventoryTitle.setText(lastMainTitle);
+                         searchBoxVisible = false;
+                         keyboardVisible = false;
+                     }
+
+                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                     int height;
+                     if (editControlsExpanded) {
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                     } else
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                     params.height = height;
+                     fullInventoryRecyclerView.setLayoutParams(params);
+
+                 } else {
+                     // searchBox & keyboard both not visible
+                     startVoiceRecognition();
+                     searchPopup.setVisibility(View.VISIBLE);
+                     searchInventoryRecyclerView.setVisibility(View.VISIBLE);
+                     lastMainTitle = fullInventoryTitle.getText().toString();
+                     fullInventoryTitle.setText(R.string.searchInventory);
+                     searchBox.requestFocus();
+                     searchBox.setSelection(searchBox.getText().length());
+                     searchBoxVisible = true;
+                     keyboardVisible = false;
+
+                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                     int height;
+                     if (editControlsExpanded) {
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                     } else
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                     params.height = height;
+                     fullInventoryRecyclerView.setLayoutParams(params);
+                 }
+             }
         });
 
         searchBox.addTextChangedListener(new TextWatcher() {
@@ -511,382 +499,364 @@ public class FullInventory extends Fragment {
 
         });
 
-        clearSearchButton.setOnClickListener(v -> searchBox.setText(""));
+        clearSearchButton.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 if (searchBox.getText().toString().equals("")) {
+                     shopping.hideKeyboard();
+                     searchPopup.setVisibility(View.GONE);
+                     searchInventoryRecyclerView.setVisibility(View.GONE);
+                     fullInventoryTitle.setText(lastMainTitle);
+                     searchBoxVisible = false;
+                     keyboardVisible = false;
 
-        refreshButton.setOnClickListener(v -> {
-            for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                fullInventoryAdapter.notifyItemChanged(i);
+                     // add Edit Controls here (error when closing the search box)
+
+                 } else {
+                     searchBox.setText("");
+                 }
+             }
+        });
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    fullInventoryAdapter.notifyItemChanged(i);
+                }
             }
         });
-        
-        fullInventoryEditButton.setOnClickListener(v -> {
-            if (menuOptionsVisible) {
+
+        fullInventoryEditButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (menuOptionsVisible) {
+                    hideMenuOptions();
+                } else {
+                    showMenuOptions();
+                }
+            }
+        });
+
+        viewAll.setOnClickListener(new View.OnClickListener() {
+           public void onClick(View v) {
+               shopping.inventoryView = Shopping.INVENTORY_ALL;
+               if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                   fullInventoryTitle.setText(R.string.byCategoryAll);
+                   for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                       fullInventoryAdapter.notifyItemChanged(i);
+                   }
+               } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+                   fullInventoryTitle.setText(R.string.byStoreAll);
+                   for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                       fullInventoryAdapter.notifyItemChanged(i);
+                   }
+               } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+                   fullInventoryTitle.setText(R.string.alphabeticalAll);
+                   for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                       fullInventoryAdapter.notifyItemChanged(i);
+                   }
+               }
+               hideMenuOptions();
+           }
+        });
+
+        viewInStock.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventoryView = Shopping.INVENTORY_INSTOCK;
+                if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                    fullInventoryTitle.setText(R.string.byCategoryInStock);
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+                    fullInventoryTitle.setText(R.string.byStoreInStock);
+                    for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+                    fullInventoryTitle.setText(R.string.alphabeticalInStock);
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                }
                 hideMenuOptions();
-            } else {
-                showMenuOptions();
             }
         });
 
-        viewAll.setOnClickListener(v -> {
-            shopping.inventoryView = Shopping.INVENTORY_ALL;
-            switch (shopping.inventorySortBy) {
-                case Shopping.SORT_BY_CATEGORY:
-                    fullInventoryTitle.setText(R.string.byCategoryAll);
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-                case Shopping.SORT_BY_STORE:
-                    fullInventoryTitle.setText(R.string.byStoreAll);
-                    for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-                case Shopping.SORT_ALPHABETICAL:
-                    fullInventoryTitle.setText(R.string.alphabeticalAll);
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-            }
-            hideMenuOptions();
-        });
+        viewNeeded.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventoryView = Shopping.INVENTORY_NEEDED;
 
-        viewInStock.setOnClickListener(v -> {
-            shopping.inventoryView = Shopping.INVENTORY_INSTOCK;
-            switch (shopping.inventorySortBy) {
-                case Shopping.SORT_BY_CATEGORY:
-                    fullInventoryTitle.setText(R.string.byCategoryInStock);
-                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-                case Shopping.SORT_BY_STORE:
-                    fullInventoryTitle.setText(R.string.byStoreInStock);
-                    for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-                case Shopping.SORT_ALPHABETICAL:
-                    fullInventoryTitle.setText(R.string.alphabeticalInStock);
-                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                        fullInventoryAdapter.notifyItemChanged(i);
-                    }
-                    break;
-            }
-            hideMenuOptions();
-        });
 
-        viewNeeded.setOnClickListener(v -> {
-            shopping.inventoryView = Shopping.INVENTORY_NEEDED;
-            switch (shopping.inventorySortBy) {
-                case Shopping.SORT_BY_CATEGORY:
+                if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
                     fullInventoryTitle.setText(R.string.byCategoryNeeded);
                     for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
-                case Shopping.SORT_BY_STORE:
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
                     fullInventoryTitle.setText(R.string.byStoreNeeded);
                     for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
-                case Shopping.SORT_ALPHABETICAL:
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText(R.string.alphabeticalNeeded);
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
+                }
+                hideMenuOptions();
             }
-            hideMenuOptions();
         });
 
-        viewPaused.setOnClickListener(v -> {
-            shopping.inventoryView = Shopping.INVENTORY_PAUSED;
-            switch (shopping.inventorySortBy) {
-                case Shopping.SORT_BY_CATEGORY:
+        viewPaused.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventoryView = Shopping.INVENTORY_PAUSED;
+
+
+                if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
                     fullInventoryTitle.setText(R.string.byCategoryPaused);
                     for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
-                case Shopping.SORT_BY_STORE:
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
                     fullInventoryTitle.setText(R.string.byStorePaused);
                     for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
-                case Shopping.SORT_ALPHABETICAL:
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
                     fullInventoryTitle.setText(R.string.alphabeticalPaused);
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                    break;
+                }
+                hideMenuOptions();
             }
-            hideMenuOptions();
         });
 
-        expandContractItems.setOnClickListener(v -> {
-            if (shopping.itemExpansion.equals(Shopping.ITEMS_CONTRACTED)) {
-                shopping.itemExpansion = Shopping.ITEMS_EXPANDED;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                    Item item = itemData.getItemListByCategory().get(i);
-                    item.getStatus().setAsExpandedInInventory();
+        expandContractItems.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (shopping.itemExpansion.equals(Shopping.ITEMS_CONTRACTED)) {
+                    shopping.itemExpansion = Shopping.ITEMS_EXPANDED;
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        Item item = itemData.getItemListByCategory().get(i);
+                        item.getStatus().setAsExpandedInInventory();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.itemExpansion.equals(Shopping.ITEMS_EXPANDED)) {
+                    shopping.itemExpansion = Shopping.ITEMS_CONTRACTED;
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        Item item = itemData.getItemListByCategory().get(i);
+                        item.getStatus().setAsContractedInInventory();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
                 }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
-            } else if (shopping.itemExpansion.equals(Shopping.ITEMS_EXPANDED)) {
-                shopping.itemExpansion = Shopping.ITEMS_CONTRACTED;
-                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                    Item item = itemData.getItemListByCategory().get(i);
-                    item.getStatus().setAsContractedInInventory();
-                }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
+                hideMenuOptions();
             }
-            hideMenuOptions();
         });
 
-        expandContractCategories.setOnClickListener(v -> {
-            if (shopping.categoryTitles.equals(Shopping.TITLES_EXPANDED)) {
-                shopping.categoryTitles = Shopping.TITLES_CONTRACTED;
-                for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                    itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsContracted();
+        expandContractCategories.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (shopping.categoryTitles.equals(Shopping.TITLES_EXPANDED)) {
+                    shopping.categoryTitles = Shopping.TITLES_CONTRACTED;
+                    for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsContracted();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
+                    shopping.categoryTitles = Shopping.TITLES_EXPANDED;
+                    for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsExpanded();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
                 }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
-            } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
-                shopping.categoryTitles = Shopping.TITLES_EXPANDED;
-                for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                    itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsExpanded();
-                }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
+                hideMenuOptions();
             }
-            hideMenuOptions();
         });
 
-        expandContractStores.setOnClickListener(v -> {
-            if (shopping.storeTitles.equals(Shopping.TITLES_EXPANDED)) {
-                shopping.storeTitles = Shopping.TITLES_CONTRACTED;
-                for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                    itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsContracted();
+        expandContractStores.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (shopping.storeTitles.equals(Shopping.TITLES_EXPANDED)) {
+                    shopping.storeTitles = Shopping.TITLES_CONTRACTED;
+                    for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsContracted();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
+                    shopping.storeTitles = Shopping.TITLES_EXPANDED;
+                    for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsExpanded();
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
                 }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
-            } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
-                shopping.storeTitles = Shopping.TITLES_EXPANDED;
-                for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                    itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsExpanded();
-                }
-                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                    fullInventoryAdapter.notifyItemChanged(i);
-                }
+                hideMenuOptions();
             }
-            hideMenuOptions();
         });
 
-        sortAlphabetical.setOnClickListener(v -> {
-            shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
-            switch (shopping.inventoryView) {
-                case Shopping.INVENTORY_ALL:
+        sortAlphabetical.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
                     fullInventoryTitle.setText(R.string.alphabeticalAll);
-                    break;
-                case Shopping.INVENTORY_INSTOCK:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
                     fullInventoryTitle.setText(R.string.alphabeticalInStock);
-                    break;
-                case Shopping.INVENTORY_NEEDED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
                     fullInventoryTitle.setText(R.string.alphabeticalNeeded);
-                    break;
-                case Shopping.INVENTORY_PAUSED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
                     fullInventoryTitle.setText(R.string.alphabeticalPaused);
-                    break;
+                }
+                for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                    fullInventoryAdapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
             }
-            for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                fullInventoryAdapter.notifyItemChanged(i);
-            }
-            hideMenuOptions();
         });
 
-        sortByCategory.setOnClickListener(v -> {
-            shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
-            switch (shopping.inventoryView) {
-                case Shopping.INVENTORY_ALL:
+        sortByCategory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
                     fullInventoryTitle.setText(R.string.byCategoryAll);
-                    break;
-                case Shopping.INVENTORY_INSTOCK:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
                     fullInventoryTitle.setText(R.string.byCategoryInStock);
-                    break;
-                case Shopping.INVENTORY_NEEDED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
                     fullInventoryTitle.setText(R.string.byCategoryNeeded);
-                    break;
-                case Shopping.INVENTORY_PAUSED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
                     fullInventoryTitle.setText(R.string.byCategoryPaused);
-                    break;
+                }
+                for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                    fullInventoryAdapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
             }
-            for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                fullInventoryAdapter.notifyItemChanged(i);
-            }
-            hideMenuOptions();
         });
 
-        sortByStore.setOnClickListener(v -> {
-            shopping.inventorySortBy = Shopping.SORT_BY_STORE;
-            switch (shopping.inventoryView) {
-                case Shopping.INVENTORY_ALL:
+        sortByStore.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
                     fullInventoryTitle.setText(R.string.byStoreAll);
-                    break;
-                case Shopping.INVENTORY_INSTOCK:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
                     fullInventoryTitle.setText(R.string.byStoreInStock);
-                    break;
-                case Shopping.INVENTORY_NEEDED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
                     fullInventoryTitle.setText(R.string.byStoreNeeded);
-                    break;
-                case Shopping.INVENTORY_PAUSED:
+                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
                     fullInventoryTitle.setText(R.string.byStorePaused);
-                    break;
+                }
+                for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                    fullInventoryAdapter.notifyItemChanged(i);
+                }
+                hideMenuOptions();
             }
-            for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
-                fullInventoryAdapter.notifyItemChanged(i);
-            }
-            hideMenuOptions();
         });
 
-        homeScreen.setOnClickListener(v -> shopping.loadFragment(new LoadScreen()));
+        homeScreen.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.loadFragment(new LoadScreen());
+            }
+        });
 
         fullInventoryRecyclerView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
-
-            @Override
-            public void onSwipeRight() {
+            void onSwipeRight() {
                 Toast.makeText(getActivity(), "Swipe Right", Toast.LENGTH_SHORT).show();
-                switch(shopping.inventorySortBy) {
-                    case Shopping.SORT_BY_CATEGORY:
-                        shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.alphabeticalAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.alphabeticalInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.alphabeticalNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.alphabeticalPaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
-                    case Shopping.SORT_BY_STORE:
-                        shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.byCategoryAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.byCategoryInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.byCategoryNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.byCategoryPaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
-                    case Shopping.SORT_ALPHABETICAL:
-                        shopping.inventorySortBy = Shopping.SORT_BY_STORE;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.byStoreAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.byStoreInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.byStoreNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.byStorePaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
+                if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                    shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalPaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+                    shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.byCategoryAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.byCategoryInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.byCategoryNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.byCategoryPaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+                    shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.byStoreAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.byStoreInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.byStoreNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.byStorePaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
                 }
             }
 
-            @Override
-            public void onSwipeLeft() {
+            void onSwipeLeft() {
                 Toast.makeText(getActivity(), "Swipe Left", Toast.LENGTH_SHORT).show();
-                switch(shopping.inventorySortBy) {
-                    case Shopping.SORT_BY_CATEGORY:
-                        shopping.inventorySortBy = Shopping.SORT_BY_STORE;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.byStoreAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.byStoreInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.byStoreNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.byStorePaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
-                    case Shopping.SORT_BY_STORE:
-                        shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.alphabeticalAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.alphabeticalInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.alphabeticalNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.alphabeticalPaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
-                    case Shopping.SORT_ALPHABETICAL:
-                        shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
-                        switch (shopping.inventoryView) {
-                            case Shopping.INVENTORY_ALL:
-                                fullInventoryTitle.setText(R.string.byCategoryAll);
-                                break;
-                            case Shopping.INVENTORY_INSTOCK:
-                                fullInventoryTitle.setText(R.string.byCategoryInStock);
-                                break;
-                            case Shopping.INVENTORY_NEEDED:
-                                fullInventoryTitle.setText(R.string.byCategoryNeeded);
-                                break;
-                            case Shopping.INVENTORY_PAUSED:
-                                fullInventoryTitle.setText(R.string.byCategoryPaused);
-                                break;
-                        }
-                        for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
-                            fullInventoryAdapter.notifyItemChanged(i);
-                        }
+                if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                    shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.byStoreAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.byStoreInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.byStoreNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.byStorePaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListByStore().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+                    shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.alphabeticalPaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
+                } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+                    shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+                    if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                        fullInventoryTitle.setText(R.string.byCategoryAll);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                        fullInventoryTitle.setText(R.string.byCategoryInStock);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                        fullInventoryTitle.setText(R.string.byCategoryNeeded);
+                    } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                        fullInventoryTitle.setText(R.string.byCategoryPaused);
+                    }
+                    for (int i = 0; i < itemData.getItemListByCategory().size(); i++) {
+                        fullInventoryAdapter.notifyItemChanged(i);
+                    }
                 }
             }
         });
@@ -899,25 +869,18 @@ public class FullInventory extends Fragment {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toString());
         try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+            startActivityForResult(intent, 100);
         } catch (Exception e) {
             System.out.println("Exception");
         }
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    searchBox.setText(result.get(0));
-                    searchBox.setSelection(searchBox.getText().length());
-                }
-                break;
-            }
+        if (resultCode == RESULT_OK && null != data) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            searchBox.setText(result.get(0));
+            searchBox.setSelection(searchBox.getText().length());
         }
     }
 
@@ -953,28 +916,26 @@ public class FullInventory extends Fragment {
         menuOptionsVisible = true;
     }
 
-    class OnSwipeTouchListener implements View.OnTouchListener {
+    private class OnSwipeTouchListener implements View.OnTouchListener {
 
-        private final GestureDetector gestureDetector;
+        private GestureDetector gestureDetector;
 
         OnSwipeTouchListener(Context context) {
             gestureDetector = new GestureDetector(context, new OnSwipeTouchListener.GestureListener());
         }
 
-        void onSwipeLeft() {
-        }
+        void onSwipeLeft() {}
 
-        void onSwipeRight() {
-        }
+        void onSwipeRight() {}
 
-        @SuppressLint("ClickableViewAccessibility")
         public boolean onTouch(View v, MotionEvent event) {
             return gestureDetector.onTouchEvent(event);
         }
 
-        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        /* Need to redo this function */
+        private class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
-            private static final int SWIPE_DISTANCE_THRESHOLD = 100;
+            private static final int SWIPE_DISTANCE_THRESHOLD = 200;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -992,10 +953,10 @@ public class FullInventory extends Fragment {
         }
     }
 
-    @Override
     public void onDestroyView() {
-        shopping.fullInventoryViewState = Objects.requireNonNull(fullInventoryRecyclerView.getLayoutManager()).onSaveInstanceState();
+        shopping.fullInventoryViewState = fullInventoryRecyclerView.getLayoutManager().onSaveInstanceState();
         fullInventoryRecyclerView.setAdapter(null);
         super.onDestroyView();
     }
+
 }

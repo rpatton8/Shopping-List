@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 class DBStatusHelper extends SQLiteOpenHelper {
 
-    private final Context context;
+    private Context context;
 
     private static final String DB_NAME = "ItemStatus";
     private static final int DB_VERSION = 20;
@@ -23,7 +23,6 @@ class DBStatusHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -33,7 +32,6 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    @Override
     public void onUpgrade(SQLiteDatabase db, int i, int j) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);

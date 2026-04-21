@@ -11,61 +11,71 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
+//@SuppressWarnings("ALL")
 public class EditStore extends Fragment {
 
+    private View view;
     private Shopping shopping;
-
+    private StoreData storeData;
     private DBItemHelper dbItemHelper;
     private DBStoreHelper dbStoreHelper;
 
-    private Spinner storeSpinner;
     private EditText storeInput;
+    private Spinner storeSpinner;
+    private ArrayList<String> spinnerData;
+    private ArrayAdapter adapter;
+    private Button editStoreButton;
+    private Button cancelButton;
 
     public EditStore() {}
 
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.edit_store, container, false);
+        view = inflater.inflate(R.layout.edit_store, container, false);
 
         shopping = (Shopping) getActivity();
+        storeData = shopping.getStoreData();
         dbItemHelper = new DBItemHelper(getActivity());
         dbStoreHelper = new DBStoreHelper(getActivity());
-        StoreData storeData = shopping.getStoreData();
 
         storeInput = view.findViewById(R.id.storeInput);
-        Button editStoreButton = view.findViewById(R.id.editStoreButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        editStoreButton = view.findViewById(R.id.editStoreButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
-        ArrayList<String> spinnerData = storeData.getStoreListWithBlank();
+        spinnerData = storeData.getStoreListWithBlank();
         storeSpinner = view.findViewById(R.id.storeSpinner);
-        ArrayAdapter adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
+        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 
         storeInput.setText("");
 
-        editStoreButton.setOnClickListener(v -> {
-            String oldStore = storeSpinner.getSelectedItem().toString();
-            String newStore = storeInput.getText().toString();
+        editStoreButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String oldStore = storeSpinner.getSelectedItem().toString();
+                String newStore = storeInput.getText().toString();
 
-            if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                shopping.showAlertDialog("Edit Store", "Change store name to edit.");
-                return;
+                if (newStore.isEmpty() || oldStore.equals(newStore)) {
+                    shopping.showAlertDialog("Edit Store", "Change store name to edit.");
+                    return;
+                }
+
+                dbItemHelper.changeStore(oldStore, newStore);
+                shopping.updateItemData();
+
+                dbStoreHelper.changeStoreName(oldStore, newStore);
+                shopping.updateStoreData();
+
+                shopping.hideKeyboard();
+                shopping.loadFragment(new FullInventory());
             }
-
-            dbItemHelper.changeStore(oldStore, newStore);
-            shopping.updateItemData();
-
-            dbStoreHelper.changeStoreName(oldStore, newStore);
-            shopping.updateStoreData();
-
-            shopping.hideKeyboard();
-            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(v -> {
-            shopping.hideKeyboard();
-            shopping.loadFragment(new FullInventory());
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.hideKeyboard();
+                shopping.loadFragment(new FullInventory());
+            }
         });
 
         return view;

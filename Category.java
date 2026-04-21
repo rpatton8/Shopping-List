@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 class Category {
 
-    private final String categoryName;
-    private final ArrayList<Item> categoryItems;
+    private String categoryName;
+    private ArrayList<Item> categoryItems;
 
     private boolean isExpanded;
     private boolean isContracted;
@@ -18,37 +18,36 @@ class Category {
         isContracted = false;
     }
 
-    public String getName() {
+    String getName() {
         return categoryName;
     }
 
-    public void addItem(Item item) {
+    void addItem(Item item) {
         categoryItems.add(item);
     }
 
-    public ArrayList<Item> getItemList() {
+    ArrayList<Item> getItemList() {
         return categoryItems;
     }
 
-    public boolean isExpanded() {
+    boolean isExpanded() {
         return isExpanded;
     }
 
-    public void setAsExpanded() {
+    void setAsExpanded() {
         isExpanded = true;
         isContracted = false;
     }
 
-    public boolean isContracted() {
+    boolean isContracted() {
         return isContracted;
     }
 
-    public void setAsContracted() {
+    void setAsContracted() {
         isExpanded = false;
         isContracted = true;
     }
 
-    @Override
     public String toString() {
         return categoryName;
     }

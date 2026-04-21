@@ -5,14 +5,16 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import java.util.Objects;
 
+//@SuppressWarnings("ALL")
 public class Shopping extends AppCompatActivity {
 
     private ItemData itemData;
@@ -25,58 +27,59 @@ public class Shopping extends AppCompatActivity {
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
-    public Boolean itemIsSelectedInInventory;
-    public Boolean itemIsSelectedInShoppingList;
-    public Item selectedItemInInventory;
-    public Item selectedItemInShoppingList;
-    public int selectedItemPositionInInventory;
-    public int selectedItemPositionInShoppingList;
+    Boolean itemIsSelectedInInventory;
+    Boolean itemIsSelectedInShoppingList;
+    Item selectedItemInInventory;
+    Item selectedItemInShoppingList;
+    int selectedItemPositionInInventory;
+    int selectedItemPositionInShoppingList;
 
-    public int storeListOrderNum;
-    public String reorderItemsCategory;
-    public String reorderItemsStore;
-    public String currentSearchTerm;
-    public Boolean editItemInInventory;
-    public Boolean editItemInShoppingList;
-    private SearchAlgorithm searchAlgorithm;
+    int storeListOrderNum;
+    String reorderItemsCategory;
+    String reorderItemsStore;
+    String currentSearchTerm;
+    Boolean editItemInInventory;
+    Boolean editItemInShoppingList;
+    SearchAlgorithm searchAlgorithm;
 
-    public String inventoryView;
-    public static final String INVENTORY_ALL = "view all";
-    public static final String INVENTORY_INSTOCK = "view instock";
-    public static final String INVENTORY_NEEDED = "view needed";
-    public static final String INVENTORY_PAUSED = "view paused";
+    String inventoryView;
+    static final String INVENTORY_ALL = "view all";
+    static final String INVENTORY_INSTOCK = "view instock";
+    static final String INVENTORY_NEEDED = "view needed";
+    static final String INVENTORY_PAUSED = "view paused";
 
-    public String inventorySortBy;
-    public String defaultSortBy;
-    public static final String SORT_BY_CATEGORY = "category";
-    public static final String SORT_BY_STORE = "store";
-    public static final String SORT_ALPHABETICAL = "alphabetical";
+    String inventorySortBy;
+    String defaultSortBy;
+    static final String SORT_BY_CATEGORY = "category";
+    static final String SORT_BY_STORE = "store";
+    static final String SORT_ALPHABETICAL = "alphabetical";
 
-    public String storeTitles;
-    public String categoryTitles;
-    public static final String TITLES_EXPANDED = "titles expanded";
-    public static final String TITLES_CONTRACTED = "titles contracted";
+    String storeTitles;
+    String categoryTitles;
+    static final String TITLES_EXPANDED = "titles expanded";
+    static final String TITLES_CONTRACTED = "titles contracted";
 
-    public String itemExpansion;
-    public static final String ITEMS_EXPANDED = "items expanded";
-    public static final String ITEMS_CONTRACTED = "items contracted";
+    String itemExpansion;
+    static final String ITEMS_EXPANDED = "items expanded";
+    static final String ITEMS_CONTRACTED = "items contracted";
 
-    public String reorderingMethod;
-    public static final String DRAG_AND_DROP = "drag and drop";
-    public static final String UP_AND_DOWN_ARROWS = "up and down arrows";
-    public static final String WITH_NUMBERS = "with numbers";
+    String reorderingMethod;
+    static final String DRAG_AND_DROP = "drag and drop";
+    static final String UP_AND_DOWN_ARROWS = "up and down arrows";
+    static final String WITH_NUMBERS = "with numbers";
 
-    public String colorScheme;
-    public static final String COLOR_SCHEME_1 = "color scheme 1";
-    public static final String COLOR_SCHEME_2 = "color scheme 2";
-    public static final String COLOR_SCHEME_3 = "color scheme 3";
+    String colorScheme;
+    static final String COLOR_SCHEME_1 = "color scheme 1";
+    static final String COLOR_SCHEME_2 = "color scheme 2";
+    static final String COLOR_SCHEME_3 = "color scheme 3";
 
-    public Parcelable shoppingListViewState;
-    public Parcelable fullInventoryViewState;
-    public Parcelable reorderCategoriesViewState;
-    public Parcelable reorderStoresViewState;
-    public Parcelable reorderItemsRecyclerViewState;
-    //public Parcelable reorderItemsScrollViewState;
+    Parcelable shoppingListViewState;
+    Parcelable fullInventoryViewState;
+    Parcelable searchInventoryViewState;
+    Parcelable reorderCategoriesViewState;
+    Parcelable reorderStoresViewState;
+    Parcelable reorderItemsRecyclerViewState;
+    //Parcelable reorderItemsScrollViewState;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -91,145 +94,141 @@ public class Shopping extends AppCompatActivity {
         }
 
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
-        fullInventory.setOnClickListener(v -> {
-            Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
-            if (f instanceof FullInventory) return;
-            loadFragment(new FullInventory());
+        fullInventory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+                if (f instanceof FullInventory) return;
+                loadFragment(new FullInventory());
+            }
         });
 
         Button shoppingList = findViewById(R.id.shoppingListTopMenu);
-        shoppingList.setOnClickListener(v -> {
-            Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
-            if (f instanceof ShoppingList) return;
-            loadFragment(new ShoppingList());
+        shoppingList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+                if (f instanceof ShoppingList) return;
+                loadFragment(new ShoppingList());
+            }
         });
     }
 
-    public ItemData getItemData() {
+    ItemData getItemData() {
         return itemData;
     }
 
-    public void updateItemData() {
+    void updateItemData() {
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
     }
 
-    public StatusData getStatusData() {
+    StatusData getStatusData() {
         return statusData;
     }
 
-    public void updateStatusData() {
+    void updateStatusData() {
         statusData = dbStatusHelper.readStatusData();
     }
 
-    public CategoryData getCategoryData() {
+    CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void updateCategoryData() {
+    void updateCategoryData() {
         categoryData = dbCategoryHelper.readCategoryData();
     }
 
-    public StoreData getStoreData() {
+    StoreData getStoreData() {
         return storeData;
     }
 
-    public void updateStoreData() {
+    void updateStoreData() {
         storeData = dbStoreHelper.readStoreData();
     }
 
-    public SearchAlgorithm getSearchAlgorithm() {
+    SearchAlgorithm getSearchAlgorithm() {
         return searchAlgorithm;
     }
 
-    public void addItemToSearchAlgorithm(Item item) {
+    void addItemToSearchAlgorithm(Item item) {
         searchAlgorithm.addNewItem(item);
     }
 
-    public void removeItemFromSearchAlgorithm(Item item) {
+    void removeItemFromSearchAlgorithm(Item item) {
         searchAlgorithm.removeItem(item);
     }
 
-    public void showAlertDialog(String title, String message) {
+    void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-    public void showKeyboard() {
+    void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-    public void hideKeyboard() {
+    void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        Objects.requireNonNull(imm).toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 
-    public void loadFragment(Fragment fragment) {
+    void loadFragment(Fragment fragment) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragments, fragment);
         fragmentTransaction.commit();
     }
 
-    public void loadSharedPreferences() {
+    void loadSharedPreferences() {
         SharedPreferences sharedPref = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
 
         String defaultSortBy = sharedPref.getString("default_sort_by", "Default Sort By");
-        switch (defaultSortBy) {
-            case "alphabetical":
-                this.defaultSortBy = SORT_ALPHABETICAL;
-                inventorySortBy = SORT_ALPHABETICAL;
-                break;
-            case "category":
-                this.defaultSortBy = SORT_BY_CATEGORY;
-                inventorySortBy = SORT_BY_CATEGORY;
-                break;
-            case "store":
-                this.defaultSortBy = SORT_BY_STORE;
-                inventorySortBy = SORT_BY_STORE;
-                break;
+        if (defaultSortBy.equals("alphabetical")) {
+            this.defaultSortBy = SORT_ALPHABETICAL;
+            this.inventorySortBy = SORT_ALPHABETICAL;
+        } else if (defaultSortBy.equals("category")) {
+            this.defaultSortBy = SORT_BY_CATEGORY;
+            this.inventorySortBy = SORT_BY_CATEGORY;
+        } else if (defaultSortBy.equals("store")) {
+            this.defaultSortBy = SORT_BY_STORE;
+            this.inventorySortBy = SORT_BY_STORE;
         }
 
         String reorderingMethod = sharedPref.getString("reorder_method", "Default Reordering");
-        switch (reorderingMethod) {
-            case "drag and drop":
-                this.reorderingMethod = DRAG_AND_DROP;
-                break;
-            case "up and down arrows":
-                this.reorderingMethod = UP_AND_DOWN_ARROWS;
-                break;
-            case "with numbers":
-                this.reorderingMethod = WITH_NUMBERS;
-                break;
+        if (reorderingMethod.equals("drag and drop")) {
+            this.reorderingMethod = DRAG_AND_DROP;
+        } else if (reorderingMethod.equals("up and down arrows")) {
+            this.reorderingMethod = UP_AND_DOWN_ARROWS;
+        } else if (reorderingMethod.equals("with numbers")) {
+            this.reorderingMethod = WITH_NUMBERS;
         }
 
         String colorScheme = sharedPref.getString("color_scheme", "Default Color Scheme");
-        switch (colorScheme) {
-            case "color scheme 1":
-                this.colorScheme = COLOR_SCHEME_1;
-                break;
-            case "color scheme 2":
-                this.colorScheme = COLOR_SCHEME_2;
-                break;
-            case "color scheme 3":
-                this.colorScheme = COLOR_SCHEME_3;
-                break;
+        if (colorScheme.equals("color scheme 1")) {
+            this.colorScheme = COLOR_SCHEME_1;
+        } else if (colorScheme.equals("color scheme 2")) {
+            this.colorScheme = COLOR_SCHEME_2;
+        } else if (colorScheme.equals("color scheme 3")) {
+            this.colorScheme = COLOR_SCHEME_3;
         }
     }
 
-    public void clearAllData() {
+    void clearAllData() {
         dbItemHelper.deleteDatabase();
         dbStatusHelper.deleteDatabase();
         dbCategoryHelper.deleteDatabase();
         dbStoreHelper.deleteDatabase();
     }
 
-    public void initializeData() {
+    void initializeData() {
         dbItemHelper = new DBItemHelper(this);
         dbStatusHelper = new DBStatusHelper(this);
         dbCategoryHelper = new DBCategoryHelper(this);
@@ -268,7 +267,7 @@ public class Shopping extends AppCompatActivity {
         itemExpansion = ITEMS_CONTRACTED;
     }
 
-    public void loadStoresAndCategories() {
+    void loadStoresAndCategories() {
 
         dbCategoryHelper.addNewCategory("Meals", 0);
         dbCategoryHelper.addNewCategory("Soups", 1);
@@ -312,7 +311,7 @@ public class Shopping extends AppCompatActivity {
 //-------------------------------------Sort By Category-------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 
-    public void loadCategoryData1() {
+    void loadCategoryData1() {
 
         //------------------------------------Meals-------------------------------------------------
 
@@ -1096,7 +1095,7 @@ public class Shopping extends AppCompatActivity {
 //----------------------------------------Sort By Store-------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 
-    public void loadStoreData1() {
+    void loadStoreData1() {
 
         //------------------------------------Vons--------------------------------------------------
 
@@ -1885,7 +1884,7 @@ public class Shopping extends AppCompatActivity {
 //-------------------------------------Sort By Category-------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 
-    public void loadCategoryData2() {
+    void loadCategoryData2() {
 
         //------------------------------------Meals-------------------------------------------------
 
@@ -2669,7 +2668,7 @@ public class Shopping extends AppCompatActivity {
 //----------------------------------------Sort By Store-------------------------------------------//
 //------------------------------------------------------------------------------------------------//
 
-    public void loadStoreData2() {
+    void loadStoreData2() {
 
         //------------------------------------Vons--------------------------------------------------
 

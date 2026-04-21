@@ -1,7 +1,6 @@
 package ryan.android.shopping;
 
-import android.support.annotation.NonNull;
-
+//@SuppressWarnings("ALL")
 class Item implements Comparable<Item> {
 
     private String name;
@@ -12,62 +11,62 @@ class Item implements Comparable<Item> {
     private int categoryOrder;
     private int storeOrder;
 
-    public Item(String name, String brandType, String category, String store) {
+    Item(String name, String brandType, String category, String store) {
         this.name = name;
         this.brandType = brandType;
         this.category = new Category(category, this);
         this.store = new Store(store, this);
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public String getBrandType() {
+    String getBrandType() {
         return brandType;
     }
 
-    public Category getCategory() {
+    Category getCategory() {
         return category;
     }
 
-    public Store getStore() {
+    Store getStore() {
         return store;
     }
 
-    public void setCategory(Category category) {
+    void setCategory(Category category) {
         this.category = category;
     }
 
-    public void setStore(Store store) {
+    void setStore(Store store) {
         this.store = store;
     }
 
-    public void setStatus(Status status) {
+    void setStatus(Status status) {
         this.status = status;
     }
 
-    public Status getStatus() {
+    Status getStatus() {
         return status;
     }
 
-    public void setCategoryOrder(int categoryOrder) {
+    void setCategoryOrder(int categoryOrder) {
         this.categoryOrder = categoryOrder;
     }
 
-    public int getCategoryOrder() {
+    int getCategoryOrder() {
         return this.categoryOrder;
     }
 
-    public void setStoreOrder(int storeOrder) {
+    void setStoreOrder(int storeOrder) {
         this.storeOrder = storeOrder;
     }
 
-    public int getStoreOrder() {
+    int getStoreOrder() {
         return this.storeOrder;
     }
 
-    public void printItem() {
+    void printItem() {
         System.out.println("--------------------------");
         System.out.println("Item Name: " + name);
         System.out.println("Brand/Type: " + brandType);
@@ -78,8 +77,7 @@ class Item implements Comparable<Item> {
         System.out.println("Store Order: " + storeOrder);
     }
 
-    @Override
-    public int compareTo(@NonNull Item item) {
+    public int compareTo(Item item) {
         return this.name.compareTo(item.name);
     }
 

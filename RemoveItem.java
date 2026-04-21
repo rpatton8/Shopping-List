@@ -8,19 +8,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+//@SuppressWarnings("ALL")
 public class RemoveItem extends Fragment {
 
+    private View view;
     private Shopping shopping;
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
+
     private EditText itemNameInput;
+    private Button removeItemButton;
+    private Button cancelButton;
 
     public RemoveItem() {}
 
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.remove_item, container, false);
+        view = inflater.inflate(R.layout.remove_item, container, false);
 
         shopping = (Shopping) getActivity();
         itemData = shopping.getItemData();
@@ -28,45 +33,51 @@ public class RemoveItem extends Fragment {
         dbStatusHelper = new DBStatusHelper(getActivity());
 
         itemNameInput = view.findViewById(R.id.itemNameInput);
-        Button removeItemButton = view.findViewById(R.id.removeItemButton);
-        Button cancelButton = view.findViewById(R.id.cancelButton);
+        removeItemButton = view.findViewById(R.id.removeItemButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         itemNameInput.setText(shopping.selectedItemInInventory.getName());
 
-        removeItemButton.setOnClickListener(v -> {
+        removeItemButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String itemName = itemNameInput.getText().toString();
 
-            String itemName = itemNameInput.getText().toString();
+                if (itemName.isEmpty()) {
+                    shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
+                    return;
+                }
 
-            if (itemName.isEmpty()) {
-                shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
-                return;
+                Item item = itemData.getItemMap().get(itemName);
+
+                String category = item.getCategory().toString();
+                int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
+                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
+                    dbItemHelper.moveOrderDownOneByCategory(category, i);
+                }
+
+                String store = item.getStore().toString();
+                int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
+                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
+                    dbItemHelper.moveOrderDownOneByStore(store, i);
+                }
+
+                dbItemHelper.deleteItem(itemName);
+                dbStatusHelper.deleteStatus(itemName);
+                shopping.updateItemData();
+                shopping.updateStatusData();
+
+                shopping.itemIsSelectedInInventory = false;
+
+                shopping.loadFragment(new FullInventory());
             }
-
-            Item item = itemData.getItemMap().get(itemName);
-
-            String category = item.getCategory().toString();
-            int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
-            for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
-                dbItemHelper.moveOrderDownOneByCategory(category, i);
-            }
-
-            String store = item.getStore().toString();
-            int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
-            for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
-                dbItemHelper.moveOrderDownOneByStore(store, i);
-            }
-
-            dbItemHelper.deleteItem(itemName);
-            dbStatusHelper.deleteStatus(itemName);
-            shopping.updateItemData();
-            shopping.updateStatusData();
-
-            shopping.itemIsSelectedInInventory = false;
-
-            shopping.loadFragment(new FullInventory());
         });
 
-        cancelButton.setOnClickListener(v -> shopping.loadFragment(new FullInventory()));
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.loadFragment(new FullInventory());
+            }
+        });
+
         return view;
     }
 }
