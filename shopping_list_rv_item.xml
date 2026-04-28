@@ -43,22 +43,20 @@
             android:id="@+id/checkboxUncheckedSmall"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:src="@mipmap/checkbox_unchecked"
             android:visibility="visible"
+            android:src="@mipmap/checkbox_unchecked"
             app:layout_constraintRight_toRightOf="parent"
+            android:translationX="16dp"
             android:contentDescription="@string/uncheckedBoxSmall" />
 
         <ImageView
             android:id="@+id/checkboxCheckedSmall"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
             android:visibility="gone"
             android:src="@mipmap/checkbox_checked"
             app:layout_constraintRight_toRightOf="parent"
+            android:translationX="16dp"
             android:contentDescription="@string/checkedBoxSmall" />
 
     </LinearLayout>
@@ -89,22 +87,20 @@
                 android:id="@+id/checkboxUncheckedLarge"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
                 android:visibility="visible"
                 android:src="@mipmap/checkbox_unchecked"
                 app:layout_constraintRight_toRightOf="parent"
+                android:translationX="16dp"
                 android:contentDescription="@string/uncheckedBoxLarge" />
 
             <ImageView
                 android:id="@+id/checkboxCheckedLarge"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:paddingStart="6dp"
-                android:paddingEnd="6dp"
                 android:visibility="gone"
                 android:src="@mipmap/checkbox_checked"
                 app:layout_constraintRight_toRightOf="parent"
+                android:translationX="16dp"
                 android:contentDescription="@string/checkedBoxLarge" />
 
         </LinearLayout>

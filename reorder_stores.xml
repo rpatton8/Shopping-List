@@ -24,6 +24,9 @@
         android:id="@+id/reorderStoresRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="578dp"
+        android:layout_marginTop="6dp"
+        android:paddingBottom="12dp"
+        android:clipToPadding="false"
         android:layout_below="@id/reorderStores"/>
 
     <LinearLayout

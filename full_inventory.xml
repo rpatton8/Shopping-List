@@ -24,6 +24,9 @@
         android:id="@+id/fullInventoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="620dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:clipToPadding="false"
         android:layout_below="@+id/fullInventoryTitle" />
 
     <TextView

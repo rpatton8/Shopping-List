@@ -509,8 +509,17 @@ public class FullInventory extends Fragment {
                      searchBoxVisible = false;
                      keyboardVisible = false;
 
-                     // add Edit Controls here (error when closing the search box)
+                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                     int height;
+                     if (editControlsExpanded) {
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                     } else
+                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                     params.height = height;
+                     fullInventoryRecyclerView.setLayoutParams(params);
 
+                     fullInventoryAdapter.notifyDataSetChanged();
                  } else {
                      searchBox.setText("");
                  }
@@ -661,7 +670,8 @@ public class FullInventory extends Fragment {
                 if (shopping.categoryTitles.equals(Shopping.TITLES_EXPANDED)) {
                     shopping.categoryTitles = Shopping.TITLES_CONTRACTED;
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsContracted();
+                        String category = categoryData.getCategoryList().get(i);
+                        itemData.getCategoryMap().get(category).setCategoryAsContracted();
                     }
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
@@ -669,7 +679,8 @@ public class FullInventory extends Fragment {
                 } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
                     shopping.categoryTitles = Shopping.TITLES_EXPANDED;
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
-                        itemData.getCategoryMap().get(categoryData.getCategoryList().get(i)).setAsExpanded();
+                        String category = categoryData.getCategoryList().get(i);
+                        itemData.getCategoryMap().get(category).setCategoryAsExpanded();
                     }
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
@@ -684,7 +695,8 @@ public class FullInventory extends Fragment {
                 if (shopping.storeTitles.equals(Shopping.TITLES_EXPANDED)) {
                     shopping.storeTitles = Shopping.TITLES_CONTRACTED;
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsContracted();
+                        String store = storeData.getStoreList().get(i);
+                        itemData.getStoreMap().get(store).setStoreAsContracted();
                     }
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
@@ -692,7 +704,8 @@ public class FullInventory extends Fragment {
                 } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
                     shopping.storeTitles = Shopping.TITLES_EXPANDED;
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setAsExpanded();
+
+                        itemData.getStoreMap().get(storeData.getStoreList().get(i)).setStoreAsExpanded();
                     }
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
@@ -932,7 +945,6 @@ public class FullInventory extends Fragment {
             return gestureDetector.onTouchEvent(event);
         }
 
-        /* Need to redo this function */
         private class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
             private static final int SWIPE_DISTANCE_THRESHOLD = 200;
@@ -942,7 +954,7 @@ public class FullInventory extends Fragment {
                 if (e1 == null || e2 == null) return false;
                 float distanceX = e2.getX() - e1.getX();
                 float distanceY = e2.getY() - e1.getY();
-                if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD
+                if (Math.abs(distanceX) > (3 * Math.abs(distanceY)) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD
                         && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                     if (distanceX > 0) onSwipeRight();
                     else onSwipeLeft();

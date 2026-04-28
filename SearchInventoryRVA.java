@@ -15,6 +15,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     private Shopping shopping;
     private SearchAlgorithm searchAlgorithm;
     private String currentTerm;
+    private ArrayList<Item> searchResultsList;
 
     SearchInventoryRVA(Shopping shopping, SearchAlgorithm searchAlgorithm) {
         this.shopping = shopping;
@@ -35,7 +36,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         Item thisItem = null;
         if (!currentTerm.equals("")) {
-            ArrayList<Item> searchResultsList = searchAlgorithm.getSearchResults(currentTerm);
+            searchResultsList = searchAlgorithm.getSearchResults(currentTerm);
             thisItem = searchResultsList.get(position);
         }
 
@@ -111,11 +112,12 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         this.currentTerm = term;
     }
 
-    private static class SearchInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SearchInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private SearchInventoryRVA adapter;
         private ItemData itemData;
+        private CategoryData categoryData;
         private DBStatusHelper dbStatusHelper;
 
         private Button triangleRight;
@@ -145,6 +147,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             this.shopping = shopping;
             this.adapter = adapter;
             this.itemData = shopping.getItemData();
+            this.categoryData  = shopping.getCategoryData();
             this.dbStatusHelper = new DBStatusHelper(shopping);
 
             triangleRight = itemView.findViewById(R.id.triangleButtonRight);
@@ -193,6 +196,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         private void selectOrUnselectItem(int position) {
 
             Item thisItem = itemData.getItemListAZ().get(position);
+            searchResultsList.get(position);
 
             if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.selectedItemInInventory) {
                 // selected item is this item
@@ -238,8 +242,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             int id = v.getId();
             int position = getAdapterPosition();
 
-            // ERROR HERE  (need to get adjusted position of search item)
-            Item thisItem = itemData.getItemListAZ().get(position);
+            Item thisItem = searchResultsList.get(position);
 
             if (id == itemSmallName.getId()) {
                 selectOrUnselectItem(position);
@@ -256,7 +259,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemSmall.setVisibility(View.GONE);
                     itemLarge.setVisibility(View.VISIBLE);
 
-                    thisItem.getStatus().setAsExpandedInShoppingList();
+                    thisItem.getStatus().setAsExpandedInSearchResults();
                 }
             } else if (id == triangleDown.getId()) {
                 if (triangleDown.getVisibility() == View.VISIBLE && triangleRight.getVisibility() == View.GONE) {
@@ -265,7 +268,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLarge.setVisibility(View.GONE);
                     itemSmall.setVisibility(View.VISIBLE);
 
-                    thisItem.getStatus().setAsContractedInShoppingList();
+                    thisItem.getStatus().setAsContractedInSearchResults();
                 }
             } else if (id == itemSmallInStock.getId()) {
                 if (itemSmallInStock.getVisibility() == View.VISIBLE) {

@@ -13,12 +13,13 @@
         android:id="@+id/storeName"
         android:layout_width="275dp"
         android:layout_height="36dp"
+        android:translationY="-3dp"
         android:text="@string/name"
         android:layout_marginStart="25dp"
         android:textSize="24sp" />
 
     <ImageView
-        android:id="@+id/arrowDown"
+        android:id="@+id/triangleDown"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@mipmap/triangle_down"
@@ -26,7 +27,7 @@
         android:contentDescription="@string/triangleDown" />
 
     <ImageView
-        android:id="@+id/arrowUp"
+        android:id="@+id/triangleUp"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:src="@mipmap/triangle_up"

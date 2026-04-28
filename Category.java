@@ -26,24 +26,24 @@ class Category {
         categoryItems.add(item);
     }
 
-    ArrayList<Item> getItemList() {
+    ArrayList<Item> getCategoryItemsList() {
         return categoryItems;
     }
 
-    boolean isExpanded() {
+    boolean categoryIsExpanded() {
         return isExpanded;
     }
 
-    void setAsExpanded() {
+    void setCategoryAsExpanded() {
         isExpanded = true;
         isContracted = false;
     }
 
-    boolean isContracted() {
+    boolean categoryIsContracted() {
         return isContracted;
     }
 
-    void setAsContracted() {
+    void setCategoryAsContracted() {
         isExpanded = false;
         isContracted = true;
     }

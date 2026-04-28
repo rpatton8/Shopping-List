@@ -39,10 +39,12 @@ public class AddStore extends Fragment {
         addStoreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String storeName = storeInput.getText().toString();
+
                 if (storeName.isEmpty()) {
                     shopping.showAlertDialog("Add Store", "Please enter a store to add.");
                     return;
                 }
+
                 int numStores = storeData.getStoreList().size();
                 dbStoreHelper.addNewStore(storeName, numStores);
                 shopping.updateStoreData();

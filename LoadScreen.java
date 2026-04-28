@@ -114,7 +114,6 @@ public class LoadScreen extends Fragment {
                         withNumbers.setChecked(true);
                     }
 
-
                     if (shopping.colorScheme.equals(Shopping.COLOR_SCHEME_1)) {
                         colorScheme1.setChecked(true);
                     } else if (shopping.colorScheme.equals(Shopping.COLOR_SCHEME_2)) {

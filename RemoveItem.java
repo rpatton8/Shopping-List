@@ -50,14 +50,14 @@ public class RemoveItem extends Fragment {
                 Item item = itemData.getItemMap().get(itemName);
 
                 String category = item.getCategory().toString();
-                int categoryOrderNum = itemData.getCategoryMap().get(category).getItemList().indexOf(item);
-                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getItemList().size(); i++) {
+                int categoryOrderNum = itemData.getCategoryMap().get(category).getCategoryItemsList().indexOf(item);
+                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getCategoryItemsList().size(); i++) {
                     dbItemHelper.moveOrderDownOneByCategory(category, i);
                 }
 
                 String store = item.getStore().toString();
-                int storeOrderNum = itemData.getStoreMap().get(store).getItemList().indexOf(item);
-                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getItemList().size(); i++) {
+                int storeOrderNum = itemData.getStoreMap().get(store).getStoreItemsList().indexOf(item);
+                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getStoreItemsList().size(); i++) {
                     dbItemHelper.moveOrderDownOneByStore(store, i);
                 }
 

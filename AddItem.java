@@ -188,12 +188,11 @@ public class AddItem extends Fragment {
 
                 int itemsInCategory;
                 if (itemData.getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
-                else
-                    itemsInCategory = itemData.getCategoryMap().get(itemCategory).getItemList().size();
+                else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getCategoryItemsList().size();
 
                 int itemsInStore;
                 if (itemData.getStoreMap().get(itemStore) == null) itemsInStore = 0;
-                else itemsInStore = itemData.getStoreMap().get(itemStore).getItemList().size();
+                else itemsInStore = itemData.getStoreMap().get(itemStore).getStoreItemsList().size();
 
                 dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);

@@ -26,24 +26,24 @@ class Store {
         storeItems.add(item);
     }
 
-    ArrayList<Item> getItemList() {
+    ArrayList<Item> getStoreItemsList() {
         return storeItems;
     }
 
-    boolean isExpanded() {
+    boolean storeIsExpanded() {
         return isExpanded;
     }
 
-    void setAsExpanded() {
+    void setStoreAsExpanded() {
         isExpanded = true;
         isContracted = false;
     }
 
-    boolean isContracted() {
+    boolean storeIsContracted() {
         return isContracted;
     }
 
-    void setAsContracted() {
+    void setStoreAsContracted() {
         isExpanded = false;
         isContracted = true;
     }

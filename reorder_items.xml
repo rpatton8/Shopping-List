@@ -171,7 +171,9 @@
                 android:id="@+id/reorderItemsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="578dp"
-                android:layout_marginTop="6dp"/>
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:clipToPadding="false" />
 
             <TextView
                 android:layout_width="400dp"

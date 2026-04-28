@@ -42,7 +42,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 if (itemData.getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory + 1;
                 if (position == index) return R.layout.sort_by_category_rv_title;
@@ -59,7 +59,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 if (itemData.getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore + 1;
                 if (position == index) return R.layout.sort_by_store_rv_title;
@@ -81,7 +81,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
 
             if (viewType == R.layout.sort_by_category_rv_title) {
-                return new SortByCategoryTitleRVH(view);
+                return new SortByCategoryTitleRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
             } else if (viewType == R.layout.sort_by_category_rv_item) {
                 return new SortByCategoryItemRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
             } else return new RecyclerView.ViewHolder(view) {};
@@ -89,7 +89,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
 
             if (viewType == R.layout.sort_by_store_rv_title) {
-                return new SortByStoreTitleRVH(view);
+                return new SortByStoreTitleRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
             } else if (viewType == R.layout.sort_by_store_rv_item) {
                 return new SortByStoreItemRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
             } else return new RecyclerView.ViewHolder(view) {};
@@ -125,7 +125,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getCategoryMap().get(category) == null) {
                         numItemsInCategory = 0;
                     } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                        numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                     }
                     index += numItemsInCategory;
                     adjustedPosition--;
@@ -135,7 +135,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                        thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                         break;
                     }
                 }
@@ -148,12 +148,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 categoryTitleHolder.categoryTitleText.setText(category);
                 categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.VISIBLE);
 
-                if (categoryTitleHolder.isExpanded) {
+                if (categoryTitleHolder.isExpanded()) {
+                    //itemData.getCategoryMap().get(category).setCategoryAsContracted();
                     categoryTitleHolder.triangleButtonDown1.setVisibility(View.VISIBLE);
                     categoryTitleHolder.triangleButtonDown2.setVisibility(View.VISIBLE);
                     categoryTitleHolder.triangleButtonRight.setVisibility(View.GONE);
                     categoryTitleHolder.triangleButtonLeft.setVisibility(View.GONE);
-                } else if (categoryTitleHolder.isContracted) {
+
+                } else if (categoryTitleHolder.isContracted()) {
+                    //itemData.getCategoryMap().get(category).setCategoryAsExpanded();
                     categoryTitleHolder.triangleButtonDown1.setVisibility(View.GONE);
                     categoryTitleHolder.triangleButtonDown2.setVisibility(View.GONE);
                     categoryTitleHolder.triangleButtonRight.setVisibility(View.VISIBLE);
@@ -173,6 +176,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             } else {  // item data
 
                 SortByCategoryItemRVH categoryItemHolder = (SortByCategoryItemRVH) holder;
+
+                if (thisItem.getCategory().categoryIsContracted()) {
+                    categoryItemHolder.triangleRight.setVisibility(View.GONE);
+                    categoryItemHolder.triangleDown.setVisibility(View.GONE);
+                    categoryItemHolder.itemSmall.setVisibility(View.GONE);
+                    categoryItemHolder.itemLarge.setVisibility(View.GONE);
+                    return;
+                }
 
                 if (thisItem.getStatus().isExpandedInInventory()) {
                     categoryItemHolder.itemSmallName.setText(thisItem.getName());
@@ -195,6 +206,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     categoryItemHolder.itemSmall.setVisibility(View.VISIBLE);
                     categoryItemHolder.itemLarge.setVisibility(View.GONE);
                 }
+
                 if (thisItem.getStatus().isInStock()) {
                     categoryItemHolder.itemSmallPaused.setVisibility(View.GONE);
                     categoryItemHolder.itemLargePaused.setVisibility(View.GONE);
@@ -217,6 +229,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     categoryItemHolder.itemSmallPaused.setVisibility(View.VISIBLE);
                     categoryItemHolder.itemLargePaused.setVisibility(View.VISIBLE);
                 }
+
                 if (thisItem.getStatus().isSelectedInInventory()) {
                     categoryItemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     categoryItemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
@@ -382,7 +395,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -392,7 +405,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -405,16 +418,23 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 storeTitleHolder.storeTitleText.setText(store);
                 storeTitleHolder.sortByStoreRvTitle.setVisibility(View.VISIBLE);
 
-                if (storeTitleHolder.isExpanded) {
+                if (storeTitleHolder.isExpanded()) {
+
+                    //itemData.getStoreMap().get(store).setStoreAsContracted();
                     storeTitleHolder.triangleButtonDown1.setVisibility(View.VISIBLE);
                     storeTitleHolder.triangleButtonDown2.setVisibility(View.VISIBLE);
                     storeTitleHolder.triangleButtonRight.setVisibility(View.GONE);
                     storeTitleHolder.triangleButtonLeft.setVisibility(View.GONE);
-                } else if (storeTitleHolder.isContracted) {
+
+
+                } else if (storeTitleHolder.isContracted()) {
+
+                    //itemData.getStoreMap().get(store).setStoreAsExpanded();
                     storeTitleHolder.triangleButtonDown1.setVisibility(View.GONE);
                     storeTitleHolder.triangleButtonDown2.setVisibility(View.GONE);
                     storeTitleHolder.triangleButtonRight.setVisibility(View.VISIBLE);
                     storeTitleHolder.triangleButtonLeft.setVisibility(View.VISIBLE);
+
                 }
 
                 if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL) && storeData.getStoreViewAllMap().get(store) == 0) {
@@ -430,6 +450,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             } else {  // item data
 
                 SortByStoreItemRVH storeItemHolder = (SortByStoreItemRVH) holder;
+
+                if (thisItem.getStore().storeIsContracted()) {
+                    storeItemHolder.triangleRight.setVisibility(View.GONE);
+                    storeItemHolder.triangleDown.setVisibility(View.GONE);
+                    storeItemHolder.itemSmall.setVisibility(View.GONE);
+                    storeItemHolder.itemLarge.setVisibility(View.GONE);
+                    return;
+                }
 
                 if (thisItem.getStatus().isExpandedInInventory()) {
                     storeItemHolder.itemSmallName.setText(thisItem.getName());
@@ -452,6 +480,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     storeItemHolder.itemSmall.setVisibility(View.VISIBLE);
                     storeItemHolder.itemLarge.setVisibility(View.GONE);
                 }
+
                 if (thisItem.getStatus().isInStock()) {
                     storeItemHolder.itemSmallPaused.setVisibility(View.GONE);
                     storeItemHolder.itemLargePaused.setVisibility(View.GONE);
@@ -838,7 +867,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     }
 
-    private static class SortByCategoryTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SortByCategoryTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Shopping shopping;
+        private FullInventoryRVA adapter;
+        private ItemData itemData;
+        private CategoryData categoryData;
+        private DBStatusHelper dbStatusHelper;
+        private DBCategoryHelper dbCategoryHelper;
 
         private LinearLayout sortByCategoryRvTitle;
         private TextView categoryTitleText;
@@ -847,12 +883,22 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private ImageView triangleButtonRight;
         private ImageView triangleButtonLeft;
 
-        private boolean isExpanded = true;
-        private boolean isContracted = false;
+        private boolean isExpanded;
+        private boolean isContracted;
 
-        private SortByCategoryTitleRVH(View itemView) {
+        private SortByCategoryTitleRVH(View itemView, Shopping shopping, FullInventoryRVA adapter, ItemData itemData,
+                                       CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
             super(itemView);
+            this.shopping = shopping;
+            this.adapter = adapter;
+            this.itemData = itemData;
+            this.categoryData = categoryData;
+            this.dbStatusHelper = dbStatus;
+            this.dbCategoryHelper = dbCategory;
+
+            isExpanded = true;
+            isContracted = false;
 
             sortByCategoryRvTitle = itemView.findViewById(R.id.sortByCategoryRvTitle);
             categoryTitleText = itemView.findViewById(R.id.categoryTitleText);
@@ -870,15 +916,45 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         public void onClick(View v) {
+
             int id = v.getId();
+            int position = getAdapterPosition();
+
+            String category;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                category = categoryData.getCategoryList().get(i);
+                int numItemsInCategory;
+                if (itemData.getCategoryMap().get(category) == null) {
+                    numItemsInCategory = 0;
+                } else {
+                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                }
+                index += numItemsInCategory;
+                adjustedPosition--;
+                if (index >= adjustedPosition) {
+                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    break;
+                }
+            }
+
+
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
                 contractTitle();
+                thisItem.getCategory().setCategoryAsContracted();
             } else if (id == triangleButtonRight.getId() || id == triangleButtonLeft.getId()) {
                 expandTitle();
-            } else if (id == categoryTitleText.getId() && isExpanded) {
+                thisItem.getCategory().setCategoryAsExpanded();
+            } else if (id == categoryTitleText.getId() && isExpanded()) {
                 contractTitle();
-            } else if (id == categoryTitleText.getId() && isContracted) {
+                thisItem.getCategory().setCategoryAsContracted();
+            } else if (id == categoryTitleText.getId() && isContracted()) {
                 expandTitle();
+                thisItem.getCategory().setCategoryAsExpanded();
             }
         }
 
@@ -899,9 +975,28 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             triangleButtonRight.setVisibility(View.VISIBLE);
             triangleButtonLeft.setVisibility(View.VISIBLE);
         }
+
+        boolean isExpanded() {
+            return isExpanded;
+        }
+
+        void setAsExpanded() {
+            isExpanded = true;
+            isContracted = false;
+        }
+
+        boolean isContracted() {
+            return isContracted;
+        }
+
+        void setAsContracted() {
+            isExpanded = false;
+            isContracted = true;
+        }
+
     }
 
-    private static class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private FullInventoryRVA adapter;
@@ -997,7 +1092,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getCategoryMap().get(category) == null) {
                         numItemsInCategory = 0;
                     } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                        numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                     }
                     index += numItemsInCategory;
                     adjustedPosition--;
@@ -1006,7 +1101,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                        thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1068,14 +1163,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 if (itemData.getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                     break;
                 }
             }
@@ -1103,7 +1198,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getCategoryMap().get(category) == null) {
                         numItemsInCategory = 0;
                     } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getItemList().size();
+                        numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                     }
                     index += numItemsInCategory;
                     adjustedPosition--;
@@ -1112,7 +1207,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getItemList().get(numItemsInCategory - index + adjustedPosition);
+                        thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1279,7 +1374,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
-    private static class SortByStoreTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SortByStoreTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Shopping shopping;
+        private FullInventoryRVA adapter;
+        private ItemData itemData;
+        private StoreData storeData;
+        private DBStatusHelper dbStatusHelper;
+        private DBStoreHelper dbStoreHelper;
 
         private LinearLayout sortByStoreRvTitle;
         private TextView storeTitleText;
@@ -1288,12 +1390,22 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private ImageView triangleButtonRight;
         private ImageView triangleButtonLeft;
 
-        private boolean isExpanded = true;
-        private boolean isContracted = false;
+        private boolean isExpanded;
+        private boolean isContracted;
 
-        private SortByStoreTitleRVH(View itemView) {
+        private SortByStoreTitleRVH(View itemView, Shopping shopping, FullInventoryRVA adapter, ItemData itemData,
+                                    StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
 
             super(itemView);
+            this.shopping = shopping;
+            this.adapter = adapter;
+            this.itemData = itemData;
+            this.storeData = storeData;
+            this.dbStatusHelper = dbStatus;
+            this.dbStoreHelper = dbStore;
+
+            isExpanded = true;
+            isContracted = false;
 
             sortByStoreRvTitle = itemView.findViewById(R.id.sortByStoreRvTitle);
             storeTitleText = itemView.findViewById(R.id.storeTitleText);
@@ -1311,15 +1423,46 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         public void onClick(View v) {
+
             int id = v.getId();
+            int position = getAdapterPosition();
+
+            String store;
+            Item thisItem = null;
+            int adjustedPosition;
+
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                store = storeData.getStoreList().get(i);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
+                } else {
+                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                }
+                index += numItemsInStore;
+                adjustedPosition--;
+                if (index >= adjustedPosition) {
+                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    break;
+                }
+            }
+
+
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
                 contractTitle();
+                thisItem.getStore().setStoreAsContracted();
             } else if (id == triangleButtonRight.getId() || id == triangleButtonLeft.getId()) {
                 expandTitle();
-            } else if (id == storeTitleText.getId() && isExpanded) {
+                thisItem.getStore().setStoreAsExpanded();
+            } else if (id == storeTitleText.getId() && isExpanded()) {
                 contractTitle();
-            } else if (id == storeTitleText.getId() && isContracted) {
+                thisItem.getStore().setStoreAsContracted();
+            } else if (id == storeTitleText.getId() && isContracted()) {
                 expandTitle();
+                thisItem.getStore().setStoreAsExpanded();
             }
         }
 
@@ -1340,9 +1483,27 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             triangleButtonRight.setVisibility(View.VISIBLE);
             triangleButtonLeft.setVisibility(View.VISIBLE);
         }
+
+        boolean isExpanded() {
+            return isExpanded;
+        }
+
+        void setAsExpanded() {
+            isExpanded = true;
+            isContracted = false;
+        }
+
+        boolean isContracted() {
+            return isContracted;
+        }
+
+        void setAsContracted() {
+            isExpanded = false;
+            isContracted = true;
+        }
     }
 
-    private static class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private FullInventoryRVA adapter;
@@ -1438,7 +1599,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -1447,7 +1608,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1509,14 +1670,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 if (itemData.getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -1544,7 +1705,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     if (itemData.getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getItemList().size();
+                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -1553,7 +1714,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getItemList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1721,7 +1882,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
-    private static class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private FullInventoryRVA adapter;
