@@ -500,6 +500,68 @@ public class FullInventory extends Fragment {
         });
 
         clearSearchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (searchBox.getText().toString().equals("")) {
+                    if (searchBoxVisible) {
+                        if (keyboardVisible) {
+                            // searchBox & keyboard both visible
+                            shopping.hideKeyboard();
+                            searchPopup.setVisibility(View.GONE);
+                            searchInventoryRecyclerView.setVisibility(View.GONE);
+                            fullInventoryTitle.setText(lastMainTitle);
+                            searchBoxVisible = false;
+                            keyboardVisible = false;
+                        } else {
+                            // searchBox visible but keyboard not visible
+                            searchPopup.setVisibility(View.GONE);
+                            searchInventoryRecyclerView.setVisibility(View.GONE);
+                            fullInventoryTitle.setText(lastMainTitle);
+                            searchBoxVisible = false;
+                            keyboardVisible = false;
+                        }
+
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                        int height;
+                        if (editControlsExpanded) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                        } else
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                        params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                        params.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(params);
+
+                    } else {
+                        // searchBox & keyboard both not visible
+                        shopping.showKeyboard();
+                        searchPopup.setVisibility(View.VISIBLE);
+                        searchInventoryRecyclerView.setVisibility(View.VISIBLE);
+                        lastMainTitle = fullInventoryTitle.getText().toString();
+                        fullInventoryTitle.setText(R.string.searchInventory);
+                        searchBox.requestFocus();
+                        searchBox.setSelection(searchBox.getText().length());
+                        searchBoxVisible = true;
+                        keyboardVisible = true;
+
+                        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
+                        int height;
+                        if (editControlsExpanded) {
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
+                        } else
+                            height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                        params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
+                        params.height = height;
+                        fullInventoryRecyclerView.setLayoutParams(params);
+                    }
+                } else {
+                    searchBox.setText("");
+                }
+            }
+        });
+
+
+
+
+        /*clearSearchButton.setOnClickListener(new View.OnClickListener() {
              public void onClick(View v) {
                  if (searchBox.getText().toString().equals("")) {
                      shopping.hideKeyboard();
@@ -524,7 +586,7 @@ public class FullInventory extends Fragment {
                      searchBox.setText("");
                  }
              }
-        });
+        });*/
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
