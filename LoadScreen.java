@@ -40,6 +40,22 @@ public class LoadScreen extends Fragment {
     private RadioButton colorScheme2;
     private RadioButton colorScheme3;
 
+    private Button changeDefaultCategoryTitles;
+    private RadioButton categoryTitlesExpanded;
+    private RadioButton categoryTitlesContracted;
+
+    private Button changeDefaultStoreTitles;
+    private RadioButton storeTitlesExpanded;
+    private RadioButton storeTitlesContracted;
+
+    private Button optionalData;
+    private RadioButton optionalDataOn;
+    private RadioButton optionalDataOff;
+
+    private Button swiping;
+    private RadioButton swipingOn;
+    private RadioButton swipingOff;
+
     public LoadScreen() {}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +86,22 @@ public class LoadScreen extends Fragment {
         colorScheme2 = view.findViewById(R.id.colorScheme2);
         colorScheme3 = view.findViewById(R.id.colorScheme3);
 
+        changeDefaultCategoryTitles = view.findViewById(R.id.changeDefaultCategoryTitles);
+        categoryTitlesExpanded = view.findViewById(R.id.categoryTitlesExpanded);
+        categoryTitlesContracted = view.findViewById(R.id.categoryTitlesContracted);
+
+        changeDefaultStoreTitles = view.findViewById(R.id.changeDefaultStoreTitles);
+        storeTitlesExpanded = view.findViewById(R.id.storeTitlesExpanded);
+        storeTitlesContracted = view.findViewById(R.id.storeTitlesContracted);
+
+        optionalData = view.findViewById(R.id.optionalData);
+        optionalDataOn = view.findViewById(R.id.optionalDataOn);
+        optionalDataOff = view.findViewById(R.id.optionalDataOff);
+
+        swiping = view.findViewById(R.id.swiping);
+        swipingOn = view.findViewById(R.id.swipingOn);
+        swipingOff = view.findViewById(R.id.swipingOff);
+
         instructions = view.findViewById(R.id.instructions);
 
         loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +126,25 @@ public class LoadScreen extends Fragment {
                     colorScheme2.setVisibility(View.GONE);
                     colorScheme3.setVisibility(View.GONE);
 
+                    changeDefaultCategoryTitles.setVisibility(View.GONE);
+                    categoryTitlesExpanded.setVisibility(View.GONE);
+                    categoryTitlesContracted.setVisibility(View.GONE);
+
+                    changeDefaultStoreTitles.setVisibility(View.GONE);
+                    storeTitlesExpanded.setVisibility(View.GONE);
+                    storeTitlesContracted.setVisibility(View.GONE);
+
+                    optionalData.setVisibility(View.GONE);
+                    optionalDataOn.setVisibility(View.GONE);
+                    optionalDataOff.setVisibility(View.GONE);
+
+                    swiping.setVisibility(View.GONE);
+                    swipingOn.setVisibility(View.GONE);
+                    swipingOff.setVisibility(View.GONE);
+
                     shoppingOptionsBackground.setVisibility(View.GONE);
                     menuOptionsVisible = false;
+
                 } else {
 
                     if (shopping.defaultSortBy.equals(Shopping.SORT_ALPHABETICAL)) {
@@ -122,6 +171,30 @@ public class LoadScreen extends Fragment {
                         colorScheme3.setChecked(true);
                     }
 
+                    if (shopping.defaultCategoryTitles.equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
+                        categoryTitlesExpanded.setChecked(true);
+                    } else if (shopping.defaultCategoryTitles.equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
+                        categoryTitlesContracted.setChecked(true);
+                    }
+
+                    if (shopping.defaultStoreTitles.equals(Shopping.STORE_TITLES_EXPANDED)) {
+                        storeTitlesExpanded.setChecked(true);
+                    } else if (shopping.defaultStoreTitles.equals(Shopping.STORE_TITLES_CONTRACTED)) {
+                        storeTitlesContracted.setChecked(true);
+                    }
+
+                    if (shopping.optionalData.equals(Shopping.OPTIONAL_DATA_ON)) {
+                        optionalDataOn.setChecked(true);
+                    } else if (shopping.optionalData.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        optionalDataOff.setChecked(true);
+                    }
+
+                    if (shopping.swipingOption.equals(Shopping.SWIPING_ON)) {
+                        swipingOn.setChecked(true);
+                    } else if (shopping.swipingOption.equals(Shopping.SWIPING_OFF)) {
+                        swipingOff.setChecked(true);
+                    }
+
                     clearAllData.setVisibility(View.VISIBLE);
                     loadSampleData1.setVisibility(View.VISIBLE);
                     loadSampleData2.setVisibility(View.VISIBLE);
@@ -140,6 +213,22 @@ public class LoadScreen extends Fragment {
                     colorScheme1.setVisibility(View.VISIBLE);
                     colorScheme2.setVisibility(View.VISIBLE);
                     colorScheme3.setVisibility(View.VISIBLE);
+
+                    changeDefaultCategoryTitles.setVisibility(View.VISIBLE);
+                    categoryTitlesExpanded.setVisibility(View.VISIBLE);
+                    categoryTitlesContracted.setVisibility(View.VISIBLE);
+
+                    changeDefaultStoreTitles.setVisibility(View.VISIBLE);
+                    storeTitlesExpanded.setVisibility(View.VISIBLE);
+                    storeTitlesContracted.setVisibility(View.VISIBLE);
+
+                    optionalData.setVisibility(View.VISIBLE);
+                    optionalDataOn.setVisibility(View.VISIBLE);
+                    optionalDataOff.setVisibility(View.VISIBLE);
+
+                    swiping.setVisibility(View.VISIBLE);
+                    swipingOn.setVisibility(View.VISIBLE);
+                    swipingOff.setVisibility(View.VISIBLE);
 
                     shoppingOptionsBackground.setVisibility(View.VISIBLE);
                     menuOptionsVisible = true;
@@ -261,6 +350,90 @@ public class LoadScreen extends Fragment {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("color_scheme", "color scheme 3");
+                editor.apply();
+            }
+        });
+
+        categoryTitlesExpanded.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.defaultCategoryTitles = Shopping.CATEGORY_TITLES_EXPANDED;
+                shopping.categoryTitles = Shopping.CATEGORY_TITLES_EXPANDED;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("default_category_titles", "category titles expanded");
+                editor.apply();
+            }
+        });
+
+        categoryTitlesContracted.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.defaultCategoryTitles = Shopping.CATEGORY_TITLES_CONTRACTED;
+                shopping.categoryTitles = Shopping.CATEGORY_TITLES_CONTRACTED;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("default_category_titles", "category titles contracted");
+                editor.apply();
+            }
+        });
+
+        storeTitlesExpanded.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.defaultStoreTitles = Shopping.STORE_TITLES_EXPANDED;
+                shopping.storeTitles = Shopping.STORE_TITLES_EXPANDED;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("default_store_titles", "store titles expanded");
+                editor.apply();
+            }
+        });
+
+        storeTitlesContracted.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.defaultStoreTitles = Shopping.STORE_TITLES_CONTRACTED;
+                shopping.storeTitles = Shopping.STORE_TITLES_CONTRACTED;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("default_store_titles", "store titles contracted");
+                editor.apply();
+            }
+        });
+
+        optionalDataOn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.optionalData = Shopping.OPTIONAL_DATA_ON;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("optional_data", "optional data on");
+                editor.apply();
+            }
+        });
+
+        optionalDataOff.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.optionalData = Shopping.OPTIONAL_DATA_OFF;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("optional_data", "optional data off");
+                editor.apply();
+            }
+        });
+
+        swipingOn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.swipingOption = Shopping.SWIPING_ON;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("swiping_option", "swiping on");
+                editor.apply();
+            }
+        });
+
+        swipingOff.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.swipingOption = Shopping.SWIPING_OFF;
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("swiping_option", "swiping off");
                 editor.apply();
             }
         });

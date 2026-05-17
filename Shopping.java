@@ -7,9 +7,9 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,10 +28,13 @@ public class Shopping extends AppCompatActivity {
     private DBStoreHelper dbStoreHelper;
 
     Boolean itemIsSelectedInInventory;
+    Boolean itemIsSelectedInSearchResults;
     Boolean itemIsSelectedInShoppingList;
     Item selectedItemInInventory;
+    Item selectedItemInSearchResults;
     Item selectedItemInShoppingList;
     int selectedItemPositionInInventory;
+    int selectedItemPositionInSearchResults;
     int selectedItemPositionInShoppingList;
 
     int storeListOrderNum;
@@ -39,6 +42,7 @@ public class Shopping extends AppCompatActivity {
     String reorderItemsStore;
     String currentSearchTerm;
     Boolean editItemInInventory;
+    Boolean editItemInSearchResults;
     Boolean editItemInShoppingList;
     SearchAlgorithm searchAlgorithm;
 
@@ -54,10 +58,15 @@ public class Shopping extends AppCompatActivity {
     static final String SORT_BY_STORE = "store";
     static final String SORT_ALPHABETICAL = "alphabetical";
 
-    String storeTitles;
     String categoryTitles;
-    static final String TITLES_EXPANDED = "titles expanded";
-    static final String TITLES_CONTRACTED = "titles contracted";
+    String defaultCategoryTitles;
+    static final String CATEGORY_TITLES_EXPANDED = "category titles expanded";
+    static final String CATEGORY_TITLES_CONTRACTED = "category titles contracted";
+
+    String storeTitles;
+    String defaultStoreTitles;
+    static final String STORE_TITLES_EXPANDED = "store titles expanded";
+    static final String STORE_TITLES_CONTRACTED = "store titles contracted";
 
     String itemExpansion;
     static final String ITEMS_EXPANDED = "items expanded";
@@ -73,13 +82,21 @@ public class Shopping extends AppCompatActivity {
     static final String COLOR_SCHEME_2 = "color scheme 2";
     static final String COLOR_SCHEME_3 = "color scheme 3";
 
+    String optionalData;
+    static final String OPTIONAL_DATA_ON = "optional data on";
+    static final String OPTIONAL_DATA_OFF = "optional data off";
+
+    String swipingOption;
+    static final String SWIPING_ON = "swiping on";
+    static final String SWIPING_OFF = "swiping off";
+
     Parcelable shoppingListViewState;
     Parcelable fullInventoryViewState;
     Parcelable searchInventoryViewState;
     Parcelable reorderCategoriesViewState;
     Parcelable reorderStoresViewState;
     Parcelable reorderItemsRecyclerViewState;
-    //Parcelable reorderItemsScrollViewState;
+    Parcelable reorderItemsScrollViewState;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -149,13 +166,13 @@ public class Shopping extends AppCompatActivity {
         return searchAlgorithm;
     }
 
-    void addItemToSearchAlgorithm(Item item) {
+    /*void addItemToSearchAlgorithm(Item item) {
         searchAlgorithm.addNewItem(item);
     }
 
     void removeItemFromSearchAlgorithm(Item item) {
         searchAlgorithm.removeItem(item);
-    }
+    }*/
 
     void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -219,6 +236,38 @@ public class Shopping extends AppCompatActivity {
         } else if (colorScheme.equals("color scheme 3")) {
             this.colorScheme = COLOR_SCHEME_3;
         }
+
+        String defaultCategoryTitles = sharedPref.getString("default_category_titles", "Default Category Titles");
+        if (defaultCategoryTitles.equals("category titles expanded")) {
+            this.defaultCategoryTitles = CATEGORY_TITLES_EXPANDED;
+            this.categoryTitles = CATEGORY_TITLES_EXPANDED;
+        } else if (defaultCategoryTitles.equals("category titles contracted")) {
+            this.defaultCategoryTitles = CATEGORY_TITLES_CONTRACTED;
+            this.categoryTitles = CATEGORY_TITLES_CONTRACTED;
+        }
+
+        String defaultStoreTitles = sharedPref.getString("default_store_titles", "Default Store Titles");
+        if (defaultStoreTitles.equals("store titles expanded")) {
+            this.defaultStoreTitles = STORE_TITLES_EXPANDED;
+            this.storeTitles = STORE_TITLES_EXPANDED;
+        } else if (defaultStoreTitles.equals("store titles contracted")) {
+            this.defaultStoreTitles = STORE_TITLES_CONTRACTED;
+            this.storeTitles = STORE_TITLES_CONTRACTED;
+        }
+
+        String optionalData = sharedPref.getString("optional_data", "Default Optional Data");
+        if (optionalData.equals("optional data on")) {
+            this.optionalData = OPTIONAL_DATA_ON;
+        } else if (optionalData.equals("optional data off")) {
+            this.optionalData = OPTIONAL_DATA_OFF;
+        }
+
+        String swipingOption = sharedPref.getString("swiping_option", "Default Swiping Option");
+        if (swipingOption.equals("swiping on")) {
+            this.swipingOption = SWIPING_ON;
+        } else if (swipingOption.equals("swiping off")) {
+            this.swipingOption = SWIPING_OFF;
+        }
     }
 
     void clearAllData() {
@@ -247,10 +296,13 @@ public class Shopping extends AppCompatActivity {
         storeData = dbStoreHelper.readStoreData();
 
         itemIsSelectedInInventory = false;
+        itemIsSelectedInSearchResults = false;
         itemIsSelectedInShoppingList = false;
         selectedItemInInventory = null;
+        selectedItemInSearchResults = null;
         selectedItemInShoppingList = null;
         selectedItemPositionInInventory = 0;
+        selectedItemPositionInSearchResults = 0;
         selectedItemPositionInShoppingList = 0;
 
         storeListOrderNum = 0;
@@ -258,13 +310,21 @@ public class Shopping extends AppCompatActivity {
         reorderItemsStore = "";
         currentSearchTerm = "";
         editItemInInventory = false;
+        editItemInSearchResults = false;
         editItemInShoppingList = false;
 
         inventoryView = INVENTORY_ALL;
         inventorySortBy = defaultSortBy;
-        categoryTitles = TITLES_EXPANDED;
-        storeTitles = TITLES_EXPANDED;
+        //categoryTitles = CATEGORY_TITLES_EXPANDED;
+        defaultCategoryTitles = CATEGORY_TITLES_EXPANDED;
+        categoryTitles = defaultCategoryTitles;
+        //storeTitles = STORE_TITLES_EXPANDED;
+        defaultStoreTitles = STORE_TITLES_EXPANDED;
+        storeTitles = defaultStoreTitles;
         itemExpansion = ITEMS_CONTRACTED;
+        optionalData = OPTIONAL_DATA_OFF;
+        swipingOption = SWIPING_ON;
+
     }
 
     void loadStoresAndCategories() {
@@ -333,44 +393,47 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 5);
         dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 6);
+        dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 7);
         dbStatusHelper.addNewStatus("Frozen Pizza", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
+        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 8);
         dbStatusHelper.addNewStatus("Corn Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
+        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 9);
         dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
+        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 10);
         dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 10);
+        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 11);
         dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
+        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 12);
         dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
+        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 13);
         dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
+        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 14);
         dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
+        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 15);
         dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 15);
+        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 16);
         dbStatusHelper.addNewStatus("Gnocci", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 16);
+        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 17);
         dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Meals", 17);
+        categoryData.getCategoryViewAllMap().put("Meals", 18);
         categoryData.getCategoryViewInStockMap().put("Meals", 0);
         categoryData.getCategoryViewNeededMap().put("Meals", 0);
-        categoryData.getCategoryViewPausedMap().put("Meals", 17);
-        dbCategoryHelper.setCategoryViews("Meals", 17, 0, 0, 17);
+        categoryData.getCategoryViewPausedMap().put("Meals", 18);
+        dbCategoryHelper.setCategoryViews("Meals", 18, 0, 0, 18);
 
         //------------------------------------Soups-------------------------------------------------
 
@@ -567,38 +630,41 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 4);
         dbStatusHelper.addNewStatus("Pasta Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 5);
+        dbItemHelper.addNewItemByCategory("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 5);
+        dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 6);
         dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 7);
         dbStatusHelper.addNewStatus("Buffalo Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 7);
+        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
         dbStatusHelper.addNewStatus("Chocolate Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
+        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 9);
         dbStatusHelper.addNewStatus("Caramel Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 9);
+        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 10);
         dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 10);
+        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 11);
         dbStatusHelper.addNewStatus("Honey", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 11);
+        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 12);
         dbStatusHelper.addNewStatus("Peanut Butter", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 12);
+        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 13);
         dbStatusHelper.addNewStatus("Soy Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 13);
+        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 14);
         dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Condiments", 14);
+        categoryData.getCategoryViewAllMap().put("Condiments", 15);
         categoryData.getCategoryViewInStockMap().put("Condiments", 0);
         categoryData.getCategoryViewNeededMap().put("Condiments", 0);
-        categoryData.getCategoryViewPausedMap().put("Condiments", 14);
-        dbCategoryHelper.setCategoryViews("Condiments", 14, 0, 0, 14);
+        categoryData.getCategoryViewPausedMap().put("Condiments", 15);
+        dbCategoryHelper.setCategoryViews("Condiments", 15, 0, 0, 15);
 
         //------------------------------------Seasonings--------------------------------------------
 
@@ -763,41 +829,44 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 0);
         dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 1);
+        dbItemHelper.addNewItemByCategory("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 1);
+        dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 2);
         dbStatusHelper.addNewStatus("Hold the Cone", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 2);
+        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 3);
         dbStatusHelper.addNewStatus("Churros", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 3);
+        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 4);
         dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 4);
+        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 5);
         dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 5);
+        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 6);
         dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 7);
         dbStatusHelper.addNewStatus("Oreos", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 7);
+        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 8);
         dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 8);
+        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 9);
         dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 9);
+        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 10);
         dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 10);
+        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 11);
         dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Desserts", 11);
+        categoryData.getCategoryViewAllMap().put("Desserts", 12);
         categoryData.getCategoryViewInStockMap().put("Desserts", 0);
         categoryData.getCategoryViewNeededMap().put("Desserts", 0);
-        categoryData.getCategoryViewPausedMap().put("Desserts", 11);
-        dbCategoryHelper.setCategoryViews("Desserts", 11, 0, 0, 11);
+        categoryData.getCategoryViewPausedMap().put("Desserts", 12);
+        dbCategoryHelper.setCategoryViews("Desserts", 12, 0, 0, 12);
 
         //------------------------------------Candy-------------------------------------------------
 
@@ -1087,7 +1156,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 212
+        // total category items = 215
 
     }
 
@@ -1114,395 +1183,404 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 4);
         //dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 5);
+        dbItemHelper.addNewItemByStore("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 5);
+        //dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
         //dbStatusHelper.addNewStatus("Frozen Pizza", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 6);
+        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
         //dbStatusHelper.addNewStatus("Corn Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 7);
+        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
         //dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 8);
+        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
         //dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 9);
+        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 10);
         //dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 10);
+        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
         //dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 11);
+        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
         //dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 12);
+        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
         //dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 13);
+        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
         //dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 14);
+        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 15);
         //dbStatusHelper.addNewStatus("Gnocci", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 15);
+        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 16);
         //dbStatusHelper.addNewStatus("Spaghetti O's", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 16);
+        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 17);
         //dbStatusHelper.addNewStatus("Chicken Noodle Soup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 17);
+        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 18);
         //dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 18);
+        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 19);
         //dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 19);
+        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 20);
         //dbStatusHelper.addNewStatus("Cup of Noodles", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 20);
+        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 21);
         //dbStatusHelper.addNewStatus("Frozen French Fries", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 21);
+        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 22);
         //dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 22);
+        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 23);
         //dbStatusHelper.addNewStatus("Chicken Rice", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 23);
+        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 24);
         //dbStatusHelper.addNewStatus("Canned Corn", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 24);
+        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 25);
         //dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 25);
+        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 26);
         //dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 26);
+        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 27);
         //dbStatusHelper.addNewStatus("Frozen Meatballs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 27);
+        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 28);
         //dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 28);
+        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 29);
         //dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 29);
+        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 30);
         //dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 30);
+        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 31);
         //dbStatusHelper.addNewStatus("Ham Steak", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 31);
+        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 32);
         //dbStatusHelper.addNewStatus("Thin Spaghetti", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 32);
+        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 33);
         //dbStatusHelper.addNewStatus("Spiral Pasta", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 33);
+        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 34);
         //dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 34);
+        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 35);
         //dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 35);
+        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 36);
         //dbStatusHelper.addNewStatus("Sourdough Bread", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 36);
+        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 37);
         //dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 37);
+        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 38);
         //dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 38);
+        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 39);
         //dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 39);
+        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 40);
         //dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 40);
+        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 41);
         //dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 41);
+        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 42);
         //dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 42);
+        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 43);
         //dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 43);
+        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 44);
         //dbStatusHelper.addNewStatus("Milk", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 44);
+        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 45);
         //dbStatusHelper.addNewStatus("Eggs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 45);
+        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 46);
         //dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 46);
+        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 47);
         //dbStatusHelper.addNewStatus("Salted Butter", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 47);
+        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 48);
         //dbStatusHelper.addNewStatus("Shredded Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 48);
+        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 49);
         //dbStatusHelper.addNewStatus("String Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 49);
+        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 50);
         //dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 50);
+        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 51);
         //dbStatusHelper.addNewStatus("Non-Stick Spray", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 51);
+        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 52);
         //dbStatusHelper.addNewStatus("Parmesan Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 52);
+        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 53);
         //dbStatusHelper.addNewStatus("A1 Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 53);
+        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 54);
         //dbStatusHelper.addNewStatus("Ketchup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 54);
+        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 55);
         //dbStatusHelper.addNewStatus("Mustard", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 55);
+        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 56);
         //dbStatusHelper.addNewStatus("Pasta Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 56);
+        dbItemHelper.addNewItemByStore("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 57);
+        //dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 58);
         //dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 57);
+        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 59);
         //dbStatusHelper.addNewStatus("Honey", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 58);
+        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 60);
         //dbStatusHelper.addNewStatus("Peanut Butter", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 59);
+        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 61);
         //dbStatusHelper.addNewStatus("Soy Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 60);
+        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 62);
         //dbStatusHelper.addNewStatus("Brown Sugar", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 61);
+        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 63);
         //dbStatusHelper.addNewStatus("Salt & Pepper", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 62);
+        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 64);
         //dbStatusHelper.addNewStatus("Garlic Salt", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 63);
+        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 65);
         //dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 64);
+        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 66);
         //dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 65);
+        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 67);
         //dbStatusHelper.addNewStatus("Vanilla Extract", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 66);
+        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 68);
         //dbStatusHelper.addNewStatus("Cinnamon Sugar", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 67);
+        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 69);
         //dbStatusHelper.addNewStatus("Sprinkles", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 68);
+        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 70);
         //dbStatusHelper.addNewStatus("Soda Bottles", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 69);
+        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 71);
         //dbStatusHelper.addNewStatus("Hot Chocolate Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 70);
+        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 72);
         //dbStatusHelper.addNewStatus("Bottled Water", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 71);
+        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 73);
         //dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 72);
+        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 74);
         //dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 73);
+        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 75);
         //dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 74);
+        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 76);
         //dbStatusHelper.addNewStatus("Sunflower Seeds", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 75);
+        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 77);
         //dbStatusHelper.addNewStatus("Vinegar Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 76);
+        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 78);
         //dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 77);
+        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 79);
         //dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 78);
+        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 80);
         //dbStatusHelper.addNewStatus("Lay's Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 79);
+        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 81);
         //dbStatusHelper.addNewStatus("Naan Crisps", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 80);
+        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 82);
         //dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 81);
+        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 83);
         //dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 82);
+        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 84);
         //dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 83);
+        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 85);
         //dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 84);
+        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 86);
         //dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 85);
+        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 87);
         //dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 86);
+        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 88);
         //dbStatusHelper.addNewStatus("Oreos", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 87);
+        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 89);
         //dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 88);
+        dbItemHelper.addNewItemByStore("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 90);
+        //dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 91);
         //dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 89);
+        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 92);
         //dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 90);
+        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 93);
         //dbStatusHelper.addNewStatus("Mini M&M's", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 91);
+        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 94);
         //dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 92);
+        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 95);
         //dbStatusHelper.addNewStatus("Cat Food (wet)", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 93);
+        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 96);
         //dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 94);
+        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 97);
         //dbStatusHelper.addNewStatus("Delectables", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 95);
+        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 98);
         //dbStatusHelper.addNewStatus("Body Wash", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 96);
+        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 99);
         //dbStatusHelper.addNewStatus("Shampoo", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 97);
+        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 100);
         //dbStatusHelper.addNewStatus("Deodorant", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 98);
+        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 101);
         //dbStatusHelper.addNewStatus("Mouthwash", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 99);
+        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 102);
         //dbStatusHelper.addNewStatus("Cotton Swabs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 100);
+        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 103);
         //dbStatusHelper.addNewStatus("Febreeze Air Spray", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 101);
+        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 104);
         //dbStatusHelper.addNewStatus("All Purpose Cleaner", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 102);
+        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 105);
         //dbStatusHelper.addNewStatus("Laundry Detergent", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 103);
+        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 106);
         //dbStatusHelper.addNewStatus("Laundry Sanitizer", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 104);
+        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 107);
         //dbStatusHelper.addNewStatus("Aluminum Foil", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 105);
+        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 108);
         //dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 106);
+        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 109);
         //dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 107);
+        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 110);
         //dbStatusHelper.addNewStatus("Saran Wrap", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 108);
+        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 111);
         //dbStatusHelper.addNewStatus("Scrub Sponges", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 109);
+        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 112);
         //dbStatusHelper.addNewStatus("Dawn Powerwash", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 110);
+        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 113);
         //dbStatusHelper.addNewStatus("Dish Soap", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 111);
+        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 114);
         //dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 112);
+        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 115);
         //dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 113);
+        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 116);
         //dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 114);
+        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 117);
         //dbStatusHelper.addNewStatus("Buffalo Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 115);
+        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 118);
         //dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 116);
+        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 119);
         //dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 117);
+        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 120);
         //dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 118);
+        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 121);
         //dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 119);
+        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 122);
         //dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 120);
+        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 123);
         //dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 121);
+        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 124);
         //dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 122);
+        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 125);
         //dbStatusHelper.addNewStatus("Cat Treats", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 123);
+        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 126);
         //dbStatusHelper.addNewStatus("Saltine Crackers", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 124);
+        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 127);
         //dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 125);
+        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 128);
         //dbStatusHelper.addNewStatus("Vegetable Oil", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 126);
+        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 129);
         //dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 127);
+        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 130);
         //dbStatusHelper.addNewStatus("Buttered Popcorn", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 128);
+        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 131);
         //dbStatusHelper.addNewStatus("Caramel Popcorn", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 129);
+        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 132);
         //dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 130);
+        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 133);
         //dbStatusHelper.addNewStatus("Ritz Crackers", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 131);
+        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 134);
         //dbStatusHelper.addNewStatus("Half & Half", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 132);
+        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 135);
         //dbStatusHelper.addNewStatus("Movie Theater Butter", "paused", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Vons", 133);
+        storeData.getStoreViewAllMap().put("Vons", 136);
         storeData.getStoreViewInStockMap().put("Vons", 0);
         storeData.getStoreViewNeededMap().put("Vons", 0);
-        storeData.getStoreViewPausedMap().put("Vons", 133);
-        dbStoreHelper.setStoreViews("Vons", 133, 0, 0, 133);
+        storeData.getStoreViewPausedMap().put("Vons", 136);
+        dbStoreHelper.setStoreViews("Vons", 136, 0, 0, 136);
 
         //------------------------------------Smart & Final-----------------------------------------
 
@@ -1872,7 +1950,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 212
+        // total store items = 215
 
     }
 
@@ -1906,44 +1984,47 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 5);
         dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 6);
+        dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 7);
         dbStatusHelper.addNewStatus("Frozen Pizza", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
+        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 8);
         dbStatusHelper.addNewStatus("Corn Dogs", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
+        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 9);
         dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
+        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 10);
         dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 10);
+        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 11);
         dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
+        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 12);
         dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
+        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 13);
         dbStatusHelper.addNewStatus("Pasta Roni 1", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
+        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 14);
         dbStatusHelper.addNewStatus("Pasta Roni 2", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
+        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 15);
         dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 15);
+        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 16);
         dbStatusHelper.addNewStatus("Gnocci", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 16);
+        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 17);
         dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Meals", 17);
+        categoryData.getCategoryViewAllMap().put("Meals", 18);
         categoryData.getCategoryViewInStockMap().put("Meals", 4);
         categoryData.getCategoryViewNeededMap().put("Meals", 2);
-        categoryData.getCategoryViewPausedMap().put("Meals", 11);
-        dbCategoryHelper.setCategoryViews("Meals", 17, 4, 2, 11);
+        categoryData.getCategoryViewPausedMap().put("Meals", 12);
+        dbCategoryHelper.setCategoryViews("Meals", 18, 4, 2, 12);
 
         //------------------------------------Soups-------------------------------------------------
 
@@ -2140,38 +2221,41 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 4);
         dbStatusHelper.addNewStatus("Pasta Sauce", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 5);
+        dbItemHelper.addNewItemByCategory("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 5);
+        dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 6);
         dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 7);
         dbStatusHelper.addNewStatus("Buffalo Sauce", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 7);
+        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
         dbStatusHelper.addNewStatus("Chocolate Syrup", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
+        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 9);
         dbStatusHelper.addNewStatus("Caramel Syrup", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 9);
+        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 10);
         dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 10);
+        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 11);
         dbStatusHelper.addNewStatus("Honey", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 11);
+        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 12);
         dbStatusHelper.addNewStatus("Peanut Butter", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 12);
+        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 13);
         dbStatusHelper.addNewStatus("Soy Sauce", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 13);
+        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 14);
         dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "instock", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Condiments", 14);
+        categoryData.getCategoryViewAllMap().put("Condiments", 15);
         categoryData.getCategoryViewInStockMap().put("Condiments", 11);
         categoryData.getCategoryViewNeededMap().put("Condiments", 1);
-        categoryData.getCategoryViewPausedMap().put("Condiments", 2);
-        dbCategoryHelper.setCategoryViews("Condiments", 14, 11, 1, 2);
+        categoryData.getCategoryViewPausedMap().put("Condiments", 3);
+        dbCategoryHelper.setCategoryViews("Condiments", 15, 11, 1, 3);
 
         //------------------------------------Seasonings--------------------------------------------
 
@@ -2336,41 +2420,44 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByCategory("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 0);
         dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 1);
+        dbItemHelper.addNewItemByCategory("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 1);
+        dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 2);
         dbStatusHelper.addNewStatus("Hold the Cone", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 2);
+        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 3);
         dbStatusHelper.addNewStatus("Churros", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 3);
+        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 4);
         dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 4);
+        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 5);
         dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 5);
+        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 6);
         dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 6);
+        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 7);
         dbStatusHelper.addNewStatus("Oreos", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 7);
+        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 8);
         dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 8);
+        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 9);
         dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 9);
+        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 10);
         dbStatusHelper.addNewStatus("Oreo Pie Mix", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 10);
+        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 11);
         dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
 
-        categoryData.getCategoryViewAllMap().put("Desserts", 11);
+        categoryData.getCategoryViewAllMap().put("Desserts", 12);
         categoryData.getCategoryViewInStockMap().put("Desserts", 2);
         categoryData.getCategoryViewNeededMap().put("Desserts", 2);
-        categoryData.getCategoryViewPausedMap().put("Desserts", 7);
-        dbCategoryHelper.setCategoryViews("Desserts", 11, 0, 0, 11);
+        categoryData.getCategoryViewPausedMap().put("Desserts", 8);
+        dbCategoryHelper.setCategoryViews("Desserts", 12, 2, 2, 8);
 
         //------------------------------------Candy-------------------------------------------------
 
@@ -2660,7 +2747,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 212
+        // total category items = 215
 
     }
 
@@ -2687,395 +2774,404 @@ public class Shopping extends AppCompatActivity {
         dbItemHelper.addNewItemByStore("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 4);
         //dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 5);
+        dbItemHelper.addNewItemByStore("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 5);
+        //dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
         //dbStatusHelper.addNewStatus("Frozen Pizza", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 6);
+        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
         //dbStatusHelper.addNewStatus("Corn Dogs", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 7);
+        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
         //dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 8);
+        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
         //dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 9);
+        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 10);
         //dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 10);
+        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
         //dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 11);
+        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
         //dbStatusHelper.addNewStatus("Pasta Roni 1", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 12);
+        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
         //dbStatusHelper.addNewStatus("Pasta Roni 2", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 13);
+        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
         //dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 14);
+        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 15);
         //dbStatusHelper.addNewStatus("Gnocci", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 15);
+        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 16);
         //dbStatusHelper.addNewStatus("Spaghetti O's", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 16);
+        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 17);
         //dbStatusHelper.addNewStatus("Chicken Noodle Soup", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 17);
+        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 18);
         //dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 18);
+        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 19);
         //dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 19);
+        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 20);
         //dbStatusHelper.addNewStatus("Cup of Noodles", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 20);
+        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 21);
         //dbStatusHelper.addNewStatus("Frozen French Fries", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 21);
+        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 22);
         //dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 22);
+        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 23);
         //dbStatusHelper.addNewStatus("Chicken Rice", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 23);
+        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 24);
         //dbStatusHelper.addNewStatus("Canned Corn", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 24);
+        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 25);
         //dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 25);
+        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 26);
         //dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 26);
+        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 27);
         //dbStatusHelper.addNewStatus("Frozen Meatballs", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 27);
+        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 28);
         //dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 28);
+        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 29);
         //dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 29);
+        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 30);
         //dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 30);
+        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 31);
         //dbStatusHelper.addNewStatus("Ham Steak", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 31);
+        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 32);
         //dbStatusHelper.addNewStatus("Thin Spaghetti", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 32);
+        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 33);
         //dbStatusHelper.addNewStatus("Spiral Pasta", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 33);
+        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 34);
         //dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 34);
+        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 35);
         //dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 35);
+        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 36);
         //dbStatusHelper.addNewStatus("Sourdough Bread", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 36);
+        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 37);
         //dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 37);
+        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 38);
         //dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 38);
+        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 39);
         //dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 39);
+        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 40);
         //dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 40);
+        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 41);
         //dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 41);
+        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 42);
         //dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 42);
+        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 43);
         //dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 43);
+        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 44);
         //dbStatusHelper.addNewStatus("Milk", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 44);
+        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 45);
         //dbStatusHelper.addNewStatus("Eggs", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 45);
+        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 46);
         //dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 46);
+        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 47);
         //dbStatusHelper.addNewStatus("Salted Butter", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 47);
+        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 48);
         //dbStatusHelper.addNewStatus("Shredded Cheese", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 48);
+        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 49);
         //dbStatusHelper.addNewStatus("String Cheese", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 49);
+        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 50);
         //dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 50);
+        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 51);
         //dbStatusHelper.addNewStatus("Non-Stick Spray", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 51);
+        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 52);
         //dbStatusHelper.addNewStatus("Parmesan Cheese", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 52);
+        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 53);
         //dbStatusHelper.addNewStatus("A1 Sauce", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 53);
+        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 54);
         //dbStatusHelper.addNewStatus("Ketchup", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 54);
+        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 55);
         //dbStatusHelper.addNewStatus("Mustard", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 55);
+        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 56);
         //dbStatusHelper.addNewStatus("Pasta Sauce", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 56);
+        dbItemHelper.addNewItemByStore("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 57);
+        //dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 58);
         //dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 57);
+        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 59);
         //dbStatusHelper.addNewStatus("Honey", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 58);
+        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 60);
         //dbStatusHelper.addNewStatus("Peanut Butter", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 59);
+        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 61);
         //dbStatusHelper.addNewStatus("Soy Sauce", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 60);
+        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 62);
         //dbStatusHelper.addNewStatus("Brown Sugar", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 61);
+        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 63);
         //dbStatusHelper.addNewStatus("Salt & Pepper", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 62);
+        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 64);
         //dbStatusHelper.addNewStatus("Garlic Salt", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 63);
+        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 65);
         //dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 64);
+        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 66);
         //dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 65);
+        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 67);
         //dbStatusHelper.addNewStatus("Vanilla Extract", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 66);
+        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 68);
         //dbStatusHelper.addNewStatus("Cinnamon Sugar", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 67);
+        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 69);
         //dbStatusHelper.addNewStatus("Sprinkles", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 68);
+        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 70);
         //dbStatusHelper.addNewStatus("Soda Bottles", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 69);
+        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 71);
         //dbStatusHelper.addNewStatus("Hot Chocolate Mix", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 70);
+        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 72);
         //dbStatusHelper.addNewStatus("Bottled Water", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 71);
+        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 73);
         //dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 72);
+        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 74);
         //dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 73);
+        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 75);
         //dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 74);
+        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 76);
         //dbStatusHelper.addNewStatus("Sunflower Seeds", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 75);
+        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 77);
         //dbStatusHelper.addNewStatus("Vinegar Chips", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 76);
+        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 78);
         //dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 77);
+        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 79);
         //dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 78);
+        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 80);
         //dbStatusHelper.addNewStatus("Lay's Chips", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 79);
+        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 81);
         //dbStatusHelper.addNewStatus("Naan Crisps", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 80);
+        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 82);
         //dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 81);
+        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 83);
         //dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 82);
+        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 84);
         //dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 83);
+        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 85);
         //dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 84);
+        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 86);
         //dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 85);
+        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 87);
         //dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 86);
+        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 88);
         //dbStatusHelper.addNewStatus("Oreos", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 87);
+        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 89);
         //dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 88);
+        dbItemHelper.addNewItemByStore("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 90);
+        //dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+
+        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 91);
         //dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 89);
+        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 92);
         //dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 90);
+        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 93);
         //dbStatusHelper.addNewStatus("Mini M&M's", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 91);
+        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 94);
         //dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 92);
+        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 95);
         //dbStatusHelper.addNewStatus("Cat Food (wet)", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 93);
+        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 96);
         //dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 94);
+        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 97);
         //dbStatusHelper.addNewStatus("Delectables", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 95);
+        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 98);
         //dbStatusHelper.addNewStatus("Body Wash", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 96);
+        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 99);
         //dbStatusHelper.addNewStatus("Shampoo", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 97);
+        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 100);
         //dbStatusHelper.addNewStatus("Deodorant", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 98);
+        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 101);
         //dbStatusHelper.addNewStatus("Mouthwash", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 99);
+        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 102);
         //dbStatusHelper.addNewStatus("Cotton Swabs", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 100);
+        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 103);
         //dbStatusHelper.addNewStatus("Febreeze Air Spray", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 101);
+        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 104);
         //dbStatusHelper.addNewStatus("All Purpose Cleaner", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 102);
+        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 105);
         //dbStatusHelper.addNewStatus("Laundry Detergent", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 103);
+        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 106);
         //dbStatusHelper.addNewStatus("Laundry Sanitizer", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 104);
+        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 107);
         //dbStatusHelper.addNewStatus("Aluminum Foil", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 105);
+        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 108);
         //dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 106);
+        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 109);
         //dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 107);
+        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 110);
         //dbStatusHelper.addNewStatus("Saran Wrap", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 108);
+        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 111);
         //dbStatusHelper.addNewStatus("Scrub Sponges", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 109);
+        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 112);
         //dbStatusHelper.addNewStatus("Dawn Powerwash", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 110);
+        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 113);
         //dbStatusHelper.addNewStatus("Dish Soap", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 111);
+        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 114);
         //dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 112);
+        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 115);
         //dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 113);
+        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 116);
         //dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 114);
+        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 117);
         //dbStatusHelper.addNewStatus("Buffalo Sauce", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 115);
+        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 118);
         //dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 116);
+        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 119);
         //dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 117);
+        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 120);
         //dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 118);
+        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 121);
         //dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 119);
+        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 122);
         //dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 120);
+        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 123);
         //dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 121);
+        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 124);
         //dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 122);
+        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 125);
         //dbStatusHelper.addNewStatus("Cat Treats", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 123);
+        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 126);
         //dbStatusHelper.addNewStatus("Saltine Crackers", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 124);
+        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 127);
         //dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 125);
+        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 128);
         //dbStatusHelper.addNewStatus("Vegetable Oil", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 126);
+        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 129);
         //dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 127);
+        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 130);
         //dbStatusHelper.addNewStatus("Buttered Popcorn", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 128);
+        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 131);
         //dbStatusHelper.addNewStatus("Caramel Popcorn", "needed", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 129);
+        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 132);
         //dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 130);
+        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 133);
         //dbStatusHelper.addNewStatus("Ritz Crackers", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 131);
+        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 134);
         //dbStatusHelper.addNewStatus("Half & Half", "instock", "unchecked");
 
-        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 132);
+        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 135);
         //dbStatusHelper.addNewStatus("Movie Theater Butter", "instock", "unchecked");
 
-        storeData.getStoreViewAllMap().put("Vons", 133);
+        storeData.getStoreViewAllMap().put("Vons", 136);
         storeData.getStoreViewInStockMap().put("Vons", 53);
         storeData.getStoreViewNeededMap().put("Vons", 22);
-        storeData.getStoreViewPausedMap().put("Vons", 58);
-        dbStoreHelper.setStoreViews("Vons", 133, 53, 22, 58);
+        storeData.getStoreViewPausedMap().put("Vons", 61);
+        dbStoreHelper.setStoreViews("Vons", 136, 53, 22, 61);
 
         //------------------------------------Smart & Final-----------------------------------------
 
@@ -3445,7 +3541,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 212
+        // total store items = 215
 
     }
 

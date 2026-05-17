@@ -89,7 +89,6 @@
         android:text="@string/changeDefaultSortBy" />
 
     <RadioGroup
-        android:id="@+id/changeSortByOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -138,7 +137,6 @@
         android:text="@string/reorderingMethod" />
 
     <RadioGroup
-        android:id="@+id/changeReorderOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -187,7 +185,6 @@
         android:text="@string/changeColorScheme" />
 
     <RadioGroup
-        android:id="@+id/changeColorSchemeOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -221,6 +218,158 @@
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/colorScheme3" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeDefaultCategoryTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultCategoryTitles" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/categoryTitlesExpanded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="210dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/categoryTitlesExpanded" />
+
+        <RadioButton
+            android:id="@+id/categoryTitlesContracted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/categoryTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeDefaultStoreTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="160dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultStoreTitles" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/storeTitlesExpanded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="210dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/storeTitlesExpanded" />
+
+        <RadioButton
+            android:id="@+id/storeTitlesContracted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/storeTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/optionalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="305dp"
+        android:visibility="gone"
+        android:text="@string/optionalData" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/optionalDataOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="355dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataOn" />
+
+        <RadioButton
+            android:id="@+id/optionalDataOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataOff" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/swiping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="450dp"
+        android:visibility="gone"
+        android:text="@string/swiping" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/swipingOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="500dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOn" />
+
+        <RadioButton
+            android:id="@+id/swipingOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOff" />
 
     </RadioGroup>
 

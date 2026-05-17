@@ -61,7 +61,10 @@ public class EditItem extends Fragment {
         if(shopping.editItemInInventory) {
             itemNameInput.setText(shopping.selectedItemInInventory.getName());
             itemTypeInput.setText(shopping.selectedItemInInventory.getBrandType());
-        } else if (shopping.editItemInShoppingList) {
+        } else if (shopping.editItemInSearchResults) {
+            itemNameInput.setText(shopping.selectedItemInSearchResults.getName());
+            itemTypeInput.setText(shopping.selectedItemInSearchResults.getBrandType());
+        }else if (shopping.editItemInShoppingList) {
             itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
             itemTypeInput.setText(shopping.selectedItemInShoppingList.getBrandType());
         }
@@ -77,6 +80,8 @@ public class EditItem extends Fragment {
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInInventory.getCategory().toString());
+        } else if (shopping.editItemInSearchResults) {
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInSearchResults.getCategory().toString());
         } else if (shopping.editItemInShoppingList) {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInShoppingList.getCategory().toString());
         }
@@ -91,6 +96,8 @@ public class EditItem extends Fragment {
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInInventory.getStore().toString());
+        } else if (shopping.editItemInSearchResults) {
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInSearchResults.getStore().toString());
         } else if (shopping.editItemInShoppingList) {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInShoppingList.getStore().toString());
         }
@@ -125,6 +132,8 @@ public class EditItem extends Fragment {
                 String oldItemName = "";
                 if (shopping.editItemInInventory) {
                     oldItemName = shopping.selectedItemInInventory.getName();
+                } else if (shopping.editItemInSearchResults) {
+                    oldItemName = shopping.selectedItemInSearchResults.getName();
                 } else if (shopping.editItemInShoppingList) {
                     oldItemName = shopping.selectedItemInShoppingList.getName();
                 }
@@ -174,12 +183,16 @@ public class EditItem extends Fragment {
 
                 if (shopping.editItemInInventory) {
                     shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
+                } else if (shopping.editItemInSearchResults) {
+                    shopping.selectedItemInSearchResults = shopping.getItemData().getItemMap().get(newItemName);
                 } else if (shopping.editItemInShoppingList) {
                     shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
                 }
 
                 shopping.hideKeyboard();
                 if (shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInSearchResults) {
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList) {
                     shopping.loadFragment(new ShoppingList());
@@ -191,6 +204,8 @@ public class EditItem extends Fragment {
             public void onClick(View v) {
                 shopping.hideKeyboard();
                 if (shopping.editItemInInventory) {
+                    shopping.loadFragment(new FullInventory());
+                } else if (shopping.editItemInSearchResults) {
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList) {
                     shopping.loadFragment(new ShoppingList());

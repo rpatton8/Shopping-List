@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="578dp"
         android:visibility="gone"
-        android:background="#FFFF99"
+        android:background="#FFFFFF"
         android:layout_below="@+id/searchPopup" />
 
     <TextView

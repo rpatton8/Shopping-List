@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Locale;
-import static android.app.Activity.RESULT_OK;
 
 //@SuppressWarnings("ALL")
 public class FullInventory extends Fragment {
@@ -203,6 +203,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
                 } else if (currentBottomMenu.equals(MENU_CATEGORY)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
@@ -247,6 +248,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
                 } else if (currentBottomMenu.equals(MENU_ITEM)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
@@ -291,6 +293,7 @@ public class FullInventory extends Fragment {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     recyclerViewParams.height = height;
                     fullInventoryRecyclerView.setLayoutParams(recyclerViewParams);
+
                 } else if (currentBottomMenu.equals(MENU_STORE)) {
                     editDataBreak.setVisibility(View.GONE);
                     addPopup.setVisibility(View.GONE);
@@ -558,36 +561,6 @@ public class FullInventory extends Fragment {
             }
         });
 
-
-
-
-        /*clearSearchButton.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                 if (searchBox.getText().toString().equals("")) {
-                     shopping.hideKeyboard();
-                     searchPopup.setVisibility(View.GONE);
-                     searchInventoryRecyclerView.setVisibility(View.GONE);
-                     fullInventoryTitle.setText(lastMainTitle);
-                     searchBoxVisible = false;
-                     keyboardVisible = false;
-
-                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                     int height;
-                     if (editControlsExpanded) {
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                     } else
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                     params.height = height;
-                     fullInventoryRecyclerView.setLayoutParams(params);
-
-                     fullInventoryAdapter.notifyDataSetChanged();
-                 } else {
-                     searchBox.setText("");
-                 }
-             }
-        });*/
-
         refreshButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
@@ -729,8 +702,8 @@ public class FullInventory extends Fragment {
 
         expandContractCategories.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (shopping.categoryTitles.equals(Shopping.TITLES_EXPANDED)) {
-                    shopping.categoryTitles = Shopping.TITLES_CONTRACTED;
+                if (shopping.categoryTitles.equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
+                    shopping.categoryTitles = Shopping.CATEGORY_TITLES_CONTRACTED;
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                         String category = categoryData.getCategoryList().get(i);
                         itemData.getCategoryMap().get(category).setCategoryAsContracted();
@@ -738,8 +711,8 @@ public class FullInventory extends Fragment {
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                } else if (shopping.categoryTitles.equals(Shopping.TITLES_CONTRACTED)) {
-                    shopping.categoryTitles = Shopping.TITLES_EXPANDED;
+                } else if (shopping.categoryTitles.equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
+                    shopping.categoryTitles = Shopping.CATEGORY_TITLES_EXPANDED;
                     for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                         String category = categoryData.getCategoryList().get(i);
                         itemData.getCategoryMap().get(category).setCategoryAsExpanded();
@@ -754,8 +727,8 @@ public class FullInventory extends Fragment {
 
         expandContractStores.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (shopping.storeTitles.equals(Shopping.TITLES_EXPANDED)) {
-                    shopping.storeTitles = Shopping.TITLES_CONTRACTED;
+                if (shopping.storeTitles.equals(Shopping.STORE_TITLES_EXPANDED)) {
+                    shopping.storeTitles = Shopping.STORE_TITLES_CONTRACTED;
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
                         String store = storeData.getStoreList().get(i);
                         itemData.getStoreMap().get(store).setStoreAsContracted();
@@ -763,8 +736,8 @@ public class FullInventory extends Fragment {
                     for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
                         fullInventoryAdapter.notifyItemChanged(i);
                     }
-                } else if (shopping.storeTitles.equals(Shopping.TITLES_CONTRACTED)) {
-                    shopping.storeTitles = Shopping.TITLES_EXPANDED;
+                } else if (shopping.storeTitles.equals(Shopping.STORE_TITLES_CONTRACTED)) {
+                    shopping.storeTitles = Shopping.STORE_TITLES_EXPANDED;
                     for (int i = 0; i < storeData.getStoreList().size(); i++) {
 
                         itemData.getStoreMap().get(storeData.getStoreList().get(i)).setStoreAsExpanded();
@@ -952,7 +925,7 @@ public class FullInventory extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && null != data) {
+        if (resultCode == Activity.RESULT_OK && null != data) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             searchBox.setText(result.get(0));
             searchBox.setSelection(searchBox.getText().length());
@@ -1029,7 +1002,9 @@ public class FullInventory extends Fragment {
 
     public void onDestroyView() {
         shopping.fullInventoryViewState = fullInventoryRecyclerView.getLayoutManager().onSaveInstanceState();
+        shopping.searchInventoryViewState = searchInventoryRecyclerView.getLayoutManager().onSaveInstanceState();
         fullInventoryRecyclerView.setAdapter(null);
+        searchInventoryRecyclerView.setAdapter(null);
         super.onDestroyView();
     }
 

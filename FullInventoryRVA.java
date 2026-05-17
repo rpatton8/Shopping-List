@@ -942,6 +942,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
 
+            System.out.println("thisItem = "  +  thisItem.getName());
 
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
                 contractTitle();
@@ -1450,6 +1451,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
 
+            System.out.println("thisItem = "  +  thisItem.getName());
 
             if (id == triangleButtonDown1.getId() || id == triangleButtonDown2.getId()) {
                 contractTitle();
