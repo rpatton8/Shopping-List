@@ -204,6 +204,14 @@ public class LoadScreen extends Fragment {
                     sortByCategory.setVisibility(View.VISIBLE);
                     sortByStore.setVisibility(View.VISIBLE);
 
+                    changeDefaultCategoryTitles.setVisibility(View.VISIBLE);
+                    categoryTitlesExpanded.setVisibility(View.VISIBLE);
+                    categoryTitlesContracted.setVisibility(View.VISIBLE);
+
+                    changeDefaultStoreTitles.setVisibility(View.VISIBLE);
+                    storeTitlesExpanded.setVisibility(View.VISIBLE);
+                    storeTitlesContracted.setVisibility(View.VISIBLE);
+
                     changeReorderingMethod.setVisibility(View.VISIBLE);
                     dragAndDrop.setVisibility(View.VISIBLE);
                     upAndDownArrows.setVisibility(View.VISIBLE);
@@ -213,14 +221,6 @@ public class LoadScreen extends Fragment {
                     colorScheme1.setVisibility(View.VISIBLE);
                     colorScheme2.setVisibility(View.VISIBLE);
                     colorScheme3.setVisibility(View.VISIBLE);
-
-                    changeDefaultCategoryTitles.setVisibility(View.VISIBLE);
-                    categoryTitlesExpanded.setVisibility(View.VISIBLE);
-                    categoryTitlesContracted.setVisibility(View.VISIBLE);
-
-                    changeDefaultStoreTitles.setVisibility(View.VISIBLE);
-                    storeTitlesExpanded.setVisibility(View.VISIBLE);
-                    storeTitlesContracted.setVisibility(View.VISIBLE);
 
                     optionalData.setVisibility(View.VISIBLE);
                     optionalDataOn.setVisibility(View.VISIBLE);

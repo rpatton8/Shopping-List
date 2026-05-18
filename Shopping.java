@@ -105,6 +105,7 @@ public class Shopping extends AppCompatActivity {
 
         initializeData();
         loadSharedPreferences();
+
         searchAlgorithm = new SearchAlgorithm();
         for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
             searchAlgorithm.addNewItem(itemData.getItemListAZ().get(i));
@@ -219,24 +220,6 @@ public class Shopping extends AppCompatActivity {
             this.inventorySortBy = SORT_BY_STORE;
         }
 
-        String reorderingMethod = sharedPref.getString("reorder_method", "Default Reordering");
-        if (reorderingMethod.equals("drag and drop")) {
-            this.reorderingMethod = DRAG_AND_DROP;
-        } else if (reorderingMethod.equals("up and down arrows")) {
-            this.reorderingMethod = UP_AND_DOWN_ARROWS;
-        } else if (reorderingMethod.equals("with numbers")) {
-            this.reorderingMethod = WITH_NUMBERS;
-        }
-
-        String colorScheme = sharedPref.getString("color_scheme", "Default Color Scheme");
-        if (colorScheme.equals("color scheme 1")) {
-            this.colorScheme = COLOR_SCHEME_1;
-        } else if (colorScheme.equals("color scheme 2")) {
-            this.colorScheme = COLOR_SCHEME_2;
-        } else if (colorScheme.equals("color scheme 3")) {
-            this.colorScheme = COLOR_SCHEME_3;
-        }
-
         String defaultCategoryTitles = sharedPref.getString("default_category_titles", "Default Category Titles");
         if (defaultCategoryTitles.equals("category titles expanded")) {
             this.defaultCategoryTitles = CATEGORY_TITLES_EXPANDED;
@@ -253,6 +236,24 @@ public class Shopping extends AppCompatActivity {
         } else if (defaultStoreTitles.equals("store titles contracted")) {
             this.defaultStoreTitles = STORE_TITLES_CONTRACTED;
             this.storeTitles = STORE_TITLES_CONTRACTED;
+        }
+
+        String reorderingMethod = sharedPref.getString("reorder_method", "Default Reordering");
+        if (reorderingMethod.equals("drag and drop")) {
+            this.reorderingMethod = DRAG_AND_DROP;
+        } else if (reorderingMethod.equals("up and down arrows")) {
+            this.reorderingMethod = UP_AND_DOWN_ARROWS;
+        } else if (reorderingMethod.equals("with numbers")) {
+            this.reorderingMethod = WITH_NUMBERS;
+        }
+
+        String colorScheme = sharedPref.getString("color_scheme", "Default Color Scheme");
+        if (colorScheme.equals("color scheme 1")) {
+            this.colorScheme = COLOR_SCHEME_1;
+        } else if (colorScheme.equals("color scheme 2")) {
+            this.colorScheme = COLOR_SCHEME_2;
+        } else if (colorScheme.equals("color scheme 3")) {
+            this.colorScheme = COLOR_SCHEME_3;
         }
 
         String optionalData = sharedPref.getString("optional_data", "Default Optional Data");
@@ -315,13 +316,10 @@ public class Shopping extends AppCompatActivity {
 
         inventoryView = INVENTORY_ALL;
         inventorySortBy = defaultSortBy;
-        //categoryTitles = CATEGORY_TITLES_EXPANDED;
-        defaultCategoryTitles = CATEGORY_TITLES_EXPANDED;
         categoryTitles = defaultCategoryTitles;
-        //storeTitles = STORE_TITLES_EXPANDED;
-        defaultStoreTitles = STORE_TITLES_EXPANDED;
         storeTitles = defaultStoreTitles;
         itemExpansion = ITEMS_CONTRACTED;
+        reorderingMethod = UP_AND_DOWN_ARROWS;
         optionalData = OPTIONAL_DATA_OFF;
         swipingOption = SWIPING_ON;
 
