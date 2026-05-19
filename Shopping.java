@@ -167,14 +167,6 @@ public class Shopping extends AppCompatActivity {
         return searchAlgorithm;
     }
 
-    /*void addItemToSearchAlgorithm(Item item) {
-        searchAlgorithm.addNewItem(item);
-    }
-
-    void removeItemFromSearchAlgorithm(Item item) {
-        searchAlgorithm.removeItem(item);
-    }*/
-
     void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);

@@ -298,7 +298,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         shopping.selectedItemPositionInShoppingList = position;
                         shopping.itemIsSelectedInShoppingList = true;
                         shopping.selectedItemInShoppingList = thisItem;
-                        System.out.println("thisItem = " + thisItem.toString());
 
                         Item lastItem = getItemWithStores(currentlySelected);
                         if (lastItem != null) {
@@ -315,7 +314,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         shopping.selectedItemPositionInShoppingList = position;
                         shopping.itemIsSelectedInShoppingList = true;
                         shopping.selectedItemInShoppingList = thisItem;
-                        System.out.println("thisItem = " + thisItem.toString());
                     }
                 }
             }

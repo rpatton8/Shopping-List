@@ -148,7 +148,6 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 } else {
                     numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                 }
-                System.out.println(category + " has " + numItemsInCategory + " items.");
                 index += numItemsInCategory + 1;
                 if (itemPosition == index) return false;
                 if (index > itemPosition) {
@@ -168,7 +167,6 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 } else {
                     numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                 }
-                System.out.println(store + " has " + numItemsInStore + " items.");
                 index += numItemsInStore + 1;
                 if (itemPosition == index) return false;
                 if (index > itemPosition) {

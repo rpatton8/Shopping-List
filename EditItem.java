@@ -64,7 +64,7 @@ public class EditItem extends Fragment {
         } else if (shopping.editItemInSearchResults) {
             itemNameInput.setText(shopping.selectedItemInSearchResults.getName());
             itemTypeInput.setText(shopping.selectedItemInSearchResults.getBrandType());
-        }else if (shopping.editItemInShoppingList) {
+        } else if (shopping.editItemInShoppingList) {
             itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
             itemTypeInput.setText(shopping.selectedItemInShoppingList.getBrandType());
         }

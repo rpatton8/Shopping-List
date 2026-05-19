@@ -84,7 +84,6 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
                 } else {
                     numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
                 }
-                System.out.println(category + " has " + numItemsInCategory + " items.");
                 index += numItemsInCategory + 1;
                 if (itemPosition == index) return false;
                 if (index > itemPosition) {

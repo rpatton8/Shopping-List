@@ -84,7 +84,6 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                 } else {
                     numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
                 }
-                System.out.println(store + " has " + numItemsInStore + " items.");
                 index += numItemsInStore + 1;
                 if (itemPosition == index) return false;
                 if (index > itemPosition) {
