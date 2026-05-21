@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class LoadScreen extends Fragment {
 
     private View view;
     private Shopping shopping;
+    private TextView loadScreenDeveloperOptionsButton;
     private TextView loadScreenEditButton;
     private TextView shoppingOptionsBackground;
     private Button instructions;
@@ -49,8 +51,10 @@ public class LoadScreen extends Fragment {
     private RadioButton storeTitlesContracted;
 
     private Button optionalData;
-    private RadioButton optionalDataOn;
-    private RadioButton optionalDataOff;
+    private CheckBox optionalDataQuantity;
+    private CheckBox optionalDataPrice;
+    private CheckBox optionalDataLocation;
+    private CheckBox optionalDataNote;
 
     private Button swiping;
     private RadioButton swipingOn;
@@ -65,6 +69,7 @@ public class LoadScreen extends Fragment {
 
         menuOptionsVisible = false;
 
+        loadScreenDeveloperOptionsButton = view.findViewById(R.id.loadScreenDeveloperOptions);
         loadScreenEditButton = view.findViewById(R.id.loadScreenEditButton);
         shoppingOptionsBackground =  view.findViewById(R.id.shoppingOptionsBackground);
         clearAllData = view.findViewById(R.id.clearAllData);
@@ -95,8 +100,10 @@ public class LoadScreen extends Fragment {
         storeTitlesContracted = view.findViewById(R.id.storeTitlesContracted);
 
         optionalData = view.findViewById(R.id.optionalData);
-        optionalDataOn = view.findViewById(R.id.optionalDataOn);
-        optionalDataOff = view.findViewById(R.id.optionalDataOff);
+        optionalDataQuantity = view.findViewById(R.id.optionalDataQuantity);
+        optionalDataPrice = view.findViewById(R.id.optionalDataPrice);
+        optionalDataLocation = view.findViewById(R.id.optionalDataLocation);
+        optionalDataNote = view.findViewById(R.id.optionalDataNote);
 
         swiping = view.findViewById(R.id.swiping);
         swipingOn = view.findViewById(R.id.swipingOn);
@@ -104,12 +111,25 @@ public class LoadScreen extends Fragment {
 
         instructions = view.findViewById(R.id.instructions);
 
-        loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
+        loadScreenDeveloperOptionsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (menuOptionsVisible) {
                     clearAllData.setVisibility(View.GONE);
                     loadSampleData1.setVisibility(View.GONE);
                     loadSampleData2.setVisibility(View.GONE);
+                    menuOptionsVisible = false;
+                } else {
+                    clearAllData.setVisibility(View.VISIBLE);
+                    loadSampleData1.setVisibility(View.VISIBLE);
+                    loadSampleData2.setVisibility(View.VISIBLE);
+                    menuOptionsVisible = true;
+                }
+            }
+        });
+
+        loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (menuOptionsVisible) {
 
                     changeDefaultSortBy.setVisibility(View.GONE);
                     sortAlphabetical.setVisibility(View.GONE);
@@ -135,8 +155,10 @@ public class LoadScreen extends Fragment {
                     storeTitlesContracted.setVisibility(View.GONE);
 
                     optionalData.setVisibility(View.GONE);
-                    optionalDataOn.setVisibility(View.GONE);
-                    optionalDataOff.setVisibility(View.GONE);
+                    optionalDataQuantity.setVisibility(View.GONE);
+                    optionalDataPrice.setVisibility(View.GONE);
+                    optionalDataLocation.setVisibility(View.GONE);
+                    optionalDataNote.setVisibility(View.GONE);
 
                     swiping.setVisibility(View.GONE);
                     swipingOn.setVisibility(View.GONE);
@@ -183,21 +205,35 @@ public class LoadScreen extends Fragment {
                         storeTitlesContracted.setChecked(true);
                     }
 
-                    if (shopping.optionalData.equals(Shopping.OPTIONAL_DATA_ON)) {
-                        optionalDataOn.setChecked(true);
-                    } else if (shopping.optionalData.equals(Shopping.OPTIONAL_DATA_OFF)) {
-                        optionalDataOff.setChecked(true);
-                    }
-
                     if (shopping.swipingOption.equals(Shopping.SWIPING_ON)) {
                         swipingOn.setChecked(true);
                     } else if (shopping.swipingOption.equals(Shopping.SWIPING_OFF)) {
                         swipingOff.setChecked(true);
                     }
 
-                    clearAllData.setVisibility(View.VISIBLE);
-                    loadSampleData1.setVisibility(View.VISIBLE);
-                    loadSampleData2.setVisibility(View.VISIBLE);
+                    if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_ON)) {
+                        optionalDataQuantity.setChecked(true);
+                    } else if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        optionalDataQuantity.setChecked(false);
+                    }
+
+                    if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_ON)) {
+                        optionalDataPrice.setChecked(true);
+                    } else if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        optionalDataPrice.setChecked(false);
+                    }
+
+                    if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_ON)) {
+                        optionalDataLocation.setChecked(true);
+                    } else if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        optionalDataLocation.setChecked(false);
+                    }
+
+                    if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_ON)) {
+                        optionalDataNote.setChecked(true);
+                    } else if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        optionalDataNote.setChecked(false);
+                    }
 
                     changeDefaultSortBy.setVisibility(View.VISIBLE);
                     sortAlphabetical.setVisibility(View.VISIBLE);
@@ -223,8 +259,10 @@ public class LoadScreen extends Fragment {
                     colorScheme3.setVisibility(View.VISIBLE);
 
                     optionalData.setVisibility(View.VISIBLE);
-                    optionalDataOn.setVisibility(View.VISIBLE);
-                    optionalDataOff.setVisibility(View.VISIBLE);
+                    optionalDataQuantity.setVisibility(View.VISIBLE);
+                    optionalDataPrice.setVisibility(View.VISIBLE);
+                    optionalDataLocation.setVisibility(View.VISIBLE);
+                    optionalDataNote.setVisibility(View.VISIBLE);
 
                     swiping.setVisibility(View.VISIBLE);
                     swipingOn.setVisibility(View.VISIBLE);
@@ -398,25 +436,6 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        optionalDataOn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                shopping.optionalData = Shopping.OPTIONAL_DATA_ON;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("optional_data", "optional data on");
-                editor.apply();
-            }
-        });
-
-        optionalDataOff.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                shopping.optionalData = Shopping.OPTIONAL_DATA_OFF;
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("optional_data", "optional data off");
-                editor.apply();
-            }
-        });
 
         swipingOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -434,6 +453,94 @@ public class LoadScreen extends Fragment {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("swiping_option", "swiping off");
+                editor.apply();
+            }
+        });
+
+        optionalDataQuantity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_ON)) {
+
+                    shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_OFF;
+                    editor.putString("optional_data_quantity", "optional data off");
+
+                } else if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_OFF)) {
+
+                    shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_ON;
+                    editor.putString("optional_data_quantity", "optional data on");
+
+                }
+
+                editor.apply();
+            }
+        });
+
+        optionalDataPrice.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_ON)) {
+
+                    shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_OFF;
+                    editor.putString("optional_data_price", "optional data off");
+
+                } else if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_OFF)) {
+
+                    shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_ON;
+                    editor.putString("optional_data_price", "optional data on");
+
+                }
+
+                editor.apply();
+            }
+        });
+
+        optionalDataLocation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_ON)) {
+
+                    shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_OFF;
+                    editor.putString("optional_data_location", "optional data off");
+
+                } else if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_OFF)) {
+
+                    shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_ON;
+                    editor.putString("optional_data_location", "optional data on");
+
+                }
+
+                editor.apply();
+            }
+        });
+
+        optionalDataNote.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_ON)) {
+
+                    shopping.optionalDataNote = Shopping.OPTIONAL_DATA_OFF;
+                    editor.putString("optional_data_note", "optional data off");
+
+                } else if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_OFF)) {
+
+                    shopping.optionalDataNote = Shopping.OPTIONAL_DATA_ON;
+                    editor.putString("optional_data_note", "optional data on");
+
+                }
+
                 editor.apply();
             }
         });

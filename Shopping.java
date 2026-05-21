@@ -82,13 +82,16 @@ public class Shopping extends AppCompatActivity {
     static final String COLOR_SCHEME_2 = "color scheme 2";
     static final String COLOR_SCHEME_3 = "color scheme 3";
 
-    String optionalData;
-    static final String OPTIONAL_DATA_ON = "optional data on";
-    static final String OPTIONAL_DATA_OFF = "optional data off";
-
     String swipingOption;
     static final String SWIPING_ON = "swiping on";
     static final String SWIPING_OFF = "swiping off";
+
+    String optionalDataQuantity;
+    String optionalDataPrice;
+    String optionalDataLocation;
+    String optionalDataNote;
+    static final String OPTIONAL_DATA_ON = "optional data on";
+    static final String OPTIONAL_DATA_OFF = "optional data off";
 
     Parcelable shoppingListViewState;
     Parcelable fullInventoryViewState;
@@ -248,18 +251,39 @@ public class Shopping extends AppCompatActivity {
             this.colorScheme = COLOR_SCHEME_3;
         }
 
-        String optionalData = sharedPref.getString("optional_data", "Default Optional Data");
-        if (optionalData.equals("optional data on")) {
-            this.optionalData = OPTIONAL_DATA_ON;
-        } else if (optionalData.equals("optional data off")) {
-            this.optionalData = OPTIONAL_DATA_OFF;
-        }
-
         String swipingOption = sharedPref.getString("swiping_option", "Default Swiping Option");
         if (swipingOption.equals("swiping on")) {
             this.swipingOption = SWIPING_ON;
         } else if (swipingOption.equals("swiping off")) {
             this.swipingOption = SWIPING_OFF;
+        }
+
+        String optionalDataQuantity = sharedPref.getString("optional_data_quantity", "Default Optional Data Quantity");
+        if (optionalDataQuantity.equals("optional data on")) {
+            this.optionalDataQuantity = OPTIONAL_DATA_ON;
+        } else if (optionalDataQuantity.equals("optional data off")) {
+            this.optionalDataQuantity = OPTIONAL_DATA_OFF;
+        }
+
+        String optionalDataPrice = sharedPref.getString("optional_data_price", "Default Optional Data Price");
+        if (optionalDataPrice.equals("optional data on")) {
+            this.optionalDataPrice = OPTIONAL_DATA_ON;
+        } else if (optionalDataPrice.equals("optional data off")) {
+            this.optionalDataPrice = OPTIONAL_DATA_OFF;
+        }
+
+        String optionalDataLocation = sharedPref.getString("optional_data_location", "Default Optional Data Location");
+        if (optionalDataLocation.equals("optional data on")) {
+            this.optionalDataLocation = OPTIONAL_DATA_ON;
+        } else if (optionalDataLocation.equals("optional data off")) {
+            this.optionalDataLocation = OPTIONAL_DATA_OFF;
+        }
+
+        String optionalDataNote = sharedPref.getString("optional_data_note", "Default Optional Data Note");
+        if (optionalDataNote.equals("optional data on")) {
+            this.optionalDataNote = OPTIONAL_DATA_ON;
+        } else if (optionalDataNote.equals("optional data off")) {
+            this.optionalDataNote = OPTIONAL_DATA_OFF;
         }
     }
 
@@ -312,8 +336,11 @@ public class Shopping extends AppCompatActivity {
         storeTitles = defaultStoreTitles;
         itemExpansion = ITEMS_CONTRACTED;
         reorderingMethod = UP_AND_DOWN_ARROWS;
-        optionalData = OPTIONAL_DATA_OFF;
         swipingOption = SWIPING_ON;
+        optionalDataQuantity = OPTIONAL_DATA_OFF;
+        optionalDataPrice = OPTIONAL_DATA_OFF;
+        optionalDataLocation = OPTIONAL_DATA_OFF;
+        optionalDataNote = OPTIONAL_DATA_OFF;
 
     }
 
