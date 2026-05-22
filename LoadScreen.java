@@ -459,88 +459,60 @@ public class LoadScreen extends Fragment {
 
         optionalDataQuantity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-
                 if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_ON)) {
-
                     shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_OFF;
                     editor.putString("optional_data_quantity", "optional data off");
-
                 } else if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_OFF)) {
-
                     shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_ON;
                     editor.putString("optional_data_quantity", "optional data on");
-
                 }
-
                 editor.apply();
             }
         });
 
         optionalDataPrice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-
                 if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_ON)) {
-
                     shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_OFF;
                     editor.putString("optional_data_price", "optional data off");
-
                 } else if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_OFF)) {
-
                     shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_ON;
                     editor.putString("optional_data_price", "optional data on");
-
                 }
-
                 editor.apply();
             }
         });
 
         optionalDataLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-
                 if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_ON)) {
-
                     shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_OFF;
                     editor.putString("optional_data_location", "optional data off");
-
                 } else if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_OFF)) {
-
                     shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_ON;
                     editor.putString("optional_data_location", "optional data on");
-
                 }
-
                 editor.apply();
             }
         });
 
         optionalDataNote.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-
                 if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_ON)) {
-
                     shopping.optionalDataNote = Shopping.OPTIONAL_DATA_OFF;
                     editor.putString("optional_data_note", "optional data off");
-
                 } else if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_OFF)) {
-
                     shopping.optionalDataNote = Shopping.OPTIONAL_DATA_ON;
                     editor.putString("optional_data_note", "optional data on");
-
                 }
-
                 editor.apply();
             }
         });

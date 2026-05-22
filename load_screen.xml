@@ -89,9 +89,9 @@
         android:id="@+id/changeDefaultSortBy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="55dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
         android:text="@string/defaultSortBy" />
@@ -105,7 +105,7 @@
             android:id="@+id/sortAlphabetical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="215dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="90dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -115,7 +115,7 @@
             android:id="@+id/sortByCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="215dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -125,7 +125,7 @@
             android:id="@+id/sortByStore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="215dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -134,15 +134,15 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/changeReorderingMethod"
+        android:id="@+id/changeDefaultCategoryTitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="185dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="195dp"
         android:visibility="gone"
-        android:text="@string/reorderingMethod" />
+        android:text="@string/changeDefaultCategoryTitles" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -150,34 +150,100 @@
         android:orientation="vertical">
 
         <RadioButton
-            android:id="@+id/dragAndDrop"
+            android:id="@+id/categoryTitlesExpanded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="235dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="245dp"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/dragAndDrop" />
+            android:text="@string/categoryTitlesExpanded" />
 
         <RadioButton
-            android:id="@+id/upAndDownArrows"
+            android:id="@+id/categoryTitlesContracted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/upAndDownArrows" />
+            android:text="@string/categoryTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeDefaultStoreTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="315dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultStoreTitles" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <RadioButton
-            android:id="@+id/withNumbers"
+            android:id="@+id/storeTitlesExpanded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="365dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/storeTitlesExpanded" />
+
+        <RadioButton
+            android:id="@+id/storeTitlesContracted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/withNumbers" />
+            android:text="@string/storeTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/swiping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="435dp"
+        android:visibility="gone"
+        android:text="@string/swiping" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/swipingOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="485dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOn" />
+
+        <RadioButton
+            android:id="@+id/swipingOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOff" />
 
     </RadioGroup>
 
@@ -187,7 +253,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="40dp"
         android:visibility="gone"
         android:text="@string/colorScheme" />
@@ -201,7 +267,7 @@
             android:id="@+id/colorScheme1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="90dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -211,7 +277,7 @@
             android:id="@+id/colorScheme2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -221,7 +287,7 @@
             android:id="@+id/colorScheme3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -230,56 +296,15 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/changeDefaultCategoryTitles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="185dp"
-        android:visibility="gone"
-        android:text="@string/changeDefaultCategoryTitles" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/categoryTitlesExpanded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="215dp"
-            android:layout_marginTop="235dp"
-            android:translationX="215dp"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:text="@string/categoryTitlesExpanded" />
-
-        <RadioButton
-            android:id="@+id/categoryTitlesContracted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="215dp"
-            android:layout_marginTop="0dp"
-            android:translationX="215dp"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:text="@string/categoryTitlesContracted" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/changeDefaultStoreTitles"
+        android:id="@+id/changeReorderingMethod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="305dp"
-        android:translationX="215dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="195dp"
         android:visibility="gone"
-        android:text="@string/changeDefaultStoreTitles" />
+        android:text="@string/reorderingMethod" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -287,26 +312,34 @@
         android:orientation="vertical">
 
         <RadioButton
-            android:id="@+id/storeTitlesExpanded"
+            android:id="@+id/dragAndDrop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="355dp"
-            android:translationX="215dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="245dp"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/storeTitlesExpanded" />
+            android:text="@string/dragAndDrop" />
 
         <RadioButton
-            android:id="@+id/storeTitlesContracted"
+            android:id="@+id/upAndDownArrows"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
-            android:translationX="215dp"
             android:textSize="18sp"
             android:visibility="gone"
-            android:text="@string/storeTitlesContracted" />
+            android:text="@string/upAndDownArrows" />
+
+        <RadioButton
+            android:id="@+id/withNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/withNumbers" />
 
     </RadioGroup>
 
@@ -316,8 +349,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginStart="230dp"
+        android:layout_marginTop="350dp"
         android:visibility="gone"
         android:text="@string/optionalData" />
 
@@ -330,8 +363,8 @@
             android:id="@+id/optionalDataQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="390dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="400dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/optionalDataQuantity" />
@@ -340,7 +373,7 @@
             android:id="@+id/optionalDataPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -350,7 +383,7 @@
             android:id="@+id/optionalDataLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
@@ -360,53 +393,13 @@
             android:id="@+id/optionalDataNote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="230dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/optionalDataNote" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/swiping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="100dp"
-        android:layout_marginTop="430dp"
-        android:visibility="gone"
-        android:text="@string/swiping" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/swipingOn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="480dp"
-            android:translationX="215dp"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:text="@string/swipingOn" />
-
-        <RadioButton
-            android:id="@+id/swipingOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="0dp"
-            android:translationX="215dp"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:text="@string/swipingOff" />
-
-    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
