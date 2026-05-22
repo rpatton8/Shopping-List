@@ -198,14 +198,14 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             Item thisItem = itemData.getItemListAZ().get(position);
             searchResultsList.get(position);
 
-            if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.selectedItemInInventory) {
+            if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.getSelectedItemInInventory()) {
                 // selected item is this item
                 thisItem.getStatus().setAsUnselectedInInventory();
                 itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
                 itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
 
                 shopping.setItemIsSelectedInInventory(false);
-                shopping.selectedItemInInventory = null;
+                shopping.setSelectedItemInInventory(null);
             } else {
                 if (shopping.itemIsSelectedInSearchResults()) {
                     // selected item is another item
@@ -216,7 +216,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
                     shopping.selectedItemPositionInInventory = position;
                     shopping.setItemIsSelectedInInventory(true);
-                    shopping.selectedItemInInventory = thisItem;
+                    shopping.setSelectedItemInInventory(thisItem);
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
                     if (lastItem != null) {
@@ -232,7 +232,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
                     shopping.selectedItemPositionInInventory = position;
                     shopping.setItemIsSelectedInInventory(true);
-                    shopping.selectedItemInInventory = thisItem;
+                    shopping.setSelectedItemInInventory(thisItem);
                 }
             }
         }

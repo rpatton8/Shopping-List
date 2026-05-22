@@ -36,7 +36,7 @@ public class RemoveItem extends Fragment {
         removeItemButton = view.findViewById(R.id.removeItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        itemNameInput.setText(shopping.selectedItemInInventory.getName());
+        itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
 
         removeItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -30,7 +30,7 @@ public class Shopping extends AppCompatActivity {
     private Boolean itemIsSelectedInInventory;  // done
     private Boolean itemIsSelectedInSearchResults;  // done
     private Boolean itemIsSelectedInShoppingList;  // done
-    Item selectedItemInInventory;
+    private Item selectedItemInInventory;  // done
     Item selectedItemInSearchResults;
     Item selectedItemInShoppingList;
     int selectedItemPositionInInventory;
@@ -215,6 +215,30 @@ public class Shopping extends AppCompatActivity {
 
     void setItemIsSelectedInShoppingList(boolean itemIsSelectedInShoppingList) {
         this.itemIsSelectedInShoppingList = itemIsSelectedInShoppingList;
+    }
+
+    Item getSelectedItemInInventory() {
+        return selectedItemInInventory;
+    }
+
+    void setSelectedItemInInventory(Item selectedItemInInventory) {
+        this.selectedItemInInventory = selectedItemInInventory;
+    }
+
+    Item selectedItemInSearchResults() {
+        return selectedItemInSearchResults;
+    }
+
+    void selectedItemInSearchResults(Item selectedItemInSearchResults) {
+        this.selectedItemInSearchResults = selectedItemInSearchResults;
+    }
+
+    Item selectedItemInShoppingList() {
+        return selectedItemInShoppingList;
+    }
+
+    void selectedItemInShoppingList(Item selectedItemInShoppingList) {
+        this.selectedItemInShoppingList = selectedItemInShoppingList;
     }
 
     void showAlertDialog(String title, String message) {

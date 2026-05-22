@@ -59,8 +59,8 @@ public class EditItem extends Fragment {
         cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory) {
-            itemNameInput.setText(shopping.selectedItemInInventory.getName());
-            itemTypeInput.setText(shopping.selectedItemInInventory.getBrandType());
+            itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
+            itemTypeInput.setText(shopping.getSelectedItemInInventory().getBrandType());
         } else if (shopping.editItemInSearchResults) {
             itemNameInput.setText(shopping.selectedItemInSearchResults.getName());
             itemTypeInput.setText(shopping.selectedItemInSearchResults.getBrandType());
@@ -79,7 +79,7 @@ public class EditItem extends Fragment {
 
         int categorySpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInInventory.getCategory().toString());
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInInventory().getCategory().toString());
         } else if (shopping.editItemInSearchResults) {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInSearchResults.getCategory().toString());
         } else if (shopping.editItemInShoppingList) {
@@ -95,7 +95,7 @@ public class EditItem extends Fragment {
 
         int storeSpinnerPosition = 0;
         if(shopping.editItemInInventory) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInInventory.getStore().toString());
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInInventory().getStore().toString());
         } else if (shopping.editItemInSearchResults) {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInSearchResults.getStore().toString());
         } else if (shopping.editItemInShoppingList) {
@@ -132,7 +132,7 @@ public class EditItem extends Fragment {
 
                 String oldItemName = "";
                 if (shopping.editItemInInventory) {
-                    oldItemName = shopping.selectedItemInInventory.getName();
+                    oldItemName = shopping.getSelectedItemInInventory().getName();
                 } else if (shopping.editItemInSearchResults) {
                     oldItemName = shopping.selectedItemInSearchResults.getName();
                 } else if (shopping.editItemInShoppingList) {
@@ -183,7 +183,7 @@ public class EditItem extends Fragment {
                 shopping.updateStatusData();
 
                 if (shopping.editItemInInventory) {
-                    shopping.selectedItemInInventory = shopping.getItemData().getItemMap().get(newItemName);
+                    shopping.setSelectedItemInInventory(shopping.getItemData().getItemMap().get(newItemName));
                 } else if (shopping.editItemInSearchResults) {
                     shopping.selectedItemInSearchResults = shopping.getItemData().getItemMap().get(newItemName);
                 } else if (shopping.editItemInShoppingList) {
