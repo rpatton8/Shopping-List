@@ -335,8 +335,9 @@ public class FullInventory extends Fragment {
                  if (currentBottomMenu.equals(MENU_CATEGORY)) {
                      shopping.loadFragment(new EditCategory());
                  } else if (currentBottomMenu.equals(MENU_ITEM)) {
-                     if (shopping.itemIsSelectedInInventory) {
+                     if (shopping.itemIsSelectedInInventory()) {
                          shopping.editItemInInventory = true;
+                         shopping.editItemInSearchResults =  false;
                          shopping.editItemInShoppingList = false;
                          shopping.loadFragment(new EditItem());
                      } else {
@@ -353,7 +354,7 @@ public class FullInventory extends Fragment {
                 if (currentBottomMenu.equals(MENU_CATEGORY)) {
                     shopping.loadFragment(new RemoveCategory());
                 } else if (currentBottomMenu.equals(MENU_ITEM)) {
-                    if (shopping.itemIsSelectedInInventory) {
+                    if (shopping.itemIsSelectedInInventory()) {
                         shopping.loadFragment(new RemoveItem());
                     } else {
                         Toast.makeText(getActivity(), "Please select an item to remove.", Toast.LENGTH_SHORT).show();
@@ -496,7 +497,7 @@ public class FullInventory extends Fragment {
             public void afterTextChanged(Editable s) {}
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchInventoryAdapter.setCurrentTerm(searchBox.getText().toString());
+                searchInventoryAdapter.setCurrentSearchTerm(searchBox.getText().toString());
                 searchInventoryAdapter.notifyDataSetChanged();
             }
 

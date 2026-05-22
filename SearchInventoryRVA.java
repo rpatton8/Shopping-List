@@ -14,13 +14,13 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
     private Shopping shopping;
     private SearchAlgorithm searchAlgorithm;
-    private String currentTerm;
+    private String currentSearchTerm;
     private ArrayList<Item> searchResultsList;
 
     SearchInventoryRVA(Shopping shopping, SearchAlgorithm searchAlgorithm) {
         this.shopping = shopping;
         this.searchAlgorithm = searchAlgorithm;
-        currentTerm = shopping.currentSearchTerm;
+        currentSearchTerm = "";
     }
 
     public int getItemViewType(int position) {
@@ -35,8 +35,8 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
-        if (!currentTerm.equals("")) {
-            searchResultsList = searchAlgorithm.getSearchResults(currentTerm);
+        if (!currentSearchTerm.equals("")) {
+            searchResultsList = searchAlgorithm.getSearchResults(currentSearchTerm);
             thisItem = searchResultsList.get(position);
         }
 
@@ -94,7 +94,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             searchResultsHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
         } else {
-            if (shopping.itemIsSelectedInInventory && shopping.selectedItemPositionInInventory == position) {
+            if (shopping.itemIsSelectedInSearchResults() && shopping.selectedItemPositionInInventory == position) {
                 searchResultsHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                 searchResultsHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
             } else {
@@ -105,11 +105,11 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     }
 
     public int getItemCount() {
-        return searchAlgorithm.numSearchResults(currentTerm);
+        return searchAlgorithm.numSearchResults(currentSearchTerm);
     }
 
-    public void setCurrentTerm(String term)   {
-        this.currentTerm = term;
+    public void setCurrentSearchTerm(String term)   {
+        this.currentSearchTerm = term;
     }
 
     private class SearchInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -204,10 +204,10 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                 itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
                 itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
 
-                shopping.itemIsSelectedInInventory = false;
+                shopping.setItemIsSelectedInInventory(false);
                 shopping.selectedItemInInventory = null;
             } else {
-                if (shopping.itemIsSelectedInInventory) {
+                if (shopping.itemIsSelectedInSearchResults()) {
                     // selected item is another item
                     int currentlySelected = shopping.selectedItemPositionInInventory;
                     thisItem.getStatus().setAsSelectedInInventory();
@@ -215,7 +215,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
                     shopping.selectedItemPositionInInventory = position;
-                    shopping.itemIsSelectedInInventory = true;
+                    shopping.setItemIsSelectedInInventory(true);
                     shopping.selectedItemInInventory = thisItem;
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
@@ -231,7 +231,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
                     shopping.selectedItemPositionInInventory = position;
-                    shopping.itemIsSelectedInInventory = true;
+                    shopping.setItemIsSelectedInInventory(true);
                     shopping.selectedItemInInventory = thisItem;
                 }
             }

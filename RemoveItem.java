@@ -66,7 +66,7 @@ public class RemoveItem extends Fragment {
                 shopping.updateItemData();
                 shopping.updateStatusData();
 
-                shopping.itemIsSelectedInInventory = false;
+                shopping.setItemIsSelectedInInventory(false);
 
                 shopping.loadFragment(new FullInventory());
             }

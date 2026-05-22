@@ -38,8 +38,8 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         this.dbItemHelper = dbItemHelper;
         this.recyclerView = recyclerView;
         this.scrollView = scrollView;
-        this.category = shopping.reorderItemsCategory;
-        this.store = shopping.reorderItemsStore;
+        this.category = shopping.getReorderItemsCategory();
+        this.store = shopping.getReorderItemsStore();
         this.reorderBy = REORDER_BY_CATEGORY;
     }
 
@@ -80,12 +80,12 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
 
     public void changeCategory(String category) {
         this.category = category;
-        shopping.reorderItemsCategory = category;
+        shopping.setReorderItemsCategory(category);
     }
 
     public void changeStore(String store) {
         this.store = store;
-        shopping.reorderItemsStore = store;
+        shopping.setReorderItemsStore(store);
     }
 
     private List<Item> getCategoryList() {

@@ -27,9 +27,9 @@ public class Shopping extends AppCompatActivity {
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
-    Boolean itemIsSelectedInInventory;
-    Boolean itemIsSelectedInSearchResults;
-    Boolean itemIsSelectedInShoppingList;
+    private Boolean itemIsSelectedInInventory;  // done
+    private Boolean itemIsSelectedInSearchResults;  // done
+    private Boolean itemIsSelectedInShoppingList;  // done
     Item selectedItemInInventory;
     Item selectedItemInSearchResults;
     Item selectedItemInShoppingList;
@@ -37,10 +37,9 @@ public class Shopping extends AppCompatActivity {
     int selectedItemPositionInSearchResults;
     int selectedItemPositionInShoppingList;
 
-    int storeListOrderNum;
-    String reorderItemsCategory;
-    String reorderItemsStore;
-    String currentSearchTerm;
+    private int storeListOrderNum;   // done
+    private String reorderItemsCategory;  // done
+    private String reorderItemsStore;  // done
     Boolean editItemInInventory;
     Boolean editItemInSearchResults;
     Boolean editItemInShoppingList;
@@ -168,6 +167,54 @@ public class Shopping extends AppCompatActivity {
 
     SearchAlgorithm getSearchAlgorithm() {
         return searchAlgorithm;
+    }
+
+    int getStoreListOrderNum() {
+        return storeListOrderNum;
+    }
+
+    void setStoreListOrderNum(int storeListOrderNum) {
+        this.storeListOrderNum = storeListOrderNum;
+    }
+
+    String getReorderItemsCategory() {
+        return reorderItemsCategory;
+    }
+
+    void setReorderItemsCategory(String reorderItemsCategory) {
+        this.reorderItemsCategory = reorderItemsCategory;
+    }
+
+    String getReorderItemsStore() {
+        return reorderItemsStore;
+    }
+
+    void setReorderItemsStore(String reorderItemsStore) {
+        this.reorderItemsStore = reorderItemsStore;
+    }
+
+    boolean itemIsSelectedInInventory() {
+        return itemIsSelectedInInventory;
+    }
+
+    void setItemIsSelectedInInventory(boolean itemIsSelectedInInventory) {
+        this.itemIsSelectedInInventory = itemIsSelectedInInventory;
+    }
+
+    boolean itemIsSelectedInSearchResults() {
+        return itemIsSelectedInSearchResults;
+    }
+
+    void setItemIsSelectedInSearchResults(boolean itemIsSelectedInSearchResults) {
+        this.itemIsSelectedInSearchResults = itemIsSelectedInSearchResults;
+    }
+
+    boolean itemIsSelectedInShoppingList() {
+        return itemIsSelectedInShoppingList;
+    }
+
+    void setItemIsSelectedInShoppingList(boolean itemIsSelectedInShoppingList) {
+        this.itemIsSelectedInShoppingList = itemIsSelectedInShoppingList;
     }
 
     void showAlertDialog(String title, String message) {
@@ -325,7 +372,6 @@ public class Shopping extends AppCompatActivity {
         storeListOrderNum = 0;
         reorderItemsCategory = "";
         reorderItemsStore = "";
-        currentSearchTerm = "";
         editItemInInventory = false;
         editItemInSearchResults = false;
         editItemInShoppingList = false;

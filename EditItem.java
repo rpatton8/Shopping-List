@@ -129,6 +129,7 @@ public class EditItem extends Fragment {
 
         editItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 String oldItemName = "";
                 if (shopping.editItemInInventory) {
                     oldItemName = shopping.selectedItemInInventory.getName();

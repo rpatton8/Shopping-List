@@ -148,7 +148,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
             } else {
-                if (shopping.itemIsSelectedInShoppingList && shopping.selectedItemPositionInShoppingList == position) {
+                if (shopping.itemIsSelectedInShoppingList() && shopping.selectedItemPositionInShoppingList == position) {
                     itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
                 } else {
@@ -157,8 +157,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
 
-            if ((shopping.storeListOrderNum != 0) &&
-                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.storeListOrderNum - 1))) {
+            if ((shopping.getStoreListOrderNum() != 0) &&
+                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1))) {
                 itemHolder.triangleDown.setVisibility(View.GONE);
                 itemHolder.triangleRight.setVisibility(View.GONE);
                 itemHolder.itemLarge.setVisibility(View.GONE);
@@ -285,10 +285,10 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
 
-                    shopping.itemIsSelectedInShoppingList = false;
+                    shopping.setItemIsSelectedInShoppingList(false);
                     shopping.selectedItemInShoppingList = null;
                 } else {
-                    if (shopping.itemIsSelectedInShoppingList) {
+                    if (shopping.itemIsSelectedInShoppingList()) {
                         // selected item is another item
                         int currentlySelected = shopping.selectedItemPositionInShoppingList;
                         thisItem.getStatus().setAsSelectedInShoppingList();
@@ -296,7 +296,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
                         shopping.selectedItemPositionInShoppingList = position;
-                        shopping.itemIsSelectedInShoppingList = true;
+                        shopping.setItemIsSelectedInShoppingList(true);
                         shopping.selectedItemInShoppingList = thisItem;
 
                         Item lastItem = getItemWithStores(currentlySelected);
@@ -312,7 +312,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
                         shopping.selectedItemPositionInShoppingList = position;
-                        shopping.itemIsSelectedInShoppingList = true;
+                        shopping.setItemIsSelectedInShoppingList(true);
                         shopping.selectedItemInShoppingList = thisItem;
                     }
                 }

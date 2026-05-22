@@ -67,7 +67,7 @@ public class ReorderItems extends Fragment {
         categorySpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
         categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categorySpinnerAdapter);
-        int categorySpinnerPosition = categorySpinnerAdapter.getPosition(shopping.reorderItemsCategory);
+        int categorySpinnerPosition = categorySpinnerAdapter.getPosition(shopping.getReorderItemsCategory());
         categorySpinner.setSelection(categorySpinnerPosition);
 
         storeSpinnerData = storeData.getStoreListWithBlank();
@@ -75,7 +75,7 @@ public class ReorderItems extends Fragment {
         storeSpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
         storeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(storeSpinnerAdapter);
-        int storeSpinnerPosition = storeSpinnerAdapter.getPosition(shopping.reorderItemsStore);
+        int storeSpinnerPosition = storeSpinnerAdapter.getPosition(shopping.getReorderItemsStore());
         storeSpinner.setSelection(storeSpinnerPosition);
 
         recyclerView = view.findViewById(R.id.reorderItemsRecyclerView);
