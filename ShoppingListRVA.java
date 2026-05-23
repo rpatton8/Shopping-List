@@ -148,7 +148,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
             } else {
-                if (shopping.itemIsSelectedInShoppingList() && shopping.selectedItemPositionInShoppingList == position) {
+                if (shopping.itemIsSelectedInShoppingList() && shopping.getSelectedItemPositionInShoppingList() == position) {
                     itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
                 } else {
@@ -279,25 +279,25 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             
             if (!isTitle) {
 
-                if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == shopping.selectedItemInShoppingList) {
+                if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == shopping.getSelectedItemInShoppingList()) {
                     // selected item is this item
                     thisItem.getStatus().setAsUnselectedInShoppingList();
                     itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
 
                     shopping.setItemIsSelectedInShoppingList(false);
-                    shopping.selectedItemInShoppingList = null;
+                    shopping.setSelectedItemInShoppingList(null);
                 } else {
                     if (shopping.itemIsSelectedInShoppingList()) {
                         // selected item is another item
-                        int currentlySelected = shopping.selectedItemPositionInShoppingList;
+                        int currentlySelected = shopping.getSelectedItemPositionInShoppingList();
                         thisItem.getStatus().setAsSelectedInShoppingList();
                         itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                         itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                        shopping.selectedItemPositionInShoppingList = position;
+                        shopping.setSelectedItemPositionInShoppingList(position);
                         shopping.setItemIsSelectedInShoppingList(true);
-                        shopping.selectedItemInShoppingList = thisItem;
+                        shopping.setSelectedItemInShoppingList(thisItem);
 
                         Item lastItem = getItemWithStores(currentlySelected);
                         if (lastItem != null) {
@@ -311,9 +311,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                         itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                        shopping.selectedItemPositionInShoppingList = position;
+                        shopping.setSelectedItemPositionInShoppingList(position);
                         shopping.setItemIsSelectedInShoppingList(true);
-                        shopping.selectedItemInShoppingList = thisItem;
+                        shopping.setSelectedItemInShoppingList(thisItem);
                     }
                 }
             }

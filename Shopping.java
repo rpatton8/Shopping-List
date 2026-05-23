@@ -27,23 +27,23 @@ public class Shopping extends AppCompatActivity {
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
-    private Boolean itemIsSelectedInInventory;  // done
-    private Boolean itemIsSelectedInSearchResults;  // done
-    private Boolean itemIsSelectedInShoppingList;  // done
-    private Item selectedItemInInventory;  // done
-    Item selectedItemInSearchResults;
-    Item selectedItemInShoppingList;
-    int selectedItemPositionInInventory;
-    int selectedItemPositionInSearchResults;
-    int selectedItemPositionInShoppingList;
+    private Boolean itemIsSelectedInInventory;
+    private Boolean itemIsSelectedInSearchResults;
+    private Boolean itemIsSelectedInShoppingList;
+    private Item selectedItemInInventory;
+    private Item selectedItemInSearchResults;
+    private Item selectedItemInShoppingList;
+    private int selectedItemPositionInInventory;
+    private int selectedItemPositionInSearchResults;
+    private int selectedItemPositionInShoppingList;
 
-    private int storeListOrderNum;   // done
-    private String reorderItemsCategory;  // done
-    private String reorderItemsStore;  // done
-    Boolean editItemInInventory;
-    Boolean editItemInSearchResults;
-    Boolean editItemInShoppingList;
-    SearchAlgorithm searchAlgorithm;
+    private int storeListOrderNum; 
+    private String reorderItemsCategory;
+    private String reorderItemsStore;
+    private Boolean editItemInInventory;
+    private Boolean editItemInSearchResults;
+    private Boolean editItemInShoppingList;
+    private SearchAlgorithm searchAlgorithm;
 
     String inventoryView;
     static final String INVENTORY_ALL = "view all";
@@ -225,20 +225,68 @@ public class Shopping extends AppCompatActivity {
         this.selectedItemInInventory = selectedItemInInventory;
     }
 
-    Item selectedItemInSearchResults() {
+    Item getSelectedItemInSearchResults() {
         return selectedItemInSearchResults;
     }
 
-    void selectedItemInSearchResults(Item selectedItemInSearchResults) {
+    void setSelectedItemInSearchResults(Item selectedItemInSearchResults) {
         this.selectedItemInSearchResults = selectedItemInSearchResults;
     }
 
-    Item selectedItemInShoppingList() {
+    Item getSelectedItemInShoppingList() {
         return selectedItemInShoppingList;
     }
 
-    void selectedItemInShoppingList(Item selectedItemInShoppingList) {
+    void setSelectedItemInShoppingList(Item selectedItemInShoppingList) {
         this.selectedItemInShoppingList = selectedItemInShoppingList;
+    }
+
+    int getSelectedItemPositionInInventory() {
+        return selectedItemPositionInInventory;
+    }
+
+    void setSelectedItemPositionInInventory(int selectedItemPositionInInventory) {
+        this.selectedItemPositionInInventory = selectedItemPositionInInventory;
+    }
+
+    int getSelectedItemPositionInSearchResults() {
+        return selectedItemPositionInSearchResults;
+    }
+
+    void setSelectedItemPositionInSearchResults(int selectedItemPositionInSearchResults) {
+        this.selectedItemPositionInSearchResults = selectedItemPositionInSearchResults;
+    }
+
+    int getSelectedItemPositionInShoppingList() {
+        return selectedItemPositionInShoppingList;
+    }
+
+    void setSelectedItemPositionInShoppingList(int selectedItemPositionInShoppingList) {
+        this.selectedItemPositionInShoppingList = selectedItemPositionInShoppingList;
+    }
+
+    Boolean editItemInInventory() {
+        return editItemInInventory;
+    }
+
+    void setEditItemInInventory(Boolean editItemInInventory) {
+        this.editItemInInventory = editItemInInventory;
+    }
+
+    Boolean editItemInSearchResults() {
+        return editItemInSearchResults;
+    }
+
+    void setEditItemInSearchResults(Boolean editItemInSearchResults) {
+        this.editItemInSearchResults = editItemInSearchResults;
+    }
+
+    Boolean editItemInShoppingList() {
+        return editItemInInventory;
+    }
+
+    void setEditItemInShoppingList(Boolean editItemInShoppingList) {
+        this.editItemInShoppingList = editItemInShoppingList;
     }
 
     void showAlertDialog(String title, String message) {

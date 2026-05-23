@@ -128,8 +128,8 @@ public class ShoppingList extends Fragment {
             public void onClick(View v) {
                 if (shopping.itemIsSelectedInShoppingList()) {
                     shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
-                    shopping.editItemInInventory = false;
-                    shopping.editItemInShoppingList = true;
+                    shopping.setEditItemInInventory(false);
+                    shopping.setEditItemInShoppingList(true);
                     shopping.loadFragment(new EditItem());
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);

@@ -58,15 +58,15 @@ public class EditItem extends Fragment {
         editItemButton = view.findViewById(R.id.editItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        if(shopping.editItemInInventory) {
+        if(shopping.editItemInInventory()) {
             itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
             itemTypeInput.setText(shopping.getSelectedItemInInventory().getBrandType());
-        } else if (shopping.editItemInSearchResults) {
-            itemNameInput.setText(shopping.selectedItemInSearchResults.getName());
-            itemTypeInput.setText(shopping.selectedItemInSearchResults.getBrandType());
-        } else if (shopping.editItemInShoppingList) {
-            itemNameInput.setText(shopping.selectedItemInShoppingList.getName());
-            itemTypeInput.setText(shopping.selectedItemInShoppingList.getBrandType());
+        } else if (shopping.editItemInSearchResults()) {
+            itemNameInput.setText(shopping.getSelectedItemInSearchResults().getName());
+            itemTypeInput.setText(shopping.getSelectedItemInSearchResults().getBrandType());
+        } else if (shopping.editItemInShoppingList()) {
+            itemNameInput.setText(shopping.getSelectedItemInShoppingList().getName());
+            itemTypeInput.setText(shopping.getSelectedItemInShoppingList().getBrandType());
         }
         itemCategoryInput.setText("");
         itemStoreInput.setText("");
@@ -78,12 +78,12 @@ public class EditItem extends Fragment {
         categorySpinner.setAdapter(categoryAdapter);
 
         int categorySpinnerPosition = 0;
-        if(shopping.editItemInInventory) {
+        if(shopping.editItemInInventory()) {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInInventory().getCategory().toString());
-        } else if (shopping.editItemInSearchResults) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInSearchResults.getCategory().toString());
-        } else if (shopping.editItemInShoppingList) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.selectedItemInShoppingList.getCategory().toString());
+        } else if (shopping.editItemInSearchResults()) {
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInSearchResults().getCategory().toString());
+        } else if (shopping.editItemInShoppingList()) {
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInShoppingList().getCategory().toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
@@ -94,12 +94,12 @@ public class EditItem extends Fragment {
         storeSpinner.setAdapter(storeAdapter);
 
         int storeSpinnerPosition = 0;
-        if(shopping.editItemInInventory) {
+        if(shopping.editItemInInventory()) {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInInventory().getStore().toString());
-        } else if (shopping.editItemInSearchResults) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInSearchResults.getStore().toString());
-        } else if (shopping.editItemInShoppingList) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.selectedItemInShoppingList.getStore().toString());
+        } else if (shopping.editItemInSearchResults()) {
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInSearchResults().getStore().toString());
+        } else if (shopping.editItemInShoppingList()) {
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInShoppingList().getStore().toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -131,12 +131,12 @@ public class EditItem extends Fragment {
             public void onClick(View v) {
 
                 String oldItemName = "";
-                if (shopping.editItemInInventory) {
+                if (shopping.editItemInInventory()) {
                     oldItemName = shopping.getSelectedItemInInventory().getName();
-                } else if (shopping.editItemInSearchResults) {
-                    oldItemName = shopping.selectedItemInSearchResults.getName();
-                } else if (shopping.editItemInShoppingList) {
-                    oldItemName = shopping.selectedItemInShoppingList.getName();
+                } else if (shopping.editItemInSearchResults()) {
+                    oldItemName = shopping.getSelectedItemInSearchResults().getName();
+                } else if (shopping.editItemInShoppingList()) {
+                    oldItemName = shopping.getSelectedItemInShoppingList().getName();
                 }
                 String newItemName = itemNameInput.getText().toString();
                 String itemType = itemTypeInput.getText().toString();
@@ -182,20 +182,20 @@ public class EditItem extends Fragment {
                 shopping.updateItemData();
                 shopping.updateStatusData();
 
-                if (shopping.editItemInInventory) {
+                if (shopping.editItemInInventory()) {
                     shopping.setSelectedItemInInventory(shopping.getItemData().getItemMap().get(newItemName));
-                } else if (shopping.editItemInSearchResults) {
-                    shopping.selectedItemInSearchResults = shopping.getItemData().getItemMap().get(newItemName);
-                } else if (shopping.editItemInShoppingList) {
-                    shopping.selectedItemInShoppingList = shopping.getItemData().getItemMap().get(newItemName);
+                } else if (shopping.editItemInSearchResults()) {
+                    shopping.setSelectedItemInSearchResults(shopping.getItemData().getItemMap().get(newItemName));
+                } else if (shopping.editItemInShoppingList()) {
+                    shopping.setSelectedItemInShoppingList(shopping.getItemData().getItemMap().get(newItemName));
                 }
 
                 shopping.hideKeyboard();
-                if (shopping.editItemInInventory) {
+                if (shopping.editItemInInventory()) {
                     shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInSearchResults) {
+                } else if (shopping.editItemInSearchResults()) {
                     shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList) {
+                } else if (shopping.editItemInShoppingList()) {
                     shopping.loadFragment(new ShoppingList());
                 }
             }
@@ -204,11 +204,11 @@ public class EditItem extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.hideKeyboard();
-                if (shopping.editItemInInventory) {
+                if (shopping.editItemInInventory()) {
                     shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInSearchResults) {
+                } else if (shopping.editItemInSearchResults()) {
                     shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList) {
+                } else if (shopping.editItemInShoppingList()) {
                     shopping.loadFragment(new ShoppingList());
                 }
             }

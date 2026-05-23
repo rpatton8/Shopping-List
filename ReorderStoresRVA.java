@@ -105,19 +105,19 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                 shopping.updateStoreData();
 
                 // Check if selected item is in one of the stores being moved and shift it
-                if (shopping.selectedItemPositionInInventory != 0) {
+                if (shopping.getSelectedItemPositionInInventory() != 0) {
 
-                    if (storeContains(position, shopping.selectedItemPositionInInventory)) {
+                    if (storeContains(position, shopping.getSelectedItemPositionInInventory())) {
 
                         String store = storeData.getStoreList().get(position + 1);
                         int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.selectedItemPositionInInventory += offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
 
-                    } else if (storeContains(position + 1, shopping.selectedItemPositionInInventory)) {
+                    } else if (storeContains(position + 1, shopping.getSelectedItemPositionInInventory())) {
 
                         String store = storeData.getStoreList().get(position);
                         int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.selectedItemPositionInInventory -= offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
 
                     }
                 }
@@ -133,19 +133,19 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                 shopping.updateStoreData();
 
                 // Check if selected item is in one of the stores being moved and shift it
-                if (shopping.selectedItemPositionInInventory != 0) {
+                if (shopping.getSelectedItemPositionInInventory() != 0) {
 
-                    if (storeContains(position, shopping.selectedItemPositionInInventory)) {
+                    if (storeContains(position, shopping.getSelectedItemPositionInInventory())) {
 
                         String store = storeData.getStoreList().get(position - 1);
                         int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.selectedItemPositionInInventory -= offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
 
-                    } else if (storeContains(position - 1, shopping.selectedItemPositionInInventory)) {
+                    } else if (storeContains(position - 1, shopping.getSelectedItemPositionInInventory())) {
 
                         String store = storeData.getStoreList().get(position);
                         int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.selectedItemPositionInInventory += offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
                     }
                 }
                 shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();

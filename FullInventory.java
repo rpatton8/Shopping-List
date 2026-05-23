@@ -336,9 +336,9 @@ public class FullInventory extends Fragment {
                      shopping.loadFragment(new EditCategory());
                  } else if (currentBottomMenu.equals(MENU_ITEM)) {
                      if (shopping.itemIsSelectedInInventory()) {
-                         shopping.editItemInInventory = true;
-                         shopping.editItemInSearchResults =  false;
-                         shopping.editItemInShoppingList = false;
+                         shopping.setEditItemInInventory(true);
+                         shopping.setEditItemInSearchResults(false);
+                         shopping.setEditItemInShoppingList(false);
                          shopping.loadFragment(new EditItem());
                      } else {
                          Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT).show();

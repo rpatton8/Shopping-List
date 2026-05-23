@@ -105,19 +105,19 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
                 shopping.updateCategoryData();
 
                 // Check if selected item is in one of the categories being moved and shift it
-                if (shopping.selectedItemPositionInInventory != 0) {
+                if (shopping.getSelectedItemPositionInInventory() != 0) {
 
-                    if (categoryContains(position, shopping.selectedItemPositionInInventory)) {
+                    if (categoryContains(position, shopping.getSelectedItemPositionInInventory())) {
 
                         String category = categoryData.getCategoryList().get(position + 1);
                         int offset = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
-                        shopping.selectedItemPositionInInventory += offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
 
-                    } else if (categoryContains(position + 1, shopping.selectedItemPositionInInventory)) {
+                    } else if (categoryContains(position + 1, shopping.getSelectedItemPositionInInventory())) {
 
                         String category = categoryData.getCategoryList().get(position);
                         int offset = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
-                        shopping.selectedItemPositionInInventory -= offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
 
                     }
                 }
@@ -133,19 +133,19 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
                 shopping.updateCategoryData();
 
                 // Check if selected item is in one of the categories being moved and shift it
-                if (shopping.selectedItemPositionInInventory != 0) {
+                if (shopping.getSelectedItemPositionInInventory() != 0) {
 
-                    if (categoryContains(position, shopping.selectedItemPositionInInventory)) {
+                    if (categoryContains(position, shopping.getSelectedItemPositionInInventory())) {
 
                         String category = categoryData.getCategoryList().get(position - 1);
                         int offset = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
-                        shopping.selectedItemPositionInInventory -= offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
 
-                    } else if (categoryContains(position - 1, shopping.selectedItemPositionInInventory)) {
+                    } else if (categoryContains(position - 1, shopping.getSelectedItemPositionInInventory())) {
 
                         String category = categoryData.getCategoryList().get(position);
                         int offset = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
-                        shopping.selectedItemPositionInInventory += offset + 1;
+                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
                     }
                 }
                 shopping.reorderCategoriesViewState = recyclerView.getLayoutManager().onSaveInstanceState();

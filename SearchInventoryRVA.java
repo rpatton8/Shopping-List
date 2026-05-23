@@ -94,7 +94,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             searchResultsHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
         } else {
-            if (shopping.itemIsSelectedInSearchResults() && shopping.selectedItemPositionInInventory == position) {
+            if (shopping.itemIsSelectedInSearchResults() && shopping.getSelectedItemPositionInSearchResults() == position) {
                 searchResultsHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                 searchResultsHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
             } else {
@@ -209,12 +209,12 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             } else {
                 if (shopping.itemIsSelectedInSearchResults()) {
                     // selected item is another item
-                    int currentlySelected = shopping.selectedItemPositionInInventory;
+                    int currentlySelected = shopping.getSelectedItemPositionInSearchResults();
                     thisItem.getStatus().setAsSelectedInInventory();
                     itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                    shopping.selectedItemPositionInInventory = position;
+                    shopping.setSelectedItemPositionInInventory(position);
                     shopping.setItemIsSelectedInInventory(true);
                     shopping.setSelectedItemInInventory(thisItem);
 
@@ -230,7 +230,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                    shopping.selectedItemPositionInInventory = position;
+                    shopping.setSelectedItemPositionInInventory(position);
                     shopping.setItemIsSelectedInInventory(true);
                     shopping.setSelectedItemInInventory(thisItem);
                 }
