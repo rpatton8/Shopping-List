@@ -275,32 +275,28 @@
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/add"
-                android:visibility="gone"
-                tools:ignore="ButtonStyle" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/editPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/edit"
-                android:visibility="gone"
-                tools:ignore="ButtonStyle" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/removePopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/remove"
-                android:visibility="gone"
-                tools:ignore="ButtonStyle" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/reorderPopup"
                 android:layout_width="102dp"
                 android:layout_height="48dp"
                 android:text="@string/reorder"
-                android:visibility="gone"
-                tools:ignore="ButtonStyle" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -325,22 +321,19 @@
                 android:id="@+id/addRemoveCategory"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/category"
-                tools:ignore="ButtonStyle" />
+                android:text="@string/category" />
 
             <Button
                 android:id="@+id/addEditItem"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/item"
-                tools:ignore="ButtonStyle" />
+                android:text="@string/item" />
 
             <Button
                 android:id="@+id/addRemoveStore"
                 android:layout_width="136dp"
                 android:layout_height="48dp"
-                android:text="@string/store"
-                tools:ignore="ButtonStyle" />
+                android:text="@string/store" />
 
         </LinearLayout>
 

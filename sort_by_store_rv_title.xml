@@ -12,8 +12,7 @@
     android:background="@android:color/darker_gray"
     android:orientation="horizontal"
     android:gravity="center"
-    android:visibility="visible"
-    tools:ignore="Overdraw">
+    android:visibility="visible">
 
     <ImageView
         android:id="@+id/triangleButtonDown1"
