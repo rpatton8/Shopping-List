@@ -130,12 +130,12 @@ public class ShoppingList extends Fragment {
 
         shoppingListRecyclerView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
             void onSwipeLeft() {
-                if (shopping.swipingOption.equals(Shopping.SWIPING_ON)) {
+                if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
                     moveLeftInShoppingList();
                 }
             }
             void onSwipeRight() {
-                if (shopping.swipingOption.equals(Shopping.SWIPING_ON)) {
+                if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
                     moveRightInShoppingList();
                 }
             }

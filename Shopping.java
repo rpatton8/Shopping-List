@@ -45,50 +45,50 @@ public class Shopping extends AppCompatActivity {
     private Boolean editItemInShoppingList;
     private SearchAlgorithm searchAlgorithm;
 
-    String inventoryView;
+    private String inventoryView;
     static final String INVENTORY_ALL = "view all";
     static final String INVENTORY_INSTOCK = "view instock";
     static final String INVENTORY_NEEDED = "view needed";
     static final String INVENTORY_PAUSED = "view paused";
 
-    String inventorySortBy;
-    String defaultSortBy;
+    private String inventorySortBy;  // done
+    private String defaultSortBy;  // done
     static final String SORT_BY_CATEGORY = "category";
     static final String SORT_BY_STORE = "store";
     static final String SORT_ALPHABETICAL = "alphabetical";
 
-    String categoryTitles;
-    String defaultCategoryTitles;
+    private String categoryTitles;  // done
+    private String defaultCategoryTitles;  // done
     static final String CATEGORY_TITLES_EXPANDED = "category titles expanded";
     static final String CATEGORY_TITLES_CONTRACTED = "category titles contracted";
 
-    String storeTitles;
-    String defaultStoreTitles;
+    private String storeTitles;  // done
+    private String defaultStoreTitles;  // done
     static final String STORE_TITLES_EXPANDED = "store titles expanded";
     static final String STORE_TITLES_CONTRACTED = "store titles contracted";
 
-    String itemExpansion;
+    private String itemExpansion;  // done
     static final String ITEMS_EXPANDED = "items expanded";
     static final String ITEMS_CONTRACTED = "items contracted";
 
-    String reorderingMethod;
+    private String reorderingMethod;  // done
     static final String DRAG_AND_DROP = "drag and drop";
     static final String UP_AND_DOWN_ARROWS = "up and down arrows";
     static final String WITH_NUMBERS = "with numbers";
 
-    String colorScheme;
+    private String colorScheme;  // done
     static final String COLOR_SCHEME_1 = "color scheme 1";
     static final String COLOR_SCHEME_2 = "color scheme 2";
     static final String COLOR_SCHEME_3 = "color scheme 3";
 
-    String swipingOption;
+    private String swipingOption;  // done
     static final String SWIPING_ON = "swiping on";
     static final String SWIPING_OFF = "swiping off";
 
-    String optionalDataQuantity;
-    String optionalDataPrice;
-    String optionalDataLocation;
-    String optionalDataNote;
+    private String optionalDataQuantity;  // done
+    private String optionalDataPrice;  // done
+    private String optionalDataLocation;  // done
+    private String optionalDataNote;  // done
     static final String OPTIONAL_DATA_ON = "optional data on";
     static final String OPTIONAL_DATA_OFF = "optional data off";
 
@@ -289,6 +289,126 @@ public class Shopping extends AppCompatActivity {
         this.editItemInShoppingList = editItemInShoppingList;
     }
 
+    String getInventoryView() {
+        return inventoryView;
+    }
+
+    void setInventoryView(String inventoryView) {
+        this.inventoryView = inventoryView;
+    }
+
+    String getInventorySortBy() {
+        return inventorySortBy;
+    }
+
+    void setInventorySortBy(String inventorySortBy) {
+        this.inventorySortBy = inventorySortBy;
+    }
+
+    String getDefaultSortBy() {
+        return defaultSortBy;
+    }
+
+    void setDefaultSortBy(String defaultSortBy) {
+        this.defaultSortBy = defaultSortBy;
+    }
+
+    String getCategoryTitles() {
+        return categoryTitles;
+    }
+
+    void setCategoryTitles(String categoryTitles) {
+        this.categoryTitles = categoryTitles;
+    }
+
+    String getDefaultCategoryTitles() {
+        return defaultCategoryTitles;
+    }
+
+    void setDefaultCategoryTitles(String defaultCategoryTitles) {
+        this.defaultCategoryTitles = defaultCategoryTitles;
+    }
+
+    String getStoreTitles() {
+        return categoryTitles;
+    }
+
+    void setStoreTitles(String categoryTitles) {
+        this.categoryTitles = categoryTitles;
+    }
+
+    String getDefaultStoreTitles() {
+        return defaultStoreTitles;
+    }
+
+    void setDefaultStoreTitles(String defaultStoreTitles) {
+        this.defaultStoreTitles = defaultStoreTitles;
+    }
+
+    String getItemExpansion() {
+        return itemExpansion;
+    }
+
+    void setItemExpansion(String itemExpansion) {
+        this.itemExpansion = itemExpansion;
+    }
+
+    String getReorderingMethod() {
+        return reorderingMethod;
+    }
+
+    void setReorderingMethod(String reorderingMethod) {
+        this.reorderingMethod = reorderingMethod;
+    }
+
+    String getColorScheme() {
+        return colorScheme;
+    }
+
+    void setColorScheme(String colorScheme) {
+        this.colorScheme = colorScheme;
+    }
+
+    String getSwipingOption() {
+        return swipingOption;
+    }
+
+    void setSwipingOption(String swipingOption) {
+        this.swipingOption = swipingOption;
+    }
+
+    String getOptionalDataQuantity() {
+        return optionalDataQuantity;
+    }
+
+    void setOptionalDataQuantity(String optionalDataQuantity) {
+        this.optionalDataQuantity = optionalDataQuantity;
+    }
+
+    String getOptionalDataPrice() {
+        return optionalDataPrice;
+    }
+
+    void setOptionalDataPrice(String optionalDataPrice) {
+        this.optionalDataPrice = optionalDataPrice;
+    }
+
+    String getOptionalDataLocation() {
+        return optionalDataLocation;
+    }
+
+    void setOptionalDataLocation(String optionalDataLocation) {
+        this.optionalDataLocation = optionalDataLocation;
+    }
+
+    String getOptionalDataNote() {
+        return optionalDataNote;
+    }
+
+    void setOptionalDataNote(String optionalDataNote) {
+        this.optionalDataNote = optionalDataNote;
+    }
+
     void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
@@ -329,7 +449,7 @@ public class Shopping extends AppCompatActivity {
         } else if (defaultSortBy.equals("category")) {
             this.defaultSortBy = SORT_BY_CATEGORY;
             this.inventorySortBy = SORT_BY_CATEGORY;
-        } else if (defaultSortBy.equals("store")) {
+        } else if (defaultSortBy.equals("category")) {
             this.defaultSortBy = SORT_BY_STORE;
             this.inventorySortBy = SORT_BY_STORE;
         }

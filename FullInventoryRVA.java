@@ -33,7 +33,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     public int getItemViewType(int position) {
 
-        if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+        if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
             if (position == 0) return R.layout.sort_by_category_rv_title;
             int index = 0;
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
@@ -49,7 +49,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
             return R.layout.sort_by_category_rv_item;
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
 
             if (position == 0) return R.layout.sort_by_store_rv_title;
             int index = 0;
@@ -66,7 +66,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
             return R.layout.sort_by_store_rv_item;
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             return R.layout.sort_alphabetical_rv_item;
 
@@ -78,7 +78,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
 
-        if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+        if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
 
             if (viewType == R.layout.sort_by_category_rv_title) {
                 return new SortByCategoryTitleRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
@@ -86,7 +86,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 return new SortByCategoryItemRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
             } else return new RecyclerView.ViewHolder(view) {};
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
 
             if (viewType == R.layout.sort_by_store_rv_title) {
                 return new SortByStoreTitleRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
@@ -94,7 +94,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 return new SortByStoreItemRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
             } else return new RecyclerView.ViewHolder(view) {};
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             if (viewType == R.layout.sort_alphabetical_rv_item) {
                 return new SortAlphabeticalItemRVH(view, shopping, this);
@@ -107,7 +107,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
 //-----------------------------------Sort By Category-----------------------------------------------
-        if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+        if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
             Item thisItem = null;
             String category = null;
             boolean isTitle = false;
@@ -163,13 +163,13 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     categoryTitleHolder.triangleButtonLeft.setVisibility(View.VISIBLE);
                 }
 
-                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL) && categoryData.getCategoryViewAllMap().get(category) == 0) {
+                if (shopping.getInventoryView().equals(Shopping.INVENTORY_ALL) && categoryData.getCategoryViewAllMap().get(category) == 0) {
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK) && categoryData.getCategoryViewInStockMap().get(category) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_INSTOCK) && categoryData.getCategoryViewInStockMap().get(category) == 0) {
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED) && categoryData.getCategoryViewNeededMap().get(category) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_NEEDED) && categoryData.getCategoryViewNeededMap().get(category) == 0) {
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED) && categoryData.getCategoryViewPausedMap().get(category) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_PAUSED) && categoryData.getCategoryViewPausedMap().get(category) == 0) {
                     categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.GONE);
                 }
 
@@ -244,7 +244,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     }
                 }
                 //--------------------------------By Category - All---------------------------------
-                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                if (shopping.getInventoryView().equals(Shopping.INVENTORY_ALL)) {
                     if (thisItem.getStatus().isExpandedInInventory()) {
                         categoryItemHolder.itemSmall.setVisibility(View.GONE);
                         categoryItemHolder.itemLarge.setVisibility(View.VISIBLE);
@@ -257,7 +257,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         categoryItemHolder.triangleDown.setVisibility(View.GONE);
                     }
                 //--------------------------------By Category - In Stock----------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_INSTOCK)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             categoryItemHolder.itemSmall.setVisibility(View.GONE);
@@ -296,7 +296,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         }
                     }
                 //--------------------------------By Category - Needed------------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_NEEDED)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             categoryItemHolder.itemSmall.setVisibility(View.GONE);
@@ -336,7 +336,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         }
                     }
                 //--------------------------------By Category - Paused------------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_PAUSED)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             categoryItemHolder.itemSmall.setVisibility(View.GONE);
@@ -377,7 +377,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
 //------------------------------------------Sort By Store-------------------------------------------
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
             Item thisItem = null;
             String store = null;
             boolean isTitle = false;
@@ -437,13 +437,13 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
                 }
 
-                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL) && storeData.getStoreViewAllMap().get(store) == 0) {
+                if (shopping.getInventoryView().equals(Shopping.INVENTORY_ALL) && storeData.getStoreViewAllMap().get(store) == 0) {
                     storeTitleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK) && storeData.getStoreViewInStockMap().get(store) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_INSTOCK) && storeData.getStoreViewInStockMap().get(store) == 0) {
                     storeTitleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED) && storeData.getStoreViewNeededMap().get(store) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_NEEDED) && storeData.getStoreViewNeededMap().get(store) == 0) {
                     storeTitleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED) && storeData.getStoreViewPausedMap().get(store) == 0) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_PAUSED) && storeData.getStoreViewPausedMap().get(store) == 0) {
                     storeTitleHolder.sortByStoreRvTitle.setVisibility(View.GONE);
                 }
 
@@ -517,7 +517,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     }
                 }
                 //--------------------------------By Store - All------------------------------------
-                if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+                if (shopping.getInventoryView().equals(Shopping.INVENTORY_ALL)) {
                     if (thisItem.getStatus().isExpandedInInventory()) {
                         storeItemHolder.itemSmall.setVisibility(View.GONE);
                         storeItemHolder.itemLarge.setVisibility(View.VISIBLE);
@@ -530,7 +530,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         storeItemHolder.triangleDown.setVisibility(View.GONE);
                     }
                 //--------------------------------By Store - In Stock-------------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_INSTOCK)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             storeItemHolder.itemSmall.setVisibility(View.GONE);
@@ -569,7 +569,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         }
                     }
                 //--------------------------------By Store - Needed---------------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_NEEDED)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             storeItemHolder.itemSmall.setVisibility(View.GONE);
@@ -609,7 +609,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         }
                     }
                 //--------------------------------By Store - Paused---------------------------------
-                } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+                } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_PAUSED)) {
                     if (thisItem.getStatus().isInStock()) {
                         if (thisItem.getStatus().isExpandedInInventory()) {
                             storeItemHolder.itemSmall.setVisibility(View.GONE);
@@ -650,7 +650,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
 //------------------------------------------Alphabetical--------------------------------------------
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             Item thisItem = itemData.getItemListAZ().get(position);
 
@@ -715,7 +715,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 }
             }
             //--------------------------------Alphabetical - All------------------------------------
-            if (shopping.inventoryView.equals(Shopping.INVENTORY_ALL)) {
+            if (shopping.getInventoryView().equals(Shopping.INVENTORY_ALL)) {
                 if (thisItem.getStatus().isExpandedInInventory()) {
                     alphabeticalItemHolder.itemSmall.setVisibility(View.GONE);
                     alphabeticalItemHolder.itemLarge.setVisibility(View.VISIBLE);
@@ -728,7 +728,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     alphabeticalItemHolder.triangleDown.setVisibility(View.GONE);
                 }
             //--------------------------------Alphabetical - In Stock-------------------------------
-            } else if (shopping.inventoryView.equals(Shopping.INVENTORY_INSTOCK)) {
+            } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_INSTOCK)) {
                 if (thisItem.getStatus().isInStock()) {
                     if (thisItem.getStatus().isExpandedInInventory()) {
                         alphabeticalItemHolder.itemSmall.setVisibility(View.GONE);
@@ -767,7 +767,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     }
                 }
             //--------------------------------Alphabetical - Needed---------------------------------
-            } else if (shopping.inventoryView.equals(Shopping.INVENTORY_NEEDED)) {
+            } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_NEEDED)) {
                 if (thisItem.getStatus().isInStock()) {
                     if (thisItem.getStatus().isExpandedInInventory()) {
                         alphabeticalItemHolder.itemSmall.setVisibility(View.GONE);
@@ -807,7 +807,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     }
                 }
             //--------------------------------Alphabetical - Paused---------------------------------
-            } else if (shopping.inventoryView.equals(Shopping.INVENTORY_PAUSED)) {
+            } else if (shopping.getInventoryView().equals(Shopping.INVENTORY_PAUSED)) {
                 if (thisItem.getStatus().isInStock()) {
                     if (thisItem.getStatus().isExpandedInInventory()) {
                         alphabeticalItemHolder.itemSmall.setVisibility(View.GONE);
@@ -851,15 +851,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     public int getItemCount() {
 
-        if (shopping.inventorySortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+        if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
 
             return (itemData.getItemListByCategory().size() + categoryData.getCategoryList().size());
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_BY_STORE)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
 
             return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
 
-        } else if (shopping.inventorySortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+        } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             return (itemData.getItemListAZ().size());
 

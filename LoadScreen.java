@@ -169,69 +169,69 @@ public class LoadScreen extends Fragment {
 
                 } else {
 
-                    if (shopping.defaultSortBy.equals(Shopping.SORT_ALPHABETICAL)) {
+                    if (shopping.getDefaultSortBy().equals(Shopping.SORT_ALPHABETICAL)) {
                         sortAlphabetical.setChecked(true);
-                    } else if (shopping.defaultSortBy.equals(Shopping.SORT_BY_CATEGORY)) {
+                    } else if (shopping.getDefaultSortBy().equals(Shopping.SORT_BY_CATEGORY)) {
                         sortByCategory.setChecked(true);
-                    } else if (shopping.defaultSortBy.equals(Shopping.SORT_BY_STORE)) {
+                    } else if (shopping.getDefaultSortBy().equals(Shopping.SORT_BY_STORE)) {
                         sortByStore.setChecked(true);
                     }
 
-                    if (shopping.reorderingMethod.equals(Shopping.DRAG_AND_DROP)) {
+                    if (shopping.getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
                         dragAndDrop.setChecked(true);
-                    } else if (shopping.reorderingMethod.equals(Shopping.UP_AND_DOWN_ARROWS)) {
+                    } else if (shopping.getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {
                         upAndDownArrows.setChecked(true);
-                    } else if (shopping.reorderingMethod.equals(Shopping.WITH_NUMBERS)) {
+                    } else if (shopping.getReorderingMethod().equals(Shopping.WITH_NUMBERS)) {
                         withNumbers.setChecked(true);
                     }
 
-                    if (shopping.colorScheme.equals(Shopping.COLOR_SCHEME_1)) {
+                    if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_1)) {
                         colorScheme1.setChecked(true);
-                    } else if (shopping.colorScheme.equals(Shopping.COLOR_SCHEME_2)) {
+                    } else if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_2)) {
                         colorScheme2.setChecked(true);
-                    } else if (shopping.colorScheme.equals(Shopping.COLOR_SCHEME_3)) {
+                    } else if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_3)) {
                         colorScheme3.setChecked(true);
                     }
 
-                    if (shopping.defaultCategoryTitles.equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
+                    if (shopping.getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
                         categoryTitlesExpanded.setChecked(true);
-                    } else if (shopping.defaultCategoryTitles.equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
+                    } else if (shopping.getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
                         categoryTitlesContracted.setChecked(true);
                     }
 
-                    if (shopping.defaultStoreTitles.equals(Shopping.STORE_TITLES_EXPANDED)) {
+                    if (shopping.getDefaultStoreTitles().equals(Shopping.STORE_TITLES_EXPANDED)) {
                         storeTitlesExpanded.setChecked(true);
-                    } else if (shopping.defaultStoreTitles.equals(Shopping.STORE_TITLES_CONTRACTED)) {
+                    } else if (shopping.getDefaultStoreTitles().equals(Shopping.STORE_TITLES_CONTRACTED)) {
                         storeTitlesContracted.setChecked(true);
                     }
 
-                    if (shopping.swipingOption.equals(Shopping.SWIPING_ON)) {
+                    if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
                         swipingOn.setChecked(true);
-                    } else if (shopping.swipingOption.equals(Shopping.SWIPING_OFF)) {
+                    } else if (shopping.getSwipingOption().equals(Shopping.SWIPING_OFF)) {
                         swipingOff.setChecked(true);
                     }
 
-                    if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_ON)) {
+                    if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
                         optionalDataQuantity.setChecked(true);
-                    } else if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    } else if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
                         optionalDataQuantity.setChecked(false);
                     }
 
-                    if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_ON)) {
+                    if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
                         optionalDataPrice.setChecked(true);
-                    } else if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    } else if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
                         optionalDataPrice.setChecked(false);
                     }
 
-                    if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_ON)) {
+                    if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
                         optionalDataLocation.setChecked(true);
-                    } else if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    } else if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
                         optionalDataLocation.setChecked(false);
                     }
 
-                    if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_ON)) {
+                    if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
                         optionalDataNote.setChecked(true);
-                    } else if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
                         optionalDataNote.setChecked(false);
                     }
 
@@ -301,8 +301,8 @@ public class LoadScreen extends Fragment {
 
         sortAlphabetical.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultSortBy = Shopping.SORT_ALPHABETICAL;
-                shopping.inventorySortBy = Shopping.SORT_ALPHABETICAL;
+                shopping.setDefaultSortBy(Shopping.SORT_ALPHABETICAL);
+                shopping.setInventorySortBy(Shopping.SORT_ALPHABETICAL);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_sort_by", "alphabetical");
@@ -312,8 +312,8 @@ public class LoadScreen extends Fragment {
 
         sortByCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultSortBy = Shopping.SORT_BY_CATEGORY;
-                shopping.inventorySortBy = Shopping.SORT_BY_CATEGORY;
+                shopping.setDefaultSortBy(Shopping.SORT_BY_CATEGORY);
+                shopping.setInventorySortBy(Shopping.SORT_BY_CATEGORY);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_sort_by", "category");
@@ -323,8 +323,8 @@ public class LoadScreen extends Fragment {
 
         sortByStore.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultSortBy = Shopping.SORT_BY_STORE;
-                shopping.inventorySortBy = Shopping.SORT_BY_STORE;
+                shopping.setDefaultSortBy(Shopping.SORT_BY_STORE);
+                shopping.setInventorySortBy(Shopping.SORT_BY_STORE);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_sort_by", "store");
@@ -334,7 +334,7 @@ public class LoadScreen extends Fragment {
 
         dragAndDrop.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.reorderingMethod = Shopping.DRAG_AND_DROP;
+                shopping.setReorderingMethod(Shopping.DRAG_AND_DROP);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("reorder_method", "drag and drop");
@@ -344,7 +344,7 @@ public class LoadScreen extends Fragment {
 
         upAndDownArrows.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.reorderingMethod = Shopping.UP_AND_DOWN_ARROWS;
+                shopping.setReorderingMethod(Shopping.UP_AND_DOWN_ARROWS);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("reorder_method", "up and down arrows");
@@ -354,7 +354,7 @@ public class LoadScreen extends Fragment {
 
         withNumbers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.reorderingMethod = Shopping.WITH_NUMBERS;
+                shopping.setReorderingMethod(Shopping.WITH_NUMBERS);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("reorder_method", "with numbers");
@@ -364,7 +364,7 @@ public class LoadScreen extends Fragment {
 
         colorScheme1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_1;
+                shopping.setColorScheme(Shopping.COLOR_SCHEME_1);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("color_scheme", "color scheme 1");
@@ -374,7 +374,7 @@ public class LoadScreen extends Fragment {
 
         colorScheme2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_2;
+                shopping.setColorScheme(Shopping.COLOR_SCHEME_2);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("color_scheme", "color scheme 2");
@@ -384,7 +384,7 @@ public class LoadScreen extends Fragment {
 
         colorScheme3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.colorScheme = Shopping.COLOR_SCHEME_3;
+                shopping.setColorScheme(Shopping.COLOR_SCHEME_3);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("color_scheme", "color scheme 3");
@@ -394,8 +394,8 @@ public class LoadScreen extends Fragment {
 
         categoryTitlesExpanded.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultCategoryTitles = Shopping.CATEGORY_TITLES_EXPANDED;
-                shopping.categoryTitles = Shopping.CATEGORY_TITLES_EXPANDED;
+                shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_category_titles", "category titles expanded");
@@ -405,8 +405,8 @@ public class LoadScreen extends Fragment {
 
         categoryTitlesContracted.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultCategoryTitles = Shopping.CATEGORY_TITLES_CONTRACTED;
-                shopping.categoryTitles = Shopping.CATEGORY_TITLES_CONTRACTED;
+                shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_category_titles", "category titles contracted");
@@ -416,8 +416,8 @@ public class LoadScreen extends Fragment {
 
         storeTitlesExpanded.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultStoreTitles = Shopping.STORE_TITLES_EXPANDED;
-                shopping.storeTitles = Shopping.STORE_TITLES_EXPANDED;
+                shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                shopping.setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_store_titles", "store titles expanded");
@@ -427,8 +427,8 @@ public class LoadScreen extends Fragment {
 
         storeTitlesContracted.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.defaultStoreTitles = Shopping.STORE_TITLES_CONTRACTED;
-                shopping.storeTitles = Shopping.STORE_TITLES_CONTRACTED;
+                shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                shopping.setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("default_store_titles", "store titles contracted");
@@ -439,7 +439,7 @@ public class LoadScreen extends Fragment {
 
         swipingOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.swipingOption = Shopping.SWIPING_ON;
+                shopping.setSwipingOption(Shopping.SWIPING_ON);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("swiping_option", "swiping on");
@@ -449,7 +449,7 @@ public class LoadScreen extends Fragment {
 
         swipingOff.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.swipingOption = Shopping.SWIPING_OFF;
+                shopping.setSwipingOption(Shopping.SWIPING_OFF);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("swiping_option", "swiping off");
@@ -461,11 +461,11 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_OFF;
+                if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString("optional_data_quantity", "optional data off");
-                } else if (shopping.optionalDataQuantity.equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.optionalDataQuantity = Shopping.OPTIONAL_DATA_ON;
+                } else if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_ON);
                     editor.putString("optional_data_quantity", "optional data on");
                 }
                 editor.apply();
@@ -476,11 +476,11 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_OFF;
+                if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString("optional_data_price", "optional data off");
-                } else if (shopping.optionalDataPrice.equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.optionalDataPrice = Shopping.OPTIONAL_DATA_ON;
+                } else if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_ON);
                     editor.putString("optional_data_price", "optional data on");
                 }
                 editor.apply();
@@ -491,11 +491,11 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_OFF;
+                if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString("optional_data_location", "optional data off");
-                } else if (shopping.optionalDataLocation.equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.optionalDataLocation = Shopping.OPTIONAL_DATA_ON;
+                } else if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_ON);
                     editor.putString("optional_data_location", "optional data on");
                 }
                 editor.apply();
@@ -506,11 +506,11 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.optionalDataNote = Shopping.OPTIONAL_DATA_OFF;
+                if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString("optional_data_note", "optional data off");
-                } else if (shopping.optionalDataNote.equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.optionalDataNote = Shopping.OPTIONAL_DATA_ON;
+                } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_ON);
                     editor.putString("optional_data_note", "optional data on");
                 }
                 editor.apply();
