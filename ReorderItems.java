@@ -84,7 +84,7 @@ public class ReorderItems extends Fragment {
         rvAdapter = new ReorderItemsRVA(shopping, recyclerView, scrollView, itemData, categoryData, storeData, dbItemHelper);
         //rvAdapter.changeCategory("Candy");
         recyclerView.setAdapter(rvAdapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderItemsRecyclerViewState);
+        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.getReorderItemsRecyclerViewState());
         //scrollView.getLayoutManager().onRestoreInstanceState(shopping.reorderItemsScrollViewState);
 
         scrollView = view.findViewById(R.id.reorderItemsScrollView);

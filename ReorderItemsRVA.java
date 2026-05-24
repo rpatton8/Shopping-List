@@ -187,7 +187,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 adapter.swapOrderByCategory(position, position + 1);
                 //dbStoreHelper.swapOrder(position, position + 1);
                 shopping.updateItemData();
-                shopping.reorderItemsRecyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.setReorderItemsRecyclerViewState(recyclerView.getLayoutManager().onSaveInstanceState());
                 //shopping.reorderItemsScrollViewState = scrollView.getLayoutManager().onSaveInstanceState();
                 //outState.putInt("SCROLL_POS", scrollView.getScrollY());
                 shopping.loadFragment(new ReorderItems());
@@ -199,7 +199,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 adapter.swapOrderByCategory(position - 1, position);
                 //dbStoreHelper.swapOrder(position - 1, position);
                 shopping.updateItemData();
-                shopping.reorderItemsRecyclerViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.setReorderItemsRecyclerViewState(recyclerView.getLayoutManager().onSaveInstanceState());
                 //shopping.reorderItemsScrollViewState = scrollView.getLayoutManager().onSaveInstanceState();
                 shopping.loadFragment(new ReorderItems());
             }

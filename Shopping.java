@@ -46,59 +46,59 @@ public class Shopping extends AppCompatActivity {
     private SearchAlgorithm searchAlgorithm;
 
     private String inventoryView;
-    static final String INVENTORY_ALL = "view all";
-    static final String INVENTORY_INSTOCK = "view instock";
-    static final String INVENTORY_NEEDED = "view needed";
-    static final String INVENTORY_PAUSED = "view paused";
+    static final String VIEW_ALL = "view all";
+    static final String VIEW_INSTOCK = "view instock";
+    static final String VIEW_NEEDED = "view needed";
+    static final String VIEW_PAUSED = "view paused";
 
-    private String inventorySortBy;  // done
-    private String defaultSortBy;  // done
+    private String inventorySortBy;
+    private String defaultSortBy;
     static final String SORT_BY_CATEGORY = "category";
     static final String SORT_BY_STORE = "store";
     static final String SORT_ALPHABETICAL = "alphabetical";
 
-    private String categoryTitles;  // done
-    private String defaultCategoryTitles;  // done
+    private String categoryTitles;
+    private String defaultCategoryTitles;
     static final String CATEGORY_TITLES_EXPANDED = "category titles expanded";
     static final String CATEGORY_TITLES_CONTRACTED = "category titles contracted";
 
-    private String storeTitles;  // done
-    private String defaultStoreTitles;  // done
+    private String storeTitles;
+    private String defaultStoreTitles;
     static final String STORE_TITLES_EXPANDED = "store titles expanded";
     static final String STORE_TITLES_CONTRACTED = "store titles contracted";
 
-    private String itemExpansion;  // done
+    private String itemExpansion;
     static final String ITEMS_EXPANDED = "items expanded";
     static final String ITEMS_CONTRACTED = "items contracted";
 
-    private String reorderingMethod;  // done
+    private String reorderingMethod;
     static final String DRAG_AND_DROP = "drag and drop";
     static final String UP_AND_DOWN_ARROWS = "up and down arrows";
     static final String WITH_NUMBERS = "with numbers";
 
-    private String colorScheme;  // done
+    private String colorScheme;
     static final String COLOR_SCHEME_1 = "color scheme 1";
     static final String COLOR_SCHEME_2 = "color scheme 2";
     static final String COLOR_SCHEME_3 = "color scheme 3";
 
-    private String swipingOption;  // done
+    private String swipingOption;
     static final String SWIPING_ON = "swiping on";
     static final String SWIPING_OFF = "swiping off";
 
-    private String optionalDataQuantity;  // done
-    private String optionalDataPrice;  // done
-    private String optionalDataLocation;  // done
-    private String optionalDataNote;  // done
+    private String optionalDataQuantity;
+    private String optionalDataPrice;
+    private String optionalDataLocation;
+    private String optionalDataNote;
     static final String OPTIONAL_DATA_ON = "optional data on";
     static final String OPTIONAL_DATA_OFF = "optional data off";
 
-    Parcelable shoppingListViewState;
-    Parcelable fullInventoryViewState;
-    Parcelable searchInventoryViewState;
-    Parcelable reorderCategoriesViewState;
-    Parcelable reorderStoresViewState;
-    Parcelable reorderItemsRecyclerViewState;
-    Parcelable reorderItemsScrollViewState;
+    private Parcelable shoppingListViewState;
+    private Parcelable fullInventoryViewState;
+    private Parcelable searchInventoryViewState;
+    private Parcelable reorderCategoriesViewState;
+    private Parcelable reorderStoresViewState;
+    private Parcelable reorderItemsRecyclerViewState;
+    private Parcelable reorderItemsScrollViewState;  // check instances of this
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -409,6 +409,62 @@ public class Shopping extends AppCompatActivity {
         this.optionalDataNote = optionalDataNote;
     }
 
+    Parcelable getShoppingListViewState() {
+        return shoppingListViewState;
+    }
+
+    void setShoppingListViewState(Parcelable shoppingListViewState) {
+        this.shoppingListViewState = shoppingListViewState;
+    }
+
+    Parcelable getFullInventoryViewState() {
+        return fullInventoryViewState;
+    }
+
+    void setFullInventoryViewState(Parcelable fullInventoryViewState) {
+        this.fullInventoryViewState = fullInventoryViewState;
+    }
+
+    Parcelable getSearchInventoryViewState() {
+        return searchInventoryViewState;
+    }
+
+    void setSearchInventoryViewState(Parcelable searchInventoryViewState) {
+        this.searchInventoryViewState = searchInventoryViewState;
+    }
+
+    Parcelable getReorderCategoriesViewState() {
+        return reorderCategoriesViewState;
+    }
+
+    void setReorderCategoriesViewState(Parcelable reorderCategoriesViewState) {
+        this.reorderCategoriesViewState = reorderCategoriesViewState;
+    }
+
+    Parcelable getReorderStoresViewState() {
+        return reorderStoresViewState;
+    }
+
+    void setReorderStoresViewState(Parcelable reorderStoresViewState) {
+        this.reorderStoresViewState = reorderStoresViewState;
+    }
+
+    Parcelable getReorderItemsRecyclerViewState() {
+        return reorderItemsRecyclerViewState;
+    }
+
+    void setReorderItemsRecyclerViewState(Parcelable reorderItemsRecyclerViewState) {
+        this.reorderItemsRecyclerViewState = reorderItemsRecyclerViewState;
+    }
+
+    Parcelable getReorderItemsScrollViewState() {
+        return reorderItemsScrollViewState;
+    }
+
+    void setReorderItemsScrollViewState(Parcelable reorderItemsScrollViewState) {
+        this.reorderItemsScrollViewState = reorderItemsScrollViewState;
+    }
+
     void showAlertDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
@@ -568,7 +624,7 @@ public class Shopping extends AppCompatActivity {
         editItemInSearchResults = false;
         editItemInShoppingList = false;
 
-        inventoryView = INVENTORY_ALL;
+        inventoryView = VIEW_ALL;
         inventorySortBy = defaultSortBy;
         categoryTitles = defaultCategoryTitles;
         storeTitles = defaultStoreTitles;

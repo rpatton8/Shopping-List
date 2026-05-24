@@ -195,8 +195,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         private void selectOrUnselectItem(int position) {
 
-            Item thisItem = itemData.getItemListAZ().get(position);
-            searchResultsList.get(position);
+            Item thisItem = searchResultsList.get(position);
 
             if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.getSelectedItemInInventory()) {
                 // selected item is this item

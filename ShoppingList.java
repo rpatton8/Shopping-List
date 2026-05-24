@@ -57,7 +57,7 @@ public class ShoppingList extends Fragment {
         shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         shoppingListAdapter = new ShoppingListRVA(shopping, itemData, storeData);
         shoppingListRecyclerView.setAdapter(shoppingListAdapter);
-        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.shoppingListViewState);
+        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getShoppingListViewState());
 
         shoppingListTitle = view.findViewById(R.id.shoppingListTitle);
         shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
@@ -108,7 +108,7 @@ public class ShoppingList extends Fragment {
                         shopping.updateStoreData();
                     }
                 }
-                shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
                 shopping.loadFragment(new ShoppingList());
             }
         });
@@ -116,7 +116,7 @@ public class ShoppingList extends Fragment {
         editSelectedItem.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (shopping.itemIsSelectedInShoppingList()) {
-                    shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+                    shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
                     shopping.setEditItemInInventory(false);
                     shopping.setEditItemInShoppingList(true);
                     shopping.loadFragment(new EditItem());
@@ -224,7 +224,7 @@ public class ShoppingList extends Fragment {
     }
 
     public void onDestroyView() {
-        shopping.shoppingListViewState = shoppingListRecyclerView.getLayoutManager().onSaveInstanceState();
+        shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
         shoppingListRecyclerView.setAdapter(null);
         super.onDestroyView();
     }

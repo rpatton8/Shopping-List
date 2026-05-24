@@ -39,7 +39,7 @@ public class ReorderCategories extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         rvAdapter = new ReorderCategoriesRVA(shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
         recyclerView.setAdapter(rvAdapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.reorderCategoriesViewState);
+        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.getReorderCategoriesViewState());
 
         finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
         cancelButton = view.findViewById(R.id.cancelButton);

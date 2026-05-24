@@ -121,7 +121,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
 
                     }
                 }
-                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.setReorderStoresViewState(recyclerView.getLayoutManager().onSaveInstanceState());
                 shopping.loadFragment(new ReorderStores());
 
             } else if (id == triangleUp.getId()) {
@@ -148,7 +148,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                         shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
                     }
                 }
-                shopping.reorderStoresViewState = recyclerView.getLayoutManager().onSaveInstanceState();
+                shopping.setReorderStoresViewState(recyclerView.getLayoutManager().onSaveInstanceState());
                 shopping.loadFragment(new ReorderStores());
             }
         }
