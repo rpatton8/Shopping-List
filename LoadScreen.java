@@ -65,7 +65,7 @@ public class LoadScreen extends Fragment {
     private RadioButton picturesOn;
     private RadioButton picturesOff;
 
-    private Button ddEmojis;
+    private Button reorderEmojis;
     private TextView reorderCategoryEmojiLabel;
     private EditText reorderCategoryEmojiBox;
     private TextView reorderItemByCategoryEmojiLabel;
@@ -128,7 +128,7 @@ public class LoadScreen extends Fragment {
         picturesOn = view.findViewById(R.id.picturesOn);
         picturesOff = view.findViewById(R.id.picturesOff);
 
-        ddEmojis = view.findViewById(R.id.ddEmojis);
+        reorderEmojis = view.findViewById(R.id.ddEmojis);
         reorderCategoryEmojiLabel = view.findViewById(R.id.reorderCategoryEmojiLabel);
         reorderCategoryEmojiBox = view.findViewById(R.id.reorderCategoryEmojiBox);
         reorderItemByCategoryEmojiLabel = view.findViewById(R.id.reorderItemByCategoryEmojiLabel);
@@ -197,7 +197,7 @@ public class LoadScreen extends Fragment {
                     picturesOn.setVisibility(View.GONE);
                     picturesOff.setVisibility(View.GONE);
 
-                    ddEmojis.setVisibility(View.GONE);
+                    reorderEmojis.setVisibility(View.GONE);
                     reorderCategoryEmojiLabel.setVisibility(View.GONE);
                     reorderCategoryEmojiBox.setVisibility(View.GONE);
                     reorderItemByCategoryEmojiLabel.setVisibility(View.GONE);
@@ -321,7 +321,7 @@ public class LoadScreen extends Fragment {
                     picturesOn.setVisibility(View.VISIBLE);
                     picturesOff.setVisibility(View.VISIBLE);
 
-                    ddEmojis.setVisibility(View.VISIBLE);
+                    reorderEmojis.setVisibility(View.VISIBLE);
                     reorderCategoryEmojiLabel.setVisibility(View.VISIBLE);
                     reorderCategoryEmojiBox.setVisibility(View.VISIBLE);
                     reorderItemByCategoryEmojiLabel.setVisibility(View.VISIBLE);
