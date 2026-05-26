@@ -453,6 +453,96 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/reorderCategoryEmojiLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="562dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/reorderCategoryEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderItemByCategoryEmojiLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="562dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/reorderItemByCategoryEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderItemByStoreEmojiLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="562dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/reorderItemByStoreEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderStoreEmojiLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="562dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/reorderStoreEmojiLabel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/reorderCategoryEmojiBox"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="380dp"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderItemByCategoryEmojiBox"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderItemByStoreEmojiBox"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderStoreEmojiBox"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical">

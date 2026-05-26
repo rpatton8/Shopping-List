@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -65,6 +66,14 @@ public class LoadScreen extends Fragment {
     private RadioButton picturesOff;
 
     private Button ddEmojis;
+    private TextView reorderCategoryEmojiLabel;
+    private EditText reorderCategoryEmojiBox;
+    private TextView reorderItemByCategoryEmojiLabel;
+    private EditText reorderItemByCategoryEmojiBox;
+    private TextView reorderItemByStoreEmojiLabel;
+    private EditText reorderItemByStoreEmojiBox;
+    private TextView reorderStoreEmojiLabel;
+    private EditText reorderStoreEmojiBox;
 
     public LoadScreen() {}
 
@@ -120,6 +129,14 @@ public class LoadScreen extends Fragment {
         picturesOff = view.findViewById(R.id.picturesOff);
 
         ddEmojis = view.findViewById(R.id.ddEmojis);
+        reorderCategoryEmojiLabel = view.findViewById(R.id.reorderCategoryEmojiLabel);
+        reorderCategoryEmojiBox = view.findViewById(R.id.reorderCategoryEmojiBox);
+        reorderItemByCategoryEmojiLabel = view.findViewById(R.id.reorderItemByCategoryEmojiLabel);
+        reorderItemByCategoryEmojiBox = view.findViewById(R.id.reorderItemByCategoryEmojiBox);
+        reorderItemByStoreEmojiLabel = view.findViewById(R.id.reorderItemByStoreEmojiLabel);
+        reorderItemByStoreEmojiBox = view.findViewById(R.id.reorderItemByStoreEmojiBox);
+        reorderStoreEmojiLabel = view.findViewById(R.id.reorderStoreEmojiLabel);
+        reorderStoreEmojiBox = view.findViewById(R.id.reorderStoreEmojiBox);
 
         instructions = view.findViewById(R.id.instructions);
 
@@ -181,6 +198,14 @@ public class LoadScreen extends Fragment {
                     picturesOff.setVisibility(View.GONE);
 
                     ddEmojis.setVisibility(View.GONE);
+                    reorderCategoryEmojiLabel.setVisibility(View.GONE);
+                    reorderCategoryEmojiBox.setVisibility(View.GONE);
+                    reorderItemByCategoryEmojiLabel.setVisibility(View.GONE);
+                    reorderItemByCategoryEmojiBox.setVisibility(View.GONE);
+                    reorderItemByStoreEmojiLabel.setVisibility(View.GONE);
+                    reorderItemByStoreEmojiBox.setVisibility(View.GONE);
+                    reorderStoreEmojiLabel.setVisibility(View.GONE);
+                    reorderStoreEmojiBox.setVisibility(View.GONE);
 
                     shoppingOptionsBackground.setVisibility(View.GONE);
                     menuOptionsVisible = false;
@@ -297,6 +322,14 @@ public class LoadScreen extends Fragment {
                     picturesOff.setVisibility(View.VISIBLE);
 
                     ddEmojis.setVisibility(View.VISIBLE);
+                    reorderCategoryEmojiLabel.setVisibility(View.VISIBLE);
+                    reorderCategoryEmojiBox.setVisibility(View.VISIBLE);
+                    reorderItemByCategoryEmojiLabel.setVisibility(View.VISIBLE);
+                    reorderItemByCategoryEmojiBox.setVisibility(View.VISIBLE);
+                    reorderItemByStoreEmojiLabel.setVisibility(View.VISIBLE);
+                    reorderItemByStoreEmojiBox.setVisibility(View.VISIBLE);
+                    reorderStoreEmojiLabel.setVisibility(View.VISIBLE);
+                    reorderStoreEmojiBox.setVisibility(View.VISIBLE);
 
                     shoppingOptionsBackground.setVisibility(View.VISIBLE);
                     menuOptionsVisible = true;

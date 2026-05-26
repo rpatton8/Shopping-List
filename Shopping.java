@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 //@SuppressWarnings("ALL")
 public class Shopping extends AppCompatActivity {
@@ -95,6 +96,11 @@ public class Shopping extends AppCompatActivity {
     private String optionalDataNote;
     static final String OPTIONAL_DATA_ON = "optional data on";
     static final String OPTIONAL_DATA_OFF = "optional data off";
+
+    String reorderCategoryEmoji;
+    String reorderItemByCategoryEmoji;
+    String reorderItemByStoreEmoji;
+    String reorderStoreEmoji;
 
     private Parcelable shoppingListViewState;
     private Parcelable fullInventoryViewState;
