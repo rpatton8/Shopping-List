@@ -64,6 +64,8 @@ public class LoadScreen extends Fragment {
     private RadioButton picturesOn;
     private RadioButton picturesOff;
 
+    private Button ddEmojis;
+
     public LoadScreen() {}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,6 +119,7 @@ public class LoadScreen extends Fragment {
         picturesOn = view.findViewById(R.id.picturesOn);
         picturesOff = view.findViewById(R.id.picturesOff);
 
+        ddEmojis = view.findViewById(R.id.ddEmojis);
 
         instructions = view.findViewById(R.id.instructions);
 
@@ -176,6 +179,8 @@ public class LoadScreen extends Fragment {
                     pictures.setVisibility(View.GONE);
                     picturesOn.setVisibility(View.GONE);
                     picturesOff.setVisibility(View.GONE);
+
+                    ddEmojis.setVisibility(View.GONE);
 
                     shoppingOptionsBackground.setVisibility(View.GONE);
                     menuOptionsVisible = false;
@@ -290,6 +295,8 @@ public class LoadScreen extends Fragment {
                     pictures.setVisibility(View.VISIBLE);
                     picturesOn.setVisibility(View.VISIBLE);
                     picturesOff.setVisibility(View.VISIBLE);
+
+                    ddEmojis.setVisibility(View.VISIBLE);
 
                     shoppingOptionsBackground.setVisibility(View.VISIBLE);
                     menuOptionsVisible = true;
