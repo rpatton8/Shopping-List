@@ -85,6 +85,10 @@ public class Shopping extends AppCompatActivity {
     static final String SWIPING_ON = "swiping on";
     static final String SWIPING_OFF = "swiping off";
 
+    private String picturesOption;
+    static final String PICTURES_ON = "swiping on";
+    static final String PICTURES_OFF = "swiping off";
+
     private String optionalDataQuantity;
     private String optionalDataPrice;
     private String optionalDataLocation;
@@ -377,6 +381,14 @@ public class Shopping extends AppCompatActivity {
         this.swipingOption = swipingOption;
     }
 
+    String getPicturesOption() {
+        return picturesOption;
+    }
+
+    void setPicturesOption(String picturesOption) {
+        this.picturesOption = picturesOption;
+    }
+
     String getOptionalDataQuantity() {
         return optionalDataQuantity;
     }
@@ -553,6 +565,13 @@ public class Shopping extends AppCompatActivity {
             this.swipingOption = SWIPING_OFF;
         }
 
+        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
+        if (picturesOption.equals("pictures on")) {
+            this.picturesOption = PICTURES_ON;
+        } else if (picturesOption.equals("pictures off")) {
+            this.picturesOption = PICTURES_OFF;
+        }
+
         String optionalDataQuantity = sharedPref.getString("optional_data_quantity", "Default Optional Data Quantity");
         if (optionalDataQuantity.equals("optional data on")) {
             this.optionalDataQuantity = OPTIONAL_DATA_ON;
@@ -631,6 +650,7 @@ public class Shopping extends AppCompatActivity {
         itemExpansion = ITEMS_CONTRACTED;
         reorderingMethod = UP_AND_DOWN_ARROWS;
         swipingOption = SWIPING_ON;
+        picturesOption = PICTURES_ON;
         optionalDataQuantity = OPTIONAL_DATA_OFF;
         optionalDataPrice = OPTIONAL_DATA_OFF;
         optionalDataLocation = OPTIONAL_DATA_OFF;

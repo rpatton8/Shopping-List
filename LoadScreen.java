@@ -60,6 +60,10 @@ public class LoadScreen extends Fragment {
     private RadioButton swipingOn;
     private RadioButton swipingOff;
 
+    private Button pictures;
+    private RadioButton picturesOn;
+    private RadioButton picturesOff;
+
     public LoadScreen() {}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +112,11 @@ public class LoadScreen extends Fragment {
         swiping = view.findViewById(R.id.swiping);
         swipingOn = view.findViewById(R.id.swipingOn);
         swipingOff = view.findViewById(R.id.swipingOff);
+
+        pictures = view.findViewById(R.id.pictures);
+        picturesOn = view.findViewById(R.id.picturesOn);
+        picturesOff = view.findViewById(R.id.picturesOff);
+
 
         instructions = view.findViewById(R.id.instructions);
 
@@ -164,6 +173,10 @@ public class LoadScreen extends Fragment {
                     swipingOn.setVisibility(View.GONE);
                     swipingOff.setVisibility(View.GONE);
 
+                    pictures.setVisibility(View.GONE);
+                    picturesOn.setVisibility(View.GONE);
+                    picturesOff.setVisibility(View.GONE);
+
                     shoppingOptionsBackground.setVisibility(View.GONE);
                     menuOptionsVisible = false;
 
@@ -209,6 +222,12 @@ public class LoadScreen extends Fragment {
                         swipingOn.setChecked(true);
                     } else if (shopping.getSwipingOption().equals(Shopping.SWIPING_OFF)) {
                         swipingOff.setChecked(true);
+                    }
+
+                    if (shopping.getPicturesOption().equals(Shopping.PICTURES_ON)) {
+                        picturesOn.setChecked(true);
+                    } else if (shopping.getPicturesOption().equals(Shopping.PICTURES_OFF)) {
+                        picturesOff.setChecked(true);
                     }
 
                     if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
@@ -267,6 +286,10 @@ public class LoadScreen extends Fragment {
                     swiping.setVisibility(View.VISIBLE);
                     swipingOn.setVisibility(View.VISIBLE);
                     swipingOff.setVisibility(View.VISIBLE);
+
+                    pictures.setVisibility(View.VISIBLE);
+                    picturesOn.setVisibility(View.VISIBLE);
+                    picturesOff.setVisibility(View.VISIBLE);
 
                     shoppingOptionsBackground.setVisibility(View.VISIBLE);
                     menuOptionsVisible = true;
@@ -453,6 +476,26 @@ public class LoadScreen extends Fragment {
                 SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("swiping_option", "swiping off");
+                editor.apply();
+            }
+        });
+
+        picturesOn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.setSwipingOption(Shopping.PICTURES_ON);
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("pictures_option", "pictures on");
+                editor.apply();
+            }
+        });
+
+        picturesOff.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.setSwipingOption(Shopping.PICTURES_OFF);
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("pictures_option", "pictures off");
                 editor.apply();
             }
         });

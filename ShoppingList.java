@@ -91,6 +91,7 @@ public class ShoppingList extends Fragment {
 
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                shopping.showAlertDialog("Clear Items", "Are you sure you want to clear items from your shopping list?");
                 for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
                     Item item  = itemData.getItemListAZ().get(i);
                     if (item.getStatus().isChecked()) {

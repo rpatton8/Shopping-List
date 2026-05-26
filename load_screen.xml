@@ -79,7 +79,7 @@
     <TextView
         android:id="@+id/shoppingOptionsBackground"
         android:layout_width="420dp"
-        android:layout_height="520dp"
+        android:layout_height="614dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/shoppingTitle"
         android:visibility="gone"
@@ -88,7 +88,7 @@
     <Button
         android:id="@+id/changeDefaultSortBy"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
@@ -104,9 +104,9 @@
         <RadioButton
             android:id="@+id/sortAlphabetical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="90dp"
+            android:layout_marginTop="88dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/sortAlphabetically" />
@@ -114,7 +114,7 @@
         <RadioButton
             android:id="@+id/sortByCategory"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -124,7 +124,7 @@
         <RadioButton
             android:id="@+id/sortByStore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -136,11 +136,11 @@
     <Button
         android:id="@+id/changeDefaultCategoryTitles"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="195dp"
+        android:layout_marginTop="190dp"
         android:visibility="gone"
         android:text="@string/changeDefaultCategoryTitles" />
 
@@ -152,9 +152,9 @@
         <RadioButton
             android:id="@+id/categoryTitlesExpanded"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="245dp"
+            android:layout_marginTop="238dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/categoryTitlesExpanded" />
@@ -162,7 +162,7 @@
         <RadioButton
             android:id="@+id/categoryTitlesContracted"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -174,11 +174,11 @@
     <Button
         android:id="@+id/changeDefaultStoreTitles"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="315dp"
+        android:layout_marginTop="306dp"
         android:visibility="gone"
         android:text="@string/changeDefaultStoreTitles" />
 
@@ -190,9 +190,9 @@
         <RadioButton
             android:id="@+id/storeTitlesExpanded"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="365dp"
+            android:layout_marginTop="340dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/storeTitlesExpanded" />
@@ -200,7 +200,7 @@
         <RadioButton
             android:id="@+id/storeTitlesContracted"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -212,11 +212,11 @@
     <Button
         android:id="@+id/swiping"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="435dp"
+        android:layout_marginTop="422dp"
         android:visibility="gone"
         android:text="@string/swiping" />
 
@@ -228,9 +228,9 @@
         <RadioButton
             android:id="@+id/swipingOn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="485dp"
+            android:layout_marginTop="456dp"
             android:textSize="18sp"
             android:visibility="gone"
             android:text="@string/swipingOn" />
@@ -238,7 +238,7 @@
         <RadioButton
             android:id="@+id/swipingOff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -248,9 +248,47 @@
     </RadioGroup>
 
     <Button
+        android:id="@+id/pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="538dp"
+        android:visibility="gone"
+        android:text="@string/pictures" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/picturesOn"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="572dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/picturesOn" />
+
+        <RadioButton
+            android:id="@+id/picturesOff"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/picturesOff" />
+
+    </RadioGroup>
+
+    <Button
         android:id="@+id/changeColorScheme"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="225dp"
@@ -266,7 +304,7 @@
         <RadioButton
             android:id="@+id/colorScheme1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="90dp"
             android:textSize="18sp"
@@ -276,7 +314,7 @@
         <RadioButton
             android:id="@+id/colorScheme2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -286,7 +324,7 @@
         <RadioButton
             android:id="@+id/colorScheme3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -298,7 +336,7 @@
     <Button
         android:id="@+id/changeReorderingMethod"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="225dp"
@@ -314,7 +352,7 @@
         <RadioButton
             android:id="@+id/dragAndDrop"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="245dp"
             android:textSize="18sp"
@@ -324,7 +362,7 @@
         <RadioButton
             android:id="@+id/upAndDownArrows"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -334,7 +372,7 @@
         <RadioButton
             android:id="@+id/withNumbers"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -346,7 +384,7 @@
     <Button
         android:id="@+id/optionalData"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="225dp"
@@ -362,7 +400,7 @@
         <CheckBox
             android:id="@+id/optionalDataQuantity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="400dp"
             android:textSize="18sp"
@@ -372,7 +410,7 @@
         <CheckBox
             android:id="@+id/optionalDataPrice"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -382,7 +420,7 @@
         <CheckBox
             android:id="@+id/optionalDataLocation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
@@ -392,7 +430,7 @@
         <CheckBox
             android:id="@+id/optionalDataNote"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="34dp"
             android:layout_marginStart="225dp"
             android:layout_marginTop="0dp"
             android:textSize="18sp"
