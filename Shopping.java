@@ -638,16 +638,16 @@ public class Shopping extends AppCompatActivity {
             this.optionalDataNote = OPTIONAL_DATA_OFF;
         }
 
-        String reorderCategoryEmoji = sharedPref.getString("reorder_category_emoji", "Reorder Category Emoji");
+        String reorderCategoryEmoji = sharedPref.getString("reorder_category_emoji", "Default Reorder Category Emoji");
         this.setReorderCategoryEmoji(reorderCategoryEmoji);
 
-        String reorderItemByCategoryEmoji = sharedPref.getString("reorder_item_by_category_emoji", "Reorder Item By Category Emoji");
+        String reorderItemByCategoryEmoji = sharedPref.getString("reorder_item_by_category_emoji", "Default Reorder Item By Category Emoji");
         this.setReorderItemByCategoryEmoji(reorderItemByCategoryEmoji);
 
-        String reorderItemByStoreEmoji = sharedPref.getString("reorder_item_by_store_emoji", "Reorder Item By Store Emoji");
+        String reorderItemByStoreEmoji = sharedPref.getString("reorder_item_by_store_emoji", "Default Reorder Item By Store Emoji");
         this.setReorderItemByStoreEmoji(reorderItemByStoreEmoji);
 
-        String reorderStoreEmoji = sharedPref.getString("reorder_store_emoji", "Reorder Store Emoji");
+        String reorderStoreEmoji = sharedPref.getString("reorder_store_emoji", "Default Reorder Store Emoji");
         this.setReorderStoreEmoji(reorderStoreEmoji);
 
     }
