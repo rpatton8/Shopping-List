@@ -440,7 +440,7 @@
     </LinearLayout>
     
     <Button
-        android:id="@+id/ddEmojis"
+        android:id="@+id/reorderEmojis"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_alignParentStart="true"
@@ -457,41 +457,41 @@
 
         <TextView
             android:id="@+id/reorderCategoryEmojiLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="562dp"
-            android:textSize="18sp"
+            android:layout_width="42dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="216dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
             android:visibility="gone"
             android:text="@string/reorderCategoryEmojiLabel" />
 
         <TextView
             android:id="@+id/reorderItemByCategoryEmojiLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="562dp"
-            android:textSize="18sp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
             android:visibility="gone"
             android:text="@string/reorderItemByCategoryEmojiLabel" />
 
         <TextView
             android:id="@+id/reorderItemByStoreEmojiLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="562dp"
-            android:textSize="18sp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
             android:visibility="gone"
             android:text="@string/reorderItemByStoreEmojiLabel" />
 
         <TextView
             android:id="@+id/reorderStoreEmojiLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="562dp"
-            android:textSize="18sp"
+            android:layout_width="42dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
             android:visibility="gone"
             android:text="@string/reorderStoreEmojiLabel" />
 
@@ -504,38 +504,42 @@
 
         <EditText
             android:id="@+id/reorderCategoryEmojiBox"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="225dp"
-            android:layout_marginTop="380dp"
-            android:textSize="18sp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="202dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
             android:visibility="gone" />
 
         <EditText
             android:id="@+id/reorderItemByCategoryEmojiBox"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="225dp"
-            android:layout_marginTop="0dp"
-            android:textSize="18sp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
             android:visibility="gone" />
 
         <EditText
             android:id="@+id/reorderItemByStoreEmojiBox"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="225dp"
-            android:layout_marginTop="0dp"
-            android:textSize="18sp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
             android:visibility="gone" />
 
         <EditText
             android:id="@+id/reorderStoreEmojiBox"
-            android:layout_width="wrap_content"
-            android:layout_height="33dp"
-            android:layout_marginStart="225dp"
-            android:layout_marginTop="0dp"
-            android:textSize="18sp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
             android:visibility="gone" />
 
     </LinearLayout>

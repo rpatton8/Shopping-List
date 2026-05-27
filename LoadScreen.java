@@ -128,7 +128,7 @@ public class LoadScreen extends Fragment {
         picturesOn = view.findViewById(R.id.picturesOn);
         picturesOff = view.findViewById(R.id.picturesOff);
 
-        reorderEmojis = view.findViewById(R.id.ddEmojis);
+        reorderEmojis = view.findViewById(R.id.reorderEmojis);
         reorderCategoryEmojiLabel = view.findViewById(R.id.reorderCategoryEmojiLabel);
         reorderCategoryEmojiBox = view.findViewById(R.id.reorderCategoryEmojiBox);
         reorderItemByCategoryEmojiLabel = view.findViewById(R.id.reorderItemByCategoryEmojiLabel);
@@ -599,6 +599,17 @@ public class LoadScreen extends Fragment {
                 editor.apply();
             }
         });
+
+
+
+        reorderEmojis.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String emoji1 = reorderCategoryEmojiBox.getText().toString();
+                System.out.println("Emoji code = " + emoji1);
+            }
+        });
+
+
 
         instructions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

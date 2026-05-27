@@ -605,6 +605,40 @@ public class Shopping extends AppCompatActivity {
         } else if (optionalDataNote.equals("optional data off")) {
             this.optionalDataNote = OPTIONAL_DATA_OFF;
         }
+
+/*        String reorderCategoryEmoji;
+        String reorderItemByCategoryEmoji;
+        String reorderItemByStoreEmoji;
+        String reorderStoreEmoji;
+
+        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
+        if (picturesOption.equals("pictures on")) {
+            this.picturesOption = PICTURES_ON;
+        } else if (picturesOption.equals("pictures off")) {
+            this.picturesOption = PICTURES_OFF;
+        }
+
+        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
+        if (picturesOption.equals("pictures on")) {
+            this.picturesOption = PICTURES_ON;
+        } else if (picturesOption.equals("pictures off")) {
+            this.picturesOption = PICTURES_OFF;
+        }
+
+        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
+        if (picturesOption.equals("pictures on")) {
+            this.picturesOption = PICTURES_ON;
+        } else if (picturesOption.equals("pictures off")) {
+            this.picturesOption = PICTURES_OFF;
+        }
+
+        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
+        if (picturesOption.equals("pictures on")) {
+            this.picturesOption = PICTURES_ON;
+        } else if (picturesOption.equals("pictures off")) {
+            this.picturesOption = PICTURES_OFF;
+        }*/
+
     }
 
     void clearAllData() {
