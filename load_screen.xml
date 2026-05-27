@@ -506,7 +506,7 @@
             android:id="@+id/reorderCategoryEmojiBox"
             android:layout_width="43dp"
             android:layout_height="43dp"
-            android:layout_marginStart="202dp"
+            android:layout_marginStart="203dp"
             android:layout_marginTop="588dp"
             android:background="@drawable/emoji_outline"
             android:textSize="24sp"

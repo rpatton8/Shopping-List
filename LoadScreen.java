@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -283,6 +285,11 @@ public class LoadScreen extends Fragment {
                     } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
                         optionalDataNote.setChecked(false);
                     }
+
+                    reorderCategoryEmojiBox.setText(shopping.getReorderCategoryEmoji());
+                    reorderItemByCategoryEmojiBox.setText(shopping.getReorderItemByCategoryEmoji());
+                    reorderItemByStoreEmojiBox.setText(shopping.getReorderItemByStoreEmoji());
+                    reorderStoreEmojiBox.setText(shopping.getReorderStoreEmoji());
 
                     changeDefaultSortBy.setVisibility(View.VISIBLE);
                     sortAlphabetical.setVisibility(View.VISIBLE);
@@ -600,16 +607,69 @@ public class LoadScreen extends Fragment {
             }
         });
 
+        reorderCategoryEmojiBox.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("reorder_category_emoji", reorderCategoryEmojiBox.getText().toString());
+                editor.apply();
+            }
+
+        });
+
+        reorderItemByCategoryEmojiBox.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("reorder_item_by_category_emoji", reorderItemByCategoryEmojiBox.getText().toString());
+                editor.apply();
+            }
+
+        });
+
+        reorderItemByStoreEmojiBox.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("reorder_item_by_store_emoji", reorderItemByStoreEmojiBox.getText().toString());
+                editor.apply();
+            }
+
+        });
+
+        reorderStoreEmojiBox.addTextChangedListener(new TextWatcher() {
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void afterTextChanged(Editable s) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("reorder_store_emoji", reorderStoreEmojiBox.getText().toString());
+                editor.apply();
+            }
+
+        });
 
 
-        reorderEmojis.setOnClickListener(new View.OnClickListener() {
+        /*reorderEmojis.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String emoji1 = reorderCategoryEmojiBox.getText().toString();
                 System.out.println("Emoji code = " + emoji1);
             }
-        });
-
-
+        });*/
 
         instructions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

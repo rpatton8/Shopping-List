@@ -97,10 +97,10 @@ public class Shopping extends AppCompatActivity {
     static final String OPTIONAL_DATA_ON = "optional data on";
     static final String OPTIONAL_DATA_OFF = "optional data off";
 
-    String reorderCategoryEmoji;
-    String reorderItemByCategoryEmoji;
-    String reorderItemByStoreEmoji;
-    String reorderStoreEmoji;
+    private String reorderCategoryEmoji;
+    private String reorderItemByCategoryEmoji;
+    private String reorderItemByStoreEmoji;
+    private String reorderStoreEmoji;
 
     private Parcelable shoppingListViewState;
     private Parcelable fullInventoryViewState;
@@ -427,6 +427,38 @@ public class Shopping extends AppCompatActivity {
         this.optionalDataNote = optionalDataNote;
     }
 
+    String getReorderCategoryEmoji() {
+        return reorderCategoryEmoji;
+    }
+
+    void setReorderCategoryEmoji(String reorderCategoryEmoji) {
+        this.reorderCategoryEmoji = reorderCategoryEmoji;
+    }
+
+    String getReorderItemByCategoryEmoji() {
+        return reorderItemByCategoryEmoji;
+    }
+
+    void setReorderItemByCategoryEmoji(String reorderItemByCategoryEmoji) {
+        this.reorderItemByCategoryEmoji = reorderItemByCategoryEmoji;
+    }
+
+    String getReorderItemByStoreEmoji() {
+        return reorderItemByStoreEmoji;
+    }
+
+    void setReorderItemByStoreEmoji(String reorderItemByStoreEmoji) {
+        this.reorderItemByStoreEmoji = reorderItemByStoreEmoji;
+    }
+
+    String getReorderStoreEmoji() {
+        return reorderStoreEmoji;
+    }
+
+    void setReorderStoreEmoji(String reorderStoreEmoji) {
+        this.reorderStoreEmoji = reorderStoreEmoji;
+    }
+
     Parcelable getShoppingListViewState() {
         return shoppingListViewState;
     }
@@ -606,38 +638,17 @@ public class Shopping extends AppCompatActivity {
             this.optionalDataNote = OPTIONAL_DATA_OFF;
         }
 
-/*        String reorderCategoryEmoji;
-        String reorderItemByCategoryEmoji;
-        String reorderItemByStoreEmoji;
-        String reorderStoreEmoji;
+        String reorderCategoryEmoji = sharedPref.getString("reorder_category_emoji", "Reorder Category Emoji");
+        this.setReorderCategoryEmoji(reorderCategoryEmoji);
 
-        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
-        if (picturesOption.equals("pictures on")) {
-            this.picturesOption = PICTURES_ON;
-        } else if (picturesOption.equals("pictures off")) {
-            this.picturesOption = PICTURES_OFF;
-        }
+        String reorderItemByCategoryEmoji = sharedPref.getString("reorder_item_by_category_emoji", "Reorder Item By Category Emoji");
+        this.setReorderItemByCategoryEmoji(reorderItemByCategoryEmoji);
 
-        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
-        if (picturesOption.equals("pictures on")) {
-            this.picturesOption = PICTURES_ON;
-        } else if (picturesOption.equals("pictures off")) {
-            this.picturesOption = PICTURES_OFF;
-        }
+        String reorderItemByStoreEmoji = sharedPref.getString("reorder_item_by_store_emoji", "Reorder Item By Store Emoji");
+        this.setReorderItemByStoreEmoji(reorderItemByStoreEmoji);
 
-        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
-        if (picturesOption.equals("pictures on")) {
-            this.picturesOption = PICTURES_ON;
-        } else if (picturesOption.equals("pictures off")) {
-            this.picturesOption = PICTURES_OFF;
-        }
-
-        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
-        if (picturesOption.equals("pictures on")) {
-            this.picturesOption = PICTURES_ON;
-        } else if (picturesOption.equals("pictures off")) {
-            this.picturesOption = PICTURES_OFF;
-        }*/
+        String reorderStoreEmoji = sharedPref.getString("reorder_store_emoji", "Reorder Store Emoji");
+        this.setReorderStoreEmoji(reorderStoreEmoji);
 
     }
 
