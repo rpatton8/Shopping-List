@@ -550,92 +550,92 @@ public class Shopping extends AppCompatActivity {
 
         String defaultSortBy = sharedPref.getString("default_sort_by", "Default Sort By");
         if (defaultSortBy.equals("alphabetical")) {
-            this.defaultSortBy = SORT_ALPHABETICAL;
-            this.inventorySortBy = SORT_ALPHABETICAL;
+            this.setDefaultSortBy(SORT_ALPHABETICAL);
+            this.setInventorySortBy(SORT_ALPHABETICAL);
         } else if (defaultSortBy.equals("category")) {
-            this.defaultSortBy = SORT_BY_CATEGORY;
-            this.inventorySortBy = SORT_BY_CATEGORY;
+            this.setDefaultSortBy(SORT_BY_CATEGORY);
+            this.setInventorySortBy(SORT_BY_CATEGORY);
         } else if (defaultSortBy.equals("category")) {
-            this.defaultSortBy = SORT_BY_STORE;
-            this.inventorySortBy = SORT_BY_STORE;
+            this.setDefaultSortBy(SORT_BY_STORE);
+            this.setInventorySortBy(SORT_BY_STORE);
         }
 
         String defaultCategoryTitles = sharedPref.getString("default_category_titles", "Default Category Titles");
         if (defaultCategoryTitles.equals("category titles expanded")) {
-            this.defaultCategoryTitles = CATEGORY_TITLES_EXPANDED;
-            this.categoryTitles = CATEGORY_TITLES_EXPANDED;
+            this.setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
+            this.setCategoryTitles(CATEGORY_TITLES_EXPANDED);
         } else if (defaultCategoryTitles.equals("category titles contracted")) {
-            this.defaultCategoryTitles = CATEGORY_TITLES_CONTRACTED;
-            this.categoryTitles = CATEGORY_TITLES_CONTRACTED;
+            this.setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+            this.setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
         }
 
         String defaultStoreTitles = sharedPref.getString("default_store_titles", "Default Store Titles");
         if (defaultStoreTitles.equals("store titles expanded")) {
-            this.defaultStoreTitles = STORE_TITLES_EXPANDED;
-            this.storeTitles = STORE_TITLES_EXPANDED;
+            this.setDefaultStoreTitles(STORE_TITLES_EXPANDED);
+            this.setStoreTitles(STORE_TITLES_EXPANDED);
         } else if (defaultStoreTitles.equals("store titles contracted")) {
-            this.defaultStoreTitles = STORE_TITLES_CONTRACTED;
-            this.storeTitles = STORE_TITLES_CONTRACTED;
+            this.setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
+            this.setStoreTitles(STORE_TITLES_CONTRACTED);
         }
 
         String reorderingMethod = sharedPref.getString("reorder_method", "Default Reordering");
         if (reorderingMethod.equals("drag and drop")) {
-            this.reorderingMethod = DRAG_AND_DROP;
+            this.setReorderingMethod(DRAG_AND_DROP);
         } else if (reorderingMethod.equals("up and down arrows")) {
-            this.reorderingMethod = UP_AND_DOWN_ARROWS;
+            this.setReorderingMethod(UP_AND_DOWN_ARROWS);
         } else if (reorderingMethod.equals("with numbers")) {
-            this.reorderingMethod = WITH_NUMBERS;
+            this.setReorderingMethod(WITH_NUMBERS);
         }
 
         String colorScheme = sharedPref.getString("color_scheme", "Default Color Scheme");
         if (colorScheme.equals("color scheme 1")) {
-            this.colorScheme = COLOR_SCHEME_1;
+            this.setColorScheme(COLOR_SCHEME_1);
         } else if (colorScheme.equals("color scheme 2")) {
-            this.colorScheme = COLOR_SCHEME_2;
+            this.setColorScheme(COLOR_SCHEME_2);
         } else if (colorScheme.equals("color scheme 3")) {
-            this.colorScheme = COLOR_SCHEME_3;
+            this.setColorScheme(COLOR_SCHEME_3);
         }
 
         String swipingOption = sharedPref.getString("swiping_option", "Default Swiping Option");
         if (swipingOption.equals("swiping on")) {
-            this.swipingOption = SWIPING_ON;
+            this.setSwipingOption(SWIPING_ON);
         } else if (swipingOption.equals("swiping off")) {
-            this.swipingOption = SWIPING_OFF;
+            this.setSwipingOption(SWIPING_OFF);
         }
 
         String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
         if (picturesOption.equals("pictures on")) {
-            this.picturesOption = PICTURES_ON;
+            this.setPicturesOption(PICTURES_ON);
         } else if (picturesOption.equals("pictures off")) {
-            this.picturesOption = PICTURES_OFF;
+            this.setPicturesOption(PICTURES_OFF);
         }
 
         String optionalDataQuantity = sharedPref.getString("optional_data_quantity", "Default Optional Data Quantity");
         if (optionalDataQuantity.equals("optional data on")) {
-            this.optionalDataQuantity = OPTIONAL_DATA_ON;
+            this.setOptionalDataQuantity(OPTIONAL_DATA_ON);
         } else if (optionalDataQuantity.equals("optional data off")) {
-            this.optionalDataQuantity = OPTIONAL_DATA_OFF;
+            this.setOptionalDataQuantity(OPTIONAL_DATA_OFF);
         }
 
         String optionalDataPrice = sharedPref.getString("optional_data_price", "Default Optional Data Price");
         if (optionalDataPrice.equals("optional data on")) {
-            this.optionalDataPrice = OPTIONAL_DATA_ON;
+            this.setOptionalDataPrice(OPTIONAL_DATA_ON);
         } else if (optionalDataPrice.equals("optional data off")) {
-            this.optionalDataPrice = OPTIONAL_DATA_OFF;
+            this.setOptionalDataPrice(OPTIONAL_DATA_OFF);
         }
 
         String optionalDataLocation = sharedPref.getString("optional_data_location", "Default Optional Data Location");
         if (optionalDataLocation.equals("optional data on")) {
-            this.optionalDataLocation = OPTIONAL_DATA_ON;
+            this.setOptionalDataLocation(OPTIONAL_DATA_ON);
         } else if (optionalDataLocation.equals("optional data off")) {
-            this.optionalDataLocation = OPTIONAL_DATA_OFF;
+            this.setOptionalDataLocation(OPTIONAL_DATA_OFF);
         }
 
         String optionalDataNote = sharedPref.getString("optional_data_note", "Default Optional Data Note");
         if (optionalDataNote.equals("optional data on")) {
-            this.optionalDataNote = OPTIONAL_DATA_ON;
+            this.setOptionalDataNote(OPTIONAL_DATA_ON);
         } else if (optionalDataNote.equals("optional data off")) {
-            this.optionalDataNote = OPTIONAL_DATA_OFF;
+            this.setOptionalDataNote(OPTIONAL_DATA_OFF);
         }
 
         String reorderCategoryEmoji = sharedPref.getString("reorder_category_emoji", "Default Reorder Category Emoji");

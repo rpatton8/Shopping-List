@@ -506,7 +506,6 @@ public class LoadScreen extends Fragment {
             }
         });
 
-
         swipingOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setSwipingOption(Shopping.SWIPING_ON);
@@ -662,14 +661,6 @@ public class LoadScreen extends Fragment {
             }
 
         });
-
-
-        /*reorderEmojis.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String emoji1 = reorderCategoryEmojiBox.getText().toString();
-                System.out.println("Emoji code = " + emoji1);
-            }
-        });*/
 
         instructions.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
