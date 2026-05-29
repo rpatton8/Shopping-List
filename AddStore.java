@@ -34,14 +34,14 @@ public class AddStore extends Fragment {
         addStoreButton = view.findViewById(R.id.addStoreButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        storeInput.setText("");
+        storeInput.setText(getString(R.string.emptyString));
 
         addStoreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String storeName = storeInput.getText().toString();
 
                 if (storeName.isEmpty()) {
-                    shopping.showAlertDialog("Add Store", "Please enter a store to add.");
+                    shopping.showAlertDialog(getString(R.string.addStore), getString(R.string.enterStoreToAdd));
                     return;
                 }
 

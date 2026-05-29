@@ -187,9 +187,9 @@ class Status {
     }
 
     public String toString() {
-        if (isInStock) return "In Stock";
-        if (isNeeded) return "Needed";
-        if (isPaused) return "Paused";
+        if (isInStock) return getString(R.string.inStockCap);
+        if (isNeeded) return getString(R.string.neededCap);
+        if (isPaused) return getString(R.string.pausedCap);
         return null;
     }
 

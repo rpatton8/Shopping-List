@@ -48,7 +48,7 @@ public class RemoveStore extends Fragment {
                 String storeName = storeSpinner.getSelectedItem().toString();
 
                 if (storeName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Store", "Choose a store to remove.");
+                    shopping.showAlertDialog(getString(R.string.removeStore), getString(R.string.chooseStoreToRemove));
                     return;
                 }
 

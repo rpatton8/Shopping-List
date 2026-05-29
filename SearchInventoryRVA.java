@@ -20,7 +20,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     SearchInventoryRVA(Shopping shopping, SearchAlgorithm searchAlgorithm) {
         this.shopping = shopping;
         this.searchAlgorithm = searchAlgorithm;
-        currentSearchTerm = "";
+        currentSearchTerm = getString(R.string.emptyString);
     }
 
     public int getItemViewType(int position) {
@@ -35,7 +35,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
-        if (!currentSearchTerm.equals("")) {
+        if (!currentSearchTerm.equals(getString(R.string.emptyString))) {
             searchResultsList = searchAlgorithm.getSearchResults(currentSearchTerm);
             thisItem = searchResultsList.get(position);
         }

@@ -48,7 +48,7 @@ public class EditCategory extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
 
-        categoryInput.setText("");
+        categoryInput.setText(getString(R.string.emptyString));
 
         editCategoryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class EditCategory extends Fragment {
                 String newCategory = categoryInput.getText().toString();
 
                 if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                    shopping.showAlertDialog("Edit Category", "Change category name to edit.");
+                    shopping.showAlertDialog(getString(R.string.editCategory), getString(R.string.changeCategoryName));
                     return;
                 }
 

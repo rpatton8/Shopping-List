@@ -48,7 +48,7 @@ public class RemoveCategory extends Fragment {
                 String categoryName = categorySpinner.getSelectedItem().toString();
 
                 if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Category", "Choose a category to remove.");
+                    shopping.showAlertDialog(getString(R.string.removeCategory), getString(R.string.chooseCategoryToRemove));
                     return;
                 }
 

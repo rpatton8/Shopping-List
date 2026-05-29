@@ -3,6 +3,8 @@
     <string name="addCategory">Add Category</string>
     <string name="addEditRemoveReorder">Add/Edit/Remove/Reorder</string>
     <string name="addItem">Add Item</string>
+    <string name="addNewCategory">(add new category)</string>
+    <string name="addNewStore">(add new store)</string>
     <string name="addStore">Add Store</string>
     <string name="allStores">All Stores</string>
     <string name="alphabeticalAll">Alphabetical - All</string>
@@ -25,8 +27,11 @@
     <string name="categoryTitlesContracted">Contracted</string>
     <string name="categoryTitlesExpanded">Expanded</string>
     <string name="categoryWithColon">Category: </string>
+    <string name="changeCategoryName">Change category name to edit.</string>
+    <string name="changeStoreName">Change store name to edit.</string>
     <string name="changeDefaultCategoryTitles">Default Category Titles</string>
     <string name="changeDefaultStoreTitles">Default Store Titles</string>
+    <string name="checked">checked</string>
     <string name="checkedBoxLarge">Checked Box Large</string>
     <string name="checkedBoxSmall">Checked Box Small</string>
     <string name="chooseCategoryToEdit">Choose category to edit: </string>
@@ -36,6 +41,7 @@
     <string name="chooseStoreToRemove">Choose store to remove: </string>
     <string name="chooseStoreToReorder">Choose a store to reorder items: </string>
     <string name="clearAllData">Clear All Data</string>
+    <string name="clearItems">Clear Items</string>
     <string name="clearCheckedItems">Clear Checked Items</string>
     <string name="colorScheme">Color Scheme</string>
     <string name="colorScheme1">Color Scheme 1</string>
@@ -51,19 +57,25 @@
     <string name="editItemData">Edit Item Data</string>
     <string name="editSelectedItem">Edit Selected Item</string>
     <string name="editStore">Edit Store</string>
+    <string name="emptyString"></string>
+    <string name="enterAllData">Please enter all the data.</string>
     <string name="enterBrandType">Enter Brand/Type: </string>
     <string name="enterCategoryName">Enter Category Name</string>
+    <string name="enterCategoryToAdd">Please enter a category to add.</string>
     <string name="enterItemName">Enter Item Name: </string>
+    <string name="enterItemToRemove">Please enter item name to remove.</string>
     <string name="enterNewCategoryName">Enter New Category Name</string>
     <string name="enterNewStoreName">Enter New Store Name</string>
     <string name="enterStoreName">Enter Store Name</string>
+    <string name="enterStoreToAdd">Please enter a store to add.</string>
     <string name="expandContractItems">Expand / Contract Items</string>
     <string name="expandContractCategories">Expand / Contract Categories</string>
     <string name="expandContractStores">Expand / Contract Stores</string>
     <string name="finishReordering">Finish Reordering</string>
     <string name="fullInventory">Full Inventory</string>
     <string name="home">Home</string>
-    <string name="inStock">In Stock</string>
+    <string name="inStockCap">In Stock</string>
+    <string name="instock">instock</string>
     <string name="instructions">Instructions</string>
     <string name="inventoryTitle">Inventory Title</string>
     <string name="item">Item</string>
@@ -73,14 +85,16 @@
     <string name="loadSampleData2">Load Sample Data 2</string>
     <string name="location">Location: </string>
     <string name="name">Name</string>
-    <string name="needed">Needed</string>
+    <string name="neededCap">Needed</string>
+    <string name="needed">needed</string>
     <string name="optionalData">Optional Data</string>
     <string name="optionalDataQuantity">Quantity</string>
     <string name="optionalDataPrice">Price</string>
     <string name="optionalDataLocation">Location</string>
     <string name="optionalDataNote">Note</string>
     <string name="or">--- or ---</string>
-    <string name="paused">Paused</string>
+    <string name="pausedCap">Paused</string>
+    <string name="paused">paused</string>
     <string name="pictures">Pictures</string>
     <string name="picturesOn">Pictures On</string>
     <string name="picturesOff">Pictures Off</string>
@@ -106,6 +120,8 @@
     <string name="searchInventory">Search Inventory</string>
     <string name="selectACategory">Select a Category: </string>
     <string name="selectAStore">Select a Store: </string>
+    <string name="selectItemToEdit">Please select an item to edit.</string>
+    <string name="selectItemToRemove">Please select an item to remove.</string>
     <string name="shopping">Shopping</string>
     <string name="shoppingIconRound">Shopping Icon Round</string>
     <string name="shoppingList">Shopping List</string>
@@ -127,6 +143,7 @@
     <string name="triangleLeft">Triangle Left</string>
     <string name="triangleRight">Triangle Right</string>
     <string name="triangleUp">Triangle Up</string>
+    <string name="unchecked">unchecked</string>
     <string name="uncheckedBoxLarge">Unchecked Box Large</string>
     <string name="uncheckedBoxSmall">Unchecked Box Small</string>
     <string name="upAndDownArrows">Up/Down Arrows</string>
@@ -137,5 +154,4 @@
     <string name="wantToClear">Are you sure you want to clear items from your shopping list?</string>
     <string name="wantToRemove">Are you sure you want to remove?</string>
     <string name="withNumbers">With Numbers</string>
-    <string name="instructionsText">This is a test of the instructions page.</string>
 </resources>

@@ -17,9 +17,9 @@ class CategoryData {
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
-        categoryListWithBlank.add("");
-        categoryListWithAddNew.add("");
-        categoryListWithAddNew.add("(add new category)");
+        categoryListWithBlank.add(getString(R.string.emptyString));
+        categoryListWithAddNew.add(getString(R.string.emptyString));
+        categoryListWithAddNew.add(getString(R.string.addNewCategory));
         categoryViewAllMap = new HashMap<>();
         categoryViewInStockMap = new HashMap<>();
         categoryViewNeededMap = new HashMap<>();

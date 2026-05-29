@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 
 //@SuppressWarnings("ALL")
 public class Shopping extends AppCompatActivity {
@@ -688,8 +687,8 @@ public class Shopping extends AppCompatActivity {
         selectedItemPositionInShoppingList = 0;
 
         storeListOrderNum = 0;
-        reorderItemsCategory = "";
-        reorderItemsStore = "";
+        reorderItemsCategory = getString(R.string.emptyString);
+        reorderItemsStore = getString(R.string.emptyString);
         editItemInInventory = false;
         editItemInSearchResults = false;
         editItemInShoppingList = false;

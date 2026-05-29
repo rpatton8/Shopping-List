@@ -48,7 +48,7 @@ public class EditStore extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         storeSpinner.setAdapter(adapter);
 
-        storeInput.setText("");
+        storeInput.setText(getString(R.string.emptyString));
 
         editStoreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class EditStore extends Fragment {
                 String newStore = storeInput.getText().toString();
 
                 if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                    shopping.showAlertDialog("Edit Store", "Change store name to edit.");
+                    shopping.showAlertDialog(getString(R.string.editStore), getString(R.string.changeStoreName));
                     return;
                 }
 

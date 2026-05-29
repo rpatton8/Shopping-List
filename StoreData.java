@@ -17,9 +17,9 @@ class StoreData {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
-        storeListWithBlank.add("");
-        storeListWithAddNew.add("");
-        storeListWithAddNew.add("(add new store)");
+        storeListWithBlank.add(getString(R.string.emptyString));
+        storeListWithAddNew.add(getString(R.string.emptyString));
+        storeListWithAddNew.add(getString(R.string.addNewStore));
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();

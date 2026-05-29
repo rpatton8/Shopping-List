@@ -43,7 +43,7 @@ public class RemoveItem extends Fragment {
                 String itemName = itemNameInput.getText().toString();
 
                 if (itemName.isEmpty()) {
-                    shopping.showAlertDialog("Remove Item", "Please enter item name to remove.");
+                    shopping.showAlertDialog(getString(R.string.removeItem), getString(R.string.enterItemToRemove));
                     return;
                 }
 

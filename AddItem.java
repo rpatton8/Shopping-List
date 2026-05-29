@@ -67,10 +67,10 @@ public class AddItem extends Fragment {
         itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
         itemStoreInput = view.findViewById(R.id.itemStoreInput);
 
-        itemNameInput.setText("");
-        itemBrandTypeInput.setText("");
-        itemCategoryInput.setText("");
-        itemStoreInput.setText("");
+        itemNameInput.setText(getString(R.string.emptyString));
+        itemBrandTypeInput.setText(getString(R.string.emptyString));
+        itemCategoryInput.setText(getString(R.string.emptyString));
+        itemStoreInput.setText(getString(R.string.emptyString));
 
         quantityCheckbox = view.findViewById(R.id.quantityCheckbox);
         quantityInput = view.findViewById(R.id.quantityInput);
@@ -79,9 +79,9 @@ public class AddItem extends Fragment {
         locationCheckbox = view.findViewById(R.id.locationCheckbox);
         locationInput = view.findViewById(R.id.locationInput);
 
-        quantityInput.setText("");
-        priceInput.setText("");
-        locationInput.setText("");
+        quantityInput.setText(getString(R.string.emptyString));
+        priceInput.setText(getString(R.string.emptyString));
+        locationInput.setText(getString(R.string.emptyString));
 
         addItemButton = view.findViewById(R.id.addItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
@@ -122,7 +122,7 @@ public class AddItem extends Fragment {
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
-                if (selectedItem.equals("(add new category)")) {
+                if (selectedItem.equals(getString(R.string.addNewCategory))) {
                     itemCategoryInput.setVisibility(View.VISIBLE);
                 } else {
                     itemCategoryInput.setVisibility(View.GONE);
@@ -135,7 +135,7 @@ public class AddItem extends Fragment {
         storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
-                if (selectedItem.equals("(add new store)")) {
+                if (selectedItem.equals(getString(R.string.addNewStore))) {
                     itemStoreInput.setVisibility(View.VISIBLE);
                 } else {
                     itemStoreInput.setVisibility(View.GONE);
@@ -153,36 +153,36 @@ public class AddItem extends Fragment {
                 String itemStore = itemStoreInput.getText().toString();
 
                 if (itemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("") || storeSpinner.getSelectedItem().toString().equals("")) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.emptyString)) || storeSpinner.getSelectedItem().toString().equals(getString(R.string.emptyString))) {
+                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals("(add new category)") && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
+                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData));
                     return;
-                } else if (storeSpinner.getSelectedItem().toString().equals("(add new store)") && itemStore.isEmpty()) {
-                    shopping.showAlertDialog("Add Item", "Please enter all the data.");
+                } else if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
+                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData));
                     return;
                 }
 
-                if (categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
                     int numCategories = categoryData.getCategoryList().size();
                     dbCategoryHelper.addNewCategory(itemCategory, numCategories);
                     shopping.updateCategoryData();
                 }
 
-                if (storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
                     int numStores = storeData.getStoreList().size();
                     dbStoreHelper.addNewStore(itemStore, numStores);
                     shopping.updateStoreData();
                 }
 
-                if (!categorySpinner.getSelectedItem().toString().equals("(add new category)")) {
+                if (!categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
                     itemCategory = categorySpinner.getSelectedItem().toString();
                 }
 
-                if (!storeSpinner.getSelectedItem().toString().equals("(add new store)")) {
+                if (!storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
                     itemStore = storeSpinner.getSelectedItem().toString();
                 }
 

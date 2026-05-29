@@ -34,14 +34,14 @@ public class AddCategory extends Fragment {
         addCategoryButton = view.findViewById(R.id.addCategoryButton);
         cancelButton = view.findViewById(R.id.cancelButton);
 
-        categoryInput.setText("");
+        categoryInput.setText(getString(R.string.emptyString));
 
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String categoryName = categoryInput.getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog("Add Category", "Please enter a category to add.");
+                    shopping.showAlertDialog(getString(R.string.addCategory), getString(R.string.enterCategoryToAdd));
                     return;
                 }
 

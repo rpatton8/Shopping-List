@@ -98,7 +98,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
             int position = getAdapterPosition();
             if (id == triangleDown.getId()) {
                 if (position == categoryData.getCategoryList().size() - 1) {
-                    // Down arrow on last item
+                    // Down arrow on last category
                     return;
                 }
                 dbCategoryHelper.swapOrder(position, position + 1);

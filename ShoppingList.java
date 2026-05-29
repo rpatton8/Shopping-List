@@ -66,7 +66,7 @@ public class ShoppingList extends Fragment {
         editSelectedItem = view.findViewById(R.id.editSelectedItem);
 
         if (shopping.getStoreListOrderNum() == 0) {
-            shoppingListTitle.setText(R.string.allStores);
+            shoppingListTitle.setText(getString(R.string.allStores));
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shoppingListTitle.getLayoutParams();
             params.bottomMargin = 0;
             shoppingListTitle.setLayoutParams(params);
@@ -91,7 +91,7 @@ public class ShoppingList extends Fragment {
 
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.showAlertDialog("Clear Items", "Are you sure you want to clear items from your shopping list?");
+                shopping.showAlertDialog(getString(R.string.clearItems), getString(R.string.wantToClear));
                 for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
                     Item item  = itemData.getItemListAZ().get(i);
                     if (item.getStatus().isChecked()) {
@@ -122,9 +122,7 @@ public class ShoppingList extends Fragment {
                     shopping.setEditItemInShoppingList(true);
                     shopping.loadFragment(new EditItem());
                 } else {
-                    Toast toast = Toast.makeText(getActivity(), "Please select an item to edit.", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit));
                 }
             }
         });
@@ -158,7 +156,7 @@ public class ShoppingList extends Fragment {
             else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() - 1);
         }
 
-        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(R.string.allStores);
+        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(getString(R.string.allStores));
         else shoppingListTitle.setText(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1));
         shopping.loadFragment(new ShoppingList());
     }
@@ -182,7 +180,7 @@ public class ShoppingList extends Fragment {
             if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.setStoreListOrderNum(0);
         }
 
-        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(R.string.allStores);
+        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(getString(R.string.allStores));
         else shoppingListTitle.setText(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1));
         shopping.loadFragment(new ShoppingList());
 

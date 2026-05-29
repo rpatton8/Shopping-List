@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +55,14 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
 
         if (reorderBy.equals(REORDER_BY_CATEGORY)) {
 
-            if (!category.equals("")) {
+            if (!category.equals(getString(R.string.emptyString))) {
                 ArrayList<Item> categoryList = itemData.getCategoryMap().get(category).getCategoryItemsList();
                 holder.itemName.setText(categoryList.get(position).getName());
             }
 
         } else if (reorderBy.equals(REORDER_BY_STORE)) {
 
-            if (!store.equals("")) {
+            if (!store.equals(getString(R.string.emptyString))) {
                 ArrayList<Item> storeList = itemData.getStoreMap().get(store).getStoreItemsList();
                 holder.itemName.setText(storeList.get(position).getName());
             }
@@ -181,7 +180,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
             int position = getAdapterPosition();
             if (id == triangleDown.getId()) {
                 if (position == adapter.getCategoryList().size() - 1) {
-                    Toast.makeText(shopping, "Down Arrow on last item.", Toast.LENGTH_SHORT).show();
+                    // Down arrow on last item
                     return;
                 }
                 adapter.swapOrderByCategory(position, position + 1);
@@ -193,7 +192,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 shopping.loadFragment(new ReorderItems());
             } else if (id == triangleUp.getId()) {
                 if (position == 0) {
-                    Toast.makeText(shopping, "Up Arrow on first item.", Toast.LENGTH_SHORT).show();
+                    // Up Arrow on first item
                     return;
                 }
                 adapter.swapOrderByCategory(position - 1, position);

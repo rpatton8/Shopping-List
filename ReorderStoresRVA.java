@@ -98,7 +98,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
             int position = getAdapterPosition();
             if (id == triangleDown.getId()) {
                 if (position == storeData.getStoreList().size() - 1) {
-                    // Down arrow on last item
+                    // Down arrow on last store
                     return;
                 }
                 dbStoreHelper.swapOrder(position, position + 1);
