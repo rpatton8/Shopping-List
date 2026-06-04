@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-//@SuppressWarnings("ALL")
 class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsRVH> {
 
     private Shopping shopping;
+    private Context context;
     private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
@@ -22,15 +23,16 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     private ScrollView scrollView;
 
     String reorderBy;
-    static final String REORDER_BY_CATEGORY = "reorder by category";
-    static final String REORDER_BY_STORE = "reorder by store";
+    static final String REORDER_BY_CATEGORY = ShoppingApp.getStringRes(R.string.cvReorderByCategory);
+    static final String REORDER_BY_STORE = ShoppingApp.getStringRes(R.string.cvReorderByStore);
 
     private String category;
     private String store;
 
-    ReorderItemsRVA(Shopping shopping, RecyclerView recyclerView, ScrollView scrollView, ItemData itemData,
-                    CategoryData categoryData, StoreData storeData, DBItemHelper dbItemHelper) {
+    ReorderItemsRVA(Shopping shopping, Context context, RecyclerView recyclerView, ScrollView scrollView,
+                    ItemData itemData, CategoryData categoryData, StoreData storeData, DBItemHelper dbItemHelper) {
         this.shopping = shopping;
+        this.context = context;
         this.itemData = itemData;
         this.categoryData = categoryData;
         this.storeData =  storeData;
@@ -55,14 +57,14 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
 
         if (reorderBy.equals(REORDER_BY_CATEGORY)) {
 
-            if (!category.equals(getString(R.string.emptyString))) {
+            if (!category.equals(context.getString(R.string.emptyString))) {
                 ArrayList<Item> categoryList = itemData.getCategoryMap().get(category).getCategoryItemsList();
                 holder.itemName.setText(categoryList.get(position).getName());
             }
 
         } else if (reorderBy.equals(REORDER_BY_STORE)) {
 
-            if (!store.equals(getString(R.string.emptyString))) {
+            if (!store.equals(context.getString(R.string.emptyString))) {
                 ArrayList<Item> storeList = itemData.getStoreMap().get(store).getStoreItemsList();
                 holder.itemName.setText(storeList.get(position).getName());
             }
@@ -188,7 +190,6 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
                 shopping.updateItemData();
                 shopping.setReorderItemsRecyclerViewState(recyclerView.getLayoutManager().onSaveInstanceState());
                 //shopping.reorderItemsScrollViewState = scrollView.getLayoutManager().onSaveInstanceState();
-                //outState.putInt("SCROLL_POS", scrollView.getScrollY());
                 shopping.loadFragment(new ReorderItems());
             } else if (id == triangleUp.getId()) {
                 if (position == 0) {

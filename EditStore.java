@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 public class EditStore extends Fragment {
 
     private View view;

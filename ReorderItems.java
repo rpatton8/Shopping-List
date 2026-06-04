@@ -17,7 +17,6 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 public class ReorderItems extends Fragment {
 
     private View view;
@@ -81,8 +80,8 @@ public class ReorderItems extends Fragment {
         recyclerView = view.findViewById(R.id.reorderItemsRecyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rvAdapter = new ReorderItemsRVA(shopping, recyclerView, scrollView, itemData, categoryData, storeData, dbItemHelper);
-        //rvAdapter.changeCategory("Candy");
+        rvAdapter = new ReorderItemsRVA(shopping, getContext(), recyclerView, scrollView, itemData, categoryData, storeData, dbItemHelper);
+        //rvAdapter.changeCategory(getString(R.string.candy));
         recyclerView.setAdapter(rvAdapter);
         recyclerView.getLayoutManager().onRestoreInstanceState(shopping.getReorderItemsRecyclerViewState());
         //scrollView.getLayoutManager().onRestoreInstanceState(shopping.reorderItemsScrollViewState);

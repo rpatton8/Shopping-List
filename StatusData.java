@@ -1,12 +1,15 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import java.util.HashMap;
 
 class StatusData {
 
+    private Context context;
     private HashMap<String, Status> statusMap;
 
-    StatusData () {
+    StatusData (Context context) {
+        this.context = context;
         statusMap = new HashMap<>();
     }
 
@@ -17,20 +20,20 @@ class StatusData {
     void readStatus(String itemName, String status, String checked) {
         if (statusMap.containsKey(itemName)) {
             Status thisStatus = statusMap.get(itemName);
-            if (status.equals("instock")) {
+            if (status.equals(context.getString(R.string.instock))) {
                 thisStatus.setAsInStock();
-            } else if (status.equals("needed")) {
+            } else if (status.equals(context.getString(R.string.needed))) {
                 thisStatus.setAsNeeded();
-            } else if (status.equals("paused")) {
+            } else if (status.equals(context.getString(R.string.paused))) {
                 thisStatus.setAsPaused();
             }
-            if (checked.equals("checked")) {
+            if (checked.equals(context.getString(R.string.checked))) {
                 thisStatus.setAsChecked();
-            } else if (checked.equals("unchecked")) {
+            } else if (checked.equals(context.getString(R.string.unchecked))) {
                 thisStatus.setAsUnchecked();
             }
         } else {
-            Status newStatus = new Status(itemName, status, checked);
+            Status newStatus = new Status(itemName, status, checked, context);
             statusMap.put(itemName, newStatus);
         }
     }

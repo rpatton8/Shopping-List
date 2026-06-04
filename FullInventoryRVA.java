@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//@SuppressWarnings("ALL")
 class FullInventoryRVA extends RecyclerView.Adapter {
 
     private Shopping shopping;
+    private Context context;
     private ItemData itemData;
     private StoreData storeData;
     private CategoryData categoryData;
@@ -20,9 +21,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
-    FullInventoryRVA(Shopping shopping, ItemData itemData, CategoryData categoryData, StoreData storeData,
+    FullInventoryRVA(Shopping shopping, Context context, ItemData itemData, CategoryData categoryData, StoreData storeData,
                      DBStatusHelper dbStatus, DBStoreHelper dbStore, DBCategoryHelper dbCategory) {
         this.shopping = shopping;
+        this.context = context;
         this.itemData = itemData;
         this.categoryData = categoryData;
         this.storeData = storeData;
@@ -83,7 +85,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             if (viewType == R.layout.sort_by_category_rv_title) {
                 return new SortByCategoryTitleRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
             } else if (viewType == R.layout.sort_by_category_rv_item) {
-                return new SortByCategoryItemRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
+                return new SortByCategoryItemRVH(view, context, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
             } else return new RecyclerView.ViewHolder(view) {};
 
         } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
@@ -91,13 +93,13 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             if (viewType == R.layout.sort_by_store_rv_title) {
                 return new SortByStoreTitleRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
             } else if (viewType == R.layout.sort_by_store_rv_item) {
-                return new SortByStoreItemRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
+                return new SortByStoreItemRVH(view, context, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
             } else return new RecyclerView.ViewHolder(view) {};
 
         } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             if (viewType == R.layout.sort_alphabetical_rv_item) {
-                return new SortAlphabeticalItemRVH(view, shopping, this);
+                return new SortAlphabeticalItemRVH(view, context, shopping, this);
             } else return new RecyclerView.ViewHolder(view) {};
 
         } else return new RecyclerView.ViewHolder(view) {};
@@ -998,6 +1000,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     private class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
+        private Context context;
         private FullInventoryRVA adapter;
         private ItemData itemData;
         private CategoryData categoryData;
@@ -1023,11 +1026,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
-        private SortByCategoryItemRVH(View itemView, Shopping shopping, FullInventoryRVA adapter, ItemData itemData,
-                                    CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
+        private SortByCategoryItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter,  ItemData itemData,
+                                      CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
             super(itemView);
             this.shopping = shopping;
+            this.context = context;
             this.adapter = adapter;
             this.itemData = itemData;
             this.categoryData = categoryData;
@@ -1252,7 +1256,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1273,7 +1277,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargePaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1294,7 +1298,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1315,7 +1319,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1336,7 +1340,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallPaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1357,7 +1361,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1504,6 +1508,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     private class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
+        private Context context;
         private FullInventoryRVA adapter;
         private ItemData itemData;
         private StoreData storeData;
@@ -1529,11 +1534,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
-        private SortByStoreItemRVH(View itemView, Shopping shopping, FullInventoryRVA adapter,
+        private SortByStoreItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter,
                                   ItemData itemData, StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
 
             super(itemView);
             this.shopping = shopping;
+            this.context =  context;
             this.adapter = adapter;
             this.itemData = itemData;
             this.storeData = storeData;
@@ -1759,7 +1765,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1780,7 +1786,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargePaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1801,7 +1807,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1822,7 +1828,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1843,7 +1849,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallPaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1864,7 +1870,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                        dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1883,6 +1889,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     private class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
+        private Context context;
         private FullInventoryRVA adapter;
         private ItemData itemData;
         private DBStatusHelper dbStatusHelper;
@@ -1906,10 +1913,11 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
-        private SortAlphabeticalItemRVH(View itemView, Shopping shopping, FullInventoryRVA adapter) {
+        private SortAlphabeticalItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter) {
 
             super(itemView);
             this.shopping = shopping;
+            this.context = context;
             this.adapter = adapter;
             this.itemData = shopping.getItemData();
             this.dbStatusHelper = new DBStatusHelper(shopping);
@@ -2047,7 +2055,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargeNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                 }
             } else if (id == itemSmallNeeded.getId()) {
                 if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
@@ -2059,7 +2067,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargePaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                 }
             } else if (id == itemSmallPaused.getId()) {
                 if (itemSmallPaused.getVisibility() == View.VISIBLE) {
@@ -2071,7 +2079,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargeInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargeInStock.getId()) {
                 if (itemLargeInStock.getVisibility() == View.VISIBLE) {
@@ -2083,7 +2091,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "needed", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargeNeeded.getId()) {
                 if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
@@ -2095,7 +2103,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallPaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "paused", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargePaused.getId()) {
                 if (itemLargePaused.getVisibility() == View.VISIBLE) {
@@ -2107,7 +2115,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), "instock", "unchecked");
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                 }
             }
         }

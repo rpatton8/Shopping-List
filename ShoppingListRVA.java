@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//@SuppressWarnings("ALL")
 class ShoppingListRVA extends RecyclerView.Adapter {
 
     private Shopping shopping;

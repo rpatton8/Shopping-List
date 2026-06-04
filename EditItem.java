@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 public class EditItem extends Fragment {
 
     private Shopping shopping;

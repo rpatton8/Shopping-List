@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-//@SuppressWarnings("ALL")
 public class ReorderCategories extends Fragment {
 
     private View view;

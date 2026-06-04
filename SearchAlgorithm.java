@@ -1,13 +1,17 @@
 package ryan.android.shopping;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 class SearchAlgorithm {
 
+    private Context context;
     private HashMap<String, ArrayList<Item>> termMap;
 
-    SearchAlgorithm() {
+    SearchAlgorithm(Context context) {
+        this.context = context;
         termMap = new HashMap<>();
     }
 
@@ -29,7 +33,7 @@ class SearchAlgorithm {
                 if (termMap.containsKey(term) && !termMap.get(term).contains(item)) {
                     // map contains term but not item
                     termMap.get(term).add(item);
-                } else if (!term.equals(getString(R.string.emptyString))) {
+                } else if (!term.equals(context.getString(R.string.emptyString))) {
                     // term is not the empty string and map doesn't contain it
                     itemList.add(item);
                     termMap.put(term, itemList);

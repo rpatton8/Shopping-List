@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
-//@SuppressWarnings("ALL")
 public class Shopping extends AppCompatActivity {
 
     private ItemData itemData;
@@ -46,55 +45,55 @@ public class Shopping extends AppCompatActivity {
     private SearchAlgorithm searchAlgorithm;
 
     private String inventoryView;
-    static final String VIEW_ALL = "view all";
-    static final String VIEW_INSTOCK = "view instock";
-    static final String VIEW_NEEDED = "view needed";
-    static final String VIEW_PAUSED = "view paused";
+    static final String VIEW_ALL = ShoppingApp.getStringRes(R.string.cvViewAll);
+    static final String VIEW_INSTOCK = ShoppingApp.getStringRes(R.string.cvViewInstock);
+    static final String VIEW_NEEDED = ShoppingApp.getStringRes(R.string.cvViewNeeded);
+    static final String VIEW_PAUSED = ShoppingApp.getStringRes(R.string.cvViewPaused);
 
     private String inventorySortBy;
     private String defaultSortBy;
-    static final String SORT_BY_CATEGORY = "category";
-    static final String SORT_BY_STORE = "store";
-    static final String SORT_ALPHABETICAL = "alphabetical";
+    static final String SORT_BY_CATEGORY = ShoppingApp.getStringRes(R.string.cvCategory);
+    static final String SORT_BY_STORE = ShoppingApp.getStringRes(R.string.cvStore);
+    static final String SORT_ALPHABETICAL = ShoppingApp.getStringRes(R.string.cvAlphabetical);
 
     private String categoryTitles;
     private String defaultCategoryTitles;
-    static final String CATEGORY_TITLES_EXPANDED = "category titles expanded";
-    static final String CATEGORY_TITLES_CONTRACTED = "category titles contracted";
+    static final String CATEGORY_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesExpanded);
+    static final String CATEGORY_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesContracted);
 
     private String storeTitles;
     private String defaultStoreTitles;
-    static final String STORE_TITLES_EXPANDED = "store titles expanded";
-    static final String STORE_TITLES_CONTRACTED = "store titles contracted";
+    static final String STORE_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvStoreTitlesExpanded);
+    static final String STORE_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvStoreTitlesContracted);
 
     private String itemExpansion;
-    static final String ITEMS_EXPANDED = "items expanded";
-    static final String ITEMS_CONTRACTED = "items contracted";
+    static final String ITEMS_EXPANDED = ShoppingApp.getStringRes(R.string.cvItemsExpanded);
+    static final String ITEMS_CONTRACTED = ShoppingApp.getStringRes(R.string.cvItemsContracted);
 
     private String reorderingMethod;
-    static final String DRAG_AND_DROP = "drag and drop";
-    static final String UP_AND_DOWN_ARROWS = "up and down arrows";
-    static final String WITH_NUMBERS = "with numbers";
+    static final String DRAG_AND_DROP = ShoppingApp.getStringRes(R.string.cvDragAndDrop);
+    static final String UP_AND_DOWN_ARROWS = ShoppingApp.getStringRes(R.string.cvUpAndDownArrows);
+    static final String WITH_NUMBERS = ShoppingApp.getStringRes(R.string.cvWithNumbers);
 
     private String colorScheme;
-    static final String COLOR_SCHEME_1 = "color scheme 1";
-    static final String COLOR_SCHEME_2 = "color scheme 2";
-    static final String COLOR_SCHEME_3 = "color scheme 3";
+    static final String COLOR_SCHEME_1 = ShoppingApp.getStringRes(R.string.cvColorScheme1);
+    static final String COLOR_SCHEME_2 = ShoppingApp.getStringRes(R.string.cvColorScheme2);
+    static final String COLOR_SCHEME_3 = ShoppingApp.getStringRes(R.string.cvColorScheme3);
 
     private String swipingOption;
-    static final String SWIPING_ON = "swiping on";
-    static final String SWIPING_OFF = "swiping off";
+    static final String SWIPING_ON = ShoppingApp.getStringRes(R.string.cvSwipingOn);
+    static final String SWIPING_OFF = ShoppingApp.getStringRes(R.string.cvSwipingOff);
 
     private String picturesOption;
-    static final String PICTURES_ON = "swiping on";
-    static final String PICTURES_OFF = "swiping off";
+    static final String PICTURES_ON = ShoppingApp.getStringRes(R.string.cvPicturesOn);
+    static final String PICTURES_OFF = ShoppingApp.getStringRes(R.string.cvPicturesOff);
 
     private String optionalDataQuantity;
     private String optionalDataPrice;
     private String optionalDataLocation;
     private String optionalDataNote;
-    static final String OPTIONAL_DATA_ON = "optional data on";
-    static final String OPTIONAL_DATA_OFF = "optional data off";
+    static final String OPTIONAL_DATA_ON = ShoppingApp.getStringRes(R.string.cvOptionalDataOn);
+    static final String OPTIONAL_DATA_OFF = ShoppingApp.getStringRes(R.string.cvOptionalDataOff);
 
     private String reorderCategoryEmoji;
     private String reorderItemByCategoryEmoji;
@@ -117,7 +116,7 @@ public class Shopping extends AppCompatActivity {
         initializeData();
         loadSharedPreferences();
 
-        searchAlgorithm = new SearchAlgorithm();
+        searchAlgorithm = new SearchAlgorithm(getBaseContext());
         for (int i = 0; i < itemData.getItemListAZ().size(); i++) {
             searchAlgorithm.addNewItem(itemData.getItemListAZ().get(i));
         }
@@ -518,7 +517,7 @@ public class Shopping extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
@@ -545,108 +544,108 @@ public class Shopping extends AppCompatActivity {
     }
 
     void loadSharedPreferences() {
-        SharedPreferences sharedPref = getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
 
-        String defaultSortBy = sharedPref.getString("default_sort_by", "Default Sort By");
-        if (defaultSortBy.equals("alphabetical")) {
+        String defaultSortBy = sharedPref.getString(getString(R.string.sp_default_sort_by), getString(R.string.spDefaultSortBy));
+        if (defaultSortBy.equals(getString(R.string.spSortAlphabetically))) {
             this.setDefaultSortBy(SORT_ALPHABETICAL);
             this.setInventorySortBy(SORT_ALPHABETICAL);
-        } else if (defaultSortBy.equals("category")) {
+        } else if (defaultSortBy.equals(getString(R.string.spSortByCategory))) {
             this.setDefaultSortBy(SORT_BY_CATEGORY);
             this.setInventorySortBy(SORT_BY_CATEGORY);
-        } else if (defaultSortBy.equals("category")) {
+        } else if (defaultSortBy.equals(getString(R.string.spSortByStore))) {
             this.setDefaultSortBy(SORT_BY_STORE);
             this.setInventorySortBy(SORT_BY_STORE);
         }
 
-        String defaultCategoryTitles = sharedPref.getString("default_category_titles", "Default Category Titles");
-        if (defaultCategoryTitles.equals("category titles expanded")) {
+        String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
+        if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesExpanded))) {
             this.setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
             this.setCategoryTitles(CATEGORY_TITLES_EXPANDED);
-        } else if (defaultCategoryTitles.equals("category titles contracted")) {
+        } else if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
             this.setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
             this.setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
         }
 
-        String defaultStoreTitles = sharedPref.getString("default_store_titles", "Default Store Titles");
-        if (defaultStoreTitles.equals("store titles expanded")) {
+        String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
+        if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesExpanded))) {
             this.setDefaultStoreTitles(STORE_TITLES_EXPANDED);
             this.setStoreTitles(STORE_TITLES_EXPANDED);
-        } else if (defaultStoreTitles.equals("store titles contracted")) {
+        } else if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
             this.setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
             this.setStoreTitles(STORE_TITLES_CONTRACTED);
         }
 
-        String reorderingMethod = sharedPref.getString("reorder_method", "Default Reordering");
-        if (reorderingMethod.equals("drag and drop")) {
+        String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
+        if (reorderingMethod.equals(getString(R.string.spDragAndDrop))) {
             this.setReorderingMethod(DRAG_AND_DROP);
-        } else if (reorderingMethod.equals("up and down arrows")) {
+        } else if (reorderingMethod.equals(getString(R.string.spUpAndDownArrows))) {
             this.setReorderingMethod(UP_AND_DOWN_ARROWS);
-        } else if (reorderingMethod.equals("with numbers")) {
+        } else if (reorderingMethod.equals(getString(R.string.spWithNumbers))) {
             this.setReorderingMethod(WITH_NUMBERS);
         }
 
-        String colorScheme = sharedPref.getString("color_scheme", "Default Color Scheme");
-        if (colorScheme.equals("color scheme 1")) {
+        String colorScheme = sharedPref.getString(getString(R.string.sp_color_scheme), getString(R.string.spDefaultColorScheme));
+        if (colorScheme.equals(getString(R.string.spColorScheme1))) {
             this.setColorScheme(COLOR_SCHEME_1);
-        } else if (colorScheme.equals("color scheme 2")) {
+        } else if (colorScheme.equals(getString(R.string.spColorScheme2))) {
             this.setColorScheme(COLOR_SCHEME_2);
-        } else if (colorScheme.equals("color scheme 3")) {
+        } else if (colorScheme.equals(getString(R.string.spColorScheme3))) {
             this.setColorScheme(COLOR_SCHEME_3);
         }
 
-        String swipingOption = sharedPref.getString("swiping_option", "Default Swiping Option");
-        if (swipingOption.equals("swiping on")) {
+        String swipingOption = sharedPref.getString(getString(R.string.sp_swiping_option), getString(R.string.spDefaultSwipingOption));
+        if (swipingOption.equals(getString(R.string.spSwipingOn))) {
             this.setSwipingOption(SWIPING_ON);
-        } else if (swipingOption.equals("swiping off")) {
+        } else if (swipingOption.equals(getString(R.string.spSwipingOff))) {
             this.setSwipingOption(SWIPING_OFF);
         }
 
-        String picturesOption = sharedPref.getString("pictures_option", "Default Pictures Option");
-        if (picturesOption.equals("pictures on")) {
+        String picturesOption = sharedPref.getString(getString(R.string.sp_pictures_option), getString(R.string.spDefaultPicturesOption));
+        if (picturesOption.equals(getString(R.string.spPicturesOn))) {
             this.setPicturesOption(PICTURES_ON);
-        } else if (picturesOption.equals("pictures off")) {
+        } else if (picturesOption.equals(getString(R.string.spPicturesOff))) {
             this.setPicturesOption(PICTURES_OFF);
         }
 
-        String optionalDataQuantity = sharedPref.getString("optional_data_quantity", "Default Optional Data Quantity");
-        if (optionalDataQuantity.equals("optional data on")) {
+        String optionalDataQuantity = sharedPref.getString(getString(R.string.sp_optional_data_quantity), getString(R.string.spDefaultOptionalDataQuantity));
+        if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOn))) {
             this.setOptionalDataQuantity(OPTIONAL_DATA_ON);
-        } else if (optionalDataQuantity.equals("optional data off")) {
+        } else if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOff))) {
             this.setOptionalDataQuantity(OPTIONAL_DATA_OFF);
         }
 
-        String optionalDataPrice = sharedPref.getString("optional_data_price", "Default Optional Data Price");
-        if (optionalDataPrice.equals("optional data on")) {
+        String optionalDataPrice = sharedPref.getString(getString(R.string.sp_optional_data_price), getString(R.string.spDefaultOptionalDataPrice));
+        if (optionalDataPrice.equals(getString(R.string.spOptionalDataOn))) {
             this.setOptionalDataPrice(OPTIONAL_DATA_ON);
-        } else if (optionalDataPrice.equals("optional data off")) {
+        } else if (optionalDataPrice.equals(getString(R.string.spOptionalDataOff))) {
             this.setOptionalDataPrice(OPTIONAL_DATA_OFF);
         }
 
-        String optionalDataLocation = sharedPref.getString("optional_data_location", "Default Optional Data Location");
-        if (optionalDataLocation.equals("optional data on")) {
+        String optionalDataLocation = sharedPref.getString(getString(R.string.sp_optional_data_location), getString(R.string.spDefaultOptionalDataLocation));
+        if (optionalDataLocation.equals(getString(R.string.spOptionalDataOn))) {
             this.setOptionalDataLocation(OPTIONAL_DATA_ON);
-        } else if (optionalDataLocation.equals("optional data off")) {
+        } else if (optionalDataLocation.equals(getString(R.string.spOptionalDataOff))) {
             this.setOptionalDataLocation(OPTIONAL_DATA_OFF);
         }
 
-        String optionalDataNote = sharedPref.getString("optional_data_note", "Default Optional Data Note");
-        if (optionalDataNote.equals("optional data on")) {
+        String optionalDataNote = sharedPref.getString(getString(R.string.sp_optional_data_note), getString(R.string.spDefaultOptionalDataNote));
+        if (optionalDataNote.equals(getString(R.string.spOptionalDataOn))) {
             this.setOptionalDataNote(OPTIONAL_DATA_ON);
-        } else if (optionalDataNote.equals("optional data off")) {
+        } else if (optionalDataNote.equals(getString(R.string.spOptionalDataOff))) {
             this.setOptionalDataNote(OPTIONAL_DATA_OFF);
         }
 
-        String reorderCategoryEmoji = sharedPref.getString("reorder_category_emoji", "Default Reorder Category Emoji");
+        String reorderCategoryEmoji = sharedPref.getString(getString(R.string.sp_reorder_category_emoji), getString(R.string.spDefaultReorderCategoryEmoji));
         this.setReorderCategoryEmoji(reorderCategoryEmoji);
 
-        String reorderItemByCategoryEmoji = sharedPref.getString("reorder_item_by_category_emoji", "Default Reorder Item By Category Emoji");
+        String reorderItemByCategoryEmoji = sharedPref.getString(getString(R.string.sp_reorder_item_by_category_emoji), getString(R.string.spDefaultReorderItemByCategoryEmoji));
         this.setReorderItemByCategoryEmoji(reorderItemByCategoryEmoji);
 
-        String reorderItemByStoreEmoji = sharedPref.getString("reorder_item_by_store_emoji", "Default Reorder Item By Store Emoji");
+        String reorderItemByStoreEmoji = sharedPref.getString(getString(R.string.sp_reorder_item_by_store_emoji), getString(R.string.spDefaultReorderItemByStoreEmoji));
         this.setReorderItemByStoreEmoji(reorderItemByStoreEmoji);
 
-        String reorderStoreEmoji = sharedPref.getString("reorder_store_emoji", "Default Reorder Store Emoji");
+        String reorderStoreEmoji = sharedPref.getString(getString(R.string.sp_reorder_store_emoji), getString(R.string.spDefaultReorderStoreEmoji));
         this.setReorderStoreEmoji(reorderStoreEmoji);
 
     }
@@ -664,10 +663,10 @@ public class Shopping extends AppCompatActivity {
         dbCategoryHelper = new DBCategoryHelper(this);
         dbStoreHelper = new DBStoreHelper(this);
 
-        itemData = new ItemData();
-        statusData = new StatusData();
-        categoryData = new CategoryData();
-        storeData = new StoreData();
+        itemData = new ItemData(getBaseContext());
+        statusData = new StatusData(getBaseContext());
+        categoryData = new CategoryData(getBaseContext());
+        storeData = new StoreData(getBaseContext());
 
         dbItemHelper.readItemDataByCategory(itemData);
         dbItemHelper.readItemDataByStore(itemData);
@@ -710,41 +709,41 @@ public class Shopping extends AppCompatActivity {
 
     void loadStoresAndCategories() {
 
-        dbCategoryHelper.addNewCategory("Meals", 0);
-        dbCategoryHelper.addNewCategory("Soups", 1);
-        dbCategoryHelper.addNewCategory("Sides", 2);
-        dbCategoryHelper.addNewCategory("Meat", 3);
-        dbCategoryHelper.addNewCategory("Bread/Grains/Cereal", 4);
-        dbCategoryHelper.addNewCategory("Eggs/Dairy", 5);
-        dbCategoryHelper.addNewCategory("Condiments", 6);
-        dbCategoryHelper.addNewCategory("Seasonings", 7);
-        dbCategoryHelper.addNewCategory("Misc/Ingredients", 8);
-        dbCategoryHelper.addNewCategory("Drinks", 9);
-        dbCategoryHelper.addNewCategory("Snacks", 10);
-        dbCategoryHelper.addNewCategory("Desserts", 11);
-        dbCategoryHelper.addNewCategory("Candy", 12);
-        dbCategoryHelper.addNewCategory("Pet Supplies", 13);
-        dbCategoryHelper.addNewCategory("Toiletries", 14);
-        dbCategoryHelper.addNewCategory("Household", 15);
-        dbCategoryHelper.addNewCategory("Supplements", 16);
+        dbCategoryHelper.addNewCategory(getString(R.string.meals), 0);
+        dbCategoryHelper.addNewCategory(getString(R.string.soups), 1);
+        dbCategoryHelper.addNewCategory(getString(R.string.sides), 2);
+        dbCategoryHelper.addNewCategory(getString(R.string.meat), 3);
+        dbCategoryHelper.addNewCategory(getString(R.string.breadGrainsCereal), 4);
+        dbCategoryHelper.addNewCategory(getString(R.string.eggsDairy), 5);
+        dbCategoryHelper.addNewCategory(getString(R.string.condiments), 6);
+        dbCategoryHelper.addNewCategory(getString(R.string.seasonings), 7);
+        dbCategoryHelper.addNewCategory(getString(R.string.miscIngredients), 8);
+        dbCategoryHelper.addNewCategory(getString(R.string.drinks), 9);
+        dbCategoryHelper.addNewCategory(getString(R.string.snacks), 10);
+        dbCategoryHelper.addNewCategory(getString(R.string.desserts), 11);
+        dbCategoryHelper.addNewCategory(getString(R.string.candy), 12);
+        dbCategoryHelper.addNewCategory(getString(R.string.petSupplies), 13);
+        dbCategoryHelper.addNewCategory(getString(R.string.toiletries), 14);
+        dbCategoryHelper.addNewCategory(getString(R.string.household), 15);
+        dbCategoryHelper.addNewCategory(getString(R.string.supplements), 16);
 
-        dbStoreHelper.addNewStore("Vons", 0);
-        dbStoreHelper.addNewStore("Smart & Final", 1);
-        dbStoreHelper.addNewStore("Costco", 2);
-        dbStoreHelper.addNewStore("Walmart", 3);
-        dbStoreHelper.addNewStore("Amazon", 4);
-        dbStoreHelper.addNewStore("Stater Bros", 5);
-        dbStoreHelper.addNewStore("Trader Joe's", 6);
-        dbStoreHelper.addNewStore("CVS", 7);
-        dbStoreHelper.addNewStore("Dollar Tree", 8);
-        dbStoreHelper.addNewStore("Ralphs", 9);
-        dbStoreHelper.addNewStore("Target", 10);
-        dbStoreHelper.addNewStore("Pet Supplies Plus", 11);
-        dbStoreHelper.addNewStore("Sprouts", 12);
-        dbStoreHelper.addNewStore("Sam's Club", 13);
-        dbStoreHelper.addNewStore("Staples", 14);
-        dbStoreHelper.addNewStore("Woodranch", 15);
-        dbStoreHelper.addNewStore("Yorba Linda Feed Store", 16);
+        dbStoreHelper.addNewStore(getString(R.string.vons), 0);
+        dbStoreHelper.addNewStore(getString(R.string.smartFinal), 1);
+        dbStoreHelper.addNewStore(getString(R.string.costco), 2);
+        dbStoreHelper.addNewStore(getString(R.string.walmart), 3);
+        dbStoreHelper.addNewStore(getString(R.string.amazon), 4);
+        dbStoreHelper.addNewStore(getString(R.string.staterBros), 5);
+        dbStoreHelper.addNewStore(getString(R.string.traderJoes), 6);
+        dbStoreHelper.addNewStore(getString(R.string.cvs), 7);
+        dbStoreHelper.addNewStore(getString(R.string.dollarTree), 8);
+        dbStoreHelper.addNewStore(getString(R.string.ralphs), 9);
+        dbStoreHelper.addNewStore(getString(R.string.target), 10);
+        dbStoreHelper.addNewStore(getString(R.string.petSuppliesPlus), 11);
+        dbStoreHelper.addNewStore(getString(R.string.sprouts), 12);
+        dbStoreHelper.addNewStore(getString(R.string.samsClub), 13);
+        dbStoreHelper.addNewStore(getString(R.string.staples), 14);
+        dbStoreHelper.addNewStore(getString(R.string.woodranch), 15);
+        dbStoreHelper.addNewStore(getString(R.string.yorbaLindaFeedStore), 16);
 
     }
 
@@ -756,788 +755,809 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Meals-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Sausage Biscuits", "Jimmy Dean Frozen", "Meals", "Vons", 0);
-        dbStatusHelper.addNewStatus("Sausage Biscuits", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sausageBiscuits), getString(R.string.jimmyDeanFrozen), getString(R.string.meals), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.sausageBiscuits), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Helper", "Cheeseburger Macaroni", "Meals", "Vons", 1);
-        dbStatusHelper.addNewStatus("Hamburger Helper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerHelper), getString(R.string.cheeseburgerMacaroni), getString(R.string.meals), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerHelper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buffalo Chicken Bites", "TGIF or Frank's", "Meals", "Vons", 2);
-        dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.buffaloChickenBites), getString(R.string.tGIForFranks), getString(R.string.meals), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.buffaloChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Terriyaki Chicken Bites", "InnovAsian", "Meals", "Vons", 3);
-        dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.terriyakiChickenBites), getString(R.string.innovAsian), getString(R.string.meals), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.terriyakiChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 4);
-        dbStatusHelper.addNewStatus("Crispy Buffalo Wings", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.crispyBuffaloWings), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.costco), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.crispyBuffaloWings), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 5);
-        dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tgifCheeseSticks), getString(R.string.tgifSmall10pc), getString(R.string.meals), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.tgifCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 6);
-        dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mozarellaCheeseSticks), getString(R.string.farmRich), getString(R.string.meals), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.mozarellaCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 7);
-        dbStatusHelper.addNewStatus("Frozen Pizza", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenPizza), getString(R.string.thinPepperoni), getString(R.string.meals), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenPizza), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 8);
-        dbStatusHelper.addNewStatus("Corn Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cornDogs), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.cornDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 9);
-        dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotDogs), getString(R.string.bunSize), getString(R.string.meals), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.hotDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 10);
-        dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotDogBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.hotDogBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 11);
-        dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerPatties), getString(R.string.toDo), getString(R.string.meals), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerPatties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 12);
-        dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 13);
-        dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaRoni1), getString(R.string.angelHairPasta), getString(R.string.meals), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaRoni1), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 14);
-        dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaRoni2), getString(R.string.fettuccineAlfredo), getString(R.string.meals), getString(R.string.vons), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaRoni2), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 15);
-        dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.macAndCheese), getString(R.string.annies), getString(R.string.meals), getString(R.string.vons), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.macAndCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 16);
-        dbStatusHelper.addNewStatus("Gnocci", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.gnocci), getString(R.string.signatureSelect), getString(R.string.meals), getString(R.string.vons), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.gnocci), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 17);
-        dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tortellini), getString(R.string.barilla3Cheese), getString(R.string.meals), getString(R.string.vons), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.tortellini), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Meals", 18);
-        categoryData.getCategoryViewInStockMap().put("Meals", 0);
-        categoryData.getCategoryViewNeededMap().put("Meals", 0);
-        categoryData.getCategoryViewPausedMap().put("Meals", 18);
-        dbCategoryHelper.setCategoryViews("Meals", 18, 0, 0, 18);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.meals), 18);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.meals), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.meals), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.meals), 18);
+        dbCategoryHelper.setCategoryViews(getString(R.string.meals), 18, 0, 0, 18);
 
         //------------------------------------Soups-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 0);
-        dbStatusHelper.addNewStatus("Spaghetti O's", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.spaghettiOs), getString(R.string.wMeatballs), getString(R.string.soups), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.spaghettiOs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 1);
-        dbStatusHelper.addNewStatus("Chicken Noodle Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenNoodleSoup), getString(R.string.campbells), getString(R.string.soups), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenNoodleSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Minestrone Soup", "Amy's", "Soups", "Vons", 2);
-        dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.minestroneSoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.minestroneSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 3);
-        dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vegetableBarleySoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.vegetableBarleySoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Beef Noodles", "Yakisoba", "Soups", "Stater Bros", 4);
-        dbStatusHelper.addNewStatus("Beef Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefNoodles), getString(R.string.yakisoba), getString(R.string.soups), getString(R.string.staterBros), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.beefNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cup of Noodles", "Nissin", "Soups", "Vons", 5);
-        dbStatusHelper.addNewStatus("Cup of Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cupOfNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.cupOfNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 6);
-        dbStatusHelper.addNewStatus("Ramen Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.ramenNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Soups", 7);
-        categoryData.getCategoryViewInStockMap().put("Soups", 0);
-        categoryData.getCategoryViewNeededMap().put("Soups", 0);
-        categoryData.getCategoryViewPausedMap().put("Soups", 7);
-        dbCategoryHelper.setCategoryViews("Soups", 7, 0, 0, 7);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.soups), 7);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.soups), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.soups), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.soups), 7);
+        dbCategoryHelper.setCategoryViews(getString(R.string.soups), 7, 0, 0, 7);
 
         //------------------------------------Sides-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 0);
-        dbStatusHelper.addNewStatus("Frozen French Fries", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenFrenchFries), getString(R.string.oreIda), getString(R.string.sides), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenFrenchFries), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 1);
-        dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.texasCheesyBread), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.texasCheesyBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 2);
-        dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.garlicBreadsticks), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.garlicBreadsticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Rice", "Knorr", "Sides", "Vons", 3);
-        dbStatusHelper.addNewStatus("Chicken Rice", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenRice), getString(R.string.knorr), getString(R.string.sides), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenRice), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Canned Corn", "Del Monte", "Sides", "Vons", 4);
-        dbStatusHelper.addNewStatus("Canned Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cannedCorn), getString(R.string.delMonte), getString(R.string.sides), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.cannedCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Sides", 5);
-        categoryData.getCategoryViewInStockMap().put("Sides", 0);
-        categoryData.getCategoryViewNeededMap().put("Sides", 0);
-        categoryData.getCategoryViewPausedMap().put("Sides", 5);
-        dbCategoryHelper.setCategoryViews("Sides", 5, 0, 0, 5);
+        dbItemHelper.addNewItemByCategory(getString(R.string.crescentRolls), getString(R.string.signatureSelect), getString(R.string.sides), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.crescentRolls), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.sides), 6);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.sides), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.sides), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.sides), 6);
+        dbCategoryHelper.setCategoryViews(getString(R.string.sides), 6, 0, 0, 6);
 
         //------------------------------------Meat--------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Steak", "USDA", "Meat", "Vons", 0);
-        dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.steak), getString(R.string.usda), getString(R.string.meat), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.steak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ground Beef", "(1 pound)", "Meat", "Vons", 1);
-        dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.groundBeef), getString(R.string.pound1), getString(R.string.meat), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.groundBeef), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 2);
-        dbStatusHelper.addNewStatus("Frozen Meatballs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenMeatballs), getString(R.string.rosinaHomestyle), getString(R.string.meat), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenMeatballs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pepperoni Slices", "Hormel (300 slices)", "Meat", "Smart & Final", 3);
-        dbStatusHelper.addNewStatus("Pepperoni Slices", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pepperoniSlices), getString(R.string.hormel300Slices), getString(R.string.meat), getString(R.string.smartFinal), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.pepperoniSlices), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Quick Steak", "Gary's", "Meat", "Sam's Club", 4);
-        dbStatusHelper.addNewStatus("Quick Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.quickSteak), getString(R.string.garys), getString(R.string.meat), getString(R.string.samsClub), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.quickSteak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Breast", "na", "Meat", "Vons", 5);
-        dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenBreast), getString(R.string.na), getString(R.string.meat), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenBreast), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Turkey", "to do", "Meat", "Vons", 6);
-        dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedTurkey), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedTurkey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Ham", "to do", "Meat", "Vons", 7);
-        dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedHam), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedHam), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ham Steak", "to do", "Meat", "Vons", 8);
-        dbStatusHelper.addNewStatus("Ham Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamSteak), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.hamSteak), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Meat", 9);
-        categoryData.getCategoryViewInStockMap().put("Meat", 0);
-        categoryData.getCategoryViewNeededMap().put("Meat", 0);
-        categoryData.getCategoryViewPausedMap().put("Meat", 9);
-        dbCategoryHelper.setCategoryViews("Meat", 9, 0, 0, 9);
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefLitlSmokies), getString(R.string.hillshireFarm), getString(R.string.meat), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.beefLitlSmokies), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.meat), 10);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.meat), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.meat), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.meat), 10);
+        dbCategoryHelper.setCategoryViews(getString(R.string.meat), 10, 0, 0, 10);
 
         //------------------------------------Bread/Grains/Cereal-----------------------------------
 
-        dbItemHelper.addNewItemByCategory("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 0);
-        dbStatusHelper.addNewStatus("Thin Spaghetti", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.thinSpaghetti), getString(R.string.barillaWholeGrain), getString(R.string.breadGrainsCereal), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.thinSpaghetti), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 1);
-        dbStatusHelper.addNewStatus("Spiral Pasta", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.spiralPasta), getString(R.string.barillaRotini), getString(R.string.breadGrainsCereal), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.spiralPasta), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 2);
-        dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.wheatBread), getString(R.string.naturesOwn), getString(R.string.breadGrainsCereal), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.wheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Baguette", "French", "Bread/Grains/Cereal", "Vons", 3);
-        dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.baguette), getString(R.string.frenchOrSourdough), getString(R.string.breadGrainsCereal), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.baguette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 4);
-        dbStatusHelper.addNewStatus("Sourdough Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sourdoughBread), getString(R.string.sanLuis), getString(R.string.breadGrainsCereal), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.sourdoughBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 5);
-        dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hardRolls), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.hardRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 6);
-        dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.thomasMuffins), getString(R.string.original), getString(R.string.breadGrainsCereal), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.thomasMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 7);
-        dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.reesesPuffsCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.reesesPuffsCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 8);
-        dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cookieCrispCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.cookieCrispCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 9);
-        dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frostedMiniWheatCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.frostedMiniWheatCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 10);
-        dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honeySmacksCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.honeySmacksCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 11);
-        dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.eggoWaffles), getString(R.string.homestyle), getString(R.string.breadGrainsCereal), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.eggoWaffles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 12);
-        dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smallFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.smallFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 13);
-        dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.largeFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.largeFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Bread/Grains/Cereal", 14);
-        categoryData.getCategoryViewInStockMap().put("Bread/Grains/Cereal", 0);
-        categoryData.getCategoryViewNeededMap().put("Bread/Grains/Cereal", 0);
-        categoryData.getCategoryViewPausedMap().put("Bread/Grains/Cereal", 14);
-        dbCategoryHelper.setCategoryViews("Bread/Grains/Cereal", 14, 0, 0, 14);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.breadGrainsCereal), 14);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.breadGrainsCereal), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.breadGrainsCereal), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.breadGrainsCereal), 14);
+        dbCategoryHelper.setCategoryViews(getString(R.string.breadGrainsCereal), 14, 0, 0, 14);
 
         //----------------------------------------Eggs/Dairy----------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 0);
-        dbStatusHelper.addNewStatus("Milk", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.milk), getString(R.string.vitaminD), getString(R.string.eggsDairy), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.milk), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 1);
-        dbStatusHelper.addNewStatus("Eggs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.eggs), getString(R.string.gradeAAxLarge), getString(R.string.eggsDairy), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.eggs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 2);
-        dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honeyYogurt), getString(R.string.greekGods), getString(R.string.eggsDairy), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.honeyYogurt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sour Cream", "to do", "Eggs/Dairy", "Vons", 3);
-        dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sourCream), getString(R.string.toDo), getString(R.string.eggsDairy), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.sourCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 4);
-        dbStatusHelper.addNewStatus("Salted Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.saltedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Clarified Butter", "Challenge", "Eggs/Dairy", "Ralphs", 5);
-        dbStatusHelper.addNewStatus("Clarified Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.clarifiedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.ralphs), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.clarifiedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 6);
-        dbStatusHelper.addNewStatus("Shredded Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shreddedCheese), getString(R.string.mexicanBlend), getString(R.string.eggsDairy), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.shreddedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 7);
-        dbStatusHelper.addNewStatus("String Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.stringCheese), getString(R.string.mozarella), getString(R.string.eggsDairy), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.stringCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 8);
-        dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bdCheese), getString(R.string.blackDiamond), getString(R.string.eggsDairy), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.bdCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 9);
-        dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedCheese), getString(R.string.kraftSingles), getString(R.string.eggsDairy), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 10);
-        dbStatusHelper.addNewStatus("Half & Half", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.halfAndHalf), getString(R.string.lucerne), getString(R.string.eggsDairy), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.halfAndHalf), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Eggs/Dairy", 11);
-        categoryData.getCategoryViewInStockMap().put("Eggs/Dairy", 0);
-        categoryData.getCategoryViewNeededMap().put("Eggs/Dairy", 0);
-        categoryData.getCategoryViewPausedMap().put("Eggs/Dairy", 11);
-        dbCategoryHelper.setCategoryViews("Eggs/Dairy", 11, 0, 0, 11);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.eggsDairy), 11);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.eggsDairy), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.eggsDairy), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.eggsDairy), 11);
+        dbCategoryHelper.setCategoryViews(getString(R.string.eggsDairy), 11, 0, 0, 11);
 
         //------------------------------------Condiments--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Parmesan Cheese", "Kraft", "Condiments", "Vons", 0);
-        dbStatusHelper.addNewStatus("Parmesan Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.parmesanCheese), getString(R.string.kraft), getString(R.string.condiments), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.parmesanCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("A1 Sauce", "Original", "Condiments", "Vons", 1);
-        dbStatusHelper.addNewStatus("A1 Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.a1sauce), getString(R.string.original), getString(R.string.condiments), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.a1sauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ketchup", "Heinz", "Condiments", "Vons", 2);
-        dbStatusHelper.addNewStatus("Ketchup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ketchup), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.ketchup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mustard", "Heinz", "Condiments", "Vons", 3);
-        dbStatusHelper.addNewStatus("Mustard", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mustard), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.mustard), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 4);
-        dbStatusHelper.addNewStatus("Pasta Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaSauce), getString(R.string.raguMeat), getString(R.string.condiments), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 5);
-        dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.marinaraSauce), getString(R.string.signatureTraditional), getString(R.string.condiments), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.marinaraSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 6);
-        dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoSauce), getString(R.string.victoriasMild), getString(R.string.condiments), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 7);
-        dbStatusHelper.addNewStatus("Buffalo Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.buffaloSauce), getString(R.string.franksWings), getString(R.string.condiments), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.buffaloSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
-        dbStatusHelper.addNewStatus("Chocolate Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocolateSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.chocolateSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 9);
-        dbStatusHelper.addNewStatus("Caramel Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.caramelSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.caramelSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 10);
-        dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mapleSyrup), getString(R.string.pearlMilling), getString(R.string.condiments), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.mapleSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 11);
-        dbStatusHelper.addNewStatus("Honey", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honey), getString(R.string.localHiveClover), getString(R.string.condiments), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.honey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 12);
-        dbStatusHelper.addNewStatus("Peanut Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.peanutButter), getString(R.string.skippyCreamy), getString(R.string.condiments), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.peanutButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 13);
-        dbStatusHelper.addNewStatus("Soy Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.soySauce), getString(R.string.kikoman), getString(R.string.condiments), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.soySauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 14);
-        dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.woodranchBBQSauce), getString(R.string.pint1), getString(R.string.condiments), getString(R.string.woodranch), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.woodranchBBQSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Condiments", 15);
-        categoryData.getCategoryViewInStockMap().put("Condiments", 0);
-        categoryData.getCategoryViewNeededMap().put("Condiments", 0);
-        categoryData.getCategoryViewPausedMap().put("Condiments", 15);
-        dbCategoryHelper.setCategoryViews("Condiments", 15, 0, 0, 15);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.condiments), 15);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.condiments), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.condiments), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.condiments), 15);
+        dbCategoryHelper.setCategoryViews(getString(R.string.condiments), 15, 0, 0, 15);
 
         //------------------------------------Seasonings--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Salt & Pepper", "na", "Seasonings", "Vons", 0);
-        dbStatusHelper.addNewStatus("Salt & Pepper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltAndPepper), getString(R.string.na), getString(R.string.seasonings), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.saltAndPepper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Garlic Salt", "Lawry's", "Seasonings", "Vons", 1);
-        dbStatusHelper.addNewStatus("Garlic Salt", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.garlicSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.garlicSalt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 2);
-        dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.lawrysSeasoningSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.lawrysSeasoningSalt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Seasoning", "any", "Seasonings", "Vons", 3);
-        dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoSeasoning), getString(R.string.any), getString(R.string.seasonings), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoSeasoning), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 4);
-        dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ranchDipMix), getString(R.string.lauraScudders), getString(R.string.seasonings), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.ranchDipMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 5);
-        dbStatusHelper.addNewStatus("Vanilla Extract", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaExtract), getString(R.string.signatureSelect), getString(R.string.seasonings), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaExtract), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 6);
-        dbStatusHelper.addNewStatus("Cinnamon Sugar", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cinnamonSugar), getString(R.string.mcCormicks), getString(R.string.seasonings), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.cinnamonSugar), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sprinkles", "3 types", "Seasonings", "Vons", 7);
-        dbStatusHelper.addNewStatus("Sprinkles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sprinkles), getString(R.string.types3), getString(R.string.seasonings), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.sprinkles), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Seasonings", 8);
-        categoryData.getCategoryViewInStockMap().put("Seasonings", 0);
-        categoryData.getCategoryViewNeededMap().put("Seasonings", 0);
-        categoryData.getCategoryViewPausedMap().put("Seasonings", 8);
-        dbCategoryHelper.setCategoryViews("Seasonings", 8, 0, 0, 8);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.seasonings), 8);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.seasonings), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.seasonings), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.seasonings), 8);
+        dbCategoryHelper.setCategoryViews(getString(R.string.seasonings), 8, 0, 0, 8);
 
         //---------------------------------Misc/Ingredients----------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 0);
-        dbStatusHelper.addNewStatus("Brown Sugar", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.brownSugar), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.brownSugar), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Shells", "to do", "Misc/Ingredients", "Vons", 1);
-        dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoShells), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoShells), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 2);
-        dbStatusHelper.addNewStatus("Saltine Crackers", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltineCrackers), getString(R.string.premiumOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.saltineCrackers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 3);
-        dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.semiSweetChocChips), getString(R.string.nestle), getString(R.string.miscIngredients), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.semiSweetChocChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 4);
-        dbStatusHelper.addNewStatus("Vegetable Oil", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.vegetableOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 5);
-        dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 6);
-        dbStatusHelper.addNewStatus("Non-Stick Spray", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.nonStickSpray), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 7);
-        dbStatusHelper.addNewStatus("Movie Theater Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Misc/Ingredients", 8);
-        categoryData.getCategoryViewInStockMap().put("Misc/Ingredients", 0);
-        categoryData.getCategoryViewNeededMap().put("Misc/Ingredients", 0);
-        categoryData.getCategoryViewPausedMap().put("Misc/Ingredients", 8);
-        dbCategoryHelper.setCategoryViews("Misc/Ingredients", 8, 0, 0, 8);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.miscIngredients), 8);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.miscIngredients), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.miscIngredients), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.miscIngredients), 8);
+        dbCategoryHelper.setCategoryViews(getString(R.string.miscIngredients), 8, 0, 0, 8);
 
         //------------------------------------Drinks------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 0);
-        dbStatusHelper.addNewStatus("Soda Bottles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Soda Cans", "Pepsi or Coke", "Drinks", "Costco", 1);
-        dbStatusHelper.addNewStatus("Soda Cans", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.sodaCans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 2);
-        dbStatusHelper.addNewStatus("Hot Chocolate Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Bottled Water", "any", "Drinks", "Vons", 3);
-        dbStatusHelper.addNewStatus("Bottled Water", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bottledWater), getString(R.string.refreshe40pack), getString(R.string.drinks), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.bottledWater), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Drinks", 4);
-        categoryData.getCategoryViewInStockMap().put("Drinks", 0);
-        categoryData.getCategoryViewNeededMap().put("Drinks", 0);
-        categoryData.getCategoryViewPausedMap().put("Drinks", 4);
-        dbCategoryHelper.setCategoryViews("Drinks", 4, 0, 0, 4);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.drinks), 4);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.drinks), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.drinks), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.drinks), 4);
+        dbCategoryHelper.setCategoryViews(getString(R.string.drinks), 4, 0, 0, 4);
 
         //------------------------------------Snacks------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 0);
-        dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefJerky), getString(R.string.archerTerriyaki), getString(R.string.snacks), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.beefJerky), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Peanuts", "Honey Roasted", "Snacks", "Vons", 1);
-        dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.peanuts), getString(R.string.honeyRoasted), getString(R.string.snacks), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.peanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shell Peanuts", "Salted", "Snacks", "Vons", 2);
-        dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shellPeanuts), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.shellPeanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sunflower Seeds", "Salted", "Snacks", "Vons", 3);
-        dbStatusHelper.addNewStatus("Sunflower Seeds", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sunflowerSeeds), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.sunflowerSeeds), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vinegar Chips", "Kettle", "Snacks", "Vons", 4);
-        dbStatusHelper.addNewStatus("Vinegar Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vinegarChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.vinegarChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("BBQ Chips", "Kettle", "Snacks", "Vons", 5);
-        dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bbqChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.bbqChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Doritos", "Cool Ranch", "Snacks", "Vons", 6);
-        dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.doritos), getString(R.string.coolRanch), getString(R.string.snacks), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.doritos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Lay's Chips", "Classic", "Snacks", "Vons", 7);
-        dbStatusHelper.addNewStatus("Lay's Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laysChips), getString(R.string.classic), getString(R.string.snacks), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.laysChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Naan Crisps", "Stonefire", "Snacks", "Vons", 8);
-        dbStatusHelper.addNewStatus("Naan Crisps", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.naanCrisps), getString(R.string.stonefire), getString(R.string.snacks), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.naanCrisps), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ritz Crackers", "Original", "Snacks", "Vons", 9);
-        dbStatusHelper.addNewStatus("Ritz Crackers", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ritzCrackers), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.ritzCrackers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Goldfish", "Cheddar", "Snacks", "Vons", 10);
-        dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.goldfish), getString(R.string.cheddar), getString(R.string.snacks), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.goldfish), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cheez-Its", "Original", "Snacks", "Vons", 11);
-        dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cheezIts), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.cheezIts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 12);
-        dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.famousAmosCookies), getString(R.string.resealableBag), getString(R.string.snacks), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.famousAmosCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Chocolate Pretzels", "Flipz", "Snacks", "CVS", 13);
-        dbStatusHelper.addNewStatus("Dark Chocolate Pretzels", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocolatePretzels), getString(R.string.flipz), getString(R.string.snacks), getString(R.string.cvs), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocolatePretzels), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Fudge Pudding", "Snack Pack", "Snacks", "Stater Bros", 14);
-        dbStatusHelper.addNewStatus("Choc. Fudge Pudding", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocFudgePudding), getString(R.string.snackPack), getString(R.string.snacks), getString(R.string.staterBros), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.chocFudgePudding), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 15);
-        dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocFudgePirouette), getString(R.string.pepperidgeFarm), getString(R.string.snacks), getString(R.string.vons), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.chocFudgePirouette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Muddy Buddies", "Brownie Supreme", "Snacks", "Amazon", 16);
-        dbStatusHelper.addNewStatus("Muddy Buddies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.muddyBuddies), getString(R.string.brownieSupreme), getString(R.string.snacks), getString(R.string.amazon), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.muddyBuddies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Fortune Cookies", "to do", "Snacks", "Amazon", 17);
-        dbStatusHelper.addNewStatus("Fortune Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.fortuneCookies), getString(R.string.toDo), getString(R.string.snacks), getString(R.string.amazon), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.fortuneCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Communion Wafers", "to do", "Snacks", "Amazon", 18);
-        dbStatusHelper.addNewStatus("Communion Wafers", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.communionWafers), getString(R.string.cavanaghAltarBread), getString(R.string.snacks), getString(R.string.amazon), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.communionWafers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 19);
-        dbStatusHelper.addNewStatus("Buttered Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.butteredPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Caramel Popcorn", "Cretors", "Snacks", "Vons", 20);
-        dbStatusHelper.addNewStatus("Caramel Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.caramelPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.caramelPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 21);
-        dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Snacks", 22);
-        categoryData.getCategoryViewInStockMap().put("Snacks", 0);
-        categoryData.getCategoryViewNeededMap().put("Snacks", 0);
-        categoryData.getCategoryViewPausedMap().put("Snacks", 22);
-        dbCategoryHelper.setCategoryViews("Snacks", 22, 0, 0, 22);
+        dbItemHelper.addNewItemByCategory(getString(R.string.gingerSnaps), getString(R.string.firstStreet), getString(R.string.snacks), getString(R.string.smartFinal), 22);
+        dbStatusHelper.addNewStatus(getString(R.string.gingerSnaps), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.snacks), 23);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.snacks), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.snacks), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.snacks), 23);
+        dbCategoryHelper.setCategoryViews(getString(R.string.snacks), 23, 0, 0, 23);
 
         //------------------------------------Desserts----------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 0);
-        dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.thrifty), getString(R.string.desserts), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 1);
-        dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocTruffleIceCream), getString(R.string.breyers), getString(R.string.desserts), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.chocTruffleIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 2);
-        dbStatusHelper.addNewStatus("Hold the Cone", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.holdTheCone), getString(R.string.chocolate), getString(R.string.desserts), getString(R.string.traderJoes), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.holdTheCone), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 3);
-        dbStatusHelper.addNewStatus("Churros", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.churros), getString(R.string.tioPepesOrHola), getString(R.string.desserts), getString(R.string.smartFinal), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.churros), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 4);
-        dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocChipMuffinMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.chocChipMuffinMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 5);
-        dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocChipCookieMix), getString(R.string.bettyCrockerGlutenFree), getString(R.string.desserts), getString(R.string.staterBros), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.chocChipCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.gingerbreadCookieMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.gingerbreadCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 7);
-        dbStatusHelper.addNewStatus("Oreos", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreos), getString(R.string.forCrumbs), getString(R.string.desserts), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.oreos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 8);
-        dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoMuffins), getString(R.string.pack12), getString(R.string.desserts), getString(R.string.costco), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 9);
-        dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoCakesters), getString(R.string.nabisco), getString(R.string.desserts), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoCakesters), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 10);
-        dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoPieMix), getString(R.string.noBakeDessert), getString(R.string.desserts), getString(R.string.target), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoPieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 11);
-        dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocMaltMix), getString(R.string.nestle), getString(R.string.desserts), getString(R.string.staterBros), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.chocMaltMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Desserts", 12);
-        categoryData.getCategoryViewInStockMap().put("Desserts", 0);
-        categoryData.getCategoryViewNeededMap().put("Desserts", 0);
-        categoryData.getCategoryViewPausedMap().put("Desserts", 12);
-        dbCategoryHelper.setCategoryViews("Desserts", 12, 0, 0, 12);
+        dbItemHelper.addNewItemByCategory(getString(R.string.doubleChocMuffins), getString(R.string.count4), getString(R.string.desserts), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.doubleChocMuffins), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByCategory(getString(R.string.pieFilling), getString(R.string.jelloChocFudge), getString(R.string.desserts), getString(R.string.target), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.pieFilling), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.desserts), 14);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.desserts), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.desserts), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.desserts), 14);
+        dbCategoryHelper.setCategoryViews(getString(R.string.desserts), 14, 0, 0, 14);
 
         //------------------------------------Candy-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Dark Chocolate Caramel Squares", "Ghiradelli", "Candy", "Walmart", 0);
-        dbStatusHelper.addNewStatus("Dark Chocolate Caramel Squares", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocolateCaramelSquares), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocolateCaramelSquares), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 1);
-        dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.reesesPBCups), getString(R.string.individuallyWrapped), getString(R.string.candy), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.reesesPBCups), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Candy Corn", "Brach's", "Candy", "CVS", 2);
-        dbStatusHelper.addNewStatus("Candy Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.candyCorn), getString(R.string.brachs), getString(R.string.candy), getString(R.string.cvs), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.candyCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Tamales", "na", "Candy", "Vons", 3);
-        dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotTamales), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.hotTamales), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Smarties", "na", "Candy", "Dollar  Tree", 4);
-        dbStatusHelper.addNewStatus("Smarties", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smarties), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.smarties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sno Caps", "na", "Candy", "Dollar Tree", 5);
-        dbStatusHelper.addNewStatus("Sno Caps", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.snoCaps), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.snoCaps), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Good & Plenty", "na", "Candy", "Vons", 6);
-        dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.goodAndPlenty), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.goodAndPlenty), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mini M&M's", "na", "Candy", "Vons", 7);
-        dbStatusHelper.addNewStatus("Mini M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.miniMAndMs), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.miniMAndMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Choc. M&M's", "na", "Candy", "Target", 8);
-        dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocMandMs), getString(R.string.na), getString(R.string.candy), getString(R.string.target), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocMandMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 9);
-        dbStatusHelper.addNewStatus("Sea Salt Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.seaSaltCaramels), getString(R.string.favoriteDay), getString(R.string.candy), getString(R.string.target), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.seaSaltCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Jelly Beans", "Sizzling Cinnamon", "Candy", "Amazon", 10);
-        dbStatusHelper.addNewStatus("Jelly Beans", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.jellyBeans), getString(R.string.sizzlingCinnamon), getString(R.string.candy), getString(R.string.amazon), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.jellyBeans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Tootsie Rolls", "na", "Candy", "Vons", 11);
-        dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.tootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Fun Dip Sticks", "na", "Candy", "Smart & Final", 12);
-        dbStatusHelper.addNewStatus("Fun Dip Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.funDipSticks), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.funDipSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("72% Intense Dark Chocolate", "Ghiradelli", "Candy", "Walmart", 13);
-        dbStatusHelper.addNewStatus("72% Intense Dark Chocolate", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Orange Tic Tacs", "na", "Candy", "Smart & Final", 14);
-        dbStatusHelper.addNewStatus("Orange Tic Tacs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.orangeTicTacs), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.orangeTicTacs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Orange Pez", "na", "Candy", "Amazon", 15);
-        dbStatusHelper.addNewStatus("Orange Pez", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.orangePez), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.orangePez), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Taffy", "na", "Candy", "Amazon", 16);
-        dbStatusHelper.addNewStatus("Vanilla Taffy", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaTaffy), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaTaffy), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Tootsie Rolls", "na", "Candy", "Amazon", 17);
-        dbStatusHelper.addNewStatus("Vanilla Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaTootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaTootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sixlets", "na", "Candy", "Amazon", 18);
-        dbStatusHelper.addNewStatus("Sixlets", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sixlets), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.sixlets), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Red Hots", "na", "Candy", "Dollar Tree", 19);
-        dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 20);
-        dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocCaramels), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Candy", 21);
-        categoryData.getCategoryViewInStockMap().put("Candy", 0);
-        categoryData.getCategoryViewNeededMap().put("Candy", 0);
-        categoryData.getCategoryViewPausedMap().put("Candy", 21);
-        dbCategoryHelper.setCategoryViews("Candy", 21, 0, 0, 21);
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocPeanutButterCups), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocPeanutButterCups), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.candy), 22);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.candy), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.candy), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.candy), 22);
+        dbCategoryHelper.setCategoryViews(getString(R.string.candy), 22, 0, 0, 22);
 
         //------------------------------------Pet Supplies-------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 0);
-        dbStatusHelper.addNewStatus("Cat Food (wet)", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catFoodWet), getString(R.string.fancyFeast), getString(R.string.petSupplies), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.catFoodWet), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cat Food (dry)", "Purina Pro Plan", "Pet Supplies", "Pet Supplies Plus", 1);
-        dbStatusHelper.addNewStatus("Cat Food (dry)", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catFoodDry), getString(R.string.purinaProPlan), getString(R.string.petSupplies), getString(R.string.petSuppliesPlus), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.catFoodDry), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 2);
-        dbStatusHelper.addNewStatus("Delectables", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.delectables), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cat Treats", "Temptations", "Pet Supplies", "Vons", 3);
-        dbStatusHelper.addNewStatus("Cat Treats", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catTreats), getString(R.string.temptations), getString(R.string.petSupplies), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.catTreats), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Kitty Litter", "Scoop Away Complete", "Pet Supplies", "Costco", 4);
-        dbStatusHelper.addNewStatus("Kitty Litter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.kittyLitter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dog Food (dry)", "Canidae All Life Stages", "Pet Supplies", "Yorba Linda Feed Store", 5);
-        dbStatusHelper.addNewStatus("Dog Food (dry)", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dogFoodDry), getString(R.string.canidaeAllLifeStages), getString(R.string.petSupplies), getString(R.string.yorbaLindaFeedStore), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.dogFoodDry), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Broth", "Kirkland Organic", "Pet Supplies", "Costco", 6);
-        dbStatusHelper.addNewStatus("Chicken Broth", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenBroth), getString(R.string.kirklandOrganic), getString(R.string.petSupplies), getString(R.string.costco), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenBroth), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mashed Potatoes", "Main St. Bistro", "Pet Supplies", "Costco", 7);
-        dbStatusHelper.addNewStatus("Mashed Potatoes", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mashedPotatoes), getString(R.string.mainStBistro), getString(R.string.petSupplies), getString(R.string.costco), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.mashedPotatoes), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Freshpet", "Chicken Recipe (6lb)", "Pet Supplies", "Costco", 8);
-        dbStatusHelper.addNewStatus("Freshpet", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.freshpet), getString(R.string.chickenRecipe), getString(R.string.petSupplies), getString(R.string.costco), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.freshpet), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 9);
-        dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.purePumpkin), getString(R.string.libbys), getString(R.string.petSupplies), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.purePumpkin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Poop Bags", "Amazon Basics", "Pet Supplies", "Amazon", 10);
-        dbStatusHelper.addNewStatus("Poop Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.poopBags), getString(R.string.amazonBasics), getString(R.string.petSupplies), getString(R.string.amazon), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.poopBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Nitrile Gloves", "GMG 100 pack", "Pet Supplies", "Amazon", 11);
-        dbStatusHelper.addNewStatus("Nitrile Gloves", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.nitrileGloves), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Pet Supplies", 12);
-        categoryData.getCategoryViewInStockMap().put("Pet Supplies", 0);
-        categoryData.getCategoryViewNeededMap().put("Pet Supplies", 0);
-        categoryData.getCategoryViewPausedMap().put("Pet Supplies", 12);
-        dbCategoryHelper.setCategoryViews("Pet Supplies", 12, 0, 0, 12);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.petSupplies), 12);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.petSupplies), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.petSupplies), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.petSupplies), 12);
+        dbCategoryHelper.setCategoryViews(getString(R.string.petSupplies), 12, 0, 0, 12);
 
         //------------------------------------Toiletries--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 0);
-        dbStatusHelper.addNewStatus("Hand Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.handSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 1);
-        dbStatusHelper.addNewStatus("Body Wash", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.bodyWash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 2);
-        dbStatusHelper.addNewStatus("Shampoo", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.shampoo), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 3);
-        dbStatusHelper.addNewStatus("Bar Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.barSoap), getString(R.string.zumBarSeaSalt), getString(R.string.toiletries), getString(R.string.sprouts), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.barSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Deodorant", "Old Spice", "Toiletries", "Vons", 4);
-        dbStatusHelper.addNewStatus("Deodorant", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.deodorant), getString(R.string.oldSpice), getString(R.string.toiletries), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.deodorant), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toothpaste", "Tom's Antiplaque & Whitening", "Toiletries", "Amazon", 5);
-        dbStatusHelper.addNewStatus("Toothpaste", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toothpaste), getString(R.string.ultrabrite), getString(R.string.toiletries), getString(R.string.amazon), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.toothpaste), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Floss", "Reach Mint Waxed", "Toiletries", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Floss", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.floss), getString(R.string.reachMintWaxed), getString(R.string.toiletries), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.floss), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shaving Cream", "Sandalwood", "Toiletries", "Amazon", 7);
-        dbStatusHelper.addNewStatus("Shaving Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shavingCream), getString(R.string.sandalwood), getString(R.string.toiletries), getString(R.string.amazon), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.shavingCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shaving Razors", "Gillette ProGlide", "Toiletries", "Amazon", 8);
-        dbStatusHelper.addNewStatus("Shaving Razors", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shavingRazors), getString(R.string.gilletteProGlide), getString(R.string.toiletries), getString(R.string.amazon), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.shavingRazors), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 9);
-        dbStatusHelper.addNewStatus("Mouthwash", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mouthwash), getString(R.string.crestWhitening), getString(R.string.toiletries), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.mouthwash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 10);
-        dbStatusHelper.addNewStatus("Cotton Swabs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cottonSwabs), getString(R.string.qTips), getString(R.string.toiletries), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.cottonSwabs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 11);
-        dbStatusHelper.addNewStatus("Toothbrush Heads", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toothbrushHeads), getString(R.string.radiusSoft), getString(R.string.toiletries), getString(R.string.sprouts), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.toothbrushHeads), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sunscreen", "Hawaiian Tropic Sheer 50spf", "Toiletries", "Amazon", 12);
-        dbStatusHelper.addNewStatus("Sunscreen", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sunscreen), getString(R.string.hawaiianTropicSheer50spf), getString(R.string.toiletries), getString(R.string.amazon), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.sunscreen), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Moisturizing Lotion", "CVS Health w/ hyaluronic acid", "Toiletries", "CVS", 13);
-        dbStatusHelper.addNewStatus("Moisturizing Lotion", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.moisturizingLotion), getString(R.string.cvsHealthHyaluronicAcid), getString(R.string.toiletries), getString(R.string.cvs), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.moisturizingLotion), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Toiletries", 14);
-        categoryData.getCategoryViewInStockMap().put("Toiletries", 0);
-        categoryData.getCategoryViewNeededMap().put("Toiletries", 0);
-        categoryData.getCategoryViewPausedMap().put("Toiletries", 14);
-        dbCategoryHelper.setCategoryViews("Toiletries", 14, 0, 0, 14);
+        dbItemHelper.addNewItemByCategory(getString(R.string.faceSunscreen), getString(R.string.aveenoProtectHydrate), getString(R.string.toiletries), getString(R.string.cvs), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.faceSunscreen), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.toiletries), 15);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.toiletries), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.toiletries), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.toiletries), 15);
+        dbCategoryHelper.setCategoryViews(getString(R.string.toiletries), 15, 0, 0, 15);
 
         //------------------------------------Household-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 0);
-        dbStatusHelper.addNewStatus("Febreeze Air Spray", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.febreezeAirSpray), getString(R.string.heavyDuty), getString(R.string.household), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.febreezeAirSpray), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 1);
-        dbStatusHelper.addNewStatus("All Purpose Cleaner", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.allPurposeCleaner), getString(R.string.meyersLavender), getString(R.string.household), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.allPurposeCleaner), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pet Stain Cleaner", "Rocco & Roxie", "Household", "Amazon", 2);
-        dbStatusHelper.addNewStatus("Pet Stain Cleaner", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.petStainCleaner), getString(R.string.roccoAndRoxie), getString(R.string.household), getString(R.string.amazon), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.petStainCleaner), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Laundry Detergent", "Woolite", "Household", "Vons", 3);
-        dbStatusHelper.addNewStatus("Laundry Detergent", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laundryDetergent), getString(R.string.woolite), getString(R.string.household), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.laundryDetergent), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Laundry Sanitizer", "Lysol", "Household", "Vons", 4);
-        dbStatusHelper.addNewStatus("Laundry Sanitizer", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laundrySanitizer), getString(R.string.lysol), getString(R.string.household), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.laundrySanitizer), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dryer Sheets", "Simply Done Fresh Linen", "Household", "Stater Bros", 5);
-        dbStatusHelper.addNewStatus("Dryer Sheets", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dryerSheets), getString(R.string.simplyDoneFreshLinen), getString(R.string.household), getString(R.string.staterBros), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.dryerSheets), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Little Trees Air Fresheners", "True North", "Household", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Little Trees Air Fresheners", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.littleTreesAirFresheners), getString(R.string.trueNorth), getString(R.string.household), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.littleTreesAirFresheners), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 7);
-        dbStatusHelper.addNewStatus("Aluminum Foil", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.aluminumFoil), getString(R.string.reynoldsWrap), getString(R.string.household), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.aluminumFoil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 8);
-        dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zipLockBagsSmall), getString(R.string.sandwich), getString(R.string.household), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsSmall), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 9);
-        dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zipLockBagsLarge), getString(R.string.freezerGallon), getString(R.string.household), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsLarge), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Saran Wrap", "Plastic Wrap", "Household", "Vons", 10);
-        dbStatusHelper.addNewStatus("Saran Wrap", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saranWrap), getString(R.string.plasticWrap), getString(R.string.household), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.saranWrap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Rubbing Alcohol", "Isopropyl", "Household", "CVS", 11);
-        dbStatusHelper.addNewStatus("Rubbing Alcohol", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.rubbingAlcohol), getString(R.string.isopropyl), getString(R.string.household), getString(R.string.cvs), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.rubbingAlcohol), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hydrogen Peroxide", "na", "Household", "CVS", 12);
-        dbStatusHelper.addNewStatus("Hydrogen Peroxide", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hydrogenPeroxide), getString(R.string.na), getString(R.string.household), getString(R.string.cvs), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.hydrogenPeroxide), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Night Light Bulbs", "C7 E12", "Household", "Amazon", 13);
-        dbStatusHelper.addNewStatus("Night Light Bulbs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nightLightBulbs), getString(R.string.c7E12), getString(R.string.household), getString(R.string.amazon), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.nightLightBulbs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Scrub Sponges", "Non-Scratch", "Household", "Vons", 14);
-        dbStatusHelper.addNewStatus("Scrub Sponges", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.scrubSponges), getString(R.string.nonScratch), getString(R.string.household), getString(R.string.vons), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.scrubSponges), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dishwashing Brush", "Great Value", "Household", "Walmart", 15);
-        dbStatusHelper.addNewStatus("Dishwashing Brush", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dishwashingBrush), getString(R.string.greatValue), getString(R.string.household), getString(R.string.walmart), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.dishwashingBrush), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Small Trash Bags", "13 gallon", "Household", "Walmart", 16);
-        dbStatusHelper.addNewStatus("Small Trash Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smallTrashBags), getString(R.string.gallon13), getString(R.string.household), getString(R.string.walmart), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.smallTrashBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Large Trash Bags", "33 gallon", "Household", "Walmart", 17);
-        dbStatusHelper.addNewStatus("Large Trash Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.largeTrashBags), getString(R.string.gallon33), getString(R.string.household), getString(R.string.walmart), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.largeTrashBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Compactor Bags", "18 gallon", "Household", "Walmart", 18);
-        dbStatusHelper.addNewStatus("Compactor Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.compactorBags), getString(R.string.gallon18), getString(R.string.household), getString(R.string.walmart), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.compactorBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 19);
-        dbStatusHelper.addNewStatus("Dawn Powerwash", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dawnPowerwash), getString(R.string.dishCleaner), getString(R.string.household), getString(R.string.vons), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.dawnPowerwash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dish Soap", "Dawn Platinum", "Household", "Vons", 20);
-        dbStatusHelper.addNewStatus("Dish Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dishSoap), getString(R.string.dawnPlatinum), getString(R.string.household), getString(R.string.vons), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.dishSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Paper Plates", "to do", "Household", "Sam's Club", 21);
-        dbStatusHelper.addNewStatus("Paper Plates", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.paperPlates), getString(R.string.toDo), getString(R.string.household), getString(R.string.samsClub), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.paperPlates), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Paper Towels", "Sparkle", "Household", "Walmart", 22);
-        dbStatusHelper.addNewStatus("Paper Towels", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.paperTowels), getString(R.string.kirklandPremium), getString(R.string.household), getString(R.string.costco), 22);
+        dbStatusHelper.addNewStatus(getString(R.string.paperTowels), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toilet Paper", "Angel Soft", "Household", "Walmart", 23);
-        dbStatusHelper.addNewStatus("Toilet Paper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toiletPaper), getString(R.string.kirklandUltraSoft), getString(R.string.household), getString(R.string.costco), 23);
+        dbStatusHelper.addNewStatus(getString(R.string.toiletPaper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Multipurpose Paper", "Tru Red 20/96", "Household", "Staples", 24);
-        dbStatusHelper.addNewStatus("Multipurpose Paper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.multipurposePaper), getString(R.string.truRed), getString(R.string.household), getString(R.string.staples), 24);
+        dbStatusHelper.addNewStatus(getString(R.string.multipurposePaper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Packaging Tape", "Scotch Heavy Duty", "Household", "CVS", 25);
-        dbStatusHelper.addNewStatus("Packaging Tape", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 25);
+        dbStatusHelper.addNewStatus(getString(R.string.packagingTape), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Household", 26);
-        categoryData.getCategoryViewInStockMap().put("Household", 0);
-        categoryData.getCategoryViewNeededMap().put("Household", 0);
-        categoryData.getCategoryViewPausedMap().put("Household", 26);
-        dbCategoryHelper.setCategoryViews("Household", 26, 0, 0, 26);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.household), 26);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.household), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.household), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.household), 26);
+        dbCategoryHelper.setCategoryViews(getString(R.string.household), 26, 0, 0, 26);
 
         //------------------------------------Supplements-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Triple Omega", "Nature Made", "Supplements", "Amazon", 0);
-        dbStatusHelper.addNewStatus("Triple Omega", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tripleOmega), getString(R.string.natureMade), getString(R.string.supplements), getString(R.string.amazon), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.tripleOmega), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Multivitamin", "One a Day Men's", "Supplements", "Amazon", 1);
-        dbStatusHelper.addNewStatus("Multivitamin", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.multivitamin), getString(R.string.oneADayMens), getString(R.string.supplements), getString(R.string.amazon), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.multivitamin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vitamin C", "Amazon Elements 1000 mg", "Supplements", "Amazon", 2);
-        dbStatusHelper.addNewStatus("Vitamin C", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vitaminC), getString(R.string.amazonElements1000mg), getString(R.string.supplements), getString(R.string.amazon), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.vitaminC), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Magnesium", "Nature Made 400mg", "Supplements", "Amazon", 3);
-        dbStatusHelper.addNewStatus("Magnesium", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.magnesium), getString(R.string.natureMade400mg), getString(R.string.supplements), getString(R.string.amazon), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.magnesium), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zinc", "Sandhu Herbals 50mg", "Supplements", "Amazon", 4);
-        dbStatusHelper.addNewStatus("Zinc", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zinc), getString(R.string.sandhuHerbals50mg), getString(R.string.supplements), getString(R.string.amazon), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.zinc), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Calcium", "Nature's Truth 1200 mg", "Supplements", "Amazon", 5);
-        dbStatusHelper.addNewStatus("Calcium", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.calcium), getString(R.string.naturesTruth1200mg), getString(R.string.supplements), getString(R.string.amazon), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.calcium), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Biotin", "Natrol 10,000mcg", "Supplements", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Biotin", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.biotin), getString(R.string.natrol10000mcg), getString(R.string.supplements), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.biotin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vitamin D3", "Nature Made 5000 IU", "Supplements", "Amazon", 7);
-        dbStatusHelper.addNewStatus("Vitamin D3", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vitaminD3), getString(R.string.natureMade5000IU), getString(R.string.supplements), getString(R.string.amazon), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.vitaminD3), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hyaluronic Acid", "Horbaach 1000mg", "Supplements", "Amazon", 8);
-        dbStatusHelper.addNewStatus("Hyaluronic Acid", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Supplements", 9);
-        categoryData.getCategoryViewInStockMap().put("Supplements", 0);
-        categoryData.getCategoryViewNeededMap().put("Supplements", 0);
-        categoryData.getCategoryViewPausedMap().put("Supplements", 9);
-        dbCategoryHelper.setCategoryViews("Supplements", 9, 0, 0, 9);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.supplements), 9);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.supplements), 0);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.supplements), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.supplements), 9);
+        dbCategoryHelper.setCategoryViews(getString(R.string.supplements), 9, 0, 0, 9);
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 215
+        // total category items = 222
 
     }
 
@@ -1549,789 +1569,810 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Vons--------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Sausage Biscuits", "Jimmy Dean Frozen", "Meals", "Vons", 0);
-        //dbStatusHelper.addNewStatus("Sausage Biscuits", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sausageBiscuits), getString(R.string.jimmyDeanFrozen), getString(R.string.meals), getString(R.string.vons), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.sausageBiscuits), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Helper", "Cheeseburger Macaroni", "Meals", "Vons", 1);
-        //dbStatusHelper.addNewStatus("Hamburger Helper", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerHelper), getString(R.string.cheeseburgerMacaroni), getString(R.string.meals), getString(R.string.vons), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerHelper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buffalo Chicken Bites", "TGIF or Frank's", "Meals", "Vons", 2);
-        //dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.buffaloChickenBites), getString(R.string.tGIForFranks), getString(R.string.meals), getString(R.string.vons), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.buffaloChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Terriyaki Chicken Bites", "InnovAsian", "Meals", "Vons", 3);
-        //dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.terriyakiChickenBites), getString(R.string.innovAsian), getString(R.string.meals), getString(R.string.vons), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.terriyakiChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 4);
-        //dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tgifCheeseSticks), getString(R.string.tgifSmall10pc), getString(R.string.meals), getString(R.string.vons), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.tgifCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 5);
-        //dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mozarellaCheeseSticks), getString(R.string.farmRich), getString(R.string.meals), getString(R.string.vons), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.mozarellaCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
-        //dbStatusHelper.addNewStatus("Frozen Pizza", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenPizza), getString(R.string.thinPepperoni), getString(R.string.meals), getString(R.string.vons), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenPizza), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
-        //dbStatusHelper.addNewStatus("Corn Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cornDogs), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.vons), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.cornDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
-        //dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotDogs), getString(R.string.bunSize), getString(R.string.meals), getString(R.string.vons), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
-        //dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotDogBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 9);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotDogBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 10);
-        //dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerPatties), getString(R.string.toDo), getString(R.string.meals), getString(R.string.vons), 10);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerPatties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
-        //dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 11);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
-        //dbStatusHelper.addNewStatus("Pasta Roni 1", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaRoni1), getString(R.string.angelHairPasta), getString(R.string.meals), getString(R.string.vons), 12);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaRoni1), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
-        //dbStatusHelper.addNewStatus("Pasta Roni 2", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaRoni2), getString(R.string.fettuccineAlfredo), getString(R.string.meals), getString(R.string.vons), 13);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaRoni2), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
-        //dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.macAndCheese), getString(R.string.annies), getString(R.string.meals), getString(R.string.vons), 14);
+        //dbStatusHelper.addNewStatus(getString(R.string.macAndCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 15);
-        //dbStatusHelper.addNewStatus("Gnocci", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.gnocci), getString(R.string.signatureSelect), getString(R.string.meals), getString(R.string.vons), 15);
+        //dbStatusHelper.addNewStatus(getString(R.string.gnocci), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 16);
-        //dbStatusHelper.addNewStatus("Spaghetti O's", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.spaghettiOs), getString(R.string.wMeatballs), getString(R.string.soups), getString(R.string.vons), 16);
+        //dbStatusHelper.addNewStatus(getString(R.string.spaghettiOs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 17);
-        //dbStatusHelper.addNewStatus("Chicken Noodle Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenNoodleSoup), getString(R.string.campbells), getString(R.string.soups), getString(R.string.vons), 17);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenNoodleSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 18);
-        //dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.minestroneSoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 18);
+        //dbStatusHelper.addNewStatus(getString(R.string.minestroneSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 19);
-        //dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vegetableBarleySoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 19);
+        //dbStatusHelper.addNewStatus(getString(R.string.vegetableBarleySoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 20);
-        //dbStatusHelper.addNewStatus("Cup of Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cupOfNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.vons), 20);
+        //dbStatusHelper.addNewStatus(getString(R.string.cupOfNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 21);
-        //dbStatusHelper.addNewStatus("Frozen French Fries", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenFrenchFries), getString(R.string.oreIda), getString(R.string.sides), getString(R.string.vons), 21);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenFrenchFries), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 22);
-        //dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.texasCheesyBread), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 22);
+        //dbStatusHelper.addNewStatus(getString(R.string.texasCheesyBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 23);
-        //dbStatusHelper.addNewStatus("Chicken Rice", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenRice), getString(R.string.knorr), getString(R.string.sides), getString(R.string.vons), 23);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenRice), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 24);
-        //dbStatusHelper.addNewStatus("Canned Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cannedCorn), getString(R.string.delMonte), getString(R.string.sides), getString(R.string.vons), 24);
+        //dbStatusHelper.addNewStatus(getString(R.string.cannedCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 25);
-        //dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.steak), getString(R.string.usda), getString(R.string.meat), getString(R.string.vons), 25);
+        //dbStatusHelper.addNewStatus(getString(R.string.steak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 26);
-        //dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.groundBeef), getString(R.string.pound1), getString(R.string.meat), getString(R.string.vons), 26);
+        //dbStatusHelper.addNewStatus(getString(R.string.groundBeef), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 27);
-        //dbStatusHelper.addNewStatus("Frozen Meatballs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenMeatballs), getString(R.string.rosinaHomestyle), getString(R.string.meat), getString(R.string.vons), 27);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenMeatballs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 28);
-        //dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenBreast), getString(R.string.na), getString(R.string.meat), getString(R.string.vons), 28);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenBreast), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 29);
-        //dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedTurkey), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 29);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedTurkey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 30);
-        //dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedHam), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 30);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedHam), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 31);
-        //dbStatusHelper.addNewStatus("Ham Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamSteak), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 31);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamSteak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 32);
-        //dbStatusHelper.addNewStatus("Thin Spaghetti", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.thinSpaghetti), getString(R.string.barillaWholeGrain), getString(R.string.breadGrainsCereal), getString(R.string.vons), 32);
+        //dbStatusHelper.addNewStatus(getString(R.string.thinSpaghetti), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 33);
-        //dbStatusHelper.addNewStatus("Spiral Pasta", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.spiralPasta), getString(R.string.barillaRotini), getString(R.string.breadGrainsCereal), getString(R.string.vons), 33);
+        //dbStatusHelper.addNewStatus(getString(R.string.spiralPasta), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 34);
-        //dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.wheatBread), getString(R.string.naturesOwn), getString(R.string.breadGrainsCereal), getString(R.string.vons), 34);
+        //dbStatusHelper.addNewStatus(getString(R.string.wheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 35);
-        //dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.baguette), getString(R.string.frenchOrSourdough), getString(R.string.breadGrainsCereal), getString(R.string.vons), 35);
+        //dbStatusHelper.addNewStatus(getString(R.string.baguette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 36);
-        //dbStatusHelper.addNewStatus("Sourdough Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sourdoughBread), getString(R.string.sanLuis), getString(R.string.breadGrainsCereal), getString(R.string.vons), 36);
+        //dbStatusHelper.addNewStatus(getString(R.string.sourdoughBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 37);
-        //dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hardRolls), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 37);
+        //dbStatusHelper.addNewStatus(getString(R.string.hardRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 38);
-        //dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.thomasMuffins), getString(R.string.original), getString(R.string.breadGrainsCereal), getString(R.string.vons), 38);
+        //dbStatusHelper.addNewStatus(getString(R.string.thomasMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 39);
-        //dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.reesesPuffsCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 39);
+        //dbStatusHelper.addNewStatus(getString(R.string.reesesPuffsCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 40);
-        //dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cookieCrispCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 40);
+        //dbStatusHelper.addNewStatus(getString(R.string.cookieCrispCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 41);
-        //dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frostedMiniWheatCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 41);
+        //dbStatusHelper.addNewStatus(getString(R.string.frostedMiniWheatCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 42);
-        //dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honeySmacksCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 42);
+        //dbStatusHelper.addNewStatus(getString(R.string.honeySmacksCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 43);
-        //dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.eggoWaffles), getString(R.string.homestyle), getString(R.string.breadGrainsCereal), getString(R.string.vons), 43);
+        //dbStatusHelper.addNewStatus(getString(R.string.eggoWaffles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 44);
-        //dbStatusHelper.addNewStatus("Milk", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.milk), getString(R.string.vitaminD), getString(R.string.eggsDairy), getString(R.string.vons), 44);
+        //dbStatusHelper.addNewStatus(getString(R.string.milk), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 45);
-        //dbStatusHelper.addNewStatus("Eggs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.eggs), getString(R.string.gradeAAxLarge), getString(R.string.eggsDairy), getString(R.string.vons), 45);
+        //dbStatusHelper.addNewStatus(getString(R.string.eggs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 46);
-        //dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honeyYogurt), getString(R.string.greekGods), getString(R.string.eggsDairy), getString(R.string.vons), 46);
+        //dbStatusHelper.addNewStatus(getString(R.string.honeyYogurt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 47);
-        //dbStatusHelper.addNewStatus("Salted Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.vons), 47);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 48);
-        //dbStatusHelper.addNewStatus("Shredded Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shreddedCheese), getString(R.string.mexicanBlend), getString(R.string.eggsDairy), getString(R.string.vons), 48);
+        //dbStatusHelper.addNewStatus(getString(R.string.shreddedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 49);
-        //dbStatusHelper.addNewStatus("String Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.stringCheese), getString(R.string.mozarella), getString(R.string.eggsDairy), getString(R.string.vons), 49);
+        //dbStatusHelper.addNewStatus(getString(R.string.stringCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 50);
-        //dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bdCheese), getString(R.string.blackDiamond), getString(R.string.eggsDairy), getString(R.string.vons), 50);
+        //dbStatusHelper.addNewStatus(getString(R.string.bdCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 51);
-        //dbStatusHelper.addNewStatus("Non-Stick Spray", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 51);
+        //dbStatusHelper.addNewStatus(getString(R.string.nonStickSpray), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 52);
-        //dbStatusHelper.addNewStatus("Parmesan Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.parmesanCheese), getString(R.string.kraft), getString(R.string.condiments), getString(R.string.vons), 52);
+        //dbStatusHelper.addNewStatus(getString(R.string.parmesanCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 53);
-        //dbStatusHelper.addNewStatus("A1 Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.a1sauce), getString(R.string.original), getString(R.string.condiments), getString(R.string.vons), 53);
+        //dbStatusHelper.addNewStatus(getString(R.string.a1sauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 54);
-        //dbStatusHelper.addNewStatus("Ketchup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ketchup), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 54);
+        //dbStatusHelper.addNewStatus(getString(R.string.ketchup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 55);
-        //dbStatusHelper.addNewStatus("Mustard", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mustard), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 55);
+        //dbStatusHelper.addNewStatus(getString(R.string.mustard), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 56);
-        //dbStatusHelper.addNewStatus("Pasta Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaSauce), getString(R.string.raguMeat), getString(R.string.condiments), getString(R.string.vons), 56);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 57);
-        //dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.marinaraSauce), getString(R.string.signatureTraditional), getString(R.string.condiments), getString(R.string.vons), 57);
+        //dbStatusHelper.addNewStatus(getString(R.string.marinaraSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 58);
-        //dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mapleSyrup), getString(R.string.pearlMilling), getString(R.string.condiments), getString(R.string.vons), 58);
+        //dbStatusHelper.addNewStatus(getString(R.string.mapleSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 59);
-        //dbStatusHelper.addNewStatus("Honey", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honey), getString(R.string.localHiveClover), getString(R.string.condiments), getString(R.string.vons), 59);
+        //dbStatusHelper.addNewStatus(getString(R.string.honey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 60);
-        //dbStatusHelper.addNewStatus("Peanut Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.peanutButter), getString(R.string.skippyCreamy), getString(R.string.condiments), getString(R.string.vons), 60);
+        //dbStatusHelper.addNewStatus(getString(R.string.peanutButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 61);
-        //dbStatusHelper.addNewStatus("Soy Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.soySauce), getString(R.string.kikoman), getString(R.string.condiments), getString(R.string.vons), 61);
+        //dbStatusHelper.addNewStatus(getString(R.string.soySauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 62);
-        //dbStatusHelper.addNewStatus("Brown Sugar", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.brownSugar), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 62);
+        //dbStatusHelper.addNewStatus(getString(R.string.brownSugar), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 63);
-        //dbStatusHelper.addNewStatus("Salt & Pepper", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltAndPepper), getString(R.string.na), getString(R.string.seasonings), getString(R.string.vons), 63);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltAndPepper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 64);
-        //dbStatusHelper.addNewStatus("Garlic Salt", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.garlicSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 64);
+        //dbStatusHelper.addNewStatus(getString(R.string.garlicSalt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 65);
-        //dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.lawrysSeasoningSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 65);
+        //dbStatusHelper.addNewStatus(getString(R.string.lawrysSeasoningSalt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 66);
-        //dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ranchDipMix), getString(R.string.lauraScudders), getString(R.string.seasonings), getString(R.string.vons), 66);
+        //dbStatusHelper.addNewStatus(getString(R.string.ranchDipMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 67);
-        //dbStatusHelper.addNewStatus("Vanilla Extract", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaExtract), getString(R.string.signatureSelect), getString(R.string.seasonings), getString(R.string.vons), 67);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaExtract), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 68);
-        //dbStatusHelper.addNewStatus("Cinnamon Sugar", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cinnamonSugar), getString(R.string.mcCormicks), getString(R.string.seasonings), getString(R.string.vons), 68);
+        //dbStatusHelper.addNewStatus(getString(R.string.cinnamonSugar), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 69);
-        //dbStatusHelper.addNewStatus("Sprinkles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sprinkles), getString(R.string.types3), getString(R.string.seasonings), getString(R.string.vons), 69);
+        //dbStatusHelper.addNewStatus(getString(R.string.sprinkles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 70);
-        //dbStatusHelper.addNewStatus("Soda Bottles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 70);
+        //dbStatusHelper.addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 71);
-        //dbStatusHelper.addNewStatus("Hot Chocolate Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 71);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 72);
-        //dbStatusHelper.addNewStatus("Bottled Water", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bottledWater), getString(R.string.refreshe40pack), getString(R.string.drinks), getString(R.string.vons), 72);
+        //dbStatusHelper.addNewStatus(getString(R.string.bottledWater), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 73);
-        //dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.beefJerky), getString(R.string.archerTerriyaki), getString(R.string.snacks), getString(R.string.vons), 73);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefJerky), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 74);
-        //dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.peanuts), getString(R.string.honeyRoasted), getString(R.string.snacks), getString(R.string.vons), 74);
+        //dbStatusHelper.addNewStatus(getString(R.string.peanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 75);
-        //dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shellPeanuts), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 75);
+        //dbStatusHelper.addNewStatus(getString(R.string.shellPeanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 76);
-        //dbStatusHelper.addNewStatus("Sunflower Seeds", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sunflowerSeeds), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 76);
+        //dbStatusHelper.addNewStatus(getString(R.string.sunflowerSeeds), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 77);
-        //dbStatusHelper.addNewStatus("Vinegar Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vinegarChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 77);
+        //dbStatusHelper.addNewStatus(getString(R.string.vinegarChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 78);
-        //dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bbqChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 78);
+        //dbStatusHelper.addNewStatus(getString(R.string.bbqChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 79);
-        //dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.doritos), getString(R.string.coolRanch), getString(R.string.snacks), getString(R.string.vons), 79);
+        //dbStatusHelper.addNewStatus(getString(R.string.doritos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 80);
-        //dbStatusHelper.addNewStatus("Lay's Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laysChips), getString(R.string.classic), getString(R.string.snacks), getString(R.string.vons), 80);
+        //dbStatusHelper.addNewStatus(getString(R.string.laysChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 81);
-        //dbStatusHelper.addNewStatus("Naan Crisps", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.naanCrisps), getString(R.string.stonefire), getString(R.string.snacks), getString(R.string.vons), 81);
+        //dbStatusHelper.addNewStatus(getString(R.string.naanCrisps), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 82);
-        //dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoCakesters), getString(R.string.nabisco), getString(R.string.snacks), getString(R.string.vons), 82);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoCakesters), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 83);
-        //dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.goldfish), getString(R.string.cheddar), getString(R.string.snacks), getString(R.string.vons), 83);
+        //dbStatusHelper.addNewStatus(getString(R.string.goldfish), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 84);
-        //dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cheezIts), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 84);
+        //dbStatusHelper.addNewStatus(getString(R.string.cheezIts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 85);
-        //dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.famousAmosCookies), getString(R.string.resealableBag), getString(R.string.snacks), getString(R.string.vons), 85);
+        //dbStatusHelper.addNewStatus(getString(R.string.famousAmosCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 86);
-        //dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocFudgePirouette), getString(R.string.pepperidgeFarm), getString(R.string.snacks), getString(R.string.vons), 86);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocFudgePirouette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 87);
-        //dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocChipMuffinMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.vons), 87);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocChipMuffinMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 88);
-        //dbStatusHelper.addNewStatus("Oreos", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreos), getString(R.string.forCrumbs), getString(R.string.desserts), getString(R.string.vons), 88);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 89);
-        //dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.thrifty), getString(R.string.desserts), getString(R.string.vons), 89);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 90);
-        //dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocTruffleIceCream), getString(R.string.breyers), getString(R.string.desserts), getString(R.string.vons), 90);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocTruffleIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 91);
-        //dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.reesesPBCups), getString(R.string.individuallyWrapped), getString(R.string.candy), getString(R.string.vons), 91);
+        //dbStatusHelper.addNewStatus(getString(R.string.reesesPBCups), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 92);
-        //dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotTamales), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 92);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotTamales), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 93);
-        //dbStatusHelper.addNewStatus("Mini M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.miniMAndMs), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 93);
+        //dbStatusHelper.addNewStatus(getString(R.string.miniMAndMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 94);
-        //dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 94);
+        //dbStatusHelper.addNewStatus(getString(R.string.tootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 95);
-        //dbStatusHelper.addNewStatus("Cat Food (wet)", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catFoodWet), getString(R.string.fancyFeast), getString(R.string.petSupplies), getString(R.string.vons), 95);
+        //dbStatusHelper.addNewStatus(getString(R.string.catFoodWet), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 96);
-        //dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.purePumpkin), getString(R.string.libbys), getString(R.string.petSupplies), getString(R.string.vons), 96);
+        //dbStatusHelper.addNewStatus(getString(R.string.purePumpkin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 97);
-        //dbStatusHelper.addNewStatus("Delectables", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 97);
+        //dbStatusHelper.addNewStatus(getString(R.string.delectables), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 98);
-        //dbStatusHelper.addNewStatus("Body Wash", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 98);
+        //dbStatusHelper.addNewStatus(getString(R.string.bodyWash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 99);
-        //dbStatusHelper.addNewStatus("Shampoo", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 99);
+        //dbStatusHelper.addNewStatus(getString(R.string.shampoo), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 100);
-        //dbStatusHelper.addNewStatus("Deodorant", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.deodorant), getString(R.string.oldSpice), getString(R.string.toiletries), getString(R.string.vons), 100);
+        //dbStatusHelper.addNewStatus(getString(R.string.deodorant), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 101);
-        //dbStatusHelper.addNewStatus("Mouthwash", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mouthwash), getString(R.string.crestWhitening), getString(R.string.toiletries), getString(R.string.vons), 101);
+        //dbStatusHelper.addNewStatus(getString(R.string.mouthwash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 102);
-        //dbStatusHelper.addNewStatus("Cotton Swabs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cottonSwabs), getString(R.string.qTips), getString(R.string.toiletries), getString(R.string.vons), 102);
+        //dbStatusHelper.addNewStatus(getString(R.string.cottonSwabs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 103);
-        //dbStatusHelper.addNewStatus("Febreeze Air Spray", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.febreezeAirSpray), getString(R.string.heavyDuty), getString(R.string.household), getString(R.string.vons), 103);
+        //dbStatusHelper.addNewStatus(getString(R.string.febreezeAirSpray), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 104);
-        //dbStatusHelper.addNewStatus("All Purpose Cleaner", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.allPurposeCleaner), getString(R.string.meyersLavender), getString(R.string.household), getString(R.string.vons), 104);
+        //dbStatusHelper.addNewStatus(getString(R.string.allPurposeCleaner), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 105);
-        //dbStatusHelper.addNewStatus("Laundry Detergent", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laundryDetergent), getString(R.string.woolite), getString(R.string.household), getString(R.string.vons), 105);
+        //dbStatusHelper.addNewStatus(getString(R.string.laundryDetergent), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 106);
-        //dbStatusHelper.addNewStatus("Laundry Sanitizer", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laundrySanitizer), getString(R.string.lysol), getString(R.string.household), getString(R.string.vons), 106);
+        //dbStatusHelper.addNewStatus(getString(R.string.laundrySanitizer), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 107);
-        //dbStatusHelper.addNewStatus("Aluminum Foil", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.aluminumFoil), getString(R.string.reynoldsWrap), getString(R.string.household), getString(R.string.vons), 107);
+        //dbStatusHelper.addNewStatus(getString(R.string.aluminumFoil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 108);
-        //dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zipLockBagsSmall), getString(R.string.sandwich), getString(R.string.household), getString(R.string.vons), 108);
+        //dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsSmall), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 109);
-        //dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zipLockBagsLarge), getString(R.string.freezerGallon), getString(R.string.household), getString(R.string.vons), 109);
+        //dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsLarge), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 110);
-        //dbStatusHelper.addNewStatus("Saran Wrap", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saranWrap), getString(R.string.plasticWrap), getString(R.string.household), getString(R.string.vons), 110);
+        //dbStatusHelper.addNewStatus(getString(R.string.saranWrap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 111);
-        //dbStatusHelper.addNewStatus("Scrub Sponges", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.scrubSponges), getString(R.string.nonScratch), getString(R.string.household), getString(R.string.vons), 111);
+        //dbStatusHelper.addNewStatus(getString(R.string.scrubSponges), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 112);
-        //dbStatusHelper.addNewStatus("Dawn Powerwash", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dawnPowerwash), getString(R.string.dishCleaner), getString(R.string.household), getString(R.string.vons), 112);
+        //dbStatusHelper.addNewStatus(getString(R.string.dawnPowerwash), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 113);
-        //dbStatusHelper.addNewStatus("Dish Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dishSoap), getString(R.string.dawnPlatinum), getString(R.string.household), getString(R.string.vons), 113);
+        //dbStatusHelper.addNewStatus(getString(R.string.dishSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 114);
-        //dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smallFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 114);
+        //dbStatusHelper.addNewStatus(getString(R.string.smallFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 115);
-        //dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.largeFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 115);
+        //dbStatusHelper.addNewStatus(getString(R.string.largeFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 116);
-        //dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sourCream), getString(R.string.toDo), getString(R.string.eggsDairy), getString(R.string.vons), 116);
+        //dbStatusHelper.addNewStatus(getString(R.string.sourCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 117);
-        //dbStatusHelper.addNewStatus("Buffalo Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.buffaloSauce), getString(R.string.franksWings), getString(R.string.condiments), getString(R.string.vons), 117);
+        //dbStatusHelper.addNewStatus(getString(R.string.buffaloSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 118);
-        //dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoSauce), getString(R.string.victoriasMild), getString(R.string.condiments), getString(R.string.vons), 118);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 119);
-        //dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoSeasoning), getString(R.string.any), getString(R.string.seasonings), getString(R.string.vons), 119);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoSeasoning), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 120);
-        //dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoShells), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 120);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoShells), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 121);
-        //dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tortellini), getString(R.string.barilla3Cheese), getString(R.string.meals), getString(R.string.vons), 121);
+        //dbStatusHelper.addNewStatus(getString(R.string.tortellini), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 122);
-        //dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.garlicBreadsticks), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 122);
+        //dbStatusHelper.addNewStatus(getString(R.string.garlicBreadsticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 123);
-        //dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.goodAndPlenty), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 123);
+        //dbStatusHelper.addNewStatus(getString(R.string.goodAndPlenty), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 124);
-        //dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedCheese), getString(R.string.kraftSingles), getString(R.string.eggsDairy), getString(R.string.vons), 124);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 125);
-        //dbStatusHelper.addNewStatus("Cat Treats", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catTreats), getString(R.string.temptations), getString(R.string.petSupplies), getString(R.string.vons), 125);
+        //dbStatusHelper.addNewStatus(getString(R.string.catTreats), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 126);
-        //dbStatusHelper.addNewStatus("Saltine Crackers", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltineCrackers), getString(R.string.premiumOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 126);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltineCrackers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 127);
-        //dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.semiSweetChocChips), getString(R.string.nestle), getString(R.string.miscIngredients), getString(R.string.vons), 127);
+        //dbStatusHelper.addNewStatus(getString(R.string.semiSweetChocChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 128);
-        //dbStatusHelper.addNewStatus("Vegetable Oil", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 128);
+        //dbStatusHelper.addNewStatus(getString(R.string.vegetableOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 129);
-        //dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 129);
+        //dbStatusHelper.addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 130);
-        //dbStatusHelper.addNewStatus("Buttered Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 130);
+        //dbStatusHelper.addNewStatus(getString(R.string.butteredPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 131);
-        //dbStatusHelper.addNewStatus("Caramel Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.caramelPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 131);
+        //dbStatusHelper.addNewStatus(getString(R.string.caramelPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 132);
-        //dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 132);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 133);
-        //dbStatusHelper.addNewStatus("Ritz Crackers", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ritzCrackers), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 133);
+        //dbStatusHelper.addNewStatus(getString(R.string.ritzCrackers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 134);
-        //dbStatusHelper.addNewStatus("Half & Half", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.halfAndHalf), getString(R.string.lucerne), getString(R.string.eggsDairy), getString(R.string.vons), 134);
+        //dbStatusHelper.addNewStatus(getString(R.string.halfAndHalf), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 135);
-        //dbStatusHelper.addNewStatus("Movie Theater Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 135);
+        //dbStatusHelper.addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Vons", 136);
-        storeData.getStoreViewInStockMap().put("Vons", 0);
-        storeData.getStoreViewNeededMap().put("Vons", 0);
-        storeData.getStoreViewPausedMap().put("Vons", 136);
-        dbStoreHelper.setStoreViews("Vons", 136, 0, 0, 136);
+        dbItemHelper.addNewItemByStore(getString(R.string.crescentRolls), getString(R.string.signatureSelect), getString(R.string.sides), getString(R.string.vons), 136);
+        //dbStatusHelper.addNewStatus(getString(R.string.crescentRolls), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.beefLitlSmokies), getString(R.string.hillshireFarm), getString(R.string.meat), getString(R.string.vons), 137);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefLitlSmokies), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.doubleChocMuffins), getString(R.string.count4), getString(R.string.desserts), getString(R.string.vons), 138);
+        //dbStatusHelper.addNewStatus(getString(R.string.doubleChocMuffins), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.vons), 139);
+        storeData.getStoreViewInStockMap().put(getString(R.string.vons), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.vons), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.vons), 139);
+        dbStoreHelper.setStoreViews(getString(R.string.vons), 139, 0, 0, 139);
 
         //------------------------------------Smart & Final-----------------------------------------
 
-        dbItemHelper.addNewItemByStore("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 0);
-        //dbStatusHelper.addNewStatus("Churros", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.churros), getString(R.string.tioPepesOrHola), getString(R.string.desserts), getString(R.string.smartFinal), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.churros), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pepperoni Slices", "Hormel (300 slices)", "Meat", "Smart & Final", 1);
-        //dbStatusHelper.addNewStatus("Pepperoni Slices", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pepperoniSlices), getString(R.string.hormel300Slices), getString(R.string.meat), getString(R.string.smartFinal), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.pepperoniSlices), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Fun Dip Sticks", "na", "Candy", "Smart & Final", 2);
-        //dbStatusHelper.addNewStatus("Fun Dip Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.funDipSticks), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.funDipSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Orange Tic Tacs", "na", "Candy", "Smart & Final", 3);
-        //dbStatusHelper.addNewStatus("Orange Tic Tacs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.orangeTicTacs), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.orangeTicTacs), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Smart & Final", 4);
-        storeData.getStoreViewInStockMap().put("Smart & Final", 0);
-        storeData.getStoreViewNeededMap().put("Smart & Final", 0);
-        storeData.getStoreViewPausedMap().put("Smart & Final", 4);
-        dbStoreHelper.setStoreViews("Smart & Final", 4, 0, 0, 4);
+        dbItemHelper.addNewItemByStore(getString(R.string.gingerSnaps), getString(R.string.firstStreet), getString(R.string.snacks), getString(R.string.smartFinal), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.gingerSnaps), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.smartFinal), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.smartFinal), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.smartFinal), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.smartFinal), 5);
+        dbStoreHelper.setStoreViews(getString(R.string.smartFinal), 5, 0, 0, 5);
 
         //------------------------------------Costco------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Soda Cans", "Pepsi or Coke", "Drinks", "Costco", 0);
-        //dbStatusHelper.addNewStatus("Soda Cans", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.sodaCans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Kitty Litter", "Scoop Away Complete", "Pet Supplies", "Costco", 1);
-        //dbStatusHelper.addNewStatus("Kitty Litter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.kittyLitter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Broth", "Kirkland Organic", "Pet Supplies", "Costco", 2);
-        //dbStatusHelper.addNewStatus("Chicken Broth", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenBroth), getString(R.string.kirklandOrganic), getString(R.string.petSupplies), getString(R.string.costco), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenBroth), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mashed Potatoes", "Main St. Bistro", "Pet Supplies", "Costco", 3);
-        //dbStatusHelper.addNewStatus("Mashed Potatoes", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mashedPotatoes), getString(R.string.mainStBistro), getString(R.string.petSupplies), getString(R.string.costco), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.mashedPotatoes), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Freshpet", "Chicken Recipe (6lb)", "Pet Supplies", "Costco", 4);
-        //dbStatusHelper.addNewStatus("Freshpet", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.freshpet), getString(R.string.chickenRecipe), getString(R.string.petSupplies), getString(R.string.costco), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.freshpet), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Muffins", "12 pack", "Desserts", "Costco", 5);
-        //dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoMuffins), getString(R.string.pack12), getString(R.string.desserts), getString(R.string.costco), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 6);
-        //dbStatusHelper.addNewStatus("Crispy Buffalo Wings", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.crispyBuffaloWings), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.costco), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.crispyBuffaloWings), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Costco", 7);
-        storeData.getStoreViewInStockMap().put("Costco", 0);
-        storeData.getStoreViewNeededMap().put("Costco", 0);
-        storeData.getStoreViewPausedMap().put("Costco", 7);
-        dbStoreHelper.setStoreViews("Costco", 7, 0, 0, 7);
+        dbItemHelper.addNewItemByStore(getString(R.string.paperTowels), getString(R.string.kirklandPremium), getString(R.string.household), getString(R.string.costco), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.paperTowels), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.toiletPaper), getString(R.string.kirklandUltraSoft), getString(R.string.household), getString(R.string.costco), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.toiletPaper), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.costco), 9);
+        storeData.getStoreViewInStockMap().put(getString(R.string.costco), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.costco), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.costco), 9);
+        dbStoreHelper.setStoreViews(getString(R.string.costco), 9, 0, 0, 9);
 
         //------------------------------------Walmart-----------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Dark Chocolate Caramel Squares", "Ghiradelli", "Candy", "Walmart", 0);
-        //dbStatusHelper.addNewStatus("Dark Chocolate Caramel Squares", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocolateCaramelSquares), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocolateCaramelSquares), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dishwashing Brush", "Great Value", "Household", "Walmart", 1);
-        //dbStatusHelper.addNewStatus("Dishwashing Brush", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dishwashingBrush), getString(R.string.greatValue), getString(R.string.household), getString(R.string.walmart), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.dishwashingBrush), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Small Trash Bags", "13 gallon", "Household", "Walmart", 2);
-        //dbStatusHelper.addNewStatus("Small Trash Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smallTrashBags), getString(R.string.gallon13), getString(R.string.household), getString(R.string.walmart), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.smallTrashBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Large Trash Bags", "33 gallon", "Household", "Walmart", 3);
-        //dbStatusHelper.addNewStatus("Large Trash Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.largeTrashBags), getString(R.string.gallon33), getString(R.string.household), getString(R.string.walmart), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.largeTrashBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Compactor Bags", "18 gallon", "Household", "Walmart", 4);
-        //dbStatusHelper.addNewStatus("Compactor Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.compactorBags), getString(R.string.gallon18), getString(R.string.household), getString(R.string.walmart), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.compactorBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Paper Towels", "Sparkle", "Household", "Walmart", 5);
-        //dbStatusHelper.addNewStatus("Paper Towels", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toilet Paper", "Angel Soft", "Household", "Walmart", 6);
-        //dbStatusHelper.addNewStatus("Toilet Paper", "paused", "unchecked");
-
-        dbItemHelper.addNewItemByStore("72% Intense Dark Chocolate", "Ghiradelli", "Candy", "Walmart", 7);
-        //dbStatusHelper.addNewStatus("72% Intense Dark Chocolate", "paused", "unchecked");
-
-        storeData.getStoreViewAllMap().put("Walmart", 8);
-        storeData.getStoreViewInStockMap().put("Walmart", 0);
-        storeData.getStoreViewNeededMap().put("Walmart", 0);
-        storeData.getStoreViewPausedMap().put("Walmart", 8);
-        dbStoreHelper.setStoreViews("Walmart", 8, 0, 0, 8);
+        storeData.getStoreViewAllMap().put(getString(R.string.walmart), 6);
+        storeData.getStoreViewInStockMap().put(getString(R.string.walmart), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.walmart), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.walmart), 6);
+        dbStoreHelper.setStoreViews(getString(R.string.walmart), 6, 0, 0, 6);
 
         //------------------------------------Amazon------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Muddy Buddies", "Brownie Supreme", "Snacks", "Amazon", 0);
-        //dbStatusHelper.addNewStatus("Muddy Buddies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.muddyBuddies), getString(R.string.brownieSupreme), getString(R.string.snacks), getString(R.string.amazon), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.muddyBuddies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 1);
-        //dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.gingerbreadCookieMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.amazon), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.gingerbreadCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Jelly Beans", "Sizzling Cinnamon", "Candy", "Amazon", 2);
-        //dbStatusHelper.addNewStatus("Jelly Beans", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.jellyBeans), getString(R.string.sizzlingCinnamon), getString(R.string.candy), getString(R.string.amazon), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.jellyBeans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Orange Pez", "na", "Candy", "Amazon", 3);
-        //dbStatusHelper.addNewStatus("Orange Pez", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.orangePez), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.orangePez), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Taffy", "na", "Candy", "Amazon", 4);
-        //dbStatusHelper.addNewStatus("Vanilla Taffy", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaTaffy), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaTaffy), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Tootsie Rolls", "na", "Candy", "Amazon", 5);
-        //dbStatusHelper.addNewStatus("Vanilla Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaTootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaTootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Poop Bags", "Amazon Basics", "Pet Supplies", "Amazon", 6);
-        //dbStatusHelper.addNewStatus("Poop Bags", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.poopBags), getString(R.string.amazonBasics), getString(R.string.petSupplies), getString(R.string.amazon), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.poopBags), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Nitrile Gloves", "GMG 100 pack", "Pet Supplies", "Amazon", 7);
-        //dbStatusHelper.addNewStatus("Nitrile Gloves", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.nitrileGloves), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toothpaste", "Tom's Antiplaque & Whitening", "Toiletries", "Amazon", 8);
-        //dbStatusHelper.addNewStatus("Toothpaste", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.toothpaste), getString(R.string.ultrabrite), getString(R.string.toiletries), getString(R.string.amazon), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.toothpaste), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Floss", "Reach Mint Waxed", "Toiletries", "Amazon", 9);
-        //dbStatusHelper.addNewStatus("Floss", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.floss), getString(R.string.reachMintWaxed), getString(R.string.toiletries), getString(R.string.amazon), 9);
+        //dbStatusHelper.addNewStatus(getString(R.string.floss), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shaving Cream", "Sandalwood", "Toiletries", "Amazon", 10);
-        //dbStatusHelper.addNewStatus("Shaving Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shavingCream), getString(R.string.sandalwood), getString(R.string.toiletries), getString(R.string.amazon), 10);
+        //dbStatusHelper.addNewStatus(getString(R.string.shavingCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shaving Razors", "Gillette ProGlide", "Toiletries", "Amazon", 11);
-        //dbStatusHelper.addNewStatus("Shaving Razors", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shavingRazors), getString(R.string.gilletteProGlide), getString(R.string.toiletries), getString(R.string.amazon), 11);
+        //dbStatusHelper.addNewStatus(getString(R.string.shavingRazors), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sunscreen", "Hawaiian Tropic Sheer 50spf", "Toiletries", "Amazon", 12);
-        //dbStatusHelper.addNewStatus("Sunscreen", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sunscreen), getString(R.string.hawaiianTropicSheer50spf), getString(R.string.toiletries), getString(R.string.amazon), 12);
+        //dbStatusHelper.addNewStatus(getString(R.string.sunscreen), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pet Stain Cleaner", "Rocco & Roxie", "Household", "Amazon", 13);
-        //dbStatusHelper.addNewStatus("Pet Stain Cleaner", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.petStainCleaner), getString(R.string.roccoAndRoxie), getString(R.string.household), getString(R.string.amazon), 13);
+        //dbStatusHelper.addNewStatus(getString(R.string.petStainCleaner), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Night Light Bulbs", "C7 E12", "Household", "Amazon", 14);
-        //dbStatusHelper.addNewStatus("Night Light Bulbs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nightLightBulbs), getString(R.string.c7E12), getString(R.string.household), getString(R.string.amazon), 14);
+        //dbStatusHelper.addNewStatus(getString(R.string.nightLightBulbs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Fortune Cookies", "to do", "Snacks", "Amazon", 15);
-        //dbStatusHelper.addNewStatus("Fortune Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.fortuneCookies), getString(R.string.toDo), getString(R.string.snacks), getString(R.string.amazon), 15);
+        //dbStatusHelper.addNewStatus(getString(R.string.fortuneCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Communion Wafers", "to do", "Snacks", "Amazon", 16);
-        //dbStatusHelper.addNewStatus("Communion Wafers", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.communionWafers), getString(R.string.cavanaghAltarBread), getString(R.string.snacks), getString(R.string.amazon), 16);
+        //dbStatusHelper.addNewStatus(getString(R.string.communionWafers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sixlets", "na", "Candy", "Amazon", 17);
-        //dbStatusHelper.addNewStatus("Sixlets", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sixlets), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 17);
+        //dbStatusHelper.addNewStatus(getString(R.string.sixlets), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Little Trees Air Fresheners", "True North", "Household", "Amazon", 18);
-        //dbStatusHelper.addNewStatus("Little Trees Air Fresheners", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.littleTreesAirFresheners), getString(R.string.trueNorth), getString(R.string.household), getString(R.string.amazon), 18);
+        //dbStatusHelper.addNewStatus(getString(R.string.littleTreesAirFresheners), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Triple Omega", "Nature Made", "Supplements", "Amazon", 19);
-        //dbStatusHelper.addNewStatus("Triple Omega", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tripleOmega), getString(R.string.natureMade), getString(R.string.supplements), getString(R.string.amazon), 19);
+        //dbStatusHelper.addNewStatus(getString(R.string.tripleOmega), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Multivitamin", "One a Day Men's", "Supplements", "Amazon", 20);
-        //dbStatusHelper.addNewStatus("Multivitamin", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.multivitamin), getString(R.string.oneADayMens), getString(R.string.supplements), getString(R.string.amazon), 20);
+        //dbStatusHelper.addNewStatus(getString(R.string.multivitamin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vitamin C", "Amazon Elements 1000 mg", "Supplements", "Amazon", 21);
-        //dbStatusHelper.addNewStatus("Vitamin C", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vitaminC), getString(R.string.amazonElements1000mg), getString(R.string.supplements), getString(R.string.amazon), 21);
+        //dbStatusHelper.addNewStatus(getString(R.string.vitaminC), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Magnesium", "Nature Made 400mg", "Supplements", "Amazon", 22);
-        //dbStatusHelper.addNewStatus("Magnesium", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.magnesium), getString(R.string.natureMade400mg), getString(R.string.supplements), getString(R.string.amazon), 22);
+        //dbStatusHelper.addNewStatus(getString(R.string.magnesium), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zinc", "Sandhu Herbals 50mg", "Supplements", "Amazon", 23);
-        //dbStatusHelper.addNewStatus("Zinc", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zinc), getString(R.string.sandhuHerbals50mg), getString(R.string.supplements), getString(R.string.amazon), 23);
+        //dbStatusHelper.addNewStatus(getString(R.string.zinc), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Calcium", "Nature's Truth 1200 mg", "Supplements", "Amazon", 24);
-        //dbStatusHelper.addNewStatus("Calcium", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.calcium), getString(R.string.naturesTruth1200mg), getString(R.string.supplements), getString(R.string.amazon), 24);
+        //dbStatusHelper.addNewStatus(getString(R.string.calcium), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Biotin", "Natrol 10,000mcg", "Supplements", "Amazon", 25);
-        //dbStatusHelper.addNewStatus("Biotin", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.biotin), getString(R.string.natrol10000mcg), getString(R.string.supplements), getString(R.string.amazon), 25);
+        //dbStatusHelper.addNewStatus(getString(R.string.biotin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vitamin D3", "Nature Made 5000 IU", "Supplements", "Amazon", 26);
-        //dbStatusHelper.addNewStatus("Vitamin D3", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vitaminD3), getString(R.string.natureMade5000IU), getString(R.string.supplements), getString(R.string.amazon), 26);
+        //dbStatusHelper.addNewStatus(getString(R.string.vitaminD3), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hyaluronic Acid", "Horbaach 1000mg", "Supplements", "Amazon", 27);
-        //dbStatusHelper.addNewStatus("Hyaluronic Acid", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 27);
+        //dbStatusHelper.addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Amazon", 28);
-        storeData.getStoreViewInStockMap().put("Amazon", 0);
-        storeData.getStoreViewNeededMap().put("Amazon", 0);
-        storeData.getStoreViewPausedMap().put("Amazon", 28);
-        dbStoreHelper.setStoreViews("Amazon", 28, 0, 0, 28);
+        storeData.getStoreViewAllMap().put(getString(R.string.amazon), 28);
+        storeData.getStoreViewInStockMap().put(getString(R.string.amazon), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.amazon), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.amazon), 28);
+        dbStoreHelper.setStoreViews(getString(R.string.amazon), 28, 0, 0, 28);
 
         //------------------------------------Stater Bros-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Beef Noodles", "Yakisoba", "Soups", "Stater Bros", 0);
-        //dbStatusHelper.addNewStatus("Beef Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.beefNoodles), getString(R.string.yakisoba), getString(R.string.soups), getString(R.string.staterBros), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 1);
-        //dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocChipCookieMix), getString(R.string.bettyCrockerGlutenFree), getString(R.string.desserts), getString(R.string.staterBros), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocChipCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 2);
-        //dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocMaltMix), getString(R.string.nestle), getString(R.string.desserts), getString(R.string.staterBros), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocMaltMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pudding", "Snack Pack", "Snacks", "Stater Bros", 3);
-        //dbStatusHelper.addNewStatus("Choc. Fudge Pudding", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocFudgePudding), getString(R.string.snackPack), getString(R.string.snacks), getString(R.string.staterBros), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocFudgePudding), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dryer Sheets", "Simply Done Fresh Linen", "Household", "Stater Bros", 4);
-        //dbStatusHelper.addNewStatus("Dryer Sheets", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dryerSheets), getString(R.string.simplyDoneFreshLinen), getString(R.string.household), getString(R.string.staterBros), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.dryerSheets), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Stater Bros", 5);
-        storeData.getStoreViewInStockMap().put("Stater Bros", 0);
-        storeData.getStoreViewNeededMap().put("Stater Bros", 0);
-        storeData.getStoreViewPausedMap().put("Stater Bros", 5);
-        dbStoreHelper.setStoreViews("Stater Bros", 5, 0, 0, 5);
+        storeData.getStoreViewAllMap().put(getString(R.string.staterBros), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.staterBros), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.staterBros), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.staterBros), 5);
+        dbStoreHelper.setStoreViews(getString(R.string.staterBros), 5, 0, 0, 5);
 
         //------------------------------------Trader Joe's-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 0);
-        //dbStatusHelper.addNewStatus("Hold the Cone", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.holdTheCone), getString(R.string.chocolate), getString(R.string.desserts), getString(R.string.traderJoes), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.holdTheCone), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 1);
-        //dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocCaramels), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Trader Joe's", 2);
-        storeData.getStoreViewInStockMap().put("Trader Joe's", 0);
-        storeData.getStoreViewNeededMap().put("Trader Joe's", 0);
-        storeData.getStoreViewPausedMap().put("Trader Joe's", 2);
-        dbStoreHelper.setStoreViews("Trader Joe's", 2, 0, 0, 2);
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocPeanutButterCups), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocPeanutButterCups), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.traderJoes), 3);
+        storeData.getStoreViewInStockMap().put(getString(R.string.traderJoes), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.traderJoes), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.traderJoes), 3);
+        dbStoreHelper.setStoreViews(getString(R.string.traderJoes), 3, 0, 0, 3);
 
         //------------------------------------CVS---------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Dark Chocolate Pretzels", "Flipz", "Snacks", "CVS", 0);
-        //dbStatusHelper.addNewStatus("Dark Chocolate Pretzels", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocolatePretzels), getString(R.string.flipz), getString(R.string.snacks), getString(R.string.cvs), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocolatePretzels), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Candy Corn", "Brach's", "Candy", "CVS", 1);
-        //dbStatusHelper.addNewStatus("Candy Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.candyCorn), getString(R.string.brachs), getString(R.string.candy), getString(R.string.cvs), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.candyCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Rubbing Alcohol", "Isopropyl", "Household", "CVS", 2);
-        //dbStatusHelper.addNewStatus("Rubbing Alcohol", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.rubbingAlcohol), getString(R.string.isopropyl), getString(R.string.household), getString(R.string.cvs), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.rubbingAlcohol), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hydrogen Peroxide", "na", "Household", "CVS", 3);
-        //dbStatusHelper.addNewStatus("Hydrogen Peroxide", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hydrogenPeroxide), getString(R.string.na), getString(R.string.household), getString(R.string.cvs), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.hydrogenPeroxide), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Moisturizing Lotion", "CVS Health w/ hyaluronic acid", "Toiletries", "CVS", 4);
-        //dbStatusHelper.addNewStatus("Moisturizing Lotion", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.moisturizingLotion), getString(R.string.cvsHealthHyaluronicAcid), getString(R.string.toiletries), getString(R.string.cvs), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.moisturizingLotion), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Packaging Tape", "Scotch Heavy Duty", "Household", "CVS", 5);
-        //dbStatusHelper.addNewStatus("Packaging Tape", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.packagingTape), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.faceSunscreen), getString(R.string.aveenoProtectHydrate), getString(R.string.toiletries), getString(R.string.cvs), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.faceSunscreen), getString(R.string.paused), getString(R.string.unchecked));
 
 
-        storeData.getStoreViewAllMap().put("CVS", 6);
-        storeData.getStoreViewInStockMap().put("CVS", 0);
-        storeData.getStoreViewNeededMap().put("CVS", 0);
-        storeData.getStoreViewPausedMap().put("CVS", 6);
-        dbStoreHelper.setStoreViews("CVS", 6, 0, 0, 6);
+        storeData.getStoreViewAllMap().put(getString(R.string.cvs), 7);
+        storeData.getStoreViewInStockMap().put(getString(R.string.cvs), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.cvs), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.cvs), 7);
+        dbStoreHelper.setStoreViews(getString(R.string.cvs), 7, 0, 0, 7);
 
         //------------------------------------Dollar Tree-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Sno Caps", "na", "Candy", "Dollar Tree", 0);
-        //dbStatusHelper.addNewStatus("Sno Caps", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.snoCaps), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.snoCaps), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Smarties", "na", "Candy", "Dollar Tree", 1);
-        //dbStatusHelper.addNewStatus("Smarties", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smarties), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.smarties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Red Hots", "na", "Candy", "Dollar Tree", 2);
-        //dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 3);
-        //dbStatusHelper.addNewStatus("Hand Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.handSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 4);
-        //dbStatusHelper.addNewStatus("Ramen Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.ramenNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Dollar Tree", 5);
-        storeData.getStoreViewInStockMap().put("Dollar Tree", 0);
-        storeData.getStoreViewNeededMap().put("Dollar Tree", 0);
-        storeData.getStoreViewPausedMap().put("Dollar Tree", 5);
-        dbStoreHelper.setStoreViews("Dollar Tree", 5, 0, 0, 5);
+        storeData.getStoreViewAllMap().put(getString(R.string.dollarTree), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.dollarTree), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.dollarTree), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.dollarTree), 5);
+        dbStoreHelper.setStoreViews(getString(R.string.dollarTree), 5, 0, 0, 5);
 
         //------------------------------------Ralphs------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Clarified Butter", "Challenge", "Eggs/Dairy", "Ralphs", 0);
-        //dbStatusHelper.addNewStatus("Clarified Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.clarifiedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.ralphs), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.clarifiedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Ralphs", 1);
-        storeData.getStoreViewInStockMap().put("Ralphs", 0);
-        storeData.getStoreViewNeededMap().put("Ralphs", 0);
-        storeData.getStoreViewPausedMap().put("Ralphs", 1);
-        dbStoreHelper.setStoreViews("Ralphs", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.ralphs), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.ralphs), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.ralphs), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.ralphs), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.ralphs), 1, 0, 0, 1);
 
         //------------------------------------Target------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 0);
-        //dbStatusHelper.addNewStatus("Chocolate Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocolateSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocolateSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 1);
-        //dbStatusHelper.addNewStatus("Caramel Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.caramelSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.caramelSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dark Choc. M&M's", "na", "Candy", "Target", 2);
-        //dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocMandMs), getString(R.string.na), getString(R.string.candy), getString(R.string.target), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocMandMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 3);
-        //dbStatusHelper.addNewStatus("Sea Salt Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.seaSaltCaramels), getString(R.string.favoriteDay), getString(R.string.candy), getString(R.string.target), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.seaSaltCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 4);
-        //dbStatusHelper.addNewStatus("Oreo Pie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoPieMix), getString(R.string.noBakeDessert), getString(R.string.desserts), getString(R.string.target), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoPieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Target", 5);
-        storeData.getStoreViewInStockMap().put("Target", 0);
-        storeData.getStoreViewNeededMap().put("Target", 0);
-        storeData.getStoreViewPausedMap().put("Target", 5);
-        dbStoreHelper.setStoreViews("Target", 5, 0, 0, 5);
+        dbItemHelper.addNewItemByStore(getString(R.string.pieFilling), getString(R.string.jelloChocFudge), getString(R.string.desserts), getString(R.string.target), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.pieFilling), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.target), 6);
+        storeData.getStoreViewInStockMap().put(getString(R.string.target), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.target), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.target), 6);
+        dbStoreHelper.setStoreViews(getString(R.string.target), 6, 0, 0, 6);
 
         //------------------------------------Pet Supplies Plus-------------------------------------
 
-        dbItemHelper.addNewItemByStore("Cat Food (dry)", "Purina Pro Plan", "Pet Supplies", "Pet Supplies Plus", 0);
-        //dbStatusHelper.addNewStatus("Cat Food (dry)", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catFoodDry), getString(R.string.purinaProPlan), getString(R.string.petSupplies), getString(R.string.petSuppliesPlus), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.catFoodDry), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Pet Supplies Plus", 1);
-        storeData.getStoreViewInStockMap().put("Pet Supplies Plus", 0);
-        storeData.getStoreViewNeededMap().put("Pet Supplies Plus", 0);
-        storeData.getStoreViewPausedMap().put("Pet Supplies Plus", 1);
-        dbStoreHelper.setStoreViews("Pet Supplies Plus", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.petSuppliesPlus), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.petSuppliesPlus), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.petSuppliesPlus), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.petSuppliesPlus), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.petSuppliesPlus), 1, 0, 0, 1);
 
         //------------------------------------Sprouts-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 0);
-        //dbStatusHelper.addNewStatus("Bar Soap", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.barSoap), getString(R.string.zumBarSeaSalt), getString(R.string.toiletries), getString(R.string.sprouts), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.barSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 1);
-        //dbStatusHelper.addNewStatus("Toothbrush Heads", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.toothbrushHeads), getString(R.string.radiusSoft), getString(R.string.toiletries), getString(R.string.sprouts), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.toothbrushHeads), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Sprouts", 2);
-        storeData.getStoreViewInStockMap().put("Sprouts", 0);
-        storeData.getStoreViewNeededMap().put("Sprouts", 0);
-        storeData.getStoreViewPausedMap().put("Sprouts", 2);
-        dbStoreHelper.setStoreViews("Sprouts", 2, 0, 0, 2);
+        storeData.getStoreViewAllMap().put(getString(R.string.sprouts), 2);
+        storeData.getStoreViewInStockMap().put(getString(R.string.sprouts), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.sprouts), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.sprouts), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.sprouts), 2, 0, 0, 2);
 
         //------------------------------------Sam's Club--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Quick Steak", "Gary's", "Meat", "Sam's Club", 0);
-        //dbStatusHelper.addNewStatus("Quick Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.quickSteak), getString(R.string.garys), getString(R.string.meat), getString(R.string.samsClub), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.quickSteak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Paper Plates", "to do", "Household", "Sam's Club", 1);
-        //dbStatusHelper.addNewStatus("Paper Plates", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.paperPlates), getString(R.string.toDo), getString(R.string.household), getString(R.string.samsClub), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.paperPlates), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Sam's Club", 2);
-        storeData.getStoreViewInStockMap().put("Sam's Club", 0);
-        storeData.getStoreViewNeededMap().put("Sam's Club", 0);
-        storeData.getStoreViewPausedMap().put("Sam's Club", 2);
-        dbStoreHelper.setStoreViews("Sam's Club", 2, 0, 0, 2);
+        storeData.getStoreViewAllMap().put(getString(R.string.samsClub), 2);
+        storeData.getStoreViewInStockMap().put(getString(R.string.samsClub), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.samsClub), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.samsClub), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.samsClub), 2, 0, 0, 2);
 
         //---------------------------------------Staples--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Multipurpose Paper", "Tru Red 20/96", "Household", "Staples", 0);
-        //dbStatusHelper.addNewStatus("Multipurpose Paper", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.multipurposePaper), getString(R.string.truRed), getString(R.string.household), getString(R.string.staples), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.multipurposePaper), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Staples", 1);
-        storeData.getStoreViewInStockMap().put("Staples", 0);
-        storeData.getStoreViewNeededMap().put("Staples", 0);
-        storeData.getStoreViewPausedMap().put("Staples", 1);
-        dbStoreHelper.setStoreViews("Staples", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.staples), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.staples), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.staples), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.staples), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.staples), 1, 0, 0, 1);
 
         //---------------------------------------Woodranch--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 0);
-        //dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.woodranchBBQSauce), getString(R.string.pint1), getString(R.string.condiments), getString(R.string.woodranch), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.woodranchBBQSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Woodranch", 1);
-        storeData.getStoreViewInStockMap().put("Woodranch", 0);
-        storeData.getStoreViewNeededMap().put("Woodranch", 0);
-        storeData.getStoreViewPausedMap().put("Woodranch", 1);
-        dbStoreHelper.setStoreViews("Woodranch", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.woodranch), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.woodranch), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.woodranch), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.woodranch), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.woodranch), 1, 0, 0, 1);
 
         //------------------------------------Yorba Linda Feed Store--------------------------------
 
-        dbItemHelper.addNewItemByStore("Dog Food (dry)", "Canidae All Life Stages", "Pet Supplies", "Yorba Linda Feed Store", 0);
-        //dbStatusHelper.addNewStatus("Dog Food (dry)", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dogFoodDry), getString(R.string.canidaeAllLifeStages), getString(R.string.petSupplies), getString(R.string.yorbaLindaFeedStore), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.dogFoodDry), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Yorba Linda Feed Store", 1);
-        storeData.getStoreViewInStockMap().put("Yorba Linda Feed Store", 0);
-        storeData.getStoreViewNeededMap().put("Yorba Linda Feed Store", 0);
-        storeData.getStoreViewPausedMap().put("Yorba Linda Feed Store", 1);
-        dbStoreHelper.setStoreViews("Yorba Linda Feed Store", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.yorbaLindaFeedStore), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.yorbaLindaFeedStore), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.yorbaLindaFeedStore), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.yorbaLindaFeedStore), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.yorbaLindaFeedStore), 1, 0, 0, 1);
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 215
+        // total store items = 222
 
     }
 
@@ -2347,788 +2388,809 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Meals-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Sausage Biscuits", "Jimmy Dean Frozen", "Meals", "Vons", 0);
-        dbStatusHelper.addNewStatus("Sausage Biscuits", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sausageBiscuits), getString(R.string.jimmyDeanFrozen), getString(R.string.meals), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.sausageBiscuits), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Helper", "Cheeseburger Macaroni", "Meals", "Vons", 1);
-        dbStatusHelper.addNewStatus("Hamburger Helper", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerHelper), getString(R.string.cheeseburgerMacaroni), getString(R.string.meals), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerHelper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buffalo Chicken Bites", "TGIF or Frank's", "Meals", "Vons", 2);
-        dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.buffaloChickenBites), getString(R.string.tGIForFranks), getString(R.string.meals), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.buffaloChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Terriyaki Chicken Bites", "InnovAsian", "Meals", "Vons", 3);
-        dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.terriyakiChickenBites), getString(R.string.innovAsian), getString(R.string.meals), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.terriyakiChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 4);
-        dbStatusHelper.addNewStatus("Crispy Buffalo Wings", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.crispyBuffaloWings), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.costco), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.crispyBuffaloWings), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 5);
-        dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tgifCheeseSticks), getString(R.string.tgifSmall10pc), getString(R.string.meals), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.tgifCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 6);
-        dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mozarellaCheeseSticks), getString(R.string.farmRich), getString(R.string.meals), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.mozarellaCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 7);
-        dbStatusHelper.addNewStatus("Frozen Pizza", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenPizza), getString(R.string.thinPepperoni), getString(R.string.meals), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenPizza), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Corn Dogs", "Foster Farms", "Meals", "Vons", 8);
-        dbStatusHelper.addNewStatus("Corn Dogs", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cornDogs), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.cornDogs), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Dogs", "Bun Size", "Meals", "Vons", 9);
-        dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotDogs), getString(R.string.bunSize), getString(R.string.meals), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.hotDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 10);
-        dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotDogBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.hotDogBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Patties", "to do", "Meals", "Vons", 11);
-        dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerPatties), getString(R.string.toDo), getString(R.string.meals), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerPatties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hamburger Buns", "(8 pack)", "Meals", "Vons", 12);
-        dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamburgerBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.hamburgerBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 13);
-        dbStatusHelper.addNewStatus("Pasta Roni 1", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaRoni1), getString(R.string.angelHairPasta), getString(R.string.meals), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaRoni1), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 14);
-        dbStatusHelper.addNewStatus("Pasta Roni 2", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaRoni2), getString(R.string.fettuccineAlfredo), getString(R.string.meals), getString(R.string.vons), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaRoni2), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mac & Cheese", "Annie’s", "Meals", "Vons", 15);
-        dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.macAndCheese), getString(R.string.annies), getString(R.string.meals), getString(R.string.vons), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.macAndCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Gnocci", "Signature Select", "Meals", "Vons", 16);
-        dbStatusHelper.addNewStatus("Gnocci", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.gnocci), getString(R.string.signatureSelect), getString(R.string.meals), getString(R.string.vons), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.gnocci), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 17);
-        dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tortellini), getString(R.string.barilla3Cheese), getString(R.string.meals), getString(R.string.vons), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.tortellini), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Meals", 18);
-        categoryData.getCategoryViewInStockMap().put("Meals", 4);
-        categoryData.getCategoryViewNeededMap().put("Meals", 2);
-        categoryData.getCategoryViewPausedMap().put("Meals", 12);
-        dbCategoryHelper.setCategoryViews("Meals", 18, 4, 2, 12);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.meals), 18);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.meals), 4);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.meals), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.meals), 12);
+        dbCategoryHelper.setCategoryViews(getString(R.string.meals), 18, 4, 2, 12);
 
         //------------------------------------Soups-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 0);
-        dbStatusHelper.addNewStatus("Spaghetti O's", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.spaghettiOs), getString(R.string.wMeatballs), getString(R.string.soups), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.spaghettiOs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 1);
-        dbStatusHelper.addNewStatus("Chicken Noodle Soup", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenNoodleSoup), getString(R.string.campbells), getString(R.string.soups), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenNoodleSoup), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Minestrone Soup", "Amy's", "Soups", "Vons", 2);
-        dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.minestroneSoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.minestroneSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 3);
-        dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vegetableBarleySoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.vegetableBarleySoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Beef Noodles", "Yakisoba", "Soups", "Stater Bros", 4);
-        dbStatusHelper.addNewStatus("Beef Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefNoodles), getString(R.string.yakisoba), getString(R.string.soups), getString(R.string.staterBros), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.beefNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cup of Noodles", "Nissin", "Soups", "Vons", 5);
-        dbStatusHelper.addNewStatus("Cup of Noodles", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cupOfNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.cupOfNoodles), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 6);
-        dbStatusHelper.addNewStatus("Ramen Noodles", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.ramenNoodles), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Soups", 7);
-        categoryData.getCategoryViewInStockMap().put("Soups", 2);
-        categoryData.getCategoryViewNeededMap().put("Soups", 2);
-        categoryData.getCategoryViewPausedMap().put("Soups", 3);
-        dbCategoryHelper.setCategoryViews("Soups", 7, 2, 2, 3);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.soups), 7);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.soups), 2);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.soups), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.soups), 3);
+        dbCategoryHelper.setCategoryViews(getString(R.string.soups), 7, 2, 2, 3);
 
         //------------------------------------Sides-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 0);
-        dbStatusHelper.addNewStatus("Frozen French Fries", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenFrenchFries), getString(R.string.oreIda), getString(R.string.sides), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenFrenchFries), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 1);
-        dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.texasCheesyBread), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.texasCheesyBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 2);
-        dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.garlicBreadsticks), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.garlicBreadsticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Rice", "Knorr", "Sides", "Vons", 3);
-        dbStatusHelper.addNewStatus("Chicken Rice", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenRice), getString(R.string.knorr), getString(R.string.sides), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenRice), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Canned Corn", "Del Monte", "Sides", "Vons", 4);
-        dbStatusHelper.addNewStatus("Canned Corn", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cannedCorn), getString(R.string.delMonte), getString(R.string.sides), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.cannedCorn), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Sides", 5);
-        categoryData.getCategoryViewInStockMap().put("Sides", 2);
-        categoryData.getCategoryViewNeededMap().put("Sides", 1);
-        categoryData.getCategoryViewPausedMap().put("Sides", 2);
-        dbCategoryHelper.setCategoryViews("Sides", 5, 2, 1, 2);
+        dbItemHelper.addNewItemByCategory(getString(R.string.crescentRolls), getString(R.string.signatureSelect), getString(R.string.sides), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.crescentRolls), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.sides), 6);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.sides), 2);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.sides), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.sides), 3);
+        dbCategoryHelper.setCategoryViews(getString(R.string.sides), 6, 2, 1, 3);
 
         //------------------------------------Meat--------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Steak", "USDA", "Meat", "Vons", 0);
-        dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.steak), getString(R.string.usda), getString(R.string.meat), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.steak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ground Beef", "(1 pound)", "Meat", "Vons", 1);
-        dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.groundBeef), getString(R.string.pound1), getString(R.string.meat), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.groundBeef), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 2);
-        dbStatusHelper.addNewStatus("Frozen Meatballs", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frozenMeatballs), getString(R.string.rosinaHomestyle), getString(R.string.meat), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.frozenMeatballs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pepperoni Slices", "Hormel (300 slices)", "Meat", "Smart & Final", 3);
-        dbStatusHelper.addNewStatus("Pepperoni Slices", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pepperoniSlices), getString(R.string.hormel300Slices), getString(R.string.meat), getString(R.string.smartFinal), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.pepperoniSlices), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Quick Steak", "Gary's", "Meat", "Sam's Club", 4);
-        dbStatusHelper.addNewStatus("Quick Steak", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.quickSteak), getString(R.string.garys), getString(R.string.meat), getString(R.string.samsClub), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.quickSteak), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Breast", "na", "Meat", "Vons", 5);
-        dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenBreast), getString(R.string.na), getString(R.string.meat), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenBreast), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Turkey", "to do", "Meat", "Vons", 6);
-        dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedTurkey), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedTurkey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Ham", "to do", "Meat", "Vons", 7);
-        dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedHam), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedHam), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ham Steak", "to do", "Meat", "Vons", 8);
-        dbStatusHelper.addNewStatus("Ham Steak", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hamSteak), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.hamSteak), getString(R.string.needed), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Meat", 9);
-        categoryData.getCategoryViewInStockMap().put("Meat", 3);
-        categoryData.getCategoryViewNeededMap().put("Meat", 1);
-        categoryData.getCategoryViewPausedMap().put("Meat", 5);
-        dbCategoryHelper.setCategoryViews("Meat", 9, 3, 1, 5);
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefLitlSmokies), getString(R.string.hillshireFarm), getString(R.string.meat), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.beefLitlSmokies), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.meat), 10);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.meat), 3);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.meat), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.meat), 6);
+        dbCategoryHelper.setCategoryViews(getString(R.string.meat), 10, 3, 1, 6);
 
         //------------------------------------Bread/Grains/Cereal-----------------------------------
 
-        dbItemHelper.addNewItemByCategory("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 0);
-        dbStatusHelper.addNewStatus("Thin Spaghetti", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.thinSpaghetti), getString(R.string.barillaWholeGrain), getString(R.string.breadGrainsCereal), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.thinSpaghetti), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 1);
-        dbStatusHelper.addNewStatus("Spiral Pasta", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.spiralPasta), getString(R.string.barillaRotini), getString(R.string.breadGrainsCereal), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.spiralPasta), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 2);
-        dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.wheatBread), getString(R.string.naturesOwn), getString(R.string.breadGrainsCereal), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.wheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Baguette", "French", "Bread/Grains/Cereal", "Vons", 3);
-        dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.baguette), getString(R.string.frenchOrSourdough), getString(R.string.breadGrainsCereal), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.baguette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 4);
-        dbStatusHelper.addNewStatus("Sourdough Bread", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sourdoughBread), getString(R.string.sanLuis), getString(R.string.breadGrainsCereal), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.sourdoughBread), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 5);
-        dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hardRolls), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.hardRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 6);
-        dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.thomasMuffins), getString(R.string.original), getString(R.string.breadGrainsCereal), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.thomasMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 7);
-        dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.reesesPuffsCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.reesesPuffsCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 8);
-        dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cookieCrispCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.cookieCrispCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 9);
-        dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.frostedMiniWheatCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.frostedMiniWheatCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 10);
-        dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honeySmacksCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.honeySmacksCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 11);
-        dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.eggoWaffles), getString(R.string.homestyle), getString(R.string.breadGrainsCereal), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.eggoWaffles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 12);
-        dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smallFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.smallFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 13);
-        dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.largeFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.largeFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Bread/Grains/Cereal", 14);
-        categoryData.getCategoryViewInStockMap().put("Bread/Grains/Cereal", 2);
-        categoryData.getCategoryViewNeededMap().put("Bread/Grains/Cereal", 1);
-        categoryData.getCategoryViewPausedMap().put("Bread/Grains/Cereal", 11);
-        dbCategoryHelper.setCategoryViews("Bread/Grains/Cereal", 14, 2, 1, 11);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.breadGrainsCereal), 14);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.breadGrainsCereal), 2);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.breadGrainsCereal), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.breadGrainsCereal), 11);
+        dbCategoryHelper.setCategoryViews(getString(R.string.breadGrainsCereal), 14, 2, 1, 11);
 
         //----------------------------------------Eggs/Dairy----------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 0);
-        dbStatusHelper.addNewStatus("Milk", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.milk), getString(R.string.vitaminD), getString(R.string.eggsDairy), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.milk), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 1);
-        dbStatusHelper.addNewStatus("Eggs", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.eggs), getString(R.string.gradeAAxLarge), getString(R.string.eggsDairy), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.eggs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 2);
-        dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honeyYogurt), getString(R.string.greekGods), getString(R.string.eggsDairy), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.honeyYogurt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sour Cream", "to do", "Eggs/Dairy", "Vons", 3);
-        dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sourCream), getString(R.string.toDo), getString(R.string.eggsDairy), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.sourCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 4);
-        dbStatusHelper.addNewStatus("Salted Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.saltedButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Clarified Butter", "Challenge", "Eggs/Dairy", "Ralphs", 5);
-        dbStatusHelper.addNewStatus("Clarified Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.clarifiedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.ralphs), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.clarifiedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 6);
-        dbStatusHelper.addNewStatus("Shredded Cheese", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shreddedCheese), getString(R.string.mexicanBlend), getString(R.string.eggsDairy), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.shreddedCheese), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 7);
-        dbStatusHelper.addNewStatus("String Cheese", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.stringCheese), getString(R.string.mozarella), getString(R.string.eggsDairy), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.stringCheese), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 8);
-        dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bdCheese), getString(R.string.blackDiamond), getString(R.string.eggsDairy), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.bdCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 9);
-        dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.slicedCheese), getString(R.string.kraftSingles), getString(R.string.eggsDairy), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.slicedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 10);
-        dbStatusHelper.addNewStatus("Half & Half", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.halfAndHalf), getString(R.string.lucerne), getString(R.string.eggsDairy), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.halfAndHalf), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Eggs/Dairy", 11);
-        categoryData.getCategoryViewInStockMap().put("Eggs/Dairy", 4);
-        categoryData.getCategoryViewNeededMap().put("Eggs/Dairy", 2);
-        categoryData.getCategoryViewPausedMap().put("Eggs/Dairy", 5);
-        dbCategoryHelper.setCategoryViews("Eggs/Dairy", 11, 4, 2, 5);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.eggsDairy), 11);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.eggsDairy), 4);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.eggsDairy), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.eggsDairy), 5);
+        dbCategoryHelper.setCategoryViews(getString(R.string.eggsDairy), 11, 4, 2, 5);
 
         //------------------------------------Condiments--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Parmesan Cheese", "Kraft", "Condiments", "Vons", 0);
-        dbStatusHelper.addNewStatus("Parmesan Cheese", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.parmesanCheese), getString(R.string.kraft), getString(R.string.condiments), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.parmesanCheese), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("A1 Sauce", "Original", "Condiments", "Vons", 1);
-        dbStatusHelper.addNewStatus("A1 Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.a1sauce), getString(R.string.original), getString(R.string.condiments), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.a1sauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ketchup", "Heinz", "Condiments", "Vons", 2);
-        dbStatusHelper.addNewStatus("Ketchup", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ketchup), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.ketchup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mustard", "Heinz", "Condiments", "Vons", 3);
-        dbStatusHelper.addNewStatus("Mustard", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mustard), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.mustard), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 4);
-        dbStatusHelper.addNewStatus("Pasta Sauce", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.pastaSauce), getString(R.string.raguMeat), getString(R.string.condiments), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.pastaSauce), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 5);
-        dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.marinaraSauce), getString(R.string.signatureTraditional), getString(R.string.condiments), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.marinaraSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 6);
-        dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoSauce), getString(R.string.victoriasMild), getString(R.string.condiments), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 7);
-        dbStatusHelper.addNewStatus("Buffalo Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.buffaloSauce), getString(R.string.franksWings), getString(R.string.condiments), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.buffaloSauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 8);
-        dbStatusHelper.addNewStatus("Chocolate Syrup", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocolateSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.chocolateSyrup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 9);
-        dbStatusHelper.addNewStatus("Caramel Syrup", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.caramelSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.caramelSyrup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 10);
-        dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mapleSyrup), getString(R.string.pearlMilling), getString(R.string.condiments), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.mapleSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Honey", "Local Hive Clover", "Condiments", "Vons", 11);
-        dbStatusHelper.addNewStatus("Honey", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.honey), getString(R.string.localHiveClover), getString(R.string.condiments), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.honey), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 12);
-        dbStatusHelper.addNewStatus("Peanut Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.peanutButter), getString(R.string.skippyCreamy), getString(R.string.condiments), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.peanutButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Soy Sauce", "Kikoman", "Condiments", "Vons", 13);
-        dbStatusHelper.addNewStatus("Soy Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.soySauce), getString(R.string.kikoman), getString(R.string.condiments), getString(R.string.vons), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.soySauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 14);
-        dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.woodranchBBQSauce), getString(R.string.pint1), getString(R.string.condiments), getString(R.string.woodranch), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.woodranchBBQSauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Condiments", 15);
-        categoryData.getCategoryViewInStockMap().put("Condiments", 11);
-        categoryData.getCategoryViewNeededMap().put("Condiments", 1);
-        categoryData.getCategoryViewPausedMap().put("Condiments", 3);
-        dbCategoryHelper.setCategoryViews("Condiments", 15, 11, 1, 3);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.condiments), 15);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.condiments), 11);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.condiments), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.condiments), 3);
+        dbCategoryHelper.setCategoryViews(getString(R.string.condiments), 15, 11, 1, 3);
 
         //------------------------------------Seasonings--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Salt & Pepper", "na", "Seasonings", "Vons", 0);
-        dbStatusHelper.addNewStatus("Salt & Pepper", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltAndPepper), getString(R.string.na), getString(R.string.seasonings), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.saltAndPepper), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Garlic Salt", "Lawry's", "Seasonings", "Vons", 1);
-        dbStatusHelper.addNewStatus("Garlic Salt", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.garlicSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.garlicSalt), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 2);
-        dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.lawrysSeasoningSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.lawrysSeasoningSalt), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Seasoning", "any", "Seasonings", "Vons", 3);
-        dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoSeasoning), getString(R.string.any), getString(R.string.seasonings), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoSeasoning), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 4);
-        dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ranchDipMix), getString(R.string.lauraScudders), getString(R.string.seasonings), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.ranchDipMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 5);
-        dbStatusHelper.addNewStatus("Vanilla Extract", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaExtract), getString(R.string.signatureSelect), getString(R.string.seasonings), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaExtract), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 6);
-        dbStatusHelper.addNewStatus("Cinnamon Sugar", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cinnamonSugar), getString(R.string.mcCormicks), getString(R.string.seasonings), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.cinnamonSugar), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sprinkles", "3 types", "Seasonings", "Vons", 7);
-        dbStatusHelper.addNewStatus("Sprinkles", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sprinkles), getString(R.string.types3), getString(R.string.seasonings), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.sprinkles), getString(R.string.needed), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Seasonings", 8);
-        categoryData.getCategoryViewInStockMap().put("Seasonings", 5);
-        categoryData.getCategoryViewNeededMap().put("Seasonings", 1);
-        categoryData.getCategoryViewPausedMap().put("Seasonings", 2);
-        dbCategoryHelper.setCategoryViews("Seasonings", 8, 5, 1, 2);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.seasonings), 8);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.seasonings), 5);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.seasonings), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.seasonings), 2);
+        dbCategoryHelper.setCategoryViews(getString(R.string.seasonings), 8, 5, 1, 2);
 
         //---------------------------------Misc/Ingredients----------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 0);
-        dbStatusHelper.addNewStatus("Brown Sugar", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.brownSugar), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.brownSugar), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Taco Shells", "to do", "Misc/Ingredients", "Vons", 1);
-        dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tacoShells), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.tacoShells), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 2);
-        dbStatusHelper.addNewStatus("Saltine Crackers", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saltineCrackers), getString(R.string.premiumOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.saltineCrackers), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 3);
-        dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.semiSweetChocChips), getString(R.string.nestle), getString(R.string.miscIngredients), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.semiSweetChocChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 4);
-        dbStatusHelper.addNewStatus("Vegetable Oil", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.vegetableOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 5);
-        dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 6);
-        dbStatusHelper.addNewStatus("Non-Stick Spray", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.nonStickSpray), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 7);
-        dbStatusHelper.addNewStatus("Movie Theater Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Misc/Ingredients", 8);
-        categoryData.getCategoryViewInStockMap().put("Misc/Ingredients", 5);
-        categoryData.getCategoryViewNeededMap().put("Misc/Ingredients", 1);
-        categoryData.getCategoryViewPausedMap().put("Misc/Ingredients", 2);
-        dbCategoryHelper.setCategoryViews("Misc/Ingredients", 8, 5, 1, 2);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.miscIngredients), 8);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.miscIngredients), 5);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.miscIngredients), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.miscIngredients), 2);
+        dbCategoryHelper.setCategoryViews(getString(R.string.miscIngredients), 8, 5, 1, 2);
 
         //------------------------------------Drinks------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 0);
-        dbStatusHelper.addNewStatus("Soda Bottles", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Soda Cans", "Pepsi or Coke", "Drinks", "Costco", 1);
-        dbStatusHelper.addNewStatus("Soda Cans", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.sodaCans), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 2);
-        dbStatusHelper.addNewStatus("Hot Chocolate Mix", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Bottled Water", "any", "Drinks", "Vons", 3);
-        dbStatusHelper.addNewStatus("Bottled Water", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bottledWater), getString(R.string.refreshe40pack), getString(R.string.drinks), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.bottledWater), getString(R.string.needed), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Drinks", 4);
-        categoryData.getCategoryViewInStockMap().put("Drinks", 3);
-        categoryData.getCategoryViewNeededMap().put("Drinks", 1);
-        categoryData.getCategoryViewPausedMap().put("Drinks", 0);
-        dbCategoryHelper.setCategoryViews("Drinks", 4, 3, 1, 0);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.drinks), 4);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.drinks), 3);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.drinks), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.drinks), 0);
+        dbCategoryHelper.setCategoryViews(getString(R.string.drinks), 4, 3, 1, 0);
 
         //------------------------------------Snacks------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 0);
-        dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.beefJerky), getString(R.string.archerTerriyaki), getString(R.string.snacks), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.beefJerky), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Peanuts", "Honey Roasted", "Snacks", "Vons", 1);
-        dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.peanuts), getString(R.string.honeyRoasted), getString(R.string.snacks), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.peanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shell Peanuts", "Salted", "Snacks", "Vons", 2);
-        dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shellPeanuts), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.shellPeanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sunflower Seeds", "Salted", "Snacks", "Vons", 3);
-        dbStatusHelper.addNewStatus("Sunflower Seeds", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sunflowerSeeds), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.sunflowerSeeds), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vinegar Chips", "Kettle", "Snacks", "Vons", 4);
-        dbStatusHelper.addNewStatus("Vinegar Chips", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vinegarChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.vinegarChips), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("BBQ Chips", "Kettle", "Snacks", "Vons", 5);
-        dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bbqChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.bbqChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Doritos", "Cool Ranch", "Snacks", "Vons", 6);
-        dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.doritos), getString(R.string.coolRanch), getString(R.string.snacks), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.doritos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Lay's Chips", "Classic", "Snacks", "Vons", 7);
-        dbStatusHelper.addNewStatus("Lay's Chips", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laysChips), getString(R.string.classic), getString(R.string.snacks), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.laysChips), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Naan Crisps", "Stonefire", "Snacks", "Vons", 8);
-        dbStatusHelper.addNewStatus("Naan Crisps", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.naanCrisps), getString(R.string.stonefire), getString(R.string.snacks), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.naanCrisps), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Ritz Crackers", "Original", "Snacks", "Vons", 9);
-        dbStatusHelper.addNewStatus("Ritz Crackers", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.ritzCrackers), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.ritzCrackers), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Goldfish", "Cheddar", "Snacks", "Vons", 10);
-        dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.goldfish), getString(R.string.cheddar), getString(R.string.snacks), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.goldfish), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cheez-Its", "Original", "Snacks", "Vons", 11);
-        dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cheezIts), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.cheezIts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 12);
-        dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.famousAmosCookies), getString(R.string.resealableBag), getString(R.string.snacks), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.famousAmosCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Chocolate Pretzels", "Flipz", "Snacks", "CVS", 13);
-        dbStatusHelper.addNewStatus("Dark Chocolate Pretzels", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocolatePretzels), getString(R.string.flipz), getString(R.string.snacks), getString(R.string.cvs), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocolatePretzels), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Fudge Pudding", "Snack Pack", "Snacks", "Stater Bros", 14);
-        dbStatusHelper.addNewStatus("Choc. Fudge Pudding", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocFudgePudding), getString(R.string.snackPack), getString(R.string.snacks), getString(R.string.staterBros), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.chocFudgePudding), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 15);
-        dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocFudgePirouette), getString(R.string.pepperidgeFarm), getString(R.string.snacks), getString(R.string.vons), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.chocFudgePirouette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Muddy Buddies", "Brownie Supreme", "Snacks", "Amazon", 16);
-        dbStatusHelper.addNewStatus("Muddy Buddies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.muddyBuddies), getString(R.string.brownieSupreme), getString(R.string.snacks), getString(R.string.amazon), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.muddyBuddies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Fortune Cookies", "to do", "Snacks", "Amazon", 17);
-        dbStatusHelper.addNewStatus("Fortune Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.fortuneCookies), getString(R.string.toDo), getString(R.string.snacks), getString(R.string.amazon), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.fortuneCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Communion Wafers", "to do", "Snacks", "Amazon", 18);
-        dbStatusHelper.addNewStatus("Communion Wafers", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.communionWafers), getString(R.string.cavanaghAltarBread), getString(R.string.snacks), getString(R.string.amazon), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.communionWafers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 19);
-        dbStatusHelper.addNewStatus("Buttered Popcorn", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.butteredPopcorn), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Caramel Popcorn", "Cretors", "Snacks", "Vons", 20);
-        dbStatusHelper.addNewStatus("Caramel Popcorn", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.caramelPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.caramelPopcorn), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 21);
-        dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Snacks", 22);
-        categoryData.getCategoryViewInStockMap().put("Snacks", 4);
-        categoryData.getCategoryViewNeededMap().put("Snacks", 4);
-        categoryData.getCategoryViewPausedMap().put("Snacks", 14);
-        dbCategoryHelper.setCategoryViews("Snacks", 22, 4, 4, 14);
+        dbItemHelper.addNewItemByCategory(getString(R.string.gingerSnaps), getString(R.string.firstStreet), getString(R.string.snacks), getString(R.string.smartFinal), 22);
+        dbStatusHelper.addNewStatus(getString(R.string.gingerSnaps), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.snacks), 23);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.snacks), 4);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.snacks), 4);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.snacks), 15);
+        dbCategoryHelper.setCategoryViews(getString(R.string.snacks), 23, 4, 4, 15);
 
         //------------------------------------Desserts----------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 0);
-        dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.thrifty), getString(R.string.desserts), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 1);
-        dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocTruffleIceCream), getString(R.string.breyers), getString(R.string.desserts), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.chocTruffleIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 2);
-        dbStatusHelper.addNewStatus("Hold the Cone", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.holdTheCone), getString(R.string.chocolate), getString(R.string.desserts), getString(R.string.traderJoes), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.holdTheCone), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 3);
-        dbStatusHelper.addNewStatus("Churros", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.churros), getString(R.string.tioPepesOrHola), getString(R.string.desserts), getString(R.string.smartFinal), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.churros), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 4);
-        dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocChipMuffinMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.chocChipMuffinMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 5);
-        dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocChipCookieMix), getString(R.string.bettyCrockerGlutenFree), getString(R.string.desserts), getString(R.string.staterBros), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.chocChipCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.gingerbreadCookieMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.gingerbreadCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreos", "(for crumbs)", "Desserts", "Vons", 7);
-        dbStatusHelper.addNewStatus("Oreos", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreos), getString(R.string.forCrumbs), getString(R.string.desserts), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.oreos), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Muffins", "12 pack", "Desserts", "Costco", 8);
-        dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoMuffins), getString(R.string.pack12), getString(R.string.desserts), getString(R.string.costco), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Cakesters", "Nabisco", "Desserts", "Vons", 9);
-        dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoCakesters), getString(R.string.nabisco), getString(R.string.desserts), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoCakesters), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 10);
-        dbStatusHelper.addNewStatus("Oreo Pie Mix", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.oreoPieMix), getString(R.string.noBakeDessert), getString(R.string.desserts), getString(R.string.target), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.oreoPieMix), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 11);
-        dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chocMaltMix), getString(R.string.nestle), getString(R.string.desserts), getString(R.string.staterBros), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.chocMaltMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Desserts", 12);
-        categoryData.getCategoryViewInStockMap().put("Desserts", 2);
-        categoryData.getCategoryViewNeededMap().put("Desserts", 2);
-        categoryData.getCategoryViewPausedMap().put("Desserts", 8);
-        dbCategoryHelper.setCategoryViews("Desserts", 12, 2, 2, 8);
+        dbItemHelper.addNewItemByCategory(getString(R.string.doubleChocMuffins), getString(R.string.count4), getString(R.string.desserts), getString(R.string.vons), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.doubleChocMuffins), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByCategory(getString(R.string.pieFilling), getString(R.string.jelloChocFudge), getString(R.string.desserts), getString(R.string.target), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.pieFilling), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.desserts), 14);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.desserts), 2);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.desserts), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.desserts), 10);
+        dbCategoryHelper.setCategoryViews(getString(R.string.desserts), 12, 2, 2, 10);
 
         //------------------------------------Candy-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Dark Chocolate Caramel Squares", "Ghiradelli", "Candy", "Walmart", 0);
-        dbStatusHelper.addNewStatus("Dark Chocolate Caramel Squares", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocolateCaramelSquares), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocolateCaramelSquares), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 1);
-        dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.reesesPBCups), getString(R.string.individuallyWrapped), getString(R.string.candy), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.reesesPBCups), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Candy Corn", "Brach's", "Candy", "CVS", 2);
-        dbStatusHelper.addNewStatus("Candy Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.candyCorn), getString(R.string.brachs), getString(R.string.candy), getString(R.string.cvs), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.candyCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hot Tamales", "na", "Candy", "Vons", 3);
-        dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hotTamales), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.hotTamales), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Smarties", "na", "Candy", "Dollar  Tree", 4);
-        dbStatusHelper.addNewStatus("Smarties", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smarties), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.smarties), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sno Caps", "na", "Candy", "Dollar Tree", 5);
-        dbStatusHelper.addNewStatus("Sno Caps", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.snoCaps), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.snoCaps), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Good & Plenty", "na", "Candy", "Vons", 6);
-        dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.goodAndPlenty), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.goodAndPlenty), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mini M&M's", "na", "Candy", "Vons", 7);
-        dbStatusHelper.addNewStatus("Mini M&M's", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.miniMAndMs), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.miniMAndMs), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Choc. M&M's", "na", "Candy", "Target", 8);
-        dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocMandMs), getString(R.string.na), getString(R.string.candy), getString(R.string.target), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocMandMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 9);
-        dbStatusHelper.addNewStatus("Sea Salt Caramels", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.seaSaltCaramels), getString(R.string.favoriteDay), getString(R.string.candy), getString(R.string.target), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.seaSaltCaramels), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Jelly Beans", "Sizzling Cinnamon", "Candy", "Amazon", 10);
-        dbStatusHelper.addNewStatus("Jelly Beans", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.jellyBeans), getString(R.string.sizzlingCinnamon), getString(R.string.candy), getString(R.string.amazon), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.jellyBeans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Tootsie Rolls", "na", "Candy", "Vons", 11);
-        dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.tootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Fun Dip Sticks", "na", "Candy", "Smart & Final", 12);
-        dbStatusHelper.addNewStatus("Fun Dip Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.funDipSticks), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.funDipSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("72% Intense Dark Chocolate", "Ghiradelli", "Candy", "Walmart", 13);
-        dbStatusHelper.addNewStatus("72% Intense Dark Chocolate", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Orange Tic Tacs", "na", "Candy", "Smart & Final", 14);
-        dbStatusHelper.addNewStatus("Orange Tic Tacs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.orangeTicTacs), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.orangeTicTacs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Orange Pez", "na", "Candy", "Amazon", 15);
-        dbStatusHelper.addNewStatus("Orange Pez", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.orangePez), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.orangePez), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Taffy", "na", "Candy", "Amazon", 16);
-        dbStatusHelper.addNewStatus("Vanilla Taffy", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaTaffy), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaTaffy), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vanilla Tootsie Rolls", "na", "Candy", "Amazon", 17);
-        dbStatusHelper.addNewStatus("Vanilla Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vanillaTootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.vanillaTootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sixlets", "na", "Candy", "Amazon", 18);
-        dbStatusHelper.addNewStatus("Sixlets", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sixlets), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.sixlets), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Red Hots", "na", "Candy", "Dollar Tree", 19);
-        dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 20);
-        dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocCaramels), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Candy", 21);
-        categoryData.getCategoryViewInStockMap().put("Candy", 3);
-        categoryData.getCategoryViewNeededMap().put("Candy", 2);
-        categoryData.getCategoryViewPausedMap().put("Candy", 16);
-        dbCategoryHelper.setCategoryViews("Candy", 21, 3, 2, 16);
+        dbItemHelper.addNewItemByCategory(getString(R.string.darkChocPeanutButterCups), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.darkChocPeanutButterCups), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.candy), 22);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.candy), 3);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.candy), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.candy), 17);
+        dbCategoryHelper.setCategoryViews(getString(R.string.candy), 22, 3, 2, 17);
 
         //------------------------------------Pet Supplies-------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 0);
-        dbStatusHelper.addNewStatus("Cat Food (wet)", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catFoodWet), getString(R.string.fancyFeast), getString(R.string.petSupplies), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.catFoodWet), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cat Food (dry)", "Purina Pro Plan", "Pet Supplies", "Pet Supplies Plus", 1);
-        dbStatusHelper.addNewStatus("Cat Food (dry)", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catFoodDry), getString(R.string.purinaProPlan), getString(R.string.petSupplies), getString(R.string.petSuppliesPlus), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.catFoodDry), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 2);
-        dbStatusHelper.addNewStatus("Delectables", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.delectables), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cat Treats", "Temptations", "Pet Supplies", "Vons", 3);
-        dbStatusHelper.addNewStatus("Cat Treats", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.catTreats), getString(R.string.temptations), getString(R.string.petSupplies), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.catTreats), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Kitty Litter", "Scoop Away Complete", "Pet Supplies", "Costco", 4);
-        dbStatusHelper.addNewStatus("Kitty Litter", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.kittyLitter), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dog Food (dry)", "Canidae All Life Stages", "Pet Supplies", "Yorba Linda Feed Store", 5);
-        dbStatusHelper.addNewStatus("Dog Food (dry)", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dogFoodDry), getString(R.string.canidaeAllLifeStages), getString(R.string.petSupplies), getString(R.string.yorbaLindaFeedStore), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.dogFoodDry), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Chicken Broth", "Kirkland Organic", "Pet Supplies", "Costco", 6);
-        dbStatusHelper.addNewStatus("Chicken Broth", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.chickenBroth), getString(R.string.kirklandOrganic), getString(R.string.petSupplies), getString(R.string.costco), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.chickenBroth), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mashed Potatoes", "Main St. Bistro", "Pet Supplies", "Costco", 7);
-        dbStatusHelper.addNewStatus("Mashed Potatoes", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mashedPotatoes), getString(R.string.mainStBistro), getString(R.string.petSupplies), getString(R.string.costco), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.mashedPotatoes), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Freshpet", "Chicken Recipe (6lb)", "Pet Supplies", "Costco", 8);
-        dbStatusHelper.addNewStatus("Freshpet", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.freshpet), getString(R.string.chickenRecipe), getString(R.string.petSupplies), getString(R.string.costco), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.freshpet), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 9);
-        dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.purePumpkin), getString(R.string.libbys), getString(R.string.petSupplies), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.purePumpkin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Poop Bags", "Amazon Basics", "Pet Supplies", "Amazon", 10);
-        dbStatusHelper.addNewStatus("Poop Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.poopBags), getString(R.string.amazonBasics), getString(R.string.petSupplies), getString(R.string.amazon), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.poopBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Nitrile Gloves", "GMG 100 pack", "Pet Supplies", "Amazon", 11);
-        dbStatusHelper.addNewStatus("Nitrile Gloves", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.nitrileGloves), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Pet Supplies", 12);
-        categoryData.getCategoryViewInStockMap().put("Pet Supplies", 9);
-        categoryData.getCategoryViewNeededMap().put("Pet Supplies", 2);
-        categoryData.getCategoryViewPausedMap().put("Pet Supplies", 1);
-        dbCategoryHelper.setCategoryViews("Pet Supplies", 12, 9, 2, 1);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.petSupplies), 12);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.petSupplies), 9);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.petSupplies), 2);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.petSupplies), 1);
+        dbCategoryHelper.setCategoryViews(getString(R.string.petSupplies), 12, 9, 2, 1);
 
         //------------------------------------Toiletries--------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 0);
-        dbStatusHelper.addNewStatus("Hand Soap", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.handSoap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 1);
-        dbStatusHelper.addNewStatus("Body Wash", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.bodyWash), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 2);
-        dbStatusHelper.addNewStatus("Shampoo", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.shampoo), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 3);
-        dbStatusHelper.addNewStatus("Bar Soap", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.barSoap), getString(R.string.zumBarSeaSalt), getString(R.string.toiletries), getString(R.string.sprouts), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.barSoap), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Deodorant", "Old Spice", "Toiletries", "Vons", 4);
-        dbStatusHelper.addNewStatus("Deodorant", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.deodorant), getString(R.string.oldSpice), getString(R.string.toiletries), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.deodorant), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toothpaste", "Tom's Antiplaque & Whitening", "Toiletries", "Amazon", 5);
-        dbStatusHelper.addNewStatus("Toothpaste", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toothpaste), getString(R.string.ultrabrite), getString(R.string.toiletries), getString(R.string.amazon), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.toothpaste), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Floss", "Reach Mint Waxed", "Toiletries", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Floss", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.floss), getString(R.string.reachMintWaxed), getString(R.string.toiletries), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.floss), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shaving Cream", "Sandalwood", "Toiletries", "Amazon", 7);
-        dbStatusHelper.addNewStatus("Shaving Cream", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shavingCream), getString(R.string.sandalwood), getString(R.string.toiletries), getString(R.string.amazon), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.shavingCream), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Shaving Razors", "Gillette ProGlide", "Toiletries", "Amazon", 8);
-        dbStatusHelper.addNewStatus("Shaving Razors", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.shavingRazors), getString(R.string.gilletteProGlide), getString(R.string.toiletries), getString(R.string.amazon), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.shavingRazors), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 9);
-        dbStatusHelper.addNewStatus("Mouthwash", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.mouthwash), getString(R.string.crestWhitening), getString(R.string.toiletries), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.mouthwash), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 10);
-        dbStatusHelper.addNewStatus("Cotton Swabs", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.cottonSwabs), getString(R.string.qTips), getString(R.string.toiletries), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.cottonSwabs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 11);
-        dbStatusHelper.addNewStatus("Toothbrush Heads", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toothbrushHeads), getString(R.string.radiusSoft), getString(R.string.toiletries), getString(R.string.sprouts), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.toothbrushHeads), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Sunscreen", "Hawaiian Tropic Sheer 50spf", "Toiletries", "Amazon", 12);
-        dbStatusHelper.addNewStatus("Sunscreen", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.sunscreen), getString(R.string.hawaiianTropicSheer50spf), getString(R.string.toiletries), getString(R.string.amazon), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.sunscreen), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Moisturizing Lotion", "CVS Health w/ hyaluronic acid", "Toiletries", "CVS", 13);
-        dbStatusHelper.addNewStatus("Moisturizing Lotion", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.moisturizingLotion), getString(R.string.cvsHealthHyaluronicAcid), getString(R.string.toiletries), getString(R.string.cvs), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.moisturizingLotion), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Toiletries", 14);
-        categoryData.getCategoryViewInStockMap().put("Toiletries", 13);
-        categoryData.getCategoryViewNeededMap().put("Toiletries", 1);
-        categoryData.getCategoryViewPausedMap().put("Toiletries", 0);
-        dbCategoryHelper.setCategoryViews("Toiletries", 14, 13, 1, 0);
+        dbItemHelper.addNewItemByCategory(getString(R.string.faceSunscreen), getString(R.string.aveenoProtectHydrate), getString(R.string.toiletries), getString(R.string.cvs), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.faceSunscreen), getString(R.string.paused), getString(R.string.unchecked));
+
+        categoryData.getCategoryViewAllMap().put(getString(R.string.toiletries), 15);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.toiletries), 13);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.toiletries), 1);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.toiletries), 1);
+        dbCategoryHelper.setCategoryViews(getString(R.string.toiletries), 15, 13, 1, 1);
 
         //------------------------------------Household-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 0);
-        dbStatusHelper.addNewStatus("Febreeze Air Spray", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.febreezeAirSpray), getString(R.string.heavyDuty), getString(R.string.household), getString(R.string.vons), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.febreezeAirSpray), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 1);
-        dbStatusHelper.addNewStatus("All Purpose Cleaner", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.allPurposeCleaner), getString(R.string.meyersLavender), getString(R.string.household), getString(R.string.vons), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.allPurposeCleaner), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Pet Stain Cleaner", "Rocco & Roxie", "Household", "Amazon", 2);
-        dbStatusHelper.addNewStatus("Pet Stain Cleaner", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.petStainCleaner), getString(R.string.roccoAndRoxie), getString(R.string.household), getString(R.string.amazon), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.petStainCleaner), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Laundry Detergent", "Woolite", "Household", "Vons", 3);
-        dbStatusHelper.addNewStatus("Laundry Detergent", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laundryDetergent), getString(R.string.woolite), getString(R.string.household), getString(R.string.vons), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.laundryDetergent), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Laundry Sanitizer", "Lysol", "Household", "Vons", 4);
-        dbStatusHelper.addNewStatus("Laundry Sanitizer", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.laundrySanitizer), getString(R.string.lysol), getString(R.string.household), getString(R.string.vons), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.laundrySanitizer), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dryer Sheets", "Simply Done Fresh Linen", "Household", "Stater Bros", 5);
-        dbStatusHelper.addNewStatus("Dryer Sheets", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dryerSheets), getString(R.string.simplyDoneFreshLinen), getString(R.string.household), getString(R.string.staterBros), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.dryerSheets), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Little Trees Air Fresheners", "True North", "Household", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Little Trees Air Fresheners", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.littleTreesAirFresheners), getString(R.string.trueNorth), getString(R.string.household), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.littleTreesAirFresheners), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 7);
-        dbStatusHelper.addNewStatus("Aluminum Foil", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.aluminumFoil), getString(R.string.reynoldsWrap), getString(R.string.household), getString(R.string.vons), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.aluminumFoil), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 8);
-        dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zipLockBagsSmall), getString(R.string.sandwich), getString(R.string.household), getString(R.string.vons), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsSmall), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 9);
-        dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zipLockBagsLarge), getString(R.string.freezerGallon), getString(R.string.household), getString(R.string.vons), 9);
+        dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsLarge), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Saran Wrap", "Plastic Wrap", "Household", "Vons", 10);
-        dbStatusHelper.addNewStatus("Saran Wrap", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.saranWrap), getString(R.string.plasticWrap), getString(R.string.household), getString(R.string.vons), 10);
+        dbStatusHelper.addNewStatus(getString(R.string.saranWrap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Rubbing Alcohol", "Isopropyl", "Household", "CVS", 11);
-        dbStatusHelper.addNewStatus("Rubbing Alcohol", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.rubbingAlcohol), getString(R.string.isopropyl), getString(R.string.household), getString(R.string.cvs), 11);
+        dbStatusHelper.addNewStatus(getString(R.string.rubbingAlcohol), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hydrogen Peroxide", "na", "Household", "CVS", 12);
-        dbStatusHelper.addNewStatus("Hydrogen Peroxide", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hydrogenPeroxide), getString(R.string.na), getString(R.string.household), getString(R.string.cvs), 12);
+        dbStatusHelper.addNewStatus(getString(R.string.hydrogenPeroxide), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Night Light Bulbs", "C7 E12", "Household", "Amazon", 13);
-        dbStatusHelper.addNewStatus("Night Light Bulbs", "paused", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.nightLightBulbs), getString(R.string.c7E12), getString(R.string.household), getString(R.string.amazon), 13);
+        dbStatusHelper.addNewStatus(getString(R.string.nightLightBulbs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Scrub Sponges", "Non-Scratch", "Household", "Vons", 14);
-        dbStatusHelper.addNewStatus("Scrub Sponges", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.scrubSponges), getString(R.string.nonScratch), getString(R.string.household), getString(R.string.vons), 14);
+        dbStatusHelper.addNewStatus(getString(R.string.scrubSponges), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dishwashing Brush", "Great Value", "Household", "Walmart", 15);
-        dbStatusHelper.addNewStatus("Dishwashing Brush", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dishwashingBrush), getString(R.string.greatValue), getString(R.string.household), getString(R.string.walmart), 15);
+        dbStatusHelper.addNewStatus(getString(R.string.dishwashingBrush), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Small Trash Bags", "13 gallon", "Household", "Walmart", 16);
-        dbStatusHelper.addNewStatus("Small Trash Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.smallTrashBags), getString(R.string.gallon13), getString(R.string.household), getString(R.string.walmart), 16);
+        dbStatusHelper.addNewStatus(getString(R.string.smallTrashBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Large Trash Bags", "33 gallon", "Household", "Walmart", 17);
-        dbStatusHelper.addNewStatus("Large Trash Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.largeTrashBags), getString(R.string.gallon33), getString(R.string.household), getString(R.string.walmart), 17);
+        dbStatusHelper.addNewStatus(getString(R.string.largeTrashBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Compactor Bags", "18 gallon", "Household", "Walmart", 18);
-        dbStatusHelper.addNewStatus("Compactor Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.compactorBags), getString(R.string.gallon18), getString(R.string.household), getString(R.string.walmart), 18);
+        dbStatusHelper.addNewStatus(getString(R.string.compactorBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 19);
-        dbStatusHelper.addNewStatus("Dawn Powerwash", "needed", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dawnPowerwash), getString(R.string.dishCleaner), getString(R.string.household), getString(R.string.vons), 19);
+        dbStatusHelper.addNewStatus(getString(R.string.dawnPowerwash), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Dish Soap", "Dawn Platinum", "Household", "Vons", 20);
-        dbStatusHelper.addNewStatus("Dish Soap", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.dishSoap), getString(R.string.dawnPlatinum), getString(R.string.household), getString(R.string.vons), 20);
+        dbStatusHelper.addNewStatus(getString(R.string.dishSoap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Paper Plates", "to do", "Household", "Sam's Club", 21);
-        dbStatusHelper.addNewStatus("Paper Plates", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.paperPlates), getString(R.string.toDo), getString(R.string.household), getString(R.string.samsClub), 21);
+        dbStatusHelper.addNewStatus(getString(R.string.paperPlates), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Paper Towels", "Sparkle", "Household", "Walmart", 22);
-        dbStatusHelper.addNewStatus("Paper Towels", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.paperTowels), getString(R.string.kirklandPremium), getString(R.string.household), getString(R.string.costco), 22);
+        dbStatusHelper.addNewStatus(getString(R.string.paperTowels), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Toilet Paper", "Angel Soft", "Household", "Walmart", 23);
-        dbStatusHelper.addNewStatus("Toilet Paper", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.toiletPaper), getString(R.string.kirklandUltraSoft), getString(R.string.household), getString(R.string.costco), 23);
+        dbStatusHelper.addNewStatus(getString(R.string.toiletPaper), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Multipurpose Paper", "Tru Red 20/96", "Household", "Staples", 24);
-        dbStatusHelper.addNewStatus("Multipurpose Paper", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.multipurposePaper), getString(R.string.truRed), getString(R.string.household), getString(R.string.staples), 24);
+        dbStatusHelper.addNewStatus(getString(R.string.multipurposePaper), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Packaging Tape", "Scotch Heavy Duty", "Household", "CVS", 25);
-        dbStatusHelper.addNewStatus("Packaging Tape", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 25);
+        dbStatusHelper.addNewStatus(getString(R.string.packagingTape), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Household", 26);
-        categoryData.getCategoryViewInStockMap().put("Household", 22);
-        categoryData.getCategoryViewNeededMap().put("Household", 3);
-        categoryData.getCategoryViewPausedMap().put("Household", 1);
-        dbCategoryHelper.setCategoryViews("Household", 26, 22, 3, 1);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.household), 26);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.household), 22);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.household), 3);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.household), 1);
+        dbCategoryHelper.setCategoryViews(getString(R.string.household), 26, 22, 3, 1);
 
         //------------------------------------Supplements-------------------------------------------------
 
-        dbItemHelper.addNewItemByCategory("Triple Omega", "Nature Made", "Supplements", "Amazon", 0);
-        dbStatusHelper.addNewStatus("Triple Omega", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.tripleOmega), getString(R.string.natureMade), getString(R.string.supplements), getString(R.string.amazon), 0);
+        dbStatusHelper.addNewStatus(getString(R.string.tripleOmega), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Multivitamin", "One a Day Men's", "Supplements", "Amazon", 1);
-        dbStatusHelper.addNewStatus("Multivitamin", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.multivitamin), getString(R.string.oneADayMens), getString(R.string.supplements), getString(R.string.amazon), 1);
+        dbStatusHelper.addNewStatus(getString(R.string.multivitamin), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vitamin C", "Amazon Elements 1000 mg", "Supplements", "Amazon", 2);
-        dbStatusHelper.addNewStatus("Vitamin C", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vitaminC), getString(R.string.amazonElements1000mg), getString(R.string.supplements), getString(R.string.amazon), 2);
+        dbStatusHelper.addNewStatus(getString(R.string.vitaminC), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Magnesium", "Nature Made 400mg", "Supplements", "Amazon", 3);
-        dbStatusHelper.addNewStatus("Magnesium", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.magnesium), getString(R.string.natureMade400mg), getString(R.string.supplements), getString(R.string.amazon), 3);
+        dbStatusHelper.addNewStatus(getString(R.string.magnesium), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Zinc", "Sandhu Herbals 50mg", "Supplements", "Amazon", 4);
-        dbStatusHelper.addNewStatus("Zinc", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.zinc), getString(R.string.sandhuHerbals50mg), getString(R.string.supplements), getString(R.string.amazon), 4);
+        dbStatusHelper.addNewStatus(getString(R.string.zinc), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Calcium", "Nature's Truth 1200 mg", "Supplements", "Amazon", 5);
-        dbStatusHelper.addNewStatus("Calcium", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.calcium), getString(R.string.naturesTruth1200mg), getString(R.string.supplements), getString(R.string.amazon), 5);
+        dbStatusHelper.addNewStatus(getString(R.string.calcium), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Biotin", "Natrol 10,000mcg", "Supplements", "Amazon", 6);
-        dbStatusHelper.addNewStatus("Biotin", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.biotin), getString(R.string.natrol10000mcg), getString(R.string.supplements), getString(R.string.amazon), 6);
+        dbStatusHelper.addNewStatus(getString(R.string.biotin), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Vitamin D3", "Nature Made 5000 IU", "Supplements", "Amazon", 7);
-        dbStatusHelper.addNewStatus("Vitamin D3", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.vitaminD3), getString(R.string.natureMade5000IU), getString(R.string.supplements), getString(R.string.amazon), 7);
+        dbStatusHelper.addNewStatus(getString(R.string.vitaminD3), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByCategory("Hyaluronic Acid", "Horbaach 1000mg", "Supplements", "Amazon", 8);
-        dbStatusHelper.addNewStatus("Hyaluronic Acid", "instock", "unchecked");
+        dbItemHelper.addNewItemByCategory(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 8);
+        dbStatusHelper.addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.instock), getString(R.string.unchecked));
 
-        categoryData.getCategoryViewAllMap().put("Supplements", 9);
-        categoryData.getCategoryViewInStockMap().put("Supplements", 9);
-        categoryData.getCategoryViewNeededMap().put("Supplements", 0);
-        categoryData.getCategoryViewPausedMap().put("Supplements", 0);
-        dbCategoryHelper.setCategoryViews("Supplements", 9, 9, 0, 0);
+        categoryData.getCategoryViewAllMap().put(getString(R.string.supplements), 9);
+        categoryData.getCategoryViewInStockMap().put(getString(R.string.supplements), 9);
+        categoryData.getCategoryViewNeededMap().put(getString(R.string.supplements), 0);
+        categoryData.getCategoryViewPausedMap().put(getString(R.string.supplements), 0);
+        dbCategoryHelper.setCategoryViews(getString(R.string.supplements), 9, 9, 0, 0);
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 215
+        // total category items = 222
 
     }
 
@@ -3140,789 +3202,810 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Vons--------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Sausage Biscuits", "Jimmy Dean Frozen", "Meals", "Vons", 0);
-        //dbStatusHelper.addNewStatus("Sausage Biscuits", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sausageBiscuits), getString(R.string.jimmyDeanFrozen), getString(R.string.meals), getString(R.string.vons), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.sausageBiscuits), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Helper", "Cheeseburger Macaroni", "Meals", "Vons", 1);
-        //dbStatusHelper.addNewStatus("Hamburger Helper", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerHelper), getString(R.string.cheeseburgerMacaroni), getString(R.string.meals), getString(R.string.vons), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerHelper), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buffalo Chicken Bites", "TGIF or Frank's", "Meals", "Vons", 2);
-        //dbStatusHelper.addNewStatus("Buffalo Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.buffaloChickenBites), getString(R.string.tGIForFranks), getString(R.string.meals), getString(R.string.vons), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.buffaloChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Terriyaki Chicken Bites", "InnovAsian", "Meals", "Vons", 3);
-        //dbStatusHelper.addNewStatus("Terriyaki Chicken Bites", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.terriyakiChickenBites), getString(R.string.innovAsian), getString(R.string.meals), getString(R.string.vons), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.terriyakiChickenBites), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("TGIF Cheese Sticks", "TGIF (small 10pc)", "Meals", "Vons", 4);
-        //dbStatusHelper.addNewStatus("TGIF Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tgifCheeseSticks), getString(R.string.tgifSmall10pc), getString(R.string.meals), getString(R.string.vons), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.tgifCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mozarella Cheese Sticks", "Farm Rich", "Meals", "Vons", 5);
-        //dbStatusHelper.addNewStatus("Mozarella Cheese Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mozarellaCheeseSticks), getString(R.string.farmRich), getString(R.string.meals), getString(R.string.vons), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.mozarellaCheeseSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen Pizza", "Thin Pepperoni", "Meals", "Vons", 6);
-        //dbStatusHelper.addNewStatus("Frozen Pizza", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenPizza), getString(R.string.thinPepperoni), getString(R.string.meals), getString(R.string.vons), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenPizza), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Corn Dogs", "Foster Farms", "Meals", "Vons", 7);
-        //dbStatusHelper.addNewStatus("Corn Dogs", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cornDogs), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.vons), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.cornDogs), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Dogs", "Bun Size", "Meals", "Vons", 8);
-        //dbStatusHelper.addNewStatus("Hot Dogs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotDogs), getString(R.string.bunSize), getString(R.string.meals), getString(R.string.vons), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotDogs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Dog Buns", "(8 pack)", "Meals", "Vons", 9);
-        //dbStatusHelper.addNewStatus("Hot Dog Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotDogBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 9);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotDogBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Patties", "to do", "Meals", "Vons", 10);
-        //dbStatusHelper.addNewStatus("Hamburger Patties", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerPatties), getString(R.string.toDo), getString(R.string.meals), getString(R.string.vons), 10);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerPatties), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hamburger Buns", "(8 pack)", "Meals", "Vons", 11);
-        //dbStatusHelper.addNewStatus("Hamburger Buns", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamburgerBuns), getString(R.string.pack8), getString(R.string.meals), getString(R.string.vons), 11);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamburgerBuns), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 1", "Angel Hair Pasta", "Meals", "Vons", 12);
-        //dbStatusHelper.addNewStatus("Pasta Roni 1", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaRoni1), getString(R.string.angelHairPasta), getString(R.string.meals), getString(R.string.vons), 12);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaRoni1), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Roni 2", "Fettuccine Alfredo", "Meals", "Vons", 13);
-        //dbStatusHelper.addNewStatus("Pasta Roni 2", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaRoni2), getString(R.string.fettuccineAlfredo), getString(R.string.meals), getString(R.string.vons), 13);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaRoni2), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mac & Cheese", "Annie’s", "Meals", "Vons", 14);
-        //dbStatusHelper.addNewStatus("Mac & Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.macAndCheese), getString(R.string.annies), getString(R.string.meals), getString(R.string.vons), 14);
+        //dbStatusHelper.addNewStatus(getString(R.string.macAndCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Gnocci", "Signature Select", "Meals", "Vons", 15);
-        //dbStatusHelper.addNewStatus("Gnocci", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.gnocci), getString(R.string.signatureSelect), getString(R.string.meals), getString(R.string.vons), 15);
+        //dbStatusHelper.addNewStatus(getString(R.string.gnocci), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Spaghetti O's", "w/ Meatballs", "Soups", "Vons", 16);
-        //dbStatusHelper.addNewStatus("Spaghetti O's", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.spaghettiOs), getString(R.string.wMeatballs), getString(R.string.soups), getString(R.string.vons), 16);
+        //dbStatusHelper.addNewStatus(getString(R.string.spaghettiOs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Noodle Soup", "Campbell's", "Soups", "Vons", 17);
-        //dbStatusHelper.addNewStatus("Chicken Noodle Soup", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenNoodleSoup), getString(R.string.campbells), getString(R.string.soups), getString(R.string.vons), 17);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenNoodleSoup), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Minestrone Soup", "Amy's", "Soups", "Vons", 18);
-        //dbStatusHelper.addNewStatus("Minestrone Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.minestroneSoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 18);
+        //dbStatusHelper.addNewStatus(getString(R.string.minestroneSoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vegetable Barley Soup", "Amy's", "Soups", "Vons", 19);
-        //dbStatusHelper.addNewStatus("Vegetable Barley Soup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vegetableBarleySoup), getString(R.string.amys), getString(R.string.soups), getString(R.string.vons), 19);
+        //dbStatusHelper.addNewStatus(getString(R.string.vegetableBarleySoup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cup of Noodles", "Nissin", "Soups", "Vons", 20);
-        //dbStatusHelper.addNewStatus("Cup of Noodles", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cupOfNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.vons), 20);
+        //dbStatusHelper.addNewStatus(getString(R.string.cupOfNoodles), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen French Fries", "Ore-Ida", "Sides", "Vons", 21);
-        //dbStatusHelper.addNewStatus("Frozen French Fries", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenFrenchFries), getString(R.string.oreIda), getString(R.string.sides), getString(R.string.vons), 21);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenFrenchFries), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Texas Cheesy Bread", "New York Bakery", "Sides", "Vons", 22);
-        //dbStatusHelper.addNewStatus("Texas Cheesy Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.texasCheesyBread), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 22);
+        //dbStatusHelper.addNewStatus(getString(R.string.texasCheesyBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Rice", "Knorr", "Sides", "Vons", 23);
-        //dbStatusHelper.addNewStatus("Chicken Rice", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenRice), getString(R.string.knorr), getString(R.string.sides), getString(R.string.vons), 23);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenRice), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Canned Corn", "Del Monte", "Sides", "Vons", 24);
-        //dbStatusHelper.addNewStatus("Canned Corn", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cannedCorn), getString(R.string.delMonte), getString(R.string.sides), getString(R.string.vons), 24);
+        //dbStatusHelper.addNewStatus(getString(R.string.cannedCorn), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Steak", "USDA", "Meat", "Vons", 25);
-        //dbStatusHelper.addNewStatus("Steak", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.steak), getString(R.string.usda), getString(R.string.meat), getString(R.string.vons), 25);
+        //dbStatusHelper.addNewStatus(getString(R.string.steak), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ground Beef", "(1 pound)", "Meat", "Vons", 26);
-        //dbStatusHelper.addNewStatus("Ground Beef", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.groundBeef), getString(R.string.pound1), getString(R.string.meat), getString(R.string.vons), 26);
+        //dbStatusHelper.addNewStatus(getString(R.string.groundBeef), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frozen Meatballs", "Rosina Homestyle", "Meat", "Vons", 27);
-        //dbStatusHelper.addNewStatus("Frozen Meatballs", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frozenMeatballs), getString(R.string.rosinaHomestyle), getString(R.string.meat), getString(R.string.vons), 27);
+        //dbStatusHelper.addNewStatus(getString(R.string.frozenMeatballs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Breast", "na", "Meat", "Vons", 28);
-        //dbStatusHelper.addNewStatus("Chicken Breast", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenBreast), getString(R.string.na), getString(R.string.meat), getString(R.string.vons), 28);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenBreast), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Turkey", "to do", "Meat", "Vons", 29);
-        //dbStatusHelper.addNewStatus("Sliced Turkey", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedTurkey), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 29);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedTurkey), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Ham", "to do", "Meat", "Vons", 30);
-        //dbStatusHelper.addNewStatus("Sliced Ham", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedHam), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 30);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedHam), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ham Steak", "to do", "Meat", "Vons", 31);
-        //dbStatusHelper.addNewStatus("Ham Steak", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hamSteak), getString(R.string.toDo), getString(R.string.meat), getString(R.string.vons), 31);
+        //dbStatusHelper.addNewStatus(getString(R.string.hamSteak), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Thin Spaghetti", "Barilla Whole Grain", "Bread/Grains/Cereal", "Vons", 32);
-        //dbStatusHelper.addNewStatus("Thin Spaghetti", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.thinSpaghetti), getString(R.string.barillaWholeGrain), getString(R.string.breadGrainsCereal), getString(R.string.vons), 32);
+        //dbStatusHelper.addNewStatus(getString(R.string.thinSpaghetti), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Spiral Pasta", "Barilla Rotini", "Bread/Grains/Cereal", "Vons", 33);
-        //dbStatusHelper.addNewStatus("Spiral Pasta", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.spiralPasta), getString(R.string.barillaRotini), getString(R.string.breadGrainsCereal), getString(R.string.vons), 33);
+        //dbStatusHelper.addNewStatus(getString(R.string.spiralPasta), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Wheat Bread", "Nature's Own", "Bread/Grains/Cereal", "Vons", 34);
-        //dbStatusHelper.addNewStatus("Wheat Bread", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.wheatBread), getString(R.string.naturesOwn), getString(R.string.breadGrainsCereal), getString(R.string.vons), 34);
+        //dbStatusHelper.addNewStatus(getString(R.string.wheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Baguette", "French", "Bread/Grains/Cereal", "Vons", 35);
-        //dbStatusHelper.addNewStatus("Baguette", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.baguette), getString(R.string.frenchOrSourdough), getString(R.string.breadGrainsCereal), getString(R.string.vons), 35);
+        //dbStatusHelper.addNewStatus(getString(R.string.baguette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sourdough Bread", "San Luis Sourdough", "Bread/Grains/Cereal", "Vons", 36);
-        //dbStatusHelper.addNewStatus("Sourdough Bread", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sourdoughBread), getString(R.string.sanLuis), getString(R.string.breadGrainsCereal), getString(R.string.vons), 36);
+        //dbStatusHelper.addNewStatus(getString(R.string.sourdoughBread), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hard Rolls", "to do", "Bread/Grains/Cereal", "Vons", 37);
-        //dbStatusHelper.addNewStatus("Hard Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hardRolls), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 37);
+        //dbStatusHelper.addNewStatus(getString(R.string.hardRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Thomas Muffins", "Original", "Bread/Grains/Cereal", "Vons", 38);
-        //dbStatusHelper.addNewStatus("Thomas Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.thomasMuffins), getString(R.string.original), getString(R.string.breadGrainsCereal), getString(R.string.vons), 38);
+        //dbStatusHelper.addNewStatus(getString(R.string.thomasMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Reese's Puffs Cereal", "Reese's Puffs", "Bread/Grains/Cereal", "Vons", 39);
-        //dbStatusHelper.addNewStatus("Reese's Puffs Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.reesesPuffsCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 39);
+        //dbStatusHelper.addNewStatus(getString(R.string.reesesPuffsCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cookie Crisp Cereal", "Cookie Crisp", "Bread/Grains/Cereal", "Vons", 40);
-        //dbStatusHelper.addNewStatus("Cookie Crisp Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cookieCrispCereal), getString(R.string.generalMills), getString(R.string.breadGrainsCereal), getString(R.string.vons), 40);
+        //dbStatusHelper.addNewStatus(getString(R.string.cookieCrispCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Frosted Mini Wheat Cereal", "Frosted Mini Wheat", "Bread/Grains/Cereal", "Vons", 41);
-        //dbStatusHelper.addNewStatus("Frosted Mini Wheat Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.frostedMiniWheatCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 41);
+        //dbStatusHelper.addNewStatus(getString(R.string.frostedMiniWheatCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey Smacks Cereal", "Honey Smacks", "Bread/Grains/Cereal", "Vons", 42);
-        //dbStatusHelper.addNewStatus("Honey Smacks Cereal", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honeySmacksCereal), getString(R.string.kelloggs), getString(R.string.breadGrainsCereal), getString(R.string.vons), 42);
+        //dbStatusHelper.addNewStatus(getString(R.string.honeySmacksCereal), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Eggo Waffles", "Homestyle", "Bread/Grains/Cereal", "Vons", 43);
-        //dbStatusHelper.addNewStatus("Eggo Waffles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.eggoWaffles), getString(R.string.homestyle), getString(R.string.breadGrainsCereal), getString(R.string.vons), 43);
+        //dbStatusHelper.addNewStatus(getString(R.string.eggoWaffles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Milk", "Vitamin D", "Eggs/Dairy", "Vons", 44);
-        //dbStatusHelper.addNewStatus("Milk", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.milk), getString(R.string.vitaminD), getString(R.string.eggsDairy), getString(R.string.vons), 44);
+        //dbStatusHelper.addNewStatus(getString(R.string.milk), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Eggs", "Grade AA", "Eggs/Dairy", "Vons", 45);
-        //dbStatusHelper.addNewStatus("Eggs", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.eggs), getString(R.string.gradeAAxLarge), getString(R.string.eggsDairy), getString(R.string.vons), 45);
+        //dbStatusHelper.addNewStatus(getString(R.string.eggs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey Yogurt", "Greek Gods", "Eggs/Dairy", "Vons", 46);
-        //dbStatusHelper.addNewStatus("Honey Yogurt", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honeyYogurt), getString(R.string.greekGods), getString(R.string.eggsDairy), getString(R.string.vons), 46);
+        //dbStatusHelper.addNewStatus(getString(R.string.honeyYogurt), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Salted Butter", "Challenge", "Eggs/Dairy", "Vons", 47);
-        //dbStatusHelper.addNewStatus("Salted Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.vons), 47);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltedButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shredded Cheese", "Mexican Blend", "Eggs/Dairy", "Vons", 48);
-        //dbStatusHelper.addNewStatus("Shredded Cheese", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shreddedCheese), getString(R.string.mexicanBlend), getString(R.string.eggsDairy), getString(R.string.vons), 48);
+        //dbStatusHelper.addNewStatus(getString(R.string.shreddedCheese), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("String Cheese", "Mozarella", "Eggs/Dairy", "Vons", 49);
-        //dbStatusHelper.addNewStatus("String Cheese", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.stringCheese), getString(R.string.mozarella), getString(R.string.eggsDairy), getString(R.string.vons), 49);
+        //dbStatusHelper.addNewStatus(getString(R.string.stringCheese), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("BD Cheese", "Black Diamond", "Eggs/Dairy", "Vons", 50);
-        //dbStatusHelper.addNewStatus("BD Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bdCheese), getString(R.string.blackDiamond), getString(R.string.eggsDairy), getString(R.string.vons), 50);
+        //dbStatusHelper.addNewStatus(getString(R.string.bdCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Non-Stick Spray", "Pam Original", "Misc/Ingredients", "Vons", 51);
-        //dbStatusHelper.addNewStatus("Non-Stick Spray", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 51);
+        //dbStatusHelper.addNewStatus(getString(R.string.nonStickSpray), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Parmesan Cheese", "Kraft", "Condiments", "Vons", 52);
-        //dbStatusHelper.addNewStatus("Parmesan Cheese", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.parmesanCheese), getString(R.string.kraft), getString(R.string.condiments), getString(R.string.vons), 52);
+        //dbStatusHelper.addNewStatus(getString(R.string.parmesanCheese), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("A1 Sauce", "Original", "Condiments", "Vons", 53);
-        //dbStatusHelper.addNewStatus("A1 Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.a1sauce), getString(R.string.original), getString(R.string.condiments), getString(R.string.vons), 53);
+        //dbStatusHelper.addNewStatus(getString(R.string.a1sauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ketchup", "Heinz", "Condiments", "Vons", 54);
-        //dbStatusHelper.addNewStatus("Ketchup", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ketchup), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 54);
+        //dbStatusHelper.addNewStatus(getString(R.string.ketchup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mustard", "Heinz", "Condiments", "Vons", 55);
-        //dbStatusHelper.addNewStatus("Mustard", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mustard), getString(R.string.heinz), getString(R.string.condiments), getString(R.string.vons), 55);
+        //dbStatusHelper.addNewStatus(getString(R.string.mustard), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pasta Sauce", "Ragu Meat", "Condiments", "Vons", 56);
-        //dbStatusHelper.addNewStatus("Pasta Sauce", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pastaSauce), getString(R.string.raguMeat), getString(R.string.condiments), getString(R.string.vons), 56);
+        //dbStatusHelper.addNewStatus(getString(R.string.pastaSauce), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Marinara Sauce", "Signature Traditional", "Condiments", "Vons", 57);
-        //dbStatusHelper.addNewStatus("Marinara Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.marinaraSauce), getString(R.string.signatureTraditional), getString(R.string.condiments), getString(R.string.vons), 57);
+        //dbStatusHelper.addNewStatus(getString(R.string.marinaraSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Maple Syrup", "Pearl Milling", "Condiments", "Vons", 58);
-        //dbStatusHelper.addNewStatus("Maple Syrup", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mapleSyrup), getString(R.string.pearlMilling), getString(R.string.condiments), getString(R.string.vons), 58);
+        //dbStatusHelper.addNewStatus(getString(R.string.mapleSyrup), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Honey", "Local Hive Clover", "Condiments", "Vons", 59);
-        //dbStatusHelper.addNewStatus("Honey", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.honey), getString(R.string.localHiveClover), getString(R.string.condiments), getString(R.string.vons), 59);
+        //dbStatusHelper.addNewStatus(getString(R.string.honey), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Peanut Butter", "Skippy Creamy", "Condiments", "Vons", 60);
-        //dbStatusHelper.addNewStatus("Peanut Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.peanutButter), getString(R.string.skippyCreamy), getString(R.string.condiments), getString(R.string.vons), 60);
+        //dbStatusHelper.addNewStatus(getString(R.string.peanutButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Soy Sauce", "Kikoman", "Condiments", "Vons", 61);
-        //dbStatusHelper.addNewStatus("Soy Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.soySauce), getString(R.string.kikoman), getString(R.string.condiments), getString(R.string.vons), 61);
+        //dbStatusHelper.addNewStatus(getString(R.string.soySauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Brown Sugar", "to do", "Misc/Ingredients", "Vons", 62);
-        //dbStatusHelper.addNewStatus("Brown Sugar", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.brownSugar), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 62);
+        //dbStatusHelper.addNewStatus(getString(R.string.brownSugar), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Salt & Pepper", "na", "Seasonings", "Vons", 63);
-        //dbStatusHelper.addNewStatus("Salt & Pepper", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltAndPepper), getString(R.string.na), getString(R.string.seasonings), getString(R.string.vons), 63);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltAndPepper), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Garlic Salt", "Lawry's", "Seasonings", "Vons", 64);
-        //dbStatusHelper.addNewStatus("Garlic Salt", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.garlicSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 64);
+        //dbStatusHelper.addNewStatus(getString(R.string.garlicSalt), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Lawry's Seasoning Salt", "Lawry's", "Seasonings", "Vons", 65);
-        //dbStatusHelper.addNewStatus("Lawry's Seasoning Salt", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.lawrysSeasoningSalt), getString(R.string.lawrys), getString(R.string.seasonings), getString(R.string.vons), 65);
+        //dbStatusHelper.addNewStatus(getString(R.string.lawrysSeasoningSalt), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ranch Dip Mix", "Laura Scudder's", "Seasonings", "Vons", 66);
-        //dbStatusHelper.addNewStatus("Ranch Dip Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ranchDipMix), getString(R.string.lauraScudders), getString(R.string.seasonings), getString(R.string.vons), 66);
+        //dbStatusHelper.addNewStatus(getString(R.string.ranchDipMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Extract", "Signature Select", "Seasonings", "Vons", 67);
-        //dbStatusHelper.addNewStatus("Vanilla Extract", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaExtract), getString(R.string.signatureSelect), getString(R.string.seasonings), getString(R.string.vons), 67);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaExtract), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cinnamon Sugar", "McCormick's", "Seasonings", "Vons", 68);
-        //dbStatusHelper.addNewStatus("Cinnamon Sugar", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cinnamonSugar), getString(R.string.mcCormicks), getString(R.string.seasonings), getString(R.string.vons), 68);
+        //dbStatusHelper.addNewStatus(getString(R.string.cinnamonSugar), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sprinkles", "3 types", "Seasonings", "Vons", 69);
-        //dbStatusHelper.addNewStatus("Sprinkles", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sprinkles), getString(R.string.types3), getString(R.string.seasonings), getString(R.string.vons), 69);
+        //dbStatusHelper.addNewStatus(getString(R.string.sprinkles), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Soda Bottles", "Pepsi or Coke", "Drinks", "Vons", 70);
-        //dbStatusHelper.addNewStatus("Soda Bottles", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 70);
+        //dbStatusHelper.addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Chocolate Mix", "Swiss Miss Dark", "Drinks", "Vons", 71);
-        //dbStatusHelper.addNewStatus("Hot Chocolate Mix", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 71);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Bottled Water", "any", "Drinks", "Vons", 72);
-        //dbStatusHelper.addNewStatus("Bottled Water", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bottledWater), getString(R.string.refreshe40pack), getString(R.string.drinks), getString(R.string.vons), 72);
+        //dbStatusHelper.addNewStatus(getString(R.string.bottledWater), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Beef Jerky", "Archer Terriyaki", "Snacks", "Vons", 73);
-        //dbStatusHelper.addNewStatus("Beef Jerky", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.beefJerky), getString(R.string.archerTerriyaki), getString(R.string.snacks), getString(R.string.vons), 73);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefJerky), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Peanuts", "Honey Roasted", "Snacks", "Vons", 74);
-        //dbStatusHelper.addNewStatus("Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.peanuts), getString(R.string.honeyRoasted), getString(R.string.snacks), getString(R.string.vons), 74);
+        //dbStatusHelper.addNewStatus(getString(R.string.peanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shell Peanuts", "Salted", "Snacks", "Vons", 75);
-        //dbStatusHelper.addNewStatus("Shell Peanuts", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shellPeanuts), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 75);
+        //dbStatusHelper.addNewStatus(getString(R.string.shellPeanuts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sunflower Seeds", "Salted", "Snacks", "Vons", 76);
-        //dbStatusHelper.addNewStatus("Sunflower Seeds", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sunflowerSeeds), getString(R.string.salted), getString(R.string.snacks), getString(R.string.vons), 76);
+        //dbStatusHelper.addNewStatus(getString(R.string.sunflowerSeeds), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vinegar Chips", "Kettle", "Snacks", "Vons", 77);
-        //dbStatusHelper.addNewStatus("Vinegar Chips", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vinegarChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 77);
+        //dbStatusHelper.addNewStatus(getString(R.string.vinegarChips), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("BBQ Chips", "Kettle", "Snacks", "Vons", 78);
-        //dbStatusHelper.addNewStatus("BBQ Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bbqChips), getString(R.string.kettle), getString(R.string.snacks), getString(R.string.vons), 78);
+        //dbStatusHelper.addNewStatus(getString(R.string.bbqChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Doritos", "Cool Ranch", "Snacks", "Vons", 79);
-        //dbStatusHelper.addNewStatus("Doritos", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.doritos), getString(R.string.coolRanch), getString(R.string.snacks), getString(R.string.vons), 79);
+        //dbStatusHelper.addNewStatus(getString(R.string.doritos), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Lay's Chips", "Classic", "Snacks", "Vons", 80);
-        //dbStatusHelper.addNewStatus("Lay's Chips", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laysChips), getString(R.string.classic), getString(R.string.snacks), getString(R.string.vons), 80);
+        //dbStatusHelper.addNewStatus(getString(R.string.laysChips), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Naan Crisps", "Stonefire", "Snacks", "Vons", 81);
-        //dbStatusHelper.addNewStatus("Naan Crisps", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.naanCrisps), getString(R.string.stonefire), getString(R.string.snacks), getString(R.string.vons), 81);
+        //dbStatusHelper.addNewStatus(getString(R.string.naanCrisps), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Cakesters", "Nabisco", "Snacks", "Vons", 82);
-        //dbStatusHelper.addNewStatus("Oreo Cakesters", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoCakesters), getString(R.string.nabisco), getString(R.string.snacks), getString(R.string.vons), 82);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoCakesters), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Goldfish", "Cheddar", "Snacks", "Vons", 83);
-        //dbStatusHelper.addNewStatus("Goldfish", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.goldfish), getString(R.string.cheddar), getString(R.string.snacks), getString(R.string.vons), 83);
+        //dbStatusHelper.addNewStatus(getString(R.string.goldfish), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cheez-Its", "Original", "Snacks", "Vons", 84);
-        //dbStatusHelper.addNewStatus("Cheez-Its", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cheezIts), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 84);
+        //dbStatusHelper.addNewStatus(getString(R.string.cheezIts), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Famous Amos Cookies", "12 Pack", "Snacks", "Vons", 85);
-        //dbStatusHelper.addNewStatus("Famous Amos Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.famousAmosCookies), getString(R.string.resealableBag), getString(R.string.snacks), getString(R.string.vons), 85);
+        //dbStatusHelper.addNewStatus(getString(R.string.famousAmosCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pirouette", "Pepperidge Farm", "Snacks", "Vons", 86);
-        //dbStatusHelper.addNewStatus("Choc. Fudge Pirouette", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocFudgePirouette), getString(R.string.pepperidgeFarm), getString(R.string.snacks), getString(R.string.vons), 86);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocFudgePirouette), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Muffin Mix", "Betty Crocker", "Desserts", "Vons", 87);
-        //dbStatusHelper.addNewStatus("Choc. Chip Muffin Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocChipMuffinMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.vons), 87);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocChipMuffinMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreos", "(for crumbs)", "Desserts", "Vons", 88);
-        //dbStatusHelper.addNewStatus("Oreos", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreos), getString(R.string.forCrumbs), getString(R.string.desserts), getString(R.string.vons), 88);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreos), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Malted Crunch Ice Cream", "Thrifty", "Desserts", "Vons", 89);
-        //dbStatusHelper.addNewStatus("Choc. Malted Crunch Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.thrifty), getString(R.string.desserts), getString(R.string.vons), 89);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocMaltedCrunchIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Truffle Ice Cream", "Breyers", "Desserts", "Vons", 90);
-        //dbStatusHelper.addNewStatus("Choc. Truffle Ice Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocTruffleIceCream), getString(R.string.breyers), getString(R.string.desserts), getString(R.string.vons), 90);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocTruffleIceCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Reese's PB Cups", "(individually wrapped)", "Candy", "Vons", 91);
-        //dbStatusHelper.addNewStatus("Reese's PB Cups", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.reesesPBCups), getString(R.string.individuallyWrapped), getString(R.string.candy), getString(R.string.vons), 91);
+        //dbStatusHelper.addNewStatus(getString(R.string.reesesPBCups), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hot Tamales", "na", "Candy", "Vons", 92);
-        //dbStatusHelper.addNewStatus("Hot Tamales", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hotTamales), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 92);
+        //dbStatusHelper.addNewStatus(getString(R.string.hotTamales), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mini M&M's", "na", "Candy", "Vons", 93);
-        //dbStatusHelper.addNewStatus("Mini M&M's", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.miniMAndMs), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 93);
+        //dbStatusHelper.addNewStatus(getString(R.string.miniMAndMs), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Tootsie Rolls", "na", "Candy", "Vons", 94);
-        //dbStatusHelper.addNewStatus("Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 94);
+        //dbStatusHelper.addNewStatus(getString(R.string.tootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cat Food (wet)", "Fancy Feast", "Pet Supplies", "Vons", 95);
-        //dbStatusHelper.addNewStatus("Cat Food (wet)", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catFoodWet), getString(R.string.fancyFeast), getString(R.string.petSupplies), getString(R.string.vons), 95);
+        //dbStatusHelper.addNewStatus(getString(R.string.catFoodWet), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("100% Pure Pumpkin", "Libby's", "Pet Supplies", "Vons", 96);
-        //dbStatusHelper.addNewStatus("100% Pure Pumpkin", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.purePumpkin), getString(R.string.libbys), getString(R.string.petSupplies), getString(R.string.vons), 96);
+        //dbStatusHelper.addNewStatus(getString(R.string.purePumpkin), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Delectables", "Squeeze Up 20 pack", "Pet Supplies", "Vons", 97);
-        //dbStatusHelper.addNewStatus("Delectables", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 97);
+        //dbStatusHelper.addNewStatus(getString(R.string.delectables), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Body Wash", "Suave Mandarin", "Toiletries", "Vons", 98);
-        //dbStatusHelper.addNewStatus("Body Wash", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 98);
+        //dbStatusHelper.addNewStatus(getString(R.string.bodyWash), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shampoo", "Suave 2 in 1", "Toiletries", "Vons", 99);
-        //dbStatusHelper.addNewStatus("Shampoo", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 99);
+        //dbStatusHelper.addNewStatus(getString(R.string.shampoo), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Deodorant", "Old Spice", "Toiletries", "Vons", 100);
-        //dbStatusHelper.addNewStatus("Deodorant", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.deodorant), getString(R.string.oldSpice), getString(R.string.toiletries), getString(R.string.vons), 100);
+        //dbStatusHelper.addNewStatus(getString(R.string.deodorant), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mouthwash", "Crest Whitening", "Toiletries", "Vons", 101);
-        //dbStatusHelper.addNewStatus("Mouthwash", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mouthwash), getString(R.string.crestWhitening), getString(R.string.toiletries), getString(R.string.vons), 101);
+        //dbStatusHelper.addNewStatus(getString(R.string.mouthwash), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cotton Swabs", "Q-Tips", "Toiletries", "Vons", 102);
-        //dbStatusHelper.addNewStatus("Cotton Swabs", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.cottonSwabs), getString(R.string.qTips), getString(R.string.toiletries), getString(R.string.vons), 102);
+        //dbStatusHelper.addNewStatus(getString(R.string.cottonSwabs), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Febreeze Air Spray", "Heavy Duty", "Household", "Vons", 103);
-        //dbStatusHelper.addNewStatus("Febreeze Air Spray", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.febreezeAirSpray), getString(R.string.heavyDuty), getString(R.string.household), getString(R.string.vons), 103);
+        //dbStatusHelper.addNewStatus(getString(R.string.febreezeAirSpray), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("All Purpose Cleaner", "Meyer's Lavender", "Household", "Vons", 104);
-        //dbStatusHelper.addNewStatus("All Purpose Cleaner", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.allPurposeCleaner), getString(R.string.meyersLavender), getString(R.string.household), getString(R.string.vons), 104);
+        //dbStatusHelper.addNewStatus(getString(R.string.allPurposeCleaner), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Laundry Detergent", "Woolite", "Household", "Vons", 105);
-        //dbStatusHelper.addNewStatus("Laundry Detergent", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laundryDetergent), getString(R.string.woolite), getString(R.string.household), getString(R.string.vons), 105);
+        //dbStatusHelper.addNewStatus(getString(R.string.laundryDetergent), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Laundry Sanitizer", "Lysol", "Household", "Vons", 106);
-        //dbStatusHelper.addNewStatus("Laundry Sanitizer", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.laundrySanitizer), getString(R.string.lysol), getString(R.string.household), getString(R.string.vons), 106);
+        //dbStatusHelper.addNewStatus(getString(R.string.laundrySanitizer), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Aluminum Foil", "Reynolds Wrap", "Household", "Vons", 107);
-        //dbStatusHelper.addNewStatus("Aluminum Foil", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.aluminumFoil), getString(R.string.reynoldsWrap), getString(R.string.household), getString(R.string.vons), 107);
+        //dbStatusHelper.addNewStatus(getString(R.string.aluminumFoil), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (small)", "Sandwich", "Household", "Vons", 108);
-        //dbStatusHelper.addNewStatus("Zip-Lock Bags (small)", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zipLockBagsSmall), getString(R.string.sandwich), getString(R.string.household), getString(R.string.vons), 108);
+        //dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsSmall), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zip-Lock Bags (large)", "Freezer Gallon", "Household", "Vons", 109);
-        //dbStatusHelper.addNewStatus("Zip-Lock Bags (large)", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zipLockBagsLarge), getString(R.string.freezerGallon), getString(R.string.household), getString(R.string.vons), 109);
+        //dbStatusHelper.addNewStatus(getString(R.string.zipLockBagsLarge), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Saran Wrap", "Plastic Wrap", "Household", "Vons", 110);
-        //dbStatusHelper.addNewStatus("Saran Wrap", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saranWrap), getString(R.string.plasticWrap), getString(R.string.household), getString(R.string.vons), 110);
+        //dbStatusHelper.addNewStatus(getString(R.string.saranWrap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Scrub Sponges", "Non-Scratch", "Household", "Vons", 111);
-        //dbStatusHelper.addNewStatus("Scrub Sponges", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.scrubSponges), getString(R.string.nonScratch), getString(R.string.household), getString(R.string.vons), 111);
+        //dbStatusHelper.addNewStatus(getString(R.string.scrubSponges), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dawn Powerwash", "Dish Cleaner", "Household", "Vons", 112);
-        //dbStatusHelper.addNewStatus("Dawn Powerwash", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dawnPowerwash), getString(R.string.dishCleaner), getString(R.string.household), getString(R.string.vons), 112);
+        //dbStatusHelper.addNewStatus(getString(R.string.dawnPowerwash), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dish Soap", "Dawn Platinum", "Household", "Vons", 113);
-        //dbStatusHelper.addNewStatus("Dish Soap", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dishSoap), getString(R.string.dawnPlatinum), getString(R.string.household), getString(R.string.vons), 113);
+        //dbStatusHelper.addNewStatus(getString(R.string.dishSoap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Small Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 114);
-        //dbStatusHelper.addNewStatus("Small Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smallFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 114);
+        //dbStatusHelper.addNewStatus(getString(R.string.smallFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Large Flour Tortillas", "to do", "Bread/Grains/Cereal", "Vons", 115);
-        //dbStatusHelper.addNewStatus("Large Flour Tortillas", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.largeFlourTortillas), getString(R.string.toDo), getString(R.string.breadGrainsCereal), getString(R.string.vons), 115);
+        //dbStatusHelper.addNewStatus(getString(R.string.largeFlourTortillas), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sour Cream", "to do", "Eggs/Dairy", "Vons", 116);
-        //dbStatusHelper.addNewStatus("Sour Cream", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sourCream), getString(R.string.toDo), getString(R.string.eggsDairy), getString(R.string.vons), 116);
+        //dbStatusHelper.addNewStatus(getString(R.string.sourCream), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buffalo Sauce", "Frank's Wings", "Condiments", "Vons", 117);
-        //dbStatusHelper.addNewStatus("Buffalo Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.buffaloSauce), getString(R.string.franksWings), getString(R.string.condiments), getString(R.string.vons), 117);
+        //dbStatusHelper.addNewStatus(getString(R.string.buffaloSauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Sauce", "Victoria's Mild", "Condiments", "Vons", 118);
-        //dbStatusHelper.addNewStatus("Taco Sauce", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoSauce), getString(R.string.victoriasMild), getString(R.string.condiments), getString(R.string.vons), 118);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoSauce), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Seasoning", "any", "Seasonings", "Vons", 119);
-        //dbStatusHelper.addNewStatus("Taco Seasoning", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoSeasoning), getString(R.string.any), getString(R.string.seasonings), getString(R.string.vons), 119);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoSeasoning), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Taco Shells", "to do", "Misc/Ingredients", "Vons", 120);
-        //dbStatusHelper.addNewStatus("Taco Shells", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tacoShells), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 120);
+        //dbStatusHelper.addNewStatus(getString(R.string.tacoShells), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Tortellini", "Barilla 3 Cheese", "Meals", "Vons", 121);
-        //dbStatusHelper.addNewStatus("Tortellini", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tortellini), getString(R.string.barilla3Cheese), getString(R.string.meals), getString(R.string.vons), 121);
+        //dbStatusHelper.addNewStatus(getString(R.string.tortellini), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Garlic Breadsticks", "New York Bakery", "Sides", "Vons", 122);
-        //dbStatusHelper.addNewStatus("Garlic Breadsticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.garlicBreadsticks), getString(R.string.newYorkBakery), getString(R.string.sides), getString(R.string.vons), 122);
+        //dbStatusHelper.addNewStatus(getString(R.string.garlicBreadsticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Good & Plenty", "na", "Candy", "Vons", 123);
-        //dbStatusHelper.addNewStatus("Good & Plenty", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.goodAndPlenty), getString(R.string.na), getString(R.string.candy), getString(R.string.vons), 123);
+        //dbStatusHelper.addNewStatus(getString(R.string.goodAndPlenty), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sliced Cheese", "Kraft Singles", "Eggs/Dairy", "Vons", 124);
-        //dbStatusHelper.addNewStatus("Sliced Cheese", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.slicedCheese), getString(R.string.kraftSingles), getString(R.string.eggsDairy), getString(R.string.vons), 124);
+        //dbStatusHelper.addNewStatus(getString(R.string.slicedCheese), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Cat Treats", "Temptations", "Pet Supplies", "Vons", 125);
-        //dbStatusHelper.addNewStatus("Cat Treats", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catTreats), getString(R.string.temptations), getString(R.string.petSupplies), getString(R.string.vons), 125);
+        //dbStatusHelper.addNewStatus(getString(R.string.catTreats), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Saltine Crackers", "Premium Original", "Misc/Ingredients", "Vons", 126);
-        //dbStatusHelper.addNewStatus("Saltine Crackers", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.saltineCrackers), getString(R.string.premiumOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 126);
+        //dbStatusHelper.addNewStatus(getString(R.string.saltineCrackers), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Semi-Sweet Choc. Chips", "Nestle", "Misc/Ingredients", "Vons", 127);
-        //dbStatusHelper.addNewStatus("Semi-Sweet Choc. Chips", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.semiSweetChocChips), getString(R.string.nestle), getString(R.string.miscIngredients), getString(R.string.vons), 127);
+        //dbStatusHelper.addNewStatus(getString(R.string.semiSweetChocChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vegetable Oil", "Crisco", "Misc/Ingredients", "Vons", 128);
-        //dbStatusHelper.addNewStatus("Vegetable Oil", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 128);
+        //dbStatusHelper.addNewStatus(getString(R.string.vegetableOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Extra Virgin Olive Oil", "to do", "Misc/Ingredients", "Vons", 129);
-        //dbStatusHelper.addNewStatus("Extra Virgin Olive Oil", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 129);
+        //dbStatusHelper.addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Buttered Popcorn", "Movie Theater Butter", "Snacks", "Vons", 130);
-        //dbStatusHelper.addNewStatus("Buttered Popcorn", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 130);
+        //dbStatusHelper.addNewStatus(getString(R.string.butteredPopcorn), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Caramel Popcorn", "Cretors", "Snacks", "Vons", 131);
-        //dbStatusHelper.addNewStatus("Caramel Popcorn", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.caramelPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 131);
+        //dbStatusHelper.addNewStatus(getString(R.string.caramelPopcorn), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Caramel Swirl Popcorn", "Cretors", "Snacks", "Vons", 132);
-        //dbStatusHelper.addNewStatus("Choc. Caramel Swirl Popcorn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.cretors), getString(R.string.snacks), getString(R.string.vons), 132);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocCaramelSwirlPopcorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ritz Crackers", "Original", "Snacks", "Vons", 133);
-        //dbStatusHelper.addNewStatus("Ritz Crackers", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ritzCrackers), getString(R.string.original), getString(R.string.snacks), getString(R.string.vons), 133);
+        //dbStatusHelper.addNewStatus(getString(R.string.ritzCrackers), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Half & Half", "Lucerne", "Eggs/Dairy", "Vons", 134);
-        //dbStatusHelper.addNewStatus("Half & Half", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.halfAndHalf), getString(R.string.lucerne), getString(R.string.eggsDairy), getString(R.string.vons), 134);
+        //dbStatusHelper.addNewStatus(getString(R.string.halfAndHalf), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Movie Theater Butter", "Kernel Seasons", "Misc/Ingredients", "Vons", 135);
-        //dbStatusHelper.addNewStatus("Movie Theater Butter", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 135);
+        //dbStatusHelper.addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Vons", 136);
-        storeData.getStoreViewInStockMap().put("Vons", 53);
-        storeData.getStoreViewNeededMap().put("Vons", 22);
-        storeData.getStoreViewPausedMap().put("Vons", 61);
-        dbStoreHelper.setStoreViews("Vons", 136, 53, 22, 61);
+        dbItemHelper.addNewItemByStore(getString(R.string.crescentRolls), getString(R.string.signatureSelect), getString(R.string.sides), getString(R.string.vons), 136);
+        //dbStatusHelper.addNewStatus(getString(R.string.crescentRolls), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.beefLitlSmokies), getString(R.string.hillshireFarm), getString(R.string.meat), getString(R.string.vons), 137);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefLitlSmokies), getString(R.string.paused), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.doubleChocMuffins), getString(R.string.count4), getString(R.string.desserts), getString(R.string.vons), 138);
+        //dbStatusHelper.addNewStatus(getString(R.string.doubleChocMuffins), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.vons), 139);
+        storeData.getStoreViewInStockMap().put(getString(R.string.vons), 53);
+        storeData.getStoreViewNeededMap().put(getString(R.string.vons), 22);
+        storeData.getStoreViewPausedMap().put(getString(R.string.vons), 64);
+        dbStoreHelper.setStoreViews(getString(R.string.vons), 139, 53, 22, 64);
 
         //------------------------------------Smart & Final-----------------------------------------
 
-        dbItemHelper.addNewItemByStore("Churros", "Tio Pepe’s or Hola!", "Desserts", "Smart & Final", 0);
-        //dbStatusHelper.addNewStatus("Churros", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.churros), getString(R.string.tioPepesOrHola), getString(R.string.desserts), getString(R.string.smartFinal), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.churros), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pepperoni Slices", "Hormel (300 slices)", "Meat", "Smart & Final", 1);
-        //dbStatusHelper.addNewStatus("Pepperoni Slices", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.pepperoniSlices), getString(R.string.hormel300Slices), getString(R.string.meat), getString(R.string.smartFinal), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.pepperoniSlices), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Fun Dip Sticks", "na", "Candy", "Smart & Final", 2);
-        //dbStatusHelper.addNewStatus("Fun Dip Sticks", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.funDipSticks), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.funDipSticks), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Orange Tic Tacs", "na", "Candy", "Smart & Final", 3);
-        //dbStatusHelper.addNewStatus("Orange Tic Tacs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.orangeTicTacs), getString(R.string.na), getString(R.string.candy), getString(R.string.smartFinal), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.orangeTicTacs), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Smart & Final", 4);
-        storeData.getStoreViewInStockMap().put("Smart & Final", 2);
-        storeData.getStoreViewNeededMap().put("Smart & Final", 0);
-        storeData.getStoreViewPausedMap().put("Smart & Final", 2);
-        dbStoreHelper.setStoreViews("Smart & Final", 4, 2, 0, 2);
+        dbItemHelper.addNewItemByStore(getString(R.string.gingerSnaps), getString(R.string.firstStreet), getString(R.string.snacks), getString(R.string.smartFinal), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.gingerSnaps), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.smartFinal), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.smartFinal), 2);
+        storeData.getStoreViewNeededMap().put(getString(R.string.smartFinal), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.smartFinal), 3);
+        dbStoreHelper.setStoreViews(getString(R.string.smartFinal), 5, 2, 0, 3);
 
         //------------------------------------Costco------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Soda Cans", "Pepsi or Coke", "Drinks", "Costco", 0);
-        //dbStatusHelper.addNewStatus("Soda Cans", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.sodaCans), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Kitty Litter", "Scoop Away Complete", "Pet Supplies", "Costco", 1);
-        //dbStatusHelper.addNewStatus("Kitty Litter", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.kittyLitter), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Chicken Broth", "Kirkland Organic", "Pet Supplies", "Costco", 2);
-        //dbStatusHelper.addNewStatus("Chicken Broth", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chickenBroth), getString(R.string.kirklandOrganic), getString(R.string.petSupplies), getString(R.string.costco), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.chickenBroth), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Mashed Potatoes", "Main St. Bistro", "Pet Supplies", "Costco", 3);
-        //dbStatusHelper.addNewStatus("Mashed Potatoes", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.mashedPotatoes), getString(R.string.mainStBistro), getString(R.string.petSupplies), getString(R.string.costco), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.mashedPotatoes), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Freshpet", "Chicken Recipe (6lb)", "Pet Supplies", "Costco", 4);
-        //dbStatusHelper.addNewStatus("Freshpet", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.freshpet), getString(R.string.chickenRecipe), getString(R.string.petSupplies), getString(R.string.costco), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.freshpet), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Muffins", "12 pack", "Desserts", "Costco", 5);
-        //dbStatusHelper.addNewStatus("Oreo Muffins", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoMuffins), getString(R.string.pack12), getString(R.string.desserts), getString(R.string.costco), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoMuffins), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Crispy Buffalo Wings", "Foster Farms", "Meals", "Costco", 6);
-        //dbStatusHelper.addNewStatus("Crispy Buffalo Wings", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.crispyBuffaloWings), getString(R.string.fosterFarms), getString(R.string.meals), getString(R.string.costco), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.crispyBuffaloWings), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Costco", 7);
-        storeData.getStoreViewInStockMap().put("Costco", 4);
-        storeData.getStoreViewNeededMap().put("Costco", 1);
-        storeData.getStoreViewPausedMap().put("Costco", 2);
-        dbStoreHelper.setStoreViews("Costco", 7, 4, 1, 2);
+        dbItemHelper.addNewItemByStore(getString(R.string.paperTowels), getString(R.string.kirklandPremium), getString(R.string.household), getString(R.string.costco), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.paperTowels), getString(R.string.instock), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.toiletPaper), getString(R.string.kirklandUltraSoft), getString(R.string.household), getString(R.string.costco), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.toiletPaper), getString(R.string.instock), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.costco), 9);
+        storeData.getStoreViewInStockMap().put(getString(R.string.costco), 6);
+        storeData.getStoreViewNeededMap().put(getString(R.string.costco), 1);
+        storeData.getStoreViewPausedMap().put(getString(R.string.costco), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.costco), 9, 6, 1, 2);
 
         //------------------------------------Walmart-----------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Dark Chocolate Caramel Squares", "Ghiradelli", "Candy", "Walmart", 0);
-        //dbStatusHelper.addNewStatus("Dark Chocolate Caramel Squares", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocolateCaramelSquares), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocolateCaramelSquares), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dishwashing Brush", "Great Value", "Household", "Walmart", 1);
-        //dbStatusHelper.addNewStatus("Dishwashing Brush", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dishwashingBrush), getString(R.string.greatValue), getString(R.string.household), getString(R.string.walmart), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.dishwashingBrush), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Small Trash Bags", "13 gallon", "Household", "Walmart", 2);
-        //dbStatusHelper.addNewStatus("Small Trash Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smallTrashBags), getString(R.string.gallon13), getString(R.string.household), getString(R.string.walmart), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.smallTrashBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Large Trash Bags", "33 gallon", "Household", "Walmart", 3);
-        //dbStatusHelper.addNewStatus("Large Trash Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.largeTrashBags), getString(R.string.gallon33), getString(R.string.household), getString(R.string.walmart), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.largeTrashBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Compactor Bags", "18 gallon", "Household", "Walmart", 4);
-        //dbStatusHelper.addNewStatus("Compactor Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.compactorBags), getString(R.string.gallon18), getString(R.string.household), getString(R.string.walmart), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.compactorBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Paper Towels", "Sparkle", "Household", "Walmart", 5);
-        //dbStatusHelper.addNewStatus("Paper Towels", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toilet Paper", "Angel Soft", "Household", "Walmart", 6);
-        //dbStatusHelper.addNewStatus("Toilet Paper", "instock", "unchecked");
-
-        dbItemHelper.addNewItemByStore("72% Intense Dark Chocolate", "Ghiradelli", "Candy", "Walmart", 7);
-        //dbStatusHelper.addNewStatus("72% Intense Dark Chocolate", "paused", "unchecked");
-
-        storeData.getStoreViewAllMap().put("Walmart", 8);
-        storeData.getStoreViewInStockMap().put("Walmart", 5);
-        storeData.getStoreViewNeededMap().put("Walmart", 2);
-        storeData.getStoreViewPausedMap().put("Walmart", 1);
-        dbStoreHelper.setStoreViews("Walmart", 8, 5, 2, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.walmart), 6);
+        storeData.getStoreViewInStockMap().put(getString(R.string.walmart), 3);
+        storeData.getStoreViewNeededMap().put(getString(R.string.walmart), 2);
+        storeData.getStoreViewPausedMap().put(getString(R.string.walmart), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.walmart), 6, 3, 2, 1);
 
         //------------------------------------Amazon------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Muddy Buddies", "Brownie Supreme", "Snacks", "Amazon", 0);
-        //dbStatusHelper.addNewStatus("Muddy Buddies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.muddyBuddies), getString(R.string.brownieSupreme), getString(R.string.snacks), getString(R.string.amazon), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.muddyBuddies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Gingerbread Cookie Mix", "Betty Crocker", "Desserts", "Amazon", 1);
-        //dbStatusHelper.addNewStatus("Gingerbread Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.gingerbreadCookieMix), getString(R.string.bettyCrocker), getString(R.string.desserts), getString(R.string.amazon), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.gingerbreadCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Jelly Beans", "Sizzling Cinnamon", "Candy", "Amazon", 2);
-        //dbStatusHelper.addNewStatus("Jelly Beans", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.jellyBeans), getString(R.string.sizzlingCinnamon), getString(R.string.candy), getString(R.string.amazon), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.jellyBeans), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Orange Pez", "na", "Candy", "Amazon", 3);
-        //dbStatusHelper.addNewStatus("Orange Pez", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.orangePez), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.orangePez), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Taffy", "na", "Candy", "Amazon", 4);
-        //dbStatusHelper.addNewStatus("Vanilla Taffy", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaTaffy), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaTaffy), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vanilla Tootsie Rolls", "na", "Candy", "Amazon", 5);
-        //dbStatusHelper.addNewStatus("Vanilla Tootsie Rolls", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vanillaTootsieRolls), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.vanillaTootsieRolls), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Poop Bags", "Amazon Basics", "Pet Supplies", "Amazon", 6);
-        //dbStatusHelper.addNewStatus("Poop Bags", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.poopBags), getString(R.string.amazonBasics), getString(R.string.petSupplies), getString(R.string.amazon), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.poopBags), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Nitrile Gloves", "GMG 100 pack", "Pet Supplies", "Amazon", 7);
-        //dbStatusHelper.addNewStatus("Nitrile Gloves", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 7);
+        //dbStatusHelper.addNewStatus(getString(R.string.nitrileGloves), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toothpaste", "Tom's Antiplaque & Whitening", "Toiletries", "Amazon", 8);
-        //dbStatusHelper.addNewStatus("Toothpaste", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.toothpaste), getString(R.string.ultrabrite), getString(R.string.toiletries), getString(R.string.amazon), 8);
+        //dbStatusHelper.addNewStatus(getString(R.string.toothpaste), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Floss", "Reach Mint Waxed", "Toiletries", "Amazon", 9);
-        //dbStatusHelper.addNewStatus("Floss", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.floss), getString(R.string.reachMintWaxed), getString(R.string.toiletries), getString(R.string.amazon), 9);
+        //dbStatusHelper.addNewStatus(getString(R.string.floss), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shaving Cream", "Sandalwood", "Toiletries", "Amazon", 10);
-        //dbStatusHelper.addNewStatus("Shaving Cream", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shavingCream), getString(R.string.sandalwood), getString(R.string.toiletries), getString(R.string.amazon), 10);
+        //dbStatusHelper.addNewStatus(getString(R.string.shavingCream), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Shaving Razors", "Gillette ProGlide", "Toiletries", "Amazon", 11);
-        //dbStatusHelper.addNewStatus("Shaving Razors", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.shavingRazors), getString(R.string.gilletteProGlide), getString(R.string.toiletries), getString(R.string.amazon), 11);
+        //dbStatusHelper.addNewStatus(getString(R.string.shavingRazors), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sunscreen", "Hawaiian Tropic Sheer 50spf", "Toiletries", "Amazon", 12);
-        //dbStatusHelper.addNewStatus("Sunscreen", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sunscreen), getString(R.string.hawaiianTropicSheer50spf), getString(R.string.toiletries), getString(R.string.amazon), 12);
+        //dbStatusHelper.addNewStatus(getString(R.string.sunscreen), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Pet Stain Cleaner", "Rocco & Roxie", "Household", "Amazon", 13);
-        //dbStatusHelper.addNewStatus("Pet Stain Cleaner", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.petStainCleaner), getString(R.string.roccoAndRoxie), getString(R.string.household), getString(R.string.amazon), 13);
+        //dbStatusHelper.addNewStatus(getString(R.string.petStainCleaner), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Night Light Bulbs", "C7 E12", "Household", "Amazon", 14);
-        //dbStatusHelper.addNewStatus("Night Light Bulbs", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.nightLightBulbs), getString(R.string.c7E12), getString(R.string.household), getString(R.string.amazon), 14);
+        //dbStatusHelper.addNewStatus(getString(R.string.nightLightBulbs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Fortune Cookies", "to do", "Snacks", "Amazon", 15);
-        //dbStatusHelper.addNewStatus("Fortune Cookies", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.fortuneCookies), getString(R.string.toDo), getString(R.string.snacks), getString(R.string.amazon), 15);
+        //dbStatusHelper.addNewStatus(getString(R.string.fortuneCookies), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Communion Wafers", "to do", "Snacks", "Amazon", 16);
-        //dbStatusHelper.addNewStatus("Communion Wafers", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.communionWafers), getString(R.string.cavanaghAltarBread), getString(R.string.snacks), getString(R.string.amazon), 16);
+        //dbStatusHelper.addNewStatus(getString(R.string.communionWafers), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sixlets", "na", "Candy", "Amazon", 17);
-        //dbStatusHelper.addNewStatus("Sixlets", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.sixlets), getString(R.string.na), getString(R.string.candy), getString(R.string.amazon), 17);
+        //dbStatusHelper.addNewStatus(getString(R.string.sixlets), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Little Trees Air Fresheners", "True North", "Household", "Amazon", 18);
-        //dbStatusHelper.addNewStatus("Little Trees Air Fresheners", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.littleTreesAirFresheners), getString(R.string.trueNorth), getString(R.string.household), getString(R.string.amazon), 18);
+        //dbStatusHelper.addNewStatus(getString(R.string.littleTreesAirFresheners), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Triple Omega", "Nature Made", "Supplements", "Amazon", 19);
-        //dbStatusHelper.addNewStatus("Triple Omega", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.tripleOmega), getString(R.string.natureMade), getString(R.string.supplements), getString(R.string.amazon), 19);
+        //dbStatusHelper.addNewStatus(getString(R.string.tripleOmega), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Multivitamin", "One a Day Men's", "Supplements", "Amazon", 20);
-        //dbStatusHelper.addNewStatus("Multivitamin", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.multivitamin), getString(R.string.oneADayMens), getString(R.string.supplements), getString(R.string.amazon), 20);
+        //dbStatusHelper.addNewStatus(getString(R.string.multivitamin), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vitamin C", "Amazon Elements 1000 mg", "Supplements", "Amazon", 21);
-        //dbStatusHelper.addNewStatus("Vitamin C", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vitaminC), getString(R.string.amazonElements1000mg), getString(R.string.supplements), getString(R.string.amazon), 21);
+        //dbStatusHelper.addNewStatus(getString(R.string.vitaminC), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Magnesium", "Nature Made 400mg", "Supplements", "Amazon", 22);
-        //dbStatusHelper.addNewStatus("Magnesium", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.magnesium), getString(R.string.natureMade400mg), getString(R.string.supplements), getString(R.string.amazon), 22);
+        //dbStatusHelper.addNewStatus(getString(R.string.magnesium), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Zinc", "Sandhu Herbals 50mg", "Supplements", "Amazon", 23);
-        //dbStatusHelper.addNewStatus("Zinc", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.zinc), getString(R.string.sandhuHerbals50mg), getString(R.string.supplements), getString(R.string.amazon), 23);
+        //dbStatusHelper.addNewStatus(getString(R.string.zinc), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Calcium", "Nature's Truth 1200 mg", "Supplements", "Amazon", 24);
-        //dbStatusHelper.addNewStatus("Calcium", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.calcium), getString(R.string.naturesTruth1200mg), getString(R.string.supplements), getString(R.string.amazon), 24);
+        //dbStatusHelper.addNewStatus(getString(R.string.calcium), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Biotin", "Natrol 10,000mcg", "Supplements", "Amazon", 25);
-        //dbStatusHelper.addNewStatus("Biotin", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.biotin), getString(R.string.natrol10000mcg), getString(R.string.supplements), getString(R.string.amazon), 25);
+        //dbStatusHelper.addNewStatus(getString(R.string.biotin), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Vitamin D3", "Nature Made 5000 IU", "Supplements", "Amazon", 26);
-        //dbStatusHelper.addNewStatus("Vitamin D3", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.vitaminD3), getString(R.string.natureMade5000IU), getString(R.string.supplements), getString(R.string.amazon), 26);
+        //dbStatusHelper.addNewStatus(getString(R.string.vitaminD3), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hyaluronic Acid", "Horbaach 1000mg", "Supplements", "Amazon", 27);
-        //dbStatusHelper.addNewStatus("Hyaluronic Acid", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 27);
+        //dbStatusHelper.addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Amazon", 28);
-        storeData.getStoreViewInStockMap().put("Amazon", 18);
-        storeData.getStoreViewNeededMap().put("Amazon", 0);
-        storeData.getStoreViewPausedMap().put("Amazon", 10);
-        dbStoreHelper.setStoreViews("Amazon", 28, 18, 0, 10);
+        storeData.getStoreViewAllMap().put(getString(R.string.amazon), 28);
+        storeData.getStoreViewInStockMap().put(getString(R.string.amazon), 18);
+        storeData.getStoreViewNeededMap().put(getString(R.string.amazon), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.amazon), 10);
+        dbStoreHelper.setStoreViews(getString(R.string.amazon), 28, 18, 0, 10);
 
         //------------------------------------Stater Bros-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Beef Noodles", "Yakisoba", "Soups", "Stater Bros", 0);
-        //dbStatusHelper.addNewStatus("Beef Noodles", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.beefNoodles), getString(R.string.yakisoba), getString(R.string.soups), getString(R.string.staterBros), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.beefNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Chip Cookie Mix", "Gluten Free", "Desserts", "Stater Bros", 1);
-        //dbStatusHelper.addNewStatus("Choc. Chip Cookie Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocChipCookieMix), getString(R.string.bettyCrockerGlutenFree), getString(R.string.desserts), getString(R.string.staterBros), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocChipCookieMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Malt Mix", "Nestle", "Desserts", "Stater Bros", 2);
-        //dbStatusHelper.addNewStatus("Choc. Malt Mix", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocMaltMix), getString(R.string.nestle), getString(R.string.desserts), getString(R.string.staterBros), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocMaltMix), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Choc. Fudge Pudding", "Snack Pack", "Snacks", "Stater Bros", 3);
-        //dbStatusHelper.addNewStatus("Choc. Fudge Pudding", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocFudgePudding), getString(R.string.snackPack), getString(R.string.snacks), getString(R.string.staterBros), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocFudgePudding), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dryer Sheets", "Simply Done Fresh Linen", "Household", "Stater Bros", 4);
-        //dbStatusHelper.addNewStatus("Dryer Sheets", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dryerSheets), getString(R.string.simplyDoneFreshLinen), getString(R.string.household), getString(R.string.staterBros), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.dryerSheets), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Stater Bros", 5);
-        storeData.getStoreViewInStockMap().put("Stater Bros", 1);
-        storeData.getStoreViewNeededMap().put("Stater Bros", 0);
-        storeData.getStoreViewPausedMap().put("Stater Bros", 4);
-        dbStoreHelper.setStoreViews("Stater Bros", 5, 1, 0, 4);
+        storeData.getStoreViewAllMap().put(getString(R.string.staterBros), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.staterBros), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.staterBros), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.staterBros), 4);
+        dbStoreHelper.setStoreViews(getString(R.string.staterBros), 5, 1, 0, 4);
 
         //------------------------------------Trader Joe's-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Hold the Cone", "Chocolate", "Desserts", "Trader Joe's", 0);
-        //dbStatusHelper.addNewStatus("Hold the Cone", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.holdTheCone), getString(R.string.chocolate), getString(R.string.desserts), getString(R.string.traderJoes), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.holdTheCone), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dark Choc. Caramels", "Trader Joe's", "Candy", "Trader Joe's", 1);
-        //dbStatusHelper.addNewStatus("Dark Choc. Caramels", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocCaramels), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocCaramels), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Trader Joe's", 2);
-        storeData.getStoreViewInStockMap().put("Trader Joe's", 0);
-        storeData.getStoreViewNeededMap().put("Trader Joe's", 1);
-        storeData.getStoreViewPausedMap().put("Trader Joe's", 1);
-        dbStoreHelper.setStoreViews("Trader Joe's", 2, 0, 1, 1);
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocPeanutButterCups), getString(R.string.traderJoes), getString(R.string.candy), getString(R.string.traderJoes), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocPeanutButterCups), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.traderJoes), 3);
+        storeData.getStoreViewInStockMap().put(getString(R.string.traderJoes), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.traderJoes), 1);
+        storeData.getStoreViewPausedMap().put(getString(R.string.traderJoes), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.traderJoes), 3, 0, 1, 2);
 
         //------------------------------------CVS---------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Dark Chocolate Pretzels", "Flipz", "Snacks", "CVS", 0);
-        //dbStatusHelper.addNewStatus("Dark Chocolate Pretzels", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocolatePretzels), getString(R.string.flipz), getString(R.string.snacks), getString(R.string.cvs), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocolatePretzels), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Candy Corn", "Brach's", "Candy", "CVS", 1);
-        //dbStatusHelper.addNewStatus("Candy Corn", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.candyCorn), getString(R.string.brachs), getString(R.string.candy), getString(R.string.cvs), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.candyCorn), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Rubbing Alcohol", "Isopropyl", "Household", "CVS", 2);
-        //dbStatusHelper.addNewStatus("Rubbing Alcohol", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.rubbingAlcohol), getString(R.string.isopropyl), getString(R.string.household), getString(R.string.cvs), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.rubbingAlcohol), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hydrogen Peroxide", "na", "Household", "CVS", 3);
-        //dbStatusHelper.addNewStatus("Hydrogen Peroxide", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.hydrogenPeroxide), getString(R.string.na), getString(R.string.household), getString(R.string.cvs), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.hydrogenPeroxide), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Moisturizing Lotion", "CVS Health w/ hyaluronic acid", "Toiletries", "CVS", 4);
-        //dbStatusHelper.addNewStatus("Moisturizing Lotion", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.moisturizingLotion), getString(R.string.cvsHealthHyaluronicAcid), getString(R.string.toiletries), getString(R.string.cvs), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.moisturizingLotion), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Packaging Tape", "Scotch Heavy Duty", "Household", "CVS", 5);
-        //dbStatusHelper.addNewStatus("Packaging Tape", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.packagingTape), getString(R.string.instock), getString(R.string.unchecked));
+
+        dbItemHelper.addNewItemByStore(getString(R.string.faceSunscreen), getString(R.string.aveenoProtectHydrate), getString(R.string.toiletries), getString(R.string.cvs), 6);
+        //dbStatusHelper.addNewStatus(getString(R.string.faceSunscreen), getString(R.string.paused), getString(R.string.unchecked));
 
 
-        storeData.getStoreViewAllMap().put("CVS", 6);
-        storeData.getStoreViewInStockMap().put("CVS", 5);
-        storeData.getStoreViewNeededMap().put("CVS", 0);
-        storeData.getStoreViewPausedMap().put("CVS", 1);
-        dbStoreHelper.setStoreViews("CVS", 6, 5, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.cvs), 7);
+        storeData.getStoreViewInStockMap().put(getString(R.string.cvs), 5);
+        storeData.getStoreViewNeededMap().put(getString(R.string.cvs), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.cvs), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.cvs), 7, 5, 0, 2);
 
         //------------------------------------Dollar Tree-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Sno Caps", "na", "Candy", "Dollar Tree", 0);
-        //dbStatusHelper.addNewStatus("Sno Caps", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.snoCaps), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.snoCaps), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Smarties", "na", "Candy", "Dollar Tree", 1);
-        //dbStatusHelper.addNewStatus("Smarties", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.smarties), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.smarties), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Red Hots", "na", "Candy", "Dollar Tree", 2);
-        //dbStatusHelper.addNewStatus("Red Hots", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Hand Soap", "Lavender & Chamomile", "Toiletries", "Dollar Tree", 3);
-        //dbStatusHelper.addNewStatus("Hand Soap", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.handSoap), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Ramen Noodles", "Nissin", "Soups", "Dollar Tree", 4);
-        //dbStatusHelper.addNewStatus("Ramen Noodles", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.ramenNoodles), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Dollar Tree", 5);
-        storeData.getStoreViewInStockMap().put("Dollar Tree", 4);
-        storeData.getStoreViewNeededMap().put("Dollar Tree", 0);
-        storeData.getStoreViewPausedMap().put("Dollar Tree", 1);
-        dbStoreHelper.setStoreViews("Dollar Tree", 5, 4, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.dollarTree), 5);
+        storeData.getStoreViewInStockMap().put(getString(R.string.dollarTree), 4);
+        storeData.getStoreViewNeededMap().put(getString(R.string.dollarTree), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.dollarTree), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.dollarTree), 5, 4, 0, 1);
 
         //------------------------------------Ralphs------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Clarified Butter", "Challenge", "Eggs/Dairy", "Ralphs", 0);
-        //dbStatusHelper.addNewStatus("Clarified Butter", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.clarifiedButter), getString(R.string.challenge), getString(R.string.eggsDairy), getString(R.string.ralphs), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.clarifiedButter), getString(R.string.paused), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Ralphs", 1);
-        storeData.getStoreViewInStockMap().put("Ralphs", 0);
-        storeData.getStoreViewNeededMap().put("Ralphs", 0);
-        storeData.getStoreViewPausedMap().put("Ralphs", 1);
-        dbStoreHelper.setStoreViews("Ralphs", 1, 0, 0, 1);
+        storeData.getStoreViewAllMap().put(getString(R.string.ralphs), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.ralphs), 0);
+        storeData.getStoreViewNeededMap().put(getString(R.string.ralphs), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.ralphs), 1);
+        dbStoreHelper.setStoreViews(getString(R.string.ralphs), 1, 0, 0, 1);
 
         //------------------------------------Target------------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Chocolate Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 0);
-        //dbStatusHelper.addNewStatus("Chocolate Syrup", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.chocolateSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.chocolateSyrup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Caramel Syrup", "Ghirardelli or Hershey's", "Condiments", "Target", 1);
-        //dbStatusHelper.addNewStatus("Caramel Syrup", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.caramelSyrup), getString(R.string.ghirardelliOrHersheys), getString(R.string.condiments), getString(R.string.target), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.caramelSyrup), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Dark Choc. M&M's", "na", "Candy", "Target", 2);
-        //dbStatusHelper.addNewStatus("Dark Choc. M&M's", "paused", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.darkChocMandMs), getString(R.string.na), getString(R.string.candy), getString(R.string.target), 2);
+        //dbStatusHelper.addNewStatus(getString(R.string.darkChocMandMs), getString(R.string.paused), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Sea Salt Caramels", "Favorite Day", "Candy", "Target", 3);
-        //dbStatusHelper.addNewStatus("Sea Salt Caramels", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.seaSaltCaramels), getString(R.string.favoriteDay), getString(R.string.candy), getString(R.string.target), 3);
+        //dbStatusHelper.addNewStatus(getString(R.string.seaSaltCaramels), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Oreo Pie Mix", "No Bake Dessert", "Desserts", "Target", 4);
-        //dbStatusHelper.addNewStatus("Oreo Pie Mix", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.oreoPieMix), getString(R.string.noBakeDessert), getString(R.string.desserts), getString(R.string.target), 4);
+        //dbStatusHelper.addNewStatus(getString(R.string.oreoPieMix), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Target", 5);
-        storeData.getStoreViewInStockMap().put("Target", 4);
-        storeData.getStoreViewNeededMap().put("Target", 0);
-        storeData.getStoreViewPausedMap().put("Target", 1);
-        dbStoreHelper.setStoreViews("Target", 5, 4, 0, 1);
+        dbItemHelper.addNewItemByStore(getString(R.string.pieFilling), getString(R.string.jelloChocFudge), getString(R.string.desserts), getString(R.string.target), 5);
+        //dbStatusHelper.addNewStatus(getString(R.string.pieFilling), getString(R.string.paused), getString(R.string.unchecked));
+
+        storeData.getStoreViewAllMap().put(getString(R.string.target), 6);
+        storeData.getStoreViewInStockMap().put(getString(R.string.target), 4);
+        storeData.getStoreViewNeededMap().put(getString(R.string.target), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.target), 2);
+        dbStoreHelper.setStoreViews(getString(R.string.target), 6, 4, 0, 2);
 
         //------------------------------------Pet Supplies Plus-------------------------------------
 
-        dbItemHelper.addNewItemByStore("Cat Food (dry)", "Purina Pro Plan", "Pet Supplies", "Pet Supplies Plus", 0);
-        //dbStatusHelper.addNewStatus("Cat Food (dry)", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.catFoodDry), getString(R.string.purinaProPlan), getString(R.string.petSupplies), getString(R.string.petSuppliesPlus), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.catFoodDry), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Pet Supplies Plus", 1);
-        storeData.getStoreViewInStockMap().put("Pet Supplies Plus", 1);
-        storeData.getStoreViewNeededMap().put("Pet Supplies Plus", 0);
-        storeData.getStoreViewPausedMap().put("Pet Supplies Plus", 0);
-        dbStoreHelper.setStoreViews("Pet Supplies Plus", 1, 1, 0, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.petSuppliesPlus), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.petSuppliesPlus), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.petSuppliesPlus), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.petSuppliesPlus), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.petSuppliesPlus), 1, 1, 0, 0);
 
         //------------------------------------Sprouts-------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Bar Soap", "Zum Bar Sea Salt", "Toiletries", "Sprouts", 0);
-        //dbStatusHelper.addNewStatus("Bar Soap", "needed", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.barSoap), getString(R.string.zumBarSeaSalt), getString(R.string.toiletries), getString(R.string.sprouts), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.barSoap), getString(R.string.needed), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Toothbrush Heads", "Radius Soft", "Toiletries", "Sprouts", 1);
-        //dbStatusHelper.addNewStatus("Toothbrush Heads", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.toothbrushHeads), getString(R.string.radiusSoft), getString(R.string.toiletries), getString(R.string.sprouts), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.toothbrushHeads), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Sprouts", 2);
-        storeData.getStoreViewInStockMap().put("Sprouts", 1);
-        storeData.getStoreViewNeededMap().put("Sprouts", 1);
-        storeData.getStoreViewPausedMap().put("Sprouts", 0);
-        dbStoreHelper.setStoreViews("Sprouts", 2, 1, 1, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.sprouts), 2);
+        storeData.getStoreViewInStockMap().put(getString(R.string.sprouts), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.sprouts), 1);
+        storeData.getStoreViewPausedMap().put(getString(R.string.sprouts), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.sprouts), 2, 1, 1, 0);
 
         //------------------------------------Sam's Club--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Quick Steak", "Gary's", "Meat", "Sam's Club", 0);
-        //dbStatusHelper.addNewStatus("Quick Steak", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.quickSteak), getString(R.string.garys), getString(R.string.meat), getString(R.string.samsClub), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.quickSteak), getString(R.string.instock), getString(R.string.unchecked));
 
-        dbItemHelper.addNewItemByStore("Paper Plates", "to do", "Household", "Sam's Club", 1);
-        //dbStatusHelper.addNewStatus("Paper Plates", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.paperPlates), getString(R.string.toDo), getString(R.string.household), getString(R.string.samsClub), 1);
+        //dbStatusHelper.addNewStatus(getString(R.string.paperPlates), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Sam's Club", 2);
-        storeData.getStoreViewInStockMap().put("Sam's Club", 2);
-        storeData.getStoreViewNeededMap().put("Sam's Club", 0);
-        storeData.getStoreViewPausedMap().put("Sam's Club", 0);
-        dbStoreHelper.setStoreViews("Sam's Club", 2, 2, 0, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.samsClub), 2);
+        storeData.getStoreViewInStockMap().put(getString(R.string.samsClub), 2);
+        storeData.getStoreViewNeededMap().put(getString(R.string.samsClub), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.samsClub), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.samsClub), 2, 2, 0, 0);
 
         //---------------------------------------Staples--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Multipurpose Paper", "Tru Red 20/96", "Household", "Staples", 0);
-        //dbStatusHelper.addNewStatus("Multipurpose Paper", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.multipurposePaper), getString(R.string.truRed), getString(R.string.household), getString(R.string.staples), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.multipurposePaper), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Staples", 1);
-        storeData.getStoreViewInStockMap().put("Staples", 1);
-        storeData.getStoreViewNeededMap().put("Staples", 0);
-        storeData.getStoreViewPausedMap().put("Staples", 0);
-        dbStoreHelper.setStoreViews("Staples", 1, 1, 0, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.staples), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.staples), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.staples), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.staples), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.staples), 1, 1, 0, 0);
 
         //---------------------------------------Woodranch--------------------------------------------
 
-        dbItemHelper.addNewItemByStore("Woodranch BBQ Sauce", "(1 pint)", "Condiments", "Woodranch", 0);
-        //dbStatusHelper.addNewStatus("Woodranch BBQ Sauce", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.woodranchBBQSauce), getString(R.string.pint1), getString(R.string.condiments), getString(R.string.woodranch), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.woodranchBBQSauce), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Woodranch", 1);
-        storeData.getStoreViewInStockMap().put("Woodranch", 1);
-        storeData.getStoreViewNeededMap().put("Woodranch", 0);
-        storeData.getStoreViewPausedMap().put("Woodranch", 0);
-        dbStoreHelper.setStoreViews("Woodranch", 1, 1, 0, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.woodranch), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.woodranch), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.woodranch), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.woodranch), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.woodranch), 1, 1, 0, 0);
 
         //------------------------------------Yorba Linda Feed Store--------------------------------
 
-        dbItemHelper.addNewItemByStore("Dog Food (dry)", "Canidae All Life Stages", "Pet Supplies", "Yorba Linda Feed Store", 0);
-        //dbStatusHelper.addNewStatus("Dog Food (dry)", "instock", "unchecked");
+        dbItemHelper.addNewItemByStore(getString(R.string.dogFoodDry), getString(R.string.canidaeAllLifeStages), getString(R.string.petSupplies), getString(R.string.yorbaLindaFeedStore), 0);
+        //dbStatusHelper.addNewStatus(getString(R.string.dogFoodDry), getString(R.string.instock), getString(R.string.unchecked));
 
-        storeData.getStoreViewAllMap().put("Yorba Linda Feed Store", 1);
-        storeData.getStoreViewInStockMap().put("Yorba Linda Feed Store", 1);
-        storeData.getStoreViewNeededMap().put("Yorba Linda Feed Store", 0);
-        storeData.getStoreViewPausedMap().put("Yorba Linda Feed Store", 0);
-        dbStoreHelper.setStoreViews("Yorba Linda Feed Store", 1, 1, 0, 0);
+        storeData.getStoreViewAllMap().put(getString(R.string.yorbaLindaFeedStore), 1);
+        storeData.getStoreViewInStockMap().put(getString(R.string.yorbaLindaFeedStore), 1);
+        storeData.getStoreViewNeededMap().put(getString(R.string.yorbaLindaFeedStore), 0);
+        storeData.getStoreViewPausedMap().put(getString(R.string.yorbaLindaFeedStore), 0);
+        dbStoreHelper.setStoreViews(getString(R.string.yorbaLindaFeedStore), 1, 1, 0, 0);
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 215
+        // total store items = 222
 
     }
 

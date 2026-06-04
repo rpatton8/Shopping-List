@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,13 +14,13 @@ class CategoryData {
     private HashMap<String, Integer> categoryViewNeededMap;
     private HashMap<String, Integer> categoryViewPausedMap;
 
-    CategoryData () {
+    CategoryData (Context context) {
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
-        categoryListWithBlank.add(getString(R.string.emptyString));
-        categoryListWithAddNew.add(getString(R.string.emptyString));
-        categoryListWithAddNew.add(getString(R.string.addNewCategory));
+        categoryListWithBlank.add(context.getString(R.string.emptyString));
+        categoryListWithAddNew.add(context.getString(R.string.emptyString));
+        categoryListWithAddNew.add(context.getString(R.string.addNewCategory));
         categoryViewAllMap = new HashMap<>();
         categoryViewInStockMap = new HashMap<>();
         categoryViewNeededMap = new HashMap<>();

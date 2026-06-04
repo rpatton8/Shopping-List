@@ -10,13 +10,13 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     private Context context;
 
-    private static final String DB_NAME = "ItemStatus";
-    private static final int DB_VERSION = 23;
-    private static final String TABLE_NAME = "itemStatus";
-    private static final String ID = "id";
-    private static final String ITEM_NAME = "itemName";
-    private static final String STATUS = "status";
-    private static final String CHECKED = "checked";
+    private static final String DB_NAME = ShoppingApp.getStringRes(R.string.dbItemStatusCap);
+    private static final int DB_VERSION = 24;
+    private static final String TABLE_NAME = ShoppingApp.getStringRes(R.string.dbItemStatus);
+    private static final String ID = ShoppingApp.getStringRes(R.string.dbID);
+    private static final String ITEM_NAME = ShoppingApp.getStringRes(R.string.dbItemName);
+    private static final String STATUS = ShoppingApp.getStringRes(R.string.dbStatus);
+    private static final String CHECKED = ShoppingApp.getStringRes(R.string.dbChecked);
 
     DBStatusHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -24,24 +24,25 @@ class DBStatusHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME + " ("
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ITEM_NAME + " TEXT,"
-                + STATUS + " TEXT,"
-                + CHECKED + " TEXT)";
+        String query = context.getString(R.string.dbCreateTable) + TABLE_NAME
+                + context.getString(R.string.dbLeftParenthesis)
+                + ID + context.getString(R.string.dbIntegerAutoincrement)
+                + ITEM_NAME + context.getString(R.string.dbTextWithComma)
+                + STATUS + context.getString(R.string.dbTextWithComma)
+                + CHECKED + context.getString(R.string.dbTextWithParenthesis);
         db.execSQL(query);
     }
 
     public void onUpgrade(SQLiteDatabase db, int i, int j) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL(context.getString(R.string.dbDropTable) + TABLE_NAME);
         onCreate(db);
     }
 
     StatusData readStatusData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        StatusData statusData = new StatusData();
+        Cursor cursor = db.rawQuery(context.getString(R.string.dbSelectFrom) + TABLE_NAME, null);
+        StatusData statusData = new StatusData(context);
 
         if (cursor.moveToFirst()) {
             do { statusData.readStatus(cursor.getString(1),
@@ -77,7 +78,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         values.put(STATUS, status);
         values.put(CHECKED, checked);
 
-        db.update(TABLE_NAME, values, "itemName=?", new String[]{itemName});
+        db.update(TABLE_NAME, values, context.getString(R.string.dbItemNameQuestion), new String[]{itemName});
         db.close();
     }
 
@@ -88,7 +89,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
         values.put(ITEM_NAME, newItemName);
 
-        db.update(TABLE_NAME, values, "itemName=?", new String[]{originalItemName});
+        db.update(TABLE_NAME, values, context.getString(R.string.dbItemNameQuestion), new String[]{originalItemName});
         db.close();
     }
 
@@ -96,7 +97,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_NAME, "itemName=?", new String[]{itemName});
+        db.delete(TABLE_NAME, context.getString(R.string.dbItemNameQuestion), new String[]{itemName});
         db.close();
     }
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-//@SuppressWarnings("ALL")
 public class AddStore extends Fragment {
 
     private View view;

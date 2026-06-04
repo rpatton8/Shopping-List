@@ -1,6 +1,10 @@
 package ryan.android.shopping;
 
+import android.content.Context;
+
 class Status {
+
+    private Context context;
 
     private Boolean isInStock;
     private Boolean isNeeded;
@@ -16,25 +20,27 @@ class Status {
     private Boolean isSelectedInShoppingList;
     private Boolean isChecked;
 
-    Status(String itemName, String status, String checked) {
+    Status(String itemName, String status, String checked, Context context) {
 
-        if (status.equals("instock")) {
+        this.context = context;
+
+        if (status.equals(context.getString(R.string.instock))) {
             isInStock = true;
             isNeeded = false;
             isPaused = false;
-        } else if (status.equals("needed")) {
+        } else if (status.equals(context.getString(R.string.needed))) {
             isInStock = false;
             isNeeded = true;
             isPaused = false;
-        } else if (status.equals("paused")) {
+        } else if (status.equals(context.getString(R.string.paused))) {
             isInStock = false;
             isNeeded = false;
             isPaused = true;
         }
 
-        if (checked.equals("checked")) {
+        if (checked.equals(context.getString(R.string.checked))) {
             setAsChecked();
-        } else if (checked.equals("unchecked")) {
+        } else if (checked.equals(context.getString(R.string.unchecked))) {
             setAsUnchecked();
         }
 
@@ -187,9 +193,9 @@ class Status {
     }
 
     public String toString() {
-        if (isInStock) return getString(R.string.inStockCap);
-        if (isNeeded) return getString(R.string.neededCap);
-        if (isPaused) return getString(R.string.pausedCap);
+        if (isInStock) return context.getString(R.string.inStockCap);
+        if (isNeeded) return context.getString(R.string.neededCap);
+        if (isPaused) return context.getString(R.string.pausedCap);
         return null;
     }
 

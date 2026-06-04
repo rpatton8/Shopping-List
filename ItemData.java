@@ -1,11 +1,14 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 class ItemData {
+
+    private Context context;
 
     private LinkedList<Item> itemsAZ;
     private ArrayList<Item> itemsByCategory;
@@ -15,7 +18,8 @@ class ItemData {
     private HashMap<String, Category> categoryMap;
     private HashMap<String, Store> storeMap;
 
-    ItemData() {
+    ItemData(Context context) {
+        this.context = context;
         itemsAZ = new LinkedList<>();
         itemsByCategory = new ArrayList<>();
         itemsByStore = new ArrayList<>();
@@ -55,17 +59,17 @@ class ItemData {
         }
     }
 
-    void readLineOfDataByCategory(String item, String brandType, String category, String store, int itemCategoryOrder) {
+    void readLineOfDataByCategory(String itemName, String brandType, String category, String store, int itemCategoryOrder) {
 
         Item newItem;
         Category newCategory;
         Store newStore;
-        if (!itemMap.containsKey(item)) {
-            newItem = new Item(item, brandType, category, store);
+        if (!itemMap.containsKey(itemName)) {
+            newItem = new Item(itemName, brandType, category, store);
             newItem.setCategoryOrder(itemCategoryOrder);
         } else {
             // item already exists
-            itemMap.get(item).setCategoryOrder(itemCategoryOrder);
+            itemMap.get(itemName).setCategoryOrder(itemCategoryOrder);
             return;
         }
         if (!categoryMap.containsKey(category)) {
@@ -86,7 +90,7 @@ class ItemData {
         }
         newItem.setCategory(newCategory);
         newItem.setStore(newStore);
-        itemMap.put(item, newItem);
+        itemMap.put(itemName, newItem);
         itemsByCategory.add(newItem);
 
         insertSorted(itemsAZ, newItem);  // alphabetical
@@ -115,25 +119,40 @@ class ItemData {
         list.add(index, item);
     }
 
-    void printData() {
+    void printDataAZ() {
 
-        System.out.println("itemsAZ:");
+        System.out.println(context.getString(R.string.pdItemsAZ));
         for (int i = 1; i <= itemsAZ.size(); i++) {
             Item item = itemsAZ.get(i - 1);
-            System.out.println("az item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
-                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println(context.getString(R.string.pdAzItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
+                    + item.getStoreOrder());
         }
-        System.out.println("itemsByCategory:");
+    }
+
+    void printDataByCategory() {
+        System.out.println(context.getString(R.string.pdItemsByCategory));
         for (int i = 1; i <= itemsByCategory.size(); i++) {
             Item item = itemsByCategory.get(i - 1);
-            System.out.println("category item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
-                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println(context.getString(R.string.pdCategoryItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
+                    + item.getStoreOrder());
         }
-        System.out.println("itemsByStore:");
+    }
+
+    void printDataByStore() {
+        System.out.println(context.getString(R.string.pdItemsByStore));
         for (int i = 1; i <= itemsByStore.size(); i++) {
             Item item = itemsByStore.get(i - 1);
-            System.out.println("store item #" + i + " = " + item.getName() + "; brandType = " + item.getBrandType() + "; category order ("
-                    + item.getCategory() + ") = " + item.getCategoryOrder() + "; store order (" + item.getStore() + ") = " + item.getStoreOrder());
+            System.out.println(context.getString(R.string.pdStoreItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
+                    + item.getStoreOrder());
         }
     }
 }

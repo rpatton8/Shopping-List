@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.GestureDetector;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,9 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-//@SuppressWarnings("ALL")
 public class ShoppingList extends Fragment {
 
     private View view;
@@ -97,7 +94,7 @@ public class ShoppingList extends Fragment {
                     if (item.getStatus().isChecked()) {
                         item.getStatus().setAsInStock();
                         item.getStatus().setAsUnchecked();
-                        dbStatusHelper.updateStatus(item.getName(), "instock", "unchecked");
+                        dbStatusHelper.updateStatus(item.getName(), getString(R.string.instock), getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String store = item.getStore().toString();
@@ -144,9 +141,6 @@ public class ShoppingList extends Fragment {
     }
 
     private void moveLeftInShoppingList() {
-
-        Toast.makeText(getActivity(), "Swipe Left", Toast.LENGTH_SHORT).show();
-
         if (shopping.getStoreListOrderNum() == 0) shopping.setStoreListOrderNum(storeData.getStoreList().size());
         else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() - 1);
 
@@ -162,9 +156,6 @@ public class ShoppingList extends Fragment {
     }
 
     private void moveRightInShoppingList() {
-
-        Toast.makeText(getActivity(), "Swipe Right", Toast.LENGTH_SHORT).show();
-
         if (shopping.getStoreListOrderNum() == storeData.getStoreList().size()) shopping.setStoreListOrderNum(0);
         else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() + 1);
 

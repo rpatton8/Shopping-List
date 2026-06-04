@@ -27,7 +27,7 @@
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:clipToPadding="false"
-        android:layout_below="@+id/fullInventoryTitle" />
+        android:layout_below="@id/fullInventoryTitle" />
 
     <TextView
         android:id="@+id/searchButton"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
-        android:layout_below="@+id/searchButton"
+        android:layout_below="@id/searchButton"
         android:background="@android:color/holo_green_light"
         android:orientation="horizontal"
         android:visibility="gone">
@@ -52,7 +52,7 @@
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
-            android:text="@string/search"
+            android:text="@string/searchWithColon"
             android:textSize="22sp"
             android:textStyle="bold"/>
 
@@ -103,14 +103,14 @@
         android:layout_height="578dp"
         android:visibility="gone"
         android:background="#FFFFFF"
-        android:layout_below="@+id/searchPopup" />
+        android:layout_below="@id/searchPopup" />
 
     <TextView
         android:id="@+id/fullInventoryOptionsBackground"
         android:layout_width="match_parent"
         android:layout_height="297dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/fullInventoryTitle"
+        android:layout_below="@id/fullInventoryTitle"
         android:visibility="gone"
         android:background="@android:color/holo_green_light" />
 

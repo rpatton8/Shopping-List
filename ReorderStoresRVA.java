@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStoresRVH> {
 
     private Shopping shopping;

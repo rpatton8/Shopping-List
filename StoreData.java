@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,13 +14,13 @@ class StoreData {
     private HashMap<String, Integer> storeViewNeededMap;
     private HashMap<String, Integer> storeViewPausedMap;
 
-    StoreData () {
+    StoreData (Context context) {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
-        storeListWithBlank.add(getString(R.string.emptyString));
-        storeListWithAddNew.add(getString(R.string.emptyString));
-        storeListWithAddNew.add(getString(R.string.addNewStore));
+        storeListWithBlank.add(context.getString(R.string.emptyString));
+        storeListWithAddNew.add(context.getString(R.string.emptyString));
+        storeListWithAddNew.add(context.getString(R.string.addNewStore));
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();

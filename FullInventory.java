@@ -23,11 +23,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
-//@SuppressWarnings("ALL")
 public class FullInventory extends Fragment {
 
     private View view;
@@ -42,10 +41,10 @@ public class FullInventory extends Fragment {
     private DBStoreHelper dbStoreHelper;
 
     private String currentBottomMenu;
-    private static final String MENU_ITEM = "item";
-    private static final String MENU_CATEGORY = "category";
-    private static final String MENU_STORE = "store";
-    private static final String MENU_NONE = "none";
+    private static final String MENU_ITEM = ShoppingApp.getStringRes(R.string.cvMenuItem);
+    private static final String MENU_CATEGORY = ShoppingApp.getStringRes(R.string.cvMenuCategory);
+    private static final String MENU_STORE = ShoppingApp.getStringRes(R.string.cvMenuStore);
+    private static final String MENU_NONE = ShoppingApp.getStringRes(R.string.cvMenuNone);
 
     private TextView editDataBreak;
     private Button addPopup;
@@ -126,7 +125,7 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        fullInventoryAdapter = new FullInventoryRVA(shopping, itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
+        fullInventoryAdapter = new FullInventoryRVA(shopping, getContext(), itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(fullInventoryAdapter);
         fullInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getFullInventoryViewState());
 
@@ -134,7 +133,7 @@ public class FullInventory extends Fragment {
         searchInventoryRecyclerView = view.findViewById(R.id.searchInventoryRecyclerView);
         searchInventoryRecyclerView.setHasFixedSize(false);
         searchInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        searchInventoryAdapter = new SearchInventoryRVA(shopping, searchAlgorithm);
+        searchInventoryAdapter = new SearchInventoryRVA(shopping, getContext(), searchAlgorithm);
         searchInventoryRecyclerView.setAdapter(searchInventoryAdapter);
         searchInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getSearchInventoryViewState());
 
@@ -827,7 +826,6 @@ public class FullInventory extends Fragment {
     }
 
     private void moveLeftInFullInventory() {
-        Toast.makeText(getActivity(), "Swipe Left", Toast.LENGTH_SHORT).show();
         if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
             shopping.setInventorySortBy(Shopping.SORT_BY_STORE);
             if (shopping.getInventoryView().equals(Shopping.VIEW_ALL)) {
@@ -874,7 +872,6 @@ public class FullInventory extends Fragment {
     }
 
     private void moveRightInFullInventory() {
-        Toast.makeText(getActivity(), "Swipe Right", Toast.LENGTH_SHORT).show();
         if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
             shopping.setInventorySortBy(Shopping.SORT_ALPHABETICAL);
             if (shopping.getInventoryView().equals(Shopping.VIEW_ALL)) {
@@ -927,7 +924,7 @@ public class FullInventory extends Fragment {
         try {
             startActivityForResult(intent, 100);
         } catch (Exception e) {
-            System.out.println("Exception");
+            System.out.println(getString(R.string.exception));
         }
     }
 

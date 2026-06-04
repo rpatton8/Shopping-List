@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 public class RemoveCategory extends Fragment {
 
     private View view;

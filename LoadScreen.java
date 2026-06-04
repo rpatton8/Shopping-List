@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-//@SuppressWarnings("ALL")
 public class LoadScreen extends Fragment {
 
     private View view;
@@ -373,9 +372,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultSortBy(Shopping.SORT_ALPHABETICAL);
                 shopping.setInventorySortBy(Shopping.SORT_ALPHABETICAL);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "alphabetical");
+                editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortAlphabetically));
                 editor.apply();
             }
         });
@@ -384,9 +383,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultSortBy(Shopping.SORT_BY_CATEGORY);
                 shopping.setInventorySortBy(Shopping.SORT_BY_CATEGORY);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "category");
+                editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortByCategory));
                 editor.apply();
             }
         });
@@ -395,9 +394,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultSortBy(Shopping.SORT_BY_STORE);
                 shopping.setInventorySortBy(Shopping.SORT_BY_STORE);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_sort_by", "store");
+                editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortByStore));
                 editor.apply();
             }
         });
@@ -405,9 +404,9 @@ public class LoadScreen extends Fragment {
         dragAndDrop.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setReorderingMethod(Shopping.DRAG_AND_DROP);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "drag and drop");
+                editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spDragAndDrop));
                 editor.apply();
             }
         });
@@ -415,9 +414,9 @@ public class LoadScreen extends Fragment {
         upAndDownArrows.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setReorderingMethod(Shopping.UP_AND_DOWN_ARROWS);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "up and down arrows");
+                editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spUpAndDownArrows));
                 editor.apply();
             }
         });
@@ -425,9 +424,9 @@ public class LoadScreen extends Fragment {
         withNumbers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setReorderingMethod(Shopping.WITH_NUMBERS);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_method", "with numbers");
+                editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spWithNumbers));
                 editor.apply();
             }
         });
@@ -435,9 +434,9 @@ public class LoadScreen extends Fragment {
         colorScheme1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setColorScheme(Shopping.COLOR_SCHEME_1);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 1");
+                editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme1));
                 editor.apply();
             }
         });
@@ -445,9 +444,9 @@ public class LoadScreen extends Fragment {
         colorScheme2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setColorScheme(Shopping.COLOR_SCHEME_2);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 2");
+                editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme2));
                 editor.apply();
             }
         });
@@ -455,9 +454,9 @@ public class LoadScreen extends Fragment {
         colorScheme3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setColorScheme(Shopping.COLOR_SCHEME_3);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("color_scheme", "color scheme 3");
+                editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme3));
                 editor.apply();
             }
         });
@@ -466,9 +465,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_category_titles", "category titles expanded");
+                editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesExpanded));
                 editor.apply();
             }
         });
@@ -477,9 +476,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_category_titles", "category titles contracted");
+                editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesContracted));
                 editor.apply();
             }
         });
@@ -488,9 +487,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 shopping.setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_store_titles", "store titles expanded");
+                editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesExpanded));
                 editor.apply();
             }
         });
@@ -499,9 +498,9 @@ public class LoadScreen extends Fragment {
             public void onClick(View v) {
                 shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 shopping.setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("default_store_titles", "store titles contracted");
+                editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesContracted));
                 editor.apply();
             }
         });
@@ -509,9 +508,9 @@ public class LoadScreen extends Fragment {
         swipingOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setSwipingOption(Shopping.SWIPING_ON);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("swiping_option", "swiping on");
+                editor.putString(getString(R.string.sp_swiping_option), getString(R.string.spSwipingOn));
                 editor.apply();
             }
         });
@@ -519,9 +518,9 @@ public class LoadScreen extends Fragment {
         swipingOff.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setSwipingOption(Shopping.SWIPING_OFF);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("swiping_option", "swiping off");
+                editor.putString(getString(R.string.sp_swiping_option), getString(R.string.spSwipingOff));
                 editor.apply();
             }
         });
@@ -529,9 +528,9 @@ public class LoadScreen extends Fragment {
         picturesOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setSwipingOption(Shopping.PICTURES_ON);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("pictures_option", "pictures on");
+                editor.putString(getString(R.string.sp_pictures_option), getString(R.string.spPicturesOn));
                 editor.apply();
             }
         });
@@ -539,23 +538,23 @@ public class LoadScreen extends Fragment {
         picturesOff.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 shopping.setSwipingOption(Shopping.PICTURES_OFF);
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("pictures_option", "pictures off");
+                editor.putString(getString(R.string.sp_pictures_option), getString(R.string.spPicturesOff));
                 editor.apply();
             }
         });
 
         optionalDataQuantity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
                     shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_OFF);
-                    editor.putString("optional_data_quantity", "optional data off");
+                    editor.putString(getString(R.string.sp_optional_data_quantity), getString(R.string.spOptionalDataOff));
                 } else if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
                     shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_ON);
-                    editor.putString("optional_data_quantity", "optional data on");
+                    editor.putString(getString(R.string.sp_optional_data_quantity), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
@@ -563,14 +562,14 @@ public class LoadScreen extends Fragment {
 
         optionalDataPrice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
                     shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_OFF);
-                    editor.putString("optional_data_price", "optional data off");
+                    editor.putString(getString(R.string.sp_optional_data_price), getString(R.string.spOptionalDataOff));
                 } else if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
                     shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_ON);
-                    editor.putString("optional_data_price", "optional data on");
+                    editor.putString(getString(R.string.sp_optional_data_price), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
@@ -578,14 +577,14 @@ public class LoadScreen extends Fragment {
 
         optionalDataLocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
                     shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_OFF);
-                    editor.putString("optional_data_location", "optional data off");
+                    editor.putString(getString(R.string.sp_optional_data_location), getString(R.string.spOptionalDataOff));
                 } else if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
                     shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_ON);
-                    editor.putString("optional_data_location", "optional data on");
+                    editor.putString(getString(R.string.sp_optional_data_location), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
@@ -593,14 +592,14 @@ public class LoadScreen extends Fragment {
 
         optionalDataNote.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
                     shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_OFF);
-                    editor.putString("optional_data_note", "optional data off");
+                    editor.putString(getString(R.string.sp_optional_data_note), getString(R.string.spOptionalDataOff));
                 } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
                     shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_ON);
-                    editor.putString("optional_data_note", "optional data on");
+                    editor.putString(getString(R.string.sp_optional_data_note), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
@@ -612,9 +611,9 @@ public class LoadScreen extends Fragment {
             public void afterTextChanged(Editable s) {}
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_category_emoji", reorderCategoryEmojiBox.getText().toString());
+                editor.putString(getString(R.string.sp_reorder_category_emoji), reorderCategoryEmojiBox.getText().toString());
                 editor.apply();
             }
 
@@ -626,9 +625,9 @@ public class LoadScreen extends Fragment {
             public void afterTextChanged(Editable s) {}
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_item_by_category_emoji", reorderItemByCategoryEmojiBox.getText().toString());
+                editor.putString(getString(R.string.sp_reorder_item_by_category_emoji), reorderItemByCategoryEmojiBox.getText().toString());
                 editor.apply();
             }
 
@@ -640,9 +639,9 @@ public class LoadScreen extends Fragment {
             public void afterTextChanged(Editable s) {}
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_item_by_store_emoji", reorderItemByStoreEmojiBox.getText().toString());
+                editor.putString(getString(R.string.sp_reorder_item_by_store_emoji), reorderItemByStoreEmojiBox.getText().toString());
                 editor.apply();
             }
 
@@ -654,9 +653,9 @@ public class LoadScreen extends Fragment {
             public void afterTextChanged(Editable s) {}
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                SharedPreferences sharedPref = getContext().getSharedPreferences("PreferencesFile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("reorder_store_emoji", reorderStoreEmojiBox.getText().toString());
+                editor.putString(getString(R.string.sp_reorder_store_emoji), reorderStoreEmojiBox.getText().toString());
                 editor.apply();
             }
 

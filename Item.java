@@ -1,7 +1,10 @@
 package ryan.android.shopping;
 
-//@SuppressWarnings("ALL")
+import android.content.Context;
+
 class Item implements Comparable<Item> {
+
+    private Context context;
 
     private String name;
     private String brandType;
@@ -67,14 +70,15 @@ class Item implements Comparable<Item> {
     }
 
     void printItem() {
-        System.out.println("--------------------------");
-        System.out.println("Item Name: " + name);
-        System.out.println("Brand/Type: " + brandType);
-        System.out.println("Category: " + category.toString());
-        System.out.println("Store: " + store.toString());
-        System.out.println("Status: " + status.toString());
-        System.out.println("Category Order: " + categoryOrder);
-        System.out.println("Store Order: " + storeOrder);
+        System.out.println(context.getString(R.string.piLineBreak));
+        System.out.println(context.getString(R.string.piItemName) + name);
+        System.out.println(context.getString(R.string.piBrandType) + brandType);
+        System.out.println(context.getString(R.string.piCategory) + category.toString());
+        System.out.println(context.getString(R.string.piStore) + store.toString());
+        System.out.println(context.getString(R.string.piStatus) + status.toString());
+        System.out.println(context.getString(R.string.piCategoryOrder) + categoryOrder);
+        System.out.println(context.getString(R.string.piStoreOrder) + storeOrder);
+        System.out.println(context.getString(R.string.piLineBreak));
     }
 
     public int compareTo(Item item) {

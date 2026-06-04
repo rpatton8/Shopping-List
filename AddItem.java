@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
 
-//@SuppressWarnings("ALL")
 public class AddItem extends Fragment {
 
     private View view;
@@ -39,6 +38,8 @@ public class AddItem extends Fragment {
     private EditText priceInput;
     private CheckBox locationCheckbox;
     private EditText locationInput;
+    private CheckBox noteCheckbox;
+    private EditText noteInput;
     private Button addItemButton;
     private Button cancelButton;
 
@@ -78,10 +79,13 @@ public class AddItem extends Fragment {
         priceInput = view.findViewById(R.id.priceInput);
         locationCheckbox = view.findViewById(R.id.locationCheckbox);
         locationInput = view.findViewById(R.id.locationInput);
+        noteCheckbox = view.findViewById(R.id.noteCheckbox);
+        noteInput = view.findViewById(R.id.noteInput);
 
         quantityInput.setText(getString(R.string.emptyString));
         priceInput.setText(getString(R.string.emptyString));
         locationInput.setText(getString(R.string.emptyString));
+        noteInput.setText(getString(R.string.emptyString));
 
         addItemButton = view.findViewById(R.id.addItemButton);
         cancelButton = view.findViewById(R.id.cancelButton);
@@ -104,6 +108,13 @@ public class AddItem extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) locationInput.setVisibility(View.VISIBLE);
                 else locationInput.setVisibility(View.GONE);
+            }
+        });
+
+        noteCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) noteInput.setVisibility(View.VISIBLE);
+                else noteInput.setVisibility(View.GONE);
             }
         });
 
@@ -196,7 +207,7 @@ public class AddItem extends Fragment {
 
                 dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
-                dbStatusHelper.addNewStatus(itemName, "paused", "unchecked");
+                dbStatusHelper.addNewStatus(itemName, getString(R.string.paused), getString(R.string.unchecked));
 
                 shopping.updateItemData();
                 shopping.updateStatusData();
