@@ -23,25 +23,29 @@ class DBStatusHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    Context getContext() {
+        return context;
+    }
+
     public void onCreate(SQLiteDatabase db) {
-        String query = context.getString(R.string.dbCreateTable) + TABLE_NAME
-                + context.getString(R.string.dbLeftParenthesis)
-                + ID + context.getString(R.string.dbIntegerAutoincrement)
-                + ITEM_NAME + context.getString(R.string.dbTextWithComma)
-                + STATUS + context.getString(R.string.dbTextWithComma)
-                + CHECKED + context.getString(R.string.dbTextWithParenthesis);
+        String query = getContext().getString(R.string.dbCreateTable) + TABLE_NAME
+                + getContext().getString(R.string.dbLeftParenthesis)
+                + ID + getContext().getString(R.string.dbIntegerAutoincrement)
+                + ITEM_NAME + getContext().getString(R.string.dbTextWithComma)
+                + STATUS + getContext().getString(R.string.dbTextWithComma)
+                + CHECKED + getContext().getString(R.string.dbTextWithParenthesis);
         db.execSQL(query);
     }
 
     public void onUpgrade(SQLiteDatabase db, int i, int j) {
-        db.execSQL(context.getString(R.string.dbDropTable) + TABLE_NAME);
+        db.execSQL(getContext().getString(R.string.dbDropTable) + TABLE_NAME);
         onCreate(db);
     }
 
     StatusData readStatusData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(context.getString(R.string.dbSelectFrom) + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME, null);
         StatusData statusData = new StatusData(context);
 
         if (cursor.moveToFirst()) {
@@ -78,7 +82,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         values.put(STATUS, status);
         values.put(CHECKED, checked);
 
-        db.update(TABLE_NAME, values, context.getString(R.string.dbItemNameQuestion), new String[]{itemName});
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{itemName});
         db.close();
     }
 
@@ -89,7 +93,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
         values.put(ITEM_NAME, newItemName);
 
-        db.update(TABLE_NAME, values, context.getString(R.string.dbItemNameQuestion), new String[]{originalItemName});
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{originalItemName});
         db.close();
     }
 
@@ -97,13 +101,13 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_NAME, context.getString(R.string.dbItemNameQuestion), new String[]{itemName});
+        db.delete(TABLE_NAME, getContext().getString(R.string.dbItemNameQuestion), new String[]{itemName});
         db.close();
     }
 
     void deleteDatabase() {
 
-        context.deleteDatabase(DB_NAME);
+        getContext().deleteDatabase(DB_NAME);
 
     }
 }

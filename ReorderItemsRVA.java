@@ -44,6 +44,10 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         this.reorderBy = REORDER_BY_CATEGORY;
     }
 
+    Context getContext() {
+        return context;
+    }
+
     public int getItemViewType(int position) {
         return R.layout.reorder_items_rv;
     }
@@ -57,14 +61,14 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
 
         if (reorderBy.equals(REORDER_BY_CATEGORY)) {
 
-            if (!category.equals(context.getString(R.string.emptyString))) {
+            if (!category.equals(getContext().getString(R.string.emptyString))) {
                 ArrayList<Item> categoryList = itemData.getCategoryMap().get(category).getCategoryItemsList();
                 holder.itemName.setText(categoryList.get(position).getName());
             }
 
         } else if (reorderBy.equals(REORDER_BY_STORE)) {
 
-            if (!store.equals(context.getString(R.string.emptyString))) {
+            if (!store.equals(getContext().getString(R.string.emptyString))) {
                 ArrayList<Item> storeList = itemData.getStoreMap().get(store).getStoreItemsList();
                 holder.itemName.setText(storeList.get(position).getName());
             }

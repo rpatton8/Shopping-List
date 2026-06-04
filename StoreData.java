@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 class StoreData {
 
+    private Context context;
     private ArrayList<String> storeList;
     private ArrayList<String> storeListWithBlank;
     private ArrayList<String> storeListWithAddNew;
@@ -15,16 +16,21 @@ class StoreData {
     private HashMap<String, Integer> storeViewPausedMap;
 
     StoreData (Context context) {
+        this.context = context;
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
-        storeListWithBlank.add(context.getString(R.string.emptyString));
-        storeListWithAddNew.add(context.getString(R.string.emptyString));
-        storeListWithAddNew.add(context.getString(R.string.addNewStore));
+        storeListWithBlank.add(getContext().getString(R.string.emptyString));
+        storeListWithAddNew.add(getContext().getString(R.string.emptyString));
+        storeListWithAddNew.add(getContext().getString(R.string.addNewStore));
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();
         storeViewPausedMap = new HashMap<>();
+    }
+
+    Context getContext() {
+        return context;
     }
 
     ArrayList<String> getStoreList() {

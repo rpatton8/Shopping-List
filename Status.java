@@ -24,23 +24,23 @@ class Status {
 
         this.context = context;
 
-        if (status.equals(context.getString(R.string.instock))) {
+        if (status.equals(getContext().getString(R.string.instock))) {
             isInStock = true;
             isNeeded = false;
             isPaused = false;
-        } else if (status.equals(context.getString(R.string.needed))) {
+        } else if (status.equals(getContext().getString(R.string.needed))) {
             isInStock = false;
             isNeeded = true;
             isPaused = false;
-        } else if (status.equals(context.getString(R.string.paused))) {
+        } else if (status.equals(getContext().getString(R.string.paused))) {
             isInStock = false;
             isNeeded = false;
             isPaused = true;
         }
 
-        if (checked.equals(context.getString(R.string.checked))) {
+        if (checked.equals(getContext().getString(R.string.checked))) {
             setAsChecked();
-        } else if (checked.equals(context.getString(R.string.unchecked))) {
+        } else if (checked.equals(getContext().getString(R.string.unchecked))) {
             setAsUnchecked();
         }
 
@@ -54,6 +54,10 @@ class Status {
         isSelectedInSearchResults = false;
         isSelectedInShoppingList = false;
         isChecked = false;
+    }
+
+    Context getContext() {
+        return context;
     }
 
     void setAsExpandedInInventory() {
@@ -193,9 +197,9 @@ class Status {
     }
 
     public String toString() {
-        if (isInStock) return context.getString(R.string.inStockCap);
-        if (isNeeded) return context.getString(R.string.neededCap);
-        if (isPaused) return context.getString(R.string.pausedCap);
+        if (isInStock) return getContext().getString(R.string.inStockCap);
+        if (isNeeded) return getContext().getString(R.string.neededCap);
+        if (isPaused) return getContext().getString(R.string.pausedCap);
         return null;
     }
 

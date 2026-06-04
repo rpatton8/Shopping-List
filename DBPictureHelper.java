@@ -1,5 +1,5 @@
 package ryan.android.shopping;
 
-public class DBPictureHelper {
+class DBPictureHelper {
 
 }

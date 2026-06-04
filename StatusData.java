@@ -13,6 +13,10 @@ class StatusData {
         statusMap = new HashMap<>();
     }
 
+    Context getContext() {
+        return context;
+    }
+
     HashMap<String, Status> getStatusMap() {
         return statusMap;
     }
@@ -20,16 +24,16 @@ class StatusData {
     void readStatus(String itemName, String status, String checked) {
         if (statusMap.containsKey(itemName)) {
             Status thisStatus = statusMap.get(itemName);
-            if (status.equals(context.getString(R.string.instock))) {
+            if (status.equals(getContext().getString(R.string.instock))) {
                 thisStatus.setAsInStock();
-            } else if (status.equals(context.getString(R.string.needed))) {
+            } else if (status.equals(getContext().getString(R.string.needed))) {
                 thisStatus.setAsNeeded();
-            } else if (status.equals(context.getString(R.string.paused))) {
+            } else if (status.equals(getContext().getString(R.string.paused))) {
                 thisStatus.setAsPaused();
             }
-            if (checked.equals(context.getString(R.string.checked))) {
+            if (checked.equals(getContext().getString(R.string.checked))) {
                 thisStatus.setAsChecked();
-            } else if (checked.equals(context.getString(R.string.unchecked))) {
+            } else if (checked.equals(getContext().getString(R.string.unchecked))) {
                 thisStatus.setAsUnchecked();
             }
         } else {

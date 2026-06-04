@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 class CategoryData {
 
+    private Context context;
     private ArrayList<String> categoryList;
     private ArrayList<String> categoryListWithBlank;
     private ArrayList<String> categoryListWithAddNew;
@@ -15,16 +16,21 @@ class CategoryData {
     private HashMap<String, Integer> categoryViewPausedMap;
 
     CategoryData (Context context) {
+        this.context = context;
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
-        categoryListWithBlank.add(context.getString(R.string.emptyString));
-        categoryListWithAddNew.add(context.getString(R.string.emptyString));
-        categoryListWithAddNew.add(context.getString(R.string.addNewCategory));
+        categoryListWithBlank.add(getContext().getString(R.string.emptyString));
+        categoryListWithAddNew.add(getContext().getString(R.string.emptyString));
+        categoryListWithAddNew.add(getContext().getString(R.string.addNewCategory));
         categoryViewAllMap = new HashMap<>();
         categoryViewInStockMap = new HashMap<>();
         categoryViewNeededMap = new HashMap<>();
         categoryViewPausedMap = new HashMap<>();
+    }
+
+    Context getContext() {
+        return context;
     }
 
     ArrayList<String> getCategoryList() {
