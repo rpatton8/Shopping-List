@@ -1,4 +1,6 @@
 <resources>
+
+    <!--App Strings-->
     <string name="add">Add</string>
     <string name="addCategory">Add Category</string>
     <string name="addEditRemoveReorder">Add/Edit/Remove/Reorder</string>
@@ -68,6 +70,7 @@
     <string name="enterNewStoreName">Enter New Store Name</string>
     <string name="enterStoreName">Enter Store Name</string>
     <string name="enterStoreToAdd">Please enter a store to add.</string>
+    <string name="exception">Exception</string>
     <string name="expandContractItems">Expand / Contract Items</string>
     <string name="expandContractCategories">Expand / Contract Categories</string>
     <string name="expandContractStores">Expand / Contract Stores</string>
@@ -87,6 +90,8 @@
     <string name="name">Name</string>
     <string name="neededCap">Needed</string>
     <string name="needed">needed</string>
+    <string name="note">Note: </string>
+    <string name="ok">OK</string>
     <string name="optionalData">Optional Data</string>
     <string name="optionalDataQuantity">Quantity</string>
     <string name="optionalDataPrice">Price</string>
@@ -116,7 +121,7 @@
     <string name="removeItemData">Remove Item Data</string>
     <string name="removeStore">Remove Store</string>
     <string name="reorder">Reorder</string>
-    <string name="search">Search: </string>
+    <string name="searchWithColon">Search: </string>
     <string name="searchInventory">Search Inventory</string>
     <string name="selectACategory">Select a Category: </string>
     <string name="selectAStore">Select a Store: </string>
@@ -154,4 +159,882 @@
     <string name="wantToClear">Are you sure you want to clear items from your shopping list?</string>
     <string name="wantToRemove">Are you sure you want to remove?</string>
     <string name="withNumbers">With Numbers</string>
+
+    <!--Control Variable Strings-->
+    <string name="cvViewAll">view all</string>
+    <string name="cvViewInstock">view instock</string>
+    <string name="cvViewNeeded">view needed</string>
+    <string name="cvViewPaused">view paused</string>
+    <string name="cvCategory">category</string>
+    <string name="cvStore">store</string>
+    <string name="cvAlphabetical">alphabetical</string>
+    <string name="cvCategoryTitlesExpanded">category titles expanded</string>
+    <string name="cvCategoryTitlesContracted">category titles contracted</string>
+    <string name="cvStoreTitlesExpanded">store titles expanded</string>
+    <string name="cvStoreTitlesContracted">store titles contracted</string>
+    <string name="cvItemsExpanded">items expanded</string>
+    <string name="cvItemsContracted">items contracted</string>
+    <string name="cvDragAndDrop">drag and drop</string>
+    <string name="cvUpAndDownArrows">up and down arrows</string>
+    <string name="cvWithNumbers">with numbers</string>
+    <string name="cvColorScheme1">color scheme 1</string>
+    <string name="cvColorScheme2">color scheme 2</string>
+    <string name="cvColorScheme3">color scheme 3</string>
+    <string name="cvSwipingOn">swiping on</string>
+    <string name="cvSwipingOff">swiping off</string>
+    <string name="cvPicturesOn">pictures on</string>
+    <string name="cvPicturesOff">pictures off</string>
+    <string name="cvOptionalDataOn">optional data on</string>
+    <string name="cvOptionalDataOff">optional data off</string>
+    <string name="cvReorderByCategory">reorder by category</string>
+    <string name="cvReorderByStore">reorder by store</string>
+    <string name="cvMenuItem">menu item</string>
+    <string name="cvMenuCategory">menu category</string>
+    <string name="cvMenuStore">menu store</string>
+    <string name="cvMenuNone">menu none</string>
+
+    <!--Shared Pref Strings-->
+    <string name="spPreferencesFile">PreferencesFile</string>
+    <string name="sp_default_sort_by">default_sort_by</string>
+    <string name="spDefaultSortBy">Default Sort By</string>
+    <string name="spSortAlphabetically">sort alphabetically</string>
+    <string name="spSortByCategory">sort by category</string>
+    <string name="spSortByStore">sort by store</string>
+    <string name="sp_default_category_titles">default_category_titles</string>
+    <string name="spDefaultCategoryTitles">Default Category Titles</string>
+    <string name="spCategoryTitlesExpanded">category titles expanded</string>
+    <string name="spCategoryTitlesContracted">category titles contracted</string>
+    <string name="sp_default_store_titles">default_store_titles</string>
+    <string name="spDefaultStoreTitles">Default Store Titles</string>
+    <string name="spStoreTitlesExpanded">store titles expanded</string>
+    <string name="spStoreTitlesContracted">store titles contracted</string>
+    <string name="sp_reorder_method">reorder_method</string>
+    <string name="spDefaultReordering">Default Reordering</string>
+    <string name="spDragAndDrop">drag and drop</string>
+    <string name="spUpAndDownArrows">up and down arrows</string>
+    <string name="spWithNumbers">with numbers</string>
+    <string name="sp_color_scheme">color_scheme</string>
+    <string name="spDefaultColorScheme">Default Color Scheme</string>
+    <string name="spColorScheme1">color scheme 1</string>
+    <string name="spColorScheme2">color scheme 2</string>
+    <string name="spColorScheme3">color scheme 3</string>
+    <string name="sp_swiping_option">swiping_option</string>
+    <string name="spDefaultSwipingOption">Default Swiping Option</string>
+    <string name="spSwipingOn">swiping on</string>
+    <string name="spSwipingOff">swiping off</string>
+    <string name="sp_pictures_option">pictures_option</string>
+    <string name="spDefaultPicturesOption">Default Pictures Option</string>
+    <string name="spPicturesOn">pictures on</string>
+    <string name="spPicturesOff">pictures off</string>
+    <string name="sp_optional_data_quantity">optional_data_quantity</string>
+    <string name="spDefaultOptionalDataQuantity">Default Optional Data Quantity</string>
+    <string name="sp_optional_data_price">optional_data_price</string>
+    <string name="spDefaultOptionalDataPrice">Default Optional Data Price</string>
+    <string name="sp_optional_data_location">optional_data_location</string>
+    <string name="spDefaultOptionalDataLocation">Default Optional Data Location</string>
+    <string name="sp_optional_data_note">optional_data_note</string>
+    <string name="spDefaultOptionalDataNote">Default Optional Data Note</string>
+    <string name="spOptionalDataOn">optional data on</string>
+    <string name="spOptionalDataOff">optional data off</string>
+    <string name="sp_reorder_category_emoji">reorder_category_emoji</string>
+    <string name="spDefaultReorderCategoryEmoji">Default Reorder Category Emoji</string>
+    <string name="sp_reorder_item_by_category_emoji">reorder_item_by_category_emoji</string>
+    <string name="spDefaultReorderItemByCategoryEmoji">Default Reorder Item By Category Emoji</string>
+    <string name="sp_reorder_item_by_store_emoji">reorder_item_by_store_emoji</string>
+    <string name="spDefaultReorderItemByStoreEmoji">Default Reorder Item By Store Emoji</string>
+    <string name="sp_reorder_store_emoji">reorder_store_emoji</string>
+    <string name="spDefaultReorderStoreEmoji">Default Reorder Store Emoji</string>
+
+    <!--Database Strings-->
+    <string name="dbCategoriesCap">Categories</string>
+    <string name="dbCategories">categories</string>
+    <string name="dbCategoryName">categoryName</string>
+    <string name="dbCategoryOrder">categoryOrder</string>
+    <string name="dbCategoryViewAll">categoryViewAll</string>
+    <string name="dbCategoryInStock">categoryInStock</string>
+    <string name="dbCategoryNeeded">categoryNeeded</string>
+    <string name="dbCategoryPaused">categoryPaused</string>
+    <string name="dbShoppingCap">Shopping</string>
+    <string name="dbShopping">shopping</string>
+    <string name="dbItemName">itemName</string>
+    <string name="dbBrandType">brandType</string>
+    <string name="dbCategory">category</string>
+    <string name="dbStore">store</string>
+    <string name="dbItemCategoryOrder">itemCategoryOrder</string>
+    <string name="dbItemStoreOrder">itemStoreOrder</string>
+    <string name="dbItemStatusCap">ItemStatus</string>
+    <string name="dbItemStatus">itemStatus</string>
+    <string name="dbStatus">status</string>
+    <string name="dbChecked">checked</string>
+    <string name="dbStoresCap">Stores</string>
+    <string name="dbStores">stores</string>
+    <string name="dbStoreName">storeName</string>
+    <string name="dbStoreOrder">storeOrder</string>
+    <string name="dbStoreViewAll">storeViewAll</string>
+    <string name="dbStoreInStock">storeInStock</string>
+    <string name="dbStoreNeeded">storeNeeded</string>
+    <string name="dbStorePaused">storePaused</string>
+    <string name="dbOptionalDataCap">OptionalData</string>
+    <string name="dbOptionalData">optionalData</string>
+    <string name="dbQuantity">quantity</string>
+    <string name="dbPrice">price</string>
+    <string name="dbLocation">location</string>
+    <string name="dbNote">note</string>
+    <string name="dbID">id</string>
+    <string name="dbCreateTable">"CREATE TABLE "</string>
+    <string name="dbLeftParenthesis">" ("</string>
+    <string name="dbIntegerAutoincrement">" INTEGER PRIMARY KEY AUTOINCREMENT, "</string>
+    <string name="dbTextWithComma">" TEXT,"</string>
+    <string name="dbTextWithParenthesis">" TEXT)"</string>
+    <string name="dbIntWithComma">" INT,"</string>
+    <string name="dbIntWithParenthesis">" INT)"</string>
+    <string name="dbDropTable">"DROP TABLE IF EXISTS "</string>
+    <string name="dbSelectFrom">"SELECT * FROM "</string>
+    <string name="dbOrderBy">" ORDER BY "</string>
+    <string name="dbComma">", "</string>
+    <string name="dbCategoryNameQuestion">categoryName=?</string>
+    <string name="dbCategoryOrderQuestion">categoryOrder=?</string>
+    <string name="dbStoreNameQuestion">storeName=?</string>
+    <string name="dbStoreOrderQuestion">storeOrder=?</string>
+    <string name="dbItemNameQuestion">itemName=?</string>
+    <string name="dbCategoryQuestion">category=?</string>
+    <string name="dbStoreQuestion">store=?</string>
+    <string name="dbQuantityQuestion">quantity=?</string>
+    <string name="dbPriceQuestion">price=?</string>
+    <string name="dbLocationQuestion">location=?</string>
+    <string name="dbNoteQuestion">note=?</string>
+    <string name="dbItemCategoryOrderQuestion">category=? AND itemCategoryOrder=?</string>
+    <string name="dbItemStoreOrderQuestion">store=? AND itemStoreOrder=?</string>
+
+    <!--Print Strings-->
+    <string name="pdItemsAZ">itemsAZ:</string>
+    <string name="pdItemsByCategory">itemsByCategory:</string>
+    <string name="pdItemsByStore">itemsByStore:</string>
+    <string name="pdAzItem">az item #</string>
+    <string name="pdCategoryItem">category item #</string>
+    <string name="pdStoreItem">store item #</string>
+    <string name="pdEquals">" = "</string>
+    <string name="pdBrandTypeEquals">"; brandType = "</string>
+    <string name="pdCategoryOrder">; category order (</string>
+    <string name="pdEqualsWithParenthesis">") = "</string>
+    <string name="pdStoreOrder">; store order (</string>
+    <string name="piLineBreak">--------------------------</string>
+    <string name="piItemName">"Item Name: "</string>
+    <string name="piBrandType">"Brand/Type: "</string>
+    <string name="piCategory">"Category: "</string>
+    <string name="piStore">"Store: "</string>
+    <string name="piStatus">"Status: "</string>
+    <string name="piCategoryOrder">"Category Order: "</string>
+    <string name="piStoreOrder">"Store Order: "</string>
+
+    <!--Category Strings-->
+    <string name="meals">Meals</string>
+    <string name="soups">Soups</string>
+    <string name="sides">Sides</string>
+    <string name="meat">Meat</string>
+    <string name="breadGrainsCereal">Bread/Grains/Cereal</string>
+    <string name="eggsDairy">Eggs/Dairy</string>
+    <string name="condiments">Condiments</string>
+    <string name="seasonings">Seasonings</string>
+    <string name="miscIngredients">Misc/Ingredients</string>
+    <string name="drinks">Drinks</string>
+    <string name="snacks">Snacks</string>
+    <string name="desserts">Desserts</string>
+    <string name="candy">Candy</string>
+    <string name="petSupplies">Pet Supplies</string>
+    <string name="toiletries">Toiletries</string>
+    <string name="household">Household</string>
+    <string name="supplements">Supplements</string>
+
+    <!--Store Strings-->
+    <string name="vons">Vons</string>
+    <string name="smartFinal">Smart &amp; Final</string>
+    <string name="costco">Costco</string>
+    <string name="walmart">Walmart</string>
+    <string name="amazon">Amazon</string>
+    <string name="staterBros">Stater Bros</string>
+    <string name="traderJoes">Trader Joe\'s</string>
+    <string name="cvs">CVS</string>
+    <string name="dollarTree">Dollar Tree</string>
+    <string name="ralphs">Ralphs</string>
+    <string name="target">Target</string>
+    <string name="petSuppliesPlus">Pet Supplies Plus</string>
+    <string name="sprouts">Sprouts</string>
+    <string name="samsClub">Sam\'s Club</string>
+    <string name="staples">Staples</string>
+    <string name="woodranch">Woodranch</string>
+    <string name="yorbaLindaFeedStore">Yorba Linda Feed Store</string>
+
+    <!--Brand/Type Strings-->
+    <string name="na">na</string>
+    <string name="any">any</string>
+    <string name="toDo">to do</string>
+
+    <!--Item Strings-->
+    <string name="purePumpkin">100% Pure Pumpkin</string>
+    <string name="libbys">Libby\'s</string>
+
+    <string name="intenseDarkChocolate">72% Intense Dark Chocolate</string>
+    <string name="ghiradelli">Ghiradelli</string>
+
+    <string name="a1sauce">A1 Sauce</string>
+    <string name="original">Original</string>
+
+    <string name="allPurposeCleaner">All Purpose Cleaner</string>
+    <string name="meyersLavender">Meyer\'s Lavender</string>
+
+    <string name="aluminumFoil">Aluminum Foil</string>
+    <string name="reynoldsWrap">Reynolds Wrap</string>
+
+    <string name="bbqChips">BBQ Chips</string>
+    <string name="kettle">Kettle</string>
+
+    <string name="bdCheese">BD Cheese</string>
+    <string name="blackDiamond">Black Diamond</string>
+
+    <string name="baguette">Baguette</string>
+    <string name="frenchOrSourdough">French or Sourdough</string>
+
+    <string name="barSoap">Bar Soap</string>
+    <string name="zumBarSeaSalt">Zum Bar Sea Salt</string>
+
+    <string name="beefJerky">Beef Jerky</string>
+    <string name="archerTerriyaki">Archer Terriyaki</string>
+
+    <string name="beefLitlSmokies">Beef Lit\'l Smokies</string>
+    <string name="hillshireFarm">Hillshire Farm</string>
+
+    <string name="beefNoodles">Beef Noodles</string>
+    <string name="yakisoba">Yakisoba</string>
+
+    <string name="biotin">Biotin</string>
+    <string name="natrol10000mcg">Natrol 10,000mcg</string>
+
+    <string name="bodyWash">Body Wash</string>
+    <string name="suaveMandarin">Suave Mandarin</string>
+
+    <string name="bottledWater">Bottled Water</string>
+    <string name="refreshe40pack">Refreshe 40 pack</string>
+
+    <string name="brownSugar">Brown Sugar</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="buffaloChickenBites">Buffalo Chicken Bites</string>
+    <string name="tGIForFranks">TGIF or Frank\'s</string>
+
+    <string name="buffaloSauce">Buffalo Sauce</string>
+    <string name="franksWings">Frank\'s Wings</string>
+
+    <string name="butteredPopcorn">Buttered Popcorn</string>
+    <string name="popSecretMiniBags">Pop Secret Mini Bags</string>
+
+    <string name="calcium">Calcium</string>
+    <string name="naturesTruth1200mg">Nature\'s Truth 1200 mg</string>
+
+    <string name="candyCorn">Candy Corn</string>
+    <string name="brachs">Brach\'s</string>
+
+    <string name="cannedCorn">Canned Corn</string>
+    <string name="delMonte">Del Monte</string>
+
+    <string name="caramelPopcorn">Caramel Popcorn</string>
+    <string name="cretors">Cretors</string>
+
+    <string name="caramelSyrup">Caramel Syrup</string>
+    <string name="ghirardelliOrHersheys">Ghirardelli or Hershey\'s</string>
+
+    <string name="catFoodDry">Cat Food (dry)</string>
+    <string name="purinaProPlan">Purina Pro Plan</string>
+
+    <string name="catFoodWet">Cat Food (wet)</string>
+    <string name="fancyFeast">Fancy Feast</string>
+
+    <string name="catTreats">Cat Treats</string>
+    <string name="temptations">Temptations</string>
+
+    <string name="cheezIts">Cheez-Its</string>
+    <!--<string name="original">Original</string>-->
+
+    <string name="chickenBreast">Chicken Breast</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="chickenBroth">Chicken Broth</string>
+    <string name="kirklandOrganic">Kirkland Organic</string>
+
+    <string name="chickenNoodleSoup">Chicken Noodle Soup</string>
+    <string name="campbells">Campbell\'s</string>
+
+    <string name="chickenRice">Chicken Rice</string>
+    <string name="knorr">Knorr</string>
+
+    <string name="chocCaramelSwirlPopcorn">Choc. Caramel Swirl Popcorn</string>
+    <!--<string name="cretors">Cretors</string>-->
+
+    <string name="chocChipCookieMix">Choc. Chip Cookie Mix</string>
+    <string name="bettyCrockerGlutenFree">Betty Crocker Gluten Free</string>
+
+    <string name="chocChipMuffinMix">Choc. Chip Muffin Mix</string>
+    <string name="bettyCrocker">Betty Crocker</string>
+
+    <string name="chocFudgePirouette">Choc. Fudge Pirouette</string>
+    <string name="pepperidgeFarm">Pepperidge Farm</string>
+
+    <string name="chocFudgePudding">Choc. Fudge Pudding</string>
+    <string name="snackPack">Snack Pack</string>
+
+    <string name="chocMaltMix">Choc. Malt Mix</string>
+    <string name="nestle">Nestle</string>
+
+    <string name="chocMaltedCrunchIceCream">Choc. Malted Crunch Ice Cream</string>
+    <string name="thrifty">Thrifty</string>
+
+    <string name="chocTruffleIceCream">Choc. Truffle Ice Cream</string>
+    <string name="breyers">Breyers</string>
+
+    <string name="chocolateSyrup">Chocolate Syrup</string>
+    <!--<string name="ghirardelliOrHersheys">Ghirardelli or Hershey\'s</string>-->
+
+    <string name="churros">Churros</string>
+    <string name="tioPepesOrHola">Tio Pepe\’s or Hola!</string>
+
+    <string name="cinnamonSugar">Cinnamon Sugar</string>
+    <string name="mcCormicks">McCormick\'s</string>
+
+    <string name="clarifiedButter">Clarified Butter</string>
+    <string name="challenge">Challenge</string>
+
+    <string name="communionWafers">Communion Wafers</string>
+    <string name="cavanaghAltarBread">Cavanagh Altar Bread</string>
+
+    <string name="compactorBags">Compactor Bags</string>
+    <string name="gallon18">18 gallon</string>
+
+    <string name="cookieCrispCereal">Cookie Crisp Cereal</string>
+    <string name="generalMills">General Mills</string>
+
+    <string name="cornDogs">Corn Dogs</string>
+    <string name="fosterFarms">Foster Farms</string>
+
+    <string name="cottonSwabs">Cotton Swabs</string>
+    <string name="qTips">Q-Tips</string>
+
+    <string name="crescentRolls">Crescent Rolls</string>
+    <string name="signatureSelect">Signature Select</string>
+
+    <string name="crispyBuffaloWings">Crispy Buffalo Wings</string>
+    <!--<string name="fosterFarms">Foster Farms</string>-->
+
+    <string name="cupOfNoodles">Cup of Noodles</string>
+    <string name="nissin">Nissin</string>
+
+    <string name="darkChocCaramels">Dark Choc. Caramels</string>
+    <!--<string name="traderJoes">Trader Joe\'s</string>-->
+
+    <string name="darkChocMandMs">Dark Choc. M&amp;M\'s</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="darkChocPeanutButterCups">Dark Choc. Peanut Butter Cups</string>
+    <!--<string name="traderJoes">Trader Joe\'s</string>-->
+
+    <string name="darkChocolateCaramelSquares">Dark Chocolate Caramel Squares</string>
+    <!--<string name="ghiradelli">Ghiradelli</string>-->
+
+    <string name="darkChocolatePretzels">Dark Chocolate Pretzels</string>
+    <string name="flipz">Flipz</string>
+
+    <string name="dawnPowerwash">Dawn Powerwash</string>
+    <string name="dishCleaner">Dish Cleaner</string>
+
+    <string name="delectables">Delectables</string>
+    <string name="squeezeUp20pack">Squeeze Up 20 pack</string>
+
+    <string name="deodorant">Deodorant</string>
+    <string name="oldSpice">Old Spice</string>
+
+    <string name="dishSoap">Dish Soap</string>
+    <string name="dawnPlatinum">Dawn Platinum</string>
+
+    <string name="dishwashingBrush">Dishwashing Brush</string>
+    <string name="greatValue">Great Value</string>
+
+    <string name="dogFoodDry">Dog Food (dry)</string>
+    <string name="canidaeAllLifeStages">Canidae All Life Stages</string>
+
+    <string name="doritos">Doritos</string>
+    <string name="coolRanch">Cool Ranch</string>
+
+    <string name="doubleChocMuffins">Double Choc. Muffins</string>
+    <string name="count4">(4 count)</string>
+
+    <string name="dryerSheets">Dryer Sheets</string>
+    <string name="simplyDoneFreshLinen">Simply Done Fresh Linen</string>
+
+    <string name="eggoWaffles">Eggo Waffles</string>
+    <string name="homestyle">Homestyle</string>
+
+    <string name="eggs">Eggs</string>
+    <string name="gradeAAxLarge">Grade AA X-Large</string>
+
+    <string name="extraVirginOliveOil">Extra Virgin Olive Oil</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="faceSunscreen">Face Sunscreen</string>
+    <string name="aveenoProtectHydrate">Aveeno Protect + Hydrate</string>
+
+    <string name="famousAmosCookies">Famous Amos Cookies</string>
+    <string name="resealableBag">9oz Resealable Bag</string>
+
+    <string name="febreezeAirSpray">Febreeze Air Spray</string>
+    <string name="heavyDuty">Heavy Duty</string>
+
+    <string name="floss">Floss</string>
+    <string name="reachMintWaxed">Reach Mint Waxed</string>
+
+    <string name="fortuneCookies">Fortune Cookies</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="freshpet">Freshpet</string>
+    <string name="chickenRecipe">6lb Chicken Recipe</string>
+
+    <string name="frostedMiniWheatCereal">Frosted Mini Wheat Cereal</string>
+    <string name="kelloggs">Kellogg\'s</string>
+
+    <string name="frozenFrenchFries">Frozen French Fries</string>
+    <string name="oreIda">Ore-Ida</string>
+
+    <string name="frozenMeatballs">Frozen Meatballs</string>
+    <string name="rosinaHomestyle">Rosina Homestyle</string>
+
+    <string name="frozenPizza">Frozen Pizza</string>
+    <string name="thinPepperoni">Thin Pepperoni</string>
+
+    <string name="funDipSticks">Fun Dip Sticks</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="garlicBreadsticks">Garlic Breadsticks</string>
+    <string name="newYorkBakery">New York Bakery</string>
+
+    <string name="garlicSalt">Garlic Salt</string>
+    <string name="lawrys">Lawry\'s</string>
+
+    <string name="gingerbreadCookieMix">Gingerbread Cookie Mix</string>
+    <!--<string name="bettyCrocker">Betty Crocker</string>-->
+
+    <string name="gingerSnaps">Ginger Snaps</string>
+    <string name="firstStreet">First Street</string>
+
+    <string name="gnocci">Gnocci</string>
+    <!--<string name="signatureSelect">Signature Select</string>-->
+
+    <string name="goldfish">Goldfish</string>
+    <string name="cheddar">Cheddar</string>
+
+    <string name="goodAndPlenty">Good &amp; Plenty</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="groundBeef">Ground Beef</string>
+    <string name="pound1">(1 pound)</string>
+
+    <string name="halfAndHalf">Half &amp; Half</string>
+    <string name="lucerne">Lucerne</string>
+
+    <string name="hamSteak">Ham Steak</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="hamburgerBuns">Hamburger Buns</string>
+    <string name="pack8">(8 pack)</string>
+
+    <string name="hamburgerHelper">Hamburger Helper</string>
+    <string name="cheeseburgerMacaroni">Cheeseburger Macaroni</string>
+
+    <string name="hamburgerPatties">Hamburger Patties</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="handSoap">Hand Soap</string>
+    <string name="lavenderAndChamomile">Lavender &amp; Chamomile</string>
+
+    <string name="hardRolls">Hard Rolls</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="holdTheCone">Hold the Cone</string>
+    <string name="chocolate">Chocolate</string>
+
+    <string name="honey">Honey</string>
+    <string name="localHiveClover">Local Hive Clover</string>
+
+    <string name="honeySmacksCereal">Honey Smacks Cereal</string>
+    <!--<string name="kelloggs">Kellogg\'s</string>-->
+
+    <string name="honeyYogurt">Honey Yogurt</string>
+    <string name="greekGods">Greek Gods</string>
+
+    <string name="hotChocolateMix">Hot Chocolate Mix</string>
+    <string name="swissMissDark">Swiss Miss Dark</string>
+
+    <string name="hotDogBuns">Hot Dog Buns</string>
+    <!--<string name="pack8">(8 pack)</string>-->
+
+    <string name="hotDogs">Hot Dogs</string>
+    <string name="bunSize">Bun Size</string>
+
+    <string name="hotTamales">Hot Tamales</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="hyaluronicAcid">Hyaluronic Acid</string>
+    <string name="horbaach1000mg">Horbaach 1000mg</string>
+
+    <string name="hydrogenPeroxide">Hydrogen Peroxide</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="jellyBeans">Jelly Beans</string>
+    <string name="sizzlingCinnamon">Sizzling Cinnamon</string>
+
+    <string name="ketchup">Ketchup</string>
+    <string name="heinz">Heinz</string>
+
+    <string name="kittyLitter">Kitty Litter</string>
+    <string name="scoopAwayComplete">Scoop Away Complete</string>
+
+    <string name="largeFlourTortillas">Large Flour Tortillas</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="largeTrashBags">Large Trash Bags</string>
+    <string name="gallon33">33 gallon</string>
+
+    <string name="laundryDetergent">Laundry Detergent</string>
+    <string name="woolite">Woolite</string>
+
+    <string name="laundrySanitizer">Laundry Sanitizer</string>
+    <string name="lysol">Lysol</string>
+
+    <string name="lawrysSeasoningSalt">Lawry\'s Seasoning Salt</string>
+    <!--<string name="lawrys">Lawry\'s</string>-->
+
+    <string name="laysChips">Lay\'s Chips</string>
+    <string name="classic">Classic</string>
+
+    <string name="littleTreesAirFresheners">Little Trees Air Fresheners</string>
+    <string name="trueNorth">True North</string>
+
+    <string name="macAndCheese">Mac &amp; Cheese</string>
+    <string name="annies">Annie\’s</string>
+
+    <string name="magnesium">Magnesium</string>
+    <string name="natureMade400mg">Nature Made 400mg</string>
+
+    <string name="mapleSyrup">Maple Syrup</string>
+    <string name="pearlMilling">Pearl Milling</string>
+
+    <string name="marinaraSauce">Marinara Sauce</string>
+    <string name="signatureTraditional">Signature Traditional</string>
+
+    <string name="mashedPotatoes">Mashed Potatoes</string>
+    <string name="mainStBistro">Main St. Bistro</string>
+
+    <string name="milk">Milk</string>
+    <string name="vitaminD">Vitamin D</string>
+
+    <string name="minestroneSoup">Minestrone Soup</string>
+    <string name="amys">Amy\'s</string>
+
+    <string name="miniMAndMs">Mini M&amp;M\'s</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="moisturizingLotion">Moisturizing Lotion</string>
+    <string name="cvsHealthHyaluronicAcid">CVS Health w/ hyaluronic acid</string>
+
+    <string name="mouthwash">Mouthwash</string>
+    <string name="crestWhitening">Crest Whitening</string>
+
+    <string name="movieTheaterButter">Movie Theater Butter</string>
+    <string name="kernelSeasons">Kernel Seasons</string>
+
+    <string name="mozarellaCheeseSticks">Mozarella Cheese Sticks</string>
+    <string name="farmRich">Farm Rich</string>
+
+    <string name="muddyBuddies">Muddy Buddies</string>
+    <string name="brownieSupreme">Brownie Supreme</string>
+
+    <string name="multipurposePaper">Multipurpose Paper</string>
+    <string name="truRed">Tru Red 20/96</string>
+
+    <string name="multivitamin">Multivitamin</string>
+    <string name="oneADayMens">One a Day Men\'s</string>
+
+    <string name="mustard">Mustard</string>
+    <!--<string name="heinz">Heinz</string>-->
+
+    <string name="naanCrisps">Naan Crisps</string>
+    <string name="stonefire">Stonefire</string>
+
+    <string name="nightLightBulbs">Night Light Bulbs</string>
+    <string name="c7E12">C7 E12 120V 15 watt</string>
+
+    <string name="nitrileGloves">Nitrile Gloves</string>
+    <string name="gmg100Pack">GMG 100 pack</string>
+
+    <string name="nonStickSpray">Non-Stick Spray</string>
+    <string name="pamOriginal">Pam Original</string>
+
+    <string name="orangePez">Orange Pez</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="orangeTicTacs">Orange Tic Tacs</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="oreoCakesters">Oreo Cakesters</string>
+    <string name="nabisco">Nabisco</string>
+
+    <string name="oreoMuffins">Oreo Muffins</string>
+    <string name="pack12">12 pack</string>
+
+    <string name="oreoPieMix">Oreo Pie Mix</string>
+    <string name="noBakeDessert">No Bake Dessert</string>
+
+    <string name="oreos">Oreos</string>
+    <string name="forCrumbs">(for crumbs)</string>
+
+    <string name="packagingTape">Packaging Tape</string>
+    <string name="scotchHeavyDuty">Scotch Heavy Duty</string>
+
+    <string name="paperPlates">Paper Plates</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="paperTowels">Paper Towels</string>
+    <string name="kirklandPremium">Kirkland Premium</string>
+
+    <string name="parmesanCheese">Parmesan Cheese</string>
+    <string name="kraft">Kraft</string>
+
+    <string name="pastaRoni1">Pasta Roni 1</string>
+    <string name="angelHairPasta">Angel Hair Pasta</string>
+
+    <string name="pastaRoni2">Pasta Roni 2</string>
+    <string name="fettuccineAlfredo">Fettuccine Alfredo</string>
+
+    <string name="pastaSauce">Pasta Sauce</string>
+    <string name="raguMeat">Ragu Meat</string>
+
+    <string name="peanutButter">Peanut Butter</string>
+    <string name="skippyCreamy">Skippy Creamy</string>
+
+    <string name="peanuts">Peanuts</string>
+    <string name="honeyRoasted">Honey Roasted</string>
+
+    <string name="pepperoniSlices">Pepperoni Slices</string>
+    <string name="hormel300Slices">Hormel (300 slices)</string>
+
+    <string name="petStainCleaner">Pet Stain Cleaner</string>
+    <string name="roccoAndRoxie">Rocco &amp; Roxie</string>
+
+    <string name="pieFilling">Pie Filling</string>
+    <string name="jelloChocFudge">Jell-O Choc. Fudge</string>
+
+    <string name="poopBags">Poop Bags</string>
+    <string name="amazonBasics">Amazon Basics</string>
+
+    <string name="quickSteak">Quick Steak</string>
+    <string name="garys">Gary\'s</string>
+
+    <string name="ramenNoodles">Ramen Noodles</string>
+    <!--<string name="nissin">Nissin</string>-->
+
+    <string name="ranchDipMix">Ranch Dip Mix</string>
+    <string name="lauraScudders">Laura Scudder\'s</string>
+
+    <string name="redHots">Red Hots</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="reesesPBCups">Reese\'s PB Cups</string>
+    <string name="individuallyWrapped">(individually wrapped)</string>
+
+    <string name="reesesPuffsCereal">Reese\'s Puffs Cereal</string>
+    <!--<string name="generalMills">General Mills</string>-->
+
+    <string name="ritzCrackers">Ritz Crackers</string>
+    <!--<string name="original">Original</string>-->
+
+    <string name="rubbingAlcohol">Rubbing Alcohol</string>
+    <string name="isopropyl">Isopropyl</string>
+
+    <string name="saltAndPepper">Salt &amp; Pepper</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="saltedButter">Salted Butter</string>
+    <!--<string name="challenge">Challenge</string>-->
+
+    <string name="saltineCrackers">Saltine Crackers</string>
+    <string name="premiumOriginal">Premium Original</string>
+
+    <string name="saranWrap">Saran Wrap</string>
+    <string name="plasticWrap">Plastic Wrap</string>
+
+    <string name="sausageBiscuits">Sausage Biscuits</string>
+    <string name="jimmyDeanFrozen">Jimmy Dean Frozen</string>
+
+    <string name="scrubSponges">Scrub Sponges</string>
+    <string name="nonScratch">Non-Scratch</string>
+
+    <string name="seaSaltCaramels">Sea Salt Caramels</string>
+    <string name="favoriteDay">Favorite Day</string>
+
+    <string name="semiSweetChocChips">Semi-Sweet Choc. Chips</string>
+    <!--<string name="nestle">Nestle</string>-->
+
+    <string name="shampoo">Shampoo</string>
+    <string name="suave2in1">Suave 2 in 1</string>
+
+    <string name="shavingCream">Shaving Cream</string>
+    <string name="sandalwood">Sandalwood</string>
+
+    <string name="shavingRazors">Shaving Razors</string>
+    <string name="gilletteProGlide">Gillette ProGlide</string>
+
+    <string name="shellPeanuts">Shell Peanuts</string>
+    <string name="salted">Salted</string>
+
+    <string name="shreddedCheese">Shredded Cheese</string>
+    <string name="mexicanBlend">Mexican Blend</string>
+
+    <string name="sixlets">Sixlets</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="slicedCheese">Sliced Cheese</string>
+    <string name="kraftSingles">Kraft Singles</string>
+
+    <string name="slicedHam">Sliced Ham</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="slicedTurkey">Sliced Turkey</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="smallFlourTortillas">Small Flour Tortillas</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="smallTrashBags">Small Trash Bags</string>
+    <string name="gallon13">13 gallon</string>
+
+    <string name="smarties">Smarties</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="snoCaps">Sno Caps</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="sodaBottles2L">Soda Bottles (2L)</string>
+    <string name="pepsiOrCoke">Pepsi or Coke</string>
+
+    <string name="sodaCans">Soda Cans</string>
+    <!--<string name="pepsiOrCoke">Pepsi or Coke</string>-->
+
+    <string name="sourCream">Sour Cream</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="sourdoughBread">Sourdough Bread</string>
+    <string name="sanLuis">San Luis</string>
+
+    <string name="soySauce">Soy Sauce</string>
+    <string name="kikoman">Kikoman</string>
+
+    <string name="spaghettiOs">Spaghetti O\'s</string>
+    <string name="wMeatballs">w/ Meatballs</string>
+
+    <string name="spiralPasta">Spiral Pasta</string>
+    <string name="barillaRotini">Barilla Rotini</string>
+
+    <string name="sprinkles">Sprinkles</string>
+    <string name="types3">3 types</string>
+
+    <string name="steak">Steak</string>
+    <string name="usda">USDA</string>
+
+    <string name="stringCheese">String Cheese</string>
+    <string name="mozarella">Mozarella</string>
+
+    <string name="sunflowerSeeds">Sunflower Seeds</string>
+    <!--<string name="salted">Salted</string>-->
+
+    <string name="sunscreen">Sunscreen</string>
+    <string name="hawaiianTropicSheer50spf">Hawaiian Tropic Sheer 50spf</string>
+
+    <string name="tgifCheeseSticks">TGIF Cheese Sticks</string>
+    <string name="tgifSmall10pc">TGIF (small 10pc)</string>
+
+    <string name="tacoSauce">Taco Sauce</string>
+    <string name="victoriasMild">Victoria\'s Mild</string>
+
+    <string name="tacoSeasoning">Taco Seasoning</string>
+    <!--<string name="any">any</string>-->
+
+    <string name="tacoShells">Taco Shells</string>
+    <!--<string name="toDo">to do</string>-->
+
+    <string name="terriyakiChickenBites">Terriyaki Chicken Bites</string>
+    <string name="innovAsian">InnovAsian</string>
+
+    <string name="texasCheesyBread">Texas Cheesy Bread</string>
+    <!--<string name="newYorkBakery">New York Bakery</string>-->
+
+    <string name="thinSpaghetti">Thin Spaghetti</string>
+    <string name="barillaWholeGrain">Barilla Whole Grain</string>
+
+    <string name="thomasMuffins">Thomas Muffins</string>
+    <!--<string name="original">Original</string>-->
+
+    <string name="toiletPaper">Toilet Paper</string>
+    <string name="kirklandUltraSoft">Kirkland UltraSoft</string>
+
+    <string name="toothbrushHeads">Toothbrush Heads</string>
+    <string name="radiusSoft">Radius Soft</string>
+
+    <string name="toothpaste">Toothpaste</string>
+    <string name="ultrabrite">Ultrabrite Baking Soda &amp; Peroxide</string>
+
+    <string name="tootsieRolls">Tootsie Rolls</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="tortellini">Tortellini</string>
+    <string name="barilla3Cheese">Barilla 3 Cheese</string>
+
+    <string name="tripleOmega">Triple Omega</string>
+    <string name="natureMade">Nature Made</string>
+
+    <string name="vanillaExtract">Vanilla Extract</string>
+    <!--<string name="signatureSelect">Signature Select</string>-->
+
+    <string name="vanillaTaffy">Vanilla Taffy</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="vanillaTootsieRolls">Vanilla Tootsie Rolls</string>
+    <!--<string name="na">na</string>-->
+
+    <string name="vegetableBarleySoup">Vegetable Barley Soup</string>
+    <!--<string name="amys">Amy\'s</string>-->
+
+    <string name="vegetableOil">Vegetable Oil</string>
+    <string name="crisco">Crisco</string>
+
+    <string name="vinegarChips">Vinegar Chips</string>
+    <!--<string name="kettle">Kettle</string>-->
+
+    <string name="vitaminC">Vitamin C</string>
+    <string name="amazonElements1000mg">Amazon Elements 1000 mg</string>
+
+    <string name="vitaminD3">Vitamin D3</string>
+    <string name="natureMade5000IU">Nature Made 5000 IU</string>
+
+    <string name="wheatBread">Wheat Bread</string>
+    <string name="naturesOwn">Nature\'s Own</string>
+
+    <string name="woodranchBBQSauce">Woodranch BBQ Sauce</string>
+    <string name="pint1">(1 pint)</string>
+
+    <string name="zinc">Zinc</string>
+    <string name="sandhuHerbals50mg">Sandhu Herbals 50mg</string>
+
+    <string name="zipLockBagsLarge">Zip-Lock Bags (large)</string>
+    <string name="freezerGallon">Freezer Gallon</string>
+
+    <string name="zipLockBagsSmall">Zip-Lock Bags (small)</string>
+    <string name="sandwich">Sandwich</string>
+
 </resources>
