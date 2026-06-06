@@ -55,7 +55,7 @@ public class EditCategory extends Fragment {
                 String newCategory = categoryInput.getText().toString();
 
                 if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                    shopping.showAlertDialog(getString(R.string.editCategory), getString(R.string.changeCategoryName));
+                    shopping.showAlertDialog(getString(R.string.editCategory), getString(R.string.changeCategoryName), getString(R.string.ok));
                     return;
                 }
 

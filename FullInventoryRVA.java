@@ -111,11 +111,17 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
         if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
+
             onBindViewHolderByCategory(holder, position);
+
         } else if (shopping.getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
+
             onBindViewHolderByStore(holder, position);
+
         } else if (shopping.getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
+
             onBindViewHolderAlphabetical(holder, position);
         }
     }
@@ -886,6 +892,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     }
 
+
+//---------------------------------------Category Titles--------------------------------------------
     private class SortByCategoryTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1014,6 +1022,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     }
 
+//----------------------------------------Category Items--------------------------------------------
     private class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1399,6 +1408,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
+//------------------------------------------Store Titles--------------------------------------------
     private class SortByStoreTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1527,6 +1537,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
+//-------------------------------------------Store Items--------------------------------------------
     private class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1913,6 +1924,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
     }
 
+//---------------------------------------Alphabetical Items-----------------------------------------
     private class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;

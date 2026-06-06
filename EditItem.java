@@ -143,16 +143,16 @@ public class EditItem extends Fragment {
                 String itemStore = itemStoreInput.getText().toString();
 
                 if (newItemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData));
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.emptyString)) || storeSpinner.getSelectedItem().toString().equals(getString(R.string.emptyString))) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData));
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData));
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 } else if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData));
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 }
 

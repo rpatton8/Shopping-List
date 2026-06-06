@@ -340,7 +340,7 @@ public class FullInventory extends Fragment {
                          shopping.setEditItemInShoppingList(false);
                          shopping.loadFragment(new EditItem());
                      } else {
-                         shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit));
+                         shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit), getString(R.string.ok));
                      }
                  } else if (currentBottomMenu.equals(MENU_STORE)) {
                      shopping.loadFragment(new EditStore());
@@ -356,7 +356,7 @@ public class FullInventory extends Fragment {
                     if (shopping.itemIsSelectedInInventory()) {
                         shopping.loadFragment(new RemoveItem());
                     } else {
-                        shopping.showAlertDialog(getString(R.string.removeItem), getString(R.string.selectItemToRemove));
+                        shopping.showAlertDialog(getString(R.string.removeItem), getString(R.string.selectItemToRemove), getString(R.string.ok));
                     }
                 } else if (currentBottomMenu.equals(MENU_STORE)) {
                     shopping.loadFragment(new RemoveStore());

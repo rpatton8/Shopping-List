@@ -40,7 +40,7 @@ public class AddCategory extends Fragment {
                 String categoryName = categoryInput.getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addCategory), getString(R.string.enterCategoryToAdd));
+                    shopping.showAlertDialog(getString(R.string.addCategory), getString(R.string.enterCategoryToAdd), getString(R.string.ok));
                     return;
                 }
 

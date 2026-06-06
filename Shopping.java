@@ -338,11 +338,11 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getStoreTitles() {
-        return categoryTitles;
+        return storeTitles;
     }
 
-    void setStoreTitles(String categoryTitles) {
-        this.categoryTitles = categoryTitles;
+    void setStoreTitles(String storeTitles) {
+        this.storeTitles = storeTitles;
     }
 
     String getDefaultStoreTitles() {
@@ -513,16 +513,19 @@ public class Shopping extends AppCompatActivity {
         this.reorderItemsScrollViewState = reorderItemsScrollViewState;
     }
 
-    void showAlertDialog(String title, String message) {
+    void showAlertDialog(String title, String message, String button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(button, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.2f);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
     }
 

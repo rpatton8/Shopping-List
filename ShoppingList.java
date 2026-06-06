@@ -1,7 +1,9 @@
 package ryan.android.shopping;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +30,6 @@ public class ShoppingList extends Fragment {
     private TextView shoppingListTitle;
     private RecyclerView shoppingListRecyclerView;
     private ShoppingListRVA shoppingListAdapter;
-
     private TextView shoppingListLeftArrow;
     private TextView shoppingListRightArrow;
     private Button clearCheckedItems;
@@ -88,26 +89,44 @@ public class ShoppingList extends Fragment {
 
         clearCheckedItems.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.showAlertDialog(getString(R.string.clearItems), getString(R.string.wantToClear));
-                for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
-                    Item item  = itemData.getItemListAZ().get(i);
-                    if (item.getStatus().isChecked()) {
-                        item.getStatus().setAsInStock();
-                        item.getStatus().setAsUnchecked();
-                        dbStatusHelper.updateStatus(item.getName(), getString(R.string.instock), getString(R.string.unchecked));
-                        shopping.updateStatusData();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.clearItems);
+                builder.setMessage(R.string.wantToClear);
+                builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
+                            Item item  = itemData.getItemListAZ().get(i);
+                            if (item.getStatus().isChecked()) {
+                                item.getStatus().setAsInStock();
+                                item.getStatus().setAsUnchecked();
+                                dbStatusHelper.updateStatus(item.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                                shopping.updateStatusData();
 
-                        String store = item.getStore().toString();
-                        int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(store);
-                        int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(store);
-                        int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(store);
-                        int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(store);
-                        dbStoreHelper.setStoreViews(store, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
-                        shopping.updateStoreData();
+                                String store = item.getStore().toString();
+                                int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(store);
+                                int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(store);
+                                int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(store);
+                                int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(store);
+                                dbStoreHelper.setStoreViews(store, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
+                                shopping.updateStoreData();
+
+                                shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
+                                shopping.loadFragment(new ShoppingList());
+                            }
+                        }
+                        dialog.dismiss();
                     }
-                }
-                shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
-                shopping.loadFragment(new ShoppingList());
+                });
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setDimAmount(0.2f);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setCancelable(false);
+                dialog.show();
             }
         });
 
@@ -119,7 +138,7 @@ public class ShoppingList extends Fragment {
                     shopping.setEditItemInShoppingList(true);
                     shopping.loadFragment(new EditItem());
                 } else {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit));
+                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit), getString(R.string.ok));
                 }
             }
         });

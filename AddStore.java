@@ -40,7 +40,7 @@ public class AddStore extends Fragment {
                 String storeName = storeInput.getText().toString();
 
                 if (storeName.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addStore), getString(R.string.enterStoreToAdd));
+                    shopping.showAlertDialog(getString(R.string.addStore), getString(R.string.enterStoreToAdd), getString(R.string.ok));
                     return;
                 }
 

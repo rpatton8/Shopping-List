@@ -55,7 +55,7 @@ public class EditStore extends Fragment {
                 String newStore = storeInput.getText().toString();
 
                 if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                    shopping.showAlertDialog(getString(R.string.editStore), getString(R.string.changeStoreName));
+                    shopping.showAlertDialog(getString(R.string.editStore), getString(R.string.changeStoreName), getString(R.string.ok));
                     return;
                 }
 
