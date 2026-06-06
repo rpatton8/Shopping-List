@@ -1,16 +1,19 @@
 package ryan.android.shopping;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 class Store {
 
+    private Context context;
     private String storeName;
     private ArrayList<Item> storeItems;
-
     private boolean isExpanded;
     private boolean isContracted;
 
-    Store(String name, Item item) {
+    Store(Context context, String name, Item item) {
+        this.context = context;
         this.storeName = name;
         storeItems = new ArrayList<>();
         storeItems.add(item);
@@ -50,6 +53,10 @@ class Store {
 
     public String toString() {
         return storeName;
+    }
+
+    void printStore() {
+
     }
 
 }

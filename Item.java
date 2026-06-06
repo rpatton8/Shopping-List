@@ -18,12 +18,8 @@ class Item implements Comparable<Item> {
         this.context = context;
         this.name = name;
         this.brandType = brandType;
-        this.category = new Category(category, this);
-        this.store = new Store(store, this);
-    }
-
-    private Context getContext() {
-        return context;
+        this.category = new Category(this.context, category, this);
+        this.store = new Store(this.context, store, this);
     }
 
     String getName() {
@@ -75,18 +71,18 @@ class Item implements Comparable<Item> {
     }
 
     void printItem() {
-        System.out.println(getContext().getString(R.string.piLineBreak));
-        System.out.println(getContext().getString(R.string.piItemName) + name);
-        System.out.println(getContext().getString(R.string.piBrandType) + brandType);
-        System.out.println(getContext().getString(R.string.piCategory) + category.toString());
-        System.out.println(getContext().getString(R.string.piStore) + store.toString());
-        System.out.println(getContext().getString(R.string.piStatus) + status.toString());
+        System.out.println(context.getString(R.string.piLineBreak));
+        System.out.println(context.getString(R.string.piItemName) + name);
+        System.out.println(context.getString(R.string.piBrandType) + brandType);
+        System.out.println(context.getString(R.string.piCategory) + category.toString());
+        System.out.println(context.getString(R.string.piStore) + store.toString());
+        System.out.println(context.getString(R.string.piStatus) + status.toString());
 
         // add optional data here
 
-        System.out.println(getContext().getString(R.string.piCategoryOrder) + categoryOrder);
-        System.out.println(getContext().getString(R.string.piStoreOrder) + storeOrder);
-        System.out.println(getContext().getString(R.string.piLineBreak));
+        System.out.println(context.getString(R.string.piCategoryOrder) + categoryOrder);
+        System.out.println(context.getString(R.string.piStoreOrder) + storeOrder);
+        System.out.println(context.getString(R.string.piLineBreak));
     }
 
     public int compareTo(Item item) {

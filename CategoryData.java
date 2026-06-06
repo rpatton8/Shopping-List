@@ -20,17 +20,13 @@ class CategoryData {
         categoryList = new ArrayList<>();
         categoryListWithBlank = new ArrayList<>();
         categoryListWithAddNew = new ArrayList<>();
-        categoryListWithBlank.add(getContext().getString(R.string.emptyString));
-        categoryListWithAddNew.add(getContext().getString(R.string.emptyString));
-        categoryListWithAddNew.add(getContext().getString(R.string.addNewCategory));
+        categoryListWithBlank.add(this.context.getString(R.string.emptyString));
+        categoryListWithAddNew.add(this.context.getString(R.string.emptyString));
+        categoryListWithAddNew.add(this.context.getString(R.string.addNewCategory));
         categoryViewAllMap = new HashMap<>();
         categoryViewInStockMap = new HashMap<>();
         categoryViewNeededMap = new HashMap<>();
         categoryViewPausedMap = new HashMap<>();
-    }
-
-    private Context getContext() {
-        return context;
     }
 
     ArrayList<String> getCategoryList() {

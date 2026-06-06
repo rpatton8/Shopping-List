@@ -213,6 +213,8 @@ public class LoadScreen extends Fragment {
 
                 } else {
 
+                    if (shopping.getDefaultSortBy() == null) System.out.println("Default Sort By is null");
+                    else System.out.println("Default Sort By is not null");
                     if (shopping.getDefaultSortBy().equals(Shopping.SORT_ALPHABETICAL)) {
                         sortAlphabetical.setChecked(true);
                     } else if (shopping.getDefaultSortBy().equals(Shopping.SORT_BY_CATEGORY)) {

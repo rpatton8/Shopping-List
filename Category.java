@@ -1,16 +1,19 @@
 package ryan.android.shopping;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 class Category {
 
+    private Context context;
     private String categoryName;
     private ArrayList<Item> categoryItems;
-
     private boolean isExpanded;
     private boolean isContracted;
 
-    Category(String name, Item item) {
+    Category(Context context, String name, Item item) {
+        this.context = context;
         this.categoryName = name;
         categoryItems = new ArrayList<>();
         categoryItems.add(item);
@@ -50,6 +53,10 @@ class Category {
 
     public String toString() {
         return categoryName;
+    }
+
+    void printCategory() {
+        
     }
 
 }

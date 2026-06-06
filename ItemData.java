@@ -28,10 +28,6 @@ class ItemData {
         storeMap = new HashMap<>();
     }
 
-    private Context getContext() {
-        return context;
-    }
-
     LinkedList<Item> getItemListAZ() {
         return itemsAZ;
     }
@@ -77,7 +73,7 @@ class ItemData {
             return;
         }
         if (!categoryMap.containsKey(category)) {
-            newCategory = new Category(category, newItem);
+            newCategory = new Category(context, category, newItem);
             categoryMap.put(category, newCategory);
         } else {
             // category already exists
@@ -85,7 +81,7 @@ class ItemData {
             categoryMap.get(category).addItem(newItem);
         }
         if (!storeMap.containsKey(store)) {
-            newStore = new Store(store, newItem);
+            newStore = new Store(context, store, newItem);
             storeMap.put(store, newStore);
         } else {
             // store already exists
@@ -125,37 +121,37 @@ class ItemData {
 
     void printDataAZ() {
 
-        System.out.println(getContext().getString(R.string.pdItemsAZ));
+        System.out.println(context.getString(R.string.pdItemsAZ));
         for (int i = 1; i <= itemsAZ.size(); i++) {
             Item item = itemsAZ.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdAzItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
-                    + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
-                    + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
-                    + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)
+            System.out.println(context.getString(R.string.pdAzItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
                     + item.getStoreOrder());
         }
     }
 
     void printDataByCategory() {
-        System.out.println(getContext().getString(R.string.pdItemsByCategory));
+        System.out.println(context.getString(R.string.pdItemsByCategory));
         for (int i = 1; i <= itemsByCategory.size(); i++) {
             Item item = itemsByCategory.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdCategoryItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
-                    + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
-                    + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
-                    + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)
+            System.out.println(context.getString(R.string.pdCategoryItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
                     + item.getStoreOrder());
         }
     }
 
     void printDataByStore() {
-        System.out.println(getContext().getString(R.string.pdItemsByStore));
+        System.out.println(context.getString(R.string.pdItemsByStore));
         for (int i = 1; i <= itemsByStore.size(); i++) {
             Item item = itemsByStore.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdStoreItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
-                    + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
-                    + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
-                    + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)
+            System.out.println(context.getString(R.string.pdStoreItem) + i + context.getString(R.string.pdEquals) + item.getName()
+                    + context.getString(R.string.pdBrandTypeEquals) + item.getBrandType() + context.getString(R.string.pdCategoryOrder)
+                    + item.getCategory() + context.getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
+                    + context.getString(R.string.pdStoreOrder) + item.getStore() + context.getString(R.string.pdEqualsWithParenthesis)
                     + item.getStoreOrder());
         }
     }

@@ -22,11 +22,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         this.shopping = shopping;
         this.context = context;
         this.searchAlgorithm = searchAlgorithm;
-        currentSearchTerm = getContext().getString(R.string.emptyString);
-    }
-
-    private Context getContext() {
-        return context;
+        currentSearchTerm = this.context.getString(R.string.emptyString);
     }
 
     public int getItemViewType(int position) {
@@ -41,7 +37,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
-        if (!currentSearchTerm.equals(getContext().getString(R.string.emptyString))) {
+        if (!currentSearchTerm.equals(context.getString(R.string.emptyString))) {
             searchResultsList = searchAlgorithm.getSearchResults(currentSearchTerm);
             thisItem = searchResultsList.get(position);
         }
@@ -201,10 +197,6 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             itemLargeStoreLabel.setOnClickListener(this);
         }
 
-        private Context getContext() {
-            return context;
-        }
-
         private void selectOrUnselectItem(int position) {
 
             Item thisItem = searchResultsList.get(position);
@@ -289,7 +281,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLargeNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                 }
             } else if (id == itemSmallNeeded.getId()) {
                 if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
@@ -301,7 +293,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLargePaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                 }
             } else if (id == itemSmallPaused.getId()) {
                 if (itemSmallPaused.getVisibility() == View.VISIBLE) {
@@ -313,7 +305,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemLargeInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargeInStock.getId()) {
                 if (itemLargeInStock.getVisibility() == View.VISIBLE) {
@@ -325,7 +317,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemSmallNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.needed), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargeNeeded.getId()) {
                 if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
@@ -337,7 +329,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemSmallPaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.paused), context.getString(R.string.unchecked));
                 }
             } else if (id == itemLargePaused.getId()) {
                 if (itemLargePaused.getVisibility() == View.VISIBLE) {
@@ -349,7 +341,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     itemSmallInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getName(), context.getString(R.string.instock), context.getString(R.string.unchecked));
                 }
             }
         }

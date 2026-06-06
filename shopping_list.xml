@@ -46,7 +46,7 @@
         android:paddingBottom="6dp"
         android:clipToPadding="false"
         android:layout_below="@id/shoppingListTitle" />
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="116dp"
