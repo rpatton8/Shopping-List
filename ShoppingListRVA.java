@@ -299,10 +299,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInShoppingList(thisItem);
 
                         Item lastItem = getItemWithStores(currentlySelected);
-                        if (lastItem != null) {
-                            lastItem.getStatus().setAsUnselectedInShoppingList();
-                            adapter.notifyItemChanged(currentlySelected);
-                        }
+                        lastItem.getStatus().setAsUnselectedInShoppingList();
+                        adapter.notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected

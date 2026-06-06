@@ -58,12 +58,15 @@ public class EditItem extends Fragment {
         cancelButton = view.findViewById(R.id.cancelButton);
 
         if(shopping.editItemInInventory()) {
+            System.out.println("Edit item in inventory");
             itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
             itemTypeInput.setText(shopping.getSelectedItemInInventory().getBrandType());
         } else if (shopping.editItemInSearchResults()) {
+            System.out.println("Edit item in search results");
             itemNameInput.setText(shopping.getSelectedItemInSearchResults().getName());
             itemTypeInput.setText(shopping.getSelectedItemInSearchResults().getBrandType());
         } else if (shopping.editItemInShoppingList()) {
+            System.out.println("Edit item in shopping list");
             itemNameInput.setText(shopping.getSelectedItemInShoppingList().getName());
             itemTypeInput.setText(shopping.getSelectedItemInShoppingList().getBrandType());
         }

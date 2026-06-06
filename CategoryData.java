@@ -29,7 +29,7 @@ class CategoryData {
         categoryViewPausedMap = new HashMap<>();
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

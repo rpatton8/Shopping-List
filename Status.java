@@ -56,7 +56,7 @@ class Status {
         isChecked = false;
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

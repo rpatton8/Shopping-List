@@ -28,7 +28,7 @@ class ItemData {
         storeMap = new HashMap<>();
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

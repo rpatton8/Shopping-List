@@ -33,7 +33,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         this.dbCategoryHelper = dbCategory;
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 
@@ -1104,7 +1104,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             
         }
 
-        Context getContext() {
+        private Context getContext() {
             return context;
         }
 
@@ -1164,10 +1164,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithCategories(currentlySelected);
-                        if (lastItem != null) {
-                            lastItem.getStatus().setAsUnselectedInInventory();
-                            adapter.notifyItemChanged(currentlySelected);
-                        }
+                        lastItem.getStatus().setAsUnselectedInInventory();
+                        adapter.notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected
@@ -1619,7 +1617,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             
         }
 
-        Context getContext() {
+        private Context getContext() {
             return context;
         }
 
@@ -1679,10 +1677,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithStores(currentlySelected);
-                        if (lastItem != null) {
-                            lastItem.getStatus().setAsUnselectedInInventory();
-                            adapter.notifyItemChanged(currentlySelected);
-                        }
+                        lastItem.getStatus().setAsUnselectedInInventory();
+                        adapter.notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected
@@ -2001,7 +1997,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             
         }
 
-        Context getContext() {
+        private Context getContext() {
             return context;
         }
 
@@ -2030,10 +2026,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     shopping.setSelectedItemInInventory(thisItem);
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
-                    if (lastItem != null) {
-                        lastItem.getStatus().setAsUnselectedInInventory();
-                        adapter.notifyItemChanged(currentlySelected);
-                    }
+                    lastItem.getStatus().setAsUnselectedInInventory();
+                    adapter.notifyItemChanged(currentlySelected);
 
                 } else {
                     // nothing is selected

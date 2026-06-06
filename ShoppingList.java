@@ -135,6 +135,7 @@ public class ShoppingList extends Fragment {
                 if (shopping.itemIsSelectedInShoppingList()) {
                     shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
                     shopping.setEditItemInInventory(false);
+                    shopping.setEditItemInSearchResults(false);
                     shopping.setEditItemInShoppingList(true);
                     shopping.loadFragment(new EditItem());
                 } else {

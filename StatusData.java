@@ -13,7 +13,7 @@ class StatusData {
         statusMap = new HashMap<>();
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

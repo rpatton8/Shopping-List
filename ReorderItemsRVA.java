@@ -44,7 +44,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         this.reorderBy = REORDER_BY_CATEGORY;
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

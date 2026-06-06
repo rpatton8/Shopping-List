@@ -339,6 +339,11 @@ public class FullInventory extends Fragment {
                          shopping.setEditItemInSearchResults(false);
                          shopping.setEditItemInShoppingList(false);
                          shopping.loadFragment(new EditItem());
+                     } else if (shopping.itemIsSelectedInSearchResults()) {
+                         shopping.setEditItemInInventory(false);
+                         shopping.setEditItemInSearchResults(true);
+                         shopping.setEditItemInShoppingList(false);
+                         shopping.loadFragment(new EditItem());
                      } else {
                          shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit), getString(R.string.ok));
                      }

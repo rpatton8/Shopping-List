@@ -25,7 +25,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         currentSearchTerm = getContext().getString(R.string.emptyString);
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 
@@ -201,7 +201,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             itemLargeStoreLabel.setOnClickListener(this);
         }
 
-        Context getContext() {
+        private Context getContext() {
             return context;
         }
 
@@ -209,41 +209,39 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
             Item thisItem = searchResultsList.get(position);
 
-            if (thisItem.getStatus().isSelectedInInventory() || thisItem == shopping.getSelectedItemInInventory()) {
+            if (thisItem.getStatus().isSelectedInSearchResults() || thisItem == shopping.getSelectedItemInSearchResults()) {
                 // selected item is this item
-                thisItem.getStatus().setAsUnselectedInInventory();
+                thisItem.getStatus().setAsUnselectedInSearchResults();
                 itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
                 itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
 
-                shopping.setItemIsSelectedInInventory(false);
-                shopping.setSelectedItemInInventory(null);
+                shopping.setItemIsSelectedInSearchResults(false);
+                shopping.setSelectedItemInSearchResults(null);
             } else {
                 if (shopping.itemIsSelectedInSearchResults()) {
                     // selected item is another item
                     int currentlySelected = shopping.getSelectedItemPositionInSearchResults();
-                    thisItem.getStatus().setAsSelectedInInventory();
+                    thisItem.getStatus().setAsSelectedInSearchResults();
                     itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                    shopping.setSelectedItemPositionInInventory(position);
-                    shopping.setItemIsSelectedInInventory(true);
-                    shopping.setSelectedItemInInventory(thisItem);
+                    shopping.setSelectedItemPositionInSearchResults(position);
+                    shopping.setItemIsSelectedInSearchResults(true);
+                    shopping.setSelectedItemInSearchResults(thisItem);
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
-                    if (lastItem != null) {
-                        lastItem.getStatus().setAsUnselectedInInventory();
-                        adapter.notifyItemChanged(currentlySelected);
-                    }
+                    lastItem.getStatus().setAsUnselectedInSearchResults();
+                    adapter.notifyItemChanged(currentlySelected);
 
                 } else {
                     // nothing is selected
-                    thisItem.getStatus().setAsSelectedInInventory();
+                    thisItem.getStatus().setAsSelectedInSearchResults();
                     itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
                     itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
 
-                    shopping.setSelectedItemPositionInInventory(position);
-                    shopping.setItemIsSelectedInInventory(true);
-                    shopping.setSelectedItemInInventory(thisItem);
+                    shopping.setSelectedItemPositionInSearchResults(position);
+                    shopping.setItemIsSelectedInSearchResults(true);
+                    shopping.setSelectedItemInSearchResults(thisItem);
                 }
             }
         }

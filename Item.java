@@ -22,7 +22,7 @@ class Item implements Comparable<Item> {
         this.store = new Store(store, this);
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 

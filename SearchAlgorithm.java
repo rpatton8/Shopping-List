@@ -15,7 +15,7 @@ class SearchAlgorithm {
         termMap = new HashMap<>();
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 
@@ -51,8 +51,7 @@ class SearchAlgorithm {
     }
 
     int numSearchResults(String term) {
-        if (termMap.get(term.toLowerCase()) != null)  {
-            return termMap.get(term.toLowerCase()).size();
-        }  else return 0;
+        return termMap.get(term.toLowerCase()).size();
     }
+
 }

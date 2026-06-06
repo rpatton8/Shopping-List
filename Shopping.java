@@ -290,7 +290,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Boolean editItemInShoppingList() {
-        return editItemInInventory;
+        return editItemInShoppingList;
     }
 
     void setEditItemInShoppingList(Boolean editItemInShoppingList) {

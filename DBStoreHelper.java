@@ -26,7 +26,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    Context getContext() {
+    private Context getContext() {
         return context;
     }
 
