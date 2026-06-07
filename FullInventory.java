@@ -62,10 +62,10 @@ public class FullInventory extends Fragment {
     private TextView fullInventoryTitle;
     private TextView fullInventoryOptionsBackground;
     private String lastMainTitle;
+    private TextView addNewItemButton;
     private TextView searchButton;
     private LinearLayout searchPopup;
     private EditText searchBox;
-    private TextView voiceSearchButton;
     private TextView clearSearchButton;
     private TextView refreshButton;
     private TextView fullInventoryEditButton;
@@ -160,10 +160,10 @@ public class FullInventory extends Fragment {
             fullInventoryTitle.setText(getString(R.string.alphabeticalAll));
         }
 
+        addNewItemButton = view.findViewById(R.id.addNewItemButton);
         searchButton = view.findViewById(R.id.searchButton);
         searchBox = view.findViewById(R.id.searchBox);
         searchPopup = view.findViewById(R.id.searchPopup);
-        voiceSearchButton = view.findViewById(R.id.voiceSearchButton);
         clearSearchButton = view.findViewById(R.id.clearSearchButton);
         refreshButton = view.findViewById(R.id.refreshButton);
         fullInventoryEditButton = view.findViewById(R.id.fullInventoryEditButton);
@@ -380,6 +380,12 @@ public class FullInventory extends Fragment {
             }
         });
 
+        addNewItemButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                shopping.loadFragment(new AddItem());
+            }
+        });
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (searchBoxVisible) {
@@ -433,65 +439,6 @@ public class FullInventory extends Fragment {
                     fullInventoryRecyclerView.setLayoutParams(params);
                 }
             }
-        });
-
-        voiceSearchButton.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                 if (searchBoxVisible) {
-                     if (keyboardVisible) {
-                         // searchBox & keyboard both visible
-                         shopping.hideKeyboard();
-                         startVoiceRecognition();
-                         searchPopup.setVisibility(View.VISIBLE);
-                         searchInventoryRecyclerView.setVisibility(View.VISIBLE);
-                         lastMainTitle = fullInventoryTitle.getText().toString();
-                         fullInventoryTitle.setText(getString(R.string.searchInventory));
-                         searchBox.requestFocus();
-                         searchBox.setSelection(searchBox.getText().length());
-                         searchBoxVisible = true;
-                         keyboardVisible = false;
-                     } else {
-                         // searchBox visible but keyboard not visible
-                         searchPopup.setVisibility(View.GONE);
-                         searchInventoryRecyclerView.setVisibility(View.GONE);
-                         fullInventoryTitle.setText(lastMainTitle);
-                         searchBoxVisible = false;
-                         keyboardVisible = false;
-                     }
-
-                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                     int height;
-                     if (editControlsExpanded) {
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                     } else
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                     params.height = height;
-                     fullInventoryRecyclerView.setLayoutParams(params);
-
-                 } else {
-                     // searchBox & keyboard both not visible
-                     startVoiceRecognition();
-                     searchPopup.setVisibility(View.VISIBLE);
-                     searchInventoryRecyclerView.setVisibility(View.VISIBLE);
-                     lastMainTitle = fullInventoryTitle.getText().toString();
-                     fullInventoryTitle.setText(getString(R.string.searchInventory));
-                     searchBox.requestFocus();
-                     searchBox.setSelection(searchBox.getText().length());
-                     searchBoxVisible = true;
-                     keyboardVisible = false;
-
-                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) fullInventoryRecyclerView.getLayoutParams();
-                     int height;
-                     if (editControlsExpanded) {
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                     } else
-                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                     params.addRule(RelativeLayout.BELOW, R.id.searchPopup);
-                     params.height = height;
-                     fullInventoryRecyclerView.setLayoutParams(params);
-                 }
-             }
         });
 
         searchBox.addTextChangedListener(new TextWatcher() {
@@ -921,7 +868,7 @@ public class FullInventory extends Fragment {
         }
     }
 
-    private void startVoiceRecognition() {
+    /*private void startVoiceRecognition() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toString());
@@ -939,7 +886,7 @@ public class FullInventory extends Fragment {
             searchBox.setText(result.get(0));
             searchBox.setSelection(searchBox.getText().length());
         }
-    }
+    }*/
 
     private void hideMenuOptions() {
         viewAll.setVisibility(View.GONE);

@@ -84,7 +84,7 @@ public class ShoppingList extends Fragment {
         shoppingListRightArrow.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //moveRightInShoppingList();
-
+                shopping.showPictureDialog();
             }
         });
 
