@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -530,14 +531,19 @@ public class Shopping extends AppCompatActivity {
     }
 
     void showPictureDialog() {
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View dialogView = inflater.inflate(R.layout.picture_dialog, null);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        // to do
+        builder.setTitle("Canned Corn");
+        builder.setView(dialogView);
 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.2f);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
+        //dialog.setCanceledOnTouchOutside(false);
+        //dialog.setCancelable(false);
         dialog.show();
     }
 

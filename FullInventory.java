@@ -1,12 +1,9 @@
 package ryan.android.shopping;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -23,8 +20,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.Locale;
 
 public class FullInventory extends Fragment {
 
@@ -867,26 +862,6 @@ public class FullInventory extends Fragment {
             }
         }
     }
-
-    /*private void startVoiceRecognition() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US.toString());
-        try {
-            startActivityForResult(intent, 100);
-        } catch (Exception e) {
-            System.out.println(getString(R.string.exception));
-        }
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && null != data) {
-            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            searchBox.setText(result.get(0));
-            searchBox.setSelection(searchBox.getText().length());
-        }
-    }*/
 
     private void hideMenuOptions() {
         viewAll.setVisibility(View.GONE);
