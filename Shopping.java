@@ -529,6 +529,18 @@ public class Shopping extends AppCompatActivity {
         dialog.show();
     }
 
+    void showPictureDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // to do
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setDimAmount(0.2f);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
     void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
