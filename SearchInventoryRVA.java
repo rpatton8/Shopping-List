@@ -1,6 +1,7 @@
 package ryan.android.shopping;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -144,6 +145,9 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
+        private final long doubleClickTimeout = 400;
+        private long lastClickTime = 0;
+
         private SearchInventoryRVH(View itemView, Context context, Shopping shopping, SearchInventoryRVA adapter) {
 
             super(itemView);
@@ -239,6 +243,24 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         }
 
         public void onClick(View v) {
+            long clickTime = SystemClock.uptimeMillis();
+            if (clickTime - lastClickTime < doubleClickTimeout) {
+                onDoubleClick(v);
+            } else {
+                onSingleClick(v);
+            }
+            lastClickTime = clickTime;
+        }
+
+        void onDoubleClick(View v) {
+
+            int position = getAdapterPosition();
+            Item thisItem = searchResultsList.get(position);
+            shopping.showPictureDialog(thisItem);
+
+        }
+
+        void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();

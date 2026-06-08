@@ -1,6 +1,7 @@
 package ryan.android.shopping;
 
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -1052,6 +1053,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
+        private final long doubleClickTimeout = 400;
+        private long lastClickTime = 0;
+
         private SortByCategoryItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter,  ItemData itemData,
                                       CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
@@ -1207,6 +1211,45 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         public void onClick(View v) {
+            long clickTime = SystemClock.uptimeMillis();
+            if (clickTime - lastClickTime < doubleClickTimeout) {
+                onDoubleClick(v);
+            } else {
+                onSingleClick(v);
+            }
+            lastClickTime = clickTime;
+        }
+
+        void onDoubleClick(View v) {
+
+            int position = getAdapterPosition();
+            String category;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
+                category = categoryData.getCategoryList().get(i);
+                int numItemsInCategory;
+                if (itemData.getCategoryMap().get(category) == null) {
+                    numItemsInCategory = 0;
+                } else {
+                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                }
+                index += numItemsInCategory;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    break;
+                }
+            }
+            shopping.showPictureDialog(thisItem);
+        }
+
+        void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();
@@ -1462,7 +1505,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             Item thisItem = null;
             int adjustedPosition;
 
-
             int index = 0;
             adjustedPosition = position;
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
@@ -1563,6 +1605,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeCategoryLabel;
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
+
+        private final long doubleClickTimeout = 400;
+        private long lastClickTime = 0;
 
         private SortByStoreItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter,
                                   ItemData itemData, StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
@@ -1719,6 +1764,45 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         public void onClick(View v) {
+            long clickTime = SystemClock.uptimeMillis();
+            if (clickTime - lastClickTime < doubleClickTimeout) {
+                onDoubleClick(v);
+            } else {
+                onSingleClick(v);
+            }
+            lastClickTime = clickTime;
+        }
+
+        void onDoubleClick(View v) {
+
+            int position = getAdapterPosition();
+            String store;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                store = storeData.getStoreList().get(i);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
+                } else {
+                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                }
+                index += numItemsInStore;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    break;
+                }
+            }
+            shopping.showPictureDialog(thisItem);
+        }
+
+        void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();
@@ -1945,6 +2029,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
+        private final long doubleClickTimeout = 400;
+        private long lastClickTime = 0;
+
         private SortAlphabeticalItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter) {
 
             super(itemView);
@@ -2036,7 +2123,27 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
         }
 
+
+
         public void onClick(View v) {
+            long clickTime = SystemClock.uptimeMillis();
+            if (clickTime - lastClickTime < doubleClickTimeout) {
+                onDoubleClick(v);
+            } else {
+                onSingleClick(v);
+            }
+            lastClickTime = clickTime;
+        }
+
+        void onDoubleClick(View v) {
+
+            int position = getAdapterPosition();
+            Item thisItem = itemData.getItemListAZ().get(position);
+            shopping.showPictureDialog(thisItem);
+
+        }
+
+        void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();

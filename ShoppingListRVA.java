@@ -359,9 +359,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
         void onDoubleClick(View v) {
 
-            int id = v.getId();
             int position = getAdapterPosition();
-
             String store;
             Item thisItem = null;
             int adjustedPosition;
