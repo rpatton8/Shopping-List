@@ -123,7 +123,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //-----------------------------------Sort By Category-----------------------------------------------
-    private void onBindViewHolderByCategory(RecyclerView.ViewHolder holder, int position) {
+
+    public void onBindViewHolderByCategory(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
         String category = null;
@@ -396,7 +397,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //------------------------------------------Sort By Store-------------------------------------------
-    private void onBindViewHolderByStore(RecyclerView.ViewHolder holder, int position) {
+
+    public void onBindViewHolderByStore(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
         String store = null;
@@ -672,7 +674,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //------------------------------------------Alphabetical--------------------------------------------
-    private void onBindViewHolderAlphabetical(RecyclerView.ViewHolder holder, int position) {
+
+    public void onBindViewHolderAlphabetical(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = itemData.getItemListAZ().get(position);
 
@@ -888,8 +891,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     }
 
+    //---------------------------------------Category Titles----------------------------------------
 
-//---------------------------------------Category Titles--------------------------------------------
     private class SortByCategoryTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1018,7 +1021,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     }
 
-//----------------------------------------Category Items--------------------------------------------
+//-----------------------------------------Category Items-------------------------------------------
+
     private class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1097,7 +1101,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeCategoryLabel.setOnClickListener(this);
             itemLargeStore.setOnClickListener(this);
             itemLargeStoreLabel.setOnClickListener(this);
-            
         }
 
         private void selectOrUnselectItem(int position) {
@@ -1156,8 +1159,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithCategories(currentlySelected);
-                        lastItem.getStatus().setAsUnselectedInInventory();
-                        adapter.notifyItemChanged(currentlySelected);
+                        if (lastItem != null) {
+                            lastItem.getStatus().setAsUnselectedInInventory();
+                            adapter.notifyItemChanged(currentlySelected);
+                        }
 
                     } else {
                         // nothing is selected
@@ -1399,6 +1404,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //------------------------------------------Store Titles--------------------------------------------
+
     private class SortByStoreTitleRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1528,6 +1534,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //-------------------------------------------Store Items--------------------------------------------
+
     private class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1606,7 +1613,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeCategoryLabel.setOnClickListener(this);
             itemLargeStore.setOnClickListener(this);
             itemLargeStoreLabel.setOnClickListener(this);
-            
         }
 
         private void selectOrUnselectItem(int position) {
@@ -1665,8 +1671,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithStores(currentlySelected);
-                        lastItem.getStatus().setAsUnselectedInInventory();
-                        adapter.notifyItemChanged(currentlySelected);
+                        if (lastItem != null) {
+                            lastItem.getStatus().setAsUnselectedInInventory();
+                            adapter.notifyItemChanged(currentlySelected);
+                        }
 
                     } else {
                         // nothing is selected
@@ -1909,6 +1917,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
 //---------------------------------------Alphabetical Items-----------------------------------------
+
     private class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
@@ -1982,7 +1991,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeCategoryLabel.setOnClickListener(this);
             itemLargeStore.setOnClickListener(this);
             itemLargeStoreLabel.setOnClickListener(this);
-            
         }
 
         private void selectOrUnselectItem(int position) {
@@ -2010,8 +2018,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     shopping.setSelectedItemInInventory(thisItem);
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
-                    lastItem.getStatus().setAsUnselectedInInventory();
-                    adapter.notifyItemChanged(currentlySelected);
+                    if (lastItem != null) {
+                        lastItem.getStatus().setAsUnselectedInInventory();
+                        adapter.notifyItemChanged(currentlySelected);
+                    }
 
                 } else {
                     // nothing is selected
