@@ -2123,8 +2123,6 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
         }
 
-
-
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
             if (clickTime - lastClickTime < doubleClickTimeout) {
