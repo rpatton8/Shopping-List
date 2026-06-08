@@ -530,14 +530,14 @@ public class Shopping extends AppCompatActivity {
         dialog.show();
     }
 
-    void showPictureDialog() {
+    void showPictureDialog(Item item) {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.picture_dialog, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Canned Corn");
+        builder.setTitle(item.getName());
         builder.setView(dialogView);
 
         AlertDialog dialog = builder.create();

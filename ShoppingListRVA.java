@@ -1,5 +1,6 @@
 package ryan.android.shopping;
 
+import android.os.SystemClock;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -190,7 +191,6 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         private ShoppingListRVA adapter;
         private ItemData itemData;
         private StoreData storeData;
-
         private Button triangleRight;
         private Button triangleDown;
         private LinearLayout itemSmall;
@@ -205,6 +205,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         private TextView itemLargeBrandLabel;
         private TextView itemLargeCategory;
         private TextView itemLargeCategoryLabel;
+
+        private final long doubleClickTimeout = 400;
+        private long lastClickTime = 0;
 
         private ShoppingListItemRVH(View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
@@ -345,6 +348,48 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         }
 
         public void onClick(View v) {
+            long clickTime = SystemClock.uptimeMillis();
+            if (clickTime - lastClickTime < doubleClickTimeout) {
+                onDoubleClick(v);
+            } else {
+                onSingleClick(v);
+            }
+            lastClickTime = clickTime;
+        }
+
+        void onDoubleClick(View v) {
+
+            int id = v.getId();
+            int position = getAdapterPosition();
+
+            String store;
+            Item thisItem = null;
+            int adjustedPosition;
+
+            int index = 0;
+            adjustedPosition = position;
+            for (int i = 0; i < storeData.getStoreList().size(); i++) {
+                store = storeData.getStoreList().get(i);
+                int numItemsInStore;
+                if (itemData.getStoreMap().get(store) == null) {
+                    numItemsInStore = 0;
+                } else {
+                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                }
+                index += numItemsInStore;
+                adjustedPosition--;
+                if (index == adjustedPosition) {
+                    break;
+                } else if (index >= adjustedPosition) {
+                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    break;
+                }
+            }
+            shopping.showPictureDialog(thisItem);
+        }
+
+        void onSingleClick(View v) {
+
             int id = v.getId();
             int position = getAdapterPosition();
 
