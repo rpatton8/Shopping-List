@@ -21,6 +21,10 @@ class Category {
         isContracted = false;
     }
 
+    private Context getContext() {
+        return context;
+    }
+
     String getName() {
         return categoryName;
     }

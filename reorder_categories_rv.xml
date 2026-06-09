@@ -34,4 +34,8 @@
         app:layout_constraintRight_toRightOf="parent"
         android:contentDescription="@string/triangleUp" />
 
+
+    <!--emoji for drag and drop, and textEdit/refresh button for with numbers go here-->
+
+
 </LinearLayout>

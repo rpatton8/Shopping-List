@@ -20,13 +20,17 @@ class StoreData {
         storeList = new ArrayList<>();
         storeListWithBlank = new ArrayList<>();
         storeListWithAddNew = new ArrayList<>();
-        storeListWithBlank.add(this.context.getString(R.string.emptyString));
-        storeListWithAddNew.add(this.context.getString(R.string.emptyString));
-        storeListWithAddNew.add(this.context.getString(R.string.addNewStore));
+        storeListWithBlank.add(getContext().getString(R.string.emptyString));
+        storeListWithAddNew.add(getContext().getString(R.string.emptyString));
+        storeListWithAddNew.add(getContext().getString(R.string.addNewStore));
         storeViewAllMap = new HashMap<>();
         storeViewInStockMap = new HashMap<>();
         storeViewNeededMap = new HashMap<>();
         storeViewPausedMap = new HashMap<>();
+    }
+
+    private Context getContext() {
+        return context;
     }
 
     ArrayList<String> getStoreList() {

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class Shopping extends AppCompatActivity {
 
@@ -536,9 +537,10 @@ public class Shopping extends AppCompatActivity {
         View dialogView = inflater.inflate(R.layout.picture_dialog, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setTitle(item.getName());
         builder.setView(dialogView);
+
+        TextView pictureDialogTitle = dialogView.findViewById(R.id.pictureDialogTitle);
+        pictureDialogTitle.setText(item.getName());
 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setDimAmount(0.2f);

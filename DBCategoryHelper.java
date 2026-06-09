@@ -26,30 +26,34 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
+    private Context getContext() {
+        return context;
+    }
+
     public void onCreate(SQLiteDatabase db) {
-        String query = context.getString(R.string.dbCreateTable) + TABLE_NAME
-                + context.getString(R.string.dbLeftParenthesis)
-                + ID + context.getString(R.string.dbIntegerAutoincrement)
-                + CATEGORY_NAME + context.getString(R.string.dbTextWithComma)
-                + CATEGORY_ORDER  + context.getString(R.string.dbIntWithComma)
-                + CATEGORY_VIEW_ALL  + context.getString(R.string.dbIntWithComma)
-                + CATEGORY_IN_STOCK  + context.getString(R.string.dbIntWithComma)
-                + CATEGORY_NEEDED  + context.getString(R.string.dbIntWithComma)
-                + CATEGORY_PAUSED + context.getString(R.string.dbIntWithParenthesis);
+        String query = getContext().getString(R.string.dbCreateTable) + TABLE_NAME
+                + getContext().getString(R.string.dbLeftParenthesis)
+                + ID + getContext().getString(R.string.dbIntegerAutoincrement)
+                + CATEGORY_NAME + getContext().getString(R.string.dbTextWithComma)
+                + CATEGORY_ORDER  + getContext().getString(R.string.dbIntWithComma)
+                + CATEGORY_VIEW_ALL  + getContext().getString(R.string.dbIntWithComma)
+                + CATEGORY_IN_STOCK  + getContext().getString(R.string.dbIntWithComma)
+                + CATEGORY_NEEDED  + getContext().getString(R.string.dbIntWithComma)
+                + CATEGORY_PAUSED + getContext().getString(R.string.dbIntWithParenthesis);
         db.execSQL(query);
     }
 
     public void onUpgrade(SQLiteDatabase db, int i, int j) {
-        db.execSQL(context.getString(R.string.dbDropTable) + TABLE_NAME);
+        db.execSQL(getContext().getString(R.string.dbDropTable) + TABLE_NAME);
         onCreate(db);
     }
 
     CategoryData readCategoryData() {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(context.getString(R.string.dbSelectFrom) + TABLE_NAME
-                + context.getString(R.string.dbOrderBy) + CATEGORY_ORDER, null);
-        CategoryData categoryData = new CategoryData(context);
+        Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME
+                + getContext().getString(R.string.dbOrderBy) + CATEGORY_ORDER, null);
+        CategoryData categoryData = new CategoryData(getContext());
 
         if (cursor.moveToFirst()) {
             do { categoryData.readCategory(cursor.getString(1),
@@ -88,7 +92,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
 
         values.put(CATEGORY_NAME, newCategoryName);
 
-        db.update(TABLE_NAME, values, context.getString(R.string.dbCategoryNameQuestion), new String[]{originalCategoryName});
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbCategoryNameQuestion), new String[]{originalCategoryName});
         db.close();
     }
 
@@ -102,7 +106,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         values.put(CATEGORY_NEEDED, categoryNeeded);
         values.put(CATEGORY_PAUSED, categoryPaused);
 
-        db.update(TABLE_NAME, values, context.getString(R.string.dbCategoryNameQuestion), new String[]{categoryName});
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbCategoryNameQuestion), new String[]{categoryName});
         db.close();
     }
 
@@ -112,15 +116,15 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         ContentValues values1 = new ContentValues();
 
         values1.put(CATEGORY_ORDER, -1);
-        db.update(TABLE_NAME, values1, context.getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(category1)});
+        db.update(TABLE_NAME, values1, getContext().getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(category1)});
 
         ContentValues values2 = new ContentValues();
         values2.put(CATEGORY_ORDER, category1);
-        db.update(TABLE_NAME, values2, context.getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(category2)});
+        db.update(TABLE_NAME, values2, getContext().getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(category2)});
 
         ContentValues values3 = new ContentValues();
         values3.put(CATEGORY_ORDER, category2);
-        db.update(TABLE_NAME, values3, context.getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(-1)});
+        db.update(TABLE_NAME, values3, getContext().getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(-1)});
 
         db.close();
     }
@@ -131,7 +135,7 @@ class DBCategoryHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(CATEGORY_ORDER, orderNum - 1);
-        db.update(TABLE_NAME, values, context.getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(orderNum)});
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbCategoryOrderQuestion), new String[]{Integer.toString(orderNum)});
 
         db.close();
     }
@@ -139,13 +143,13 @@ class DBCategoryHelper extends SQLiteOpenHelper {
     void deleteCategory(String categoryName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, context.getString(R.string.dbCategoryNameQuestion), new String[]{categoryName});
+        db.delete(TABLE_NAME, getContext().getString(R.string.dbCategoryNameQuestion), new String[]{categoryName});
         db.close();
     }
 
     void deleteDatabase() {
 
-        context.deleteDatabase(DB_NAME);
+        getContext().deleteDatabase(DB_NAME);
 
     }
 }

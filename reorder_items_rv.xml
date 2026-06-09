@@ -18,6 +18,8 @@
         android:layout_marginStart="25dp"
         android:textSize="24sp" />
 
+    <!--Up/Down Arrows-->
+
     <ImageView
         android:id="@+id/triangleDown"
         android:layout_width="36dp"
@@ -33,5 +35,37 @@
         android:src="@mipmap/triangle_up"
         app:layout_constraintRight_toRightOf="parent"
         android:contentDescription="@string/triangleUp" />
+
+
+    <!--Drag and Drop-->
+
+    <ImageView
+        android:id="@+id/dragAndDropEmoji"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/triangle_down"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/dragAndDropEmojis" />
+
+
+    <!--With Numbers-->
+
+    <EditText
+        android:id="@+id/withNumbersEditText"
+        android:layout_width="360dp"
+        android:layout_height="54dp"
+        android:translationX="16dp"
+        android:hint="@string/space"
+        android:background="@drawable/spinner_outline"
+        android:inputType="number" />
+
+    <ImageView
+        android:id="@+id/withNumbersRefreshButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/refresh_icon"
+        app:layout_constraintRight_toRightOf="parent"
+        android:contentDescription="@string/refreshIcon" />
+
 
 </LinearLayout>

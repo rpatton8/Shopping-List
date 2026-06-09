@@ -15,13 +15,18 @@ class SearchAlgorithm {
         termMap = new HashMap<>();
     }
 
+    private Context getContext() {
+        return context;
+    }
+
     void addNewItem(Item item) {
         populateTermMap(item.getName(), item);
         populateTermMap(item.getBrandType(), item);
     }
 
     void removeItem(Item item) {
-        // to do
+        termMap.remove(item.getName());
+        termMap.remove(item.getBrandType());
     }
 
     private void populateTermMap(String string, Item item) {
@@ -33,7 +38,7 @@ class SearchAlgorithm {
                 if (termMap.containsKey(term) && !termMap.get(term).contains(item)) {
                     // map contains term but not item
                     termMap.get(term).add(item);
-                } else if (!term.equals(context.getString(R.string.emptyString))) {
+                } else if (!term.equals(getContext().getString(R.string.emptyString))) {
                     // term is not the empty string and map doesn't contain it
                     itemList.add(item);
                     termMap.put(term, itemList);
