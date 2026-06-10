@@ -590,26 +590,37 @@ public class Shopping extends AppCompatActivity {
         TextView pictureDialogTitle = dialogView.findViewById(R.id.pictureDialogTitle);
         pictureDialogTitle.setText(item.getName());
 
-        Button cameraButton = dialogView.findViewById(R.id.cameraButton);
-        Button takeButton = dialogView.findViewById(R.id.takeButton);
-        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
-        Button editButton = dialogView.findViewById(R.id.editButton);
+        final TextView cameraButton = dialogView.findViewById(R.id.cameraButton);
+        final TextView editButton = dialogView.findViewById(R.id.editButton);
+        final TextView takeButton = dialogView.findViewById(R.id.takeButton);
+        final TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
+
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                /*cameraButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.INVISIBLE);
+                takeButton.setVisibility(View.VISIBLE);*/
 
             }
         });
 
         takeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                /*takeButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
+                cameraButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE);*/
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                /*takeButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
+                cameraButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE);*/
             }
         });
 
