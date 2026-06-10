@@ -658,6 +658,9 @@ public class Shopping extends AppCompatActivity {
             }
 
             void onDoubleClick(View v) {
+                if (pictureDialogInInventory) setPictureDialogInInventory(false);
+                if (pictureDialogInSearchResults) setPictureDialogInSearchResults(false);
+                if (pictureDialogInShoppingList) setPictureDialogInShoppingList(false);
                 pictureDialog.dismiss();
 
             }

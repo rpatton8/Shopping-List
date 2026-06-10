@@ -90,6 +90,8 @@ public class EditItem extends Fragment {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInSearchResults().getCategory().toString());
         } else if (shopping.editItemInShoppingList()) {
             categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInShoppingList().getCategory().toString());
+        } else if (shopping.editItemInPictureDialog()) {
+            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getItemInPictureDialog().getCategory().toString());
         }
         categorySpinner.setSelection(categorySpinnerPosition);
 
@@ -106,6 +108,8 @@ public class EditItem extends Fragment {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInSearchResults().getStore().toString());
         } else if (shopping.editItemInShoppingList()) {
             storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInShoppingList().getStore().toString());
+        } else if (shopping.editItemInPictureDialog()) {
+            storeSpinnerPosition = storeAdapter.getPosition(shopping.getItemInPictureDialog().getStore().toString());
         }
         storeSpinner.setSelection(storeSpinnerPosition);
 
@@ -143,6 +147,8 @@ public class EditItem extends Fragment {
                     oldItemName = shopping.getSelectedItemInSearchResults().getName();
                 } else if (shopping.editItemInShoppingList()) {
                     oldItemName = shopping.getSelectedItemInShoppingList().getName();
+                } else if (shopping.editItemInPictureDialog()) {
+                    oldItemName = shopping.getItemInPictureDialog().getName();
                 }
                 String newItemName = itemNameInput.getText().toString();
                 String itemType = itemTypeInput.getText().toString();
@@ -194,6 +200,8 @@ public class EditItem extends Fragment {
                     shopping.setSelectedItemInSearchResults(shopping.getItemData().getItemMap().get(newItemName));
                 } else if (shopping.editItemInShoppingList()) {
                     shopping.setSelectedItemInShoppingList(shopping.getItemData().getItemMap().get(newItemName));
+                } else if (shopping.editItemInPictureDialog()) {
+                    shopping.setItemInPictureDialog(shopping.getItemData().getItemMap().get(newItemName));
                 }
 
                 shopping.hideKeyboard();
@@ -203,32 +211,32 @@ public class EditItem extends Fragment {
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList()) {
                     shopping.loadFragment(new ShoppingList());
+                } else if (shopping.editItemInPictureDialog()) {
+                    if (shopping.pictureDialogInInventory()) {
+                        shopping.loadFragment(new FullInventory());
+                    } else if (shopping.pictureDialogInSearchResults()) {
+                        shopping.loadFragment(new FullInventory());
+                    } else if  (shopping.pictureDialogInShoppingList()) {
+                        shopping.loadFragment(new ShoppingList());
+                    }
                 }
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                System.out.println("HERE 1");
                 if (shopping.editItemInInventory()) {
-                    System.out.println("HERE 2");
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInSearchResults()) {
-                    System.out.println("HERE 3");
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList()) {
-                    System.out.println("HERE 4");
                     shopping.loadFragment(new ShoppingList());
                 } else if (shopping.editItemInPictureDialog()) {
-                    System.out.println("HERE 5");
                     if (shopping.pictureDialogInInventory()) {
-                        System.out.println("HERE 6");
                         shopping.loadFragment(new FullInventory());
                     } else if (shopping.pictureDialogInSearchResults()) {
-                        System.out.println("HERE 7");
                         shopping.loadFragment(new FullInventory());
                     } else if  (shopping.pictureDialogInShoppingList()) {
-                        System.out.println("HERE 8");
                         shopping.loadFragment(new ShoppingList());
                     }
                 }
