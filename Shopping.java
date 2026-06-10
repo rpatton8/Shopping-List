@@ -32,17 +32,15 @@ public class Shopping extends AppCompatActivity {
     private Boolean itemIsSelectedInInventory;
     private Boolean itemIsSelectedInSearchResults;
     private Boolean itemIsSelectedInShoppingList;
-    //private Boolean itemIsSelectedInPictureDialog;
     private Item selectedItemInInventory;
     private Item selectedItemInSearchResults;
     private Item selectedItemInShoppingList;
-    //private Item selectedItemInPictureDialog;
     private int selectedItemPositionInInventory;
     private int selectedItemPositionInSearchResults;
     private int selectedItemPositionInShoppingList;
-    //private int selectedItemPositionInPictureDialog;
+    private Item itemInPictureDialog;
 
-    private int storeListOrderNum; 
+    private int storeListOrderNum;
     private String reorderItemsCategory;
     private String reorderItemsStore;
     private Boolean editItemInInventory;
@@ -237,14 +235,6 @@ public class Shopping extends AppCompatActivity {
         this.itemIsSelectedInShoppingList = itemIsSelectedInShoppingList;
     }
 
-    /*boolean itemIsSelectedInPictureDialog() {
-        return itemIsSelectedInPictureDialog;
-    }
-
-    void setItemIsSelectedInPictureDialog(boolean itemIsSelectedInPictureDialog) {
-        this.itemIsSelectedInPictureDialog = itemIsSelectedInPictureDialog;
-    }*/
-
     Item getSelectedItemInInventory() {
         return selectedItemInInventory;
     }
@@ -269,14 +259,6 @@ public class Shopping extends AppCompatActivity {
         this.selectedItemInShoppingList = selectedItemInShoppingList;
     }
 
-    Item getSelectedItemInPictureDialog() {
-        return selectedItemInShoppingList;
-    }
-
-    /*void setSelectedItemInPictureDialog(Item selectedItemInPictureDialog) {
-        this.selectedItemInPictureDialog = selectedItemInPictureDialog;
-    }
-*/
     int getSelectedItemPositionInInventory() {
         return selectedItemPositionInInventory;
     }
@@ -301,13 +283,13 @@ public class Shopping extends AppCompatActivity {
         this.selectedItemPositionInShoppingList = selectedItemPositionInShoppingList;
     }
 
-    /*int getSelectedItemPositionInPictureDialog() {
-        return selectedItemPositionInPictureDialog;
+    Item getItemInPictureDialog() {
+        return itemInPictureDialog;
     }
 
-    void setSelectedItemPositionInPictureDialog(int selectedItemPositionInPictureDialog) {
-        this.selectedItemPositionInPictureDialog = selectedItemPositionInPictureDialog;
-    }*/
+    void setItemInPictureDialog(Item itemInPictureDialog) {
+        this.itemInPictureDialog = itemInPictureDialog;
+    }
 
     Boolean editItemInInventory() {
         return editItemInInventory;
@@ -340,8 +322,6 @@ public class Shopping extends AppCompatActivity {
     void setEditItemInPictureDialog(Boolean editItemInPictureDialog) {
         this.editItemInPictureDialog = editItemInPictureDialog;
     }
-
-
 
     Boolean pictureDialogInInventory() {
         return pictureDialogInInventory;
@@ -599,22 +579,41 @@ public class Shopping extends AppCompatActivity {
         alertDialog.show();
     }
 
-    void showPictureDialog(Item item, String fragmennt) {
+    void showPictureDialog(Item item) {
 
+        setItemInPictureDialog(item);
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.picture_dialog, null);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(dialogView);
 
         TextView pictureDialogTitle = dialogView.findViewById(R.id.pictureDialogTitle);
         pictureDialogTitle.setText(item.getName());
 
-        Button cameraButton = dialogView.findViewById(R.id.button1);
-        Button cancelButton = dialogView.findViewById(R.id.button2);
-        Button editButton = dialogView.findViewById(R.id.button3);
-        editButton.setOnClickListener(new View.OnClickListener() {
+        Button cameraButton = dialogView.findViewById(R.id.cameraButton);
+        Button takeButton = dialogView.findViewById(R.id.takeButton);
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+        Button editButton = dialogView.findViewById(R.id.editButton);
 
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
+        takeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setEditItemInPictureDialog(true);
                 setEditItemInInventory(false);
@@ -802,15 +801,12 @@ public class Shopping extends AppCompatActivity {
         itemIsSelectedInInventory = false;
         itemIsSelectedInSearchResults = false;
         itemIsSelectedInShoppingList = false;
-        //itemIsSelectedInPictureDialog = false;
         selectedItemInInventory = null;
         selectedItemInSearchResults = null;
         selectedItemInShoppingList = null;
-        //selectedItemInPictureDialog = null;
         selectedItemPositionInInventory = 0;
         selectedItemPositionInSearchResults = 0;
         selectedItemPositionInShoppingList = 0;
-        //selectedItemPositionInPictureDialog = 0;
 
         storeListOrderNum = 0;
         reorderItemsCategory = getString(R.string.emptyString);

@@ -383,6 +383,9 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     break;
                 }
             }
+            shopping.setPictureDialogInInventory(false);
+            shopping.setPictureDialogInSearchResults(false);
+            shopping.setPictureDialogInShoppingList(true);
             shopping.showPictureDialog(thisItem);
         }
 

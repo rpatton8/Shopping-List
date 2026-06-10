@@ -71,8 +71,8 @@ public class EditItem extends Fragment {
             itemTypeInput.setText(shopping.getSelectedItemInShoppingList().getBrandType());
         } else if (shopping.editItemInPictureDialog()) {
             System.out.println("Edit item in picture dialog");
-            itemNameInput.setText(shopping.getSelectedItemInPictureDialog().getName());
-            itemTypeInput.setText(shopping.getSelectedItemInPictureDialog().getBrandType());
+            itemNameInput.setText(shopping.getItemInPictureDialog().getName());
+            itemTypeInput.setText(shopping.getItemInPictureDialog().getBrandType());
         }
         itemCategoryInput.setText(getString(R.string.emptyString));
         itemStoreInput.setText(getString(R.string.emptyString));
@@ -209,19 +209,26 @@ public class EditItem extends Fragment {
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
+                System.out.println("HERE 1");
                 if (shopping.editItemInInventory()) {
+                    System.out.println("HERE 2");
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInSearchResults()) {
+                    System.out.println("HERE 3");
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList()) {
+                    System.out.println("HERE 4");
                     shopping.loadFragment(new ShoppingList());
                 } else if (shopping.editItemInPictureDialog()) {
+                    System.out.println("HERE 5");
                     if (shopping.pictureDialogInInventory()) {
+                        System.out.println("HERE 6");
                         shopping.loadFragment(new FullInventory());
                     } else if (shopping.pictureDialogInSearchResults()) {
+                        System.out.println("HERE 7");
                         shopping.loadFragment(new FullInventory());
                     } else if  (shopping.pictureDialogInShoppingList()) {
+                        System.out.println("HERE 8");
                         shopping.loadFragment(new ShoppingList());
                     }
                 }

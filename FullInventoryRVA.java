@@ -1250,6 +1250,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     break;
                 }
             }
+            shopping.setPictureDialogInInventory(true);
+            shopping.setPictureDialogInSearchResults(false);
+            shopping.setPictureDialogInShoppingList(false);
             shopping.showPictureDialog(thisItem);
         }
 
@@ -1803,6 +1806,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     break;
                 }
             }
+            shopping.setPictureDialogInInventory(true);
+            shopping.setPictureDialogInSearchResults(false);
+            shopping.setPictureDialogInShoppingList(false);
             shopping.showPictureDialog(thisItem);
         }
 
@@ -2141,6 +2147,9 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
             int position = getAdapterPosition();
             Item thisItem = itemData.getItemListAZ().get(position);
+            shopping.setPictureDialogInInventory(true);
+            shopping.setPictureDialogInSearchResults(false);
+            shopping.setPictureDialogInShoppingList(false);
             shopping.showPictureDialog(thisItem);
 
         }

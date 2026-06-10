@@ -260,8 +260,10 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
             int position = getAdapterPosition();
             Item thisItem = searchResultsList.get(position);
+            shopping.setPictureDialogInInventory(false);
+            shopping.setPictureDialogInSearchResults(true);
+            shopping.setPictureDialogInShoppingList(false);
             shopping.showPictureDialog(thisItem);
-
         }
 
         void onSingleClick(View v) {
