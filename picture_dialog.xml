@@ -34,6 +34,7 @@
 
 
     <LinearLayout
+        android:id="@+id/cameraEditButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -51,20 +52,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/takeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/list_outline_selected"
-            android:text="TAKE"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="visible" />
+            android:paddingBottom="5dp" />
 
         <TextView
             android:layout_width="90dp"
@@ -79,8 +67,35 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="gone" />
+            android:paddingBottom="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/takeCancelButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/takeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/list_outline_selected"
+            android:text="TAKE"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+        <TextView
+            android:layout_width="90dp"
+            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/cancelButton"
@@ -91,12 +106,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="visible" />
-
-
-        <!--camera, edit, and cancel buttons go here-->
-
+            android:paddingBottom="5dp" />
 
     </LinearLayout>
 

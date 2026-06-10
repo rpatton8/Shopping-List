@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Shopping extends AppCompatActivity {
@@ -594,20 +595,26 @@ public class Shopping extends AppCompatActivity {
         final TextView editButton = dialogView.findViewById(R.id.editButton);
         final TextView takeButton = dialogView.findViewById(R.id.takeButton);
         final TextView cancelButton = dialogView.findViewById(R.id.cancelButton);
+        final LinearLayout cameraEditButtons = dialogView.findViewById(R.id.cameraEditButtons);
+        final LinearLayout takeCancelButtons = dialogView.findViewById(R.id.takeCancelButtons);
 
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                cameraEditButtons.setVisibility(View.GONE);
+                takeCancelButtons.setVisibility(View.VISIBLE);
                 /*cameraButton.setVisibility(View.INVISIBLE);
-                cancelButton.setVisibility(View.VISIBLE);
                 editButton.setVisibility(View.INVISIBLE);
-                takeButton.setVisibility(View.VISIBLE);*/
+                takeButton.setVisibility(View.VISIBLE);
+                cancelButton.setVisibility(View.VISIBLE);*/
 
             }
         });
 
         takeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                takeCancelButtons.setVisibility(View.GONE);
+                cameraEditButtons.setVisibility(View.VISIBLE);
                 /*takeButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
                 cameraButton.setVisibility(View.VISIBLE);
@@ -617,6 +624,8 @@ public class Shopping extends AppCompatActivity {
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                takeCancelButtons.setVisibility(View.GONE);
+                cameraEditButtons.setVisibility(View.VISIBLE);
                 /*takeButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
                 cameraButton.setVisibility(View.VISIBLE);
