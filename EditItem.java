@@ -69,6 +69,10 @@ public class EditItem extends Fragment {
             System.out.println("Edit item in shopping list");
             itemNameInput.setText(shopping.getSelectedItemInShoppingList().getName());
             itemTypeInput.setText(shopping.getSelectedItemInShoppingList().getBrandType());
+        } else if (shopping.editItemInPictureDialog()) {
+            System.out.println("Edit item in picture dialog");
+            itemNameInput.setText(shopping.getSelectedItemInPictureDialog().getName());
+            itemTypeInput.setText(shopping.getSelectedItemInPictureDialog().getBrandType());
         }
         itemCategoryInput.setText(getString(R.string.emptyString));
         itemStoreInput.setText(getString(R.string.emptyString));
@@ -212,6 +216,14 @@ public class EditItem extends Fragment {
                     shopping.loadFragment(new FullInventory());
                 } else if (shopping.editItemInShoppingList()) {
                     shopping.loadFragment(new ShoppingList());
+                } else if (shopping.editItemInPictureDialog()) {
+                    if (shopping.pictureDialogInInventory()) {
+                        shopping.loadFragment(new FullInventory());
+                    } else if (shopping.pictureDialogInSearchResults()) {
+                        shopping.loadFragment(new FullInventory());
+                    } else if  (shopping.pictureDialogInShoppingList()) {
+                        shopping.loadFragment(new ShoppingList());
+                    }
                 }
             }
         });

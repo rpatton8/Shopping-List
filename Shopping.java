@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +32,15 @@ public class Shopping extends AppCompatActivity {
     private Boolean itemIsSelectedInInventory;
     private Boolean itemIsSelectedInSearchResults;
     private Boolean itemIsSelectedInShoppingList;
+    //private Boolean itemIsSelectedInPictureDialog;
     private Item selectedItemInInventory;
     private Item selectedItemInSearchResults;
     private Item selectedItemInShoppingList;
+    //private Item selectedItemInPictureDialog;
     private int selectedItemPositionInInventory;
     private int selectedItemPositionInSearchResults;
     private int selectedItemPositionInShoppingList;
+    //private int selectedItemPositionInPictureDialog;
 
     private int storeListOrderNum; 
     private String reorderItemsCategory;
@@ -44,7 +48,13 @@ public class Shopping extends AppCompatActivity {
     private Boolean editItemInInventory;
     private Boolean editItemInSearchResults;
     private Boolean editItemInShoppingList;
+    private Boolean editItemInPictureDialog;
+    private Boolean pictureDialogInInventory;
+    private Boolean pictureDialogInSearchResults;
+    private Boolean pictureDialogInShoppingList;
     private SearchAlgorithm searchAlgorithm;
+    private AlertDialog alertDialog;
+    private AlertDialog pictureDialog;
 
     private String inventoryView;
     static final String VIEW_ALL = ShoppingApp.getStringRes(R.string.cvViewAll);
@@ -227,6 +237,14 @@ public class Shopping extends AppCompatActivity {
         this.itemIsSelectedInShoppingList = itemIsSelectedInShoppingList;
     }
 
+    /*boolean itemIsSelectedInPictureDialog() {
+        return itemIsSelectedInPictureDialog;
+    }
+
+    void setItemIsSelectedInPictureDialog(boolean itemIsSelectedInPictureDialog) {
+        this.itemIsSelectedInPictureDialog = itemIsSelectedInPictureDialog;
+    }*/
+
     Item getSelectedItemInInventory() {
         return selectedItemInInventory;
     }
@@ -251,6 +269,14 @@ public class Shopping extends AppCompatActivity {
         this.selectedItemInShoppingList = selectedItemInShoppingList;
     }
 
+    Item getSelectedItemInPictureDialog() {
+        return selectedItemInShoppingList;
+    }
+
+    /*void setSelectedItemInPictureDialog(Item selectedItemInPictureDialog) {
+        this.selectedItemInPictureDialog = selectedItemInPictureDialog;
+    }
+*/
     int getSelectedItemPositionInInventory() {
         return selectedItemPositionInInventory;
     }
@@ -275,6 +301,14 @@ public class Shopping extends AppCompatActivity {
         this.selectedItemPositionInShoppingList = selectedItemPositionInShoppingList;
     }
 
+    /*int getSelectedItemPositionInPictureDialog() {
+        return selectedItemPositionInPictureDialog;
+    }
+
+    void setSelectedItemPositionInPictureDialog(int selectedItemPositionInPictureDialog) {
+        this.selectedItemPositionInPictureDialog = selectedItemPositionInPictureDialog;
+    }*/
+
     Boolean editItemInInventory() {
         return editItemInInventory;
     }
@@ -297,6 +331,40 @@ public class Shopping extends AppCompatActivity {
 
     void setEditItemInShoppingList(Boolean editItemInShoppingList) {
         this.editItemInShoppingList = editItemInShoppingList;
+    }
+
+    Boolean editItemInPictureDialog() {
+        return editItemInPictureDialog;
+    }
+
+    void setEditItemInPictureDialog(Boolean editItemInPictureDialog) {
+        this.editItemInPictureDialog = editItemInPictureDialog;
+    }
+
+
+
+    Boolean pictureDialogInInventory() {
+        return pictureDialogInInventory;
+    }
+
+    void setPictureDialogInInventory(Boolean pictureDialogInInventory) {
+        this.pictureDialogInInventory = pictureDialogInInventory;
+    }
+
+    Boolean pictureDialogInSearchResults() {
+        return pictureDialogInSearchResults;
+    }
+
+    void setPictureDialogInSearchResults(Boolean pictureDialogInSearchResults) {
+        this.pictureDialogInSearchResults = pictureDialogInSearchResults;
+    }
+
+    Boolean pictureDialogInShoppingList() {
+        return pictureDialogInShoppingList;
+    }
+
+    void setPictureDialogInShoppingList(Boolean pictureDialogInShoppingList) {
+        this.pictureDialogInShoppingList = pictureDialogInShoppingList;
     }
 
     String getInventoryView() {
@@ -524,14 +592,14 @@ public class Shopping extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.2f);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.show();
+        alertDialog = builder.create();
+        alertDialog.getWindow().setDimAmount(0.2f);
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(false);
+        alertDialog.show();
     }
 
-    void showPictureDialog(Item item) {
+    void showPictureDialog(Item item, String fragmennt) {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         View dialogView = inflater.inflate(R.layout.picture_dialog, null);
@@ -542,9 +610,44 @@ public class Shopping extends AppCompatActivity {
         TextView pictureDialogTitle = dialogView.findViewById(R.id.pictureDialogTitle);
         pictureDialogTitle.setText(item.getName());
 
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setDimAmount(0.2f);
-        dialog.show();
+        Button cameraButton = dialogView.findViewById(R.id.button1);
+        Button cancelButton = dialogView.findViewById(R.id.button2);
+        Button editButton = dialogView.findViewById(R.id.button3);
+        editButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                setEditItemInPictureDialog(true);
+                setEditItemInInventory(false);
+                setEditItemInSearchResults(false);
+                setEditItemInShoppingList(false);
+                pictureDialog.dismiss();
+                loadFragment(new EditItem());
+            }
+        });
+
+        dialogView.setOnClickListener(new View.OnClickListener() {
+
+            private long doubleClickTimeout = 400;
+            private long lastClickTime = 0;
+
+            public void onClick(View v) {
+                long clickTime = SystemClock.uptimeMillis();
+                if (clickTime - lastClickTime < doubleClickTimeout) {
+                    onDoubleClick(v);
+                }
+                lastClickTime = clickTime;
+            }
+
+            void onDoubleClick(View v) {
+                pictureDialog.dismiss();
+
+            }
+        });
+
+        pictureDialog = builder.create();
+        pictureDialog = builder.create();
+        pictureDialog.getWindow().setDimAmount(0.2f);
+        pictureDialog.show();
     }
 
     void showKeyboard() {
@@ -699,12 +802,15 @@ public class Shopping extends AppCompatActivity {
         itemIsSelectedInInventory = false;
         itemIsSelectedInSearchResults = false;
         itemIsSelectedInShoppingList = false;
+        //itemIsSelectedInPictureDialog = false;
         selectedItemInInventory = null;
         selectedItemInSearchResults = null;
         selectedItemInShoppingList = null;
+        //selectedItemInPictureDialog = null;
         selectedItemPositionInInventory = 0;
         selectedItemPositionInSearchResults = 0;
         selectedItemPositionInShoppingList = 0;
+        //selectedItemPositionInPictureDialog = 0;
 
         storeListOrderNum = 0;
         reorderItemsCategory = getString(R.string.emptyString);
@@ -712,6 +818,10 @@ public class Shopping extends AppCompatActivity {
         editItemInInventory = false;
         editItemInSearchResults = false;
         editItemInShoppingList = false;
+        editItemInPictureDialog = false;
+        pictureDialogInInventory = false;
+        pictureDialogInSearchResults = false;
+        pictureDialogInShoppingList = false;
 
         inventoryView = VIEW_ALL;
         inventorySortBy = defaultSortBy;

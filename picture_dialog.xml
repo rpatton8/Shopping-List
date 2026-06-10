@@ -44,6 +44,12 @@
             android:layout_height="48dp"
             android:background="@mipmap/triangle_down" />
 
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@mipmap/triangle_right" />
+
 
         <!--camera, edit, and cancel buttons go here-->
 
