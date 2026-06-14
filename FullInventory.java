@@ -119,7 +119,7 @@ public class FullInventory extends Fragment {
         fullInventoryRecyclerView = view.findViewById(R.id.fullInventoryRecyclerView);
         fullInventoryRecyclerView.setHasFixedSize(false);
         fullInventoryRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        fullInventoryAdapter = new FullInventoryRVA(shopping, getContext(), itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
+        fullInventoryAdapter = new FullInventoryRVA(getView(), getContext(), shopping,  itemData, categoryData, storeData, dbStatusHelper, dbStoreHelper, dbCategoryHelper);
         fullInventoryRecyclerView.setAdapter(fullInventoryAdapter);
         fullInventoryRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getFullInventoryViewState());
 

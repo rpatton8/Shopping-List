@@ -53,7 +53,7 @@ public class ShoppingList extends Fragment {
         shoppingListRecyclerView = view.findViewById(R.id.shoppingListRecyclerView);
         shoppingListRecyclerView.setHasFixedSize(false);
         shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        shoppingListAdapter = new ShoppingListRVA(shopping, itemData, storeData);
+        shoppingListAdapter = new ShoppingListRVA(getView(), shopping, itemData, storeData);
         shoppingListRecyclerView.setAdapter(shoppingListAdapter);
         shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getShoppingListViewState());
 

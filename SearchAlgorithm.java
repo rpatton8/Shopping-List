@@ -22,15 +22,15 @@ class SearchAlgorithm {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public HashMap<String, ArrayList<Item>> getTermMap() {
+    private HashMap<String, ArrayList<Item>> getTermMap() {
         return termMap;
     }
 
-    public void setTermMap(HashMap<String, ArrayList<Item>> termMap) {
+    private void setTermMap(HashMap<String, ArrayList<Item>> termMap) {
         getThis().termMap = termMap;
     }
 
@@ -39,7 +39,7 @@ class SearchAlgorithm {
         populateTermMap(item.getBrandType(), item);
     }
 
-    void removeItem(Item item) {
+    private void removeItem(Item item) {
         getTermMap().remove(item.getItemName());
         getTermMap().remove(item.getBrandType());
     }

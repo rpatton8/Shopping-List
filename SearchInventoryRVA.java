@@ -33,11 +33,11 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         return this;
     }
 
-    public View getView() {
+    private View getView() {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
@@ -45,39 +45,39 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public SearchAlgorithm getSearchAlgorithm() {
+    private SearchAlgorithm getSearchAlgorithm() {
         return searchAlgorithm;
     }
 
-    public void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
+    private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
         getThis().searchAlgorithm = searchAlgorithm;
     }
 
-    public String getCurrentSearchTerm() {
+    private String getCurrentSearchTerm() {
         return currentSearchTerm;
     }
 
-    public void setCurrentSearchTerm(String currentSearchTerm) {
+    void setCurrentSearchTerm(String currentSearchTerm) {
         getThis().currentSearchTerm = currentSearchTerm;
     }
 
-    public ArrayList<Item> getSearchResultsList() {
+    private ArrayList<Item> getSearchResultsList() {
         return searchResultsList;
     }
 
-    public void setSearchResultsList(ArrayList<Item> searchResultsList) {
+    private void setSearchResultsList(ArrayList<Item> searchResultsList) {
         getThis().searchResultsList = searchResultsList;
     }
 
@@ -86,7 +86,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        setView(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
         return new SearchInventoryRVH(getView(), getContext(), getShopping(), getThis());
     }
 
@@ -94,7 +94,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         Item thisItem = null;
         if (!getCurrentSearchTerm().equals(getContext().getString(R.string.emptyString))) {
-            setSearchResultsList(getSearchAlgorithm().getSearchResults(currentSearchTerm));
+            setSearchResultsList(getSearchAlgorithm().getSearchResults(getCurrentSearchTerm()));
             thisItem = getSearchResultsList().get(position);
         }
 
@@ -163,13 +163,13 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     }
 
     public int getItemCount() {
-        return searchAlgorithm.numSearchResults(currentSearchTerm);
+        return getSearchAlgorithm().numSearchResults(getCurrentSearchTerm());
     }
 
     private class SearchInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Shopping shopping;
         private Context context;
+        private Shopping shopping;
         private SearchInventoryRVA adapter;
         private ItemData itemData;
         private CategoryData categoryData;
@@ -256,223 +256,223 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             return this;
         }
 
-        public Shopping getShopping() {
+        private Shopping getShopping() {
             return shopping;
         }
 
-        public void setShopping(Shopping shopping) {
+        private void setShopping(Shopping shopping) {
             getThis().shopping = shopping;
         }
 
-        public Context getContext() {
+        private Context getContext() {
             return context;
         }
 
-        public void setContext(Context context) {
+        private void setContext(Context context) {
             getThis().context = context;
         }
 
-        public SearchInventoryRVA getAdapter() {
+        private SearchInventoryRVA getAdapter() {
             return adapter;
         }
 
-        public void setAdapter(SearchInventoryRVA adapter) {
+        private void setAdapter(SearchInventoryRVA adapter) {
             getThis().adapter = adapter;
         }
 
-        public ItemData getItemData() {
+        private ItemData getItemData() {
             return itemData;
         }
 
-        public void setItemData(ItemData itemData) {
+        private void setItemData(ItemData itemData) {
             getThis().itemData = itemData;
         }
 
-        public CategoryData getCategoryData() {
+        private CategoryData getCategoryData() {
             return categoryData;
         }
 
-        public void setCategoryData(CategoryData categoryData) {
+        private void setCategoryData(CategoryData categoryData) {
             getThis().categoryData = categoryData;
         }
 
-        public DBStatusHelper getDbStatusHelper() {
+        private DBStatusHelper getDbStatusHelper() {
             return dbStatusHelper;
         }
 
-        public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
             getThis().dbStatusHelper = dbStatusHelper;
         }
 
-        public Button getTriangleRight() {
+        private Button getTriangleRight() {
             return triangleRight;
         }
 
-        public void setTriangleRight(Button triangleRight) {
+        private void setTriangleRight(Button triangleRight) {
             getThis().triangleRight = triangleRight;
         }
 
-        public Button getTriangleDown() {
+        private Button getTriangleDown() {
             return triangleDown;
         }
 
-        public void setTriangleDown(Button triangleDown) {
+        private void setTriangleDown(Button triangleDown) {
             getThis().triangleDown = triangleDown;
         }
 
-        public LinearLayout getItemSmall() {
+        private LinearLayout getItemSmall() {
             return itemSmall;
         }
 
-        public void setItemSmall(LinearLayout itemSmall) {
+        private void setItemSmall(LinearLayout itemSmall) {
             getThis().itemSmall = itemSmall;
         }
 
-        public LinearLayout getItemLarge() {
+        private LinearLayout getItemLarge() {
             return itemLarge;
         }
 
-        public void setItemLarge(LinearLayout itemLarge) {
+        private void setItemLarge(LinearLayout itemLarge) {
             getThis().itemLarge = itemLarge;
         }
 
-        public TextView getItemSmallName() {
+        private TextView getItemSmallName() {
             return itemSmallName;
         }
 
-        public void setItemSmallName(TextView itemSmallName) {
+        private void setItemSmallName(TextView itemSmallName) {
             getThis().itemSmallName = itemSmallName;
         }
 
-        public TextView getItemLargeName() {
+        private TextView getItemLargeName() {
             return itemLargeName;
         }
 
-        public void setItemLargeName(TextView itemLargeName) {
+        private void setItemLargeName(TextView itemLargeName) {
             getThis().itemLargeName = itemLargeName;
         }
 
-        public TextView getItemSmallInStock() {
+        private TextView getItemSmallInStock() {
             return itemSmallInStock;
         }
 
-        public void setItemSmallInStock(TextView itemSmallInStock) {
+        private void setItemSmallInStock(TextView itemSmallInStock) {
             getThis().itemSmallInStock = itemSmallInStock;
         }
 
-        public TextView getItemSmallNeeded() {
+        private TextView getItemSmallNeeded() {
             return itemSmallNeeded;
         }
 
-        public void setItemSmallNeeded(TextView itemSmallNeeded) {
+        private void setItemSmallNeeded(TextView itemSmallNeeded) {
             getThis().itemSmallNeeded = itemSmallNeeded;
         }
 
-        public TextView getItemSmallPaused() {
+        private TextView getItemSmallPaused() {
             return itemSmallPaused;
         }
 
-        public void setItemSmallPaused(TextView itemSmallPaused) {
+        private void setItemSmallPaused(TextView itemSmallPaused) {
             getThis().itemSmallPaused = itemSmallPaused;
         }
 
-        public TextView getItemSmallBrand() {
+        private TextView getItemSmallBrand() {
             return itemSmallBrand;
         }
 
-        public void setItemSmallBrand(TextView itemSmallBrand) {
+        private void setItemSmallBrand(TextView itemSmallBrand) {
             getThis().itemSmallBrand = itemSmallBrand;
         }
 
-        public TextView getItemSmallBrandLabel() {
+        private TextView getItemSmallBrandLabel() {
             return itemSmallBrandLabel;
         }
 
-        public void setItemSmallBrandLabel(TextView itemSmallBrandLabel) {
+        private void setItemSmallBrandLabel(TextView itemSmallBrandLabel) {
             getThis().itemSmallBrandLabel = itemSmallBrandLabel;
         }
 
-        public TextView getItemLargeInStock() {
+        private TextView getItemLargeInStock() {
             return itemLargeInStock;
         }
 
-        public void setItemLargeInStock(TextView itemLargeInStock) {
+        private void setItemLargeInStock(TextView itemLargeInStock) {
             getThis().itemLargeInStock = itemLargeInStock;
         }
 
-        public TextView getItemLargeNeeded() {
+        private TextView getItemLargeNeeded() {
             return itemLargeNeeded;
         }
 
-        public void setItemLargeNeeded(TextView itemLargeNeeded) {
+        private void setItemLargeNeeded(TextView itemLargeNeeded) {
             getThis().itemLargeNeeded = itemLargeNeeded;
         }
 
-        public TextView getItemLargePaused() {
+        private TextView getItemLargePaused() {
             return itemLargePaused;
         }
 
-        public void setItemLargePaused(TextView itemLargePaused) {
+        private void setItemLargePaused(TextView itemLargePaused) {
             getThis().itemLargePaused = itemLargePaused;
         }
 
-        public TextView getItemLargeBrand() {
+        private TextView getItemLargeBrand() {
             return itemLargeBrand;
         }
 
-        public void setItemLargeBrand(TextView itemLargeBrand) {
+        private void setItemLargeBrand(TextView itemLargeBrand) {
             getThis().itemLargeBrand = itemLargeBrand;
         }
 
-        public TextView getItemLargeBrandLabel() {
+        private TextView getItemLargeBrandLabel() {
             return itemLargeBrandLabel;
         }
 
-        public void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
+        private void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
             getThis().itemLargeBrandLabel = itemLargeBrandLabel;
         }
 
-        public TextView getItemLargeCategory() {
+        private TextView getItemLargeCategory() {
             return itemLargeCategory;
         }
 
-        public void setItemLargeCategory(TextView itemLargeCategory) {
+        private void setItemLargeCategory(TextView itemLargeCategory) {
             getThis().itemLargeCategory = itemLargeCategory;
         }
 
-        public TextView getItemLargeCategoryLabel() {
+        private TextView getItemLargeCategoryLabel() {
             return itemLargeCategoryLabel;
         }
 
-        public void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
+        private void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
             getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
         }
 
-        public TextView getItemLargeStore() {
+        private TextView getItemLargeStore() {
             return itemLargeStore;
         }
 
-        public void setItemLargeStore(TextView itemLargeStore) {
+        private void setItemLargeStore(TextView itemLargeStore) {
             getThis().itemLargeStore = itemLargeStore;
         }
 
-        public TextView getItemLargeStoreLabel() {
+        private TextView getItemLargeStoreLabel() {
             return itemLargeStoreLabel;
         }
 
-        public void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
+        private void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
             getThis().itemLargeStoreLabel = itemLargeStoreLabel;
         }
 
-        public long getDoubleClickTimeout() {
+        private long getDoubleClickTimeout() {
             return doubleClickTimeout;
         }
 
-        public long getLastClickTime() {
+        private long getLastClickTime() {
             return lastClickTime;
         }
 
-        public void setLastClickTime(long lastClickTime) {
+        private void setLastClickTime(long lastClickTime) {
             getThis().lastClickTime = lastClickTime;
         }
 
@@ -542,105 +542,105 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             int id = v.getId();
             int position = getAdapterPosition();
 
-            Item thisItem = searchResultsList.get(position);
+            Item thisItem = getSearchResultsList().get(position);
 
-            if (id == itemSmallName.getId()) {
+            if (id == getItemSmallName().getId()) {
                 selectOrUnselectItem(position);
-            } else if (id == itemLargeName.getId()) {
+            } else if (id == getItemLargeName().getId()) {
                 selectOrUnselectItem(position);
-            } else if (id == itemLargeBrandLabel.getId()) {
+            } else if (id == getItemLargeBrandLabel().getId()) {
                 selectOrUnselectItem(position);
-            } else if (id == itemLargeBrand.getId()) {
+            } else if (id == getItemLargeBrand().getId()) {
                 selectOrUnselectItem(position);
-            } else if (id == triangleRight.getId()) {
-                if (triangleRight.getVisibility() == View.VISIBLE && triangleDown.getVisibility() == View.GONE) {
-                    triangleRight.setVisibility(View.GONE);
-                    triangleDown.setVisibility(View.VISIBLE);
-                    itemSmall.setVisibility(View.GONE);
-                    itemLarge.setVisibility(View.VISIBLE);
+            } else if (id == getTriangleRight().getId()) {
+                if (getTriangleRight().getVisibility() == View.VISIBLE && getTriangleDown().getVisibility() == View.GONE) {
+                    getTriangleRight().setVisibility(View.GONE);
+                    getTriangleDown().setVisibility(View.VISIBLE);
+                    getItemSmall().setVisibility(View.GONE);
+                    getItemLarge().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsExpandedInSearchResults();
                 }
-            } else if (id == triangleDown.getId()) {
-                if (triangleDown.getVisibility() == View.VISIBLE && triangleRight.getVisibility() == View.GONE) {
-                    triangleDown.setVisibility(View.GONE);
-                    triangleRight.setVisibility(View.VISIBLE);
-                    itemLarge.setVisibility(View.GONE);
-                    itemSmall.setVisibility(View.VISIBLE);
+            } else if (id == getTriangleDown().getId()) {
+                if (getTriangleDown().getVisibility() == View.VISIBLE && getTriangleRight().getVisibility() == View.GONE) {
+                    getTriangleDown().setVisibility(View.GONE);
+                    getTriangleRight().setVisibility(View.VISIBLE);
+                    getItemLarge().setVisibility(View.GONE);
+                    getItemSmall().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsContractedInSearchResults();
                 }
-            } else if (id == itemSmallInStock.getId()) {
-                if (itemSmallInStock.getVisibility() == View.VISIBLE) {
-                    itemSmallInStock.setVisibility(View.GONE);
-                    itemLargeInStock.setVisibility(View.GONE);
-                    itemSmallPaused.setVisibility(View.GONE);
-                    itemLargePaused.setVisibility(View.GONE);
-                    itemSmallNeeded.setVisibility(View.VISIBLE);
-                    itemLargeNeeded.setVisibility(View.VISIBLE);
+            } else if (id == getItemSmallInStock().getId()) {
+                if (getItemSmallInStock().getVisibility() == View.VISIBLE) {
+                    getItemSmallInStock().setVisibility(View.GONE);
+                    getItemLargeInStock().setVisibility(View.GONE);
+                    getItemSmallPaused().setVisibility(View.GONE);
+                    getItemLargePaused().setVisibility(View.GONE);
+                    getItemSmallNeeded().setVisibility(View.VISIBLE);
+                    getItemLargeNeeded().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
-            } else if (id == itemSmallNeeded.getId()) {
-                if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
-                    itemSmallNeeded.setVisibility(View.GONE);
-                    itemLargeNeeded.setVisibility(View.GONE);
-                    itemSmallInStock.setVisibility(View.GONE);
-                    itemLargeInStock.setVisibility(View.GONE);
-                    itemSmallPaused.setVisibility(View.VISIBLE);
-                    itemLargePaused.setVisibility(View.VISIBLE);
+            } else if (id == getItemSmallNeeded().getId()) {
+                if (getItemSmallNeeded().getVisibility() == View.VISIBLE) {
+                    getItemSmallNeeded().setVisibility(View.GONE);
+                    getItemLargeNeeded().setVisibility(View.GONE);
+                    getItemSmallInStock().setVisibility(View.GONE);
+                    getItemLargeInStock().setVisibility(View.GONE);
+                    getItemSmallPaused().setVisibility(View.VISIBLE);
+                    getItemLargePaused().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
-            } else if (id == itemSmallPaused.getId()) {
-                if (itemSmallPaused.getVisibility() == View.VISIBLE) {
-                    itemSmallPaused.setVisibility(View.GONE);
-                    itemLargePaused.setVisibility(View.GONE);
-                    itemSmallNeeded.setVisibility(View.GONE);
-                    itemLargeNeeded.setVisibility(View.GONE);
-                    itemSmallInStock.setVisibility(View.VISIBLE);
-                    itemLargeInStock.setVisibility(View.VISIBLE);
+            } else if (id == getItemSmallPaused().getId()) {
+                if (getItemSmallPaused().getVisibility() == View.VISIBLE) {
+                    getItemSmallPaused().setVisibility(View.GONE);
+                    getItemLargePaused().setVisibility(View.GONE);
+                    getItemSmallNeeded().setVisibility(View.GONE);
+                    getItemLargeNeeded().setVisibility(View.GONE);
+                    getItemSmallInStock().setVisibility(View.VISIBLE);
+                    getItemLargeInStock().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
-            } else if (id == itemLargeInStock.getId()) {
-                if (itemLargeInStock.getVisibility() == View.VISIBLE) {
-                    itemLargeInStock.setVisibility(View.GONE);
-                    itemSmallInStock.setVisibility(View.GONE);
-                    itemLargePaused.setVisibility(View.GONE);
-                    itemSmallPaused.setVisibility(View.GONE);
-                    itemLargeNeeded.setVisibility(View.VISIBLE);
-                    itemSmallNeeded.setVisibility(View.VISIBLE);
+            } else if (id == getItemLargeInStock().getId()) {
+                if (getItemLargeInStock().getVisibility() == View.VISIBLE) {
+                    getItemLargeInStock().setVisibility(View.GONE);
+                    getItemSmallInStock().setVisibility(View.GONE);
+                    getItemLargePaused().setVisibility(View.GONE);
+                    getItemSmallPaused().setVisibility(View.GONE);
+                    getItemLargeNeeded().setVisibility(View.VISIBLE);
+                    getItemSmallNeeded().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
-            } else if (id == itemLargeNeeded.getId()) {
-                if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
-                    itemLargeNeeded.setVisibility(View.GONE);
-                    itemSmallNeeded.setVisibility(View.GONE);
-                    itemLargeInStock.setVisibility(View.GONE);
-                    itemSmallInStock.setVisibility(View.GONE);
-                    itemLargePaused.setVisibility(View.VISIBLE);
-                    itemSmallPaused.setVisibility(View.VISIBLE);
+            } else if (id == getItemLargeNeeded().getId()) {
+                if (getItemLargeNeeded().getVisibility() == View.VISIBLE) {
+                    getItemLargeNeeded().setVisibility(View.GONE);
+                    getItemSmallNeeded().setVisibility(View.GONE);
+                    getItemLargeInStock().setVisibility(View.GONE);
+                    getItemSmallInStock().setVisibility(View.GONE);
+                    getItemLargePaused().setVisibility(View.VISIBLE);
+                    getItemSmallPaused().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
-            } else if (id == itemLargePaused.getId()) {
-                if (itemLargePaused.getVisibility() == View.VISIBLE) {
-                    itemLargePaused.setVisibility(View.GONE);
-                    itemSmallPaused.setVisibility(View.GONE);
-                    itemLargeNeeded.setVisibility(View.GONE);
-                    itemSmallNeeded.setVisibility(View.GONE);
-                    itemLargeInStock.setVisibility(View.VISIBLE);
-                    itemSmallInStock.setVisibility(View.VISIBLE);
+            } else if (id == getItemLargePaused().getId()) {
+                if (getItemLargePaused().getVisibility() == View.VISIBLE) {
+                    getItemLargePaused().setVisibility(View.GONE);
+                    getItemSmallPaused().setVisibility(View.GONE);
+                    getItemLargeNeeded().setVisibility(View.GONE);
+                    getItemSmallNeeded().setVisibility(View.GONE);
+                    getItemLargeInStock().setVisibility(View.VISIBLE);
+                    getItemSmallInStock().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
             }
         }
