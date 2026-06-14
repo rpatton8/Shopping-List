@@ -561,7 +561,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             setLastClickTime(clickTime);
         }
 
-        void onDoubleClick(View v) {
+        private void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
             String store;
@@ -593,7 +593,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             getShopping().showPictureDialog(thisItem);
         }
 
-        void onSingleClick(View v) {
+        private void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();

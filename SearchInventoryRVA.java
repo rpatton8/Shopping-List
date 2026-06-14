@@ -527,7 +527,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             setLastClickTime(clickTime);
         }
 
-        void onDoubleClick(View v) {
+        private void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
             Item thisItem = getSearchResultsList().get(position);
@@ -537,7 +537,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             getShopping().showPictureDialog(thisItem);
         }
 
-        void onSingleClick(View v) {
+        private void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();

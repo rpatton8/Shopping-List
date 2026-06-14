@@ -1111,20 +1111,20 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             getThis().triangleButtonLeft = triangleButtonLeft;
         }
 
-        boolean isExpanded() {
+        private boolean isExpanded() {
             return isExpanded;
         }
 
-        void setAsExpanded() {
+        private void setAsExpanded() {
             isExpanded = true;
             isContracted = false;
         }
 
-        boolean isContracted() {
+        private boolean isContracted() {
             return isContracted;
         }
 
-        void setAsContracted() {
+        private void setAsContracted() {
             isExpanded = false;
             isContracted = true;
         }
@@ -1603,7 +1603,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             setLastClickTime(clickTime);
         }
 
-        void onDoubleClick(View v) {
+        private void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
             String category;
@@ -1635,7 +1635,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             getShopping().showPictureDialog(thisItem);
         }
 
-        void onSingleClick(View v) {
+        private void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();
@@ -2476,7 +2476,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             setLastClickTime(clickTime);
         }
 
-        void onDoubleClick(View v) {
+        private void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
             String store;
@@ -2508,7 +2508,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             getShopping().showPictureDialog(thisItem);
         }
 
-        void onSingleClick(View v) {
+        private void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();
@@ -3037,7 +3037,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             setLastClickTime(clickTime);
         }
 
-        void onDoubleClick(View v) {
+        private void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
             Item thisItem = getItemData().getItemListAZ().get(position);
@@ -3048,7 +3048,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         }
 
-        void onSingleClick(View v) {
+        private void onSingleClick(View v) {
 
             int id = v.getId();
             int position = getAdapterPosition();
