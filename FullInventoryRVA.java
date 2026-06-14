@@ -13,29 +13,93 @@ import android.widget.TextView;
 
 class FullInventoryRVA extends RecyclerView.Adapter {
 
-    private Shopping shopping;
     private Context context;
+    private Shopping shopping;
     private ItemData itemData;
-    private StoreData storeData;
     private CategoryData categoryData;
+    private StoreData storeData;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
     FullInventoryRVA(Shopping shopping, Context context, ItemData itemData, CategoryData categoryData, StoreData storeData,
                      DBStatusHelper dbStatus, DBStoreHelper dbStore, DBCategoryHelper dbCategory) {
-        this.shopping = shopping;
         this.context = context;
+        this.shopping = shopping;
         this.itemData = itemData;
         this.categoryData = categoryData;
         this.storeData = storeData;
         this.dbStatusHelper = dbStatus;
-        this.dbStoreHelper = dbStore;
         this.dbCategoryHelper = dbCategory;
+        this.dbStoreHelper = dbStore;
+    }
+
+    private FullInventoryRVA getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
+    }
+
+    public void setContext(Context context) {
+        getThis().context = context;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBStatusHelper getDbStatusHelper() {
+        return dbStatusHelper;
+    }
+
+    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        getThis().dbStatusHelper = dbStatusHelper;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
     }
 
     public int getItemViewType(int position) {
@@ -209,8 +273,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
 
             if (thisItem.getStatus().isExpandedInInventory()) {
-                categoryItemHolder.itemSmallName.setText(thisItem.getName());
-                categoryItemHolder.itemLargeName.setText(thisItem.getName());
+                categoryItemHolder.itemSmallName.setText(thisItem.getItemName());
+                categoryItemHolder.itemLargeName.setText(thisItem.getItemName());
                 categoryItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
                 categoryItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
                 categoryItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -219,8 +283,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 categoryItemHolder.itemSmall.setVisibility(View.GONE);
                 categoryItemHolder.itemLarge.setVisibility(View.VISIBLE);
             } else if (thisItem.getStatus().isContractedInInventory()) {
-                categoryItemHolder.itemSmallName.setText(thisItem.getName());
-                categoryItemHolder.itemLargeName.setText(thisItem.getName());
+                categoryItemHolder.itemSmallName.setText(thisItem.getItemName());
+                categoryItemHolder.itemLargeName.setText(thisItem.getItemName());
                 categoryItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
                 categoryItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
                 categoryItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -487,8 +551,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             }
 
             if (thisItem.getStatus().isExpandedInInventory()) {
-                storeItemHolder.itemSmallName.setText(thisItem.getName());
-                storeItemHolder.itemLargeName.setText(thisItem.getName());
+                storeItemHolder.itemSmallName.setText(thisItem.getItemName());
+                storeItemHolder.itemLargeName.setText(thisItem.getItemName());
                 storeItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
                 storeItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
                 storeItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -497,8 +561,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 storeItemHolder.itemSmall.setVisibility(View.GONE);
                 storeItemHolder.itemLarge.setVisibility(View.VISIBLE);
             } else if (thisItem.getStatus().isContractedInInventory()) {
-                storeItemHolder.itemSmallName.setText(thisItem.getName());
-                storeItemHolder.itemLargeName.setText(thisItem.getName());
+                storeItemHolder.itemSmallName.setText(thisItem.getItemName());
+                storeItemHolder.itemLargeName.setText(thisItem.getItemName());
                 storeItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
                 storeItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
                 storeItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -687,8 +751,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         SortAlphabeticalItemRVH alphabeticalItemHolder = (SortAlphabeticalItemRVH) holder;
 
         if (thisItem.getStatus().isExpandedInInventory()) {
-            alphabeticalItemHolder.itemSmallName.setText(thisItem.getName());
-            alphabeticalItemHolder.itemLargeName.setText(thisItem.getName());
+            alphabeticalItemHolder.itemSmallName.setText(thisItem.getItemName());
+            alphabeticalItemHolder.itemLargeName.setText(thisItem.getItemName());
             alphabeticalItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
             alphabeticalItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
             alphabeticalItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -697,8 +761,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             alphabeticalItemHolder.itemSmall.setVisibility(View.GONE);
             alphabeticalItemHolder.itemLarge.setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isContractedInInventory()) {
-            alphabeticalItemHolder.itemSmallName.setText(thisItem.getName());
-            alphabeticalItemHolder.itemLargeName.setText(thisItem.getName());
+            alphabeticalItemHolder.itemSmallName.setText(thisItem.getItemName());
+            alphabeticalItemHolder.itemLargeName.setText(thisItem.getItemName());
             alphabeticalItemHolder.itemLargeBrand.setText(thisItem.getBrandType());
             alphabeticalItemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
             alphabeticalItemHolder.itemLargeStore.setText(thisItem.getStore().toString());
@@ -989,8 +1053,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void expandTitle() {
-            this.isExpanded = true;
-            this.isContracted = false;
+            getThis().isExpanded = true;
+            getThis().isContracted = false;
             triangleButtonDown1.setVisibility(View.VISIBLE);
             triangleButtonDown2.setVisibility(View.VISIBLE);
             triangleButtonRight.setVisibility(View.GONE);
@@ -998,8 +1062,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void contractTitle() {
-            this.isExpanded = false;
-            this.isContracted = true;
+            getThis().isExpanded = false;
+            getThis().isContracted = true;
             triangleButtonDown1.setVisibility(View.GONE);
             triangleButtonDown2.setVisibility(View.GONE);
             triangleButtonRight.setVisibility(View.VISIBLE);
@@ -1064,8 +1128,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                       CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
             super(itemView);
-            this.shopping = shopping;
             this.context = context;
+            this.shopping = shopping;
             this.adapter = adapter;
             this.itemData = itemData;
             this.categoryData = categoryData;
@@ -1109,6 +1173,222 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeCategoryLabel.setOnClickListener(this);
             itemLargeStore.setOnClickListener(this);
             itemLargeStoreLabel.setOnClickListener(this);
+        }
+
+        private SortByCategoryItemRVH getThis() {
+            return this;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            getThis().context = context;
+        }
+
+        public Shopping getShopping() {
+            return shopping;
+        }
+
+        public void setShopping(Shopping shopping) {
+            getThis().shopping = shopping;
+        }
+
+        public FullInventoryRVA getAdapter() {
+            return adapter;
+        }
+
+        public void setAdapter(FullInventoryRVA adapter) {
+            getThis().adapter = adapter;
+        }
+
+        public ItemData getItemData() {
+            return itemData;
+        }
+
+        public void setItemData(ItemData itemData) {
+            getThis().itemData = itemData;
+        }
+
+        public CategoryData getCategoryData() {
+            return categoryData;
+        }
+
+        public void setCategoryData(CategoryData categoryData) {
+            getThis().categoryData = categoryData;
+        }
+
+        public DBStatusHelper getDbStatusHelper() {
+            return dbStatusHelper;
+        }
+
+        public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+            getThis().dbStatusHelper = dbStatusHelper;
+        }
+
+        public DBCategoryHelper getDbCategoryHelper() {
+            return dbCategoryHelper;
+        }
+
+        public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+            getThis().dbCategoryHelper = dbCategoryHelper;
+        }
+
+        public Button getTriangleRight() {
+            return triangleRight;
+        }
+
+        public void setTriangleRight(Button triangleRight) {
+            getThis().triangleRight = triangleRight;
+        }
+
+        public Button getTriangleDown() {
+            return triangleDown;
+        }
+
+        public void setTriangleDown(Button triangleDown) {
+            getThis().triangleDown = triangleDown;
+        }
+
+        public LinearLayout getItemSmall() {
+            return itemSmall;
+        }
+
+        public void setItemSmall(LinearLayout itemSmall) {
+            getThis().itemSmall = itemSmall;
+        }
+
+        public LinearLayout getItemLarge() {
+            return itemLarge;
+        }
+
+        public void setItemLarge(LinearLayout itemLarge) {
+            getThis().itemLarge = itemLarge;
+        }
+
+        public TextView getItemSmallName() {
+            return itemSmallName;
+        }
+
+        public void setItemSmallName(TextView itemSmallName) {
+            getThis().itemSmallName = itemSmallName;
+        }
+
+        public TextView getItemLargeName() {
+            return itemLargeName;
+        }
+
+        public void setItemLargeName(TextView itemLargeName) {
+            getThis().itemLargeName = itemLargeName;
+        }
+
+        public TextView getItemSmallInStock() {
+            return itemSmallInStock;
+        }
+
+        public void setItemSmallInStock(TextView itemSmallInStock) {
+            getThis().itemSmallInStock = itemSmallInStock;
+        }
+
+        public TextView getItemSmallNeeded() {
+            return itemSmallNeeded;
+        }
+
+        public void setItemSmallNeeded(TextView itemSmallNeeded) {
+            getThis().itemSmallNeeded = itemSmallNeeded;
+        }
+
+        public TextView getItemSmallPaused() {
+            return itemSmallPaused;
+        }
+
+        public void setItemSmallPaused(TextView itemSmallPaused) {
+            getThis().itemSmallPaused = itemSmallPaused;
+        }
+
+        public TextView getItemLargeInStock() {
+            return itemLargeInStock;
+        }
+
+        public void setItemLargeInStock(TextView itemLargeInStock) {
+            getThis().itemLargeInStock = itemLargeInStock;
+        }
+
+        public TextView getItemLargeNeeded() {
+            return itemLargeNeeded;
+        }
+
+        public void setItemLargeNeeded(TextView itemLargeNeeded) {
+            getThis().itemLargeNeeded = itemLargeNeeded;
+        }
+
+        public TextView getItemLargePaused() {
+            return itemLargePaused;
+        }
+
+        public void setItemLargePaused(TextView itemLargePaused) {
+            getThis().itemLargePaused = itemLargePaused;
+        }
+
+        public TextView getItemLargeBrand() {
+            return itemLargeBrand;
+        }
+
+        public void setItemLargeBrand(TextView itemLargeBrand) {
+            getThis().itemLargeBrand = itemLargeBrand;
+        }
+
+        public TextView getItemLargeBrandLabel() {
+            return itemLargeBrandLabel;
+        }
+
+        public void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
+            getThis().itemLargeBrandLabel = itemLargeBrandLabel;
+        }
+
+        public TextView getItemLargeCategory() {
+            return itemLargeCategory;
+        }
+
+        public void setItemLargeCategory(TextView itemLargeCategory) {
+            getThis().itemLargeCategory = itemLargeCategory;
+        }
+
+        public TextView getItemLargeCategoryLabel() {
+            return itemLargeCategoryLabel;
+        }
+
+        public void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
+            getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
+        }
+
+        public TextView getItemLargeStore() {
+            return itemLargeStore;
+        }
+
+        public void setItemLargeStore(TextView itemLargeStore) {
+            getThis().itemLargeStore = itemLargeStore;
+        }
+
+        public TextView getItemLargeStoreLabel() {
+            return itemLargeStoreLabel;
+        }
+
+        public void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
+            getThis().itemLargeStoreLabel = itemLargeStoreLabel;
+        }
+
+        public long getDoubleClickTimeout() {
+            return doubleClickTimeout;
+        }
+
+        public long getLastClickTime() {
+            return lastClickTime;
+        }
+
+        public void setLastClickTime(long lastClickTime) {
+            getThis().lastClickTime = lastClickTime;
         }
 
         private void selectOrUnselectItem(int position) {
@@ -1167,10 +1447,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithCategories(currentlySelected);
-                        if (lastItem != null) {
-                            lastItem.getStatus().setAsUnselectedInInventory();
-                            adapter.notifyItemChanged(currentlySelected);
-                        }
+                        lastItem.getStatus().setAsUnselectedInInventory();
+                        adapter.notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected
@@ -1216,12 +1494,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
-            if (clickTime - lastClickTime < doubleClickTimeout) {
+            if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
                 onDoubleClick(v);
             } else {
                 onSingleClick(v);
             }
-            lastClickTime = clickTime;
+            setLastClickTime(clickTime);
         }
 
         void onDoubleClick(View v) {
@@ -1332,7 +1610,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1353,7 +1631,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargePaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1374,7 +1652,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1395,7 +1673,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1416,7 +1694,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallPaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1437,7 +1715,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
@@ -1546,8 +1824,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void expandTitle() {
-            this.isExpanded = true;
-            this.isContracted = false;
+            getThis().isExpanded = true;
+            getThis().isContracted = false;
             triangleButtonDown1.setVisibility(View.VISIBLE);
             triangleButtonDown2.setVisibility(View.VISIBLE);
             triangleButtonRight.setVisibility(View.GONE);
@@ -1555,8 +1833,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void contractTitle() {
-            this.isExpanded = false;
-            this.isContracted = true;
+            getThis().isExpanded = false;
+            getThis().isContracted = true;
             triangleButtonDown1.setVisibility(View.GONE);
             triangleButtonDown2.setVisibility(View.GONE);
             triangleButtonRight.setVisibility(View.VISIBLE);
@@ -1667,6 +1945,222 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeStoreLabel.setOnClickListener(this);
         }
 
+        private SortByStoreItemRVH getThis() {
+            return this;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            getThis().context = context;
+        }
+
+        public Shopping getShopping() {
+            return shopping;
+        }
+
+        public void setShopping(Shopping shopping) {
+            getThis().shopping = shopping;
+        }
+
+        public FullInventoryRVA getAdapter() {
+            return adapter;
+        }
+
+        public void setAdapter(FullInventoryRVA adapter) {
+            getThis().adapter = adapter;
+        }
+
+        public ItemData getItemData() {
+            return itemData;
+        }
+
+        public void setItemData(ItemData itemData) {
+            getThis().itemData = itemData;
+        }
+
+        public StoreData getStoreData() {
+            return storeData;
+        }
+
+        public void setStoreData(StoreData storeData) {
+            getThis().storeData = storeData;
+        }
+
+        public DBStatusHelper getDbStatusHelper() {
+            return dbStatusHelper;
+        }
+
+        public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+            getThis().dbStatusHelper = dbStatusHelper;
+        }
+
+        public DBStoreHelper getDbStoreHelper() {
+            return dbStoreHelper;
+        }
+
+        public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+            getThis().dbStoreHelper = dbStoreHelper;
+        }
+
+        public Button getTriangleRight() {
+            return triangleRight;
+        }
+
+        public void setTriangleRight(Button triangleRight) {
+            getThis().triangleRight = triangleRight;
+        }
+
+        public Button getTriangleDown() {
+            return triangleDown;
+        }
+
+        public void setTriangleDown(Button triangleDown) {
+            getThis().triangleDown = triangleDown;
+        }
+
+        public LinearLayout getItemSmall() {
+            return itemSmall;
+        }
+
+        public void setItemSmall(LinearLayout itemSmall) {
+            getThis().itemSmall = itemSmall;
+        }
+
+        public LinearLayout getItemLarge() {
+            return itemLarge;
+        }
+
+        public void setItemLarge(LinearLayout itemLarge) {
+            getThis().itemLarge = itemLarge;
+        }
+
+        public TextView getItemSmallName() {
+            return itemSmallName;
+        }
+
+        public void setItemSmallName(TextView itemSmallName) {
+            getThis().itemSmallName = itemSmallName;
+        }
+
+        public TextView getItemLargeName() {
+            return itemLargeName;
+        }
+
+        public void setItemLargeName(TextView itemLargeName) {
+            getThis().itemLargeName = itemLargeName;
+        }
+
+        public TextView getItemSmallInStock() {
+            return itemSmallInStock;
+        }
+
+        public void setItemSmallInStock(TextView itemSmallInStock) {
+            getThis().itemSmallInStock = itemSmallInStock;
+        }
+
+        public TextView getItemSmallNeeded() {
+            return itemSmallNeeded;
+        }
+
+        public void setItemSmallNeeded(TextView itemSmallNeeded) {
+            getThis().itemSmallNeeded = itemSmallNeeded;
+        }
+
+        public TextView getItemSmallPaused() {
+            return itemSmallPaused;
+        }
+
+        public void setItemSmallPaused(TextView itemSmallPaused) {
+            getThis().itemSmallPaused = itemSmallPaused;
+        }
+
+        public TextView getItemLargeInStock() {
+            return itemLargeInStock;
+        }
+
+        public void setItemLargeInStock(TextView itemLargeInStock) {
+            getThis().itemLargeInStock = itemLargeInStock;
+        }
+
+        public TextView getItemLargeNeeded() {
+            return itemLargeNeeded;
+        }
+
+        public void setItemLargeNeeded(TextView itemLargeNeeded) {
+            getThis().itemLargeNeeded = itemLargeNeeded;
+        }
+
+        public TextView getItemLargePaused() {
+            return itemLargePaused;
+        }
+
+        public void setItemLargePaused(TextView itemLargePaused) {
+            getThis().itemLargePaused = itemLargePaused;
+        }
+
+        public TextView getItemLargeBrand() {
+            return itemLargeBrand;
+        }
+
+        public void setItemLargeBrand(TextView itemLargeBrand) {
+            getThis().itemLargeBrand = itemLargeBrand;
+        }
+
+        public TextView getItemLargeBrandLabel() {
+            return itemLargeBrandLabel;
+        }
+
+        public void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
+            getThis().itemLargeBrandLabel = itemLargeBrandLabel;
+        }
+
+        public TextView getItemLargeCategory() {
+            return itemLargeCategory;
+        }
+
+        public void setItemLargeCategory(TextView itemLargeCategory) {
+            getThis().itemLargeCategory = itemLargeCategory;
+        }
+
+        public TextView getItemLargeCategoryLabel() {
+            return itemLargeCategoryLabel;
+        }
+
+        public void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
+            getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
+        }
+
+        public TextView getItemLargeStore() {
+            return itemLargeStore;
+        }
+
+        public void setItemLargeStore(TextView itemLargeStore) {
+            getThis().itemLargeStore = itemLargeStore;
+        }
+
+        public TextView getItemLargeStoreLabel() {
+            return itemLargeStoreLabel;
+        }
+
+        public void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
+            getThis().itemLargeStoreLabel = itemLargeStoreLabel;
+        }
+
+        public long getDoubleClickTimeout() {
+            return doubleClickTimeout;
+        }
+
+        public long getLastClickTime() {
+            return lastClickTime;
+        }
+
+        public void setLastClickTime(long lastClickTime) {
+            getThis().lastClickTime = lastClickTime;
+        }
+
         private void selectOrUnselectItem(int position) {
 
             String store;
@@ -1723,10 +2217,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         shopping.setSelectedItemInInventory(thisItem);
 
                         Item lastItem = getItemWithStores(currentlySelected);
-                        if (lastItem != null) {
-                            lastItem.getStatus().setAsUnselectedInInventory();
-                            adapter.notifyItemChanged(currentlySelected);
-                        }
+                        lastItem.getStatus().setAsUnselectedInInventory();
+                        adapter.notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected
@@ -1772,12 +2264,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
-            if (clickTime - lastClickTime < doubleClickTimeout) {
+            if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
                 onDoubleClick(v);
             } else {
                 onSingleClick(v);
             }
-            lastClickTime = clickTime;
+            setLastClickTime(clickTime);
         }
 
         void onDoubleClick(View v) {
@@ -1889,7 +2381,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1910,7 +2402,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargePaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1931,7 +2423,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemLargeInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1952,7 +2444,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallNeeded.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsNeeded();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1973,7 +2465,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallPaused.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsPaused();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -1994,7 +2486,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         itemSmallInStock.setVisibility(View.VISIBLE);
 
                         thisItem.getStatus().setAsInStock();
-                        dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                         shopping.updateStatusData();
 
                         String thisStore = thisItem.getStore().toString();
@@ -2090,6 +2582,206 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             itemLargeStoreLabel.setOnClickListener(this);
         }
 
+        private SortAlphabeticalItemRVH getThis() {
+            return this;
+        }
+
+        public Context getContext() {
+            return context;
+        }
+
+        public void setContext(Context context) {
+            getThis().context = context;
+        }
+
+        public Shopping getShopping() {
+            return shopping;
+        }
+
+        public void setShopping(Shopping shopping) {
+            getThis().shopping = shopping;
+        }
+
+        public FullInventoryRVA getAdapter() {
+            return adapter;
+        }
+
+        public void setAdapter(FullInventoryRVA adapter) {
+            getThis().adapter = adapter;
+        }
+
+        public ItemData getItemData() {
+            return itemData;
+        }
+
+        public void setItemData(ItemData itemData) {
+            getThis().itemData = itemData;
+        }
+
+        public DBStatusHelper getDbStatusHelper() {
+            return dbStatusHelper;
+        }
+
+        public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+            getThis().dbStatusHelper = dbStatusHelper;
+        }
+
+        public Button getTriangleRight() {
+            return triangleRight;
+        }
+
+        public void setTriangleRight(Button triangleRight) {
+            getThis().triangleRight = triangleRight;
+        }
+
+        public Button getTriangleDown() {
+            return triangleDown;
+        }
+
+        public void setTriangleDown(Button triangleDown) {
+            getThis().triangleDown = triangleDown;
+        }
+
+        public LinearLayout getItemSmall() {
+            return itemSmall;
+        }
+
+        public void setItemSmall(LinearLayout itemSmall) {
+            getThis().itemSmall = itemSmall;
+        }
+
+        public LinearLayout getItemLarge() {
+            return itemLarge;
+        }
+
+        public void setItemLarge(LinearLayout itemLarge) {
+            getThis().itemLarge = itemLarge;
+        }
+
+        public TextView getItemSmallName() {
+            return itemSmallName;
+        }
+
+        public void setItemSmallName(TextView itemSmallName) {
+            getThis().itemSmallName = itemSmallName;
+        }
+
+        public TextView getItemLargeName() {
+            return itemLargeName;
+        }
+
+        public void setItemLargeName(TextView itemLargeName) {
+            getThis().itemLargeName = itemLargeName;
+        }
+
+        public TextView getItemSmallInStock() {
+            return itemSmallInStock;
+        }
+
+        public void setItemSmallInStock(TextView itemSmallInStock) {
+            getThis().itemSmallInStock = itemSmallInStock;
+        }
+
+        public TextView getItemSmallNeeded() {
+            return itemSmallNeeded;
+        }
+
+        public void setItemSmallNeeded(TextView itemSmallNeeded) {
+            getThis().itemSmallNeeded = itemSmallNeeded;
+        }
+
+        public TextView getItemSmallPaused() {
+            return itemSmallPaused;
+        }
+
+        public void setItemSmallPaused(TextView itemSmallPaused) {
+            getThis().itemSmallPaused = itemSmallPaused;
+        }
+
+        public TextView getItemLargeInStock() {
+            return itemLargeInStock;
+        }
+
+        public void setItemLargeInStock(TextView itemLargeInStock) {
+            getThis().itemLargeInStock = itemLargeInStock;
+        }
+
+        public TextView getItemLargeNeeded() {
+            return itemLargeNeeded;
+        }
+
+        public void setItemLargeNeeded(TextView itemLargeNeeded) {
+            getThis().itemLargeNeeded = itemLargeNeeded;
+        }
+
+        public TextView getItemLargePaused() {
+            return itemLargePaused;
+        }
+
+        public void setItemLargePaused(TextView itemLargePaused) {
+            getThis().itemLargePaused = itemLargePaused;
+        }
+
+        public TextView getItemLargeBrand() {
+            return itemLargeBrand;
+        }
+
+        public void setItemLargeBrand(TextView itemLargeBrand) {
+            getThis().itemLargeBrand = itemLargeBrand;
+        }
+
+        public TextView getItemLargeBrandLabel() {
+            return itemLargeBrandLabel;
+        }
+
+        public void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
+            getThis().itemLargeBrandLabel = itemLargeBrandLabel;
+        }
+
+        public TextView getItemLargeCategory() {
+            return itemLargeCategory;
+        }
+
+        public void setItemLargeCategory(TextView itemLargeCategory) {
+            getThis().itemLargeCategory = itemLargeCategory;
+        }
+
+        public TextView getItemLargeCategoryLabel() {
+            return itemLargeCategoryLabel;
+        }
+
+        public void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
+            getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
+        }
+
+        public TextView getItemLargeStore() {
+            return itemLargeStore;
+        }
+
+        public void setItemLargeStore(TextView itemLargeStore) {
+            getThis().itemLargeStore = itemLargeStore;
+        }
+
+        public TextView getItemLargeStoreLabel() {
+            return itemLargeStoreLabel;
+        }
+
+        public void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
+            getThis().itemLargeStoreLabel = itemLargeStoreLabel;
+        }
+
+        public long getDoubleClickTimeout() {
+            return doubleClickTimeout;
+        }
+
+        public long getLastClickTime() {
+            return lastClickTime;
+        }
+
+        public void setLastClickTime(long lastClickTime) {
+            getThis().lastClickTime = lastClickTime;
+        }
+
         private void selectOrUnselectItem(int position) {
 
             Item thisItem = itemData.getItemListAZ().get(position);
@@ -2115,10 +2807,8 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     shopping.setSelectedItemInInventory(thisItem);
 
                     Item lastItem = itemData.getItemListAZ().get(currentlySelected);
-                    if (lastItem != null) {
-                        lastItem.getStatus().setAsUnselectedInInventory();
-                        adapter.notifyItemChanged(currentlySelected);
-                    }
+                    lastItem.getStatus().setAsUnselectedInInventory();
+                    adapter.notifyItemChanged(currentlySelected);
 
                 } else {
                     // nothing is selected
@@ -2135,12 +2825,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
-            if (clickTime - lastClickTime < doubleClickTimeout) {
+            if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
                 onDoubleClick(v);
             } else {
                 onSingleClick(v);
             }
-            lastClickTime = clickTime;
+            setLastClickTime(clickTime);
         }
 
         void onDoubleClick(View v) {
@@ -2205,7 +2895,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargeNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
             } else if (id == itemSmallNeeded.getId()) {
                 if (itemSmallNeeded.getVisibility() == View.VISIBLE) {
@@ -2217,7 +2907,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargePaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
             } else if (id == itemSmallPaused.getId()) {
                 if (itemSmallPaused.getVisibility() == View.VISIBLE) {
@@ -2229,7 +2919,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemLargeInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
             } else if (id == itemLargeInStock.getId()) {
                 if (itemLargeInStock.getVisibility() == View.VISIBLE) {
@@ -2241,7 +2931,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallNeeded.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
             } else if (id == itemLargeNeeded.getId()) {
                 if (itemLargeNeeded.getVisibility() == View.VISIBLE) {
@@ -2253,7 +2943,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallPaused.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
             } else if (id == itemLargePaused.getId()) {
                 if (itemLargePaused.getVisibility() == View.VISIBLE) {
@@ -2265,7 +2955,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     itemSmallInStock.setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    dbStatusHelper.updateStatus(thisItem.getName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    dbStatusHelper.updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
             }
         }

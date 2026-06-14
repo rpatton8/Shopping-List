@@ -16,60 +16,96 @@ class CategoryData {
     private HashMap<String, Integer> categoryViewPausedMap;
 
     CategoryData (Context context) {
-        this.context = context;
-        categoryList = new ArrayList<>();
-        categoryListWithBlank = new ArrayList<>();
-        categoryListWithAddNew = new ArrayList<>();
-        categoryListWithBlank.add(getContext().getString(R.string.emptyString));
-        categoryListWithAddNew.add(getContext().getString(R.string.emptyString));
-        categoryListWithAddNew.add(getContext().getString(R.string.addNewCategory));
-        categoryViewAllMap = new HashMap<>();
-        categoryViewInStockMap = new HashMap<>();
-        categoryViewNeededMap = new HashMap<>();
-        categoryViewPausedMap = new HashMap<>();
+        setContext(context);
+        setCategoryList(new ArrayList<String>());
+        setCategoryListWithBlank(new ArrayList<String>());
+        setCategoryListWithAddNew(new ArrayList<String>());
+        getCategoryListWithBlank().add(getContext().getString(R.string.emptyString));
+        getCategoryListWithAddNew().add(getContext().getString(R.string.emptyString));
+        getCategoryListWithAddNew().add(getContext().getString(R.string.addNewCategory));
+        setCategoryViewAllMap(new HashMap<String, Integer>());
+        setCategoryViewInStockMap(new HashMap<String, Integer>());
+        setCategoryViewNeededMap(new HashMap<String, Integer>());
+        setCategoryViewPausedMap(new HashMap<String, Integer>());
+    }
+
+    private CategoryData getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
 
-    ArrayList<String> getCategoryList() {
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public ArrayList<String> getCategoryList() {
         return categoryList;
     }
 
-    ArrayList<String> getCategoryListWithBlank() {
+    public void setCategoryList(ArrayList<String> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+    public ArrayList<String> getCategoryListWithBlank() {
         return categoryListWithBlank;
     }
 
-    ArrayList<String> getCategoryListWithAddNew() {
+    public void setCategoryListWithBlank(ArrayList<String> categoryListWithBlank) {
+        this.categoryListWithBlank = categoryListWithBlank;
+    }
+
+    public ArrayList<String> getCategoryListWithAddNew() {
         return categoryListWithAddNew;
     }
 
-    HashMap<String, Integer> getCategoryViewAllMap() {
+    public void setCategoryListWithAddNew(ArrayList<String> categoryListWithAddNew) {
+        this.categoryListWithAddNew = categoryListWithAddNew;
+    }
+
+    public HashMap<String, Integer> getCategoryViewAllMap() {
         return categoryViewAllMap;
     }
 
-    HashMap<String, Integer> getCategoryViewInStockMap() {
+    public void setCategoryViewAllMap(HashMap<String, Integer> categoryViewAllMap) {
+        this.categoryViewAllMap = categoryViewAllMap;
+    }
+
+    public HashMap<String, Integer> getCategoryViewInStockMap() {
         return categoryViewInStockMap;
     }
 
-    HashMap<String, Integer> getCategoryViewNeededMap() {
+    public void setCategoryViewInStockMap(HashMap<String, Integer> categoryViewInStockMap) {
+        this.categoryViewInStockMap = categoryViewInStockMap;
+    }
+
+    public HashMap<String, Integer> getCategoryViewNeededMap() {
         return categoryViewNeededMap;
     }
 
-    HashMap<String, Integer> getCategoryViewPausedMap() {
+    public void setCategoryViewNeededMap(HashMap<String, Integer> categoryViewNeededMap) {
+        this.categoryViewNeededMap = categoryViewNeededMap;
+    }
+
+    public HashMap<String, Integer> getCategoryViewPausedMap() {
         return categoryViewPausedMap;
+    }
+
+    public void setCategoryViewPausedMap(HashMap<String, Integer> categoryViewPausedMap) {
+        this.categoryViewPausedMap = categoryViewPausedMap;
     }
 
     void readCategory(String categoryName, int numItemsInViewAll, int numItemsInViewInStock,
                              int numItemsInViewNeeded, int numItemsInViewPaused) {
-        categoryList.add(categoryName);
-        categoryListWithBlank.add(categoryName);
-        categoryListWithAddNew.add(categoryName);
-        categoryViewAllMap.put(categoryName, numItemsInViewAll);
-        categoryViewInStockMap.put(categoryName, numItemsInViewInStock);
-        categoryViewNeededMap.put(categoryName, numItemsInViewNeeded);
-        categoryViewPausedMap.put(categoryName, numItemsInViewPaused);
+        getCategoryList().add(categoryName);
+        getCategoryListWithBlank().add(categoryName);
+        getCategoryListWithAddNew().add(categoryName);
+        getCategoryViewAllMap().put(categoryName, numItemsInViewAll);
+        getCategoryViewInStockMap().put(categoryName, numItemsInViewInStock);
+        getCategoryViewNeededMap().put(categoryName, numItemsInViewNeeded);
+        getCategoryViewPausedMap().put(categoryName, numItemsInViewPaused);
     }
 
 }

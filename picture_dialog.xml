@@ -26,12 +26,24 @@
         android:layout_marginEnd="6dp"
         android:background="@drawable/list_outline_selected"
         android:src="@drawable/stonefire_naan_crisps"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="visible"/>
+
+    <!--<androidx.camera.core.Preview
+        android:id="@+id/cameraPreview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/list_outline_selected"
+        android:layout_gravity="center"
+        android:visibility="gone" />-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="6dp" />
-
 
     <LinearLayout
         android:id="@+id/cameraEditButtons"
@@ -72,7 +84,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/takeCancelButtons"
+        android:id="@+id/captureCancelButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -83,18 +95,18 @@
             android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/takeButton"
+            android:id="@+id/captureButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/list_outline_selected"
-            android:text="TAKE"
+            android:text="CAPTURE"
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingTop="5dp"
             android:paddingBottom="5dp" />
 
         <TextView
-            android:layout_width="90dp"
+            android:layout_width="40dp"
             android:layout_height="30dp" />
 
         <TextView

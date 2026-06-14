@@ -18,62 +18,153 @@ public class EditStore extends Fragment {
     private StoreData storeData;
     private DBItemHelper dbItemHelper;
     private DBStoreHelper dbStoreHelper;
-
     private EditText storeInput;
     private Spinner storeSpinner;
-    private ArrayList<String> spinnerData;
-    private ArrayAdapter adapter;
+    private ArrayList<String> storeSpinnerData;
+    private ArrayAdapter storeSpinnerAdapter;
     private Button editStoreButton;
     private Button cancelButton;
 
     public EditStore() {}
 
+    private EditStore getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBItemHelper getDbItemHelper() {
+        return dbItemHelper;
+    }
+
+    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+        getThis().dbItemHelper = dbItemHelper;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public EditText getStoreInput() {
+        return storeInput;
+    }
+
+    public void setStoreInput(EditText storeInput) {
+        getThis().storeInput = storeInput;
+    }
+
+    public Spinner getStoreSpinner() {
+        return storeSpinner;
+    }
+
+    public void setStoreSpinner(Spinner storeSpinner) {
+        getThis().storeSpinner = storeSpinner;
+    }
+
+    public ArrayList<String> getStoreSpinnerData() {
+        return storeSpinnerData;
+    }
+
+    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+        getThis().storeSpinnerData = storeSpinnerData;
+    }
+
+    public ArrayAdapter getStoreSpinnerAdapter() {
+        return storeSpinnerAdapter;
+    }
+
+    public void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+        getThis().storeSpinnerAdapter = storeSpinnerAdapter;
+    }
+
+    public Button getEditStoreButton() {
+        return editStoreButton;
+    }
+
+    public void setEditStoreButton(Button editStoreButton) {
+        getThis().editStoreButton = editStoreButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.edit_store, container, false);
+        setView(inflater.inflate(R.layout.edit_store, container, false));
 
-        shopping = (Shopping) getActivity();
-        storeData = shopping.getStoreData();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setStoreData(getShopping().getStoreData());
+        setDbItemHelper(new DBItemHelper(getActivity()));
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        storeInput = view.findViewById(R.id.storeInput);
-        editStoreButton = view.findViewById(R.id.editStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setStoreInput((EditText) getView().findViewById(R.id.storeInput));
+        setEditStoreButton((Button) getView().findViewById(R.id.editStoreButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        spinnerData = storeData.getStoreListWithBlank();
-        storeSpinner = view.findViewById(R.id.storeSpinner);
-        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeSpinner.setAdapter(adapter);
+        setStoreSpinnerData(getStoreData().getStoreListWithBlank());
+        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
+        getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 
-        storeInput.setText(getString(R.string.emptyString));
+        getStoreInput().setText(getString(R.string.emptyString));
 
-        editStoreButton.setOnClickListener(new View.OnClickListener() {
+        getEditStoreButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String oldStore = storeSpinner.getSelectedItem().toString();
-                String newStore = storeInput.getText().toString();
+                String oldStore = getStoreSpinner().getSelectedItem().toString();
+                String newStore = getStoreInput().getText().toString();
 
                 if (newStore.isEmpty() || oldStore.equals(newStore)) {
-                    shopping.showAlertDialog(getString(R.string.editStore), getString(R.string.changeStoreName), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.editStore), getString(R.string.changeStoreName), getString(R.string.ok));
                     return;
                 }
 
-                dbItemHelper.changeStore(oldStore, newStore);
-                shopping.updateItemData();
+                getDbItemHelper().changeStore(oldStore, newStore);
+                getShopping().updateItemData();
 
-                dbStoreHelper.changeStoreName(oldStore, newStore);
-                shopping.updateStoreData();
+                getDbStoreHelper().changeStoreName(oldStore, newStore);
+                getShopping().updateStoreData();
 
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 

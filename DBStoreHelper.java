@@ -23,11 +23,19 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     DBStoreHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
+        setContext(context);
+    }
+
+    private DBStoreHelper getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
+    }
+
+    public void setContext(Context context) {
+        getThis().context = context;
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -50,7 +58,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     StoreData readStoreData() {
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getThis().getReadableDatabase();
         Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME
                 + getContext().getString(R.string.dbOrderBy) + STORE_ORDER, null);
         StoreData storeData = new StoreData(getContext());
@@ -71,7 +79,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void addNewStore(String storeName, int storeOrder) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(STORE_NAME, storeName);
@@ -87,7 +95,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void changeStoreName(String originalStoreName, String newStoreName) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(STORE_NAME, newStoreName);
@@ -98,7 +106,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void setStoreViews(String storeName, int storeViewAll, int storeInStock, int storeNeeded, int storePaused) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(STORE_VIEW_ALL, storeViewAll);
@@ -112,7 +120,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void swapOrder(int store1, int store2) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values1 = new ContentValues();
 
         values1.put(STORE_ORDER, -1);
@@ -131,7 +139,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void moveOrderDownOne(int orderNum) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(STORE_ORDER, orderNum - 1);
@@ -142,7 +150,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
     void deleteStore(String storeName) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         db.delete(TABLE_NAME, getContext().getString(R.string.dbStoreNameQuestion), new String[]{storeName});
         db.close();
     }

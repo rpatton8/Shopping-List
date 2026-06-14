@@ -1,7 +1,6 @@
 package ryan.android.shopping;
 
 import android.content.Context;
-
 import java.util.ArrayList;
 
 class Store {
@@ -13,54 +12,92 @@ class Store {
     private boolean isContracted;
 
     Store(Context context, String name, Item item) {
-        this.context = context;
-        this.storeName = name;
-        storeItems = new ArrayList<>();
-        storeItems.add(item);
-        isExpanded = true;
-        isContracted = false;
+        setContext(context);
+        setStoreName(name);
+        setStoreItems(new ArrayList<Item>());
+        getStoreItems().add(item);
+        setExpanded(true);
+        setContracted(false);
+    }
+
+    private Store getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
 
-    String getName() {
+    public void setContext(Context context) {
+        getThis().context = context;
+    }
+
+    public String getStoreName() {
         return storeName;
     }
 
-    void addItem(Item item) {
-        storeItems.add(item);
+    public void setStoreName(String storeName) {
+        getThis().storeName = storeName;
     }
 
-    ArrayList<Item> getStoreItemsList() {
+    public ArrayList<Item> getStoreItems() {
         return storeItems;
     }
 
-    boolean storeIsExpanded() {
+    public void setStoreItems(ArrayList<Item> storeItems) {
+        getThis().storeItems = storeItems;
+    }
+
+    public boolean isExpanded() {
         return isExpanded;
     }
 
-    void setStoreAsExpanded() {
-        isExpanded = true;
-        isContracted = false;
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
     }
 
-    boolean storeIsContracted() {
+    public boolean isContracted() {
         return isContracted;
     }
 
+    public void setContracted(boolean contracted) {
+        isContracted = contracted;
+    }
+
+    void addItem(Item item) {
+        getStoreItems().add(item);
+    }
+
+    ArrayList<Item> getStoreItemsList() {
+        return getStoreItems();
+    }
+
+    boolean storeIsExpanded() {
+        return isExpanded();
+    }
+
+    void setStoreAsExpanded() {
+        setExpanded(true);
+        setContracted(false);
+    }
+
+    boolean storeIsContracted() {
+        return isContracted();
+    }
+
     void setStoreAsContracted() {
-        isExpanded = false;
-        isContracted = true;
+        setExpanded(false);
+        setContracted(true);
     }
 
     public String toString() {
-        return storeName;
+        return getStoreName();
     }
 
     void printStore() {
-
+        System.out.println(getContext().getString(R.string.psStoreName) + getStoreName());
+        for (int i = 0; i < getStoreItems().size(); i++) {
+            System.out.println(getContext().getString(R.string.psItemNum) + (i + 1) + getContext().getString(R.string.psColon) + getStoreItems().get(i).getItemName());
+        }
     }
-
 }

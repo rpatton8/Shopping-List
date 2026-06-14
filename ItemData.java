@@ -13,53 +13,96 @@ class ItemData {
     private LinkedList<Item> itemsAZ;
     private ArrayList<Item> itemsByCategory;
     private ArrayList<Item> itemsByStore;
-
     private HashMap<String, Item> itemMap;
     private HashMap<String, Category> categoryMap;
     private HashMap<String, Store> storeMap;
 
     ItemData(Context context) {
-        this.context = context;
-        itemsAZ = new LinkedList<>();
-        itemsByCategory = new ArrayList<>();
-        itemsByStore = new ArrayList<>();
-        itemMap = new HashMap<>();
-        categoryMap = new HashMap<>();
-        storeMap = new HashMap<>();
+        setContext(context);
+        setItemsAZ(new LinkedList<Item>());
+        setItemsByCategory(new ArrayList<Item>());
+        setItemsByStore(new ArrayList<Item>());
+        setItemMap(new HashMap<String, Item>());
+        setCategoryMap(new HashMap<String, Category>());
+        setStoreMap(new HashMap<String, Store>());
+    }
+
+    private ItemData getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
 
-    LinkedList<Item> getItemListAZ() {
+    public void setContext(Context context) {
+        getThis().context = context;
+    }
+
+    public LinkedList<Item> getItemsAZ() {
         return itemsAZ;
     }
 
-    ArrayList<Item> getItemListByCategory() {
+    public void setItemsAZ(LinkedList<Item> itemsAZ) {
+        getThis().itemsAZ = itemsAZ;
+    }
+
+    public ArrayList<Item> getItemsByCategory() {
         return itemsByCategory;
     }
 
-    ArrayList<Item> getItemListByStore() {
+    public void setItemsByCategory(ArrayList<Item> itemsByCategory) {
+        getThis().itemsByCategory = itemsByCategory;
+    }
+
+    public ArrayList<Item> getItemsByStore() {
         return itemsByStore;
     }
 
-    HashMap<String, Item> getItemMap() {
+    public void setItemsByStore(ArrayList<Item> itemsByStore) {
+        getThis().itemsByStore = itemsByStore;
+    }
+
+    public HashMap<String, Item> getItemMap() {
         return itemMap;
     }
 
-    HashMap<String, Category> getCategoryMap() {
+    public void setItemMap(HashMap<String, Item> itemMap) {
+        getThis().itemMap = itemMap;
+    }
+
+    public HashMap<String, Category> getCategoryMap() {
         return categoryMap;
     }
 
-    HashMap<String, Store> getStoreMap() {
+    public void setCategoryMap(HashMap<String, Category> categoryMap) {
+        getThis().categoryMap = categoryMap;
+    }
+
+    public HashMap<String, Store> getStoreMap() {
         return storeMap;
+    }
+
+    public void setStoreMap(HashMap<String, Store> storeMap) {
+        getThis().storeMap = storeMap;
+    }
+    
+    LinkedList<Item> getItemListAZ() {
+        return getThis().getItemsAZ();
+    }
+
+    ArrayList<Item> getItemListByCategory() {
+        return getThis().getItemsByCategory();
+    }
+
+    ArrayList<Item> getItemListByStore() {
+        return getThis().getItemsByStore();
     }
 
     void updateStatuses(StatusData statusData) {
         HashMap<String, Status> statusMap = statusData.getStatusMap();
-        for(int i = 0; i < itemsAZ.size(); i++) {
-            itemsAZ.get(i).setStatus(statusMap.get(itemsAZ.get(i).getName()));
+        for(int i = 0; i < getItemsAZ().size(); i++) {
+            getItemsAZ().get(i).setStatus(statusMap.get(getItemsAZ().get(i).getItemName()));
         }
     }
 
@@ -68,44 +111,44 @@ class ItemData {
         Item newItem;
         Category newCategory;
         Store newStore;
-        if (!itemMap.containsKey(itemName)) {
-            newItem = new Item(context, itemName, brandType, category, store);
+        if (!getItemMap().containsKey(itemName)) {
+            newItem = new Item(getContext(), itemName, brandType, category, store);
             newItem.setCategoryOrder(itemCategoryOrder);
         } else {
             // item already exists
-            itemMap.get(itemName).setCategoryOrder(itemCategoryOrder);
+            getItemMap().get(itemName).setCategoryOrder(itemCategoryOrder);
             return;
         }
-        if (!categoryMap.containsKey(category)) {
-            newCategory = new Category(context, category, newItem);
-            categoryMap.put(category, newCategory);
+        if (!getCategoryMap().containsKey(category)) {
+            newCategory = new Category(getContext(), category, newItem);
+            getCategoryMap().put(category, newCategory);
         } else {
             // category already exists
-            newCategory = categoryMap.get(category);
-            categoryMap.get(category).addItem(newItem);
+            newCategory = getCategoryMap().get(category);
+            getCategoryMap().get(category).addItem(newItem);
         }
-        if (!storeMap.containsKey(store)) {
-            newStore = new Store(context, store, newItem);
-            storeMap.put(store, newStore);
+        if (!getStoreMap().containsKey(store)) {
+            newStore = new Store(getContext(), store, newItem);
+            getStoreMap().put(store, newStore);
         } else {
             // store already exists
-            newStore = storeMap.get(store);
-            storeMap.get(store).addItem(newItem);
+            newStore = getStoreMap().get(store);
+            getStoreMap().get(store).addItem(newItem);
         }
         newItem.setCategory(newCategory);
         newItem.setStore(newStore);
-        itemMap.put(itemName, newItem);
-        itemsByCategory.add(newItem);
+        getItemMap().put(itemName, newItem);
+        getItemsByCategory().add(newItem);
 
-        insertSorted(itemsAZ, newItem);  // alphabetical
+        insertSorted(getItemsAZ(), newItem);  // alphabetical
 
     }
 
     void readLineOfDataByStore(String item, String brandType, String category, String store, int itemStoreOrder) {
 
-        itemMap.get(item).setStoreOrder(itemStoreOrder);
-        if (itemsByStore.contains(itemMap.get(item))) return;
-        itemsByStore.add(itemMap.get(item));
+        getItemMap().get(item).setStoreOrder(itemStoreOrder);
+        if (getItemsByStore().contains(getItemMap().get(item))) return;
+        getItemsByStore().add(getItemMap().get(item));
 
     }
 
@@ -126,9 +169,9 @@ class ItemData {
     void printDataAZ() {
 
         System.out.println(getContext().getString(R.string.pdItemsAZ));
-        for (int i = 1; i <= itemsAZ.size(); i++) {
-            Item item = itemsAZ.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdAzItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
+        for (int i = 1; i <= getItemsAZ().size(); i++) {
+            Item item = getItemsAZ().get(i - 1);
+            System.out.println(getContext().getString(R.string.pdAzItem) + i + getContext().getString(R.string.pdEquals) + item.getItemName()
                     + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
                     + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
                     + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)
@@ -138,9 +181,9 @@ class ItemData {
 
     void printDataByCategory() {
         System.out.println(getContext().getString(R.string.pdItemsByCategory));
-        for (int i = 1; i <= itemsByCategory.size(); i++) {
-            Item item = itemsByCategory.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdCategoryItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
+        for (int i = 1; i <= getItemsByCategory().size(); i++) {
+            Item item = getItemsByCategory().get(i - 1);
+            System.out.println(getContext().getString(R.string.pdCategoryItem) + i + getContext().getString(R.string.pdEquals) + item.getItemName()
                     + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
                     + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
                     + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)
@@ -150,9 +193,9 @@ class ItemData {
 
     void printDataByStore() {
         System.out.println(getContext().getString(R.string.pdItemsByStore));
-        for (int i = 1; i <= itemsByStore.size(); i++) {
-            Item item = itemsByStore.get(i - 1);
-            System.out.println(getContext().getString(R.string.pdStoreItem) + i + getContext().getString(R.string.pdEquals) + item.getName()
+        for (int i = 1; i <= getItemsByStore().size(); i++) {
+            Item item = getItemsByStore().get(i - 1);
+            System.out.println(getContext().getString(R.string.pdStoreItem) + i + getContext().getString(R.string.pdEquals) + item.getItemName()
                     + getContext().getString(R.string.pdBrandTypeEquals) + item.getBrandType() + getContext().getString(R.string.pdCategoryOrder)
                     + item.getCategory() + getContext().getString(R.string.pdEqualsWithParenthesis) + item.getCategoryOrder()
                     + getContext().getString(R.string.pdStoreOrder) + item.getStore() + getContext().getString(R.string.pdEqualsWithParenthesis)

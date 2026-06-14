@@ -10,11 +10,11 @@ class Picture {
         this.pictureURL = pictureURL;
     }
 
-    public String getName() {
+    public String getPictureName() {
         return pictureName;
     }
 
-    public void setName(String pictureName) {
+    public void setPictureName(String pictureName) {
         this.pictureName = pictureName;
     }
 

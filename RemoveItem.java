@@ -15,65 +15,132 @@ public class RemoveItem extends Fragment {
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
-
     private EditText itemNameInput;
     private Button removeItemButton;
     private Button cancelButton;
 
     public RemoveItem() {}
 
+    private RemoveItem getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public DBItemHelper getDbItemHelper() {
+        return dbItemHelper;
+    }
+
+    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+        getThis().dbItemHelper = dbItemHelper;
+    }
+
+    public DBStatusHelper getDbStatusHelper() {
+        return dbStatusHelper;
+    }
+
+    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        getThis().dbStatusHelper = dbStatusHelper;
+    }
+
+    public EditText getItemNameInput() {
+        return itemNameInput;
+    }
+
+    public void setItemNameInput(EditText itemNameInput) {
+        getThis().itemNameInput = itemNameInput;
+    }
+
+    public Button getRemoveItemButton() {
+        return removeItemButton;
+    }
+
+    public void setRemoveItemButton(Button removeItemButton) {
+        getThis().removeItemButton = removeItemButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.remove_item, container, false);
+        setView(inflater.inflate(R.layout.remove_item, container, false));
 
-        shopping = (Shopping) getActivity();
-        itemData = shopping.getItemData();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbStatusHelper = new DBStatusHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setItemData(getShopping().getItemData());
+        setDbItemHelper(new DBItemHelper(getActivity()));
+        setDbStatusHelper(new DBStatusHelper(getActivity()));
 
-        itemNameInput = view.findViewById(R.id.itemNameInput);
-        removeItemButton = view.findViewById(R.id.removeItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
+        setRemoveItemButton((Button) getView().findViewById(R.id.removeItemButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
+        getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
 
-        removeItemButton.setOnClickListener(new View.OnClickListener() {
+        getRemoveItemButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String itemName = itemNameInput.getText().toString();
+                String itemName = getItemNameInput().getText().toString();
 
                 if (itemName.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.removeItem), getString(R.string.enterItemToRemove), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.removeItem), getString(R.string.enterItemToRemove), getString(R.string.ok));
                     return;
                 }
 
-                Item item = itemData.getItemMap().get(itemName);
+                Item item = getItemData().getItemMap().get(itemName);
 
                 String category = item.getCategory().toString();
-                int categoryOrderNum = itemData.getCategoryMap().get(category).getCategoryItemsList().indexOf(item);
-                for (int i = categoryOrderNum + 1; i < itemData.getCategoryMap().get(category).getCategoryItemsList().size(); i++) {
-                    dbItemHelper.moveOrderDownOneByCategory(category, i);
+                int categoryOrderNum = getItemData().getCategoryMap().get(category).getCategoryItemsList().indexOf(item);
+                for (int i = categoryOrderNum + 1; i < getItemData().getCategoryMap().get(category).getCategoryItemsList().size(); i++) {
+                    getDbItemHelper().moveOrderDownOneByCategory(category, i);
                 }
 
                 String store = item.getStore().toString();
-                int storeOrderNum = itemData.getStoreMap().get(store).getStoreItemsList().indexOf(item);
-                for (int i = storeOrderNum + 1; i < itemData.getStoreMap().get(store).getStoreItemsList().size(); i++) {
-                    dbItemHelper.moveOrderDownOneByStore(store, i);
+                int storeOrderNum = getItemData().getStoreMap().get(store).getStoreItemsList().indexOf(item);
+                for (int i = storeOrderNum + 1; i < getItemData().getStoreMap().get(store).getStoreItemsList().size(); i++) {
+                    getDbItemHelper().moveOrderDownOneByStore(store, i);
                 }
 
-                dbItemHelper.deleteItem(itemName);
-                dbStatusHelper.deleteStatus(itemName);
-                shopping.updateItemData();
-                shopping.updateStatusData();
+                getDbItemHelper().deleteItem(itemName);
+                getDbStatusHelper().deleteStatus(itemName);
+                getShopping().updateItemData();
+                getShopping().updateStatusData();
 
-                shopping.setItemIsSelectedInInventory(false);
+                getShopping().setItemIsSelectedInInventory(false);
 
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 

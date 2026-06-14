@@ -16,60 +16,96 @@ class StoreData {
     private HashMap<String, Integer> storeViewPausedMap;
 
     StoreData (Context context) {
-        this.context = context;
-        storeList = new ArrayList<>();
-        storeListWithBlank = new ArrayList<>();
-        storeListWithAddNew = new ArrayList<>();
-        storeListWithBlank.add(getContext().getString(R.string.emptyString));
-        storeListWithAddNew.add(getContext().getString(R.string.emptyString));
-        storeListWithAddNew.add(getContext().getString(R.string.addNewStore));
-        storeViewAllMap = new HashMap<>();
-        storeViewInStockMap = new HashMap<>();
-        storeViewNeededMap = new HashMap<>();
-        storeViewPausedMap = new HashMap<>();
+        setContext(context);
+        setStoreList(new ArrayList<String>());
+        setStoreListWithBlank(new ArrayList<String>());
+        setStoreListWithAddNew(new ArrayList<String>());
+        getStoreListWithBlank().add(getContext().getString(R.string.emptyString));
+        getStoreListWithAddNew().add(getContext().getString(R.string.emptyString));
+        getStoreListWithAddNew().add(getContext().getString(R.string.addNewStore));
+        setStoreViewAllMap(new HashMap<String, Integer>());
+        setStoreViewInStockMap(new HashMap<String, Integer>());
+        setStoreViewNeededMap(new HashMap<String, Integer>());
+        setStoreViewPausedMap(new HashMap<String, Integer>());
     }
 
-    private Context getContext() {
+    private StoreData getThis() {
+        return this;
+    }
+
+    public Context getContext() {
         return context;
     }
 
-    ArrayList<String> getStoreList() {
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public ArrayList<String> getStoreList() {
         return storeList;
     }
 
-    ArrayList<String> getStoreListWithBlank() {
+    public void setStoreList(ArrayList<String> storeList) {
+        this.storeList = storeList;
+    }
+
+    public ArrayList<String> getStoreListWithBlank() {
         return storeListWithBlank;
     }
 
-    ArrayList<String> getStoreListWithAddNew() {
+    public void setStoreListWithBlank(ArrayList<String> storeListWithBlank) {
+        this.storeListWithBlank = storeListWithBlank;
+    }
+
+    public ArrayList<String> getStoreListWithAddNew() {
         return storeListWithAddNew;
     }
 
-    HashMap<String, Integer> getStoreViewAllMap() {
+    public void setStoreListWithAddNew(ArrayList<String> storeListWithAddNew) {
+        this.storeListWithAddNew = storeListWithAddNew;
+    }
+
+    public HashMap<String, Integer> getStoreViewAllMap() {
         return storeViewAllMap;
     }
 
-    HashMap<String, Integer> getStoreViewInStockMap() {
+    public void setStoreViewAllMap(HashMap<String, Integer> storeViewAllMap) {
+        this.storeViewAllMap = storeViewAllMap;
+    }
+
+    public HashMap<String, Integer> getStoreViewInStockMap() {
         return storeViewInStockMap;
     }
 
-    HashMap<String, Integer> getStoreViewNeededMap() {
+    public void setStoreViewInStockMap(HashMap<String, Integer> storeViewInStockMap) {
+        this.storeViewInStockMap = storeViewInStockMap;
+    }
+
+    public HashMap<String, Integer> getStoreViewNeededMap() {
         return storeViewNeededMap;
     }
 
-    HashMap<String, Integer> getStoreViewPausedMap() {
+    public void setStoreViewNeededMap(HashMap<String, Integer> storeViewNeededMap) {
+        this.storeViewNeededMap = storeViewNeededMap;
+    }
+
+    public HashMap<String, Integer> getStoreViewPausedMap() {
         return storeViewPausedMap;
+    }
+
+    public void setStoreViewPausedMap(HashMap<String, Integer> storeViewPausedMap) {
+        this.storeViewPausedMap = storeViewPausedMap;
     }
 
     void readStore(String storeName, int numItemsInViewAll, int numItemsInViewInStock,
                              int numItemsInViewNeeded, int numItemsInViewPaused) {
-        storeList.add(storeName);
-        storeListWithBlank.add(storeName);
-        storeListWithAddNew.add(storeName);
-        storeViewAllMap.put(storeName, numItemsInViewAll);
-        storeViewInStockMap.put(storeName, numItemsInViewInStock);
-        storeViewNeededMap.put(storeName, numItemsInViewNeeded);
-        storeViewPausedMap.put(storeName, numItemsInViewPaused);
+        getStoreList().add(storeName);
+        getStoreListWithBlank().add(storeName);
+        getStoreListWithAddNew().add(storeName);
+        getStoreViewAllMap().put(storeName, numItemsInViewAll);
+        getStoreViewInStockMap().put(storeName, numItemsInViewInStock);
+        getStoreViewNeededMap().put(storeName, numItemsInViewNeeded);
+        getStoreViewPausedMap().put(storeName, numItemsInViewPaused);
     }
 
 }

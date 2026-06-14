@@ -16,7 +16,6 @@ public class ReorderStores extends Fragment {
     private ItemData itemData;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
-
     private RecyclerView recyclerView;
     private ReorderStoresRVA rvAdapter;
     private Button finishReorderingButton;
@@ -24,34 +23,110 @@ public class ReorderStores extends Fragment {
 
     public ReorderStores() {}
 
+    private ReorderStores getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        getThis().recyclerView = recyclerView;
+    }
+
+    public ReorderStoresRVA getRvAdapter() {
+        return rvAdapter;
+    }
+
+    public void setRvAdapter(ReorderStoresRVA rvAdapter) {
+        getThis().rvAdapter = rvAdapter;
+    }
+
+    public Button getFinishReorderingButton() {
+        return finishReorderingButton;
+    }
+
+    public void setFinishReorderingButton(Button finishReorderingButton) {
+        getThis().finishReorderingButton = finishReorderingButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.reorder_stores, container, false);
+        setView(inflater.inflate(R.layout.reorder_stores, container, false));
 
-        shopping = (Shopping) getActivity();
-        itemData = shopping.getItemData();
-        storeData = shopping.getStoreData();
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setItemData(getShopping().getItemData());
+        setStoreData(getShopping().getStoreData());
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        recyclerView = view.findViewById(R.id.reorderStoresRecyclerView);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rvAdapter = new ReorderStoresRVA(shopping, recyclerView, itemData, storeData, dbStoreHelper);
-        recyclerView.setAdapter(rvAdapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.getReorderStoresViewState());
+        setRecyclerView((RecyclerView) getView().findViewById(R.id.reorderStoresRecyclerView));
+        getRecyclerView().setHasFixedSize(false);
+        getRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        setRvAdapter(new ReorderStoresRVA(getView(), getShopping(), getRecyclerView(), getItemData(), getStoreData(), getDbStoreHelper()));
+        getRecyclerView().setAdapter(getRvAdapter());
+        getRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderStoresViewState());
 
-        finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setFinishReorderingButton((Button) getView().findViewById(R.id.finishReorderingButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        finishReorderingButton.setOnClickListener(new View.OnClickListener() {
+        getFinishReorderingButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
@@ -59,7 +134,7 @@ public class ReorderStores extends Fragment {
     }
 
     public void onDestroyView() {
-        recyclerView.setAdapter(null);
+        getRecyclerView().setAdapter(null);
         super.onDestroyView();
     }
 }

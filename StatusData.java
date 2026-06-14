@@ -9,21 +9,33 @@ class StatusData {
     private HashMap<String, Status> statusMap;
 
     StatusData (Context context) {
-        this.context = context;
-        statusMap = new HashMap<>();
+        setContext(context);
+        setStatusMap(new HashMap<String, Status>());
+    }
+
+    private StatusData getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
-    
+
+    public void setContext(Context context) {
+        getThis().context = context;
+    }
+
     HashMap<String, Status> getStatusMap() {
         return statusMap;
     }
+    
+    public void setStatusMap(HashMap<String, Status> statusMap) {
+        getThis().statusMap = statusMap;
+    }
 
     void readStatus(String itemName, String status, String checked) {
-        if (statusMap.containsKey(itemName)) {
-            Status thisStatus = statusMap.get(itemName);
+        if (getStatusMap().containsKey(itemName)) {
+            Status thisStatus = getStatusMap().get(itemName);
             if (status.equals(getContext().getString(R.string.instock))) {
                 thisStatus.setAsInStock();
             } else if (status.equals(getContext().getString(R.string.needed))) {
@@ -38,7 +50,7 @@ class StatusData {
             }
         } else {
             Status newStatus = new Status(itemName, status, checked, context);
-            statusMap.put(itemName, newStatus);
+            getStatusMap().put(itemName, newStatus);
         }
     }
 }

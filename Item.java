@@ -15,82 +15,95 @@ class Item implements Comparable<Item> {
     private int storeOrder;
 
     Item(Context context, String itemName, String brandType, String category, String store) {
-        this.context = context;
-        this.itemName = itemName;
-        this.brandType = brandType;
-        this.category = new Category(this.context, category, this);
-        this.store = new Store(this.context, store, this);
+        setContext(context);
+        setItemName(itemName);
+        setBrandType(brandType);
+        setCategory(new Category(getContext(), category, this));
+        setStore(new Store(getContext(), store, this));
+    }
+    
+    private Item getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
 
-    String getName() {
+    public void setContext(Context context) {
+        getThis().context = context;
+    }
+
+    public String getItemName() {
         return itemName;
     }
 
-    String getBrandType() {
+    public void setItemName(String itemName) {
+        getThis().itemName = itemName;
+    }
+
+    public String getBrandType() {
         return brandType;
     }
 
-    Category getCategory() {
+    public void setBrandType(String brandType) {
+        getThis().brandType = brandType;
+    }
+
+    public Category getCategory() {
         return category;
     }
 
-    Store getStore() {
+    public void setCategory(Category category) {
+        getThis().category = category;
+    }
+
+    public Store getStore() {
         return store;
     }
 
-    void setCategory(Category category) {
-        this.category = category;
+    public void setStore(Store store) {
+        getThis().store = store;
     }
 
-    void setStore(Store store) {
-        this.store = store;
-    }
-
-    void setStatus(Status status) {
-        this.status = status;
-    }
-
-    Status getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    void setCategoryOrder(int categoryOrder) {
-        this.categoryOrder = categoryOrder;
+    public void setStatus(Status status) {
+        getThis().status = status;
     }
 
-    int getCategoryOrder() {
-        return this.categoryOrder;
+    public int getCategoryOrder() {
+        return categoryOrder;
     }
 
-    void setStoreOrder(int storeOrder) {
-        this.storeOrder = storeOrder;
+    public void setCategoryOrder(int categoryOrder) {
+        getThis().categoryOrder = categoryOrder;
     }
 
-    int getStoreOrder() {
-        return this.storeOrder;
+    public int getStoreOrder() {
+        return storeOrder;
+    }
+
+    public void setStoreOrder(int storeOrder) {
+        getThis().storeOrder = storeOrder;
     }
 
     void printItem() {
         System.out.println(getContext().getString(R.string.piLineBreak));
-        System.out.println(getContext().getString(R.string.piItemName) + itemName);
-        System.out.println(getContext().getString(R.string.piBrandType) + brandType);
-        System.out.println(getContext().getString(R.string.piCategory) + category.toString());
-        System.out.println(getContext().getString(R.string.piStore) + store.toString());
-        System.out.println(getContext().getString(R.string.piStatus) + status.toString());
-
-        // add optional data here
-
-        System.out.println(getContext().getString(R.string.piCategoryOrder) + categoryOrder);
-        System.out.println(getContext().getString(R.string.piStoreOrder) + storeOrder);
+        System.out.println(getContext().getString(R.string.piItemName) + getItemName());
+        System.out.println(getContext().getString(R.string.piBrandType) + getBrandType());
+        System.out.println(getContext().getString(R.string.piCategory) + getCategory().toString());
+        System.out.println(getContext().getString(R.string.piStore) + getStore().toString());
+        System.out.println(getContext().getString(R.string.piStatus) + getStatus().toString());
+        System.out.println(getContext().getString(R.string.piCategoryOrder) + getCategoryOrder());
+        System.out.println(getContext().getString(R.string.piStoreOrder) + getStoreOrder());
         System.out.println(getContext().getString(R.string.piLineBreak));
     }
 
     public int compareTo(Item item) {
-        return this.itemName.compareTo(item.itemName);
+        return getThis().getItemName().compareTo(item.getItemName());
     }
 
 }

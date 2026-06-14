@@ -14,49 +14,108 @@ public class AddStore extends Fragment {
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
-
     private EditText storeInput;
     private Button addStoreButton;
     private Button cancelButton;
 
     public AddStore() {}
 
+    private AddStore getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public EditText getStoreInput() {
+        return storeInput;
+    }
+
+    public void setStoreInput(EditText storeInput) {
+        getThis().storeInput = storeInput;
+    }
+
+    public Button getAddStoreButton() {
+        return addStoreButton;
+    }
+
+    public void setAddStoreButton(Button addStoreButton) {
+        getThis().addStoreButton = addStoreButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.add_store, container, false);
+        setView(inflater.inflate(R.layout.add_store, container, false));
 
-        shopping = (Shopping) getActivity();
-        storeData = shopping.getStoreData();
-        dbStoreHelper = new DBStoreHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setStoreData(getShopping().getStoreData());
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        storeInput = view.findViewById(R.id.storeInput);
-        addStoreButton = view.findViewById(R.id.addStoreButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setStoreInput((EditText) getView().findViewById(R.id.storeInput));
+        setAddStoreButton((Button) getView().findViewById(R.id.addStoreButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        storeInput.setText(getString(R.string.emptyString));
+        getStoreInput().setText(getString(R.string.emptyString));
 
-        addStoreButton.setOnClickListener(new View.OnClickListener() {
+        getAddStoreButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String storeName = storeInput.getText().toString();
+                String storeName = getStoreInput().getText().toString();
 
                 if (storeName.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addStore), getString(R.string.enterStoreToAdd), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.addStore), getString(R.string.enterStoreToAdd), getString(R.string.ok));
                     return;
                 }
 
-                int numStores = storeData.getStoreList().size();
-                dbStoreHelper.addNewStore(storeName, numStores);
-                shopping.updateStoreData();
+                int numStores = getStoreData().getStoreList().size();
+                getDbStoreHelper().addNewStore(storeName, numStores);
+                getShopping().updateStoreData();
 
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 

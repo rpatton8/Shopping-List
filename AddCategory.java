@@ -14,49 +14,108 @@ public class AddCategory extends Fragment {
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
-
     private EditText categoryInput;
     private Button addCategoryButton;
     private Button cancelButton;
 
     public AddCategory() {}
 
+    private AddCategory getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public EditText getCategoryInput() {
+        return categoryInput;
+    }
+
+    public void setCategoryInput(EditText categoryInput) {
+        getThis().categoryInput = categoryInput;
+    }
+
+    public Button getAddCategoryButton() {
+        return addCategoryButton;
+    }
+
+    public void setAddCategoryButton(Button addCategoryButton) {
+        getThis().addCategoryButton = addCategoryButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.add_category, container, false);
+        setView(inflater.inflate(R.layout.add_category, container, false));
 
-        shopping = (Shopping) getActivity();
-        categoryData = shopping.getCategoryData();
-        dbCategoryHelper = new DBCategoryHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setCategoryData(getShopping().getCategoryData());
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
 
-        categoryInput = view.findViewById(R.id.categoryInput);
-        addCategoryButton = view.findViewById(R.id.addCategoryButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setCategoryInput((EditText) getView().findViewById(R.id.categoryInput));
+        setAddCategoryButton((Button) getView().findViewById(R.id.addCategoryButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        categoryInput.setText(getString(R.string.emptyString));
+        getCategoryInput().setText(getString(R.string.emptyString));
 
-        addCategoryButton.setOnClickListener(new View.OnClickListener() {
+        getAddCategoryButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String categoryName = categoryInput.getText().toString();
+                String categoryName = getCategoryInput().getText().toString();
 
                 if (categoryName.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addCategory), getString(R.string.enterCategoryToAdd), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.addCategory), getString(R.string.enterCategoryToAdd), getString(R.string.ok));
                     return;
                 }
 
-                int numCategories = categoryData.getCategoryList().size();
-                dbCategoryHelper.addNewCategory(categoryName, numCategories);
-                shopping.updateCategoryData();
+                int numCategories = getCategoryData().getCategoryList().size();
+                getDbCategoryHelper().addNewCategory(categoryName, numCategories);
+                getShopping().updateCategoryData();
 
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 

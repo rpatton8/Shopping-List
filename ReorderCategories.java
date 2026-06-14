@@ -16,7 +16,6 @@ public class ReorderCategories extends Fragment {
     private ItemData itemData;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
-
     private RecyclerView recyclerView;
     private ReorderCategoriesRVA rvAdapter;
     private Button finishReorderingButton;
@@ -24,34 +23,110 @@ public class ReorderCategories extends Fragment {
 
     public ReorderCategories() {}
 
+    private ReorderCategories getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        getThis().recyclerView = recyclerView;
+    }
+
+    public ReorderCategoriesRVA getRvAdapter() {
+        return rvAdapter;
+    }
+
+    public void setRvAdapter(ReorderCategoriesRVA rvAdapter) {
+        getThis().rvAdapter = rvAdapter;
+    }
+
+    public Button getFinishReorderingButton() {
+        return finishReorderingButton;
+    }
+
+    public void setFinishReorderingButton(Button finishReorderingButton) {
+        getThis().finishReorderingButton = finishReorderingButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.reorder_categories, container, false);
+        setView(inflater.inflate(R.layout.reorder_categories, container, false));
 
-        shopping = (Shopping) getActivity();
-        itemData = shopping.getItemData();
-        categoryData = shopping.getCategoryData();
-        dbCategoryHelper = new DBCategoryHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setItemData(getShopping().getItemData());
+        setCategoryData(getShopping().getCategoryData());
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
 
-        recyclerView = view.findViewById(R.id.reorderCategoriesRecyclerView);
-        recyclerView.setHasFixedSize(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        rvAdapter = new ReorderCategoriesRVA(shopping, recyclerView, itemData, categoryData, dbCategoryHelper);
-        recyclerView.setAdapter(rvAdapter);
-        recyclerView.getLayoutManager().onRestoreInstanceState(shopping.getReorderCategoriesViewState());
+        setRecyclerView((RecyclerView) getView().findViewById(R.id.reorderCategoriesRecyclerView));
+        getRecyclerView().setHasFixedSize(false);
+        getRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        setRvAdapter(new ReorderCategoriesRVA(getView(), getShopping(), getRecyclerView(), getItemData(), getCategoryData(), getDbCategoryHelper()));
+        getRecyclerView().setAdapter(getRvAdapter());
+        getRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderCategoriesViewState());
 
-        finishReorderingButton = view.findViewById(R.id.finishReorderingButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setFinishReorderingButton((Button) getView().findViewById(R.id.finishReorderingButton));;
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        finishReorderingButton.setOnClickListener(new View.OnClickListener() {
+        getFinishReorderingButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadFragment(new FullInventory());
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
@@ -59,7 +134,7 @@ public class ReorderCategories extends Fragment {
     }
 
     public void onDestroyView() {
-        recyclerView.setAdapter(null);
+        getRecyclerView().setAdapter(null);
         super.onDestroyView();
     }
 }

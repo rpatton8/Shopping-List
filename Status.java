@@ -9,6 +9,7 @@ class Status {
     private Boolean isInStock;
     private Boolean isNeeded;
     private Boolean isPaused;
+    private Boolean isChecked;
     private Boolean isExpandedInInventory;
     private Boolean isContractedInInventory;
     private Boolean isExpandedInSearchResults;
@@ -18,24 +19,17 @@ class Status {
     private Boolean isSelectedInInventory;
     private Boolean isSelectedInSearchResults;
     private Boolean isSelectedInShoppingList;
-    private Boolean isChecked;
-
+    
     Status(String itemName, String status, String checked, Context context) {
 
-        this.context = context;
+        setContext(context);
 
         if (status.equals(getContext().getString(R.string.instock))) {
-            isInStock = true;
-            isNeeded = false;
-            isPaused = false;
+            setAsInStock();
         } else if (status.equals(getContext().getString(R.string.needed))) {
-            isInStock = false;
-            isNeeded = true;
-            isPaused = false;
+            setAsNeeded();
         } else if (status.equals(getContext().getString(R.string.paused))) {
-            isInStock = false;
-            isNeeded = false;
-            isPaused = true;
+            setAsPaused();
         }
 
         if (checked.equals(getContext().getString(R.string.checked))) {
@@ -44,126 +38,24 @@ class Status {
             setAsUnchecked();
         }
 
-        isExpandedInInventory = false;
-        isContractedInInventory = true;
-        isExpandedInSearchResults = false;
-        isContractedInSearchResults = true;
-        isExpandedInShoppingList = false;
-        isContractedInShoppingList = true;
-        isSelectedInInventory = false;
-        isSelectedInSearchResults = false;
-        isSelectedInShoppingList = false;
-        isChecked = false;
+        setAsContractedInInventory();
+        setAsContractedInSearchResults();
+        setAsContractedInShoppingList();
+        setAsUnselectedInInventory();
+        setAsUnselectedInSearchResults();
+        setAsUnselectedInShoppingList();
+    }
+
+    private Status getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
     }
 
-    void setAsExpandedInInventory() {
-        isExpandedInInventory = true;
-        isContractedInInventory = false;
-    }
-
-    void setAsContractedInInventory() {
-        isContractedInInventory = true;
-        isExpandedInInventory = false;
-    }
-
-    Boolean isExpandedInInventory() {
-        return isExpandedInInventory;
-    }
-
-    Boolean isContractedInInventory() {
-        return isContractedInInventory;
-    }
-
-    void setAsExpandedInSearchResults() {
-        isExpandedInSearchResults = true;
-        isContractedInSearchResults = false;
-    }
-
-    void setAsContractedInSearchResults() {
-        isContractedInSearchResults = true;
-        isExpandedInSearchResults = false;
-    }
-
-    Boolean isExpandedInSearchResults() {
-        return isExpandedInSearchResults;
-    }
-
-    Boolean isContractedInSearchResults() {
-        return isContractedInSearchResults;
-    }
-
-    void setAsExpandedInShoppingList() {
-        isExpandedInShoppingList = true;
-        isContractedInShoppingList = false;
-    }
-
-    void setAsContractedInShoppingList() {
-        isContractedInShoppingList = true;
-        isExpandedInShoppingList = false;
-    }
-
-    Boolean isExpandedInShoppingList() {
-        return isExpandedInShoppingList;
-    }
-
-    Boolean isContractedInShoppingList() {
-        return isContractedInShoppingList;
-    }
-
-    void setAsSelectedInInventory() {
-        isSelectedInInventory = true;
-    }
-
-    void setAsUnselectedInInventory() {
-        isSelectedInInventory = false;
-    }
-
-    Boolean isSelectedInInventory() {
-        return isSelectedInInventory;
-    }
-
-    void setAsSelectedInSearchResults() {
-        isSelectedInSearchResults = true;
-    }
-
-    void setAsUnselectedInSearchResults() {
-        isSelectedInSearchResults = false;
-    }
-
-    Boolean isSelectedInSearchResults() {
-        return isSelectedInSearchResults;
-    }
-
-    void setAsSelectedInShoppingList() {
-        isSelectedInShoppingList = true;
-    }
-
-    void setAsUnselectedInShoppingList() {
-        isSelectedInShoppingList = false;
-    }
-
-    Boolean isSelectedInShoppingList() {
-        return isSelectedInShoppingList;
-    }
-
-    void setAsChecked() {
-        isChecked = true;
-    }
-
-    void setAsUnchecked() {
-        isChecked = false;
-    }
-
-    Boolean isChecked() {
-        return isChecked;
-    }
-
-    Boolean isUnchecked() {
-        return !isChecked;
+    public void setContext(Context context) {
+        getThis().context = context;
     }
 
     Boolean isInStock() {
@@ -196,10 +88,116 @@ class Status {
         isPaused = true;
     }
 
+    Boolean isChecked() {
+        return isChecked;
+    }
+
+    void setAsChecked() {
+        isChecked = true;
+    }
+
+    Boolean isUnchecked() {
+        return !isChecked;
+    }
+
+    void setAsUnchecked() {
+        isChecked = false;
+    }
+
+    Boolean isExpandedInInventory() {
+        return isExpandedInInventory;
+    }
+
+    void setAsExpandedInInventory() {
+        isExpandedInInventory = true;
+        isContractedInInventory = false;
+    }
+
+    Boolean isContractedInInventory() {
+        return isContractedInInventory;
+    }
+
+    void setAsContractedInInventory() {
+        isContractedInInventory = true;
+        isExpandedInInventory = false;
+    }
+
+    Boolean isExpandedInSearchResults() {
+        return isExpandedInSearchResults;
+    }
+
+    void setAsExpandedInSearchResults() {
+        isExpandedInSearchResults = true;
+        isContractedInSearchResults = false;
+    }
+
+    Boolean isContractedInSearchResults() {
+        return isContractedInSearchResults;
+    }
+
+    void setAsContractedInSearchResults() {
+        isContractedInSearchResults = true;
+        isExpandedInSearchResults = false;
+    }
+
+    Boolean isExpandedInShoppingList() {
+        return isExpandedInShoppingList;
+    }
+
+    void setAsExpandedInShoppingList() {
+        isExpandedInShoppingList = true;
+        isContractedInShoppingList = false;
+    }
+
+    Boolean isContractedInShoppingList() {
+        return isContractedInShoppingList;
+    }
+
+    void setAsContractedInShoppingList() {
+        isContractedInShoppingList = true;
+        isExpandedInShoppingList = false;
+    }
+
+    Boolean isSelectedInInventory() {
+        return isSelectedInInventory;
+    }
+
+    void setAsSelectedInInventory() {
+        isSelectedInInventory = true;
+    }
+
+    void setAsUnselectedInInventory() {
+        isSelectedInInventory = false;
+    }
+
+    Boolean isSelectedInSearchResults() {
+        return isSelectedInSearchResults;
+    }
+
+    void setAsSelectedInSearchResults() {
+        isSelectedInSearchResults = true;
+    }
+
+    void setAsUnselectedInSearchResults() {
+        isSelectedInSearchResults = false;
+    }
+
+    Boolean isSelectedInShoppingList() {
+        return isSelectedInShoppingList;
+    }
+
+    void setAsSelectedInShoppingList() {
+        isSelectedInShoppingList = true;
+    }
+
+    void setAsUnselectedInShoppingList() {
+        isSelectedInShoppingList = false;
+    }
+    
     public String toString() {
-        if (isInStock) return getContext().getString(R.string.inStockCap);
-        if (isNeeded) return getContext().getString(R.string.neededCap);
-        if (isPaused) return getContext().getString(R.string.pausedCap);
+        if (isInStock()) return getContext().getString(R.string.inStockCap);
+        if (isNeeded()) return getContext().getString(R.string.neededCap);
+        if (isPaused()) return getContext().getString(R.string.pausedCap);
         return null;
     }
 

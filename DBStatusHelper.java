@@ -20,11 +20,19 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     DBStatusHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
-        this.context = context;
+        setContext(context);
+    }
+
+    private DBStatusHelper getThis() {
+        return this;
     }
 
     private Context getContext() {
         return context;
+    }
+
+    public void setContext(Context context) {
+        getThis().context = context;
     }
 
     public void onCreate(SQLiteDatabase db) {
@@ -44,7 +52,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     StatusData readStatusData() {
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getThis().getReadableDatabase();
         Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME, null);
         StatusData statusData = new StatusData(getContext());
 
@@ -62,7 +70,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     void addNewStatus(String itemName, String status, String checked) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(ITEM_NAME, itemName);
@@ -75,7 +83,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     void updateStatus(String itemName, String status, String checked) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(ITEM_NAME, itemName);
@@ -88,7 +96,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     void changeStatusName(String originalItemName, String newItemName) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(ITEM_NAME, newItemName);
@@ -99,7 +107,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
     void deleteStatus(String itemName) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getThis().getWritableDatabase();
 
         db.delete(TABLE_NAME, getContext().getString(R.string.dbItemNameQuestion), new String[]{itemName});
         db.close();

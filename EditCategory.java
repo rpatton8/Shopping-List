@@ -18,62 +18,153 @@ public class EditCategory extends Fragment {
     private CategoryData categoryData;
     private DBItemHelper dbItemHelper;
     private DBCategoryHelper dbCategoryHelper;
-
     private EditText categoryInput;
     private Spinner categorySpinner;
-    private ArrayList<String> spinnerData;
-    private ArrayAdapter adapter;
+    private ArrayList<String> categorySpinnerData;
+    private ArrayAdapter categorySpinnerAdapter;
     private Button editCategoryButton;
     private Button cancelButton;
 
     public EditCategory() {}
 
+    private EditCategory getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public DBItemHelper getDbItemHelper() {
+        return dbItemHelper;
+    }
+
+    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+        getThis().dbItemHelper = dbItemHelper;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public EditText getCategoryInput() {
+        return categoryInput;
+    }
+
+    public void setCategoryInput(EditText categoryInput) {
+        getThis().categoryInput = categoryInput;
+    }
+
+    public Spinner getCategorySpinner() {
+        return categorySpinner;
+    }
+
+    public void setCategorySpinner(Spinner categorySpinner) {
+        getThis().categorySpinner = categorySpinner;
+    }
+
+    public ArrayList<String> getCategorySpinnerData() {
+        return categorySpinnerData;
+    }
+
+    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+        getThis().categorySpinnerData = categorySpinnerData;
+    }
+
+    public ArrayAdapter getCategorySpinnerAdapter() {
+        return categorySpinnerAdapter;
+    }
+
+    public void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+        getThis().categorySpinnerAdapter = categorySpinnerAdapter;
+    }
+
+    public Button getEditCategoryButton() {
+        return editCategoryButton;
+    }
+
+    public void setEditCategoryButton(Button editCategoryButton) {
+        getThis().editCategoryButton = editCategoryButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.edit_category, container, false);
+        setView(inflater.inflate(R.layout.edit_category, container, false));
 
-        shopping = (Shopping) getActivity();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbCategoryHelper = new DBCategoryHelper(getActivity());
-        categoryData = shopping.getCategoryData();
+        setShopping((Shopping) getActivity());
+        setDbItemHelper(new DBItemHelper(getActivity()));
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
+        setCategoryData(getShopping().getCategoryData());
 
-        categoryInput = view.findViewById(R.id.categoryInput);
-        editCategoryButton = view.findViewById(R.id.editCategoryButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setCategoryInput((EditText) getView().findViewById(R.id.categoryInput));
+        setEditCategoryButton((Button) getView().findViewById(R.id.editCategoryButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        spinnerData = categoryData.getCategoryListWithBlank();
-        categorySpinner = view.findViewById(R.id.categorySpinner);
-        adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, spinnerData);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
+        setCategorySpinnerData(getCategoryData().getCategoryListWithBlank());
+        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
+        getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
-        categoryInput.setText(getString(R.string.emptyString));
+        getCategoryInput().setText(getString(R.string.emptyString));
 
-        editCategoryButton.setOnClickListener(new View.OnClickListener() {
+        getEditCategoryButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String oldCategory = categorySpinner.getSelectedItem().toString();
-                String newCategory = categoryInput.getText().toString();
+                String oldCategory = getCategorySpinner().getSelectedItem().toString();
+                String newCategory = getCategoryInput().getText().toString();
 
                 if (newCategory.isEmpty() || oldCategory.equals(newCategory)) {
-                    shopping.showAlertDialog(getString(R.string.editCategory), getString(R.string.changeCategoryName), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.editCategory), getString(R.string.changeCategoryName), getString(R.string.ok));
                     return;
                 }
 
-                dbItemHelper.changeCategory(oldCategory, newCategory);
-                shopping.updateItemData();
+                getDbItemHelper().changeCategory(oldCategory, newCategory);
+                getShopping().updateItemData();
 
-                dbCategoryHelper.changeCategoryName(oldCategory, newCategory);
-                shopping.updateCategoryData();
+                getDbCategoryHelper().changeCategoryName(oldCategory, newCategory);
+                getShopping().updateCategoryData();
 
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 

@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
     <!--App Strings-->
@@ -70,7 +72,6 @@
     <string name="enterNewStoreName">Enter New Store Name</string>
     <string name="enterStoreName">Enter Store Name</string>
     <string name="enterStoreToAdd">Please enter a store to add.</string>
-    <string name="exception">Exception</string>
     <string name="expandContractItems">Expand / Contract Items</string>
     <string name="expandContractCategories">Expand / Contract Categories</string>
     <string name="expandContractStores">Expand / Contract Stores</string>
@@ -106,6 +107,7 @@
     <string name="picturesOff">Pictures Off</string>
     <string name="price">Price: </string>
     <string name="quantity">Quantity: </string>
+    <string name="refreshIcon">Refresh Button</string>
     <string name="remove">Remove</string>
     <string name="removeCategory">Remove Category</string>
     <string name="removeItem">Remove Item</string>
@@ -328,6 +330,17 @@
     <string name="piStatus">"Status: "</string>
     <string name="piCategoryOrder">"Category Order: "</string>
     <string name="piStoreOrder">"Store Order: "</string>
+    <string name="psCategoryName">Category Name: </string>
+    <string name="psStoreName">Store Name: </string>
+    <string name="psItemNum">Item #</string>
+    <string name="psColon">: </string>
+
+
+    getString(R.string.psCategoryName)
+    getString(R.string.psStoreName)
+    getString(R.string.psItemNum)
+    getString(R.string.psColon)
+
 
     <!--Category Strings-->
     <string name="meals">Meals</string>

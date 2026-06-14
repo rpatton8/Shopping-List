@@ -10,18 +10,72 @@ import java.util.ArrayList;
 
 class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStoresRVH> {
 
+    private View view;
     private Shopping shopping;
     private ItemData itemData;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
     private RecyclerView recyclerView;
 
-    ReorderStoresRVA(Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
-        this.shopping = shopping;
-        this.itemData  = itemData;
-        this.storeData = storeData;
-        this.dbStoreHelper = dbStore;
-        this.recyclerView = recyclerView;
+    ReorderStoresRVA(View view, Shopping shopping, RecyclerView recyclerView, ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
+        setView(view);
+        setShopping(shopping);
+        setItemData(itemData) ;
+        setStoreData(storeData);
+        setDbStoreHelper(dbStore);
+        setRecyclerView(recyclerView);
+    }
+
+    private ReorderStoresRVA getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        getThis().recyclerView = recyclerView;
     }
 
     public int getItemViewType(int position) {
@@ -29,17 +83,17 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     public ReorderStoresRVH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new ReorderStoresRVH(view, shopping, recyclerView, itemData, storeData, dbStoreHelper);
+        setView(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+        return new ReorderStoresRVH(getView(), getShopping(), getRecyclerView(), getItemData(), getStoreData(), getDbStoreHelper());
     }
 
     public void onBindViewHolder(ReorderStoresRVH holder, int position) {
-        ArrayList<String> storeList = storeData.getStoreList();
-        holder.storeName.setText(storeList.get(position));
+        ArrayList<String> storeList = getStoreData().getStoreList();
+        holder.getStoreName().setText(storeList.get(position));
     }
 
     public int getItemCount() {
-        return storeData.getStoreList().size();
+        return getStoreData().getStoreList().size();
     }
 
     class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,30 +112,98 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
                          ItemData itemData, StoreData storeData, DBStoreHelper dbStore) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.itemData = itemData;
-            this.storeData = storeData;
-            this.dbStoreHelper = dbStore;
-            this.recyclerView = recyclerView;
+            setShopping(shopping);
+            setItemData(itemData);
+            setStoreData(storeData);
+            setDbStoreHelper(dbStore);
+            setRecyclerView(recyclerView);
 
-            storeName = itemView.findViewById(R.id.storeName);
-            triangleDown = itemView.findViewById(R.id.triangleDown);
-            triangleUp = itemView.findViewById(R.id.triangleUp);
+            setStoreName((TextView) itemView.findViewById(R.id.storeName));
+            setTriangleDown((ImageView) itemView.findViewById(R.id.triangleDown));
+            setTriangleUp((ImageView) itemView.findViewById(R.id.triangleUp));
 
-            triangleDown.setOnClickListener(this);
-            triangleUp.setOnClickListener(this);
+            getTriangleDown().setOnClickListener(this);
+            getTriangleUp().setOnClickListener(this);
 
+        }
+
+        private ReorderStoresRVH getThis() {
+            return this;
+        }
+
+        public Shopping getShopping() {
+            return shopping;
+        }
+
+        public void setShopping(Shopping shopping) {
+            getThis().shopping = shopping;
+        }
+
+        public ItemData getItemData() {
+            return itemData;
+        }
+
+        public void setItemData(ItemData itemData) {
+            getThis().itemData = itemData;
+        }
+
+        public StoreData getStoreData() {
+            return storeData;
+        }
+
+        public void setStoreData(StoreData storeData) {
+            getThis().storeData = storeData;
+        }
+
+        public DBStoreHelper getDbStoreHelper() {
+            return dbStoreHelper;
+        }
+
+        public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+            getThis().dbStoreHelper = dbStoreHelper;
+        }
+
+        public RecyclerView getRecyclerView() {
+            return recyclerView;
+        }
+
+        public void setRecyclerView(RecyclerView recyclerView) {
+            getThis().recyclerView = recyclerView;
+        }
+
+        public TextView getStoreName() {
+            return storeName;
+        }
+
+        public void setStoreName(TextView storeName) {
+            getThis().storeName = storeName;
+        }
+
+        public ImageView getTriangleDown() {
+            return triangleDown;
+        }
+
+        public void setTriangleDown(ImageView triangleDown) {
+            getThis().triangleDown = triangleDown;
+        }
+
+        public ImageView getTriangleUp() {
+            return triangleUp;
+        }
+
+        public void setTriangleUp(ImageView triangleUp) {
+            getThis().triangleUp = triangleUp;
         }
 
         private boolean storeContains(int storePosition, int itemPosition) {
             int index = 0;
-            for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                String store = storeData.getStoreList().get(i);
+            for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                String store = getStoreData().getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore + 1;
                 if (itemPosition == index) return false;
@@ -95,60 +217,60 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         public void onClick(View v) {
             int id = v.getId();
             int position = getAdapterPosition();
-            if (id == triangleDown.getId()) {
-                if (position == storeData.getStoreList().size() - 1) {
+            if (id == getTriangleDown().getId()) {
+                if (position == getStoreData().getStoreList().size() - 1) {
                     // Down arrow on last store
                     return;
                 }
-                dbStoreHelper.swapOrder(position, position + 1);
-                shopping.updateStoreData();
+                getDbStoreHelper().swapOrder(position, position + 1);
+                getShopping().updateStoreData();
 
                 // Check if selected item is in one of the stores being moved and shift it
-                if (shopping.getSelectedItemPositionInInventory() != 0) {
+                if (getShopping().getSelectedItemPositionInInventory() != 0) {
 
-                    if (storeContains(position, shopping.getSelectedItemPositionInInventory())) {
+                    if (storeContains(position, getShopping().getSelectedItemPositionInInventory())) {
 
-                        String store = storeData.getStoreList().get(position + 1);
-                        int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
+                        String store = getStoreData().getStoreList().get(position + 1);
+                        int offset = getItemData().getStoreMap().get(store).getStoreItemsList().size();
+                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
 
-                    } else if (storeContains(position + 1, shopping.getSelectedItemPositionInInventory())) {
+                    } else if (storeContains(position + 1, getShopping().getSelectedItemPositionInInventory())) {
 
-                        String store = storeData.getStoreList().get(position);
-                        int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
+                        String store = getStoreData().getStoreList().get(position);
+                        int offset = getItemData().getStoreMap().get(store).getStoreItemsList().size();
+                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
 
                     }
                 }
-                shopping.setReorderStoresViewState(recyclerView.getLayoutManager().onSaveInstanceState());
-                shopping.loadFragment(new ReorderStores());
+                getShopping().setReorderStoresViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
+                getShopping().loadFragment(new ReorderStores());
 
-            } else if (id == triangleUp.getId()) {
+            } else if (id == getTriangleUp().getId()) {
                 if (position == 0) {
                     // Up arrow on first item
                     return;
                 }
-                dbStoreHelper.swapOrder(position - 1, position);
-                shopping.updateStoreData();
+                getDbStoreHelper().swapOrder(position - 1, position);
+                getShopping().updateStoreData();
 
                 // Check if selected item is in one of the stores being moved and shift it
-                if (shopping.getSelectedItemPositionInInventory() != 0) {
+                if (getShopping().getSelectedItemPositionInInventory() != 0) {
 
-                    if (storeContains(position, shopping.getSelectedItemPositionInInventory())) {
+                    if (storeContains(position, getShopping().getSelectedItemPositionInInventory())) {
 
-                        String store = storeData.getStoreList().get(position - 1);
-                        int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() - offset + 1);
+                        String store = getStoreData().getStoreList().get(position - 1);
+                        int offset = getItemData().getStoreMap().get(store).getStoreItemsList().size();
+                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
 
-                    } else if (storeContains(position - 1, shopping.getSelectedItemPositionInInventory())) {
+                    } else if (storeContains(position - 1, getShopping().getSelectedItemPositionInInventory())) {
 
-                        String store = storeData.getStoreList().get(position);
-                        int offset = itemData.getStoreMap().get(store).getStoreItemsList().size();
-                        shopping.setSelectedItemPositionInInventory(shopping.getSelectedItemPositionInInventory() + offset + 1);
+                        String store = getStoreData().getStoreList().get(position);
+                        int offset = getItemData().getStoreMap().get(store).getStoreItemsList().size();
+                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
                     }
                 }
-                shopping.setReorderStoresViewState(recyclerView.getLayoutManager().onSaveInstanceState());
-                shopping.loadFragment(new ReorderStores());
+                getShopping().setReorderStoresViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
+                getShopping().loadFragment(new ReorderStores());
             }
         }
     }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class EditItem extends Fragment {
 
+    private View view;
     private Shopping shopping;
     private CategoryData categoryData;
     private StoreData storeData;
@@ -21,14 +22,12 @@ public class EditItem extends Fragment {
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
-
     private EditText itemNameInput;
     private EditText itemTypeInput;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
     private Button editItemButton;
     private Button cancelButton;
-
     private Spinner categorySpinner;
     private Spinner storeSpinner;
     private ArrayList<String> categorySpinnerData;
@@ -38,211 +37,359 @@ public class EditItem extends Fragment {
 
     public EditItem() {}
 
+    private EditItem getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBItemHelper getDbItemHelper() {
+        return dbItemHelper;
+    }
+
+    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+        getThis().dbItemHelper = dbItemHelper;
+    }
+
+    public DBStatusHelper getDbStatusHelper() {
+        return dbStatusHelper;
+    }
+
+    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        getThis().dbStatusHelper = dbStatusHelper;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public EditText getItemNameInput() {
+        return itemNameInput;
+    }
+
+    public void setItemNameInput(EditText itemNameInput) {
+        getThis().itemNameInput = itemNameInput;
+    }
+
+    public EditText getItemTypeInput() {
+        return itemTypeInput;
+    }
+
+    public void setItemTypeInput(EditText itemTypeInput) {
+        getThis().itemTypeInput = itemTypeInput;
+    }
+
+    public EditText getItemCategoryInput() {
+        return itemCategoryInput;
+    }
+
+    public void setItemCategoryInput(EditText itemCategoryInput) {
+        getThis().itemCategoryInput = itemCategoryInput;
+    }
+
+    public EditText getItemStoreInput() {
+        return itemStoreInput;
+    }
+
+    public void setItemStoreInput(EditText itemStoreInput) {
+        getThis().itemStoreInput = itemStoreInput;
+    }
+
+    public Button getEditItemButton() {
+        return editItemButton;
+    }
+
+    public void setEditItemButton(Button editItemButton) {
+        getThis().editItemButton = editItemButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
+    public Spinner getCategorySpinner() {
+        return categorySpinner;
+    }
+
+    public void setCategorySpinner(Spinner categorySpinner) {
+        getThis().categorySpinner = categorySpinner;
+    }
+
+    public Spinner getStoreSpinner() {
+        return storeSpinner;
+    }
+
+    public void setStoreSpinner(Spinner storeSpinner) {
+        getThis().storeSpinner = storeSpinner;
+    }
+
+    public ArrayList<String> getCategorySpinnerData() {
+        return categorySpinnerData;
+    }
+
+    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+        getThis().categorySpinnerData = categorySpinnerData;
+    }
+
+    public ArrayAdapter<String> getCategoryAdapter() {
+        return categoryAdapter;
+    }
+
+    public void setCategoryAdapter(ArrayAdapter<String> categoryAdapter) {
+        getThis().categoryAdapter = categoryAdapter;
+    }
+
+    public ArrayList<String> getStoreSpinnerData() {
+        return storeSpinnerData;
+    }
+
+    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+        getThis().storeSpinnerData = storeSpinnerData;
+    }
+
+    public ArrayAdapter<String> getStoreAdapter() {
+        return storeAdapter;
+    }
+
+    public void setStoreAdapter(ArrayAdapter<String> storeAdapter) {
+        getThis().storeAdapter = storeAdapter;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.edit_item, container, false);
+        setView(inflater.inflate(R.layout.edit_item, container, false));
 
-        shopping = (Shopping) getActivity();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbStatusHelper = new DBStatusHelper(getActivity());
-        dbCategoryHelper = new DBCategoryHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
-        categoryData = shopping.getCategoryData();
-        storeData = shopping.getStoreData();
+        setShopping((Shopping) getActivity());
+        setDbItemHelper(new DBItemHelper(getActivity()));
+        setDbStatusHelper(new DBStatusHelper(getActivity()));
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
+        setCategoryData(getShopping().getCategoryData());
+        setStoreData(getShopping().getStoreData());
 
-        itemNameInput = view.findViewById(R.id.itemNameInput);
-        itemTypeInput = view.findViewById(R.id.itemTypeInput);
-        itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
-        itemStoreInput = view.findViewById(R.id.itemStoreInput);
-        editItemButton = view.findViewById(R.id.editItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
+        setItemTypeInput((EditText) getView().findViewById(R.id.itemTypeInput));
+        setItemCategoryInput((EditText) getView().findViewById(R.id.itemCategoryInput));
+        setItemStoreInput((EditText) getView().findViewById(R.id.itemStoreInput));
+        setEditItemButton((Button) getView().findViewById(R.id.editItemButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        if(shopping.editItemInInventory()) {
-            System.out.println("Edit item in inventory");
-            itemNameInput.setText(shopping.getSelectedItemInInventory().getName());
-            itemTypeInput.setText(shopping.getSelectedItemInInventory().getBrandType());
-        } else if (shopping.editItemInSearchResults()) {
-            System.out.println("Edit item in search results");
-            itemNameInput.setText(shopping.getSelectedItemInSearchResults().getName());
-            itemTypeInput.setText(shopping.getSelectedItemInSearchResults().getBrandType());
-        } else if (shopping.editItemInShoppingList()) {
-            System.out.println("Edit item in shopping list");
-            itemNameInput.setText(shopping.getSelectedItemInShoppingList().getName());
-            itemTypeInput.setText(shopping.getSelectedItemInShoppingList().getBrandType());
-        } else if (shopping.editItemInPictureDialog()) {
-            System.out.println("Edit item in picture dialog");
-            itemNameInput.setText(shopping.getItemInPictureDialog().getName());
-            itemTypeInput.setText(shopping.getItemInPictureDialog().getBrandType());
+        if(getShopping().editItemInInventory()) {
+            getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
+            getItemTypeInput().setText(getShopping().getSelectedItemInInventory().getBrandType());
+        } else if (getShopping().editItemInSearchResults()) {
+            getItemNameInput().setText(getShopping().getSelectedItemInSearchResults().getItemName());
+            getItemTypeInput().setText(getShopping().getSelectedItemInSearchResults().getBrandType());
+        } else if (getShopping().editItemInShoppingList()) {
+            getItemNameInput().setText(getShopping().getSelectedItemInShoppingList().getItemName());
+            getItemTypeInput().setText(getShopping().getSelectedItemInShoppingList().getBrandType());
+        } else if (getShopping().editItemInPictureDialog()) {
+            getItemNameInput().setText(getShopping().getItemInPictureDialog().getItemName());
+            getItemTypeInput().setText(getShopping().getItemInPictureDialog().getBrandType());
         }
-        itemCategoryInput.setText(getString(R.string.emptyString));
-        itemStoreInput.setText(getString(R.string.emptyString));
+        getItemCategoryInput().setText(getString(R.string.emptyString));
+        getItemStoreInput().setText(getString(R.string.emptyString));
 
-        categorySpinnerData = categoryData.getCategoryListWithAddNew();
-        categorySpinner = view.findViewById(R.id.categorySpinner);
-        categoryAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categoryAdapter);
+        setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
+        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategoryAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
+        getCategoryAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getCategorySpinner().setAdapter(getCategoryAdapter());
 
         int categorySpinnerPosition = 0;
-        if(shopping.editItemInInventory()) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInInventory().getCategory().toString());
-        } else if (shopping.editItemInSearchResults()) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInSearchResults().getCategory().toString());
-        } else if (shopping.editItemInShoppingList()) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getSelectedItemInShoppingList().getCategory().toString());
-        } else if (shopping.editItemInPictureDialog()) {
-            categorySpinnerPosition = categoryAdapter.getPosition(shopping.getItemInPictureDialog().getCategory().toString());
+        if(getShopping().editItemInInventory()) {
+            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInInventory().getCategory().toString());
+        } else if (getShopping().editItemInSearchResults()) {
+            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getCategory().toString());
+        } else if (getShopping().editItemInShoppingList()) {
+            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getCategory().toString());
+        } else if (getShopping().editItemInPictureDialog()) {
+            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getItemInPictureDialog().getCategory().toString());
         }
-        categorySpinner.setSelection(categorySpinnerPosition);
+        getCategorySpinner().setSelection(categorySpinnerPosition);
 
-        storeSpinnerData = storeData.getStoreListWithAddNew();
-        storeSpinner = view.findViewById(R.id.storeSpinner);
-        storeAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
-        storeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeSpinner.setAdapter(storeAdapter);
+        setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
+        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
+        getStoreAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getStoreSpinner().setAdapter(getStoreAdapter());
 
         int storeSpinnerPosition = 0;
-        if(shopping.editItemInInventory()) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInInventory().getStore().toString());
-        } else if (shopping.editItemInSearchResults()) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInSearchResults().getStore().toString());
-        } else if (shopping.editItemInShoppingList()) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.getSelectedItemInShoppingList().getStore().toString());
-        } else if (shopping.editItemInPictureDialog()) {
-            storeSpinnerPosition = storeAdapter.getPosition(shopping.getItemInPictureDialog().getStore().toString());
+        if(getShopping().editItemInInventory()) {
+            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInInventory().getStore().toString());
+        } else if (getShopping().editItemInSearchResults()) {
+            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getStore().toString());
+        } else if (getShopping().editItemInShoppingList()) {
+            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getStore().toString());
+        } else if (getShopping().editItemInPictureDialog()) {
+            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getItemInPictureDialog().getStore().toString());
         }
-        storeSpinner.setSelection(storeSpinnerPosition);
+        getStoreSpinner().setSelection(storeSpinnerPosition);
 
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getCategorySpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals(getString(R.string.addNewCategory))) {
-                    itemCategoryInput.setVisibility(View.VISIBLE);
+                    getItemCategoryInput().setVisibility(View.VISIBLE);
                 } else {
-                    itemCategoryInput.setVisibility(View.GONE);
+                    getItemCategoryInput().setVisibility(View.GONE);
                 }
             }
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getStoreSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals(getString(R.string.addNewStore))) {
-                    itemStoreInput.setVisibility(View.VISIBLE);
+                    getItemStoreInput().setVisibility(View.VISIBLE);
                 } else {
-                    itemStoreInput.setVisibility(View.GONE);
+                    getItemStoreInput().setVisibility(View.GONE);
                 }
             }
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        editItemButton.setOnClickListener(new View.OnClickListener() {
+        getEditItemButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 String oldItemName = getString(R.string.emptyString);
-                if (shopping.editItemInInventory()) {
-                    oldItemName = shopping.getSelectedItemInInventory().getName();
-                } else if (shopping.editItemInSearchResults()) {
-                    oldItemName = shopping.getSelectedItemInSearchResults().getName();
-                } else if (shopping.editItemInShoppingList()) {
-                    oldItemName = shopping.getSelectedItemInShoppingList().getName();
-                } else if (shopping.editItemInPictureDialog()) {
-                    oldItemName = shopping.getItemInPictureDialog().getName();
+                if (getShopping().editItemInInventory()) {
+                    oldItemName = getShopping().getSelectedItemInInventory().getItemName();
+                } else if (getShopping().editItemInSearchResults()) {
+                    oldItemName = getShopping().getSelectedItemInSearchResults().getItemName();
+                } else if (getShopping().editItemInShoppingList()) {
+                    oldItemName = getShopping().getSelectedItemInShoppingList().getItemName();
+                } else if (getShopping().editItemInPictureDialog()) {
+                    oldItemName = getShopping().getItemInPictureDialog().getItemName();
                 }
-                String newItemName = itemNameInput.getText().toString();
-                String itemType = itemTypeInput.getText().toString();
-                String itemCategory = itemCategoryInput.getText().toString();
-                String itemStore = itemStoreInput.getText().toString();
+                String newItemName = getItemNameInput().getText().toString();
+                String itemType = getItemTypeInput().getText().toString();
+                String itemCategory = getItemCategoryInput().getText().toString();
+                String itemStore = getItemStoreInput().getText().toString();
 
                 if (newItemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.emptyString)) || storeSpinner.getSelectedItem().toString().equals(getString(R.string.emptyString))) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.emptyString)) || getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.emptyString))) {
+                    getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
+                    getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
+                    getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 }
 
-                if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
-                    int numCategories = categoryData.getCategoryList().size();
-                    dbCategoryHelper.addNewCategory(itemCategory, numCategories);
-                    shopping.updateCategoryData();
+                if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
+                    int numCategories = getCategoryData().getCategoryList().size();
+                    getDbCategoryHelper().addNewCategory(itemCategory, numCategories);
+                    getShopping().updateCategoryData();
                 }
 
-                if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
-                    int numStores = storeData.getStoreList().size();
-                    dbStoreHelper.addNewStore(itemStore, numStores);
-                    shopping.updateStoreData();
+                if (getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
+                    int numStores = getStoreData().getStoreList().size();
+                    getDbStoreHelper().addNewStore(itemStore, numStores);
+                    getShopping().updateStoreData();
                 }
 
-                if (!categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
-                    itemCategory = categorySpinner.getSelectedItem().toString();
+                if (!getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
+                    itemCategory = getCategorySpinner().getSelectedItem().toString();
                 }
 
-                if (!storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
-                    itemStore = storeSpinner.getSelectedItem().toString();
+                if (!getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
+                    itemStore = getStoreSpinner().getSelectedItem().toString();
                 }
 
-                dbItemHelper.updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                dbStatusHelper.changeStatusName(oldItemName, newItemName);
-                shopping.updateItemData();
-                shopping.updateStatusData();
+                getDbItemHelper().updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
+                getDbStatusHelper().changeStatusName(oldItemName, newItemName);
+                getShopping().updateItemData();
+                getShopping().updateStatusData();
 
-                if (shopping.editItemInInventory()) {
-                    shopping.setSelectedItemInInventory(shopping.getItemData().getItemMap().get(newItemName));
-                } else if (shopping.editItemInSearchResults()) {
-                    shopping.setSelectedItemInSearchResults(shopping.getItemData().getItemMap().get(newItemName));
-                } else if (shopping.editItemInShoppingList()) {
-                    shopping.setSelectedItemInShoppingList(shopping.getItemData().getItemMap().get(newItemName));
-                } else if (shopping.editItemInPictureDialog()) {
-                    shopping.setItemInPictureDialog(shopping.getItemData().getItemMap().get(newItemName));
+                if (getShopping().editItemInInventory()) {
+                    getShopping().setSelectedItemInInventory(getShopping().getItemData().getItemMap().get(newItemName));
+                } else if (getShopping().editItemInSearchResults()) {
+                    getShopping().setSelectedItemInSearchResults(getShopping().getItemData().getItemMap().get(newItemName));
+                } else if (getShopping().editItemInShoppingList()) {
+                    getShopping().setSelectedItemInShoppingList(getShopping().getItemData().getItemMap().get(newItemName));
+                } else if (getShopping().editItemInPictureDialog()) {
+                    getShopping().setItemInPictureDialog(getShopping().getItemData().getItemMap().get(newItemName));
                 }
 
-                shopping.hideKeyboard();
-                if (shopping.editItemInInventory()) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInSearchResults()) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList()) {
-                    shopping.loadFragment(new ShoppingList());
-                } else if (shopping.editItemInPictureDialog()) {
-                    if (shopping.pictureDialogInInventory()) {
-                        shopping.loadFragment(new FullInventory());
-                    } else if (shopping.pictureDialogInSearchResults()) {
-                        shopping.loadFragment(new FullInventory());
-                    } else if  (shopping.pictureDialogInShoppingList()) {
-                        shopping.loadFragment(new ShoppingList());
-                    }
-                }
+                closeEditItem();
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (shopping.editItemInInventory()) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInSearchResults()) {
-                    shopping.loadFragment(new FullInventory());
-                } else if (shopping.editItemInShoppingList()) {
-                    shopping.loadFragment(new ShoppingList());
-                } else if (shopping.editItemInPictureDialog()) {
-                    if (shopping.pictureDialogInInventory()) {
-                        shopping.loadFragment(new FullInventory());
-                    } else if (shopping.pictureDialogInSearchResults()) {
-                        shopping.loadFragment(new FullInventory());
-                    } else if  (shopping.pictureDialogInShoppingList()) {
-                        shopping.loadFragment(new ShoppingList());
-                    }
-                }
+                closeEditItem();
             }
         });
-
         return view;
+    }
+
+    private void closeEditItem() {
+        if (getShopping().editItemInInventory()) {
+            getShopping().loadFragment(new FullInventory());
+        } else if (getShopping().editItemInSearchResults()) {
+            getShopping().loadFragment(new FullInventory());
+        } else if (getShopping().editItemInShoppingList()) {
+            getShopping().loadFragment(new ShoppingList());
+        } else if (getShopping().editItemInPictureDialog()) {
+            if (getShopping().pictureDialogInInventory()) {
+                getShopping().loadFragment(new FullInventory());
+            } else if (getShopping().pictureDialogInSearchResults()) {
+                getShopping().loadFragment(new FullInventory());
+            } else if  (getShopping().pictureDialogInShoppingList()) {
+                getShopping().loadFragment(new ShoppingList());
+            }
+        }
     }
 }

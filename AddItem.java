@@ -25,7 +25,6 @@ public class AddItem extends Fragment {
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
-
     private EditText itemNameInput;
     private EditText itemBrandTypeInput;
     private Spinner categorySpinner;
@@ -42,7 +41,6 @@ public class AddItem extends Fragment {
     private EditText noteInput;
     private Button addItemButton;
     private Button cancelButton;
-
     private ArrayList<String> categorySpinnerData;
     private ArrayAdapter categorySpinnerAdapter;
     private ArrayList<String> storeSpinnerData;
@@ -50,177 +48,413 @@ public class AddItem extends Fragment {
 
     public AddItem() {}
 
+    private AddItem getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        getThis().view = view;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    public ItemData getItemData() {
+        return itemData;
+    }
+
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    public CategoryData getCategoryData() {
+        return categoryData;
+    }
+
+    public void setCategoryData(CategoryData categoryData) {
+        getThis().categoryData = categoryData;
+    }
+
+    public StoreData getStoreData() {
+        return storeData;
+    }
+
+    public void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    public DBItemHelper getDbItemHelper() {
+        return dbItemHelper;
+    }
+
+    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+        getThis().dbItemHelper = dbItemHelper;
+    }
+
+    public DBStatusHelper getDbStatusHelper() {
+        return dbStatusHelper;
+    }
+
+    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        getThis().dbStatusHelper = dbStatusHelper;
+    }
+
+    public DBCategoryHelper getDbCategoryHelper() {
+        return dbCategoryHelper;
+    }
+
+    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+        getThis().dbCategoryHelper = dbCategoryHelper;
+    }
+
+    public DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public EditText getItemNameInput() {
+        return itemNameInput;
+    }
+
+    public void setItemNameInput(EditText itemNameInput) {
+        getThis().itemNameInput = itemNameInput;
+    }
+
+    public EditText getItemBrandTypeInput() {
+        return itemBrandTypeInput;
+    }
+
+    public void setItemBrandTypeInput(EditText itemBrandTypeInput) {
+        getThis().itemBrandTypeInput = itemBrandTypeInput;
+    }
+
+    public Spinner getCategorySpinner() {
+        return categorySpinner;
+    }
+
+    public void setCategorySpinner(Spinner categorySpinner) {
+        getThis().categorySpinner = categorySpinner;
+    }
+
+    public Spinner getStoreSpinner() {
+        return storeSpinner;
+    }
+
+    public void setStoreSpinner(Spinner storeSpinner) {
+        getThis().storeSpinner = storeSpinner;
+    }
+
+    public EditText getItemCategoryInput() {
+        return itemCategoryInput;
+    }
+
+    public void setItemCategoryInput(EditText itemCategoryInput) {
+        getThis().itemCategoryInput = itemCategoryInput;
+    }
+
+    public EditText getItemStoreInput() {
+        return itemStoreInput;
+    }
+
+    public void setItemStoreInput(EditText itemStoreInput) {
+        getThis().itemStoreInput = itemStoreInput;
+    }
+
+    public CheckBox getQuantityCheckbox() {
+        return quantityCheckbox;
+    }
+
+    public void setQuantityCheckbox(CheckBox quantityCheckbox) {
+        getThis().quantityCheckbox = quantityCheckbox;
+    }
+
+    public EditText getQuantityInput() {
+        return quantityInput;
+    }
+
+    public void setQuantityInput(EditText quantityInput) {
+        getThis().quantityInput = quantityInput;
+    }
+
+    public CheckBox getPriceCheckbox() {
+        return priceCheckbox;
+    }
+
+    public void setPriceCheckbox(CheckBox priceCheckbox) {
+        getThis().priceCheckbox = priceCheckbox;
+    }
+
+    public EditText getPriceInput() {
+        return priceInput;
+    }
+
+    public void setPriceInput(EditText priceInput) {
+        getThis().priceInput = priceInput;
+    }
+
+    public CheckBox getLocationCheckbox() {
+        return locationCheckbox;
+    }
+
+    public void setLocationCheckbox(CheckBox locationCheckbox) {
+        getThis().locationCheckbox = locationCheckbox;
+    }
+
+    public EditText getLocationInput() {
+        return locationInput;
+    }
+
+    public void setLocationInput(EditText locationInput) {
+        getThis().locationInput = locationInput;
+    }
+
+    public CheckBox getNoteCheckbox() {
+        return noteCheckbox;
+    }
+
+    public void setNoteCheckbox(CheckBox noteCheckbox) {
+        getThis().noteCheckbox = noteCheckbox;
+    }
+
+    public EditText getNoteInput() {
+        return noteInput;
+    }
+
+    public void setNoteInput(EditText noteInput) {
+        getThis().noteInput = noteInput;
+    }
+
+    public Button getAddItemButton() {
+        return addItemButton;
+    }
+
+    public void setAddItemButton(Button addItemButton) {
+        getThis().addItemButton = addItemButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButton(Button cancelButton) {
+        getThis().cancelButton = cancelButton;
+    }
+
+    public ArrayList<String> getCategorySpinnerData() {
+        return categorySpinnerData;
+    }
+
+    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+        getThis().categorySpinnerData = categorySpinnerData;
+    }
+
+    public ArrayAdapter getCategorySpinnerAdapter() {
+        return categorySpinnerAdapter;
+    }
+
+    public void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+        getThis().categorySpinnerAdapter = categorySpinnerAdapter;
+    }
+
+    public ArrayList<String> getStoreSpinnerData() {
+        return storeSpinnerData;
+    }
+
+    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+        getThis().storeSpinnerData = storeSpinnerData;
+    }
+
+    public ArrayAdapter getStoreSpinnerAdapter() {
+        return storeSpinnerAdapter;
+    }
+
+    public void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+        getThis().storeSpinnerAdapter = storeSpinnerAdapter;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.add_item, container, false);
+        setView(inflater.inflate(R.layout.add_item, container, false));
 
-        shopping = (Shopping) getActivity();
-        dbItemHelper = new DBItemHelper(getActivity());
-        dbStatusHelper = new DBStatusHelper(getActivity());
-        dbCategoryHelper = new DBCategoryHelper(getActivity());
-        dbStoreHelper = new DBStoreHelper(getActivity());
-        itemData = shopping.getItemData();
-        categoryData = shopping.getCategoryData();
-        storeData = shopping.getStoreData();
+        setShopping((Shopping) getActivity());
+        setDbItemHelper(new DBItemHelper(getActivity()));
+        setDbStatusHelper(new DBStatusHelper(getActivity()));
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
+        setItemData(getShopping().getItemData());
+        setCategoryData(getShopping().getCategoryData());
+        setStoreData(getShopping().getStoreData());
 
-        itemNameInput = view.findViewById(R.id.itemNameInput);
-        itemBrandTypeInput = view.findViewById(R.id.itemBrandTypeInput);
-        itemCategoryInput = view.findViewById(R.id.itemCategoryInput);
-        itemStoreInput = view.findViewById(R.id.itemStoreInput);
+        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
+        setItemBrandTypeInput((EditText) getView().findViewById(R.id.itemBrandTypeInput));
+        setItemCategoryInput((EditText) getView().findViewById(R.id.itemCategoryInput));
+        setItemStoreInput((EditText) getView().findViewById(R.id.itemStoreInput));
 
-        itemNameInput.setText(getString(R.string.emptyString));
-        itemBrandTypeInput.setText(getString(R.string.emptyString));
-        itemCategoryInput.setText(getString(R.string.emptyString));
-        itemStoreInput.setText(getString(R.string.emptyString));
+        getItemNameInput().setText(getString(R.string.emptyString));
+        getItemBrandTypeInput().setText(getString(R.string.emptyString));
+        getItemCategoryInput().setText(getString(R.string.emptyString));
+        getItemStoreInput().setText(getString(R.string.emptyString));
 
-        quantityCheckbox = view.findViewById(R.id.quantityCheckbox);
-        quantityInput = view.findViewById(R.id.quantityInput);
-        priceCheckbox = view.findViewById(R.id.priceCheckbox);
-        priceInput = view.findViewById(R.id.priceInput);
-        locationCheckbox = view.findViewById(R.id.locationCheckbox);
-        locationInput = view.findViewById(R.id.locationInput);
-        noteCheckbox = view.findViewById(R.id.noteCheckbox);
-        noteInput = view.findViewById(R.id.noteInput);
+        setQuantityCheckbox((CheckBox) getView().findViewById(R.id.quantityCheckbox));
+        setQuantityInput((EditText) getView().findViewById(R.id.quantityInput));
+        setPriceCheckbox((CheckBox) getView().findViewById(R.id.priceCheckbox));
+        setPriceInput((EditText) getView().findViewById(R.id.priceInput));
+        setLocationCheckbox((CheckBox) getView().findViewById(R.id.locationCheckbox));
+        setLocationInput((EditText) getView().findViewById(R.id.locationInput));
+        setNoteCheckbox((CheckBox) getView().findViewById(R.id.noteCheckbox));
+        setNoteInput((EditText) getView().findViewById(R.id.noteInput));
 
-        quantityInput.setText(getString(R.string.emptyString));
-        priceInput.setText(getString(R.string.emptyString));
-        locationInput.setText(getString(R.string.emptyString));
-        noteInput.setText(getString(R.string.emptyString));
+        getQuantityInput().setText(getString(R.string.emptyString));
+        getPriceInput().setText(getString(R.string.emptyString));
+        getLocationInput().setText(getString(R.string.emptyString));
+        getNoteInput().setText(getString(R.string.emptyString));
 
-        addItemButton = view.findViewById(R.id.addItemButton);
-        cancelButton = view.findViewById(R.id.cancelButton);
+        setAddItemButton((Button) getView().findViewById(R.id.addItemButton));
+        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
 
-        quantityCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        getQuantityCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) quantityInput.setVisibility(View.VISIBLE);
-                else quantityInput.setVisibility(View.GONE);
+                if (isChecked) getQuantityInput().setVisibility(View.VISIBLE);
+                else getQuantityInput().setVisibility(View.GONE);
             }
         });
 
-        priceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        getPriceCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) priceInput.setVisibility(View.VISIBLE);
-                else priceInput.setVisibility(View.GONE);
+                if (isChecked) getPriceInput().setVisibility(View.VISIBLE);
+                else getPriceInput().setVisibility(View.GONE);
             }
         });
 
-        locationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        getLocationCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) locationInput.setVisibility(View.VISIBLE);
-                else locationInput.setVisibility(View.GONE);
+                if (isChecked) getLocationInput().setVisibility(View.VISIBLE);
+                else getLocationInput().setVisibility(View.GONE);
             }
         });
 
-        noteCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        getNoteCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) noteInput.setVisibility(View.VISIBLE);
-                else noteInput.setVisibility(View.GONE);
+                if (isChecked) getNoteInput().setVisibility(View.VISIBLE);
+                else getNoteInput().setVisibility(View.GONE);
             }
         });
 
-        categorySpinnerData = categoryData.getCategoryListWithAddNew();
-        categorySpinner = view.findViewById(R.id.categorySpinner);
-        categorySpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, categorySpinnerData);
-        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categorySpinnerAdapter);
+        setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
+        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
+        getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
-        storeSpinnerData = storeData.getStoreListWithAddNew();
-        storeSpinner = view.findViewById(R.id.storeSpinner);
-        storeSpinnerAdapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, storeSpinnerData);
-        storeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        storeSpinner.setAdapter(storeSpinnerAdapter);
+        setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
+        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
+        getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getCategorySpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals(getString(R.string.addNewCategory))) {
-                    itemCategoryInput.setVisibility(View.VISIBLE);
+                    getItemCategoryInput().setVisibility(View.VISIBLE);
                 } else {
-                    itemCategoryInput.setVisibility(View.GONE);
+                    getItemCategoryInput().setVisibility(View.GONE);
                 }
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        storeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        getStoreSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 if (selectedItem.equals(getString(R.string.addNewStore))) {
-                    itemStoreInput.setVisibility(View.VISIBLE);
+                    getItemStoreInput().setVisibility(View.VISIBLE);
                 } else {
-                    itemStoreInput.setVisibility(View.GONE);
+                    getItemStoreInput().setVisibility(View.GONE);
                 }
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        addItemButton.setOnClickListener(new View.OnClickListener() {
+        getAddItemButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String itemName = itemNameInput.getText().toString();
-                String itemType = itemBrandTypeInput.getText().toString();
-                String itemCategory = itemCategoryInput.getText().toString();
-                String itemStore = itemStoreInput.getText().toString();
+                String itemName = getItemNameInput().getText().toString();
+                String itemType = getItemBrandTypeInput().getText().toString();
+                String itemCategory = getItemCategoryInput().getText().toString();
+                String itemStore = getItemStoreInput().getText().toString();
 
                 if (itemName.isEmpty() || itemType.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.emptyString)) || storeSpinner.getSelectedItem().toString().equals(getString(R.string.emptyString))) {
-                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.emptyString)) || getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.emptyString))) {
+                    getShopping().showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory)) && itemCategory.isEmpty()) {
+                    getShopping().showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
-                } else if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
-                    shopping.showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
+                } else if (getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore)) && itemStore.isEmpty()) {
+                    getShopping().showAlertDialog(getString(R.string.addItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 }
 
-                if (categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
-                    int numCategories = categoryData.getCategoryList().size();
-                    dbCategoryHelper.addNewCategory(itemCategory, numCategories);
-                    shopping.updateCategoryData();
+                if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
+                    int numCategories = getCategoryData().getCategoryList().size();
+                    getDbCategoryHelper().addNewCategory(itemCategory, numCategories);
+                    getShopping().updateCategoryData();
                 }
 
-                if (storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
+                if (getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
                     int numStores = storeData.getStoreList().size();
-                    dbStoreHelper.addNewStore(itemStore, numStores);
-                    shopping.updateStoreData();
+                    getDbStoreHelper().addNewStore(itemStore, numStores);
+                    getShopping().updateStoreData();
                 }
 
-                if (!categorySpinner.getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
-                    itemCategory = categorySpinner.getSelectedItem().toString();
+                if (!getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.addNewCategory))) {
+                    itemCategory = getCategorySpinner().getSelectedItem().toString();
                 }
 
-                if (!storeSpinner.getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
-                    itemStore = storeSpinner.getSelectedItem().toString();
+                if (!getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
+                    itemStore = getStoreSpinner().getSelectedItem().toString();
                 }
 
                 int itemsInCategory;
-                if (itemData.getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
-                else itemsInCategory = itemData.getCategoryMap().get(itemCategory).getCategoryItemsList().size();
+                if (getItemData().getCategoryMap().get(itemCategory) == null) itemsInCategory = 0;
+                else itemsInCategory = getItemData().getCategoryMap().get(itemCategory).getCategoryItemsList().size();
 
                 int itemsInStore;
-                if (itemData.getStoreMap().get(itemStore) == null) itemsInStore = 0;
-                else itemsInStore = itemData.getStoreMap().get(itemStore).getStoreItemsList().size();
+                if (getItemData().getStoreMap().get(itemStore) == null) itemsInStore = 0;
+                else itemsInStore = getItemData().getStoreMap().get(itemStore).getStoreItemsList().size();
 
-                dbItemHelper.addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
-                dbItemHelper.addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
-                dbStatusHelper.addNewStatus(itemName, getString(R.string.paused), getString(R.string.unchecked));
+                getDbItemHelper().addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
+                getDbItemHelper().addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
+                getDbStatusHelper().addNewStatus(itemName, getString(R.string.paused), getString(R.string.unchecked));
 
-                shopping.updateItemData();
-                shopping.updateStatusData();
+                getShopping().updateItemData();
+                getShopping().updateStatusData();
 
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.hideKeyboard();
-                shopping.loadFragment(new FullInventory());
+                getShopping().hideKeyboard();
+                getShopping().loadFragment(new FullInventory());
             }
         });
 
