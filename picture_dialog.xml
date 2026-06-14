@@ -84,7 +84,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/captureCancelButtons"
+        android:id="@+id/takeCancelButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -95,18 +95,18 @@
             android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/captureButton"
+            android:id="@+id/takeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/list_outline_selected"
-            android:text="CAPTURE"
+            android:text="TAKE"
             android:textSize="24sp"
             android:textStyle="bold"
             android:paddingTop="5dp"
             android:paddingBottom="5dp" />
 
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="90dp"
             android:layout_height="30dp" />
 
         <TextView

@@ -33,7 +33,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
     }
 
     private void setView(View view) {
-        this.view = view;
+        getThis().view = view;
     }
 
     private Shopping getShopping() {
@@ -98,27 +98,27 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
         if (position == 0) {
             isTitle = true;
-            store = storeData.getStoreList().get(0);
+            store = getStoreData().getStoreList().get(0);
         } else {
             int index = 0;
             adjustedPosition = position;
-            for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                store = storeData.getStoreList().get(i);
+            for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                store = getStoreData().getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     isTitle = true;
-                    store = storeData.getStoreList().get(i + 1);
+                    store = getStoreData().getStoreList().get(i + 1);
                     break;
                 } else if (index >= adjustedPosition) {
                     isTitle = false;
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -128,11 +128,11 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             ShoppingListTitleRVH titleHolder = (ShoppingListTitleRVH) holder;
 
-            titleHolder.shoppingListRvTitle.setText(store);
-            titleHolder.shoppingListRvTitle.setVisibility(View.VISIBLE);
+            titleHolder.getShoppingListRvTitle().setText(store);
+            titleHolder.getShoppingListRvTitle().setVisibility(View.VISIBLE);
 
-            if (storeData.getStoreViewNeededMap().get(store) == 0) {
-                titleHolder.shoppingListRvTitle.setVisibility(View.GONE);
+            if (getStoreData().getStoreViewNeededMap().get(store) == 0) {
+                titleHolder.getShoppingListRvTitle().setVisibility(View.GONE);
             }
 
         } else {  // item data
@@ -141,72 +141,70 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             if (thisItem.getStatus().isNeeded()) {
                 if (thisItem.getStatus().isExpandedInShoppingList()) {
-                    itemHolder.itemSmallName.setText(thisItem.getItemName());
-                    itemHolder.itemLargeName.setText(thisItem.getItemName());
-                    itemHolder.itemLargeBrand.setText(thisItem.getBrandType());
+                    itemHolder.getItemSmallName().setText(thisItem.getItemName());
+                    itemHolder.getItemLargeName().setText(thisItem.getItemName());
+                    itemHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+                    itemHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
-
-                    itemHolder.triangleRight.setVisibility(View.GONE);
-                    itemHolder.triangleDown.setVisibility(View.VISIBLE);
-                    itemHolder.itemSmall.setVisibility(View.GONE);
-                    itemHolder.itemLarge.setVisibility(View.VISIBLE);
+                    itemHolder.getTriangleRight().setVisibility(View.GONE);
+                    itemHolder.getTriangleDown().setVisibility(View.VISIBLE);
+                    itemHolder.getItemSmall().setVisibility(View.GONE);
+                    itemHolder.getItemLarge().setVisibility(View.VISIBLE);
                 } else {
-                    itemHolder.itemSmallName.setText(thisItem.getItemName());
-                    itemHolder.itemLargeName.setText(thisItem.getItemName());
-                    itemHolder.itemLargeBrand.setText(thisItem.getBrandType());
+                    itemHolder.getItemSmallName().setText(thisItem.getItemName());
+                    itemHolder.getItemLargeName().setText(thisItem.getItemName());
+                    itemHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+                    itemHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
 
-                    itemHolder.itemLargeCategory.setText(thisItem.getCategory().toString());
-
-                    itemHolder.triangleDown.setVisibility(View.GONE);
-                    itemHolder.triangleRight.setVisibility(View.VISIBLE);
-                    itemHolder.itemLarge.setVisibility(View.GONE);
-                    itemHolder.itemSmall.setVisibility(View.VISIBLE);
+                    itemHolder.getTriangleDown().setVisibility(View.GONE);
+                    itemHolder.getTriangleRight().setVisibility(View.VISIBLE);
+                    itemHolder.getItemLarge().setVisibility(View.GONE);
+                    itemHolder.getItemSmall().setVisibility(View.VISIBLE);
                 }
                 if (thisItem.getStatus().isChecked()) {
-                    itemHolder.checkboxUncheckedSmall.setVisibility(View.GONE);
-                    itemHolder.checkboxUncheckedLarge.setVisibility(View.GONE);
-                    itemHolder.checkboxCheckedSmall.setVisibility(View.VISIBLE);
-                    itemHolder.checkboxCheckedLarge.setVisibility(View.VISIBLE);
+                    itemHolder.getCheckboxUncheckedSmall().setVisibility(View.GONE);
+                    itemHolder.getCheckboxUncheckedLarge().setVisibility(View.GONE);
+                    itemHolder.getCheckboxCheckedSmall().setVisibility(View.VISIBLE);
+                    itemHolder.getCheckboxCheckedLarge().setVisibility(View.VISIBLE);
                 } else if (thisItem.getStatus().isUnchecked()) {
-                    itemHolder.checkboxCheckedSmall.setVisibility(View.GONE);
-                    itemHolder.checkboxCheckedLarge.setVisibility(View.GONE);
-                    itemHolder.checkboxUncheckedSmall.setVisibility(View.VISIBLE);
-                    itemHolder.checkboxUncheckedLarge.setVisibility(View.VISIBLE);
+                    itemHolder.getCheckboxCheckedSmall().setVisibility(View.GONE);
+                    itemHolder.getCheckboxCheckedLarge().setVisibility(View.GONE);
+                    itemHolder.getCheckboxUncheckedSmall().setVisibility(View.VISIBLE);
+                    itemHolder.getCheckboxUncheckedLarge().setVisibility(View.VISIBLE);
                 }
             } else {
-                itemHolder.triangleDown.setVisibility(View.GONE);
-                itemHolder.triangleRight.setVisibility(View.GONE);
-                itemHolder.itemLarge.setVisibility(View.GONE);
-                itemHolder.itemSmall.setVisibility(View.GONE);
+                itemHolder.getTriangleDown().setVisibility(View.GONE);
+                itemHolder.getTriangleRight().setVisibility(View.GONE);
+                itemHolder.getItemLarge().setVisibility(View.GONE);
+                itemHolder.getItemSmall().setVisibility(View.GONE);
             }
 
             if (thisItem.getStatus().isSelectedInShoppingList()) {
-                itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                itemHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                itemHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
             } else {
                 if (getShopping().itemIsSelectedInShoppingList() && getShopping().getSelectedItemPositionInShoppingList() == position) {
-                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                    itemHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                    itemHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
                 } else {
-                    itemHolder.itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
-                    itemHolder.itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+                    itemHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
+                    itemHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
                 }
             }
 
             if ((getShopping().getStoreListOrderNum() != 0) &&
-                    !thisItem.getStore().toString().equals(storeData.getStoreList().get(getShopping().getStoreListOrderNum() - 1))) {
-                itemHolder.triangleDown.setVisibility(View.GONE);
-                itemHolder.triangleRight.setVisibility(View.GONE);
-                itemHolder.itemLarge.setVisibility(View.GONE);
-                itemHolder.itemSmall.setVisibility(View.GONE);
+                    !thisItem.getStore().toString().equals(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1))) {
+                itemHolder.getTriangleDown().setVisibility(View.GONE);
+                itemHolder.getTriangleRight().setVisibility(View.GONE);
+                itemHolder.getItemLarge().setVisibility(View.GONE);
+                itemHolder.getItemSmall().setVisibility(View.GONE);
             }
         }
     }
 
     public int getItemCount() {
-        return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
+        return (getItemData().getItemListByStore().size() + getStoreData().getStoreList().size());
     }
 
     private class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
@@ -258,38 +256,38 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         private ShoppingListItemRVH(View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.storeData = storeData;
+            setShopping(shopping);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setStoreData(storeData);
 
-            triangleRight = itemView.findViewById(R.id.triangleButtonRight);
-            triangleDown = itemView.findViewById(R.id.triangleButtonDown);
-            itemSmall = itemView.findViewById(R.id.itemSmall);
-            itemLarge = itemView.findViewById(R.id.itemLarge);
-            itemSmallName = itemView.findViewById(R.id.itemSmallName);
-            itemLargeName = itemView.findViewById(R.id.itemLargeName);
-            checkboxUncheckedSmall = itemView.findViewById(R.id.checkboxUncheckedSmall);
-            checkboxCheckedSmall = itemView.findViewById(R.id.checkboxCheckedSmall);
-            checkboxUncheckedLarge = itemView.findViewById(R.id.checkboxUncheckedLarge);
-            checkboxCheckedLarge = itemView.findViewById(R.id.checkboxCheckedLarge);
-            itemLargeBrand = itemView.findViewById(R.id.itemLargeBrand);
-            itemLargeCategory = itemView.findViewById(R.id.itemLargeCategory);
-            itemLargeBrandLabel = itemView.findViewById(R.id.itemLargeBrandLabel);
-            itemLargeCategoryLabel = itemView.findViewById(R.id.itemLargeCategoryLabel);
+            setTriangleRight((Button) itemView.findViewById(R.id.triangleButtonRight));
+            setTriangleDown((Button) itemView.findViewById(R.id.triangleButtonDown));
+            setItemSmall((LinearLayout) itemView.findViewById(R.id.itemSmall));
+            setItemLarge((LinearLayout) itemView.findViewById(R.id.itemLarge));
+            setItemSmallName((TextView) itemView.findViewById(R.id.itemSmallName));
+            setItemLargeName((TextView) itemView.findViewById(R.id.itemLargeName));
+            setCheckboxUncheckedSmall((ImageView) itemView.findViewById(R.id.checkboxUncheckedSmall));
+            setCheckboxCheckedSmall((ImageView) itemView.findViewById(R.id.checkboxCheckedSmall));
+            setCheckboxUncheckedLarge((ImageView) itemView.findViewById(R.id.checkboxUncheckedLarge));
+            setCheckboxCheckedLarge((ImageView) itemView.findViewById(R.id.checkboxCheckedLarge));
+            setItemLargeBrand((TextView) itemView.findViewById(R.id.itemLargeBrand));
+            setItemLargeCategory((TextView) itemView.findViewById(R.id.itemLargeCategory));
+            setItemLargeBrandLabel((TextView) itemView.findViewById(R.id.itemLargeBrandLabel));
+            setItemLargeCategoryLabel((TextView) itemView.findViewById(R.id.itemLargeCategoryLabel));
 
-            triangleRight.setOnClickListener(this);
-            triangleDown.setOnClickListener(this);
-            checkboxUncheckedSmall.setOnClickListener(this);
-            checkboxCheckedSmall.setOnClickListener(this);
-            checkboxUncheckedLarge.setOnClickListener(this);
-            checkboxCheckedLarge.setOnClickListener(this);
-            itemSmallName.setOnClickListener(this);
-            itemLargeName.setOnClickListener(this);
-            itemLargeBrandLabel.setOnClickListener(this);
-            itemLargeBrand.setOnClickListener(this);
-            itemLargeCategoryLabel.setOnClickListener(this);
-            itemLargeCategory.setOnClickListener(this);
+            getTriangleRight().setOnClickListener(this);
+            getTriangleDown().setOnClickListener(this);
+            getCheckboxUncheckedSmall().setOnClickListener(this);
+            getCheckboxCheckedSmall().setOnClickListener(this);
+            getCheckboxUncheckedLarge().setOnClickListener(this);
+            getCheckboxCheckedLarge().setOnClickListener(this);
+            getItemSmallName().setOnClickListener(this);
+            getItemLargeName().setOnClickListener(this);
+            getItemLargeBrandLabel().setOnClickListener(this);
+            getItemLargeBrand().setOnClickListener(this);
+            getItemLargeCategoryLabel().setOnClickListener(this);
+            getItemLargeCategory().setOnClickListener(this);
         }
 
         private ShoppingListItemRVH getThis() {
@@ -464,13 +462,13 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             } else {
                 int index = 0;
                 adjustedPosition = position;
-                for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                    store = storeData.getStoreList().get(i);
+                for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                    store = getStoreData().getStoreList().get(i);
                     int numItemsInStore;
-                    if (itemData.getStoreMap().get(store) == null) {
+                    if (getItemData().getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                        numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -479,7 +477,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -490,8 +488,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == getShopping().getSelectedItemInShoppingList()) {
                     // selected item is this item
                     thisItem.getStatus().setAsUnselectedInShoppingList();
-                    itemSmall.setBackgroundResource(R.drawable.list_outline_unselected);
-                    itemLarge.setBackgroundResource(R.drawable.list_outline_unselected);
+                    getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
+                    getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
 
                     getShopping().setItemIsSelectedInShoppingList(false);
                     getShopping().setSelectedItemInShoppingList(null);
@@ -500,8 +498,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         // selected item is another item
                         int currentlySelected = getShopping().getSelectedItemPositionInShoppingList();
                         thisItem.getStatus().setAsSelectedInShoppingList();
-                        itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                        itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                        getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                        getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
                         getShopping().setSelectedItemPositionInShoppingList(position);
                         getShopping().setItemIsSelectedInShoppingList(true);
@@ -509,13 +507,13 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
                         Item lastItem = getItemWithStores(currentlySelected);
                         lastItem.getStatus().setAsUnselectedInShoppingList();
-                        adapter.notifyItemChanged(currentlySelected);
+                        getAdapter().notifyItemChanged(currentlySelected);
 
                     } else {
                         // nothing is selected
                         thisItem.getStatus().setAsSelectedInShoppingList();
-                        itemSmall.setBackgroundResource(R.drawable.list_outline_selected);
-                        itemLarge.setBackgroundResource(R.drawable.list_outline_selected);
+                        getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                        getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
                         getShopping().setSelectedItemPositionInShoppingList(position);
                         getShopping().setItemIsSelectedInShoppingList(true);
@@ -533,20 +531,20 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             int index = 0;
             adjustedPosition = position;
-            for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                store = storeData.getStoreList().get(i);
+            for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                store = getStoreData().getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -572,20 +570,20 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             int index = 0;
             adjustedPosition = position;
-            for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                store = storeData.getStoreList().get(i);
+            for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                store = getStoreData().getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -610,13 +608,13 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             } else {
                 int index = 0;
                 adjustedPosition = position;
-                for (int i = 0; i < storeData.getStoreList().size(); i++) {
-                    store = storeData.getStoreList().get(i);
+                for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                    store = getStoreData().getStoreList().get(i);
                     int numItemsInStore;
-                    if (itemData.getStoreMap().get(store) == null) {
+                    if (getItemData().getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                        numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -625,7 +623,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -633,64 +631,64 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             if (!isTitle) {
 
-                if (id == itemSmallName.getId()) {
+                if (id == getItemSmallName().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == itemLargeName.getId()) {
+                } else if (id == getItemLargeName().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == itemLargeBrandLabel.getId()) {
+                } else if (id == getItemLargeBrandLabel().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == itemLargeBrand.getId()) {
+                } else if (id == getItemLargeBrand().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == itemLargeCategoryLabel.getId()) {
+                } else if (id == getItemLargeCategoryLabel().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == itemLargeCategory.getId()) {
+                } else if (id == getItemLargeCategory().getId()) {
                     selectOrUnselectItem(position);
-                } else if (id == triangleRight.getId()) {
-                    if (triangleRight.getVisibility() == View.VISIBLE && triangleDown.getVisibility() == View.GONE) {
-                        triangleRight.setVisibility(View.GONE);
-                        triangleDown.setVisibility(View.VISIBLE);
-                        itemSmall.setVisibility(View.GONE);
-                        itemLarge.setVisibility(View.VISIBLE);
+                } else if (id == getTriangleRight().getId()) {
+                    if (getTriangleRight().getVisibility() == View.VISIBLE && getTriangleDown().getVisibility() == View.GONE) {
+                        getTriangleRight().setVisibility(View.GONE);
+                        getTriangleDown().setVisibility(View.VISIBLE);
+                        getItemSmall().setVisibility(View.GONE);
+                        getItemLarge().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsExpandedInShoppingList();
                     }
-                } else if (id == triangleDown.getId()) {
-                    if (triangleDown.getVisibility() == View.VISIBLE && triangleRight.getVisibility() == View.GONE) {
-                        triangleDown.setVisibility(View.GONE);
-                        triangleRight.setVisibility(View.VISIBLE);
-                        itemLarge.setVisibility(View.GONE);
-                        itemSmall.setVisibility(View.VISIBLE);
+                } else if (id == getTriangleDown().getId()) {
+                    if (getTriangleDown().getVisibility() == View.VISIBLE && getTriangleRight().getVisibility() == View.GONE) {
+                        getTriangleDown().setVisibility(View.GONE);
+                        getTriangleRight().setVisibility(View.VISIBLE);
+                        getItemLarge().setVisibility(View.GONE);
+                        getItemSmall().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsContractedInShoppingList();
                     }
-                } else if (id == checkboxUncheckedSmall.getId()) {
-                    if (checkboxUncheckedSmall.getVisibility() == View.VISIBLE) {
-                        checkboxUncheckedSmall.setVisibility(View.GONE);
-                        checkboxUncheckedLarge.setVisibility(View.GONE);
-                        checkboxCheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxCheckedLarge.setVisibility(View.VISIBLE);
+                } else if (id == getCheckboxUncheckedSmall().getId()) {
+                    if (getCheckboxUncheckedSmall().getVisibility() == View.VISIBLE) {
+                        getCheckboxUncheckedSmall().setVisibility(View.GONE);
+                        getCheckboxUncheckedLarge().setVisibility(View.GONE);
+                        getCheckboxCheckedSmall().setVisibility(View.VISIBLE);
+                        getCheckboxCheckedLarge().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
                     }
-                } else if (id == checkboxCheckedSmall.getId()) {
-                    if (checkboxCheckedSmall.getVisibility() == View.VISIBLE) {
-                        checkboxCheckedSmall.setVisibility(View.GONE);
-                        checkboxCheckedLarge.setVisibility(View.GONE);
-                        checkboxUncheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxUncheckedLarge.setVisibility(View.VISIBLE);
+                } else if (id == getCheckboxCheckedSmall().getId()) {
+                    if (getCheckboxCheckedSmall().getVisibility() == View.VISIBLE) {
+                        getCheckboxCheckedSmall().setVisibility(View.GONE);
+                        getCheckboxCheckedLarge().setVisibility(View.GONE);
+                        getCheckboxUncheckedSmall().setVisibility(View.VISIBLE);
+                        getCheckboxUncheckedLarge().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
                     }
-                } else if (id == checkboxUncheckedLarge.getId()) {
-                    if (checkboxUncheckedLarge.getVisibility() == View.VISIBLE) {
-                        checkboxUncheckedSmall.setVisibility(View.GONE);
-                        checkboxUncheckedLarge.setVisibility(View.GONE);
-                        checkboxCheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxCheckedLarge.setVisibility(View.VISIBLE);
+                } else if (id == getCheckboxUncheckedLarge().getId()) {
+                    if (getCheckboxUncheckedLarge().getVisibility() == View.VISIBLE) {
+                        getCheckboxUncheckedSmall().setVisibility(View.GONE);
+                        getCheckboxUncheckedLarge().setVisibility(View.GONE);
+                        getCheckboxCheckedSmall().setVisibility(View.VISIBLE);
+                        getCheckboxCheckedLarge().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsChecked();
                     }
-                } else if (id == checkboxCheckedLarge.getId()) {
-                    if (checkboxCheckedLarge.getVisibility() == View.VISIBLE) {
-                        checkboxCheckedSmall.setVisibility(View.GONE);
-                        checkboxCheckedLarge.setVisibility(View.GONE);
-                        checkboxUncheckedSmall.setVisibility(View.VISIBLE);
-                        checkboxUncheckedLarge.setVisibility(View.VISIBLE);
+                } else if (id == getCheckboxCheckedLarge().getId()) {
+                    if (getCheckboxCheckedLarge().getVisibility() == View.VISIBLE) {
+                        getCheckboxCheckedSmall().setVisibility(View.GONE);
+                        getCheckboxCheckedLarge().setVisibility(View.GONE);
+                        getCheckboxUncheckedSmall().setVisibility(View.VISIBLE);
+                        getCheckboxUncheckedLarge().setVisibility(View.VISIBLE);
                         thisItem.getStatus().setAsUnchecked();
                     }
                 }

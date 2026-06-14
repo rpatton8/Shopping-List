@@ -25,15 +25,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     FullInventoryRVA(View view, Context context, Shopping shopping, ItemData itemData, CategoryData categoryData,
                      StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore, DBCategoryHelper dbCategory) {
-        this.view = view;
-        this.context = context;
-        this.shopping = shopping;
-        this.itemData = itemData;
-        this.categoryData = categoryData;
-        this.storeData = storeData;
-        this.dbStatusHelper = dbStatus;
-        this.dbCategoryHelper = dbCategory;
-        this.dbStoreHelper = dbStore;
+        setView(view);
+        setContext(context);
+        setShopping(shopping);
+        setItemData(itemData);
+        setCategoryData(categoryData);
+        setStoreData(storeData);
+        setDbStatusHelper(dbStatus);
+        setDbCategoryHelper(dbCategory);
+        setDbStoreHelper(dbStore);
     }
 
     private FullInventoryRVA getThis() {
@@ -53,7 +53,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
     }
 
     private void setView(View view) {
-        this.view = view;
+        getThis().view = view;
     }
 
     private Shopping getShopping() {
@@ -162,26 +162,26 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         if (getShopping().getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
 
             if (viewType == R.layout.sort_by_category_rv_title) {
-                return new SortByCategoryTitleRVH(view, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
+                return new SortByCategoryTitleRVH(getView(), getShopping(), getThis(), getItemData(), getCategoryData(), getDbStatusHelper(), getDbCategoryHelper());
             } else if (viewType == R.layout.sort_by_category_rv_item) {
-                return new SortByCategoryItemRVH(view, context, shopping, this, itemData, categoryData, dbStatusHelper, dbCategoryHelper);
-            } else return new RecyclerView.ViewHolder(view) {};
+                return new SortByCategoryItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getCategoryData(), getDbStatusHelper(), getDbCategoryHelper());
+            } else return new RecyclerView.ViewHolder(getView()) {};
 
         } else if (getShopping().getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
 
             if (viewType == R.layout.sort_by_store_rv_title) {
-                return new SortByStoreTitleRVH(view, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
+                return new SortByStoreTitleRVH(getView(), getShopping(), getThis(), getItemData(), getStoreData(), getDbStatusHelper(), getDbStoreHelper());
             } else if (viewType == R.layout.sort_by_store_rv_item) {
-                return new SortByStoreItemRVH(view, context, shopping, this, itemData, storeData, dbStatusHelper, dbStoreHelper);
-            } else return new RecyclerView.ViewHolder(view) {};
+                return new SortByStoreItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getStoreData(), getDbStatusHelper(), getDbStoreHelper());
+            } else return new RecyclerView.ViewHolder(getView()) {};
 
         } else if (getShopping().getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
             if (viewType == R.layout.sort_alphabetical_rv_item) {
-                return new SortAlphabeticalItemRVH(view, context, shopping, this);
-            } else return new RecyclerView.ViewHolder(view) {};
+                return new SortAlphabeticalItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getDbStatusHelper());
+            } else return new RecyclerView.ViewHolder(getView()) {};
 
-        } else return new RecyclerView.ViewHolder(view) {};
+        } else return new RecyclerView.ViewHolder(getView()) {};
 
     }
 
@@ -219,10 +219,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 category = categoryData.getCategoryList().get(i);
                 int numItemsInCategory;
-                if (itemData.getCategoryMap().get(category) == null) {
+                if (getItemData().getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                    numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory;
                 adjustedPosition--;
@@ -232,7 +232,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     break;
                 } else if (index >= adjustedPosition) {
                     isTitle = false;
-                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                     break;
                 }
             }
@@ -246,14 +246,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             categoryTitleHolder.sortByCategoryRvTitle.setVisibility(View.VISIBLE);
 
             if (categoryTitleHolder.isExpanded()) {
-                //itemData.getCategoryMap().get(category).setCategoryAsContracted();
+                //getItemData().getCategoryMap().get(category).setCategoryAsContracted();
                 categoryTitleHolder.triangleButtonDown1.setVisibility(View.VISIBLE);
                 categoryTitleHolder.triangleButtonDown2.setVisibility(View.VISIBLE);
                 categoryTitleHolder.triangleButtonRight.setVisibility(View.GONE);
                 categoryTitleHolder.triangleButtonLeft.setVisibility(View.GONE);
 
             } else if (categoryTitleHolder.isContracted()) {
-                //itemData.getCategoryMap().get(category).setCategoryAsExpanded();
+                //getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
                 categoryTitleHolder.triangleButtonDown1.setVisibility(View.GONE);
                 categoryTitleHolder.triangleButtonDown2.setVisibility(View.GONE);
                 categoryTitleHolder.triangleButtonRight.setVisibility(View.VISIBLE);
@@ -493,10 +493,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
                 store = storeData.getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
@@ -506,7 +506,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     break;
                 } else if (index >= adjustedPosition) {
                     isTitle = false;
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -521,7 +521,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
             if (storeTitleHolder.isExpanded()) {
 
-                //itemData.getStoreMap().get(store).setStoreAsContracted();
+                //getItemData().getStoreMap().get(store).setStoreAsContracted();
                 storeTitleHolder.triangleButtonDown1.setVisibility(View.VISIBLE);
                 storeTitleHolder.triangleButtonDown2.setVisibility(View.VISIBLE);
                 storeTitleHolder.triangleButtonRight.setVisibility(View.GONE);
@@ -530,7 +530,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
             } else if (storeTitleHolder.isContracted()) {
 
-                //itemData.getStoreMap().get(store).setStoreAsExpanded();
+                //getItemData().getStoreMap().get(store).setStoreAsExpanded();
                 storeTitleHolder.triangleButtonDown1.setVisibility(View.GONE);
                 storeTitleHolder.triangleButtonDown2.setVisibility(View.GONE);
                 storeTitleHolder.triangleButtonRight.setVisibility(View.VISIBLE);
@@ -756,7 +756,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
     private void onBindViewHolderAlphabetical(RecyclerView.ViewHolder holder, int position) {
 
-        Item thisItem = itemData.getItemListAZ().get(position);
+        Item thisItem = getItemData().getItemListAZ().get(position);
 
         SortAlphabeticalItemRVH alphabeticalItemHolder = (SortAlphabeticalItemRVH) holder;
 
@@ -956,15 +956,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         if (getShopping().getInventorySortBy().equals(Shopping.SORT_BY_CATEGORY)) {
 
-            return (itemData.getItemListByCategory().size() + categoryData.getCategoryList().size());
+            return (getItemData().getItemListByCategory().size() + categoryData.getCategoryList().size());
 
         } else if (getShopping().getInventorySortBy().equals(Shopping.SORT_BY_STORE)) {
 
-            return (itemData.getItemListByStore().size() + storeData.getStoreList().size());
+            return (getItemData().getItemListByStore().size() + storeData.getStoreList().size());
 
         } else if (getShopping().getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
 
-            return (itemData.getItemListAZ().size());
+            return (getItemData().getItemListAZ().size());
 
         } else return -1;
 
@@ -995,12 +995,12 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                        CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.categoryData = categoryData;
-            this.dbStatusHelper = dbStatus;
-            this.dbCategoryHelper = dbCategory;
+            setShopping(shopping);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setCategoryData(categoryData);
+            setDbStatusHelper(dbStatus);
+            setDbCategoryHelper(dbCategory);
 
             isExpanded = true;
             isContracted = false;
@@ -1029,7 +1029,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setShopping(Shopping shopping) {
-            this.shopping = shopping;
+            getThis().shopping = shopping;
         }
 
         private FullInventoryRVA getAdapter() {
@@ -1037,7 +1037,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setAdapter(FullInventoryRVA adapter) {
-            this.adapter = adapter;
+            getThis().adapter = adapter;
         }
 
         private ItemData getItemData() {
@@ -1045,7 +1045,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setItemData(ItemData itemData) {
-            this.itemData = itemData;
+            getThis().itemData = itemData;
         }
 
         private CategoryData getCategoryData() {
@@ -1053,7 +1053,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setCategoryData(CategoryData categoryData) {
-            this.categoryData = categoryData;
+            getThis().categoryData = categoryData;
         }
 
         private DBStatusHelper getDbStatusHelper() {
@@ -1061,7 +1061,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
-            this.dbStatusHelper = dbStatusHelper;
+            getThis().dbStatusHelper = dbStatusHelper;
         }
 
         private DBCategoryHelper getDbCategoryHelper() {
@@ -1069,7 +1069,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
-            this.dbCategoryHelper = dbCategoryHelper;
+            getThis().dbCategoryHelper = dbCategoryHelper;
         }
 
         private LinearLayout getSortByCategoryRvTitle() {
@@ -1077,7 +1077,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setSortByCategoryRvTitle(LinearLayout sortByCategoryRvTitle) {
-            this.sortByCategoryRvTitle = sortByCategoryRvTitle;
+            getThis().sortByCategoryRvTitle = sortByCategoryRvTitle;
         }
 
         private TextView getCategoryTitleText() {
@@ -1085,7 +1085,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setCategoryTitleText(TextView categoryTitleText) {
-            this.categoryTitleText = categoryTitleText;
+            getThis().categoryTitleText = categoryTitleText;
         }
 
         private ImageView getTriangleButtonDown1() {
@@ -1093,7 +1093,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonDown1(ImageView triangleButtonDown1) {
-            this.triangleButtonDown1 = triangleButtonDown1;
+            getThis().triangleButtonDown1 = triangleButtonDown1;
         }
 
         private ImageView getTriangleButtonDown2() {
@@ -1101,7 +1101,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonDown2(ImageView triangleButtonDown2) {
-            this.triangleButtonDown2 = triangleButtonDown2;
+            getThis().triangleButtonDown2 = triangleButtonDown2;
         }
 
         private ImageView getTriangleButtonRight() {
@@ -1109,7 +1109,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonRight(ImageView triangleButtonRight) {
-            this.triangleButtonRight = triangleButtonRight;
+            getThis().triangleButtonRight = triangleButtonRight;
         }
 
         private ImageView getTriangleButtonLeft() {
@@ -1117,14 +1117,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonLeft(ImageView triangleButtonLeft) {
-            this.triangleButtonLeft = triangleButtonLeft;
+            getThis().triangleButtonLeft = triangleButtonLeft;
         }
 
-        private void setExpanded(boolean expanded) {
+        private void setAsExpanded(boolean expanded) {
             isExpanded = expanded;
         }
 
-        private void setContracted(boolean contracted) {
+        private void setAsContracted(boolean contracted) {
             isContracted = contracted;
         }
 
@@ -1142,15 +1142,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 category = categoryData.getCategoryList().get(i);
                 int numItemsInCategory;
-                if (itemData.getCategoryMap().get(category) == null) {
+                if (getItemData().getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                    numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory;
                 adjustedPosition--;
                 if (index >= adjustedPosition) {
-                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                     break;
                 }
             }
@@ -1246,13 +1246,13 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                       CategoryData categoryData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory) {
 
             super(itemView);
-            this.context = context;
-            this.shopping = shopping;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.categoryData = categoryData;
-            this.dbStatusHelper = dbStatus;
-            this.dbCategoryHelper = dbCategory;
+            setContext(context);
+            setShopping(shopping);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setCategoryData(categoryData);
+            setDbStatusHelper(dbStatus);
+            setDbCategoryHelper(dbCategory);
 
             triangleRight = itemView.findViewById(R.id.triangleButtonRight);
             triangleDown = itemView.findViewById(R.id.triangleButtonDown);
@@ -1524,10 +1524,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                     category = categoryData.getCategoryList().get(i);
                     int numItemsInCategory;
-                    if (itemData.getCategoryMap().get(category) == null) {
+                    if (getItemData().getCategoryMap().get(category) == null) {
                         numItemsInCategory = 0;
                     } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                        numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                     }
                     index += numItemsInCategory;
                     adjustedPosition--;
@@ -1536,7 +1536,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                        thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1593,17 +1593,17 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 category = categoryData.getCategoryList().get(i);
                 int numItemsInCategory;
-                if (itemData.getCategoryMap().get(category) == null) {
+                if (getItemData().getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                    numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                     break;
                 }
             }
@@ -1632,17 +1632,17 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                 category = categoryData.getCategoryList().get(i);
                 int numItemsInCategory;
-                if (itemData.getCategoryMap().get(category) == null) {
+                if (getItemData().getCategoryMap().get(category) == null) {
                     numItemsInCategory = 0;
                 } else {
-                    numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                    numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                    thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                     break;
                 }
             }
@@ -1670,10 +1670,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 for (int i = 0; i < categoryData.getCategoryList().size(); i++) {
                     category = categoryData.getCategoryList().get(i);
                     int numItemsInCategory;
-                    if (itemData.getCategoryMap().get(category) == null) {
+                    if (getItemData().getCategoryMap().get(category) == null) {
                         numItemsInCategory = 0;
                     } else {
-                        numItemsInCategory = itemData.getCategoryMap().get(category).getCategoryItemsList().size();
+                        numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                     }
                     index += numItemsInCategory;
                     adjustedPosition--;
@@ -1682,7 +1682,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
+                        thisItem = getItemData().getCategoryMap().get(category).getCategoryItemsList().get(numItemsInCategory - index + adjustedPosition);
                         break;
                     }
                 }
@@ -1874,15 +1874,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                     StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.storeData = storeData;
-            this.dbStatusHelper = dbStatus;
-            this.dbStoreHelper = dbStore;
+            setShopping(shopping);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setStoreData(storeData);
+            setDbStatusHelper(dbStatus);
+            setDbStoreHelper(dbStore);
 
-            isExpanded = true;
-            isContracted = false;
+            // to  do
+            setAsExpanded();
 
             sortByStoreRvTitle = itemView.findViewById(R.id.sortByStoreRvTitle);
             storeTitleText = itemView.findViewById(R.id.storeTitleText);
@@ -1908,7 +1908,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setShopping(Shopping shopping) {
-            this.shopping = shopping;
+            getThis().shopping = shopping;
         }
 
         private FullInventoryRVA getAdapter() {
@@ -1916,7 +1916,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setAdapter(FullInventoryRVA adapter) {
-            this.adapter = adapter;
+            getThis().adapter = adapter;
         }
 
         private ItemData getItemData() {
@@ -1924,7 +1924,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setItemData(ItemData itemData) {
-            this.itemData = itemData;
+            getThis().itemData = itemData;
         }
 
         private StoreData getStoreData() {
@@ -1932,7 +1932,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setStoreData(StoreData storeData) {
-            this.storeData = storeData;
+            getThis().storeData = storeData;
         }
 
         private DBStatusHelper getDbStatusHelper() {
@@ -1940,7 +1940,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
-            this.dbStatusHelper = dbStatusHelper;
+            getThis().dbStatusHelper = dbStatusHelper;
         }
 
         private DBStoreHelper getDbStoreHelper() {
@@ -1948,7 +1948,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
-            this.dbStoreHelper = dbStoreHelper;
+            getThis().dbStoreHelper = dbStoreHelper;
         }
 
         private LinearLayout getSortByStoreRvTitle() {
@@ -1956,7 +1956,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setSortByStoreRvTitle(LinearLayout sortByStoreRvTitle) {
-            this.sortByStoreRvTitle = sortByStoreRvTitle;
+            getThis().sortByStoreRvTitle = sortByStoreRvTitle;
         }
 
         private TextView getStoreTitleText() {
@@ -1964,7 +1964,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setStoreTitleText(TextView storeTitleText) {
-            this.storeTitleText = storeTitleText;
+            getThis().storeTitleText = storeTitleText;
         }
 
         private ImageView getTriangleButtonDown1() {
@@ -1972,7 +1972,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonDown1(ImageView triangleButtonDown1) {
-            this.triangleButtonDown1 = triangleButtonDown1;
+            getThis().triangleButtonDown1 = triangleButtonDown1;
         }
 
         private ImageView getTriangleButtonDown2() {
@@ -1980,7 +1980,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonDown2(ImageView triangleButtonDown2) {
-            this.triangleButtonDown2 = triangleButtonDown2;
+            getThis().triangleButtonDown2 = triangleButtonDown2;
         }
 
         private ImageView getTriangleButtonRight() {
@@ -1988,7 +1988,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonRight(ImageView triangleButtonRight) {
-            this.triangleButtonRight = triangleButtonRight;
+            getThis().triangleButtonRight = triangleButtonRight;
         }
 
         private ImageView getTriangleButtonLeft() {
@@ -1996,15 +1996,25 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         }
 
         private void setTriangleButtonLeft(ImageView triangleButtonLeft) {
-            this.triangleButtonLeft = triangleButtonLeft;
+            getThis().triangleButtonLeft = triangleButtonLeft;
         }
 
-        private void setExpanded(boolean expanded) {
-            isExpanded = expanded;
+        private boolean isExpanded() {
+            return isExpanded;
         }
 
-        private void setContracted(boolean contracted) {
-            isContracted = contracted;
+        private void setAsExpanded() {
+            isExpanded = true;
+            isContracted = false;
+        }
+
+        private boolean isContracted() {
+            return isContracted;
+        }
+
+        private void setAsContracted() {
+            isExpanded = false;
+            isContracted = true;
         }
 
         public void onClick(View v) {
@@ -2021,15 +2031,15 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
                 store = storeData.getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -2067,23 +2077,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             triangleButtonLeft.setVisibility(View.VISIBLE);
         }
 
-        boolean isExpanded() {
-            return isExpanded;
-        }
 
-        void setAsExpanded() {
-            isExpanded = true;
-            isContracted = false;
-        }
-
-        boolean isContracted() {
-            return isContracted;
-        }
-
-        void setAsContracted() {
-            isExpanded = false;
-            isContracted = true;
-        }
     }
 
 //-------------------------------------------Store Items--------------------------------------------
@@ -2124,13 +2118,13 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                                   ItemData itemData, StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.context =  context;
-            this.adapter = adapter;
-            this.itemData = itemData;
-            this.storeData = storeData;
-            this.dbStatusHelper = dbStatus;
-            this.dbStoreHelper = dbStore;
+            setContext(context);
+            setShopping(shopping);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setStoreData(storeData);
+            setDbStatusHelper(dbStatus);
+            setDbStoreHelper(dbStore);
 
             triangleRight = itemView.findViewById(R.id.triangleButtonRight);
             triangleDown = itemView.findViewById(R.id.triangleButtonDown);
@@ -2402,10 +2396,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 for (int i = 0; i < storeData.getStoreList().size(); i++) {
                     store = storeData.getStoreList().get(i);
                     int numItemsInStore;
-                    if (itemData.getStoreMap().get(store) == null) {
+                    if (getItemData().getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                        numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -2414,7 +2408,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -2471,17 +2465,17 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
                 store = storeData.getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -2510,17 +2504,17 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             for (int i = 0; i < storeData.getStoreList().size(); i++) {
                 store = storeData.getStoreList().get(i);
                 int numItemsInStore;
-                if (itemData.getStoreMap().get(store) == null) {
+                if (getItemData().getStoreMap().get(store) == null) {
                     numItemsInStore = 0;
                 } else {
-                    numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                    numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore;
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
                 } else if (index >= adjustedPosition) {
-                    thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
@@ -2548,10 +2542,10 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                 for (int i = 0; i < storeData.getStoreList().size(); i++) {
                     store = storeData.getStoreList().get(i);
                     int numItemsInStore;
-                    if (itemData.getStoreMap().get(store) == null) {
+                    if (getItemData().getStoreMap().get(store) == null) {
                         numItemsInStore = 0;
                     } else {
-                        numItemsInStore = itemData.getStoreMap().get(store).getStoreItemsList().size();
+                        numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                     }
                     index += numItemsInStore;
                     adjustedPosition--;
@@ -2560,7 +2554,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                         break;
                     } else if (index >= adjustedPosition) {
                         isTitle = false;
-                        thisItem = itemData.getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                        thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
                     }
                 }
@@ -2760,14 +2754,14 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         private final long doubleClickTimeout = 400;
         private long lastClickTime = 0;
 
-        private SortAlphabeticalItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter) {
+        private SortAlphabeticalItemRVH(View itemView, Context context, Shopping shopping, FullInventoryRVA adapter, ItemData itemData, DBStatusHelper dbStatus) {
 
             super(itemView);
-            this.shopping = shopping;
-            this.context = context;
-            this.adapter = adapter;
-            this.itemData = getShopping().getItemData();
-            this.dbStatusHelper = new DBStatusHelper(shopping);
+            setShopping(shopping);
+            setContext(context);
+            setAdapter(adapter);
+            setItemData(itemData);
+            setDbStatusHelper(dbStatus);
 
             triangleRight = itemView.findViewById(R.id.triangleButtonRight);
             triangleDown = itemView.findViewById(R.id.triangleButtonDown);
@@ -3010,7 +3004,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
 
         private void selectOrUnselectItem(int position) {
 
-            Item thisItem = itemData.getItemListAZ().get(position);
+            Item thisItem = getItemData().getItemListAZ().get(position);
 
             if (thisItem.getStatus().isSelectedInInventory() || thisItem == getShopping().getSelectedItemInInventory()) {
                 // selected item is this item
@@ -3032,7 +3026,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
                     getShopping().setItemIsSelectedInInventory(true);
                     getShopping().setSelectedItemInInventory(thisItem);
 
-                    Item lastItem = itemData.getItemListAZ().get(currentlySelected);
+                    Item lastItem = getItemData().getItemListAZ().get(currentlySelected);
                     lastItem.getStatus().setAsUnselectedInInventory();
                     adapter.notifyItemChanged(currentlySelected);
 
@@ -3062,7 +3056,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
         void onDoubleClick(View v) {
 
             int position = getAdapterPosition();
-            Item thisItem = itemData.getItemListAZ().get(position);
+            Item thisItem = getItemData().getItemListAZ().get(position);
             getShopping().setPictureDialogInInventory(true);
             getShopping().setPictureDialogInSearchResults(false);
             getShopping().setPictureDialogInShoppingList(false);
@@ -3075,7 +3069,7 @@ class FullInventoryRVA extends RecyclerView.Adapter {
             int id = v.getId();
             int position = getAdapterPosition();
 
-            Item thisItem = itemData.getItemListAZ().get(position);
+            Item thisItem = getItemData().getItemListAZ().get(position);
 
             if (id == itemSmallName.getId()) {
                 selectOrUnselectItem(position);

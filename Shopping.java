@@ -729,10 +729,10 @@ public class Shopping extends AppCompatActivity {
         
         setCameraButton((TextView) getPictureDialogView().findViewById(R.id.cameraButton));
         setEditButton((TextView) getPictureDialogView().findViewById(R.id.editButton));
-        setCaptureButton((TextView) getPictureDialogView().findViewById(R.id.captureButton));
+        setCaptureButton((TextView) getPictureDialogView().findViewById(R.id.takeButton));
         setCancelButton((TextView) getPictureDialogView().findViewById(R.id.cancelButton));
         setCameraEditButtons((LinearLayout) getPictureDialogView().findViewById(R.id.cameraEditButtons));
-        setCaptureCancelButtons((LinearLayout) getPictureDialogView().findViewById(R.id.captureCancelButtons));
+        setCaptureCancelButtons((LinearLayout) getPictureDialogView().findViewById(R.id.takeCancelButtons));
 
         getCameraButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
