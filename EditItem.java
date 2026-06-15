@@ -22,6 +22,7 @@ public class EditItem extends Fragment {
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
+
     private EditText itemNameInput;
     private EditText itemTypeInput;
     private EditText itemCategoryInput;

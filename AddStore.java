@@ -14,6 +14,7 @@ public class AddStore extends Fragment {
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
+
     private EditText storeInput;
     private Button addStoreButton;
     private Button cancelButton;

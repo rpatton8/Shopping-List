@@ -18,6 +18,7 @@ public class EditCategory extends Fragment {
     private CategoryData categoryData;
     private DBItemHelper dbItemHelper;
     private DBCategoryHelper dbCategoryHelper;
+
     private EditText categoryInput;
     private Spinner categorySpinner;
     private ArrayList<String> categorySpinnerData;

@@ -16,6 +16,7 @@ public class ReorderStores extends Fragment {
     private ItemData itemData;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
+
     private RecyclerView recyclerView;
     private ReorderStoresRVA rvAdapter;
     private Button finishReorderingButton;
@@ -31,71 +32,71 @@ public class ReorderStores extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public RecyclerView getRecyclerView() {
+    private RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    private void setRecyclerView(RecyclerView recyclerView) {
         getThis().recyclerView = recyclerView;
     }
 
-    public ReorderStoresRVA getRvAdapter() {
+    private ReorderStoresRVA getRvAdapter() {
         return rvAdapter;
     }
 
-    public void setRvAdapter(ReorderStoresRVA rvAdapter) {
+    private void setRvAdapter(ReorderStoresRVA rvAdapter) {
         getThis().rvAdapter = rvAdapter;
     }
 
-    public Button getFinishReorderingButton() {
+    private Button getFinishReorderingButton() {
         return finishReorderingButton;
     }
 
-    public void setFinishReorderingButton(Button finishReorderingButton) {
+    private void setFinishReorderingButton(Button finishReorderingButton) {
         getThis().finishReorderingButton = finishReorderingButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 

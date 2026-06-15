@@ -16,6 +16,7 @@ public class RemoveStore extends Fragment {
     private Shopping shopping;
     private StoreData storeData;
     private DBStoreHelper dbStoreHelper;
+
     private Spinner removeStoreSpinner;
     private ArrayList<String> removeStoreSpinnerData;
     private ArrayAdapter removeStoreAdapter;

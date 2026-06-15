@@ -167,7 +167,7 @@ public class Shopping extends AppCompatActivity {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
@@ -180,7 +180,7 @@ public class Shopping extends AppCompatActivity {
         return statusData;
     }
 
-    public void setStatusData(StatusData statusData) {
+    private void setStatusData(StatusData statusData) {
         getThis().statusData = statusData;
     }
 
@@ -192,7 +192,7 @@ public class Shopping extends AppCompatActivity {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
@@ -204,7 +204,7 @@ public class Shopping extends AppCompatActivity {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
@@ -212,35 +212,35 @@ public class Shopping extends AppCompatActivity {
         setStoreData(getDbStoreHelper().readStoreData());
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBStatusHelper getDbStatusHelper() {
+    private DBStatusHelper getDbStatusHelper() {
         return dbStatusHelper;
     }
 
-    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+    private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
         getThis().dbStatusHelper = dbStatusHelper;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
@@ -408,79 +408,79 @@ public class Shopping extends AppCompatActivity {
         return searchAlgorithm;
     }
 
-    public void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
+    private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
         getThis().searchAlgorithm = searchAlgorithm;
     }
 
-    public AlertDialog getAlertDialog() {
+    private AlertDialog getAlertDialog() {
         return alertDialog;
     }
 
-    public void setAlertDialog(AlertDialog alertDialog) {
+    private void setAlertDialog(AlertDialog alertDialog) {
         getThis().alertDialog = alertDialog;
     }
 
-    public AlertDialog getPictureDialog() {
+    private AlertDialog getPictureDialog() {
         return pictureDialog;
     }
 
-    public void setPictureDialog(AlertDialog pictureDialog) {
+    private void setPictureDialog(AlertDialog pictureDialog) {
         getThis().pictureDialog = pictureDialog;
     }
 
-    public View getPictureDialogView() {
+    private View getPictureDialogView() {
         return pictureDialogView;
     }
 
-    public void setPictureDialogView(View pictureDialogView) {
+    private void setPictureDialogView(View pictureDialogView) {
         getThis().pictureDialogView = pictureDialogView;
     }
 
-    public TextView getCameraButton() {
+    private TextView getCameraButton() {
         return cameraButton;
     }
 
-    public void setCameraButton(TextView cameraButton) {
+    private void setCameraButton(TextView cameraButton) {
         getThis().cameraButton = cameraButton;
     }
 
-    public TextView getEditButton() {
+    private TextView getEditButton() {
         return editButton;
     }
 
-    public void setEditButton(TextView editButton) {
+    private void setEditButton(TextView editButton) {
         getThis().editButton = editButton;
     }
 
-    public TextView getCaptureButton() {
+    private TextView getCaptureButton() {
         return captureButton;
     }
 
-    public void setCaptureButton(TextView captureButton) {
+    private void setCaptureButton(TextView captureButton) {
         getThis().captureButton = captureButton;
     }
 
-    public TextView getCancelButton() {
+    private TextView getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(TextView cancelButton) {
+    private void setCancelButton(TextView cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
-    public LinearLayout getCameraEditButtons() {
+    private LinearLayout getCameraEditButtons() {
         return cameraEditButtons;
     }
 
-    public void setCameraEditButtons(LinearLayout cameraEditButtons) {
+    private void setCameraEditButtons(LinearLayout cameraEditButtons) {
         getThis().cameraEditButtons = cameraEditButtons;
     }
 
-    public LinearLayout getCaptureCancelButtons() {
+    private LinearLayout getCaptureCancelButtons() {
         return captureCancelButtons;
     }
 
-    public void setCaptureCancelButtons(LinearLayout captureCancelButtons) {
+    private void setCaptureCancelButtons(LinearLayout captureCancelButtons) {
         getThis().captureCancelButtons = captureCancelButtons;
     }
 

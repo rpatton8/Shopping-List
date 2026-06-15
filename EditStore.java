@@ -18,6 +18,7 @@ public class EditStore extends Fragment {
     private StoreData storeData;
     private DBItemHelper dbItemHelper;
     private DBStoreHelper dbStoreHelper;
+
     private EditText storeInput;
     private Spinner storeSpinner;
     private ArrayList<String> storeSpinnerData;

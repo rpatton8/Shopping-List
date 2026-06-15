@@ -31,7 +31,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 

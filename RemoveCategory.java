@@ -16,6 +16,7 @@ public class RemoveCategory extends Fragment {
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
+
     private Spinner removeCategorySpinner;
     private ArrayList<String> removeCategorySpinnerData;
     private ArrayAdapter removeCategoryAdapter;

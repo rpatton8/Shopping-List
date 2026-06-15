@@ -30,51 +30,51 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         return this;
     }
 
-    public View getView() {
+    private View getView() {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public RecyclerView getRecyclerView() {
+    private RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    private void setRecyclerView(RecyclerView recyclerView) {
         getThis().recyclerView = recyclerView;
     }
 
@@ -131,67 +131,67 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
             return this;
         }
 
-        public Shopping getShopping() {
+        private Shopping getShopping() {
             return shopping;
         }
 
-        public void setShopping(Shopping shopping) {
+        private void setShopping(Shopping shopping) {
             getThis().shopping = shopping;
         }
 
-        public ItemData getItemData() {
+        private ItemData getItemData() {
             return itemData;
         }
 
-        public void setItemData(ItemData itemData) {
+        private void setItemData(ItemData itemData) {
             getThis().itemData = itemData;
         }
 
-        public StoreData getStoreData() {
+        private StoreData getStoreData() {
             return storeData;
         }
 
-        public void setStoreData(StoreData storeData) {
+        private void setStoreData(StoreData storeData) {
             getThis().storeData = storeData;
         }
 
-        public DBStoreHelper getDbStoreHelper() {
+        private DBStoreHelper getDbStoreHelper() {
             return dbStoreHelper;
         }
 
-        public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
             getThis().dbStoreHelper = dbStoreHelper;
         }
 
-        public RecyclerView getRecyclerView() {
+        private RecyclerView getRecyclerView() {
             return recyclerView;
         }
 
-        public void setRecyclerView(RecyclerView recyclerView) {
+        private void setRecyclerView(RecyclerView recyclerView) {
             getThis().recyclerView = recyclerView;
         }
 
-        public TextView getStoreName() {
+        private TextView getStoreName() {
             return storeName;
         }
 
-        public void setStoreName(TextView storeName) {
+        private void setStoreName(TextView storeName) {
             getThis().storeName = storeName;
         }
 
-        public ImageView getTriangleDown() {
+        private ImageView getTriangleDown() {
             return triangleDown;
         }
 
-        public void setTriangleDown(ImageView triangleDown) {
+        private void setTriangleDown(ImageView triangleDown) {
             getThis().triangleDown = triangleDown;
         }
 
-        public ImageView getTriangleUp() {
+        private ImageView getTriangleUp() {
             return triangleUp;
         }
 
-        public void setTriangleUp(ImageView triangleUp) {
+        private void setTriangleUp(ImageView triangleUp) {
             getThis().triangleUp = triangleUp;
         }
 

@@ -15,6 +15,7 @@ public class RemoveItem extends Fragment {
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
+
     private EditText itemNameInput;
     private Button removeItemButton;
     private Button cancelButton;

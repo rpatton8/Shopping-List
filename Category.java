@@ -94,7 +94,7 @@ class Category {
         return getCategoryName();
     }
 
-    void printCategory() {
+    private void printCategory() {
         System.out.println(getContext().getString(R.string.psCategoryName) + getCategoryName());
         for (int i = 0; i < getCategoryItems().size(); i++) {
             System.out.println(getContext().getString(R.string.psItemNum) + (i + 1) + getContext().getString(R.string.psColon) + getCategoryItems().get(i).getItemName());

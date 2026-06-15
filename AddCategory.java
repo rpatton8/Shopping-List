@@ -14,6 +14,7 @@ public class AddCategory extends Fragment {
     private Shopping shopping;
     private CategoryData categoryData;
     private DBCategoryHelper dbCategoryHelper;
+
     private EditText categoryInput;
     private Button addCategoryButton;
     private Button cancelButton;

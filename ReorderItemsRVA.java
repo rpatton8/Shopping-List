@@ -51,11 +51,11 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         return this;
     }
 
-    public View getView() {
+    private View getView() {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         this.view = view;
     }
 
@@ -63,87 +63,87 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public RecyclerView getRecyclerView() {
+    private RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    private void setRecyclerView(RecyclerView recyclerView) {
         getThis().recyclerView = recyclerView;
     }
 
-    public ScrollView getScrollView() {
+    private ScrollView getScrollView() {
         return scrollView;
     }
 
-    public void setScrollView(ScrollView scrollView) {
+    private void setScrollView(ScrollView scrollView) {
         getThis().scrollView = scrollView;
     }
 
-    public String getReorderBy() {
+    private String getReorderBy() {
         return reorderBy;
     }
 
-    public void setReorderBy(String reorderBy) {
+    void setReorderBy(String reorderBy) {
         getThis().reorderBy = reorderBy;
     }
 
-    public String getCategory() {
+    private String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    private void setCategory(String category) {
         getThis().category = category;
     }
 
-    public String getStore() {
+    private String getStore() {
         return store;
     }
 
-    public void setStore(String store) {
+    private void setStore(String store) {
         getThis().store = store;
     }
 
@@ -182,12 +182,12 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         } else return -1;
     }
 
-    public void changeCategory(String category) {
+    void changeCategory(String category) {
         getThis().setCategory(category);
         getShopping().setReorderItemsCategory(category);
     }
 
-    public void changeStore(String store) {
+    void changeStore(String store) {
         getThis().setStore(store);
         getShopping().setReorderItemsStore(store);
     }
@@ -246,83 +246,83 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
             return this;
         }
 
-        public Shopping getShopping() {
+        private Shopping getShopping() {
             return shopping;
         }
 
-        public void setShopping(Shopping shopping) {
+        private void setShopping(Shopping shopping) {
             getThis().shopping = shopping;
         }
 
-        public ReorderItemsRVA getAdapter() {
+        private ReorderItemsRVA getAdapter() {
             return adapter;
         }
 
-        public void setAdapter(ReorderItemsRVA adapter) {
+        private void setAdapter(ReorderItemsRVA adapter) {
             getThis().adapter = adapter;
         }
 
-        public RecyclerView getRecyclerView() {
+        private RecyclerView getRecyclerView() {
             return recyclerView;
         }
 
-        public void setRecyclerView(RecyclerView recyclerView) {
+        private void setRecyclerView(RecyclerView recyclerView) {
             getThis().recyclerView = recyclerView;
         }
 
-        public ScrollView getScrollView() {
+        private ScrollView getScrollView() {
             return scrollView;
         }
 
-        public void setScrollView(ScrollView scrollView) {
+        private void setScrollView(ScrollView scrollView) {
             getThis().scrollView = scrollView;
         }
 
-        public ItemData getItemData() {
+        private ItemData getItemData() {
             return itemData;
         }
 
-        public void setItemData(ItemData itemData) {
+        private void setItemData(ItemData itemData) {
             getThis().itemData = itemData;
         }
 
-        public CategoryData getCategoryData() {
+        private CategoryData getCategoryData() {
             return categoryData;
         }
 
-        public void setCategoryData(CategoryData categoryData) {
+        private void setCategoryData(CategoryData categoryData) {
             getThis().categoryData = categoryData;
         }
 
-        public StoreData getStoreData() {
+        private StoreData getStoreData() {
             return storeData;
         }
 
-        public void setStoreData(StoreData storeData) {
+        private void setStoreData(StoreData storeData) {
             getThis().storeData = storeData;
         }
 
-        public TextView getItemName() {
+        private TextView getItemName() {
             return itemName;
         }
 
-        public void setItemName(TextView itemName) {
+        private void setItemName(TextView itemName) {
             getThis().itemName = itemName;
         }
 
-        public ImageView getTriangleDown() {
+        private ImageView getTriangleDown() {
             return triangleDown;
         }
 
-        public void setTriangleDown(ImageView triangleDown) {
+        private void setTriangleDown(ImageView triangleDown) {
             getThis().triangleDown = triangleDown;
         }
 
-        public ImageView getTriangleUp() {
+        private ImageView getTriangleUp() {
             return triangleUp;
         }
 
-        public void setTriangleUp(ImageView triangleUp) {
+        private void setTriangleUp(ImageView triangleUp) {
             getThis().triangleUp = triangleUp;
         }
 

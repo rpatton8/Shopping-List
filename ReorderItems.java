@@ -51,167 +51,167 @@ public class ReorderItems extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public RecyclerView getRecyclerView() {
+    private RecyclerView getRecyclerView() {
         return recyclerView;
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    private void setRecyclerView(RecyclerView recyclerView) {
         getThis().recyclerView = recyclerView;
     }
 
-    public ReorderItemsRVA getRvAdapter() {
+    private ReorderItemsRVA getRvAdapter() {
         return rvAdapter;
     }
 
-    public void setRvAdapter(ReorderItemsRVA rvAdapter) {
+    private void setRvAdapter(ReorderItemsRVA rvAdapter) {
         getThis().rvAdapter = rvAdapter;
     }
 
-    public ScrollView getScrollView() {
+    private ScrollView getScrollView() {
         return scrollView;
     }
 
-    public void setScrollView(ScrollView scrollView) {
+    private void setScrollView(ScrollView scrollView) {
         getThis().scrollView = scrollView;
     }
 
-    public LinearLayout getCategoryLayout() {
+    private LinearLayout getCategoryLayout() {
         return categoryLayout;
     }
 
-    public void setCategoryLayout(LinearLayout categoryLayout) {
+    private void setCategoryLayout(LinearLayout categoryLayout) {
         getThis().categoryLayout = categoryLayout;
     }
 
-    public RadioButton getCategoryRadioButton() {
+    private RadioButton getCategoryRadioButton() {
         return categoryRadioButton;
     }
 
-    public void setCategoryRadioButton(RadioButton categoryRadioButton) {
+    private void setCategoryRadioButton(RadioButton categoryRadioButton) {
         getThis().categoryRadioButton = categoryRadioButton;
     }
 
-    public Spinner getCategorySpinner() {
+    private Spinner getCategorySpinner() {
         return categorySpinner;
     }
 
-    public void setCategorySpinner(Spinner categorySpinner) {
+    private void setCategorySpinner(Spinner categorySpinner) {
         getThis().categorySpinner = categorySpinner;
     }
 
-    public ArrayList<String> getCategorySpinnerData() {
+    private ArrayList<String> getCategorySpinnerData() {
         return categorySpinnerData;
     }
 
-    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+    private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    public ArrayAdapter<String> getCategorySpinnerAdapter() {
+    private ArrayAdapter<String> getCategorySpinnerAdapter() {
         return categorySpinnerAdapter;
     }
 
-    public void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
+    private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
         getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
-    public LinearLayout getStoreLayout() {
+    private LinearLayout getStoreLayout() {
         return storeLayout;
     }
 
-    public void setStoreLayout(LinearLayout storeLayout) {
+    private void setStoreLayout(LinearLayout storeLayout) {
         getThis().storeLayout = storeLayout;
     }
 
-    public RadioButton getStoreRadioButton() {
+    private RadioButton getStoreRadioButton() {
         return storeRadioButton;
     }
 
-    public void setStoreRadioButton(RadioButton storeRadioButton) {
+    private void setStoreRadioButton(RadioButton storeRadioButton) {
         getThis().storeRadioButton = storeRadioButton;
     }
 
-    public Spinner getStoreSpinner() {
+    private Spinner getStoreSpinner() {
         return storeSpinner;
     }
 
-    public void setStoreSpinner(Spinner storeSpinner) {
+    private void setStoreSpinner(Spinner storeSpinner) {
         getThis().storeSpinner = storeSpinner;
     }
 
-    public ArrayList<String> getStoreSpinnerData() {
+    private ArrayList<String> getStoreSpinnerData() {
         return storeSpinnerData;
     }
 
-    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+    private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    public ArrayAdapter<String> getStoreSpinnerAdapter() {
+    private ArrayAdapter<String> getStoreSpinnerAdapter() {
         return storeSpinnerAdapter;
     }
 
-    public void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
+    private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
         getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
-    public Button getFinishReorderingButton() {
+    private Button getFinishReorderingButton() {
         return finishReorderingButton;
     }
 
-    public void setFinishReorderingButton(Button finishReorderingButton) {
+    private void setFinishReorderingButton(Button finishReorderingButton) {
         getThis().finishReorderingButton = finishReorderingButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 

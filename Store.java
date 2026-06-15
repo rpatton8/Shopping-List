@@ -94,7 +94,7 @@ class Store {
         return getStoreName();
     }
 
-    void printStore() {
+    private void printStore() {
         System.out.println(getContext().getString(R.string.psStoreName) + getStoreName());
         for (int i = 0; i < getStoreItems().size(); i++) {
             System.out.println(getContext().getString(R.string.psItemNum) + (i + 1) + getContext().getString(R.string.psColon) + getStoreItems().get(i).getItemName());
