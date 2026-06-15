@@ -30,63 +30,63 @@ class Item implements Comparable<Item> {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public String getItemName() {
+    String getItemName() {
         return itemName;
     }
 
-    public void setItemName(String itemName) {
+    private void setItemName(String itemName) {
         getThis().itemName = itemName;
     }
 
-    public String getBrandType() {
+    String getBrandType() {
         return brandType;
     }
 
-    public void setBrandType(String brandType) {
+    private void setBrandType(String brandType) {
         getThis().brandType = brandType;
     }
 
-    public Category getCategory() {
+    Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    void setCategory(Category category) {
         getThis().category = category;
     }
 
-    public Store getStore() {
+    Store getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    void setStore(Store store) {
         getThis().store = store;
     }
 
-    public Status getStatus() {
+    Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    void setStatus(Status status) {
         getThis().status = status;
     }
 
-    public int getCategoryOrder() {
+    int getCategoryOrder() {
         return categoryOrder;
     }
 
-    public void setCategoryOrder(int categoryOrder) {
+    void setCategoryOrder(int categoryOrder) {
         getThis().categoryOrder = categoryOrder;
     }
 
-    public int getStoreOrder() {
+    int getStoreOrder() {
         return storeOrder;
     }
 
-    public void setStoreOrder(int storeOrder) {
+    void setStoreOrder(int storeOrder) {
         getThis().storeOrder = storeOrder;
     }
 

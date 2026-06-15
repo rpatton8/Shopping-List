@@ -32,71 +32,71 @@ public class RemoveStore extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public Spinner getRemoveStoreSpinner() {
+    private Spinner getRemoveStoreSpinner() {
         return removeStoreSpinner;
     }
 
-    public void setRemoveStoreSpinner(Spinner removeStoreSpinner) {
+    private void setRemoveStoreSpinner(Spinner removeStoreSpinner) {
         getThis().removeStoreSpinner = removeStoreSpinner;
     }
 
-    public ArrayList<String> getRemoveStoreSpinnerData() {
+    private ArrayList<String> getRemoveStoreSpinnerData() {
         return removeStoreSpinnerData;
     }
 
-    public void setRemoveStoreSpinnerData(ArrayList<String> removeStoreSpinnerData) {
+    private void setRemoveStoreSpinnerData(ArrayList<String> removeStoreSpinnerData) {
         getThis().removeStoreSpinnerData = removeStoreSpinnerData;
     }
 
-    public ArrayAdapter getRemoveStoreAdapter() {
+    private ArrayAdapter getRemoveStoreAdapter() {
         return removeStoreAdapter;
     }
 
-    public void setRemoveStoreAdapter(ArrayAdapter removeStoreAdapter) {
+    private void setRemoveStoreAdapter(ArrayAdapter removeStoreAdapter) {
         getThis().removeStoreAdapter = removeStoreAdapter;
     }
 
-    public Button getRemoveStoreButton() {
+    private Button getRemoveStoreButton() {
         return removeStoreButton;
     }
 
-    public void setRemoveStoreButton(Button removeStoreButton) {
+    private void setRemoveStoreButton(Button removeStoreButton) {
         getThis().removeStoreButton = removeStoreButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -143,6 +143,6 @@ public class RemoveStore extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

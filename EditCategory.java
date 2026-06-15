@@ -35,87 +35,87 @@ public class EditCategory extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public EditText getCategoryInput() {
+    private EditText getCategoryInput() {
         return categoryInput;
     }
 
-    public void setCategoryInput(EditText categoryInput) {
+    private void setCategoryInput(EditText categoryInput) {
         getThis().categoryInput = categoryInput;
     }
 
-    public Spinner getCategorySpinner() {
+    private Spinner getCategorySpinner() {
         return categorySpinner;
     }
 
-    public void setCategorySpinner(Spinner categorySpinner) {
+    private void setCategorySpinner(Spinner categorySpinner) {
         getThis().categorySpinner = categorySpinner;
     }
 
-    public ArrayList<String> getCategorySpinnerData() {
+    private ArrayList<String> getCategorySpinnerData() {
         return categorySpinnerData;
     }
 
-    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+    private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    public ArrayAdapter getCategorySpinnerAdapter() {
+    private ArrayAdapter getCategorySpinnerAdapter() {
         return categorySpinnerAdapter;
     }
 
-    public void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+    private void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
         getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
-    public Button getEditCategoryButton() {
+    private Button getEditCategoryButton() {
         return editCategoryButton;
     }
 
-    public void setEditCategoryButton(Button editCategoryButton) {
+    private void setEditCategoryButton(Button editCategoryButton) {
         getThis().editCategoryButton = editCategoryButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -168,6 +168,6 @@ public class EditCategory extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

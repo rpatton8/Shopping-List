@@ -56,231 +56,231 @@ public class AddItem extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBStatusHelper getDbStatusHelper() {
+    private DBStatusHelper getDbStatusHelper() {
         return dbStatusHelper;
     }
 
-    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+    private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
         getThis().dbStatusHelper = dbStatusHelper;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public EditText getItemNameInput() {
+    private EditText getItemNameInput() {
         return itemNameInput;
     }
 
-    public void setItemNameInput(EditText itemNameInput) {
+    private void setItemNameInput(EditText itemNameInput) {
         getThis().itemNameInput = itemNameInput;
     }
 
-    public EditText getItemBrandTypeInput() {
+    private EditText getItemBrandTypeInput() {
         return itemBrandTypeInput;
     }
 
-    public void setItemBrandTypeInput(EditText itemBrandTypeInput) {
+    private void setItemBrandTypeInput(EditText itemBrandTypeInput) {
         getThis().itemBrandTypeInput = itemBrandTypeInput;
     }
 
-    public Spinner getCategorySpinner() {
+    private Spinner getCategorySpinner() {
         return categorySpinner;
     }
 
-    public void setCategorySpinner(Spinner categorySpinner) {
+    private void setCategorySpinner(Spinner categorySpinner) {
         getThis().categorySpinner = categorySpinner;
     }
 
-    public Spinner getStoreSpinner() {
+    private Spinner getStoreSpinner() {
         return storeSpinner;
     }
 
-    public void setStoreSpinner(Spinner storeSpinner) {
+    private void setStoreSpinner(Spinner storeSpinner) {
         getThis().storeSpinner = storeSpinner;
     }
 
-    public EditText getItemCategoryInput() {
+    private EditText getItemCategoryInput() {
         return itemCategoryInput;
     }
 
-    public void setItemCategoryInput(EditText itemCategoryInput) {
+    private void setItemCategoryInput(EditText itemCategoryInput) {
         getThis().itemCategoryInput = itemCategoryInput;
     }
 
-    public EditText getItemStoreInput() {
+    private EditText getItemStoreInput() {
         return itemStoreInput;
     }
 
-    public void setItemStoreInput(EditText itemStoreInput) {
+    private void setItemStoreInput(EditText itemStoreInput) {
         getThis().itemStoreInput = itemStoreInput;
     }
 
-    public CheckBox getQuantityCheckbox() {
+    private CheckBox getQuantityCheckbox() {
         return quantityCheckbox;
     }
 
-    public void setQuantityCheckbox(CheckBox quantityCheckbox) {
+    private void setQuantityCheckbox(CheckBox quantityCheckbox) {
         getThis().quantityCheckbox = quantityCheckbox;
     }
 
-    public EditText getQuantityInput() {
+    private EditText getQuantityInput() {
         return quantityInput;
     }
 
-    public void setQuantityInput(EditText quantityInput) {
+    private void setQuantityInput(EditText quantityInput) {
         getThis().quantityInput = quantityInput;
     }
 
-    public CheckBox getPriceCheckbox() {
+    private CheckBox getPriceCheckbox() {
         return priceCheckbox;
     }
 
-    public void setPriceCheckbox(CheckBox priceCheckbox) {
+    private void setPriceCheckbox(CheckBox priceCheckbox) {
         getThis().priceCheckbox = priceCheckbox;
     }
 
-    public EditText getPriceInput() {
+    private EditText getPriceInput() {
         return priceInput;
     }
 
-    public void setPriceInput(EditText priceInput) {
+    private void setPriceInput(EditText priceInput) {
         getThis().priceInput = priceInput;
     }
 
-    public CheckBox getLocationCheckbox() {
+    private CheckBox getLocationCheckbox() {
         return locationCheckbox;
     }
 
-    public void setLocationCheckbox(CheckBox locationCheckbox) {
+    private void setLocationCheckbox(CheckBox locationCheckbox) {
         getThis().locationCheckbox = locationCheckbox;
     }
 
-    public EditText getLocationInput() {
+    private EditText getLocationInput() {
         return locationInput;
     }
 
-    public void setLocationInput(EditText locationInput) {
+    private void setLocationInput(EditText locationInput) {
         getThis().locationInput = locationInput;
     }
 
-    public CheckBox getNoteCheckbox() {
+    private CheckBox getNoteCheckbox() {
         return noteCheckbox;
     }
 
-    public void setNoteCheckbox(CheckBox noteCheckbox) {
+    private void setNoteCheckbox(CheckBox noteCheckbox) {
         getThis().noteCheckbox = noteCheckbox;
     }
 
-    public EditText getNoteInput() {
+    private EditText getNoteInput() {
         return noteInput;
     }
 
-    public void setNoteInput(EditText noteInput) {
+    private void setNoteInput(EditText noteInput) {
         getThis().noteInput = noteInput;
     }
 
-    public Button getAddItemButton() {
+    private Button getAddItemButton() {
         return addItemButton;
     }
 
-    public void setAddItemButton(Button addItemButton) {
+    private void setAddItemButton(Button addItemButton) {
         getThis().addItemButton = addItemButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
-    public ArrayList<String> getCategorySpinnerData() {
+    private ArrayList<String> getCategorySpinnerData() {
         return categorySpinnerData;
     }
 
-    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+    private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    public ArrayAdapter getCategorySpinnerAdapter() {
+    private ArrayAdapter getCategorySpinnerAdapter() {
         return categorySpinnerAdapter;
     }
 
-    public void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+    private void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
         getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
-    public ArrayList<String> getStoreSpinnerData() {
+    private ArrayList<String> getStoreSpinnerData() {
         return storeSpinnerData;
     }
 
-    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+    private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    public ArrayAdapter getStoreSpinnerAdapter() {
+    private ArrayAdapter getStoreSpinnerAdapter() {
         return storeSpinnerAdapter;
     }
 
-    public void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+    private void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
         getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
@@ -458,6 +458,6 @@ public class AddItem extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

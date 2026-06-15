@@ -130,7 +130,7 @@ public class ReorderStores extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 
     public void onDestroyView() {

@@ -29,63 +29,63 @@ public class RemoveItem extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public ItemData getItemData() {
+    private ItemData getItemData() {
         return itemData;
     }
 
-    public void setItemData(ItemData itemData) {
+    private void setItemData(ItemData itemData) {
         getThis().itemData = itemData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBStatusHelper getDbStatusHelper() {
+    private DBStatusHelper getDbStatusHelper() {
         return dbStatusHelper;
     }
 
-    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+    private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
         getThis().dbStatusHelper = dbStatusHelper;
     }
 
-    public EditText getItemNameInput() {
+    private EditText getItemNameInput() {
         return itemNameInput;
     }
 
-    public void setItemNameInput(EditText itemNameInput) {
+    private void setItemNameInput(EditText itemNameInput) {
         getThis().itemNameInput = itemNameInput;
     }
 
-    public Button getRemoveItemButton() {
+    private Button getRemoveItemButton() {
         return removeItemButton;
     }
 
-    public void setRemoveItemButton(Button removeItemButton) {
+    private void setRemoveItemButton(Button removeItemButton) {
         getThis().removeItemButton = removeItemButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -144,6 +144,6 @@ public class RemoveItem extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

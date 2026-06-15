@@ -45,159 +45,159 @@ public class EditItem extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBStatusHelper getDbStatusHelper() {
+    private DBStatusHelper getDbStatusHelper() {
         return dbStatusHelper;
     }
 
-    public void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+    private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
         getThis().dbStatusHelper = dbStatusHelper;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public EditText getItemNameInput() {
+    private EditText getItemNameInput() {
         return itemNameInput;
     }
 
-    public void setItemNameInput(EditText itemNameInput) {
+    private void setItemNameInput(EditText itemNameInput) {
         getThis().itemNameInput = itemNameInput;
     }
 
-    public EditText getItemTypeInput() {
+    private EditText getItemTypeInput() {
         return itemTypeInput;
     }
 
-    public void setItemTypeInput(EditText itemTypeInput) {
+    private void setItemTypeInput(EditText itemTypeInput) {
         getThis().itemTypeInput = itemTypeInput;
     }
 
-    public EditText getItemCategoryInput() {
+    private EditText getItemCategoryInput() {
         return itemCategoryInput;
     }
 
-    public void setItemCategoryInput(EditText itemCategoryInput) {
+    private void setItemCategoryInput(EditText itemCategoryInput) {
         getThis().itemCategoryInput = itemCategoryInput;
     }
 
-    public EditText getItemStoreInput() {
+    private EditText getItemStoreInput() {
         return itemStoreInput;
     }
 
-    public void setItemStoreInput(EditText itemStoreInput) {
+    private void setItemStoreInput(EditText itemStoreInput) {
         getThis().itemStoreInput = itemStoreInput;
     }
 
-    public Button getEditItemButton() {
+    private Button getEditItemButton() {
         return editItemButton;
     }
 
-    public void setEditItemButton(Button editItemButton) {
+    private void setEditItemButton(Button editItemButton) {
         getThis().editItemButton = editItemButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
-    public Spinner getCategorySpinner() {
+    private Spinner getCategorySpinner() {
         return categorySpinner;
     }
 
-    public void setCategorySpinner(Spinner categorySpinner) {
+    private void setCategorySpinner(Spinner categorySpinner) {
         getThis().categorySpinner = categorySpinner;
     }
 
-    public Spinner getStoreSpinner() {
+    private Spinner getStoreSpinner() {
         return storeSpinner;
     }
 
-    public void setStoreSpinner(Spinner storeSpinner) {
+    private void setStoreSpinner(Spinner storeSpinner) {
         getThis().storeSpinner = storeSpinner;
     }
 
-    public ArrayList<String> getCategorySpinnerData() {
+    private ArrayList<String> getCategorySpinnerData() {
         return categorySpinnerData;
     }
 
-    public void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
+    private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    public ArrayAdapter<String> getCategoryAdapter() {
+    private ArrayAdapter<String> getCategoryAdapter() {
         return categoryAdapter;
     }
 
-    public void setCategoryAdapter(ArrayAdapter<String> categoryAdapter) {
+    private void setCategoryAdapter(ArrayAdapter<String> categoryAdapter) {
         getThis().categoryAdapter = categoryAdapter;
     }
 
-    public ArrayList<String> getStoreSpinnerData() {
+    private ArrayList<String> getStoreSpinnerData() {
         return storeSpinnerData;
     }
 
-    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+    private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    public ArrayAdapter<String> getStoreAdapter() {
+    private ArrayAdapter<String> getStoreAdapter() {
         return storeAdapter;
     }
 
-    public void setStoreAdapter(ArrayAdapter<String> storeAdapter) {
+    private void setStoreAdapter(ArrayAdapter<String> storeAdapter) {
         getThis().storeAdapter = storeAdapter;
     }
 
@@ -372,7 +372,7 @@ public class EditItem extends Fragment {
                 closeEditItem();
             }
         });
-        return view;
+        return getView();
     }
 
     private void closeEditItem() {

@@ -27,76 +27,76 @@ public class RemoveCategory extends Fragment {
     private RemoveCategory getThis() {
         return this;
     }
-    
+
     public View getView() {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public Spinner getRemoveCategorySpinner() {
+    private Spinner getRemoveCategorySpinner() {
         return removeCategorySpinner;
     }
 
-    public void setRemoveCategorySpinner(Spinner removeCategorySpinner) {
+    private void setRemoveCategorySpinner(Spinner removeCategorySpinner) {
         getThis().removeCategorySpinner = removeCategorySpinner;
     }
 
-    public ArrayList<String> getRemoveCategorySpinnerData() {
+    private ArrayList<String> getRemoveCategorySpinnerData() {
         return removeCategorySpinnerData;
     }
 
-    public void setRemoveCategorySpinnerData(ArrayList<String> removeCategorySpinnerData) {
+    private void setRemoveCategorySpinnerData(ArrayList<String> removeCategorySpinnerData) {
         getThis().removeCategorySpinnerData = removeCategorySpinnerData;
     }
 
-    public ArrayAdapter getRemoveCategoryAdapter() {
+    private ArrayAdapter getRemoveCategoryAdapter() {
         return removeCategoryAdapter;
     }
 
-    public void setRemoveCategoryAdapter(ArrayAdapter removeCategoryAdapter) {
+    private void setRemoveCategoryAdapter(ArrayAdapter removeCategoryAdapter) {
         getThis().removeCategoryAdapter = removeCategoryAdapter;
     }
 
-    public Button getRemoveCategoryButton() {
+    private Button getRemoveCategoryButton() {
         return removeCategoryButton;
     }
 
-    public void setRemoveCategoryButton(Button removeCategoryButton) {
+    private void setRemoveCategoryButton(Button removeCategoryButton) {
         getThis().removeCategoryButton = removeCategoryButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -143,6 +143,6 @@ public class RemoveCategory extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

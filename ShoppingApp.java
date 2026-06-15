@@ -6,13 +6,25 @@ public class ShoppingApp extends Application {
 
     private static ShoppingApp instance;
 
-    public static String getStringRes(int resID) {
-        return instance.getString(resID);
+    static String getStringRes(int resID) {
+        return getInstance().getString(resID);
     }
 
     public void onCreate() {
         super.onCreate();
-        instance = this;
+        setInstance(getThis());
+    }
+
+    private static ShoppingApp getInstance() {
+        return instance;
+    }
+
+    private static void setInstance(ShoppingApp instance) {
+        ShoppingApp.instance = instance;
+    }
+
+    private ShoppingApp getThis() {
+        return this;
     }
 
 }

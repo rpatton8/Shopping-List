@@ -39,7 +39,7 @@ class SearchAlgorithm {
         populateTermMap(item.getBrandType(), item);
     }
 
-    private void removeItem(Item item) {
+    void removeItem(Item item) {
         getTermMap().remove(item.getItemName());
         getTermMap().remove(item.getBrandType());
     }

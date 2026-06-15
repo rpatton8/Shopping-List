@@ -28,55 +28,55 @@ public class AddStore extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public EditText getStoreInput() {
+    private EditText getStoreInput() {
         return storeInput;
     }
 
-    public void setStoreInput(EditText storeInput) {
+    private void setStoreInput(EditText storeInput) {
         getThis().storeInput = storeInput;
     }
 
-    public Button getAddStoreButton() {
+    private Button getAddStoreButton() {
         return addStoreButton;
     }
 
-    public void setAddStoreButton(Button addStoreButton) {
+    private void setAddStoreButton(Button addStoreButton) {
         getThis().addStoreButton = addStoreButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -119,6 +119,6 @@ public class AddStore extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

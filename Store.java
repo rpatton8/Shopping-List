@@ -28,39 +28,39 @@ class Store {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public String getStoreName() {
+    private String getStoreName() {
         return storeName;
     }
 
-    public void setStoreName(String storeName) {
+    private void setStoreName(String storeName) {
         getThis().storeName = storeName;
     }
 
-    public ArrayList<Item> getStoreItems() {
+    private ArrayList<Item> getStoreItems() {
         return storeItems;
     }
 
-    public void setStoreItems(ArrayList<Item> storeItems) {
+    private void setStoreItems(ArrayList<Item> storeItems) {
         getThis().storeItems = storeItems;
     }
 
-    public boolean isExpanded() {
+    private boolean isExpanded() {
         return isExpanded;
     }
 
-    public void setExpanded(boolean expanded) {
+    private void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }
 
-    public boolean isContracted() {
+    private boolean isContracted() {
         return isContracted;
     }
 
-    public void setContracted(boolean contracted) {
+    private void setContracted(boolean contracted) {
         isContracted = contracted;
     }
 

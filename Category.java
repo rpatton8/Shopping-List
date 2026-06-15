@@ -28,39 +28,39 @@ class Category {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public String getCategoryName() {
+    private String getCategoryName() {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    private void setCategoryName(String categoryName) {
         getThis().categoryName = categoryName;
     }
 
-    public ArrayList<Item> getCategoryItems() {
+    private ArrayList<Item> getCategoryItems() {
         return categoryItems;
     }
 
-    public void setCategoryItems(ArrayList<Item> categoryItems) {
+    private void setCategoryItems(ArrayList<Item> categoryItems) {
         getThis().categoryItems = categoryItems;
     }
 
-    public boolean isExpanded() {
+    private boolean isExpanded() {
         return isExpanded;
     }
 
-    public void setExpanded(boolean expanded) {
+    private void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }
 
-    public boolean isContracted() {
+    private boolean isContracted() {
         return isContracted;
     }
 
-    public void setContracted(boolean contracted) {
+    private void setContracted(boolean contracted) {
         isContracted = contracted;
     }
 

@@ -37,81 +37,197 @@ public class ShoppingList extends Fragment {
 
     public ShoppingList() {}
 
+    private ShoppingList getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    private void setView(View view) {
+        getThis().view = view;
+    }
+
+    private Shopping getShopping() {
+        return shopping;
+    }
+
+    private void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    private ItemData getItemData() {
+        return itemData;
+    }
+
+    private void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
+    }
+
+    private StatusData getStatusData() {
+        return statusData;
+    }
+
+    private void setStatusData(StatusData statusData) {
+        getThis().statusData = statusData;
+    }
+
+    private StoreData getStoreData() {
+        return storeData;
+    }
+
+    private void setStoreData(StoreData storeData) {
+        getThis().storeData = storeData;
+    }
+
+    private DBStatusHelper getDbStatusHelper() {
+        return dbStatusHelper;
+    }
+
+    private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
+        getThis().dbStatusHelper = dbStatusHelper;
+    }
+
+    private DBStoreHelper getDbStoreHelper() {
+        return dbStoreHelper;
+    }
+
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+        getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    private TextView getShoppingListTitle() {
+        return shoppingListTitle;
+    }
+
+    private void setShoppingListTitle(TextView shoppingListTitle) {
+        getThis().shoppingListTitle = shoppingListTitle;
+    }
+
+    private RecyclerView getShoppingListRecyclerView() {
+        return shoppingListRecyclerView;
+    }
+
+    private void setShoppingListRecyclerView(RecyclerView shoppingListRecyclerView) {
+        getThis().shoppingListRecyclerView = shoppingListRecyclerView;
+    }
+
+    private ShoppingListRVA getShoppingListAdapter() {
+        return shoppingListAdapter;
+    }
+
+    private void setShoppingListAdapter(ShoppingListRVA shoppingListAdapter) {
+        getThis().shoppingListAdapter = shoppingListAdapter;
+    }
+
+    private TextView getShoppingListLeftArrow() {
+        return shoppingListLeftArrow;
+    }
+
+    private void setShoppingListLeftArrow(TextView shoppingListLeftArrow) {
+        getThis().shoppingListLeftArrow = shoppingListLeftArrow;
+    }
+
+    private TextView getShoppingListRightArrow() {
+        return shoppingListRightArrow;
+    }
+
+    private void setShoppingListRightArrow(TextView shoppingListRightArrow) {
+        getThis().shoppingListRightArrow = shoppingListRightArrow;
+    }
+
+    private Button getClearCheckedItems() {
+        return clearCheckedItems;
+    }
+
+    private void setClearCheckedItems(Button clearCheckedItems) {
+        getThis().clearCheckedItems = clearCheckedItems;
+    }
+
+    private Button getEditSelectedItem() {
+        return editSelectedItem;
+    }
+
+    private void setEditSelectedItem(Button editSelectedItem) {
+        getThis().editSelectedItem = editSelectedItem;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
-        view = inflater.inflate(R.layout.shopping_list, container, false);
+        setView(inflater.inflate(R.layout.shopping_list, container, false));
 
-        shopping = (Shopping) getActivity();
-        itemData = shopping.getItemData();
-        statusData = shopping.getStatusData();
-        storeData = shopping.getStoreData();
-        itemData.updateStatuses(statusData);
-        dbStatusHelper  = new DBStatusHelper(getActivity());
-        dbStoreHelper  = new DBStoreHelper(getActivity());
+        setShopping((Shopping) getActivity());
+        setItemData(getShopping().getItemData());
+        setStatusData(getShopping().getStatusData());
+        setStoreData(getShopping().getStoreData());
+        getItemData().updateStatuses(getStatusData());
+        setDbStatusHelper(new DBStatusHelper(getActivity()));
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        shoppingListRecyclerView = view.findViewById(R.id.shoppingListRecyclerView);
-        shoppingListRecyclerView.setHasFixedSize(false);
-        shoppingListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        shoppingListAdapter = new ShoppingListRVA(getView(), shopping, itemData, storeData);
-        shoppingListRecyclerView.setAdapter(shoppingListAdapter);
-        shoppingListRecyclerView.getLayoutManager().onRestoreInstanceState(shopping.getShoppingListViewState());
+        setShoppingListRecyclerView((RecyclerView) getView().findViewById(R.id.shoppingListRecyclerView));
+        getShoppingListRecyclerView().setHasFixedSize(false);
+        getShoppingListRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        setShoppingListAdapter(new ShoppingListRVA(getView(), getShopping(), getItemData(), getStoreData()));
+        getShoppingListRecyclerView().setAdapter(getShoppingListAdapter());
+        getShoppingListRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getShoppingListViewState());
 
-        shoppingListTitle = view.findViewById(R.id.shoppingListTitle);
-        shoppingListLeftArrow = view.findViewById(R.id.shoppingListLeftArrow);
-        shoppingListRightArrow = view.findViewById(R.id.shoppingListRightArrow);
-        clearCheckedItems = view.findViewById(R.id.clearCheckedItems);
-        editSelectedItem = view.findViewById(R.id.editSelectedItem);
+        setShoppingListTitle((TextView) getView().findViewById(R.id.shoppingListTitle));
+        setShoppingListLeftArrow((TextView) getView().findViewById(R.id.shoppingListLeftArrow));
+        setShoppingListRightArrow((TextView) getView().findViewById(R.id.shoppingListRightArrow));
+        setClearCheckedItems((Button) getView().findViewById(R.id.clearCheckedItems));
+        setEditSelectedItem((Button) getView().findViewById(R.id.editSelectedItem));
 
-        if (shopping.getStoreListOrderNum() == 0) {
-            shoppingListTitle.setText(getString(R.string.allStores));
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shoppingListTitle.getLayoutParams();
+        if (getShopping().getStoreListOrderNum() == 0) {
+            getShoppingListTitle().setText(getString(R.string.allStores));
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getShoppingListTitle().getLayoutParams();
             params.bottomMargin = 0;
-            shoppingListTitle.setLayoutParams(params);
+            getShoppingListTitle().setLayoutParams(params);
         } else {
-            shoppingListTitle.setText(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1));
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) shoppingListTitle.getLayoutParams();
+            getShoppingListTitle().setText(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1));
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getShoppingListTitle().getLayoutParams();
             params.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics());
-            shoppingListTitle.setLayoutParams(params);
+            getShoppingListTitle().setLayoutParams(params);
         }
 
-        shoppingListLeftArrow.setOnClickListener(new View.OnClickListener() {
+        getShoppingListLeftArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 moveLeftInShoppingList();
             }
         });
 
-        shoppingListRightArrow.setOnClickListener(new View.OnClickListener() {
+        getShoppingListRightArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 moveRightInShoppingList();
             }
         });
 
-        clearCheckedItems.setOnClickListener(new View.OnClickListener() {
+        getClearCheckedItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.clearItems);
                 builder.setMessage(R.string.wantToClear);
                 builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        for (int i =  0; i < itemData.getItemListAZ().size(); i++) {
-                            Item item  = itemData.getItemListAZ().get(i);
+                        for (int i =  0; i < getItemData().getItemListAZ().size(); i++) {
+                            Item item  = getItemData().getItemListAZ().get(i);
                             if (item.getStatus().isChecked()) {
                                 item.getStatus().setAsInStock();
                                 item.getStatus().setAsUnchecked();
-                                dbStatusHelper.updateStatus(item.getItemName(), getString(R.string.instock), getString(R.string.unchecked));
-                                shopping.updateStatusData();
+                                getDbStatusHelper().updateStatus(item.getItemName(), getString(R.string.instock), getString(R.string.unchecked));
+                                getShopping().updateStatusData();
 
                                 String store = item.getStore().toString();
-                                int numItemsViewAll = shopping.getStoreData().getStoreViewAllMap().get(store);
-                                int numItemsInStock = shopping.getStoreData().getStoreViewInStockMap().get(store);
-                                int numItemsNeeded = shopping.getStoreData().getStoreViewNeededMap().get(store);
-                                int numItemsPaused = shopping.getStoreData().getStoreViewPausedMap().get(store);
-                                dbStoreHelper.setStoreViews(store, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
-                                shopping.updateStoreData();
+                                int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(store);
+                                int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(store);
+                                int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(store);
+                                int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(store);
+                                getDbStoreHelper().setStoreViews(store, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
+                                getShopping().updateStoreData();
 
-                                shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
-                                shopping.loadFragment(new ShoppingList());
+                                getShopping().setShoppingListViewState(getShoppingListRecyclerView().getLayoutManager().onSaveInstanceState());
+                                getShopping().loadFragment(new ShoppingList());
                             }
                         }
                         dialog.dismiss();
@@ -130,87 +246,109 @@ public class ShoppingList extends Fragment {
             }
         });
 
-        editSelectedItem.setOnClickListener(new View.OnClickListener() {
+        getEditSelectedItem().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (shopping.itemIsSelectedInShoppingList()) {
-                    shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
-                    shopping.setEditItemInInventory(false);
-                    shopping.setEditItemInSearchResults(false);
-                    shopping.setEditItemInShoppingList(true);
-                    shopping.loadFragment(new EditItem());
+                if (getShopping().itemIsSelectedInShoppingList()) {
+                    getShopping().setShoppingListViewState(getShoppingListRecyclerView().getLayoutManager().onSaveInstanceState());
+                    getShopping().setEditItemInInventory(false);
+                    getShopping().setEditItemInSearchResults(false);
+                    getShopping().setEditItemInShoppingList(true);
+                    getShopping().loadFragment(new EditItem());
                 } else {
-                    shopping.showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit), getString(R.string.ok));
+                    getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.selectItemToEdit), getString(R.string.ok));
                 }
             }
         });
 
-        shoppingListRecyclerView.setOnTouchListener(new OnSwipeTouchListener(view.getContext()) {
+        getShoppingListRecyclerView().setOnTouchListener(new OnSwipeTouchListener(getView().getContext()) {
             void onSwipeLeft() {
-                if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
+                if (getShopping().getSwipingOption().equals(Shopping.SWIPING_ON)) {
                     moveLeftInShoppingList();
                 }
             }
             void onSwipeRight() {
-                if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
+                if (getShopping().getSwipingOption().equals(Shopping.SWIPING_ON)) {
                     moveRightInShoppingList();
                 }
             }
         });
 
-        return view;
+        return getView();
     }
 
     private void moveLeftInShoppingList() {
-        if (shopping.getStoreListOrderNum() == 0) shopping.setStoreListOrderNum(storeData.getStoreList().size());
-        else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() - 1);
+        if (getShopping().getStoreListOrderNum() == 0) getShopping().setStoreListOrderNum(getStoreData().getStoreList().size());
+        else getShopping().setStoreListOrderNum(getShopping().getStoreListOrderNum() - 1);
 
-        while (shopping.getStoreListOrderNum() != 0) {
-            String storeName = storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1);
-            if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-            else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() - 1);
+        while (getShopping().getStoreListOrderNum() != 0) {
+            String storeName = getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1);
+            if (getStoreData().getStoreViewNeededMap().get(storeName) > 0) break;
+            else getShopping().setStoreListOrderNum(getShopping().getStoreListOrderNum() - 1);
         }
 
-        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(getString(R.string.allStores));
-        else shoppingListTitle.setText(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1));
-        shopping.loadFragment(new ShoppingList());
+        if (getShopping().getStoreListOrderNum() == 0) getShoppingListTitle().setText(getString(R.string.allStores));
+        else getShoppingListTitle().setText(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1));
+        getShopping().loadFragment(new ShoppingList());
     }
 
     private void moveRightInShoppingList() {
-        if (shopping.getStoreListOrderNum() == storeData.getStoreList().size()) shopping.setStoreListOrderNum(0);
-        else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() + 1);
+        if (getShopping().getStoreListOrderNum() == getStoreData().getStoreList().size()) getShopping().setStoreListOrderNum(0);
+        else getShopping().setStoreListOrderNum(getShopping().getStoreListOrderNum() + 1);
 
-        while (shopping.getStoreListOrderNum() != storeData.getStoreList().size()) {
-            if (shopping.getStoreListOrderNum() == 0) break;
-            String storeName = storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1);
-            if (storeData.getStoreViewNeededMap().get(storeName) > 0) break;
-            else shopping.setStoreListOrderNum(shopping.getStoreListOrderNum() + 1);
+        while (getShopping().getStoreListOrderNum() != getStoreData().getStoreList().size()) {
+            if (getShopping().getStoreListOrderNum() == 0) break;
+            String storeName = getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1);
+            if (getStoreData().getStoreViewNeededMap().get(storeName) > 0) break;
+            else getShopping().setStoreListOrderNum(getShopping().getStoreListOrderNum() + 1);
         }
 
-        if (shopping.getStoreListOrderNum() == storeData.getStoreList().size()) {
-            String storeName = storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1);
-            if (storeData.getStoreViewNeededMap().get(storeName) <= 0) shopping.setStoreListOrderNum(0);
+        if (getShopping().getStoreListOrderNum() == getStoreData().getStoreList().size()) {
+            String storeName = getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1);
+            if (getStoreData().getStoreViewNeededMap().get(storeName) <= 0) getShopping().setStoreListOrderNum(0);
         }
 
-        if (shopping.getStoreListOrderNum() == 0) shoppingListTitle.setText(getString(R.string.allStores));
-        else shoppingListTitle.setText(storeData.getStoreList().get(shopping.getStoreListOrderNum() - 1));
-        shopping.loadFragment(new ShoppingList());
+        if (getShopping().getStoreListOrderNum() == 0) getShoppingListTitle().setText(getString(R.string.allStores));
+        else getShoppingListTitle().setText(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1));
+        getShopping().loadFragment(new ShoppingList());
 
     }
 
     private class OnSwipeTouchListener implements View.OnTouchListener {
 
+        private Context context;
         private GestureDetector gestureDetector;
 
-        OnSwipeTouchListener(Context context) {
-            gestureDetector = new GestureDetector(context, new GestureListener());
+        private OnSwipeTouchListener(Context context) {
+            setContext(context);
+            setGestureDetector(new GestureDetector(getContext(), new GestureListener()));
         }
 
-        void onSwipeLeft() {}
+        private GestureDetector getGestureDetector() {
+            return gestureDetector;
+        }
 
-        void onSwipeRight() {}
+        private void setGestureDetector(GestureDetector gestureDetector) {
+            getThis().gestureDetector = gestureDetector;
+        }
+
+        private OnSwipeTouchListener getThis() {
+            return this;
+        }
+
+        private Context getContext() {
+            return context;
+        }
+
+        private void setContext(Context context) {
+            getThis().context = context;
+        }
+
+        private void onSwipeLeft() {}
+
+        private void onSwipeRight() {}
 
         public boolean onTouch(View v, MotionEvent event) {
-            return gestureDetector.onTouchEvent(event);
+            return getGestureDetector().onTouchEvent(event);
         }
 
         private class GestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -234,8 +372,8 @@ public class ShoppingList extends Fragment {
     }
 
     public void onDestroyView() {
-        shopping.setShoppingListViewState(shoppingListRecyclerView.getLayoutManager().onSaveInstanceState());
-        shoppingListRecyclerView.setAdapter(null);
+        getShopping().setShoppingListViewState(getShoppingListRecyclerView().getLayoutManager().onSaveInstanceState());
+        getShoppingListRecyclerView().setAdapter(null);
         super.onDestroyView();
     }
 }

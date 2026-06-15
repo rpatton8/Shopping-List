@@ -30,9 +30,9 @@ public class Shopping extends AppCompatActivity {
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
 
-    private Boolean itemIsSelectedInInventory;
-    private Boolean itemIsSelectedInSearchResults;
-    private Boolean itemIsSelectedInShoppingList;
+    private boolean itemIsSelectedInInventory;
+    private boolean itemIsSelectedInSearchResults;
+    private boolean itemIsSelectedInShoppingList;
     private Item selectedItemInInventory;
     private Item selectedItemInSearchResults;
     private Item selectedItemInShoppingList;
@@ -44,13 +44,13 @@ public class Shopping extends AppCompatActivity {
     private int storeListOrderNum;
     private String reorderItemsCategory;
     private String reorderItemsStore;
-    private Boolean editItemInInventory;
-    private Boolean editItemInSearchResults;
-    private Boolean editItemInShoppingList;
-    private Boolean editItemInPictureDialog;
-    private Boolean pictureDialogInInventory;
-    private Boolean pictureDialogInSearchResults;
-    private Boolean pictureDialogInShoppingList;
+    private boolean editItemInInventory;
+    private boolean editItemInSearchResults;
+    private boolean editItemInShoppingList;
+    private boolean editItemInPictureDialog;
+    private boolean pictureDialogInInventory;
+    private boolean pictureDialogInSearchResults;
+    private boolean pictureDialogInShoppingList;
 
     private SearchAlgorithm searchAlgorithm;
     private AlertDialog alertDialog;
@@ -348,59 +348,59 @@ public class Shopping extends AppCompatActivity {
         getThis().reorderItemsStore = reorderItemsStore;
     }
 
-    Boolean editItemInInventory() {
+    boolean editItemInInventory() {
         return editItemInInventory;
     }
 
-    void setEditItemInInventory(Boolean editItemInInventory) {
+    void setEditItemInInventory(boolean editItemInInventory) {
         getThis().editItemInInventory = editItemInInventory;
     }
 
-    Boolean editItemInSearchResults() {
+    boolean editItemInSearchResults() {
         return editItemInSearchResults;
     }
 
-    void setEditItemInSearchResults(Boolean editItemInSearchResults) {
+    void setEditItemInSearchResults(boolean editItemInSearchResults) {
         getThis().editItemInSearchResults = editItemInSearchResults;
     }
 
-    Boolean editItemInShoppingList() {
+    boolean editItemInShoppingList() {
         return editItemInShoppingList;
     }
 
-    void setEditItemInShoppingList(Boolean editItemInShoppingList) {
+    void setEditItemInShoppingList(boolean editItemInShoppingList) {
         getThis().editItemInShoppingList = editItemInShoppingList;
     }
 
-    Boolean editItemInPictureDialog() {
+    boolean editItemInPictureDialog() {
         return editItemInPictureDialog;
     }
 
-    void setEditItemInPictureDialog(Boolean editItemInPictureDialog) {
+    void setEditItemInPictureDialog(boolean editItemInPictureDialog) {
         getThis().editItemInPictureDialog = editItemInPictureDialog;
     }
 
-    Boolean pictureDialogInInventory() {
+    boolean pictureDialogInInventory() {
         return pictureDialogInInventory;
     }
 
-    void setPictureDialogInInventory(Boolean pictureDialogInInventory) {
+    void setPictureDialogInInventory(boolean pictureDialogInInventory) {
         getThis().pictureDialogInInventory = pictureDialogInInventory;
     }
 
-    Boolean pictureDialogInSearchResults() {
+    boolean pictureDialogInSearchResults() {
         return pictureDialogInSearchResults;
     }
 
-    void setPictureDialogInSearchResults(Boolean pictureDialogInSearchResults) {
+    void setPictureDialogInSearchResults(boolean pictureDialogInSearchResults) {
         getThis().pictureDialogInSearchResults = pictureDialogInSearchResults;
     }
 
-    Boolean pictureDialogInShoppingList() {
+    boolean pictureDialogInShoppingList() {
         return pictureDialogInShoppingList;
     }
 
-    void setPictureDialogInShoppingList(Boolean pictureDialogInShoppingList) {
+    void setPictureDialogInShoppingList(boolean pictureDialogInShoppingList) {
         getThis().pictureDialogInShoppingList = pictureDialogInShoppingList;
     }
 

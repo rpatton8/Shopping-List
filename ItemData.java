@@ -35,55 +35,55 @@ class ItemData {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    public LinkedList<Item> getItemsAZ() {
+    private LinkedList<Item> getItemsAZ() {
         return itemsAZ;
     }
 
-    public void setItemsAZ(LinkedList<Item> itemsAZ) {
+    private void setItemsAZ(LinkedList<Item> itemsAZ) {
         getThis().itemsAZ = itemsAZ;
     }
 
-    public ArrayList<Item> getItemsByCategory() {
+    private ArrayList<Item> getItemsByCategory() {
         return itemsByCategory;
     }
 
-    public void setItemsByCategory(ArrayList<Item> itemsByCategory) {
+    private void setItemsByCategory(ArrayList<Item> itemsByCategory) {
         getThis().itemsByCategory = itemsByCategory;
     }
 
-    public ArrayList<Item> getItemsByStore() {
+    private ArrayList<Item> getItemsByStore() {
         return itemsByStore;
     }
 
-    public void setItemsByStore(ArrayList<Item> itemsByStore) {
+    private void setItemsByStore(ArrayList<Item> itemsByStore) {
         getThis().itemsByStore = itemsByStore;
     }
 
-    public HashMap<String, Item> getItemMap() {
+    HashMap<String, Item> getItemMap() {
         return itemMap;
     }
 
-    public void setItemMap(HashMap<String, Item> itemMap) {
+    private void setItemMap(HashMap<String, Item> itemMap) {
         getThis().itemMap = itemMap;
     }
 
-    public HashMap<String, Category> getCategoryMap() {
+    HashMap<String, Category> getCategoryMap() {
         return categoryMap;
     }
 
-    public void setCategoryMap(HashMap<String, Category> categoryMap) {
+    private void setCategoryMap(HashMap<String, Category> categoryMap) {
         getThis().categoryMap = categoryMap;
     }
 
-    public HashMap<String, Store> getStoreMap() {
+    HashMap<String, Store> getStoreMap() {
         return storeMap;
     }
 
-    public void setStoreMap(HashMap<String, Store> storeMap) {
+    private void setStoreMap(HashMap<String, Store> storeMap) {
         getThis().storeMap = storeMap;
     }
     
@@ -166,7 +166,7 @@ class ItemData {
         list.add(index, item);
     }
 
-    void printDataAZ() {
+    private void printDataAZ() {
 
         System.out.println(getContext().getString(R.string.pdItemsAZ));
         for (int i = 1; i <= getItemsAZ().size(); i++) {
@@ -179,7 +179,7 @@ class ItemData {
         }
     }
 
-    void printDataByCategory() {
+    private void printDataByCategory() {
         System.out.println(getContext().getString(R.string.pdItemsByCategory));
         for (int i = 1; i <= getItemsByCategory().size(); i++) {
             Item item = getItemsByCategory().get(i - 1);
@@ -191,7 +191,7 @@ class ItemData {
         }
     }
 
-    void printDataByStore() {
+    private void printDataByStore() {
         System.out.println(getContext().getString(R.string.pdItemsByStore));
         for (int i = 1; i <= getItemsByStore().size(); i++) {
             Item item = getItemsByStore().get(i - 1);

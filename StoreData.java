@@ -33,68 +33,68 @@ class StoreData {
         return this;
     }
 
-    public Context getContext() {
+    private Context getContext() {
         return context;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    private void setContext(Context context) {
+        getThis().context = context;
     }
 
     public ArrayList<String> getStoreList() {
         return storeList;
     }
 
-    public void setStoreList(ArrayList<String> storeList) {
-        this.storeList = storeList;
+    private void setStoreList(ArrayList<String> storeList) {
+        getThis().storeList = storeList;
     }
 
     public ArrayList<String> getStoreListWithBlank() {
         return storeListWithBlank;
     }
 
-    public void setStoreListWithBlank(ArrayList<String> storeListWithBlank) {
-        this.storeListWithBlank = storeListWithBlank;
+    private void setStoreListWithBlank(ArrayList<String> storeListWithBlank) {
+        getThis().storeListWithBlank = storeListWithBlank;
     }
 
     public ArrayList<String> getStoreListWithAddNew() {
         return storeListWithAddNew;
     }
 
-    public void setStoreListWithAddNew(ArrayList<String> storeListWithAddNew) {
-        this.storeListWithAddNew = storeListWithAddNew;
+    private void setStoreListWithAddNew(ArrayList<String> storeListWithAddNew) {
+        getThis().storeListWithAddNew = storeListWithAddNew;
     }
 
     public HashMap<String, Integer> getStoreViewAllMap() {
         return storeViewAllMap;
     }
 
-    public void setStoreViewAllMap(HashMap<String, Integer> storeViewAllMap) {
-        this.storeViewAllMap = storeViewAllMap;
+    private void setStoreViewAllMap(HashMap<String, Integer> storeViewAllMap) {
+        getThis().storeViewAllMap = storeViewAllMap;
     }
 
     public HashMap<String, Integer> getStoreViewInStockMap() {
         return storeViewInStockMap;
     }
 
-    public void setStoreViewInStockMap(HashMap<String, Integer> storeViewInStockMap) {
-        this.storeViewInStockMap = storeViewInStockMap;
+    private void setStoreViewInStockMap(HashMap<String, Integer> storeViewInStockMap) {
+        getThis().storeViewInStockMap = storeViewInStockMap;
     }
 
     public HashMap<String, Integer> getStoreViewNeededMap() {
         return storeViewNeededMap;
     }
 
-    public void setStoreViewNeededMap(HashMap<String, Integer> storeViewNeededMap) {
-        this.storeViewNeededMap = storeViewNeededMap;
+    private void setStoreViewNeededMap(HashMap<String, Integer> storeViewNeededMap) {
+        getThis().storeViewNeededMap = storeViewNeededMap;
     }
 
     public HashMap<String, Integer> getStoreViewPausedMap() {
         return storeViewPausedMap;
     }
 
-    public void setStoreViewPausedMap(HashMap<String, Integer> storeViewPausedMap) {
-        this.storeViewPausedMap = storeViewPausedMap;
+    private void setStoreViewPausedMap(HashMap<String, Integer> storeViewPausedMap) {
+        getThis().storeViewPausedMap = storeViewPausedMap;
     }
 
     void readStore(String storeName, int numItemsInViewAll, int numItemsInViewInStock,

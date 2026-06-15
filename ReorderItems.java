@@ -321,7 +321,7 @@ public class ReorderItems extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 
     public void onDestroyView() {

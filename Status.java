@@ -6,19 +6,19 @@ class Status {
 
     private Context context;
 
-    private Boolean isInStock;
-    private Boolean isNeeded;
-    private Boolean isPaused;
-    private Boolean isChecked;
-    private Boolean isExpandedInInventory;
-    private Boolean isContractedInInventory;
-    private Boolean isExpandedInSearchResults;
-    private Boolean isContractedInSearchResults;
-    private Boolean isExpandedInShoppingList;
-    private Boolean isContractedInShoppingList;
-    private Boolean isSelectedInInventory;
-    private Boolean isSelectedInSearchResults;
-    private Boolean isSelectedInShoppingList;
+    private boolean isInStock;
+    private boolean isNeeded;
+    private boolean isPaused;
+    private boolean isChecked;
+    private boolean isExpandedInInventory;
+    private boolean isContractedInInventory;
+    private boolean isExpandedInSearchResults;
+    private boolean isContractedInSearchResults;
+    private boolean isExpandedInShoppingList;
+    private boolean isContractedInShoppingList;
+    private boolean isSelectedInInventory;
+    private boolean isSelectedInSearchResults;
+    private boolean isSelectedInShoppingList;
     
     Status(String itemName, String status, String checked, Context context) {
 
@@ -54,19 +54,19 @@ class Status {
         return context;
     }
 
-    public void setContext(Context context) {
+    private void setContext(Context context) {
         getThis().context = context;
     }
 
-    Boolean isInStock() {
+    boolean isInStock() {
         return isInStock;
     }
 
-    Boolean isNeeded() {
+    boolean isNeeded() {
         return isNeeded;
     }
 
-    Boolean isPaused() {
+    boolean isPaused() {
         return isPaused;
     }
 
@@ -88,7 +88,7 @@ class Status {
         isPaused = true;
     }
 
-    Boolean isChecked() {
+    boolean isChecked() {
         return isChecked;
     }
 
@@ -96,7 +96,7 @@ class Status {
         isChecked = true;
     }
 
-    Boolean isUnchecked() {
+    boolean isUnchecked() {
         return !isChecked;
     }
 
@@ -104,7 +104,7 @@ class Status {
         isChecked = false;
     }
 
-    Boolean isExpandedInInventory() {
+    boolean isExpandedInInventory() {
         return isExpandedInInventory;
     }
 
@@ -113,7 +113,7 @@ class Status {
         isContractedInInventory = false;
     }
 
-    Boolean isContractedInInventory() {
+    boolean isContractedInInventory() {
         return isContractedInInventory;
     }
 
@@ -122,7 +122,7 @@ class Status {
         isExpandedInInventory = false;
     }
 
-    Boolean isExpandedInSearchResults() {
+    boolean isExpandedInSearchResults() {
         return isExpandedInSearchResults;
     }
 
@@ -131,7 +131,7 @@ class Status {
         isContractedInSearchResults = false;
     }
 
-    Boolean isContractedInSearchResults() {
+    boolean isContractedInSearchResults() {
         return isContractedInSearchResults;
     }
 
@@ -140,7 +140,7 @@ class Status {
         isExpandedInSearchResults = false;
     }
 
-    Boolean isExpandedInShoppingList() {
+    boolean isExpandedInShoppingList() {
         return isExpandedInShoppingList;
     }
 
@@ -149,7 +149,7 @@ class Status {
         isContractedInShoppingList = false;
     }
 
-    Boolean isContractedInShoppingList() {
+    boolean isContractedInShoppingList() {
         return isContractedInShoppingList;
     }
 
@@ -158,7 +158,7 @@ class Status {
         isExpandedInShoppingList = false;
     }
 
-    Boolean isSelectedInInventory() {
+    boolean isSelectedInInventory() {
         return isSelectedInInventory;
     }
 
@@ -170,7 +170,7 @@ class Status {
         isSelectedInInventory = false;
     }
 
-    Boolean isSelectedInSearchResults() {
+    boolean isSelectedInSearchResults() {
         return isSelectedInSearchResults;
     }
 
@@ -182,7 +182,7 @@ class Status {
         isSelectedInSearchResults = false;
     }
 
-    Boolean isSelectedInShoppingList() {
+    boolean isSelectedInShoppingList() {
         return isSelectedInShoppingList;
     }
 

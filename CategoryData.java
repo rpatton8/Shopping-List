@@ -37,64 +37,64 @@ class CategoryData {
         return context;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    private void setContext(Context context) {
+        getThis().context = context;
     }
 
     public ArrayList<String> getCategoryList() {
         return categoryList;
     }
 
-    public void setCategoryList(ArrayList<String> categoryList) {
-        this.categoryList = categoryList;
+    private void setCategoryList(ArrayList<String> categoryList) {
+        getThis().categoryList = categoryList;
     }
 
     public ArrayList<String> getCategoryListWithBlank() {
         return categoryListWithBlank;
     }
 
-    public void setCategoryListWithBlank(ArrayList<String> categoryListWithBlank) {
-        this.categoryListWithBlank = categoryListWithBlank;
+    private void setCategoryListWithBlank(ArrayList<String> categoryListWithBlank) {
+        getThis().categoryListWithBlank = categoryListWithBlank;
     }
 
     public ArrayList<String> getCategoryListWithAddNew() {
         return categoryListWithAddNew;
     }
 
-    public void setCategoryListWithAddNew(ArrayList<String> categoryListWithAddNew) {
-        this.categoryListWithAddNew = categoryListWithAddNew;
+    private void setCategoryListWithAddNew(ArrayList<String> categoryListWithAddNew) {
+        getThis().categoryListWithAddNew = categoryListWithAddNew;
     }
 
     public HashMap<String, Integer> getCategoryViewAllMap() {
         return categoryViewAllMap;
     }
 
-    public void setCategoryViewAllMap(HashMap<String, Integer> categoryViewAllMap) {
-        this.categoryViewAllMap = categoryViewAllMap;
+    private void setCategoryViewAllMap(HashMap<String, Integer> categoryViewAllMap) {
+        getThis().categoryViewAllMap = categoryViewAllMap;
     }
 
     public HashMap<String, Integer> getCategoryViewInStockMap() {
         return categoryViewInStockMap;
     }
 
-    public void setCategoryViewInStockMap(HashMap<String, Integer> categoryViewInStockMap) {
-        this.categoryViewInStockMap = categoryViewInStockMap;
+    private void setCategoryViewInStockMap(HashMap<String, Integer> categoryViewInStockMap) {
+        getThis().categoryViewInStockMap = categoryViewInStockMap;
     }
 
     public HashMap<String, Integer> getCategoryViewNeededMap() {
         return categoryViewNeededMap;
     }
 
-    public void setCategoryViewNeededMap(HashMap<String, Integer> categoryViewNeededMap) {
-        this.categoryViewNeededMap = categoryViewNeededMap;
+    private void setCategoryViewNeededMap(HashMap<String, Integer> categoryViewNeededMap) {
+        getThis().categoryViewNeededMap = categoryViewNeededMap;
     }
 
     public HashMap<String, Integer> getCategoryViewPausedMap() {
         return categoryViewPausedMap;
     }
 
-    public void setCategoryViewPausedMap(HashMap<String, Integer> categoryViewPausedMap) {
-        this.categoryViewPausedMap = categoryViewPausedMap;
+    private void setCategoryViewPausedMap(HashMap<String, Integer> categoryViewPausedMap) {
+        getThis().categoryViewPausedMap = categoryViewPausedMap;
     }
 
     void readCategory(String categoryName, int numItemsInViewAll, int numItemsInViewInStock,

@@ -23,8 +23,8 @@ public class LoadScreen extends Fragment {
     private TextView loadScreenEditButton;
     private TextView shoppingOptionsBackground;
     private Button instructions;
-
     private boolean menuOptionsVisible;
+    private boolean developerOptionsVisible;
     private Button clearAllData;
     private Button loadSampleData1;
     private Button loadSampleData2;
@@ -78,300 +78,696 @@ public class LoadScreen extends Fragment {
 
     public LoadScreen() {}
 
+    private LoadScreen getThis() {
+        return this;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    private void setView(View view) {
+        getThis().view = view;
+    }
+
+    private Shopping getShopping() {
+        return shopping;
+    }
+
+    private void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
+    private TextView getLoadScreenDeveloperOptionsButton() {
+        return loadScreenDeveloperOptionsButton;
+    }
+
+    private void setLoadScreenDeveloperOptionsButton(TextView loadScreenDeveloperOptionsButton) {
+        getThis().loadScreenDeveloperOptionsButton = loadScreenDeveloperOptionsButton;
+    }
+
+    private TextView getLoadScreenEditButton() {
+        return loadScreenEditButton;
+    }
+
+    private void setLoadScreenEditButton(TextView loadScreenEditButton) {
+        getThis().loadScreenEditButton = loadScreenEditButton;
+    }
+
+    private TextView getShoppingOptionsBackground() {
+        return shoppingOptionsBackground;
+    }
+
+    private void setShoppingOptionsBackground(TextView shoppingOptionsBackground) {
+        getThis().shoppingOptionsBackground = shoppingOptionsBackground;
+    }
+
+    private Button getInstructions() {
+        return instructions;
+    }
+
+    private void setInstructions(Button instructions) {
+        getThis().instructions = instructions;
+    }
+
+    private boolean menuOptionsVisible() {
+        return menuOptionsVisible;
+    }
+
+    private void setMenuOptionsVisible(boolean menuOptionsVisible) {
+        getThis().menuOptionsVisible = menuOptionsVisible;
+    }
+
+    private boolean developerOptionsVisible() {
+        return developerOptionsVisible;
+    }
+
+    private void setDeveloperOptionsVisible(boolean developerOptionsVisible) {
+        this.developerOptionsVisible = developerOptionsVisible;
+    }
+
+    private Button getClearAllData() {
+        return clearAllData;
+    }
+
+    private void setClearAllData(Button clearAllData) {
+        getThis().clearAllData = clearAllData;
+    }
+
+    private Button getLoadSampleData1() {
+        return loadSampleData1;
+    }
+
+    private void setLoadSampleData1(Button loadSampleData1) {
+        getThis().loadSampleData1 = loadSampleData1;
+    }
+
+    private Button getLoadSampleData2() {
+        return loadSampleData2;
+    }
+
+    private void setLoadSampleData2(Button loadSampleData2) {
+        getThis().loadSampleData2 = loadSampleData2;
+    }
+
+    private Button getChangeDefaultSortBy() {
+        return changeDefaultSortBy;
+    }
+
+    private void setChangeDefaultSortBy(Button changeDefaultSortBy) {
+        getThis().changeDefaultSortBy = changeDefaultSortBy;
+    }
+
+    private RadioButton getSortAlphabetical() {
+        return sortAlphabetical;
+    }
+
+    private void setSortAlphabetical(RadioButton sortAlphabetical) {
+        getThis().sortAlphabetical = sortAlphabetical;
+    }
+
+    private RadioButton getSortByCategory() {
+        return sortByCategory;
+    }
+
+    private void setSortByCategory(RadioButton sortByCategory) {
+        getThis().sortByCategory = sortByCategory;
+    }
+
+    private RadioButton getSortByStore() {
+        return sortByStore;
+    }
+
+    private void setSortByStore(RadioButton sortByStore) {
+        getThis().sortByStore = sortByStore;
+    }
+
+    private Button getChangeReorderingMethod() {
+        return changeReorderingMethod;
+    }
+
+    private void setChangeReorderingMethod(Button changeReorderingMethod) {
+        getThis().changeReorderingMethod = changeReorderingMethod;
+    }
+
+    private RadioButton getDragAndDrop() {
+        return dragAndDrop;
+    }
+
+    private void setDragAndDrop(RadioButton dragAndDrop) {
+        getThis().dragAndDrop = dragAndDrop;
+    }
+
+    private RadioButton getUpAndDownArrows() {
+        return upAndDownArrows;
+    }
+
+    private void setUpAndDownArrows(RadioButton upAndDownArrows) {
+        getThis().upAndDownArrows = upAndDownArrows;
+    }
+
+    private RadioButton getWithNumbers() {
+        return withNumbers;
+    }
+
+    private void setWithNumbers(RadioButton withNumbers) {
+        getThis().withNumbers = withNumbers;
+    }
+
+    private Button getChangeColorScheme() {
+        return changeColorScheme;
+    }
+
+    private void setChangeColorScheme(Button changeColorScheme) {
+        getThis().changeColorScheme = changeColorScheme;
+    }
+
+    private RadioButton getColorScheme1() {
+        return colorScheme1;
+    }
+
+    private void setColorScheme1(RadioButton colorScheme1) {
+        getThis().colorScheme1 = colorScheme1;
+    }
+
+    private RadioButton getColorScheme2() {
+        return colorScheme2;
+    }
+
+    private void setColorScheme2(RadioButton colorScheme2) {
+        getThis().colorScheme2 = colorScheme2;
+    }
+
+    private RadioButton getColorScheme3() {
+        return colorScheme3;
+    }
+
+    private void setColorScheme3(RadioButton colorScheme3) {
+        getThis().colorScheme3 = colorScheme3;
+    }
+
+    private Button getChangeDefaultCategoryTitles() {
+        return changeDefaultCategoryTitles;
+    }
+
+    private void setChangeDefaultCategoryTitles(Button changeDefaultCategoryTitles) {
+        getThis().changeDefaultCategoryTitles = changeDefaultCategoryTitles;
+    }
+
+    private RadioButton getCategoryTitlesExpanded() {
+        return categoryTitlesExpanded;
+    }
+
+    private void setCategoryTitlesExpanded(RadioButton categoryTitlesExpanded) {
+        getThis().categoryTitlesExpanded = categoryTitlesExpanded;
+    }
+
+    private RadioButton getCategoryTitlesContracted() {
+        return categoryTitlesContracted;
+    }
+
+    private void setCategoryTitlesContracted(RadioButton categoryTitlesContracted) {
+        getThis().categoryTitlesContracted = categoryTitlesContracted;
+    }
+
+    private Button getChangeDefaultStoreTitles() {
+        return changeDefaultStoreTitles;
+    }
+
+    private void setChangeDefaultStoreTitles(Button changeDefaultStoreTitles) {
+        getThis().changeDefaultStoreTitles = changeDefaultStoreTitles;
+    }
+
+    private RadioButton getStoreTitlesExpanded() {
+        return storeTitlesExpanded;
+    }
+
+    private void setStoreTitlesExpanded(RadioButton storeTitlesExpanded) {
+        getThis().storeTitlesExpanded = storeTitlesExpanded;
+    }
+
+    private RadioButton getStoreTitlesContracted() {
+        return storeTitlesContracted;
+    }
+
+    private void setStoreTitlesContracted(RadioButton storeTitlesContracted) {
+        getThis().storeTitlesContracted = storeTitlesContracted;
+    }
+
+    private Button getOptionalData() {
+        return optionalData;
+    }
+
+    private void setOptionalData(Button optionalData) {
+        getThis().optionalData = optionalData;
+    }
+
+    private CheckBox getOptionalDataQuantity() {
+        return optionalDataQuantity;
+    }
+
+    private void setOptionalDataQuantity(CheckBox optionalDataQuantity) {
+        getThis().optionalDataQuantity = optionalDataQuantity;
+    }
+
+    private CheckBox getOptionalDataPrice() {
+        return optionalDataPrice;
+    }
+
+    private void setOptionalDataPrice(CheckBox optionalDataPrice) {
+        getThis().optionalDataPrice = optionalDataPrice;
+    }
+
+    private CheckBox getOptionalDataLocation() {
+        return optionalDataLocation;
+    }
+
+    private void setOptionalDataLocation(CheckBox optionalDataLocation) {
+        getThis().optionalDataLocation = optionalDataLocation;
+    }
+
+    private CheckBox getOptionalDataNote() {
+        return optionalDataNote;
+    }
+
+    private void setOptionalDataNote(CheckBox optionalDataNote) {
+        getThis().optionalDataNote = optionalDataNote;
+    }
+
+    private Button getSwiping() {
+        return swiping;
+    }
+
+    private void setSwiping(Button swiping) {
+        getThis().swiping = swiping;
+    }
+
+    private RadioButton getSwipingOn() {
+        return swipingOn;
+    }
+
+    private void setSwipingOn(RadioButton swipingOn) {
+        getThis().swipingOn = swipingOn;
+    }
+
+    private RadioButton getSwipingOff() {
+        return swipingOff;
+    }
+
+    private void setSwipingOff(RadioButton swipingOff) {
+        getThis().swipingOff = swipingOff;
+    }
+
+    private Button getPictures() {
+        return pictures;
+    }
+
+    private void setPictures(Button pictures) {
+        getThis().pictures = pictures;
+    }
+
+    private RadioButton getPicturesOn() {
+        return picturesOn;
+    }
+
+    private void setPicturesOn(RadioButton picturesOn) {
+        getThis().picturesOn = picturesOn;
+    }
+
+    private RadioButton getPicturesOff() {
+        return picturesOff;
+    }
+
+    private void setPicturesOff(RadioButton picturesOff) {
+        getThis().picturesOff = picturesOff;
+    }
+
+    private Button getReorderEmojis() {
+        return reorderEmojis;
+    }
+
+    private void setReorderEmojis(Button reorderEmojis) {
+        getThis().reorderEmojis = reorderEmojis;
+    }
+
+    private TextView getReorderCategoryEmojiLabel() {
+        return reorderCategoryEmojiLabel;
+    }
+
+    private void setReorderCategoryEmojiLabel(TextView reorderCategoryEmojiLabel) {
+        getThis().reorderCategoryEmojiLabel = reorderCategoryEmojiLabel;
+    }
+
+    private EditText getReorderCategoryEmojiBox() {
+        return reorderCategoryEmojiBox;
+    }
+
+    private void setReorderCategoryEmojiBox(EditText reorderCategoryEmojiBox) {
+        getThis().reorderCategoryEmojiBox = reorderCategoryEmojiBox;
+    }
+
+    private TextView getReorderItemByCategoryEmojiLabel() {
+        return reorderItemByCategoryEmojiLabel;
+    }
+
+    private void setReorderItemByCategoryEmojiLabel(TextView reorderItemByCategoryEmojiLabel) {
+        getThis().reorderItemByCategoryEmojiLabel = reorderItemByCategoryEmojiLabel;
+    }
+
+    private EditText getReorderItemByCategoryEmojiBox() {
+        return reorderItemByCategoryEmojiBox;
+    }
+
+    private void setReorderItemByCategoryEmojiBox(EditText reorderItemByCategoryEmojiBox) {
+        getThis().reorderItemByCategoryEmojiBox = reorderItemByCategoryEmojiBox;
+    }
+
+    private TextView getReorderItemByStoreEmojiLabel() {
+        return reorderItemByStoreEmojiLabel;
+    }
+
+    private void setReorderItemByStoreEmojiLabel(TextView reorderItemByStoreEmojiLabel) {
+        getThis().reorderItemByStoreEmojiLabel = reorderItemByStoreEmojiLabel;
+    }
+
+    private EditText getReorderItemByStoreEmojiBox() {
+        return reorderItemByStoreEmojiBox;
+    }
+
+    private void setReorderItemByStoreEmojiBox(EditText reorderItemByStoreEmojiBox) {
+        getThis().reorderItemByStoreEmojiBox = reorderItemByStoreEmojiBox;
+    }
+
+    private TextView getReorderStoreEmojiLabel() {
+        return reorderStoreEmojiLabel;
+    }
+
+    private void setReorderStoreEmojiLabel(TextView reorderStoreEmojiLabel) {
+        getThis().reorderStoreEmojiLabel = reorderStoreEmojiLabel;
+    }
+
+    private EditText getReorderStoreEmojiBox() {
+        return reorderStoreEmojiBox;
+    }
+
+    private void setReorderStoreEmojiBox(EditText reorderStoreEmojiBox) {
+        getThis().reorderStoreEmojiBox = reorderStoreEmojiBox;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.load_screen, container, false);
-        shopping = (Shopping) getActivity();
+        setView(inflater.inflate(R.layout.load_screen, container, false));
+        setShopping((Shopping) getActivity());
 
-        menuOptionsVisible = false;
+        setMenuOptionsVisible(false);
 
-        loadScreenDeveloperOptionsButton = view.findViewById(R.id.loadScreenDeveloperOptions);
-        loadScreenEditButton = view.findViewById(R.id.loadScreenEditButton);
-        shoppingOptionsBackground =  view.findViewById(R.id.shoppingOptionsBackground);
-        clearAllData = view.findViewById(R.id.clearAllData);
-        loadSampleData1 = view.findViewById(R.id.loadSampleData1);
-        loadSampleData2 = view.findViewById(R.id.loadSampleData2);
+        setLoadScreenDeveloperOptionsButton((TextView) getView().findViewById(R.id.loadScreenDeveloperOptions));
+        setLoadScreenEditButton((TextView) getView().findViewById(R.id.loadScreenEditButton));
+        setShoppingOptionsBackground((TextView) getView().findViewById(R.id.shoppingOptionsBackground)) ;
+        setClearAllData((Button) getView().findViewById(R.id.clearAllData));
+        setLoadSampleData1((Button) getView().findViewById(R.id.loadSampleData1));
+        setLoadSampleData2((Button) getView().findViewById(R.id.loadSampleData2));
 
-        changeDefaultSortBy = view.findViewById(R.id.changeDefaultSortBy);
-        sortAlphabetical = view.findViewById(R.id.sortAlphabetical);
-        sortByCategory = view.findViewById(R.id.sortByCategory);
-        sortByStore = view.findViewById(R.id.sortByStore);
+        setChangeDefaultSortBy((Button) getView().findViewById(R.id.changeDefaultSortBy));
+        setSortAlphabetical((RadioButton) getView().findViewById(R.id.sortAlphabetical));
+        setSortByCategory((RadioButton) getView().findViewById(R.id.sortByCategory));
+        setSortByStore((RadioButton) getView().findViewById(R.id.sortByStore));
 
-        changeReorderingMethod = view.findViewById(R.id.changeReorderingMethod);
-        dragAndDrop = view.findViewById(R.id.dragAndDrop);
-        upAndDownArrows = view.findViewById(R.id.upAndDownArrows);
-        withNumbers = view.findViewById(R.id.withNumbers);
+        setChangeReorderingMethod((Button) getView().findViewById(R.id.changeReorderingMethod));
+        setDragAndDrop((RadioButton) getView().findViewById(R.id.dragAndDrop));
+        setUpAndDownArrows((RadioButton) getView().findViewById(R.id.upAndDownArrows));
+        setWithNumbers((RadioButton) getView().findViewById(R.id.withNumbers));
 
-        changeColorScheme = view.findViewById(R.id.changeColorScheme);
-        colorScheme1 = view.findViewById(R.id.colorScheme1);
-        colorScheme2 = view.findViewById(R.id.colorScheme2);
-        colorScheme3 = view.findViewById(R.id.colorScheme3);
+        setChangeColorScheme((Button) getView().findViewById(R.id.changeColorScheme));
+        setColorScheme1((RadioButton) getView().findViewById(R.id.colorScheme1));
+        setColorScheme2((RadioButton) getView().findViewById(R.id.colorScheme2));
+        setColorScheme3((RadioButton) getView().findViewById(R.id.colorScheme3));
 
-        changeDefaultCategoryTitles = view.findViewById(R.id.changeDefaultCategoryTitles);
-        categoryTitlesExpanded = view.findViewById(R.id.categoryTitlesExpanded);
-        categoryTitlesContracted = view.findViewById(R.id.categoryTitlesContracted);
+        setChangeDefaultCategoryTitles((Button) getView().findViewById(R.id.changeDefaultCategoryTitles));
+        setCategoryTitlesExpanded((RadioButton) getView().findViewById(R.id.categoryTitlesExpanded));
+        setCategoryTitlesContracted((RadioButton) getView().findViewById(R.id.categoryTitlesContracted));
 
-        changeDefaultStoreTitles = view.findViewById(R.id.changeDefaultStoreTitles);
-        storeTitlesExpanded = view.findViewById(R.id.storeTitlesExpanded);
-        storeTitlesContracted = view.findViewById(R.id.storeTitlesContracted);
+        setChangeDefaultStoreTitles((Button) getView().findViewById(R.id.changeDefaultStoreTitles));
+        setStoreTitlesExpanded((RadioButton) getView().findViewById(R.id.storeTitlesExpanded));
+        setStoreTitlesContracted((RadioButton) getView().findViewById(R.id.storeTitlesContracted));
 
-        optionalData = view.findViewById(R.id.optionalData);
-        optionalDataQuantity = view.findViewById(R.id.optionalDataQuantity);
-        optionalDataPrice = view.findViewById(R.id.optionalDataPrice);
-        optionalDataLocation = view.findViewById(R.id.optionalDataLocation);
-        optionalDataNote = view.findViewById(R.id.optionalDataNote);
+        setOptionalData((Button) getView().findViewById(R.id.optionalData));
+        setOptionalDataQuantity((CheckBox) getView().findViewById(R.id.optionalDataQuantity));
+        setOptionalDataPrice((CheckBox) getView().findViewById(R.id.optionalDataPrice));
+        setOptionalDataLocation((CheckBox) getView().findViewById(R.id.optionalDataLocation));
+        setOptionalDataNote((CheckBox) getView().findViewById(R.id.optionalDataNote));
 
-        swiping = view.findViewById(R.id.swiping);
-        swipingOn = view.findViewById(R.id.swipingOn);
-        swipingOff = view.findViewById(R.id.swipingOff);
+        setSwiping((Button) getView().findViewById(R.id.swiping));
+        setSwipingOn((RadioButton) getView().findViewById(R.id.swipingOn));
+        setSwipingOff((RadioButton) getView().findViewById(R.id.swipingOff));
 
-        pictures = view.findViewById(R.id.pictures);
-        picturesOn = view.findViewById(R.id.picturesOn);
-        picturesOff = view.findViewById(R.id.picturesOff);
+        setPictures((Button) getView().findViewById(R.id.pictures));
+        setPicturesOn((RadioButton) getView().findViewById(R.id.picturesOn));
+        setPicturesOff((RadioButton) getView().findViewById(R.id.picturesOff));
 
-        reorderEmojis = view.findViewById(R.id.reorderEmojis);
-        reorderCategoryEmojiLabel = view.findViewById(R.id.reorderCategoryEmojiLabel);
-        reorderCategoryEmojiBox = view.findViewById(R.id.reorderCategoryEmojiBox);
-        reorderItemByCategoryEmojiLabel = view.findViewById(R.id.reorderItemByCategoryEmojiLabel);
-        reorderItemByCategoryEmojiBox = view.findViewById(R.id.reorderItemByCategoryEmojiBox);
-        reorderItemByStoreEmojiLabel = view.findViewById(R.id.reorderItemByStoreEmojiLabel);
-        reorderItemByStoreEmojiBox = view.findViewById(R.id.reorderItemByStoreEmojiBox);
-        reorderStoreEmojiLabel = view.findViewById(R.id.reorderStoreEmojiLabel);
-        reorderStoreEmojiBox = view.findViewById(R.id.reorderStoreEmojiBox);
+        setReorderEmojis((Button) getView().findViewById(R.id.reorderEmojis));
+        setReorderCategoryEmojiLabel((TextView) getView().findViewById(R.id.reorderCategoryEmojiLabel));
+        setReorderCategoryEmojiBox((EditText) getView().findViewById(R.id.reorderCategoryEmojiBox));
+        setReorderItemByCategoryEmojiLabel((TextView) getView().findViewById(R.id.reorderItemByCategoryEmojiLabel));
+        setReorderItemByCategoryEmojiBox((EditText) getView().findViewById(R.id.reorderItemByCategoryEmojiBox));
+        setReorderItemByStoreEmojiLabel((TextView) getView().findViewById(R.id.reorderItemByStoreEmojiLabel));
+        setReorderItemByStoreEmojiBox((EditText) getView().findViewById(R.id.reorderItemByStoreEmojiBox));
+        setReorderStoreEmojiLabel((TextView) getView().findViewById(R.id.reorderStoreEmojiLabel));
+        setReorderStoreEmojiBox((EditText) getView().findViewById(R.id.reorderStoreEmojiBox));
 
-        instructions = view.findViewById(R.id.instructions);
+        setInstructions((Button) getView().findViewById(R.id.instructions));
 
-        loadScreenDeveloperOptionsButton.setOnClickListener(new View.OnClickListener() {
+        getLoadScreenDeveloperOptionsButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (menuOptionsVisible) {
-                    clearAllData.setVisibility(View.GONE);
-                    loadSampleData1.setVisibility(View.GONE);
-                    loadSampleData2.setVisibility(View.GONE);
-                    menuOptionsVisible = false;
+                if (developerOptionsVisible()) {
+                    getClearAllData().setVisibility(View.GONE);
+                    getLoadSampleData1().setVisibility(View.GONE);
+                    getLoadSampleData2().setVisibility(View.GONE);
+                    setDeveloperOptionsVisible(false);
                 } else {
-                    clearAllData.setVisibility(View.VISIBLE);
-                    loadSampleData1.setVisibility(View.VISIBLE);
-                    loadSampleData2.setVisibility(View.VISIBLE);
-                    menuOptionsVisible = true;
+                    getClearAllData().setVisibility(View.VISIBLE);
+                    getLoadSampleData1().setVisibility(View.VISIBLE);
+                    getLoadSampleData2().setVisibility(View.VISIBLE);
+                    setDeveloperOptionsVisible(true);
                 }
             }
         });
 
-        loadScreenEditButton.setOnClickListener(new View.OnClickListener() {
+        getLoadScreenEditButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (menuOptionsVisible) {
+                if (menuOptionsVisible()) {
 
-                    changeDefaultSortBy.setVisibility(View.GONE);
-                    sortAlphabetical.setVisibility(View.GONE);
-                    sortByCategory.setVisibility(View.GONE);
-                    sortByStore.setVisibility(View.GONE);
+                    getChangeDefaultSortBy().setVisibility(View.GONE);
+                    getSortAlphabetical().setVisibility(View.GONE);
+                    getSortByCategory().setVisibility(View.GONE);
+                    getSortByStore().setVisibility(View.GONE);
 
-                    changeReorderingMethod.setVisibility(View.GONE);
-                    dragAndDrop.setVisibility(View.GONE);
-                    upAndDownArrows.setVisibility(View.GONE);
-                    withNumbers.setVisibility(View.GONE);
+                    getChangeReorderingMethod().setVisibility(View.GONE);
+                    getDragAndDrop().setVisibility(View.GONE);
+                    getUpAndDownArrows().setVisibility(View.GONE);
+                    getWithNumbers().setVisibility(View.GONE);
 
-                    changeColorScheme.setVisibility(View.GONE);
-                    colorScheme1.setVisibility(View.GONE);
-                    colorScheme2.setVisibility(View.GONE);
-                    colorScheme3.setVisibility(View.GONE);
+                    getChangeColorScheme().setVisibility(View.GONE);
+                    getColorScheme1().setVisibility(View.GONE);
+                    getColorScheme2().setVisibility(View.GONE);
+                    getColorScheme3().setVisibility(View.GONE);
 
-                    changeDefaultCategoryTitles.setVisibility(View.GONE);
-                    categoryTitlesExpanded.setVisibility(View.GONE);
-                    categoryTitlesContracted.setVisibility(View.GONE);
+                    getChangeDefaultCategoryTitles().setVisibility(View.GONE);
+                    getCategoryTitlesExpanded().setVisibility(View.GONE);
+                    getCategoryTitlesContracted().setVisibility(View.GONE);
 
-                    changeDefaultStoreTitles.setVisibility(View.GONE);
-                    storeTitlesExpanded.setVisibility(View.GONE);
-                    storeTitlesContracted.setVisibility(View.GONE);
+                    getChangeDefaultStoreTitles().setVisibility(View.GONE);
+                    getStoreTitlesExpanded().setVisibility(View.GONE);
+                    getStoreTitlesContracted().setVisibility(View.GONE);
 
-                    optionalData.setVisibility(View.GONE);
-                    optionalDataQuantity.setVisibility(View.GONE);
-                    optionalDataPrice.setVisibility(View.GONE);
-                    optionalDataLocation.setVisibility(View.GONE);
-                    optionalDataNote.setVisibility(View.GONE);
+                    getOptionalData().setVisibility(View.GONE);
+                    getOptionalDataQuantity().setVisibility(View.GONE);
+                    getOptionalDataPrice().setVisibility(View.GONE);
+                    getOptionalDataLocation().setVisibility(View.GONE);
+                    getOptionalDataNote().setVisibility(View.GONE);
 
-                    swiping.setVisibility(View.GONE);
-                    swipingOn.setVisibility(View.GONE);
-                    swipingOff.setVisibility(View.GONE);
+                    getSwiping().setVisibility(View.GONE);
+                    getSwipingOn().setVisibility(View.GONE);
+                    getSwipingOff().setVisibility(View.GONE);
 
-                    pictures.setVisibility(View.GONE);
-                    picturesOn.setVisibility(View.GONE);
-                    picturesOff.setVisibility(View.GONE);
+                    getPictures().setVisibility(View.GONE);
+                    getPicturesOn().setVisibility(View.GONE);
+                    getPicturesOff().setVisibility(View.GONE);
 
-                    reorderEmojis.setVisibility(View.GONE);
-                    reorderCategoryEmojiLabel.setVisibility(View.GONE);
-                    reorderCategoryEmojiBox.setVisibility(View.GONE);
-                    reorderItemByCategoryEmojiLabel.setVisibility(View.GONE);
-                    reorderItemByCategoryEmojiBox.setVisibility(View.GONE);
-                    reorderItemByStoreEmojiLabel.setVisibility(View.GONE);
-                    reorderItemByStoreEmojiBox.setVisibility(View.GONE);
-                    reorderStoreEmojiLabel.setVisibility(View.GONE);
-                    reorderStoreEmojiBox.setVisibility(View.GONE);
+                    getReorderEmojis().setVisibility(View.GONE);
+                    getReorderCategoryEmojiLabel().setVisibility(View.GONE);
+                    getReorderCategoryEmojiBox().setVisibility(View.GONE);
+                    getReorderItemByCategoryEmojiLabel().setVisibility(View.GONE);
+                    getReorderItemByCategoryEmojiBox().setVisibility(View.GONE);
+                    getReorderItemByStoreEmojiLabel().setVisibility(View.GONE);
+                    getReorderItemByStoreEmojiBox().setVisibility(View.GONE);
+                    getReorderStoreEmojiLabel().setVisibility(View.GONE);
+                    getReorderStoreEmojiBox().setVisibility(View.GONE);
 
-                    shoppingOptionsBackground.setVisibility(View.GONE);
-                    menuOptionsVisible = false;
+                    getShoppingOptionsBackground().setVisibility(View.GONE);
+                    setMenuOptionsVisible(false);
 
                 } else {
 
-                    if (shopping.getDefaultSortBy().equals(Shopping.SORT_ALPHABETICAL)) {
-                        sortAlphabetical.setChecked(true);
-                    } else if (shopping.getDefaultSortBy().equals(Shopping.SORT_BY_CATEGORY)) {
-                        sortByCategory.setChecked(true);
-                    } else if (shopping.getDefaultSortBy().equals(Shopping.SORT_BY_STORE)) {
-                        sortByStore.setChecked(true);
+                    if (getShopping().getDefaultSortBy().equals(Shopping.SORT_ALPHABETICAL)) {
+                        getSortAlphabetical().setChecked(true);
+                    } else if (getShopping().getDefaultSortBy().equals(Shopping.SORT_BY_CATEGORY)) {
+                        getSortByCategory().setChecked(true);
+                    } else if (getShopping().getDefaultSortBy().equals(Shopping.SORT_BY_STORE)) {
+                        getSortByStore().setChecked(true);
                     }
 
-                    if (shopping.getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
-                        dragAndDrop.setChecked(true);
-                    } else if (shopping.getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {
-                        upAndDownArrows.setChecked(true);
-                    } else if (shopping.getReorderingMethod().equals(Shopping.WITH_NUMBERS)) {
-                        withNumbers.setChecked(true);
+                    if (getShopping().getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
+                        getDragAndDrop().setChecked(true);
+                    } else if (getShopping().getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {
+                        getUpAndDownArrows().setChecked(true);
+                    } else if (getShopping().getReorderingMethod().equals(Shopping.WITH_NUMBERS)) {
+                        getWithNumbers().setChecked(true);
                     }
 
-                    if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_1)) {
-                        colorScheme1.setChecked(true);
-                    } else if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_2)) {
-                        colorScheme2.setChecked(true);
-                    } else if (shopping.getColorScheme().equals(Shopping.COLOR_SCHEME_3)) {
-                        colorScheme3.setChecked(true);
+                    if (getShopping().getColorScheme().equals(Shopping.COLOR_SCHEME_1)) {
+                        getColorScheme1().setChecked(true);
+                    } else if (getShopping().getColorScheme().equals(Shopping.COLOR_SCHEME_2)) {
+                        getColorScheme2().setChecked(true);
+                    } else if (getShopping().getColorScheme().equals(Shopping.COLOR_SCHEME_3)) {
+                        getColorScheme3().setChecked(true);
                     }
 
-                    if (shopping.getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
-                        categoryTitlesExpanded.setChecked(true);
-                    } else if (shopping.getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
-                        categoryTitlesContracted.setChecked(true);
+                    if (getShopping().getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_EXPANDED)) {
+                        getCategoryTitlesExpanded().setChecked(true);
+                    } else if (getShopping().getDefaultCategoryTitles().equals(Shopping.CATEGORY_TITLES_CONTRACTED)) {
+                        getCategoryTitlesContracted().setChecked(true);
                     }
 
-                    if (shopping.getDefaultStoreTitles().equals(Shopping.STORE_TITLES_EXPANDED)) {
-                        storeTitlesExpanded.setChecked(true);
-                    } else if (shopping.getDefaultStoreTitles().equals(Shopping.STORE_TITLES_CONTRACTED)) {
-                        storeTitlesContracted.setChecked(true);
+                    if (getShopping().getDefaultStoreTitles().equals(Shopping.STORE_TITLES_EXPANDED)) {
+                        getStoreTitlesExpanded().setChecked(true);
+                    } else if (getShopping().getDefaultStoreTitles().equals(Shopping.STORE_TITLES_CONTRACTED)) {
+                        getStoreTitlesContracted().setChecked(true);
                     }
 
-                    if (shopping.getSwipingOption().equals(Shopping.SWIPING_ON)) {
-                        swipingOn.setChecked(true);
-                    } else if (shopping.getSwipingOption().equals(Shopping.SWIPING_OFF)) {
-                        swipingOff.setChecked(true);
+                    if (getShopping().getSwipingOption().equals(Shopping.SWIPING_ON)) {
+                        getSwipingOn().setChecked(true);
+                    } else if (getShopping().getSwipingOption().equals(Shopping.SWIPING_OFF)) {
+                        getSwipingOff().setChecked(true);
                     }
 
-                    if (shopping.getPicturesOption().equals(Shopping.PICTURES_ON)) {
-                        picturesOn.setChecked(true);
-                    } else if (shopping.getPicturesOption().equals(Shopping.PICTURES_OFF)) {
-                        picturesOff.setChecked(true);
+                    if (getShopping().getPicturesOption().equals(Shopping.PICTURES_ON)) {
+                        getPicturesOn().setChecked(true);
+                    } else if (getShopping().getPicturesOption().equals(Shopping.PICTURES_OFF)) {
+                        getPicturesOff().setChecked(true);
                     }
 
-                    if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
-                        optionalDataQuantity.setChecked(true);
-                    } else if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                        optionalDataQuantity.setChecked(false);
+                    if (getShopping().getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
+                        getOptionalDataQuantity().setChecked(true);
+                    } else if (getShopping().getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        getOptionalDataQuantity().setChecked(false);
                     }
 
-                    if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
-                        optionalDataPrice.setChecked(true);
-                    } else if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                        optionalDataPrice.setChecked(false);
+                    if (getShopping().getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
+                        getOptionalDataPrice().setChecked(true);
+                    } else if (getShopping().getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        getOptionalDataPrice().setChecked(false);
                     }
 
-                    if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
-                        optionalDataLocation.setChecked(true);
-                    } else if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                        optionalDataLocation.setChecked(false);
+                    if (getShopping().getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
+                        getOptionalDataLocation().setChecked(true);
+                    } else if (getShopping().getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        getOptionalDataLocation().setChecked(false);
                     }
 
-                    if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
-                        optionalDataNote.setChecked(true);
-                    } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                        optionalDataNote.setChecked(false);
+                    if (getShopping().getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
+                        getOptionalDataNote().setChecked(true);
+                    } else if (getShopping().getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                        getOptionalDataNote().setChecked(false);
                     }
 
-                    reorderCategoryEmojiBox.setText(shopping.getReorderCategoryEmoji());
-                    reorderItemByCategoryEmojiBox.setText(shopping.getReorderItemByCategoryEmoji());
-                    reorderItemByStoreEmojiBox.setText(shopping.getReorderItemByStoreEmoji());
-                    reorderStoreEmojiBox.setText(shopping.getReorderStoreEmoji());
+                    getReorderCategoryEmojiBox().setText(getShopping().getReorderCategoryEmoji());
+                    getReorderItemByCategoryEmojiBox().setText(getShopping().getReorderItemByCategoryEmoji());
+                    getReorderItemByStoreEmojiBox().setText(getShopping().getReorderItemByStoreEmoji());
+                    getReorderStoreEmojiBox().setText(getShopping().getReorderStoreEmoji());
 
-                    changeDefaultSortBy.setVisibility(View.VISIBLE);
-                    sortAlphabetical.setVisibility(View.VISIBLE);
-                    sortByCategory.setVisibility(View.VISIBLE);
-                    sortByStore.setVisibility(View.VISIBLE);
+                    getChangeDefaultSortBy().setVisibility(View.VISIBLE);
+                    getSortAlphabetical().setVisibility(View.VISIBLE);
+                    getSortByCategory().setVisibility(View.VISIBLE);
+                    getSortByStore().setVisibility(View.VISIBLE);
 
-                    changeDefaultCategoryTitles.setVisibility(View.VISIBLE);
-                    categoryTitlesExpanded.setVisibility(View.VISIBLE);
-                    categoryTitlesContracted.setVisibility(View.VISIBLE);
+                    getChangeDefaultCategoryTitles().setVisibility(View.VISIBLE);
+                    getCategoryTitlesExpanded().setVisibility(View.VISIBLE);
+                    getCategoryTitlesContracted().setVisibility(View.VISIBLE);
 
-                    changeDefaultStoreTitles.setVisibility(View.VISIBLE);
-                    storeTitlesExpanded.setVisibility(View.VISIBLE);
-                    storeTitlesContracted.setVisibility(View.VISIBLE);
+                    getChangeDefaultStoreTitles().setVisibility(View.VISIBLE);
+                    getStoreTitlesExpanded().setVisibility(View.VISIBLE);
+                    getStoreTitlesContracted().setVisibility(View.VISIBLE);
 
-                    changeReorderingMethod.setVisibility(View.VISIBLE);
-                    dragAndDrop.setVisibility(View.VISIBLE);
-                    upAndDownArrows.setVisibility(View.VISIBLE);
-                    withNumbers.setVisibility(View.VISIBLE);
+                    getChangeReorderingMethod().setVisibility(View.VISIBLE);
+                    getDragAndDrop().setVisibility(View.VISIBLE);
+                    getUpAndDownArrows().setVisibility(View.VISIBLE);
+                    getWithNumbers().setVisibility(View.VISIBLE);
 
-                    changeColorScheme.setVisibility(View.VISIBLE);
-                    colorScheme1.setVisibility(View.VISIBLE);
-                    colorScheme2.setVisibility(View.VISIBLE);
-                    colorScheme3.setVisibility(View.VISIBLE);
+                    getChangeColorScheme().setVisibility(View.VISIBLE);
+                    getColorScheme1().setVisibility(View.VISIBLE);
+                    getColorScheme2().setVisibility(View.VISIBLE);
+                    getColorScheme3().setVisibility(View.VISIBLE);
 
-                    optionalData.setVisibility(View.VISIBLE);
-                    optionalDataQuantity.setVisibility(View.VISIBLE);
-                    optionalDataPrice.setVisibility(View.VISIBLE);
-                    optionalDataLocation.setVisibility(View.VISIBLE);
-                    optionalDataNote.setVisibility(View.VISIBLE);
+                    getOptionalData().setVisibility(View.VISIBLE);
+                    getOptionalDataQuantity().setVisibility(View.VISIBLE);
+                    getOptionalDataPrice().setVisibility(View.VISIBLE);
+                    getOptionalDataLocation().setVisibility(View.VISIBLE);
+                    getOptionalDataNote().setVisibility(View.VISIBLE);
 
-                    swiping.setVisibility(View.VISIBLE);
-                    swipingOn.setVisibility(View.VISIBLE);
-                    swipingOff.setVisibility(View.VISIBLE);
+                    getSwiping().setVisibility(View.VISIBLE);
+                    getSwipingOn().setVisibility(View.VISIBLE);
+                    getSwipingOff().setVisibility(View.VISIBLE);
 
-                    pictures.setVisibility(View.VISIBLE);
-                    picturesOn.setVisibility(View.VISIBLE);
-                    picturesOff.setVisibility(View.VISIBLE);
+                    getPictures().setVisibility(View.VISIBLE);
+                    getPicturesOn().setVisibility(View.VISIBLE);
+                    getPicturesOff().setVisibility(View.VISIBLE);
 
-                    reorderEmojis.setVisibility(View.VISIBLE);
-                    reorderCategoryEmojiLabel.setVisibility(View.VISIBLE);
-                    reorderCategoryEmojiBox.setVisibility(View.VISIBLE);
-                    reorderItemByCategoryEmojiLabel.setVisibility(View.VISIBLE);
-                    reorderItemByCategoryEmojiBox.setVisibility(View.VISIBLE);
-                    reorderItemByStoreEmojiLabel.setVisibility(View.VISIBLE);
-                    reorderItemByStoreEmojiBox.setVisibility(View.VISIBLE);
-                    reorderStoreEmojiLabel.setVisibility(View.VISIBLE);
-                    reorderStoreEmojiBox.setVisibility(View.VISIBLE);
+                    getReorderEmojis().setVisibility(View.VISIBLE);
+                    getReorderCategoryEmojiLabel().setVisibility(View.VISIBLE);
+                    getReorderCategoryEmojiBox().setVisibility(View.VISIBLE);
+                    getReorderItemByCategoryEmojiLabel().setVisibility(View.VISIBLE);
+                    getReorderItemByCategoryEmojiBox().setVisibility(View.VISIBLE);
+                    getReorderItemByStoreEmojiLabel().setVisibility(View.VISIBLE);
+                    getReorderItemByStoreEmojiBox().setVisibility(View.VISIBLE);
+                    getReorderStoreEmojiLabel().setVisibility(View.VISIBLE);
+                    getReorderStoreEmojiBox().setVisibility(View.VISIBLE);
 
-                    shoppingOptionsBackground.setVisibility(View.VISIBLE);
-                    menuOptionsVisible = true;
+                    getShoppingOptionsBackground().setVisibility(View.VISIBLE);
+                    setMenuOptionsVisible(true);
                 }
             }
         });
 
-        clearAllData.setOnClickListener(new View.OnClickListener() {
+        getClearAllData().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.clearAllData();
-                shopping.initializeData();
+                getShopping().clearAllData();
+                getShopping().initializeData();
             }
         });
 
-        loadSampleData1.setOnClickListener(new View.OnClickListener() {
+        getLoadSampleData1().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadStoresAndCategories();
-                shopping.loadCategoryData1();
-                shopping.loadStoreData1();
-                shopping.initializeData();
+                getShopping().loadStoresAndCategories();
+                getShopping().loadCategoryData1();
+                getShopping().loadStoreData1();
+                getShopping().initializeData();
             }
         });
 
-        loadSampleData2.setOnClickListener(new View.OnClickListener() {
+        getLoadSampleData2().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.loadStoresAndCategories();
-                shopping.loadCategoryData2();
-                shopping.loadStoreData2();
-                shopping.initializeData();
+                getShopping().loadStoresAndCategories();
+                getShopping().loadCategoryData2();
+                getShopping().loadStoreData2();
+                getShopping().initializeData();
             }
         });
 
-        sortAlphabetical.setOnClickListener(new View.OnClickListener() {
+        getSortAlphabetical().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultSortBy(Shopping.SORT_ALPHABETICAL);
-                shopping.setInventorySortBy(Shopping.SORT_ALPHABETICAL);
+                getShopping().setDefaultSortBy(Shopping.SORT_ALPHABETICAL);
+                getShopping().setInventorySortBy(Shopping.SORT_ALPHABETICAL);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortAlphabetically));
@@ -379,10 +775,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        sortByCategory.setOnClickListener(new View.OnClickListener() {
+        getSortByCategory().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultSortBy(Shopping.SORT_BY_CATEGORY);
-                shopping.setInventorySortBy(Shopping.SORT_BY_CATEGORY);
+                getShopping().setDefaultSortBy(Shopping.SORT_BY_CATEGORY);
+                getShopping().setInventorySortBy(Shopping.SORT_BY_CATEGORY);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortByCategory));
@@ -390,10 +786,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        sortByStore.setOnClickListener(new View.OnClickListener() {
+        getSortByStore().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultSortBy(Shopping.SORT_BY_STORE);
-                shopping.setInventorySortBy(Shopping.SORT_BY_STORE);
+                getShopping().setDefaultSortBy(Shopping.SORT_BY_STORE);
+                getShopping().setInventorySortBy(Shopping.SORT_BY_STORE);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_sort_by), getString(R.string.spSortByStore));
@@ -401,9 +797,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        dragAndDrop.setOnClickListener(new View.OnClickListener() {
+        getDragAndDrop().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setReorderingMethod(Shopping.DRAG_AND_DROP);
+                getShopping().setReorderingMethod(Shopping.DRAG_AND_DROP);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spDragAndDrop));
@@ -411,9 +807,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        upAndDownArrows.setOnClickListener(new View.OnClickListener() {
+        getUpAndDownArrows().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setReorderingMethod(Shopping.UP_AND_DOWN_ARROWS);
+                getShopping().setReorderingMethod(Shopping.UP_AND_DOWN_ARROWS);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spUpAndDownArrows));
@@ -421,9 +817,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        withNumbers.setOnClickListener(new View.OnClickListener() {
+        getWithNumbers().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setReorderingMethod(Shopping.WITH_NUMBERS);
+                getShopping().setReorderingMethod(Shopping.WITH_NUMBERS);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_reorder_method), getString(R.string.spWithNumbers));
@@ -431,9 +827,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        colorScheme1.setOnClickListener(new View.OnClickListener() {
+        getColorScheme1().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setColorScheme(Shopping.COLOR_SCHEME_1);
+                getShopping().setColorScheme(Shopping.COLOR_SCHEME_1);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme1));
@@ -441,9 +837,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        colorScheme2.setOnClickListener(new View.OnClickListener() {
+        getColorScheme2().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setColorScheme(Shopping.COLOR_SCHEME_2);
+                getShopping().setColorScheme(Shopping.COLOR_SCHEME_2);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme2));
@@ -451,9 +847,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        colorScheme3.setOnClickListener(new View.OnClickListener() {
+        getColorScheme3().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setColorScheme(Shopping.COLOR_SCHEME_3);
+                getShopping().setColorScheme(Shopping.COLOR_SCHEME_3);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_color_scheme), getString(R.string.spColorScheme3));
@@ -461,10 +857,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        categoryTitlesExpanded.setOnClickListener(new View.OnClickListener() {
+        getCategoryTitlesExpanded().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
-                shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                getShopping().setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesExpanded));
@@ -472,10 +868,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        categoryTitlesContracted.setOnClickListener(new View.OnClickListener() {
+        getCategoryTitlesContracted().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
-                shopping.setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                getShopping().setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesContracted));
@@ -483,10 +879,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        storeTitlesExpanded.setOnClickListener(new View.OnClickListener() {
+        getStoreTitlesExpanded().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_EXPANDED);
-                shopping.setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                getShopping().setDefaultStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesExpanded));
@@ -494,10 +890,10 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        storeTitlesContracted.setOnClickListener(new View.OnClickListener() {
+        getStoreTitlesContracted().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setDefaultStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
-                shopping.setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                getShopping().setDefaultStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesContracted));
@@ -505,9 +901,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        swipingOn.setOnClickListener(new View.OnClickListener() {
+        getSwipingOn().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setSwipingOption(Shopping.SWIPING_ON);
+                getShopping().setSwipingOption(Shopping.SWIPING_ON);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_swiping_option), getString(R.string.spSwipingOn));
@@ -515,9 +911,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        swipingOff.setOnClickListener(new View.OnClickListener() {
+        getSwipingOff().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setSwipingOption(Shopping.SWIPING_OFF);
+                getShopping().setSwipingOption(Shopping.SWIPING_OFF);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_swiping_option), getString(R.string.spSwipingOff));
@@ -525,9 +921,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        picturesOn.setOnClickListener(new View.OnClickListener() {
+        getPicturesOn().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setSwipingOption(Shopping.PICTURES_ON);
+                getShopping().setSwipingOption(Shopping.PICTURES_ON);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_pictures_option), getString(R.string.spPicturesOn));
@@ -535,9 +931,9 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        picturesOff.setOnClickListener(new View.OnClickListener() {
+        getPicturesOff().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.setSwipingOption(Shopping.PICTURES_OFF);
+                getShopping().setSwipingOption(Shopping.PICTURES_OFF);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_pictures_option), getString(R.string.spPicturesOff));
@@ -545,67 +941,67 @@ public class LoadScreen extends Fragment {
             }
         });
 
-        optionalDataQuantity.setOnClickListener(new View.OnClickListener() {
+        getOptionalDataQuantity().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_OFF);
+                if (getShopping().getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    getShopping().setOptionalDataQuantity(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString(getString(R.string.sp_optional_data_quantity), getString(R.string.spOptionalDataOff));
-                } else if (shopping.getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.setOptionalDataQuantity(Shopping.OPTIONAL_DATA_ON);
+                } else if (getShopping().getOptionalDataQuantity().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    getShopping().setOptionalDataQuantity(Shopping.OPTIONAL_DATA_ON);
                     editor.putString(getString(R.string.sp_optional_data_quantity), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
         });
 
-        optionalDataPrice.setOnClickListener(new View.OnClickListener() {
+        getOptionalDataPrice().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_OFF);
+                if (getShopping().getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    getShopping().setOptionalDataPrice(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString(getString(R.string.sp_optional_data_price), getString(R.string.spOptionalDataOff));
-                } else if (shopping.getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.setOptionalDataPrice(Shopping.OPTIONAL_DATA_ON);
+                } else if (getShopping().getOptionalDataPrice().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    getShopping().setOptionalDataPrice(Shopping.OPTIONAL_DATA_ON);
                     editor.putString(getString(R.string.sp_optional_data_price), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
         });
 
-        optionalDataLocation.setOnClickListener(new View.OnClickListener() {
+        getOptionalDataLocation().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_OFF);
+                if (getShopping().getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    getShopping().setOptionalDataLocation(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString(getString(R.string.sp_optional_data_location), getString(R.string.spOptionalDataOff));
-                } else if (shopping.getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.setOptionalDataLocation(Shopping.OPTIONAL_DATA_ON);
+                } else if (getShopping().getOptionalDataLocation().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    getShopping().setOptionalDataLocation(Shopping.OPTIONAL_DATA_ON);
                     editor.putString(getString(R.string.sp_optional_data_location), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
         });
 
-        optionalDataNote.setOnClickListener(new View.OnClickListener() {
+        getOptionalDataNote().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
-                    shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_OFF);
+                if (getShopping().getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_ON)) {
+                    getShopping().setOptionalDataNote(Shopping.OPTIONAL_DATA_OFF);
                     editor.putString(getString(R.string.sp_optional_data_note), getString(R.string.spOptionalDataOff));
-                } else if (shopping.getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
-                    shopping.setOptionalDataNote(Shopping.OPTIONAL_DATA_ON);
+                } else if (getShopping().getOptionalDataNote().equals(Shopping.OPTIONAL_DATA_OFF)) {
+                    getShopping().setOptionalDataNote(Shopping.OPTIONAL_DATA_ON);
                     editor.putString(getString(R.string.sp_optional_data_note), getString(R.string.spOptionalDataOn));
                 }
                 editor.apply();
             }
         });
 
-        reorderCategoryEmojiBox.addTextChangedListener(new TextWatcher() {
+        getReorderCategoryEmojiBox().addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void afterTextChanged(Editable s) {}
@@ -619,7 +1015,7 @@ public class LoadScreen extends Fragment {
 
         });
 
-        reorderItemByCategoryEmojiBox.addTextChangedListener(new TextWatcher() {
+        getReorderItemByCategoryEmojiBox().addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void afterTextChanged(Editable s) {}
@@ -633,7 +1029,7 @@ public class LoadScreen extends Fragment {
 
         });
 
-        reorderItemByStoreEmojiBox.addTextChangedListener(new TextWatcher() {
+        getReorderItemByStoreEmojiBox().addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void afterTextChanged(Editable s) {}
@@ -647,7 +1043,7 @@ public class LoadScreen extends Fragment {
 
         });
 
-        reorderStoreEmojiBox.addTextChangedListener(new TextWatcher() {
+        getReorderStoreEmojiBox().addTextChangedListener(new TextWatcher() {
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void afterTextChanged(Editable s) {}
@@ -661,12 +1057,12 @@ public class LoadScreen extends Fragment {
 
         });
 
-        instructions.setOnClickListener(new View.OnClickListener() {
+        getInstructions().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // to do
             }
         });
 
-        return view;
+        return getView();
     }
 }

@@ -28,55 +28,55 @@ public class AddCategory extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public CategoryData getCategoryData() {
+    private CategoryData getCategoryData() {
         return categoryData;
     }
 
-    public void setCategoryData(CategoryData categoryData) {
+    private void setCategoryData(CategoryData categoryData) {
         getThis().categoryData = categoryData;
     }
 
-    public DBCategoryHelper getDbCategoryHelper() {
+    private DBCategoryHelper getDbCategoryHelper() {
         return dbCategoryHelper;
     }
 
-    public void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
+    private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
         getThis().dbCategoryHelper = dbCategoryHelper;
     }
 
-    public EditText getCategoryInput() {
+    private EditText getCategoryInput() {
         return categoryInput;
     }
 
-    public void setCategoryInput(EditText categoryInput) {
+    private void setCategoryInput(EditText categoryInput) {
         getThis().categoryInput = categoryInput;
     }
 
-    public Button getAddCategoryButton() {
+    private Button getAddCategoryButton() {
         return addCategoryButton;
     }
 
-    public void setAddCategoryButton(Button addCategoryButton) {
+    private void setAddCategoryButton(Button addCategoryButton) {
         getThis().addCategoryButton = addCategoryButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -119,6 +119,6 @@ public class AddCategory extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }

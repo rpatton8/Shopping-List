@@ -35,87 +35,87 @@ public class EditStore extends Fragment {
         return view;
     }
 
-    public void setView(View view) {
+    private void setView(View view) {
         getThis().view = view;
     }
 
-    public Shopping getShopping() {
+    private Shopping getShopping() {
         return shopping;
     }
 
-    public void setShopping(Shopping shopping) {
+    private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
     }
 
-    public StoreData getStoreData() {
+    private StoreData getStoreData() {
         return storeData;
     }
 
-    public void setStoreData(StoreData storeData) {
+    private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
-    public DBItemHelper getDbItemHelper() {
+    private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
 
-    public void setDbItemHelper(DBItemHelper dbItemHelper) {
+    private void setDbItemHelper(DBItemHelper dbItemHelper) {
         getThis().dbItemHelper = dbItemHelper;
     }
 
-    public DBStoreHelper getDbStoreHelper() {
+    private DBStoreHelper getDbStoreHelper() {
         return dbStoreHelper;
     }
 
-    public void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
+    private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public EditText getStoreInput() {
+    private EditText getStoreInput() {
         return storeInput;
     }
 
-    public void setStoreInput(EditText storeInput) {
+    private void setStoreInput(EditText storeInput) {
         getThis().storeInput = storeInput;
     }
 
-    public Spinner getStoreSpinner() {
+    private Spinner getStoreSpinner() {
         return storeSpinner;
     }
 
-    public void setStoreSpinner(Spinner storeSpinner) {
+    private void setStoreSpinner(Spinner storeSpinner) {
         getThis().storeSpinner = storeSpinner;
     }
 
-    public ArrayList<String> getStoreSpinnerData() {
+    private ArrayList<String> getStoreSpinnerData() {
         return storeSpinnerData;
     }
 
-    public void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
+    private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    public ArrayAdapter getStoreSpinnerAdapter() {
+    private ArrayAdapter getStoreSpinnerAdapter() {
         return storeSpinnerAdapter;
     }
 
-    public void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+    private void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
         getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
-    public Button getEditStoreButton() {
+    private Button getEditStoreButton() {
         return editStoreButton;
     }
 
-    public void setEditStoreButton(Button editStoreButton) {
+    private void setEditStoreButton(Button editStoreButton) {
         getThis().editStoreButton = editStoreButton;
     }
 
-    public Button getCancelButton() {
+    private Button getCancelButton() {
         return cancelButton;
     }
 
-    public void setCancelButton(Button cancelButton) {
+    private void setCancelButton(Button cancelButton) {
         getThis().cancelButton = cancelButton;
     }
 
@@ -168,6 +168,6 @@ public class EditStore extends Fragment {
             }
         });
 
-        return view;
+        return getView();
     }
 }
