@@ -374,7 +374,6 @@ public class AddItem extends Fragment {
                     getItemCategoryInput().setVisibility(View.GONE);
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
@@ -387,7 +386,6 @@ public class AddItem extends Fragment {
                     getItemStoreInput().setVisibility(View.GONE);
                 }
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 

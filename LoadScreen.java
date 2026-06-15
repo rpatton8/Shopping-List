@@ -556,7 +556,7 @@ public class LoadScreen extends Fragment {
         getLoadScreenEditButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (menuOptionsVisible()) {
-
+                    System.out.println("HERE 1");
                     getChangeDefaultSortBy().setVisibility(View.GONE);
                     getSortAlphabetical().setVisibility(View.GONE);
                     getSortByCategory().setVisibility(View.GONE);
@@ -608,7 +608,8 @@ public class LoadScreen extends Fragment {
                     setMenuOptionsVisible(false);
 
                 } else {
-
+                    System.out.println("HERE 2");
+                    if (getShopping().getDefaultSortBy() == null) System.out.println("Default Sort By  is null");
                     if (getShopping().getDefaultSortBy().equals(Shopping.SORT_ALPHABETICAL)) {
                         getSortAlphabetical().setChecked(true);
                     } else if (getShopping().getDefaultSortBy().equals(Shopping.SORT_BY_CATEGORY)) {
@@ -616,7 +617,7 @@ public class LoadScreen extends Fragment {
                     } else if (getShopping().getDefaultSortBy().equals(Shopping.SORT_BY_STORE)) {
                         getSortByStore().setChecked(true);
                     }
-
+                    System.out.println("HERE 3");
                     if (getShopping().getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
                         getDragAndDrop().setChecked(true);
                     } else if (getShopping().getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {

@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -54,14 +53,18 @@ public class Shopping extends AppCompatActivity {
 
     private SearchAlgorithm searchAlgorithm;
     private AlertDialog alertDialog;
+    private View alertDialogView;
+    private TextView alertDialogTitle;
+    private TextView alertDialogMessage;
+    private TextView alertDialogButton;
     private AlertDialog pictureDialog;
     private View pictureDialogView;
     private TextView cameraButton;
     private TextView editButton;
-    private TextView captureButton;
+    private TextView takeButton;
     private TextView cancelButton;
     private LinearLayout cameraEditButtons;
-    private LinearLayout captureCancelButtons;
+    private LinearLayout takeCancelButtons;
 
     private String inventoryView;
     static final String VIEW_ALL = ShoppingApp.getStringRes(R.string.cvViewAll);
@@ -420,6 +423,38 @@ public class Shopping extends AppCompatActivity {
         getThis().alertDialog = alertDialog;
     }
 
+    public View getAlertDialogView() {
+        return alertDialogView;
+    }
+
+    public void setAlertDialogView(View alertDialogView) {
+        getThis().alertDialogView = alertDialogView;
+    }
+
+    public TextView getAlertDialogTitle() {
+        return alertDialogTitle;
+    }
+
+    public void setAlertDialogTitle(TextView alertDialogTitle) {
+        this.alertDialogTitle = alertDialogTitle;
+    }
+
+    public TextView getAlertDialogMessage() {
+        return alertDialogMessage;
+    }
+
+    public void setAlertDialogMessage(TextView alertDialogMessage) {
+        this.alertDialogMessage = alertDialogMessage;
+    }
+
+    private TextView getAlertDialogButton() {
+        return alertDialogButton;
+    }
+
+    private void setAlertDialogButton(TextView alertDialogButton) {
+        getThis().alertDialogButton = alertDialogButton;
+    }
+
     private AlertDialog getPictureDialog() {
         return pictureDialog;
     }
@@ -452,12 +487,12 @@ public class Shopping extends AppCompatActivity {
         getThis().editButton = editButton;
     }
 
-    private TextView getCaptureButton() {
-        return captureButton;
+    private TextView getTakeButton() {
+        return takeButton;
     }
 
-    private void setCaptureButton(TextView captureButton) {
-        getThis().captureButton = captureButton;
+    private void setTakeButton(TextView takeButton) {
+        getThis().takeButton = takeButton;
     }
 
     private TextView getCancelButton() {
@@ -476,12 +511,12 @@ public class Shopping extends AppCompatActivity {
         getThis().cameraEditButtons = cameraEditButtons;
     }
 
-    private LinearLayout getCaptureCancelButtons() {
-        return captureCancelButtons;
+    private LinearLayout getTakeCancelButtons() {
+        return takeCancelButtons;
     }
 
-    private void setCaptureCancelButtons(LinearLayout captureCancelButtons) {
-        getThis().captureCancelButtons = captureCancelButtons;
+    private void setTakeCancelButtons(LinearLayout takeCancelButtons) {
+        getThis().takeCancelButtons = takeCancelButtons;
     }
 
     String getInventoryView() {
@@ -701,25 +736,40 @@ public class Shopping extends AppCompatActivity {
     }
 
     void showAlertDialog(String title, String message, String button) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(button, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
+
+        LayoutInflater inflater = LayoutInflater.from(getThis());
+        setAlertDialogView(inflater.inflate(R.layout.alert_dialog, null));
+        AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
+        builder.setView(getAlertDialogView());
+
+        setAlertDialogTitle((TextView) getAlertDialogView().findViewById(R.id.alertDialogTitle));
+        getAlertDialogTitle().setText(title);
+
+        setAlertDialogMessage((TextView) getAlertDialogView().findViewById(R.id.alertDialogMessage));
+        getAlertDialogMessage().setText(message);
+
+        setAlertDialogButton((TextView) getAlertDialogView().findViewById(R.id.alertDialogButton));
+        getAlertDialogButton().setText(button);
+
+        getAlertDialogButton().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getAlertDialog().dismiss();
+
             }
         });
+
         setAlertDialog(builder.create());
         getAlertDialog().getWindow().setDimAmount(0.2f);
         getAlertDialog().setCanceledOnTouchOutside(false);
         getAlertDialog().setCancelable(false);
         getAlertDialog().show();
+
     }
 
     void showPictureDialog(Item item) {
 
         setItemInPictureDialog(item);
-        LayoutInflater inflater = LayoutInflater.from(this);
+        LayoutInflater inflater = LayoutInflater.from(getThis());
         setPictureDialogView(inflater.inflate(R.layout.picture_dialog, null));
         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
         builder.setView(getPictureDialogView());
@@ -729,29 +779,29 @@ public class Shopping extends AppCompatActivity {
         
         setCameraButton((TextView) getPictureDialogView().findViewById(R.id.cameraButton));
         setEditButton((TextView) getPictureDialogView().findViewById(R.id.editButton));
-        setCaptureButton((TextView) getPictureDialogView().findViewById(R.id.takeButton));
+        setTakeButton((TextView) getPictureDialogView().findViewById(R.id.takeButton));
         setCancelButton((TextView) getPictureDialogView().findViewById(R.id.cancelButton));
         setCameraEditButtons((LinearLayout) getPictureDialogView().findViewById(R.id.cameraEditButtons));
-        setCaptureCancelButtons((LinearLayout) getPictureDialogView().findViewById(R.id.takeCancelButtons));
+        setTakeCancelButtons((LinearLayout) getPictureDialogView().findViewById(R.id.takeCancelButtons));
 
         getCameraButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getCameraEditButtons().setVisibility(View.GONE);
-                getCaptureCancelButtons().setVisibility(View.VISIBLE);
+                getTakeCancelButtons().setVisibility(View.VISIBLE);
 
             }
         });
 
-        getCaptureButton().setOnClickListener(new View.OnClickListener() {
+        getTakeButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getCaptureCancelButtons().setVisibility(View.GONE);
+                getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
             }
         });
 
         getCancelButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getCaptureCancelButtons().setVisibility(View.GONE);
+                getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
             }
         });
