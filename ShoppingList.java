@@ -252,8 +252,7 @@ public class ShoppingList extends Fragment {
 
         getShoppingListRightArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.showAlertDialog(getString(R.string.clearItems),  getString(R.string.wantToClear), getString(R.string.ok));
-                //moveRightInShoppingList();
+                moveRightInShoppingList();
             }
         });
 
