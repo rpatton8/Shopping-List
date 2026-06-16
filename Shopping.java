@@ -59,6 +59,7 @@ public class Shopping extends AppCompatActivity {
     private TextView alertDialogButton;
     private AlertDialog pictureDialog;
     private View pictureDialogView;
+    private TextView pictureDialogTitle;
     private TextView cameraButton;
     private TextView editButton;
     private TextView takeButton;
@@ -471,6 +472,14 @@ public class Shopping extends AppCompatActivity {
         getThis().pictureDialogView = pictureDialogView;
     }
 
+    public TextView getPictureDialogTitle() {
+        return pictureDialogTitle;
+    }
+
+    public void setPictureDialogTitle(TextView pictureDialogTitle) {
+        getThis().pictureDialogTitle = pictureDialogTitle;
+    }
+
     private TextView getCameraButton() {
         return cameraButton;
     }
@@ -774,9 +783,9 @@ public class Shopping extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
         builder.setView(getPictureDialogView());
 
-        TextView pictureDialogTitle = getPictureDialogView().findViewById(R.id.pictureDialogTitle);
-        pictureDialogTitle.setText(item.getItemName());
-        
+        setPictureDialogTitle((TextView) getPictureDialogView().findViewById(R.id.pictureDialogTitle));
+        getPictureDialogTitle().setText(item.getItemName());
+
         setCameraButton((TextView) getPictureDialogView().findViewById(R.id.cameraButton));
         setEditButton((TextView) getPictureDialogView().findViewById(R.id.editButton));
         setTakeButton((TextView) getPictureDialogView().findViewById(R.id.takeButton));

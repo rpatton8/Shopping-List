@@ -3,7 +3,6 @@ package ryan.android.shopping;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,6 +31,12 @@ public class ShoppingList extends Fragment {
     private ShoppingListRVA shoppingListAdapter;
     private TextView shoppingListLeftArrow;
     private TextView shoppingListRightArrow;
+    private AlertDialog alertDialog2;
+    private View alertDialog2View;
+    private TextView alertDialog2Title;
+    private TextView alertDialog2Message;
+    private TextView alertDialog2ButtonLeft;
+    private TextView alertDialog2ButtonRight;
     private Button clearCheckedItems;
     private Button editSelectedItem;
 
@@ -137,6 +142,54 @@ public class ShoppingList extends Fragment {
         getThis().shoppingListRightArrow = shoppingListRightArrow;
     }
 
+    public AlertDialog getAlertDialog2() {
+        return alertDialog2;
+    }
+
+    public void setAlertDialog2(AlertDialog alertDialog2) {
+        getThis().alertDialog2 = alertDialog2;
+    }
+
+    public View getAlertDialog2View() {
+        return alertDialog2View;
+    }
+
+    public void setAlertDialog2View(View alertDialog2View) {
+        getThis().alertDialog2View = alertDialog2View;
+    }
+
+    public TextView getAlertDialog2Title() {
+        return alertDialog2Title;
+    }
+
+    public void setAlertDialog2Title(TextView alertDialog2Title) {
+        getThis().alertDialog2Title = alertDialog2Title;
+    }
+
+    public TextView getAlertDialog2Message() {
+        return alertDialog2Message;
+    }
+
+    public void setAlertDialog2Message(TextView alertDialog2Message) {
+        getThis().alertDialog2Message = alertDialog2Message;
+    }
+
+    public TextView getAlertDialog2ButtonLeft() {
+        return alertDialog2ButtonLeft;
+    }
+
+    public void setAlertDialog2ButtonLeft(TextView alertDialog2ButtonLeft) {
+        getThis().alertDialog2ButtonLeft = alertDialog2ButtonLeft;
+    }
+
+    public TextView getAlertDialog2ButtonRight() {
+        return alertDialog2ButtonRight;
+    }
+
+    public void setAlertDialog2ButtonRight(TextView alertDialog2ButtonRight) {
+        getThis().alertDialog2ButtonRight = alertDialog2ButtonRight;
+    }
+
     private Button getClearCheckedItems() {
         return clearCheckedItems;
     }
@@ -199,18 +252,39 @@ public class ShoppingList extends Fragment {
 
         getShoppingListRightArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                shopping.showAlertDialog(getString(R.string.clearItems),  getString(R.string.wantToClear), getString(R.string.y));
+                shopping.showAlertDialog(getString(R.string.clearItems),  getString(R.string.wantToClear), getString(R.string.ok));
                 //moveRightInShoppingList();
             }
         });
 
         getClearCheckedItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                setAlertDialog2View(inflater.inflate(R.layout.alert_dialog_2, null));
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.clearItems);
-                builder.setMessage(R.string.wantToClear);
-                builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                builder.setView(getAlertDialog2View());
+
+                setAlertDialog2Title((TextView) alertDialog2View.findViewById(R.id.alertDialog2Title));
+                getAlertDialog2Title().setText(R.string.clearItems);
+
+                setAlertDialog2Message((TextView) alertDialog2View.findViewById(R.id.alertDialog2Message));
+                getAlertDialog2Message().setText(R.string.wantToClear);
+
+                setAlertDialog2ButtonLeft((TextView) alertDialog2View.findViewById(R.id.alertDialog2ButtonLeft));
+                getAlertDialog2ButtonLeft().setText(R.string.no);
+
+                setAlertDialog2ButtonRight((TextView) alertDialog2View.findViewById(R.id.alertDialog2ButtonRight));
+                getAlertDialog2ButtonRight().setText(R.string.yes);
+
+                getAlertDialog2ButtonLeft().setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        getAlertDialog2().dismiss();
+                    }
+                });
+
+                getAlertDialog2ButtonRight().setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
                         for (int i =  0; i < getItemData().getItemListAZ().size(); i++) {
                             Item item  = getItemData().getItemListAZ().get(i);
                             if (item.getStatus().isChecked()) {
@@ -231,19 +305,15 @@ public class ShoppingList extends Fragment {
                                 getShopping().loadFragment(new ShoppingList());
                             }
                         }
-                        dialog.dismiss();
+                        getAlertDialog2().dismiss();
                     }
                 });
-                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.getWindow().setDimAmount(0.2f);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(false);
-                dialog.show();
+
+                setAlertDialog2(builder.create());
+                getAlertDialog2().getWindow().setDimAmount(0.2f);
+                getAlertDialog2().setCanceledOnTouchOutside(false);
+                getAlertDialog2().setCancelable(false);
+                getAlertDialog2().show();
             }
         });
 

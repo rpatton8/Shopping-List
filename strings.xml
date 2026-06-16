@@ -335,13 +335,6 @@
     <string name="psItemNum">Item #</string>
     <string name="psColon">: </string>
 
-
-    getString(R.string.psCategoryName)
-    getString(R.string.psStoreName)
-    getString(R.string.psItemNum)
-    getString(R.string.psColon)
-
-
     <!--Category Strings-->
     <string name="meals">Meals</string>
     <string name="soups">Soups</string>
