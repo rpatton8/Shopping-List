@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,7 @@ public class EditCategory extends Fragment {
     private EditText categoryInput;
     private Spinner categorySpinner;
     private ArrayList<String> categorySpinnerData;
-    private ArrayAdapter categorySpinnerAdapter;
+    private ArrayAdapter<String> categorySpinnerAdapter;
     private Button editCategoryButton;
     private Button cancelButton;
 
@@ -96,11 +96,11 @@ public class EditCategory extends Fragment {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    private ArrayAdapter getCategorySpinnerAdapter() {
+    private ArrayAdapter<String> getCategorySpinnerAdapter() {
         return categorySpinnerAdapter;
     }
 
-    private void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+    private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
         getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
@@ -129,12 +129,12 @@ public class EditCategory extends Fragment {
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
         setCategoryData(getShopping().getCategoryData());
 
-        setCategoryInput((EditText) getView().findViewById(R.id.categoryInput));
-        setEditCategoryButton((Button) getView().findViewById(R.id.editCategoryButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setCategoryInput(getView().findViewById(R.id.categoryInput));
+        setEditCategoryButton(getView().findViewById(R.id.editCategoryButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithBlank());
-        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinner(getView().findViewById(R.id.categorySpinner));
         setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
         getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());

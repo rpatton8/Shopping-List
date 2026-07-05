@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,14 +89,16 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
 
     public void onBindViewHolder(ReorderStoresRVH holder, int position) {
         ArrayList<String> storeList = getStoreData().getStoreList();
-        holder.getStoreName().setText(storeList.get(position));
+        if (position >= 0 && position < storeList.size()) {
+            holder.getStoreName().setText(storeList.get(position));
+        }
     }
 
     public int getItemCount() {
         return getStoreData().getStoreList().size();
     }
 
-    class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ReorderStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private ItemData itemData;
@@ -118,12 +120,12 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
             setDbStoreHelper(dbStore);
             setRecyclerView(recyclerView);
 
-            setStoreName((TextView) itemView.findViewById(R.id.storeName));
-            setTriangleDown((ImageView) itemView.findViewById(R.id.triangleDown));
-            setTriangleUp((ImageView) itemView.findViewById(R.id.triangleUp));
+            setStoreName(itemView.findViewById(R.id.storeName));
+            setTriangleDown(itemView.findViewById(R.id.triangleDown));
+            setTriangleUp(itemView.findViewById(R.id.triangleUp));
 
-            getTriangleDown().setOnClickListener(this);
-            getTriangleUp().setOnClickListener(this);
+            getTriangleDown().setOnClickListener(getThis());
+            getTriangleUp().setOnClickListener(getThis());
 
         }
 
@@ -216,7 +218,9 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
 
         public void onClick(View v) {
             int id = v.getId();
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
+
             if (id == getTriangleDown().getId()) {
                 if (position == getStoreData().getStoreList().size() - 1) {
                     // Down arrow on last store

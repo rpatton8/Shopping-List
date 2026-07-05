@@ -1,7 +1,7 @@
 package ryan.android.shopping;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +56,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private void setView(View view) {
-        this.view = view;
+        getThis().view = view;
     }
 
     private Context getContext() {
@@ -161,24 +161,38 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         if (getReorderBy().equals(REORDER_BY_CATEGORY)) {
 
             if (!getCategory().equals(getContext().getString(R.string.emptyString))) {
-                ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
-                holder.getItemName().setText(categoryList.get(position).getItemName());
+                if (getItemData().getCategoryMap().get(getCategory()) != null) {
+                    ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
+                    if (position >= 0 && position < categoryList.size()) {
+                        holder.getItemName().setText(categoryList.get(position).getItemName());
+                    }
+                }
             }
 
         } else if (getReorderBy().equals(REORDER_BY_STORE)) {
 
             if (!getStore().equals(getContext().getString(R.string.emptyString))) {
-                ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
-                holder.getItemName().setText(storeList.get(position).getItemName());
+                if (getItemData().getStoreMap().get(getStore()) != null) {
+                    ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
+                    if (position >= 0 && position < storeList.size()) {
+                        holder.getItemName().setText(storeList.get(position).getItemName());
+                    }
+                }
             }
         }
     }
 
     public int getItemCount() {
         if (getReorderBy().equals(REORDER_BY_CATEGORY)) {
-            return getCategoryData().getCategoryList().size();
+            if (getCategory().equals(getContext().getString(R.string.emptyString)) || getItemData().getCategoryMap().get(getCategory()) == null) {
+                return 0;
+            }
+            return getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList().size();
         } else if (getReorderBy().equals(REORDER_BY_STORE)) {
-            return getStoreData().getStoreList().size();
+            if (getStore().equals(getContext().getString(R.string.emptyString)) || getItemData().getStoreMap().get(getStore()) == null) {
+                return 0;
+            }
+            return getItemData().getStoreMap().get(getStore()).getStoreItemsList().size();
         } else return -1;
     }
 
@@ -208,7 +222,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         getDbItemHelper().swapOrderByStore(getStore(), order1, order2);
     }
 
-    class ReorderItemsRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ReorderItemsRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private ReorderItemsRVA adapter;
@@ -234,12 +248,12 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
             setRecyclerView(recyclerView);
             setScrollView(scrollView);
 
-            setItemName((TextView) itemView.findViewById(R.id.itemName));
-            setTriangleDown((ImageView) itemView.findViewById(R.id.triangleDown));
-            setTriangleUp((ImageView) itemView.findViewById(R.id.triangleUp));
+            setItemName(itemView.findViewById(R.id.itemName));
+            setTriangleDown(itemView.findViewById(R.id.triangleDown));
+            setTriangleUp(itemView.findViewById(R.id.triangleUp));
 
-            getTriangleDown().setOnClickListener(this);
-            getTriangleUp().setOnClickListener(this);
+            getTriangleDown().setOnClickListener(getThis());
+            getTriangleUp().setOnClickListener(getThis());
         }
 
         private ReorderItemsRVH getThis() {
@@ -366,7 +380,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
 
         public void onClick(View v) {
             int id = v.getId();
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
             if (id == getTriangleDown().getId()) {
                 if (position == getAdapter().getCategoryList().size() - 1) {
                     // Down arrow on last item

@@ -14,7 +14,7 @@ class Category {
     Category(Context context, String name, Item item) {
         setContext(context);
         setCategoryName(name);
-        setCategoryItems(new ArrayList<Item>());
+        setCategoryItems(new ArrayList<>());
         getCategoryItems().add(item);
         setExpanded(true);
         setContracted(false);
@@ -94,7 +94,7 @@ class Category {
         return getCategoryName();
     }
 
-    private void printCategory() {
+    void printCategory() {
         System.out.println(getContext().getString(R.string.psCategoryName) + getCategoryName());
         for (int i = 0; i < getCategoryItems().size(); i++) {
             System.out.println(getContext().getString(R.string.psItemNum) + (i + 1) + getContext().getString(R.string.psColon) + getCategoryItems().get(i).getItemName());

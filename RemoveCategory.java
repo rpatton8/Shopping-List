@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ public class RemoveCategory extends Fragment {
 
     private Spinner removeCategorySpinner;
     private ArrayList<String> removeCategorySpinnerData;
-    private ArrayAdapter removeCategoryAdapter;
+    private ArrayAdapter<String> removeCategoryAdapter;
     private Button removeCategoryButton;
     private Button cancelButton;
 
@@ -77,11 +77,11 @@ public class RemoveCategory extends Fragment {
         getThis().removeCategorySpinnerData = removeCategorySpinnerData;
     }
 
-    private ArrayAdapter getRemoveCategoryAdapter() {
+    private ArrayAdapter<String> getRemoveCategoryAdapter() {
         return removeCategoryAdapter;
     }
 
-    private void setRemoveCategoryAdapter(ArrayAdapter removeCategoryAdapter) {
+    private void setRemoveCategoryAdapter(ArrayAdapter<String> removeCategoryAdapter) {
         getThis().removeCategoryAdapter = removeCategoryAdapter;
     }
 
@@ -109,11 +109,11 @@ public class RemoveCategory extends Fragment {
         setCategoryData(getShopping().getCategoryData());
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
 
-        setRemoveCategoryButton((Button) getView().findViewById(R.id.removeCategoryButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setRemoveCategoryButton(getView().findViewById(R.id.removeCategoryButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         setRemoveCategorySpinnerData(getCategoryData().getCategoryListWithBlank());
-        setRemoveCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setRemoveCategorySpinner(getView().findViewById(R.id.categorySpinner));
         setRemoveCategoryAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getRemoveCategorySpinnerData()));
         getRemoveCategoryAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getRemoveCategorySpinner().setAdapter(getRemoveCategoryAdapter());

@@ -17,16 +17,16 @@ class CategoryData {
 
     CategoryData (Context context) {
         setContext(context);
-        setCategoryList(new ArrayList<String>());
-        setCategoryListWithBlank(new ArrayList<String>());
-        setCategoryListWithAddNew(new ArrayList<String>());
+        setCategoryList(new ArrayList<>());
+        setCategoryListWithBlank(new ArrayList<>());
+        setCategoryListWithAddNew(new ArrayList<>());
         getCategoryListWithBlank().add(getContext().getString(R.string.emptyString));
         getCategoryListWithAddNew().add(getContext().getString(R.string.emptyString));
         getCategoryListWithAddNew().add(getContext().getString(R.string.addNewCategory));
-        setCategoryViewAllMap(new HashMap<String, Integer>());
-        setCategoryViewInStockMap(new HashMap<String, Integer>());
-        setCategoryViewNeededMap(new HashMap<String, Integer>());
-        setCategoryViewPausedMap(new HashMap<String, Integer>());
+        setCategoryViewAllMap(new HashMap<>());
+        setCategoryViewInStockMap(new HashMap<>());
+        setCategoryViewNeededMap(new HashMap<>());
+        setCategoryViewPausedMap(new HashMap<>());
     }
 
     private CategoryData getThis() {

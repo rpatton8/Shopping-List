@@ -9,11 +9,11 @@
     android:orientation="vertical"
     tools:context=".Shopping">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="62dp"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="2dp"
-        android:layout_marginStart="2dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,26 +22,40 @@
             android:id="@+id/fullInventoryTopMenu"
             android:layout_width="203dp"
             android:layout_height="62dp"
+            android:layout_marginStart="2dp"
             android:text="@string/fullInventory"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="136dp"
-            tools:layout_editor_absoluteY="0dp"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
             android:id="@+id/shoppingListTopMenu"
             android:layout_width="203dp"
             android:layout_height="62dp"
+            android:layout_marginEnd="2dp"
             android:text="@string/shoppingList"
             android:textSize="16sp"
-            tools:layout_editor_absoluteX="268dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="174dp"
+            android:contentDescription="@string/homeButton"
+            android:elevation="8dp"
+            android:src="@mipmap/home_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragments"
-        android:name="ryan.android.shopping.LoadScreen"
+        android:name="ryan.android.shopping.HomeScreen"
         android:layout_width="match_parent"
-        android:layout_height="730dp" />
+        android:layout_height="730dp"
+        tools:layout="@layout/home_screen" />
 
 </LinearLayout>

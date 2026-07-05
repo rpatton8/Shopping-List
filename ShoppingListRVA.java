@@ -1,7 +1,7 @@
 package ryan.android.shopping;
 
 import android.os.SystemClock;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-class ShoppingListRVA extends RecyclerView.Adapter {
+class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private View view;
     private Shopping shopping;
@@ -114,11 +114,15 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     isTitle = true;
-                    store = getStoreData().getStoreList().get(i + 1);
+                    if (i + 1 < getStoreData().getStoreList().size()) {
+                        store = getStoreData().getStoreList().get(i + 1);
+                    }
                     break;
-                } else if (index >= adjustedPosition) {
+                } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                     isTitle = false;
-                    thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    if (getItemData().getStoreMap().get(store) != null) {
+                        thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
+                    }
                     break;
                 }
             }
@@ -139,7 +143,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
             ShoppingListItemRVH itemHolder = (ShoppingListItemRVH) holder;
 
-            if (thisItem.getStatus().isNeeded()) {
+            if (thisItem != null && thisItem.getStatus() != null && thisItem.getStatus().isNeeded()) {
                 if (thisItem.getStatus().isExpandedInShoppingList()) {
                     itemHolder.getItemSmallName().setText(thisItem.getItemName());
                     itemHolder.getItemLargeName().setText(thisItem.getItemName());
@@ -179,7 +183,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 itemHolder.getItemSmall().setVisibility(View.GONE);
             }
 
-            if (thisItem.getStatus().isSelectedInShoppingList()) {
+            if (thisItem != null && thisItem.getStatus() != null && thisItem.getStatus().isSelectedInShoppingList()) {
                 itemHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
                 itemHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
@@ -193,7 +197,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
 
-            if ((getShopping().getStoreListOrderNum() != 0) &&
+            if (thisItem != null && (getShopping().getStoreListOrderNum() != 0) &&
                     !thisItem.getStore().toString().equals(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1))) {
                 itemHolder.getTriangleDown().setVisibility(View.GONE);
                 itemHolder.getTriangleRight().setVisibility(View.GONE);
@@ -207,13 +211,13 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         return (getItemData().getItemListByStore().size() + getStoreData().getStoreList().size());
     }
 
-    private class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
+    private static class ShoppingListTitleRVH extends RecyclerView.ViewHolder {
 
         private TextView shoppingListRvTitle;
 
         private ShoppingListTitleRVH(View itemView) {
             super(itemView);
-            setShoppingListRvTitle((TextView) itemView.findViewById(R.id.shoppingListRvTitle));
+            setShoppingListRvTitle(itemView.findViewById(R.id.shoppingListRvTitle));
         }
 
         private ShoppingListTitleRVH getThis() {
@@ -229,7 +233,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         }
     }
 
-    private class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private ShoppingListRVA adapter;
@@ -250,7 +254,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
         private TextView itemLargeCategory;
         private TextView itemLargeCategoryLabel;
 
-        private final long doubleClickTimeout = 400;
+        private final long doubleClickTimeout = 300;
         private long lastClickTime = 0;
 
         private ShoppingListItemRVH(View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
@@ -261,33 +265,33 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             setItemData(itemData);
             setStoreData(storeData);
 
-            setTriangleRight((Button) itemView.findViewById(R.id.triangleButtonRight));
-            setTriangleDown((Button) itemView.findViewById(R.id.triangleButtonDown));
-            setItemSmall((LinearLayout) itemView.findViewById(R.id.itemSmall));
-            setItemLarge((LinearLayout) itemView.findViewById(R.id.itemLarge));
-            setItemSmallName((TextView) itemView.findViewById(R.id.itemSmallName));
-            setItemLargeName((TextView) itemView.findViewById(R.id.itemLargeName));
-            setCheckboxUncheckedSmall((ImageView) itemView.findViewById(R.id.checkboxUncheckedSmall));
-            setCheckboxCheckedSmall((ImageView) itemView.findViewById(R.id.checkboxCheckedSmall));
-            setCheckboxUncheckedLarge((ImageView) itemView.findViewById(R.id.checkboxUncheckedLarge));
-            setCheckboxCheckedLarge((ImageView) itemView.findViewById(R.id.checkboxCheckedLarge));
-            setItemLargeBrand((TextView) itemView.findViewById(R.id.itemLargeBrand));
-            setItemLargeCategory((TextView) itemView.findViewById(R.id.itemLargeCategory));
-            setItemLargeBrandLabel((TextView) itemView.findViewById(R.id.itemLargeBrandLabel));
-            setItemLargeCategoryLabel((TextView) itemView.findViewById(R.id.itemLargeCategoryLabel));
+            setTriangleRight(itemView.findViewById(R.id.triangleButtonRight));
+            setTriangleDown(itemView.findViewById(R.id.triangleButtonDown));
+            setItemSmall(itemView.findViewById(R.id.itemSmall));
+            setItemLarge(itemView.findViewById(R.id.itemLarge));
+            setItemSmallName(itemView.findViewById(R.id.itemSmallName));
+            setItemLargeName(itemView.findViewById(R.id.itemLargeName));
+            setCheckboxUncheckedSmall(itemView.findViewById(R.id.checkboxUncheckedSmall));
+            setCheckboxCheckedSmall(itemView.findViewById(R.id.checkboxCheckedSmall));
+            setCheckboxUncheckedLarge(itemView.findViewById(R.id.checkboxUncheckedLarge));
+            setCheckboxCheckedLarge(itemView.findViewById(R.id.checkboxCheckedLarge));
+            setItemLargeBrand(itemView.findViewById(R.id.itemLargeBrand));
+            setItemLargeCategory(itemView.findViewById(R.id.itemLargeCategory));
+            setItemLargeBrandLabel(itemView.findViewById(R.id.itemLargeBrandLabel));
+            setItemLargeCategoryLabel(itemView.findViewById(R.id.itemLargeCategoryLabel));
 
-            getTriangleRight().setOnClickListener(this);
-            getTriangleDown().setOnClickListener(this);
-            getCheckboxUncheckedSmall().setOnClickListener(this);
-            getCheckboxCheckedSmall().setOnClickListener(this);
-            getCheckboxUncheckedLarge().setOnClickListener(this);
-            getCheckboxCheckedLarge().setOnClickListener(this);
-            getItemSmallName().setOnClickListener(this);
-            getItemLargeName().setOnClickListener(this);
-            getItemLargeBrandLabel().setOnClickListener(this);
-            getItemLargeBrand().setOnClickListener(this);
-            getItemLargeCategoryLabel().setOnClickListener(this);
-            getItemLargeCategory().setOnClickListener(this);
+            getTriangleRight().setOnClickListener(getThis());
+            getTriangleDown().setOnClickListener(getThis());
+            getCheckboxUncheckedSmall().setOnClickListener(getThis());
+            getCheckboxCheckedSmall().setOnClickListener(getThis());
+            getCheckboxUncheckedLarge().setOnClickListener(getThis());
+            getCheckboxCheckedLarge().setOnClickListener(getThis());
+            getItemSmallName().setOnClickListener(getThis());
+            getItemLargeName().setOnClickListener(getThis());
+            getItemLargeBrandLabel().setOnClickListener(getThis());
+            getItemLargeBrand().setOnClickListener(getThis());
+            getItemLargeCategoryLabel().setOnClickListener(getThis());
+            getItemLargeCategory().setOnClickListener(getThis());
         }
 
         private ShoppingListItemRVH getThis() {
@@ -475,7 +479,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     if (index == adjustedPosition) {
                         isTitle = true;
                         break;
-                    } else if (index >= adjustedPosition) {
+                    } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                         isTitle = false;
                         thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
@@ -483,7 +487,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
             
-            if (!isTitle) {
+            if (!isTitle && thisItem != null) {
 
                 if (thisItem.getStatus().isSelectedInShoppingList() || thisItem == getShopping().getSelectedItemInShoppingList()) {
                     // selected item is this item
@@ -529,6 +533,8 @@ class ShoppingListRVA extends RecyclerView.Adapter {
             Item thisItem = null;
             int adjustedPosition;
 
+            if (position == 0) return null;
+
             int index = 0;
             adjustedPosition = position;
             for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
@@ -543,7 +549,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
-                } else if (index >= adjustedPosition) {
+                } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                     thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
@@ -563,10 +569,14 @@ class ShoppingListRVA extends RecyclerView.Adapter {
 
         private void onDoubleClick(View v) {
 
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
+
             String store;
             Item thisItem = null;
             int adjustedPosition;
+
+            if (position == 0) return;
 
             int index = 0;
             adjustedPosition = position;
@@ -582,21 +592,24 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 adjustedPosition--;
                 if (index == adjustedPosition) {
                     break;
-                } else if (index >= adjustedPosition) {
+                } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                     thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                     break;
                 }
             }
-            getShopping().setPictureDialogInInventory(false);
-            getShopping().setPictureDialogInSearchResults(false);
-            getShopping().setPictureDialogInShoppingList(true);
-            getShopping().showPictureDialog(thisItem);
+            if (thisItem != null) {
+                getShopping().setPictureDialogInInventory(false);
+                getShopping().setPictureDialogInSearchResults(false);
+                getShopping().setPictureDialogInShoppingList(true);
+                getShopping().showPictureDialog(thisItem);
+            }
         }
 
         private void onSingleClick(View v) {
 
             int id = v.getId();
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
 
             String store;
             Item thisItem = null;
@@ -620,8 +633,11 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
+                        if (i + 1 < getStoreData().getStoreList().size()) {
+                            store = getStoreData().getStoreList().get(i + 1);
+                        }
                         break;
-                    } else if (index >= adjustedPosition) {
+                    } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                         isTitle = false;
                         thisItem = getItemData().getStoreMap().get(store).getStoreItemsList().get(numItemsInStore - index + adjustedPosition);
                         break;
@@ -629,7 +645,7 @@ class ShoppingListRVA extends RecyclerView.Adapter {
                 }
             }
 
-            if (!isTitle) {
+            if (!isTitle && thisItem != null) {
 
                 if (id == getItemSmallName().getId()) {
                     selectOrUnselectItem(position);

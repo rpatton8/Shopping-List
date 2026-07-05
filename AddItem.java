@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,10 +42,11 @@ public class AddItem extends Fragment {
     private EditText noteInput;
     private Button addItemButton;
     private Button cancelButton;
+
     private ArrayList<String> categorySpinnerData;
-    private ArrayAdapter categorySpinnerAdapter;
+    private ArrayAdapter<String> categorySpinnerAdapter;
     private ArrayList<String> storeSpinnerData;
-    private ArrayAdapter storeSpinnerAdapter;
+    private ArrayAdapter<String> storeSpinnerAdapter;
 
     public AddItem() {}
 
@@ -261,11 +262,11 @@ public class AddItem extends Fragment {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    private ArrayAdapter getCategorySpinnerAdapter() {
+    private ArrayAdapter<String> getCategorySpinnerAdapter() {
         return categorySpinnerAdapter;
     }
 
-    private void setCategorySpinnerAdapter(ArrayAdapter categorySpinnerAdapter) {
+    private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
         getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
@@ -277,11 +278,11 @@ public class AddItem extends Fragment {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    private ArrayAdapter getStoreSpinnerAdapter() {
+    private ArrayAdapter<String> getStoreSpinnerAdapter() {
         return storeSpinnerAdapter;
     }
 
-    private void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+    private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
         getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
@@ -298,32 +299,32 @@ public class AddItem extends Fragment {
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
 
-        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
-        setItemBrandTypeInput((EditText) getView().findViewById(R.id.itemBrandTypeInput));
-        setItemCategoryInput((EditText) getView().findViewById(R.id.itemCategoryInput));
-        setItemStoreInput((EditText) getView().findViewById(R.id.itemStoreInput));
+        setItemNameInput(getView().findViewById(R.id.itemNameInput));
+        setItemBrandTypeInput(getView().findViewById(R.id.itemBrandTypeInput));
+        setItemCategoryInput(getView().findViewById(R.id.itemCategoryInput));
+        setItemStoreInput(getView().findViewById(R.id.itemStoreInput));
 
         getItemNameInput().setText(getString(R.string.emptyString));
         getItemBrandTypeInput().setText(getString(R.string.emptyString));
         getItemCategoryInput().setText(getString(R.string.emptyString));
         getItemStoreInput().setText(getString(R.string.emptyString));
 
-        setQuantityCheckbox((CheckBox) getView().findViewById(R.id.quantityCheckbox));
-        setQuantityInput((EditText) getView().findViewById(R.id.quantityInput));
-        setPriceCheckbox((CheckBox) getView().findViewById(R.id.priceCheckbox));
-        setPriceInput((EditText) getView().findViewById(R.id.priceInput));
-        setLocationCheckbox((CheckBox) getView().findViewById(R.id.locationCheckbox));
-        setLocationInput((EditText) getView().findViewById(R.id.locationInput));
-        setNoteCheckbox((CheckBox) getView().findViewById(R.id.noteCheckbox));
-        setNoteInput((EditText) getView().findViewById(R.id.noteInput));
+        setQuantityCheckbox(getView().findViewById(R.id.quantityCheckbox));
+        setQuantityInput(getView().findViewById(R.id.quantityInput));
+        setPriceCheckbox(getView().findViewById(R.id.priceCheckbox));
+        setPriceInput(getView().findViewById(R.id.priceInput));
+        setLocationCheckbox(getView().findViewById(R.id.locationCheckbox));
+        setLocationInput(getView().findViewById(R.id.locationInput));
+        setNoteCheckbox(getView().findViewById(R.id.noteCheckbox));
+        setNoteInput(getView().findViewById(R.id.noteInput));
 
         getQuantityInput().setText(getString(R.string.emptyString));
         getPriceInput().setText(getString(R.string.emptyString));
         getLocationInput().setText(getString(R.string.emptyString));
         getNoteInput().setText(getString(R.string.emptyString));
 
-        setAddItemButton((Button) getView().findViewById(R.id.addItemButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setAddItemButton(getView().findViewById(R.id.addItemButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getQuantityCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -354,13 +355,13 @@ public class AddItem extends Fragment {
         });
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
-        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinner(getView().findViewById(R.id.categorySpinner));
         setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
         getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
         setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
-        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinner(getView().findViewById(R.id.storeSpinner));
         setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
         getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
@@ -417,7 +418,7 @@ public class AddItem extends Fragment {
                 }
 
                 if (getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.addNewStore))) {
-                    int numStores = storeData.getStoreList().size();
+                    int numStores = getStoreData().getStoreList().size();
                     getDbStoreHelper().addNewStore(itemStore, numStores);
                     getShopping().updateStoreData();
                 }

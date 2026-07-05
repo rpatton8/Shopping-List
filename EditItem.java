@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -214,12 +214,12 @@ public class EditItem extends Fragment {
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
 
-        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
-        setItemTypeInput((EditText) getView().findViewById(R.id.itemTypeInput));
-        setItemCategoryInput((EditText) getView().findViewById(R.id.itemCategoryInput));
-        setItemStoreInput((EditText) getView().findViewById(R.id.itemStoreInput));
-        setEditItemButton((Button) getView().findViewById(R.id.editItemButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setItemNameInput(getView().findViewById(R.id.itemNameInput));
+        setItemTypeInput(getView().findViewById(R.id.itemTypeInput));
+        setItemCategoryInput(getView().findViewById(R.id.itemCategoryInput));
+        setItemStoreInput(getView().findViewById(R.id.itemStoreInput));
+        setEditItemButton(getView().findViewById(R.id.editItemButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         if(getShopping().editItemInInventory()) {
             getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
@@ -238,7 +238,7 @@ public class EditItem extends Fragment {
         getItemStoreInput().setText(getString(R.string.emptyString));
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
-        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinner(getView().findViewById(R.id.categorySpinner));
         setCategoryAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
         getCategoryAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getCategorySpinner().setAdapter(getCategoryAdapter());
@@ -256,7 +256,7 @@ public class EditItem extends Fragment {
         getCategorySpinner().setSelection(categorySpinnerPosition);
 
         setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
-        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinner(getView().findViewById(R.id.storeSpinner));
         setStoreAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
         getStoreAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getStoreSpinner().setAdapter(getStoreAdapter());

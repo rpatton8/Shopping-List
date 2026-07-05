@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +22,7 @@ public class EditStore extends Fragment {
     private EditText storeInput;
     private Spinner storeSpinner;
     private ArrayList<String> storeSpinnerData;
-    private ArrayAdapter storeSpinnerAdapter;
+    private ArrayAdapter<String> storeSpinnerAdapter;
     private Button editStoreButton;
     private Button cancelButton;
 
@@ -96,11 +96,11 @@ public class EditStore extends Fragment {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    private ArrayAdapter getStoreSpinnerAdapter() {
+    private ArrayAdapter<String> getStoreSpinnerAdapter() {
         return storeSpinnerAdapter;
     }
 
-    private void setStoreSpinnerAdapter(ArrayAdapter storeSpinnerAdapter) {
+    private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
         getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
@@ -129,12 +129,12 @@ public class EditStore extends Fragment {
         setDbItemHelper(new DBItemHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        setStoreInput((EditText) getView().findViewById(R.id.storeInput));
-        setEditStoreButton((Button) getView().findViewById(R.id.editStoreButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setStoreInput(getView().findViewById(R.id.storeInput));
+        setEditStoreButton(getView().findViewById(R.id.editStoreButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         setStoreSpinnerData(getStoreData().getStoreListWithBlank());
-        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinner(getView().findViewById(R.id.storeSpinner));
         setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
         getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());

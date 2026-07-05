@@ -1,9 +1,9 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,15 +109,15 @@ public class ReorderStores extends Fragment {
         setStoreData(getShopping().getStoreData());
         setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        setRecyclerView((RecyclerView) getView().findViewById(R.id.reorderStoresRecyclerView));
+        setRecyclerView(getView().findViewById(R.id.reorderStoresRecyclerView));
         getRecyclerView().setHasFixedSize(false);
         getRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
         setRvAdapter(new ReorderStoresRVA(getView(), getShopping(), getRecyclerView(), getItemData(), getStoreData(), getDbStoreHelper()));
         getRecyclerView().setAdapter(getRvAdapter());
         getRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderStoresViewState());
 
-        setFinishReorderingButton((Button) getView().findViewById(R.id.finishReorderingButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setFinishReorderingButton(getView().findViewById(R.id.finishReorderingButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getFinishReorderingButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,14 +89,16 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
 
     public void onBindViewHolder(ReorderCategoriesRVH holder, int position) {
         ArrayList<String> categoryList = getCategoryData().getCategoryList();
-        holder.getCategoryName().setText(categoryList.get(position));
+        if (position >= 0 && position < categoryList.size()) {
+            holder.getCategoryName().setText(categoryList.get(position));
+        }
     }
 
     public int getItemCount() {
         return getCategoryData().getCategoryList().size();
     }
 
-    class ReorderCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ReorderCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Shopping shopping;
         private ItemData itemData;
@@ -118,12 +120,12 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
             setDbCategoryHelper(dbCategory);
             setRecyclerView(recyclerView);
 
-            setCategoryName((TextView) itemView.findViewById(R.id.categoryName));
-            setTriangleDown((ImageView) itemView.findViewById(R.id.triangleDown));
-            setTriangleUp((ImageView) itemView.findViewById(R.id.triangleUp));
+            setCategoryName(itemView.findViewById(R.id.categoryName));
+            setTriangleDown(itemView.findViewById(R.id.triangleDown));
+            setTriangleUp(itemView.findViewById(R.id.triangleUp));
 
-            getTriangleDown().setOnClickListener(this);
-            getTriangleUp().setOnClickListener(this);
+            getTriangleDown().setOnClickListener(getThis());
+            getTriangleUp().setOnClickListener(getThis());
 
         }
 
@@ -216,7 +218,9 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
 
         public void onClick(View v) {
             int id = v.getId();
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
+
             if (id == getTriangleDown().getId()) {
                 if (position == getCategoryData().getCategoryList().size() - 1) {
                     // Down arrow on last category

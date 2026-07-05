@@ -1,9 +1,9 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -225,15 +225,15 @@ public class ReorderItems extends Fragment {
         setStoreData(getShopping().getStoreData());
         setDbItemHelper(new DBItemHelper(getActivity()));
 
-        setCategoryLayout((LinearLayout) getView().findViewById(R.id.categoryLayout));
-        setStoreLayout((LinearLayout) getView().findViewById(R.id.storeLayout));
-        setCategoryRadioButton((RadioButton) getView().findViewById(R.id.categoryRadioButton));
-        setStoreRadioButton((RadioButton) getView().findViewById(R.id.storeRadioButton));
-        setFinishReorderingButton((Button) getView().findViewById(R.id.finishReorderingButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setCategoryLayout(getView().findViewById(R.id.categoryLayout));
+        setStoreLayout(getView().findViewById(R.id.storeLayout));
+        setCategoryRadioButton(getView().findViewById(R.id.categoryRadioButton));
+        setStoreRadioButton(getView().findViewById(R.id.storeRadioButton));
+        setFinishReorderingButton(getView().findViewById(R.id.finishReorderingButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithBlank());
-        setCategorySpinner((Spinner) getView().findViewById(R.id.categorySpinner));
+        setCategorySpinner(getView().findViewById(R.id.categorySpinner));
         setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
         getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
@@ -241,14 +241,14 @@ public class ReorderItems extends Fragment {
         getCategorySpinner().setSelection(categorySpinnerPosition);
 
         setStoreSpinnerData(getStoreData().getStoreListWithBlank());
-        setStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setStoreSpinner(getView().findViewById(R.id.storeSpinner));
         setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
         getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
         int storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getReorderItemsStore());
         getStoreSpinner().setSelection(storeSpinnerPosition);
 
-        setRecyclerView((RecyclerView) getView().findViewById(R.id.reorderItemsRecyclerView));
+        setRecyclerView(getView().findViewById(R.id.reorderItemsRecyclerView));
         getRecyclerView().setHasFixedSize(false);
         getRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
         setRvAdapter(new ReorderItemsRVA(getView(), getShopping(), getContext(), getRecyclerView(), getScrollView(), getItemData(), getCategoryData(), getStoreData(), getDbItemHelper()));
@@ -256,12 +256,11 @@ public class ReorderItems extends Fragment {
         getRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderItemsRecyclerViewState());
         //getScrollView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderItemsScrollViewState());
 
-        setScrollView((ScrollView) getView().findViewById(R.id.reorderItemsScrollView));
+        setScrollView(getView().findViewById(R.id.reorderItemsScrollView));
         getScrollView().getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             public void onScrollChanged() {
                 int scrollY = getScrollView().getScrollY();
-                if (scrollY < 578) getRecyclerView().setNestedScrollingEnabled(false);
-                else getRecyclerView().setNestedScrollingEnabled(true);
+                getRecyclerView().setNestedScrollingEnabled(scrollY >= 578);
             }
         });
 

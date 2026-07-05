@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,9 +99,9 @@ public class RemoveItem extends Fragment {
         setDbItemHelper(new DBItemHelper(getActivity()));
         setDbStatusHelper(new DBStatusHelper(getActivity()));
 
-        setItemNameInput((EditText) getView().findViewById(R.id.itemNameInput));
-        setRemoveItemButton((Button) getView().findViewById(R.id.removeItemButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setItemNameInput(getView().findViewById(R.id.itemNameInput));
+        setRemoveItemButton(getView().findViewById(R.id.removeItemButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
 

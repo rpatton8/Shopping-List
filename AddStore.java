@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,9 +89,9 @@ public class AddStore extends Fragment {
         setStoreData(getShopping().getStoreData());
         setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        setStoreInput((EditText) getView().findViewById(R.id.storeInput));
-        setAddStoreButton((Button) getView().findViewById(R.id.addStoreButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setStoreInput(getView().findViewById(R.id.storeInput));
+        setAddStoreButton(getView().findViewById(R.id.addStoreButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getStoreInput().setText(getString(R.string.emptyString));
 

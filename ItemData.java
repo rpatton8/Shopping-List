@@ -19,12 +19,12 @@ class ItemData {
 
     ItemData(Context context) {
         setContext(context);
-        setItemsAZ(new LinkedList<Item>());
-        setItemsByCategory(new ArrayList<Item>());
-        setItemsByStore(new ArrayList<Item>());
-        setItemMap(new HashMap<String, Item>());
-        setCategoryMap(new HashMap<String, Category>());
-        setStoreMap(new HashMap<String, Store>());
+        setItemsAZ(new LinkedList<>());
+        setItemsByCategory(new ArrayList<>());
+        setItemsByStore(new ArrayList<>());
+        setItemMap(new HashMap<>());
+        setCategoryMap(new HashMap<>());
+        setStoreMap(new HashMap<>());
     }
 
     private ItemData getThis() {
@@ -102,7 +102,12 @@ class ItemData {
     void updateStatuses(StatusData statusData) {
         HashMap<String, Status> statusMap = statusData.getStatusMap();
         for(int i = 0; i < getItemsAZ().size(); i++) {
-            getItemsAZ().get(i).setStatus(statusMap.get(getItemsAZ().get(i).getItemName()));
+            Item item = getItemsAZ().get(i);
+            Status status = statusMap.get(item.getItemName());
+            if (status == null) {
+                status = new Status(item.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked), getContext());
+            }
+            item.setStatus(status);
         }
     }
 
@@ -166,7 +171,7 @@ class ItemData {
         list.add(index, item);
     }
 
-    private void printDataAZ() {
+    void printDataAZ() {
 
         System.out.println(getContext().getString(R.string.pdItemsAZ));
         for (int i = 1; i <= getItemsAZ().size(); i++) {
@@ -179,7 +184,7 @@ class ItemData {
         }
     }
 
-    private void printDataByCategory() {
+    void printDataByCategory() {
         System.out.println(getContext().getString(R.string.pdItemsByCategory));
         for (int i = 1; i <= getItemsByCategory().size(); i++) {
             Item item = getItemsByCategory().get(i - 1);
@@ -191,7 +196,7 @@ class ItemData {
         }
     }
 
-    private void printDataByStore() {
+    void printDataByStore() {
         System.out.println(getContext().getString(R.string.pdItemsByStore));
         for (int i = 1; i <= getItemsByStore().size(); i++) {
             Item item = getItemsByStore().get(i - 1);

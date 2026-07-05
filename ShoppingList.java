@@ -1,11 +1,11 @@
 package ryan.android.shopping;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -142,51 +142,51 @@ public class ShoppingList extends Fragment {
         getThis().shoppingListRightArrow = shoppingListRightArrow;
     }
 
-    public AlertDialog getAlertDialog2() {
+    private AlertDialog getAlertDialog2() {
         return alertDialog2;
     }
 
-    public void setAlertDialog2(AlertDialog alertDialog2) {
+    private void setAlertDialog2(AlertDialog alertDialog2) {
         getThis().alertDialog2 = alertDialog2;
     }
 
-    public View getAlertDialog2View() {
+    private View getAlertDialog2View() {
         return alertDialog2View;
     }
 
-    public void setAlertDialog2View(View alertDialog2View) {
+    private void setAlertDialog2View(View alertDialog2View) {
         getThis().alertDialog2View = alertDialog2View;
     }
 
-    public TextView getAlertDialog2Title() {
+    private TextView getAlertDialog2Title() {
         return alertDialog2Title;
     }
 
-    public void setAlertDialog2Title(TextView alertDialog2Title) {
+    private void setAlertDialog2Title(TextView alertDialog2Title) {
         getThis().alertDialog2Title = alertDialog2Title;
     }
 
-    public TextView getAlertDialog2Message() {
+    private TextView getAlertDialog2Message() {
         return alertDialog2Message;
     }
 
-    public void setAlertDialog2Message(TextView alertDialog2Message) {
+    private void setAlertDialog2Message(TextView alertDialog2Message) {
         getThis().alertDialog2Message = alertDialog2Message;
     }
 
-    public TextView getAlertDialog2ButtonLeft() {
+    private TextView getAlertDialog2ButtonLeft() {
         return alertDialog2ButtonLeft;
     }
 
-    public void setAlertDialog2ButtonLeft(TextView alertDialog2ButtonLeft) {
+    private void setAlertDialog2ButtonLeft(TextView alertDialog2ButtonLeft) {
         getThis().alertDialog2ButtonLeft = alertDialog2ButtonLeft;
     }
 
-    public TextView getAlertDialog2ButtonRight() {
+    private TextView getAlertDialog2ButtonRight() {
         return alertDialog2ButtonRight;
     }
 
-    public void setAlertDialog2ButtonRight(TextView alertDialog2ButtonRight) {
+    private void setAlertDialog2ButtonRight(TextView alertDialog2ButtonRight) {
         getThis().alertDialog2ButtonRight = alertDialog2ButtonRight;
     }
 
@@ -219,18 +219,18 @@ public class ShoppingList extends Fragment {
         setDbStatusHelper(new DBStatusHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        setShoppingListRecyclerView((RecyclerView) getView().findViewById(R.id.shoppingListRecyclerView));
+        setShoppingListRecyclerView(getView().findViewById(R.id.shoppingListRecyclerView));
         getShoppingListRecyclerView().setHasFixedSize(false);
         getShoppingListRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
         setShoppingListAdapter(new ShoppingListRVA(getView(), getShopping(), getItemData(), getStoreData()));
         getShoppingListRecyclerView().setAdapter(getShoppingListAdapter());
         getShoppingListRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getShoppingListViewState());
 
-        setShoppingListTitle((TextView) getView().findViewById(R.id.shoppingListTitle));
-        setShoppingListLeftArrow((TextView) getView().findViewById(R.id.shoppingListLeftArrow));
-        setShoppingListRightArrow((TextView) getView().findViewById(R.id.shoppingListRightArrow));
-        setClearCheckedItems((Button) getView().findViewById(R.id.clearCheckedItems));
-        setEditSelectedItem((Button) getView().findViewById(R.id.editSelectedItem));
+        setShoppingListTitle(getView().findViewById(R.id.shoppingListTitle));
+        setShoppingListLeftArrow(getView().findViewById(R.id.shoppingListLeftArrow));
+        setShoppingListRightArrow(getView().findViewById(R.id.shoppingListRightArrow));
+        setClearCheckedItems(getView().findViewById(R.id.clearCheckedItems));
+        setEditSelectedItem(getView().findViewById(R.id.editSelectedItem));
 
         if (getShopping().getStoreListOrderNum() == 0) {
             getShoppingListTitle().setText(getString(R.string.allStores));
@@ -264,16 +264,16 @@ public class ShoppingList extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(getAlertDialog2View());
 
-                setAlertDialog2Title((TextView) alertDialog2View.findViewById(R.id.alertDialog2Title));
+                setAlertDialog2Title(alertDialog2View.findViewById(R.id.alertDialog2Title));
                 getAlertDialog2Title().setText(R.string.clearItems);
 
-                setAlertDialog2Message((TextView) alertDialog2View.findViewById(R.id.alertDialog2Message));
+                setAlertDialog2Message(alertDialog2View.findViewById(R.id.alertDialog2Message));
                 getAlertDialog2Message().setText(R.string.wantToClear);
 
-                setAlertDialog2ButtonLeft((TextView) alertDialog2View.findViewById(R.id.alertDialog2ButtonLeft));
+                setAlertDialog2ButtonLeft(alertDialog2View.findViewById(R.id.alertDialog2ButtonLeft));
                 getAlertDialog2ButtonLeft().setText(R.string.no);
 
-                setAlertDialog2ButtonRight((TextView) alertDialog2View.findViewById(R.id.alertDialog2ButtonRight));
+                setAlertDialog2ButtonRight(alertDialog2View.findViewById(R.id.alertDialog2ButtonRight));
                 getAlertDialog2ButtonRight().setText(R.string.yes);
 
                 getAlertDialog2ButtonLeft().setOnClickListener(new View.OnClickListener() {
@@ -332,12 +332,12 @@ public class ShoppingList extends Fragment {
 
         getShoppingListRecyclerView().setOnTouchListener(new OnSwipeTouchListener(getView().getContext()) {
             void onSwipeLeft() {
-                if (getShopping().getSwipingOption().equals(Shopping.SWIPING_ON)) {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
                     moveLeftInShoppingList();
                 }
             }
             void onSwipeRight() {
-                if (getShopping().getSwipingOption().equals(Shopping.SWIPING_ON)) {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
                     moveRightInShoppingList();
                 }
             }
@@ -383,7 +383,7 @@ public class ShoppingList extends Fragment {
 
     }
 
-    private class OnSwipeTouchListener implements View.OnTouchListener {
+    private static class OnSwipeTouchListener implements View.OnTouchListener {
 
         private Context context;
         private GestureDetector gestureDetector;

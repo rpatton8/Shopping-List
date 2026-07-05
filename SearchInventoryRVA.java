@@ -2,7 +2,7 @@ package ryan.android.shopping;
 
 import android.content.Context;
 import android.os.SystemClock;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-class SearchInventoryRVA extends RecyclerView.Adapter  {
+class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private View view;
     private Context context;
@@ -26,7 +26,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         setShopping(shopping);
         setSearchAlgorithm(searchAlgorithm);
         setCurrentSearchTerm(getContext().getString(R.string.emptyString));
-        setSearchResultsList(new ArrayList<Item>());
+        setSearchResultsList(new ArrayList<>());
     }
 
     private SearchInventoryRVA getThis() {
@@ -93,9 +93,17 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Item thisItem = null;
-        if (!getCurrentSearchTerm().equals(getContext().getString(R.string.emptyString))) {
-            setSearchResultsList(getSearchAlgorithm().getSearchResults(getCurrentSearchTerm()));
-            thisItem = getSearchResultsList().get(position);
+        String searchTerm = getCurrentSearchTerm();
+        if (searchTerm != null && !searchTerm.equals(getContext().getString(R.string.emptyString))) {
+            setSearchResultsList(getSearchAlgorithm().getSearchResults(searchTerm));
+            ArrayList<Item> results = getSearchResultsList();
+            if (results != null && position < results.size()) {
+                thisItem = results.get(position);
+            }
+        }
+
+        if (thisItem == null) {
+            return;
         }
 
         SearchInventoryRVH searchResultsHolder = (SearchInventoryRVH) holder;
@@ -168,6 +176,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
     private class SearchInventoryRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        private View view;
         private Context context;
         private Shopping shopping;
         private SearchInventoryRVA adapter;
@@ -196,12 +205,13 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
-        private final long doubleClickTimeout = 400;
+        private final long doubleClickTimeout = 300;
         private long lastClickTime = 0;
 
-        private SearchInventoryRVH(View itemView, Context context, Shopping shopping, SearchInventoryRVA adapter) {
+        private SearchInventoryRVH(View view, Context context, Shopping shopping, SearchInventoryRVA adapter) {
 
-            super(itemView);
+            super(view);
+            setView(view);
             setContext(context);
             setShopping(shopping);
             setAdapter(adapter);
@@ -209,51 +219,59 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
             setCategoryData(getShopping().getCategoryData()) ;
             setDbStatusHelper(new DBStatusHelper(shopping));
 
-            setTriangleRight((Button) itemView.findViewById(R.id.triangleButtonRight));
-            setTriangleDown((Button) itemView.findViewById(R.id.triangleButtonDown));
-            setItemSmall((LinearLayout) itemView.findViewById(R.id.itemSmall));
-            setItemLarge((LinearLayout) itemView.findViewById(R.id.itemLarge));
-            setItemSmallName((TextView) itemView.findViewById(R.id.itemSmallName));
-            setItemLargeName((TextView) itemView.findViewById(R.id.itemLargeName));
-            setItemSmallInStock((TextView) itemView.findViewById(R.id.itemSmallInStock));
-            setItemSmallNeeded((TextView) itemView.findViewById(R.id.itemSmallNeeded));
-            setItemSmallPaused((TextView) itemView.findViewById(R.id.itemSmallPaused));
-            setItemSmallBrand((TextView) itemView.findViewById(R.id.itemSmallBrand));
-            setItemSmallBrandLabel((TextView) itemView.findViewById(R.id.itemSmallBrandLabel));
-            setItemLargeInStock((TextView) itemView.findViewById(R.id.itemLargeInStock));
-            setItemLargeNeeded((TextView) itemView.findViewById(R.id.itemLargeNeeded));
-            setItemLargePaused((TextView) itemView.findViewById(R.id.itemLargePaused));
-            setItemLargeBrand((TextView) itemView.findViewById(R.id.itemLargeBrand));
-            setItemLargeBrandLabel((TextView) itemView.findViewById(R.id.itemLargeBrandLabel));
-            setItemLargeCategory((TextView) itemView.findViewById(R.id.itemLargeCategory));
-            setItemLargeCategoryLabel((TextView) itemView.findViewById(R.id.itemLargeCategoryLabel));
-            setItemLargeStore((TextView) itemView.findViewById(R.id.itemLargeStore));
-            setItemLargeStoreLabel((TextView) itemView.findViewById(R.id.itemLargeStoreLabel));
+            setTriangleRight(getView().findViewById(R.id.triangleButtonRight));
+            setTriangleDown(getView().findViewById(R.id.triangleButtonDown));
+            setItemSmall(getView().findViewById(R.id.itemSmall));
+            setItemLarge(getView().findViewById(R.id.itemLarge));
+            setItemSmallName(getView().findViewById(R.id.itemSmallName));
+            setItemLargeName(getView().findViewById(R.id.itemLargeName));
+            setItemSmallInStock(getView().findViewById(R.id.itemSmallInStock));
+            setItemSmallNeeded(getView().findViewById(R.id.itemSmallNeeded));
+            setItemSmallPaused(getView().findViewById(R.id.itemSmallPaused));
+            setItemSmallBrand(getView().findViewById(R.id.itemSmallBrand));
+            setItemSmallBrandLabel(getView().findViewById(R.id.itemSmallBrandLabel));
+            setItemLargeInStock(getView().findViewById(R.id.itemLargeInStock));
+            setItemLargeNeeded(getView().findViewById(R.id.itemLargeNeeded));
+            setItemLargePaused(getView().findViewById(R.id.itemLargePaused));
+            setItemLargeBrand(getView().findViewById(R.id.itemLargeBrand));
+            setItemLargeBrandLabel(getView().findViewById(R.id.itemLargeBrandLabel));
+            setItemLargeCategory(getView().findViewById(R.id.itemLargeCategory));
+            setItemLargeCategoryLabel(getView().findViewById(R.id.itemLargeCategoryLabel));
+            setItemLargeStore(getView().findViewById(R.id.itemLargeStore));
+            setItemLargeStoreLabel(getView().findViewById(R.id.itemLargeStoreLabel));
 
-            getTriangleRight().setOnClickListener(this);
-            getTriangleDown().setOnClickListener(this);
-            getItemSmall().setOnClickListener(this);
-            getItemLarge().setOnClickListener(this);
-            getItemSmallName().setOnClickListener(this);
-            getItemLargeName().setOnClickListener(this);
-            getItemSmallInStock().setOnClickListener(this);
-            getItemSmallNeeded().setOnClickListener(this);
-            getItemSmallPaused().setOnClickListener(this);
-            getItemSmallBrand().setOnClickListener(this);
-            getItemSmallBrandLabel().setOnClickListener(this);
-            getItemLargeInStock().setOnClickListener(this);
-            getItemLargeNeeded().setOnClickListener(this);
-            getItemLargePaused().setOnClickListener(this);
-            getItemLargeBrand().setOnClickListener(this);
-            getItemLargeBrandLabel().setOnClickListener(this);
-            getItemLargeCategory().setOnClickListener(this);
-            getItemLargeCategoryLabel().setOnClickListener(this);
-            getItemLargeStore().setOnClickListener(this);
-            getItemLargeStoreLabel().setOnClickListener(this);
+            getTriangleRight().setOnClickListener(getThis());
+            getTriangleDown().setOnClickListener(getThis());
+            getItemSmall().setOnClickListener(getThis());
+            getItemLarge().setOnClickListener(getThis());
+            getItemSmallName().setOnClickListener(getThis());
+            getItemLargeName().setOnClickListener(getThis());
+            getItemSmallInStock().setOnClickListener(getThis());
+            getItemSmallNeeded().setOnClickListener(getThis());
+            getItemSmallPaused().setOnClickListener(getThis());
+            getItemSmallBrand().setOnClickListener(getThis());
+            getItemSmallBrandLabel().setOnClickListener(getThis());
+            getItemLargeInStock().setOnClickListener(getThis());
+            getItemLargeNeeded().setOnClickListener(getThis());
+            getItemLargePaused().setOnClickListener(getThis());
+            getItemLargeBrand().setOnClickListener(getThis());
+            getItemLargeBrandLabel().setOnClickListener(getThis());
+            getItemLargeCategory().setOnClickListener(getThis());
+            getItemLargeCategoryLabel().setOnClickListener(getThis());
+            getItemLargeStore().setOnClickListener(getThis());
+            getItemLargeStoreLabel().setOnClickListener(getThis());
         }
 
         private SearchInventoryRVH getThis() {
             return this;
+        }
+
+        public View getView() {
+            return view;
+        }
+
+        public void setView(View view) {
+            getThis().view = view;
         }
 
         private Shopping getShopping() {
@@ -478,6 +496,8 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         private void selectOrUnselectItem(int position) {
 
+            if (position < 0 || position >= getSearchResultsList().size()) return;
+
             Item thisItem = getSearchResultsList().get(position);
 
             if (thisItem.getStatus().isSelectedInSearchResults() || thisItem == getShopping().getSelectedItemInSearchResults()) {
@@ -500,9 +520,11 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
                     getShopping().setItemIsSelectedInSearchResults(true);
                     getShopping().setSelectedItemInSearchResults(thisItem);
 
-                    Item lastItem = getItemData().getItemListAZ().get(currentlySelected);
-                    lastItem.getStatus().setAsUnselectedInSearchResults();
-                    getAdapter().notifyItemChanged(currentlySelected);
+                    if (currentlySelected >= 0 && currentlySelected < getItemData().getItemListAZ().size()) {
+                        Item lastItem = getItemData().getItemListAZ().get(currentlySelected);
+                        lastItem.getStatus().setAsUnselectedInSearchResults();
+                        getAdapter().notifyItemChanged(currentlySelected);
+                    }
 
                 } else {
                     // nothing is selected
@@ -529,7 +551,10 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
 
         private void onDoubleClick(View v) {
 
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
+            if (position >= getSearchResultsList().size()) return;
+
             Item thisItem = getSearchResultsList().get(position);
             getShopping().setPictureDialogInInventory(false);
             getShopping().setPictureDialogInSearchResults(true);
@@ -540,7 +565,9 @@ class SearchInventoryRVA extends RecyclerView.Adapter  {
         private void onSingleClick(View v) {
 
             int id = v.getId();
-            int position = getAdapterPosition();
+            int position = getBindingAdapterPosition();
+            if (position == RecyclerView.NO_POSITION) return;
+            if (position >= getSearchResultsList().size()) return;
 
             Item thisItem = getSearchResultsList().get(position);
 

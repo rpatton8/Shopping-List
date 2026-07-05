@@ -13,9 +13,9 @@
         android:id="@+id/storeName"
         android:layout_width="275dp"
         android:layout_height="36dp"
+        android:layout_marginStart="25dp"
         android:translationY="-3dp"
         android:text="@string/name"
-        android:layout_marginStart="25dp"
         android:textSize="24sp" />
 
     <ImageView

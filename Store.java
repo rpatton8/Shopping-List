@@ -14,7 +14,7 @@ class Store {
     Store(Context context, String name, Item item) {
         setContext(context);
         setStoreName(name);
-        setStoreItems(new ArrayList<Item>());
+        setStoreItems(new ArrayList<>());
         getStoreItems().add(item);
         setExpanded(true);
         setContracted(false);
@@ -94,7 +94,7 @@ class Store {
         return getStoreName();
     }
 
-    private void printStore() {
+    void printStore() {
         System.out.println(getContext().getString(R.string.psStoreName) + getStoreName());
         for (int i = 0; i < getStoreItems().size(); i++) {
             System.out.println(getContext().getString(R.string.psItemNum) + (i + 1) + getContext().getString(R.string.psColon) + getStoreItems().get(i).getItemName());

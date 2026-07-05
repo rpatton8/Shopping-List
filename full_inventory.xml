@@ -20,20 +20,27 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fullInventoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="620dp"
-        android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:clipToPadding="false"
         android:layout_below="@id/fullInventoryTitle" />
 
     <TextView
+        android:id="@+id/addNewItemButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="3dp"
+        android:background="@mipmap/plus_button" />
+
+    <TextView
         android:id="@+id/searchButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="4dp"
         android:background="@mipmap/search_icon" />
 
@@ -74,14 +81,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/addNewItemButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@mipmap/search_icon" />
-
-    <TextView
         android:id="@+id/refreshButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
@@ -98,10 +97,13 @@
         android:layout_alignParentTop="true"
         android:background="@mipmap/edit_3dots"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchInventoryRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="578dp"
+        android:layout_height="570dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:clipToPadding="false"
         android:visibility="gone"
         android:background="#FFFFFF"
         android:layout_below="@id/searchPopup" />
@@ -109,11 +111,47 @@
     <TextView
         android:id="@+id/fullInventoryOptionsBackground"
         android:layout_width="match_parent"
-        android:layout_height="297dp"
+        android:layout_height="392dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/fullInventoryTitle"
         android:visibility="gone"
         android:background="@android:color/holo_green_light" />
+
+    <Button
+        android:id="@+id/sortAlphabetical"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:text="@string/sortAlphabetically" />
+
+    <Button
+        android:id="@+id/sortByCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="93dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:text="@string/sortByCategory" />
+
+    <Button
+        android:id="@+id/sortByStore"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="146dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:text="@string/sortByStore" />
 
     <Button
         android:id="@+id/viewAll"
@@ -197,52 +235,26 @@
         android:text="@string/expandContractStores" />
 
     <Button
-        android:id="@+id/sortAlphabetical"
+        android:id="@+id/oneAtATimeCategories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
         android:visibility="gone"
         android:textSize="16sp"
-        android:text="@string/sortAlphabetically" />
+        android:text="@string/oneAtATimeCategories" />
 
     <Button
-        android:id="@+id/sortByCategory"
+        android:id="@+id/oneAtATimeStores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="360dp"
         android:visibility="gone"
         android:textSize="16sp"
-        android:text="@string/sortByCategory" />
-
-    <Button
-        android:id="@+id/sortByStore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="120dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/sortByStore" />
-
-    <Button
-        android:id="@+id/homeScreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="160dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/home" />
+        android:text="@string/oneAtATimeStores" />
 
     <LinearLayout
         android:layout_width="match_parent"

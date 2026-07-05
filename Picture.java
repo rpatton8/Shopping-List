@@ -6,8 +6,12 @@ class Picture {
     private String pictureURL;
 
     Picture(String pictureName, String pictureURL) {
-        this.pictureName = pictureName;
-        this.pictureURL = pictureURL;
+        getThis().pictureName = pictureName;
+        getThis().pictureURL = pictureURL;
+    }
+    
+    private Picture getThis() {
+        return this;
     }
 
     public String getPictureName() {
@@ -15,7 +19,7 @@ class Picture {
     }
 
     public void setPictureName(String pictureName) {
-        this.pictureName = pictureName;
+        getThis().pictureName = pictureName;
     }
 
     public String getURL() {
@@ -23,7 +27,7 @@ class Picture {
     }
 
     public void setURL(String pictureURL) {
-        this.pictureURL = pictureURL;
+        getThis().pictureURL = pictureURL;
     }
 
 }

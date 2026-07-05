@@ -167,7 +167,7 @@
                 android:layout_height="16dp"
                 android:background="@android:color/holo_blue_dark"/>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/reorderItemsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="578dp"

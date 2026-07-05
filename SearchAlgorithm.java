@@ -11,7 +11,7 @@ class SearchAlgorithm {
 
     SearchAlgorithm(Context context) {
         setContext(context);
-        setTermMap(new HashMap<String, ArrayList<Item>>());
+        setTermMap(new HashMap<>());
     }
 
     private SearchAlgorithm getThis() {
@@ -35,8 +35,12 @@ class SearchAlgorithm {
     }
 
     void addNewItem(Item item) {
-        populateTermMap(item.getItemName(), item);
-        populateTermMap(item.getBrandType(), item);
+        if (item.getItemName() != null) {
+            populateTermMap(item.getItemName(), item);
+        }
+        if (item.getBrandType() != null) {
+            populateTermMap(item.getBrandType(), item);
+        }
     }
 
     void removeItem(Item item) {
@@ -63,11 +67,25 @@ class SearchAlgorithm {
     }
 
     ArrayList<Item> getSearchResults(String term) {
-        return getTermMap().get(term.toLowerCase());
+        if (term == null) {
+            return new ArrayList<>();
+        }
+        ArrayList<Item> results = getTermMap().get(term.toLowerCase());
+        if (results == null) {
+            return new ArrayList<>();
+        }
+        return results;
     }
 
     int numSearchResults(String term) {
-        return getTermMap().get(term.toLowerCase()).size();
+        if (term == null) {
+            return 0;
+        }
+        ArrayList<Item> results = getTermMap().get(term.toLowerCase());
+        if (results == null) {
+            return 0;
+        }
+        return results.size();
     }
 
 }

@@ -10,7 +10,7 @@ class StatusData {
 
     StatusData (Context context) {
         setContext(context);
-        setStatusMap(new HashMap<String, Status>());
+        setStatusMap(new HashMap<>());
     }
 
     private StatusData getThis() {

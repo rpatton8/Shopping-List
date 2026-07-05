@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreen">
+
+    <TextView
+        android:id="@+id/shoppingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="@string/shopping"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:src="@mipmap/shopping_icon_round"
+        android:contentDescription="@string/shoppingIconRound" />
+
+    <TextView
+        android:id="@+id/homeScreenDeveloperOptions"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/edit_3dots"/>
+
+    <Button
+        android:id="@+id/clearAllData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:text="@string/clearAllData" />
+
+    <Button
+        android:id="@+id/loadSampleData1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="80dp"
+        android:visibility="gone"
+        android:text="@string/loadSampleData1" />
+
+    <Button
+        android:id="@+id/loadSampleData2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        android:text="@string/loadSampleData2" />
+
+    <TextView
+        android:id="@+id/homeScreenEditButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/edit_3dots"/>
+
+    <TextView
+        android:id="@+id/shoppingOptionsBackground"
+        android:layout_width="420dp"
+        android:layout_height="614dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/shoppingTitle"
+        android:visibility="gone"
+        android:background="@android:color/holo_green_light" />
+
+    <Button
+        android:id="@+id/changeDefaultSortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="41dp"
+        android:visibility="gone"
+        android:text="@string/defaultSortBy" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/sortAlphabetical"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="88dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortAlphabetically" />
+
+        <RadioButton
+            android:id="@+id/sortByCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortByCategory" />
+
+        <RadioButton
+            android:id="@+id/sortByStore"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/sortByStore" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeDefaultCategoryTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="187dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultCategoryTitles" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/categoryTitlesExpanded"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="234dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/categoryTitlesExpanded" />
+
+        <RadioButton
+            android:id="@+id/categoryTitlesContracted"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/categoryTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeDefaultStoreTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="300dp"
+        android:visibility="gone"
+        android:text="@string/changeDefaultStoreTitles" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/storeTitlesExpanded"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="347dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/storeTitlesExpanded" />
+
+        <RadioButton
+            android:id="@+id/storeTitlesContracted"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/storeTitlesContracted" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/swiping"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="413dp"
+        android:visibility="gone"
+        android:text="@string/swiping" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/swipingOn"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="460dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOn" />
+
+        <RadioButton
+            android:id="@+id/swipingOff"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/swipingOff" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/pictures"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="526dp"
+        android:visibility="gone"
+        android:text="@string/pictures" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/picturesOn"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="573dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/picturesOn" />
+
+        <RadioButton
+            android:id="@+id/picturesOff"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/picturesOff" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeColorScheme"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="225dp"
+        android:layout_marginTop="41dp"
+        android:visibility="gone"
+        android:text="@string/colorScheme" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/colorScheme1"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="88dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme1" />
+
+        <RadioButton
+            android:id="@+id/colorScheme2"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme2" />
+
+        <RadioButton
+            android:id="@+id/colorScheme3"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/colorScheme3" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/changeReorderingMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="225dp"
+        android:layout_marginTop="187dp"
+        android:visibility="gone"
+        android:text="@string/reorderingMethod" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/dragAndDrop"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="234dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/dragAndDrop" />
+
+        <RadioButton
+            android:id="@+id/upAndDownArrows"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/upAndDownArrows" />
+
+        <RadioButton
+            android:id="@+id/withNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/withNumbers" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/optionalData"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="225dp"
+        android:layout_marginTop="333dp"
+        android:visibility="gone"
+        android:text="@string/optionalData" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/optionalDataQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="380dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataQuantity" />
+
+        <CheckBox
+            android:id="@+id/optionalDataPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataPrice" />
+
+        <CheckBox
+            android:id="@+id/optionalDataLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataLocation" />
+
+        <CheckBox
+            android:id="@+id/optionalDataNote"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginStart="225dp"
+            android:layout_marginTop="0dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/optionalDataNote" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/reorderEmojis"
+        android:layout_width="wrap_content"
+        android:layout_height="47dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="195dp"
+        android:layout_marginTop="512dp"
+        android:visibility="gone"
+        android:text="@string/dragAndDropEmojis" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/reorderCategoryEmojiLabel"
+            android:layout_width="42dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="216dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/reorderCategoryEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderItemByCategoryEmojiLabel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/reorderItemByCategoryEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderItemByStoreEmojiLabel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/reorderItemByStoreEmojiLabel" />
+
+        <TextView
+            android:id="@+id/reorderStoreEmojiLabel"
+            android:layout_width="42dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="555dp"
+            android:textSize="24sp"
+            android:visibility="gone"
+            android:text="@string/reorderStoreEmojiLabel" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/reorderCategoryEmojiBox"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="203dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderItemByCategoryEmojiBox"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderItemByStoreEmojiBox"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/reorderStoreEmojiBox"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="588dp"
+            android:background="@drawable/emoji_outline"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/instructions" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_marginBottom="6dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/copyright"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

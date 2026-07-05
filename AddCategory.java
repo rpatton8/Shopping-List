@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,9 +89,9 @@ public class AddCategory extends Fragment {
         setCategoryData(getShopping().getCategoryData());
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
 
-        setCategoryInput((EditText) getView().findViewById(R.id.categoryInput));
-        setAddCategoryButton((Button) getView().findViewById(R.id.addCategoryButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setCategoryInput(getView().findViewById(R.id.categoryInput));
+        setAddCategoryButton(getView().findViewById(R.id.addCategoryButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getCategoryInput().setText(getString(R.string.emptyString));
 

@@ -1,6 +1,6 @@
 package ryan.android.shopping;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ public class RemoveStore extends Fragment {
 
     private Spinner removeStoreSpinner;
     private ArrayList<String> removeStoreSpinnerData;
-    private ArrayAdapter removeStoreAdapter;
+    private ArrayAdapter<String> removeStoreAdapter;
     private Button removeStoreButton;
     private Button cancelButton;
 
@@ -77,11 +77,11 @@ public class RemoveStore extends Fragment {
         getThis().removeStoreSpinnerData = removeStoreSpinnerData;
     }
 
-    private ArrayAdapter getRemoveStoreAdapter() {
+    private ArrayAdapter<String> getRemoveStoreAdapter() {
         return removeStoreAdapter;
     }
 
-    private void setRemoveStoreAdapter(ArrayAdapter removeStoreAdapter) {
+    private void setRemoveStoreAdapter(ArrayAdapter<String> removeStoreAdapter) {
         getThis().removeStoreAdapter = removeStoreAdapter;
     }
 
@@ -109,11 +109,11 @@ public class RemoveStore extends Fragment {
         setStoreData(getShopping().getStoreData());
         setDbStoreHelper(new DBStoreHelper(getActivity()));
 
-        setRemoveStoreButton((Button) getView().findViewById(R.id.removeStoreButton));
-        setCancelButton((Button) getView().findViewById(R.id.cancelButton));
+        setRemoveStoreButton(getView().findViewById(R.id.removeStoreButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         setRemoveStoreSpinnerData(getStoreData().getStoreListWithBlank());
-        setRemoveStoreSpinner((Spinner) getView().findViewById(R.id.storeSpinner));
+        setRemoveStoreSpinner(getView().findViewById(R.id.storeSpinner));
         setRemoveStoreAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getRemoveStoreSpinnerData()));
         getRemoveStoreAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getRemoveStoreSpinner().setAdapter(getRemoveStoreAdapter());

@@ -17,16 +17,16 @@ class StoreData {
 
     StoreData (Context context) {
         setContext(context);
-        setStoreList(new ArrayList<String>());
-        setStoreListWithBlank(new ArrayList<String>());
-        setStoreListWithAddNew(new ArrayList<String>());
+        setStoreList(new ArrayList<>());
+        setStoreListWithBlank(new ArrayList<>());
+        setStoreListWithAddNew(new ArrayList<>());
         getStoreListWithBlank().add(getContext().getString(R.string.emptyString));
         getStoreListWithAddNew().add(getContext().getString(R.string.emptyString));
         getStoreListWithAddNew().add(getContext().getString(R.string.addNewStore));
-        setStoreViewAllMap(new HashMap<String, Integer>());
-        setStoreViewInStockMap(new HashMap<String, Integer>());
-        setStoreViewNeededMap(new HashMap<String, Integer>());
-        setStoreViewPausedMap(new HashMap<String, Integer>());
+        setStoreViewAllMap(new HashMap<>());
+        setStoreViewInStockMap(new HashMap<>());
+        setStoreViewNeededMap(new HashMap<>());
+        setStoreViewPausedMap(new HashMap<>());
     }
 
     private StoreData getThis() {

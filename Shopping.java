@@ -1,19 +1,21 @@
 package ryan.android.shopping;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -133,11 +135,11 @@ public class Shopping extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping);
-
         initializeData();
         loadSharedPreferences();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.shopping);
 
         setSearchAlgorithm(new SearchAlgorithm(getBaseContext()));
         for (int i = 0; i < getItemData().getItemListAZ().size(); i++) {
@@ -147,7 +149,7 @@ public class Shopping extends AppCompatActivity {
         Button fullInventory = findViewById(R.id.fullInventoryTopMenu);
         fullInventory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragments);
                 if (f instanceof FullInventory) return;
                 loadFragment(new FullInventory());
             }
@@ -156,11 +158,19 @@ public class Shopping extends AppCompatActivity {
         Button shoppingList = findViewById(R.id.shoppingListTopMenu);
         shoppingList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = getFragmentManager().findFragmentById(R.id.fragments);
+                Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragments);
                 if (f instanceof ShoppingList) return;
                 loadFragment(new ShoppingList());
             }
         });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                loadFragment(new HomeScreen());
+            }
+        });
+
     }
 
     private Shopping getThis() {
@@ -437,7 +447,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setAlertDialogTitle(TextView alertDialogTitle) {
-        this.alertDialogTitle = alertDialogTitle;
+        getThis().alertDialogTitle = alertDialogTitle;
     }
 
     public TextView getAlertDialogMessage() {
@@ -445,7 +455,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setAlertDialogMessage(TextView alertDialogMessage) {
-        this.alertDialogMessage = alertDialogMessage;
+        getThis().alertDialogMessage = alertDialogMessage;
     }
 
     private TextView getAlertDialogButton() {
@@ -751,13 +761,13 @@ public class Shopping extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
         builder.setView(getAlertDialogView());
 
-        setAlertDialogTitle((TextView) getAlertDialogView().findViewById(R.id.alertDialogTitle));
+        setAlertDialogTitle(getAlertDialogView().findViewById(R.id.alertDialogTitle));
         getAlertDialogTitle().setText(title);
 
-        setAlertDialogMessage((TextView) getAlertDialogView().findViewById(R.id.alertDialogMessage));
+        setAlertDialogMessage(getAlertDialogView().findViewById(R.id.alertDialogMessage));
         getAlertDialogMessage().setText(message);
 
-        setAlertDialogButton((TextView) getAlertDialogView().findViewById(R.id.alertDialogButton));
+        setAlertDialogButton(getAlertDialogView().findViewById(R.id.alertDialogButton));
         getAlertDialogButton().setText(button);
 
         getAlertDialogButton().setOnClickListener(new View.OnClickListener() {
@@ -783,15 +793,15 @@ public class Shopping extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
         builder.setView(getPictureDialogView());
 
-        setPictureDialogTitle((TextView) getPictureDialogView().findViewById(R.id.pictureDialogTitle));
+        setPictureDialogTitle(getPictureDialogView().findViewById(R.id.pictureDialogTitle));
         getPictureDialogTitle().setText(item.getItemName());
 
-        setCameraButton((TextView) getPictureDialogView().findViewById(R.id.cameraButton));
-        setEditButton((TextView) getPictureDialogView().findViewById(R.id.editButton));
-        setTakeButton((TextView) getPictureDialogView().findViewById(R.id.takeButton));
-        setCancelButton((TextView) getPictureDialogView().findViewById(R.id.cancelButton));
-        setCameraEditButtons((LinearLayout) getPictureDialogView().findViewById(R.id.cameraEditButtons));
-        setTakeCancelButtons((LinearLayout) getPictureDialogView().findViewById(R.id.takeCancelButtons));
+        setCameraButton(getPictureDialogView().findViewById(R.id.cameraButton));
+        setEditButton(getPictureDialogView().findViewById(R.id.editButton));
+        setTakeButton(getPictureDialogView().findViewById(R.id.takeButton));
+        setCancelButton(getPictureDialogView().findViewById(R.id.cancelButton));
+        setCameraEditButtons(getPictureDialogView().findViewById(R.id.cameraEditButtons));
+        setTakeCancelButtons(getPictureDialogView().findViewById(R.id.takeCancelButtons));
 
         getCameraButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -828,7 +838,7 @@ public class Shopping extends AppCompatActivity {
 
         getPictureDialogView().setOnClickListener(new View.OnClickListener() {
 
-            private long doubleClickTimeout = 400;
+            private final long doubleClickTimeout = 300;
             private long lastClickTime = 0;
 
             public void onClick(View v) {
@@ -871,11 +881,15 @@ public class Shopping extends AppCompatActivity {
 
     void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getThis().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+        View view = getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     void loadFragment(Fragment fragment) {
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.fragments, fragment);
         fragmentTransaction.commit();
@@ -885,93 +899,93 @@ public class Shopping extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
 
         String defaultSortBy = sharedPref.getString(getString(R.string.sp_default_sort_by), getString(R.string.spDefaultSortBy));
-        if (defaultSortBy.equals(getString(R.string.spSortAlphabetically))) {
-            getThis().setDefaultSortBy(SORT_ALPHABETICAL);
-            getThis().setInventorySortBy(SORT_ALPHABETICAL);
-        } else if (defaultSortBy.equals(getString(R.string.spSortByCategory))) {
+        if (defaultSortBy.equals(getString(R.string.spSortByCategory))) {
             getThis().setDefaultSortBy(SORT_BY_CATEGORY);
             getThis().setInventorySortBy(SORT_BY_CATEGORY);
         } else if (defaultSortBy.equals(getString(R.string.spSortByStore))) {
             getThis().setDefaultSortBy(SORT_BY_STORE);
             getThis().setInventorySortBy(SORT_BY_STORE);
+        } else {
+            getThis().setDefaultSortBy(SORT_ALPHABETICAL);
+            getThis().setInventorySortBy(SORT_ALPHABETICAL);
         }
-
+        
         String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
-        if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesExpanded))) {
-            getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
-            getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
-        } else if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
+        if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
             getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+        } else {
+            getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
+            getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
         }
 
         String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
-        if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesExpanded))) {
-            getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
-            getThis().setStoreTitles(STORE_TITLES_EXPANDED);
-        } else if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
+        if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
             getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
+        } else {
+            getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
+            getThis().setStoreTitles(STORE_TITLES_EXPANDED);
         }
 
         String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
-        if (reorderingMethod.equals(getString(R.string.spDragAndDrop))) {
-            getThis().setReorderingMethod(DRAG_AND_DROP);
-        } else if (reorderingMethod.equals(getString(R.string.spUpAndDownArrows))) {
+        if (reorderingMethod.equals(getString(R.string.spUpAndDownArrows))) {
             getThis().setReorderingMethod(UP_AND_DOWN_ARROWS);
         } else if (reorderingMethod.equals(getString(R.string.spWithNumbers))) {
             getThis().setReorderingMethod(WITH_NUMBERS);
+        } else {
+            getThis().setReorderingMethod(DRAG_AND_DROP);
         }
 
         String colorScheme = sharedPref.getString(getString(R.string.sp_color_scheme), getString(R.string.spDefaultColorScheme));
-        if (colorScheme.equals(getString(R.string.spColorScheme1))) {
-            getThis().setColorScheme(COLOR_SCHEME_1);
-        } else if (colorScheme.equals(getString(R.string.spColorScheme2))) {
+        if (colorScheme.equals(getString(R.string.spColorScheme2))) {
             getThis().setColorScheme(COLOR_SCHEME_2);
         } else if (colorScheme.equals(getString(R.string.spColorScheme3))) {
             getThis().setColorScheme(COLOR_SCHEME_3);
+        } else {
+            getThis().setColorScheme(COLOR_SCHEME_1);
         }
 
         String swipingOption = sharedPref.getString(getString(R.string.sp_swiping_option), getString(R.string.spDefaultSwipingOption));
-        if (swipingOption.equals(getString(R.string.spSwipingOn))) {
-            getThis().setSwipingOption(SWIPING_ON);
-        } else if (swipingOption.equals(getString(R.string.spSwipingOff))) {
+        if (swipingOption.equals(getString(R.string.spSwipingOff))) {
             getThis().setSwipingOption(SWIPING_OFF);
+        } else {
+            getThis().setSwipingOption(SWIPING_ON);
         }
 
         String picturesOption = sharedPref.getString(getString(R.string.sp_pictures_option), getString(R.string.spDefaultPicturesOption));
-        if (picturesOption.equals(getString(R.string.spPicturesOn))) {
-            getThis().setPicturesOption(PICTURES_ON);
-        } else if (picturesOption.equals(getString(R.string.spPicturesOff))) {
+        if (picturesOption.equals(getString(R.string.spPicturesOff))) {
             getThis().setPicturesOption(PICTURES_OFF);
+        } else {
+            getThis().setPicturesOption(PICTURES_ON);
         }
 
         String optionalDataQuantity = sharedPref.getString(getString(R.string.sp_optional_data_quantity), getString(R.string.spDefaultOptionalDataQuantity));
-        if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOn))) {
-            getThis().setOptionalDataQuantity(OPTIONAL_DATA_ON);
-        } else if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOff))) {
+        if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOff))) {
             getThis().setOptionalDataQuantity(OPTIONAL_DATA_OFF);
+        } else {
+            getThis().setOptionalDataQuantity(OPTIONAL_DATA_ON);
         }
 
         String optionalDataPrice = sharedPref.getString(getString(R.string.sp_optional_data_price), getString(R.string.spDefaultOptionalDataPrice));
-        if (optionalDataPrice.equals(getString(R.string.spOptionalDataOn))) {
-            getThis().setOptionalDataPrice(OPTIONAL_DATA_ON);
-        } else if (optionalDataPrice.equals(getString(R.string.spOptionalDataOff))) {
+        if (optionalDataPrice.equals(getString(R.string.spOptionalDataOff))) {
             getThis().setOptionalDataPrice(OPTIONAL_DATA_OFF);
+        } else {
+            getThis().setOptionalDataPrice(OPTIONAL_DATA_ON);
         }
 
         String optionalDataLocation = sharedPref.getString(getString(R.string.sp_optional_data_location), getString(R.string.spDefaultOptionalDataLocation));
-        if (optionalDataLocation.equals(getString(R.string.spOptionalDataOn))) {
-            getThis().setOptionalDataLocation(OPTIONAL_DATA_ON);
-        } else if (optionalDataLocation.equals(getString(R.string.spOptionalDataOff))) {
+        if (optionalDataLocation.equals(getString(R.string.spOptionalDataOff))) {
             getThis().setOptionalDataLocation(OPTIONAL_DATA_OFF);
+        } else {
+            getThis().setOptionalDataLocation(OPTIONAL_DATA_ON);
         }
 
         String optionalDataNote = sharedPref.getString(getString(R.string.sp_optional_data_note), getString(R.string.spDefaultOptionalDataNote));
-        if (optionalDataNote.equals(getString(R.string.spOptionalDataOn))) {
-            getThis().setOptionalDataNote(OPTIONAL_DATA_ON);
-        } else if (optionalDataNote.equals(getString(R.string.spOptionalDataOff))) {
+        if (optionalDataNote.equals(getString(R.string.spOptionalDataOff))) {
             getThis().setOptionalDataNote(OPTIONAL_DATA_OFF);
+        } else {
+            getThis().setOptionalDataNote(OPTIONAL_DATA_ON);
         }
 
         String reorderCategoryEmoji = sharedPref.getString(getString(R.string.sp_reorder_category_emoji), getString(R.string.spDefaultReorderCategoryEmoji));
@@ -1022,6 +1036,7 @@ public class Shopping extends AppCompatActivity {
         setSelectedItemPositionInInventory(0);
         setSelectedItemPositionInSearchResults(0);
         setSelectedItemPositionInShoppingList(0);
+        setItemInPictureDialog(null);
 
         setStoreListOrderNum(0);
         setReorderItemsCategory(getString(R.string.emptyString));
@@ -1035,9 +1050,12 @@ public class Shopping extends AppCompatActivity {
         setPictureDialogInShoppingList(false);
 
         setInventoryView(VIEW_ALL);
-        setInventorySortBy(defaultSortBy);
-        setCategoryTitles(defaultCategoryTitles);
-        setStoreTitles(defaultStoreTitles);
+        //setDefaultSortBy(SORT_ALPHABETICAL);
+        setInventorySortBy(getDefaultSortBy());
+        //setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
+        setCategoryTitles(getDefaultCategoryTitles());
+        //setDefaultStoreTitles(STORE_TITLES_EXPANDED);
+        setStoreTitles(getDefaultStoreTitles());
         setItemExpansion(ITEMS_CONTRACTED);
         setReorderingMethod(UP_AND_DOWN_ARROWS);
         setSwipingOption(SWIPING_ON);
