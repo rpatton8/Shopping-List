@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="6dp"
             android:paddingEnd="6dp"
+            android:translationY="-3dp"
             android:text="@string/smallName"
             android:textSize="24sp" />
 
@@ -99,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
+                android:translationY="-3dp"
                 android:text="@string/largeName"
                 android:textSize="24sp" />
 

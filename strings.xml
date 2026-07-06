@@ -34,6 +34,7 @@
     <string name="cancel">Cancel</string>
     <string name="cancelCap">CANCEL</string>
     <string name="category">Category</string>
+    <string name="categoriesLabel">Categories</string>
     <string name="categoryTitlesContracted">Contracted</string>
     <string name="categoryTitlesExpanded">Expanded</string>
     <string name="categoryWithColon">Category: </string>
@@ -57,6 +58,9 @@
     <string name="colorScheme1">Color Scheme 1</string>
     <string name="colorScheme2">Color Scheme 2</string>
     <string name="colorScheme3">Color Scheme 3</string>
+    <string name="contractItems">Contract Items</string>
+    <string name="contractCategories">Contract Categories</string>
+    <string name="contractStores">Contract Stores</string>
     <string name="copyright">© Ryan P 2025</string>
     <string name="defaultSortBy">Default Sort By</string>
     <string name="dragAndDrop">Drag and Drop</string>
@@ -79,9 +83,9 @@
     <string name="enterNewStoreName">Enter New Store Name</string>
     <string name="enterStoreName">Enter Store Name</string>
     <string name="enterStoreToAdd">Please enter a store to add.</string>
-    <string name="expandContractItems">Expand / Contract Items</string>
-    <string name="expandContractCategories">Expand / Contract Categories</string>
-    <string name="expandContractStores">Expand / Contract Stores</string>
+    <string name="expandItems">Expand Items</string>
+    <string name="expandCategories">Expand Categories</string>
+    <string name="expandStores">Expand Stores</string>
     <string name="finishReordering">Finish Reordering</string>
     <string name="fullInventory">Full Inventory</string>
     <string name="homeButton">Home Button</string>
@@ -90,6 +94,7 @@
     <string name="instructions">Instructions</string>
     <string name="inventoryTitle">Inventory Title</string>
     <string name="item">Item</string>
+    <string name="itemsLabel">Items</string>
     <string name="itemName">Item Name</string>
     <string name="largeName">Large Name</string>
     <string name="loadSampleData1">Load Sample Data 1</string>
@@ -103,8 +108,8 @@
     <string name="no">NO</string>
     <string name="note">Note: </string>
     <string name="ok">OK</string>
-    <string name="oneAtATimeCategories">One At A Time Categories</string>
-    <string name="oneAtATimeStores">One At A Time Stores</string>
+    <string name="individualCategories">Individual Categories</string>
+    <string name="individualStores">Individual Stores</string>
     <string name="optionalData">Optional Data</string>
     <string name="optionalDataQuantity">Quantity</string>
     <string name="optionalDataPrice">Price</string>
@@ -151,6 +156,7 @@
     <string name="sortByStore">Sort By Store</string>
     <string name="space"> </string>
     <string name="store">Store</string>
+    <string name="storesLabel">Stores</string>
     <string name="storeItemData">Store Item Data</string>
     <string name="storeTitlesContracted">Contracted</string>
     <string name="storeTitlesExpanded">Expanded</string>

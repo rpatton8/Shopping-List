@@ -201,60 +201,132 @@
         android:textSize="16sp"
         android:text="@string/viewPaused" />
 
-    <Button
-        android:id="@+id/expandContractItems"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/expandContractItems" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/expandItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/expandItems" />
+
+        <!--<TextView
+            android:id="@+id/itemsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:text="@string/itemsLabel" />-->
+
+        <Button
+            android:id="@+id/contractItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/contractItems" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/expandCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/expandCategories" />
+
+        <!--<TextView
+            android:id="@+id/categoriesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:text="@string/categoriesLabel" />-->
+
+        <Button
+            android:id="@+id/contractCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/contractCategories" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/expandStores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/expandStores" />
+
+        <!--<TextView
+            android:id="@+id/storesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:visibility="gone"
+            android:textSize="20sp"
+            android:text="@string/storesLabel" />-->
+
+        <Button
+            android:id="@+id/contractStores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/contractStores" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/expandContractCategories"
+        android:id="@+id/individualCategories"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="323dp"
         android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/expandContractCategories" />
+        android:textSize="18sp"
+        android:text="@string/individualCategories" />
 
     <Button
-        android:id="@+id/expandContractStores"
+        android:id="@+id/individualStores"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="371dp"
         android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/expandContractStores" />
-
-    <Button
-        android:id="@+id/oneAtATimeCategories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="320dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/oneAtATimeCategories" />
-
-    <Button
-        android:id="@+id/oneAtATimeStores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="360dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/oneAtATimeStores" />
+        android:textSize="18sp"
+        android:text="@string/individualStores" />
 
     <LinearLayout
         android:layout_width="match_parent"

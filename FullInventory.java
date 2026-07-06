@@ -77,11 +77,17 @@ public class FullInventory extends Fragment {
     private Button viewInStock;
     private Button viewNeeded;
     private Button viewPaused;
-    private Button expandContractItems;
-    private Button expandContractCategories;
-    private Button expandContractStores;
-    private Button oneAtATimeCategories;
-    private Button oneAtATimeStores;
+    //private TextView itemsLabel;
+    private Button expandItems;
+    private Button contractItems;
+    //private TextView categoriesLabel;
+    private Button expandCategories;
+    private Button contractCategories;
+    //private TextView storesLabel;
+    private Button expandStores;
+    private Button contractStores;
+    private Button individualCategories;
+    private Button individualStores;
 
     public FullInventory() {}
 
@@ -441,44 +447,92 @@ public class FullInventory extends Fragment {
         getThis().viewPaused = viewPaused;
     }
 
-    private Button getExpandContractItems() {
-        return expandContractItems;
+/*    public TextView getItemsLabel() {
+        return itemsLabel;
     }
 
-    private void setExpandContractItems(Button expandContractItems) {
-        getThis().expandContractItems = expandContractItems;
+    public void setItemsLabel(TextView itemsLabel) {
+        this.itemsLabel = itemsLabel;
+    }*/
+
+    public Button getExpandItems() {
+        return expandItems;
     }
 
-    private Button getExpandContractCategories() {
-        return expandContractCategories;
+    public void setExpandItems(Button expandItems) {
+        this.expandItems = expandItems;
     }
 
-    private void setExpandContractCategories(Button expandContractCategories) {
-        getThis().expandContractCategories = expandContractCategories;
+    public Button getContractItems() {
+        return contractItems;
     }
 
-    private Button getExpandContractStores() {
-        return expandContractStores;
+    public void setContractItems(Button contractItems) {
+        this.contractItems = contractItems;
     }
 
-    private void setExpandContractStores(Button expandContractStores) {
-        getThis().expandContractStores = expandContractStores;
+    /*public TextView getCategoriesLabel() {
+        return categoriesLabel;
     }
 
-    private Button getOneAtATimeCategories() {
-        return oneAtATimeCategories;
+    public void setCategoriesLabel(TextView categoriesLabel) {
+        this.categoriesLabel = categoriesLabel;
+    }*/
+
+    public Button getExpandCategories() {
+        return expandCategories;
     }
 
-    private void setOneAtATimeCategories(Button oneAtATimeCategories) {
-        getThis().oneAtATimeCategories = oneAtATimeCategories;
+    public void setExpandCategories(Button expandCategories) {
+        this.expandCategories = expandCategories;
     }
 
-    private Button getOneAtATimeStores() {
-        return oneAtATimeStores;
+    public Button getContractCategories() {
+        return contractCategories;
     }
 
-    private void setOneAtATimeStores(Button oneAtATimeStores) {
-        getThis().oneAtATimeStores = oneAtATimeStores;
+    public void setContractCategories(Button contractCategories) {
+        this.contractCategories = contractCategories;
+    }
+
+    /*public TextView getStoresLabel() {
+        return storesLabel;
+    }
+
+    public void setStoresLabel(TextView storesLabel) {
+        this.storesLabel = storesLabel;
+    }*/
+
+    public Button getExpandStores() {
+        return expandStores;
+    }
+
+    public void setExpandStores(Button expandStores) {
+        this.expandStores = expandStores;
+    }
+
+    public Button getContractStores() {
+        return contractStores;
+    }
+
+    public void setContractStores(Button contractStores) {
+        this.contractStores = contractStores;
+    }
+
+    private Button getIndividualCategories() {
+        return individualCategories;
+    }
+
+    private void setIndividualCategories(Button individualCategories) {
+        getThis().individualCategories = individualCategories;
+    }
+
+    private Button getIndividualStores() {
+        return individualStores;
+    }
+
+    private void setIndividualStores(Button individualStores) {
+        getThis().individualStores = individualStores;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -573,11 +627,17 @@ public class FullInventory extends Fragment {
         setViewInStock(getView().findViewById(R.id.viewInStock));
         setViewNeeded(getView().findViewById(R.id.viewNeeded));
         setViewPaused(getView().findViewById(R.id.viewPaused));
-        setExpandContractItems(getView().findViewById(R.id.expandContractItems));
-        setExpandContractCategories(getView().findViewById(R.id.expandContractCategories));
-        setExpandContractStores(getView().findViewById(R.id.expandContractStores));
-        setOneAtATimeCategories(getView().findViewById(R.id.oneAtATimeCategories));
-        setOneAtATimeStores(getView().findViewById(R.id.oneAtATimeStores));
+        //setItemsLabel(getView().findViewById(R.id.itemsLabel));
+        setExpandItems(getView().findViewById(R.id.expandItems));
+        setContractItems(getView().findViewById(R.id.contractItems));
+        //setCategoriesLabel(getView().findViewById(R.id.categoriesLabel));
+        setExpandCategories(getView().findViewById(R.id.expandCategories));
+        setContractCategories(getView().findViewById(R.id.contractCategories));
+        //setStoresLabel(getView().findViewById(R.id.storesLabel));
+        setExpandStores(getView().findViewById(R.id.expandStores));
+        setContractStores(getView().findViewById(R.id.contractStores));
+        setIndividualCategories(getView().findViewById(R.id.individualCategories));
+        setIndividualStores(getView().findViewById(R.id.individualStores));
 
         getAddRemoveCategory().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -1021,7 +1081,7 @@ public class FullInventory extends Fragment {
             }
         });
 
-        getExpandContractItems().setOnClickListener(new View.OnClickListener() {
+        getExpandItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (Shopping.ITEMS_CONTRACTED.equals(getShopping().getItemExpansion())) {
                     getShopping().setItemExpansion(Shopping.ITEMS_EXPANDED);
@@ -1041,7 +1101,27 @@ public class FullInventory extends Fragment {
             }
         });
 
-        getExpandContractCategories().setOnClickListener(new View.OnClickListener() {
+        getContractItems().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (Shopping.ITEMS_CONTRACTED.equals(getShopping().getItemExpansion())) {
+                    getShopping().setItemExpansion(Shopping.ITEMS_EXPANDED);
+                    for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
+                        Item item = getItemData().getItemListByCategory().get(i);
+                        item.getStatus().setAsExpandedInInventory();
+                    }
+                } else if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
+                    getShopping().setItemExpansion(Shopping.ITEMS_CONTRACTED);
+                    for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
+                        Item item = getItemData().getItemListByCategory().get(i);
+                        item.getStatus().setAsContractedInInventory();
+                    }
+                }
+                getFullInventoryAdapter().notifyDataSetChanged();
+                hideMenuOptions();
+            }
+        });
+
+        getExpandCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
                     getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
@@ -1061,7 +1141,27 @@ public class FullInventory extends Fragment {
             }
         });
 
-        getExpandContractStores().setOnClickListener(new View.OnClickListener() {
+        getContractCategories().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
+                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
+                        String category = getCategoryData().getCategoryList().get(i);
+                        getItemData().getCategoryMap().get(category).setCategoryAsContracted();
+                    }
+                } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
+                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
+                        String category = getCategoryData().getCategoryList().get(i);
+                        getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
+                    }
+                }
+                getFullInventoryAdapter().notifyDataSetChanged();
+                hideMenuOptions();
+            }
+        });
+
+        getExpandStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
                     getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
@@ -1081,13 +1181,33 @@ public class FullInventory extends Fragment {
             }
         });
 
-        getOneAtATimeCategories().setOnClickListener(new View.OnClickListener() {
+        getContractStores().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
+                    getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                        String store = getStoreData().getStoreList().get(i);
+                        getItemData().getStoreMap().get(store).setStoreAsContracted();
+                    }
+                } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
+                    getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+
+                        getItemData().getStoreMap().get(getStoreData().getStoreList().get(i)).setStoreAsExpanded();
+                    }
+                }
+                getFullInventoryAdapter().notifyDataSetChanged();
+                hideMenuOptions();
+            }
+        });
+
+        getIndividualCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // to do
             }
         });
 
-        getOneAtATimeStores().setOnClickListener(new View.OnClickListener() {
+        getIndividualStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // to do
             }
@@ -1204,11 +1324,17 @@ public class FullInventory extends Fragment {
         getViewInStock().setVisibility(View.GONE);
         getViewNeeded().setVisibility(View.GONE);
         getViewPaused().setVisibility(View.GONE);
-        getExpandContractItems().setVisibility(View.GONE);
-        getExpandContractCategories().setVisibility(View.GONE);
-        getExpandContractStores().setVisibility(View.GONE);
-        getOneAtATimeCategories().setVisibility(View.GONE);
-        getOneAtATimeStores().setVisibility(View.GONE);
+        //getItemsLabel().setVisibility(View.GONE);
+        getExpandItems().setVisibility(View.GONE);
+        getContractItems().setVisibility(View.GONE);
+        //getCategoriesLabel().setVisibility(View.GONE);
+        getExpandCategories().setVisibility(View.GONE);
+        getContractCategories().setVisibility(View.GONE);
+        //getStoresLabel().setVisibility(View.GONE);
+        getExpandStores().setVisibility(View.GONE);
+        getContractStores().setVisibility(View.GONE);
+        getIndividualCategories().setVisibility(View.GONE);
+        getIndividualStores().setVisibility(View.GONE);
         getFullInventoryOptionsBackground().setVisibility(View.GONE);
         setMenuOptionsVisible(false);
     }
@@ -1221,11 +1347,17 @@ public class FullInventory extends Fragment {
         getViewInStock().setVisibility(View.VISIBLE);
         getViewNeeded().setVisibility(View.VISIBLE);
         getViewPaused().setVisibility(View.VISIBLE);
-        getExpandContractItems().setVisibility(View.VISIBLE);
-        getExpandContractCategories().setVisibility(View.VISIBLE);
-        getExpandContractStores().setVisibility(View.VISIBLE);
-        getOneAtATimeCategories().setVisibility(View.VISIBLE);
-        getOneAtATimeStores().setVisibility(View.VISIBLE);
+        //getItemsLabel().setVisibility(View.VISIBLE);
+        getExpandItems().setVisibility(View.VISIBLE);
+        getContractItems().setVisibility(View.VISIBLE);
+        //getCategoriesLabel().setVisibility(View.VISIBLE);
+        getExpandCategories().setVisibility(View.VISIBLE);
+        getContractCategories().setVisibility(View.VISIBLE);
+        //getStoresLabel().setVisibility(View.VISIBLE);
+        getExpandStores().setVisibility(View.VISIBLE);
+        getContractStores().setVisibility(View.VISIBLE);
+        getIndividualCategories().setVisibility(View.VISIBLE);
+        getIndividualStores().setVisibility(View.VISIBLE);
         getFullInventoryOptionsBackground().setVisibility(View.VISIBLE);
         setMenuOptionsVisible(true);
     }
