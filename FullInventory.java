@@ -77,13 +77,11 @@ public class FullInventory extends Fragment {
     private Button viewInStock;
     private Button viewNeeded;
     private Button viewPaused;
-    //private TextView itemsLabel;
     private Button expandItems;
     private Button contractItems;
-    //private TextView categoriesLabel;
     private Button expandCategories;
     private Button contractCategories;
-    //private TextView storesLabel;
+
     private Button expandStores;
     private Button contractStores;
     private Button individualCategories;
@@ -447,14 +445,6 @@ public class FullInventory extends Fragment {
         getThis().viewPaused = viewPaused;
     }
 
-/*    public TextView getItemsLabel() {
-        return itemsLabel;
-    }
-
-    public void setItemsLabel(TextView itemsLabel) {
-        this.itemsLabel = itemsLabel;
-    }*/
-
     public Button getExpandItems() {
         return expandItems;
     }
@@ -471,14 +461,6 @@ public class FullInventory extends Fragment {
         this.contractItems = contractItems;
     }
 
-    /*public TextView getCategoriesLabel() {
-        return categoriesLabel;
-    }
-
-    public void setCategoriesLabel(TextView categoriesLabel) {
-        this.categoriesLabel = categoriesLabel;
-    }*/
-
     public Button getExpandCategories() {
         return expandCategories;
     }
@@ -494,14 +476,6 @@ public class FullInventory extends Fragment {
     public void setContractCategories(Button contractCategories) {
         this.contractCategories = contractCategories;
     }
-
-    /*public TextView getStoresLabel() {
-        return storesLabel;
-    }
-
-    public void setStoresLabel(TextView storesLabel) {
-        this.storesLabel = storesLabel;
-    }*/
 
     public Button getExpandStores() {
         return expandStores;
@@ -627,13 +601,10 @@ public class FullInventory extends Fragment {
         setViewInStock(getView().findViewById(R.id.viewInStock));
         setViewNeeded(getView().findViewById(R.id.viewNeeded));
         setViewPaused(getView().findViewById(R.id.viewPaused));
-        //setItemsLabel(getView().findViewById(R.id.itemsLabel));
         setExpandItems(getView().findViewById(R.id.expandItems));
         setContractItems(getView().findViewById(R.id.contractItems));
-        //setCategoriesLabel(getView().findViewById(R.id.categoriesLabel));
         setExpandCategories(getView().findViewById(R.id.expandCategories));
         setContractCategories(getView().findViewById(R.id.contractCategories));
-        //setStoresLabel(getView().findViewById(R.id.storesLabel));
         setExpandStores(getView().findViewById(R.id.expandStores));
         setContractStores(getView().findViewById(R.id.contractStores));
         setIndividualCategories(getView().findViewById(R.id.individualCategories));
@@ -1089,12 +1060,6 @@ public class FullInventory extends Fragment {
                         Item item = getItemData().getItemListByCategory().get(i);
                         item.getStatus().setAsExpandedInInventory();
                     }
-                } else if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
-                    getShopping().setItemExpansion(Shopping.ITEMS_CONTRACTED);
-                    for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
-                        Item item = getItemData().getItemListByCategory().get(i);
-                        item.getStatus().setAsContractedInInventory();
-                    }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
@@ -1103,13 +1068,7 @@ public class FullInventory extends Fragment {
 
         getContractItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.ITEMS_CONTRACTED.equals(getShopping().getItemExpansion())) {
-                    getShopping().setItemExpansion(Shopping.ITEMS_EXPANDED);
-                    for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
-                        Item item = getItemData().getItemListByCategory().get(i);
-                        item.getStatus().setAsExpandedInInventory();
-                    }
-                } else if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
+                if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
                     getShopping().setItemExpansion(Shopping.ITEMS_CONTRACTED);
                     for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
                         Item item = getItemData().getItemListByCategory().get(i);
@@ -1123,13 +1082,7 @@ public class FullInventory extends Fragment {
 
         getExpandCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
-                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
-                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
-                        String category = getCategoryData().getCategoryList().get(i);
-                        getItemData().getCategoryMap().get(category).setCategoryAsContracted();
-                    }
-                } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
+                if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
                     getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                     for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
                         String category = getCategoryData().getCategoryList().get(i);
@@ -1149,12 +1102,6 @@ public class FullInventory extends Fragment {
                         String category = getCategoryData().getCategoryList().get(i);
                         getItemData().getCategoryMap().get(category).setCategoryAsContracted();
                     }
-                } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
-                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
-                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
-                        String category = getCategoryData().getCategoryList().get(i);
-                        getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
-                    }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
@@ -1163,17 +1110,11 @@ public class FullInventory extends Fragment {
 
         getExpandStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
-                    getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
-                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
-                        String store = getStoreData().getStoreList().get(i);
-                        getItemData().getStoreMap().get(store).setStoreAsContracted();
-                    }
-                } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
+                if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
                     getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                     for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
-
-                        getItemData().getStoreMap().get(getStoreData().getStoreList().get(i)).setStoreAsExpanded();
+                        String store = getStoreData().getStoreList().get(i);
+                        getItemData().getStoreMap().get(store).setStoreAsExpanded();
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1188,12 +1129,6 @@ public class FullInventory extends Fragment {
                     for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
                         String store = getStoreData().getStoreList().get(i);
                         getItemData().getStoreMap().get(store).setStoreAsContracted();
-                    }
-                } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
-                    getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
-                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
-
-                        getItemData().getStoreMap().get(getStoreData().getStoreList().get(i)).setStoreAsExpanded();
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1324,13 +1259,10 @@ public class FullInventory extends Fragment {
         getViewInStock().setVisibility(View.GONE);
         getViewNeeded().setVisibility(View.GONE);
         getViewPaused().setVisibility(View.GONE);
-        //getItemsLabel().setVisibility(View.GONE);
         getExpandItems().setVisibility(View.GONE);
         getContractItems().setVisibility(View.GONE);
-        //getCategoriesLabel().setVisibility(View.GONE);
         getExpandCategories().setVisibility(View.GONE);
         getContractCategories().setVisibility(View.GONE);
-        //getStoresLabel().setVisibility(View.GONE);
         getExpandStores().setVisibility(View.GONE);
         getContractStores().setVisibility(View.GONE);
         getIndividualCategories().setVisibility(View.GONE);
@@ -1347,13 +1279,10 @@ public class FullInventory extends Fragment {
         getViewInStock().setVisibility(View.VISIBLE);
         getViewNeeded().setVisibility(View.VISIBLE);
         getViewPaused().setVisibility(View.VISIBLE);
-        //getItemsLabel().setVisibility(View.VISIBLE);
         getExpandItems().setVisibility(View.VISIBLE);
         getContractItems().setVisibility(View.VISIBLE);
-        //getCategoriesLabel().setVisibility(View.VISIBLE);
         getExpandCategories().setVisibility(View.VISIBLE);
         getContractCategories().setVisibility(View.VISIBLE);
-        //getStoresLabel().setVisibility(View.VISIBLE);
         getExpandStores().setVisibility(View.VISIBLE);
         getContractStores().setVisibility(View.VISIBLE);
         getIndividualCategories().setVisibility(View.VISIBLE);
