@@ -188,11 +188,17 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
-            onBindViewHolderByCategory(holder, position);
+            if (holder instanceof SortByCategoryTitleRVH || holder instanceof SortByCategoryItemRVH) {
+                onBindViewHolderByCategory(holder, position);
+            }
         } else if (Shopping.SORT_BY_STORE.equals(getShopping().getInventorySortBy())) {
-            onBindViewHolderByStore(holder, position);
+            if (holder instanceof SortByStoreTitleRVH || holder instanceof SortByStoreItemRVH) {
+                onBindViewHolderByStore(holder, position);
+            }
         } else if (Shopping.SORT_ALPHABETICAL.equals(getShopping().getInventorySortBy())) {
-            onBindViewHolderAlphabetical(holder, position);
+            if (holder instanceof SortAlphabeticalItemRVH) {
+                onBindViewHolderAlphabetical(holder, position);
+            }
         }
 
     }

@@ -89,6 +89,8 @@
     <string name="finishReordering">Finish Reordering</string>
     <string name="fullInventory">Full Inventory</string>
     <string name="homeButton">Home Button</string>
+    <string name="individualCategories">Individual Categories</string>
+    <string name="individualStores">Individual Stores</string>
     <string name="inStockCap">In Stock</string>
     <string name="instock">instock</string>
     <string name="instructions">Instructions</string>
@@ -108,8 +110,6 @@
     <string name="no">NO</string>
     <string name="note">Note: </string>
     <string name="ok">OK</string>
-    <string name="individualCategories">Individual Categories</string>
-    <string name="individualStores">Individual Stores</string>
     <string name="optionalData">Optional Data</string>
     <string name="optionalDataQuantity">Quantity</string>
     <string name="optionalDataPrice">Price</string>

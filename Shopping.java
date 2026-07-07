@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -45,6 +44,8 @@ public class Shopping extends AppCompatActivity {
     private int storeListOrderNum;
     private String reorderItemsCategory;
     private String reorderItemsStore;
+    private String individualCategory;
+    private String individualStore;
     private boolean editItemInInventory;
     private boolean editItemInSearchResults;
     private boolean editItemInShoppingList;
@@ -128,6 +129,8 @@ public class Shopping extends AppCompatActivity {
     private Parcelable shoppingListViewState;
     private Parcelable fullInventoryViewState;
     private Parcelable searchInventoryViewState;
+    private Parcelable individualCategoriesViewState;
+    private Parcelable individualStoresViewState;
     private Parcelable reorderCategoriesViewState;
     private Parcelable reorderStoresViewState;
     private Parcelable reorderItemsRecyclerViewState;
@@ -360,6 +363,22 @@ public class Shopping extends AppCompatActivity {
 
     void setReorderItemsStore(String reorderItemsStore) {
         getThis().reorderItemsStore = reorderItemsStore;
+    }
+
+    public String getIndividualCategory() {
+        return individualCategory;
+    }
+
+    public void setIndividualCategory(String individualCategory) {
+        this.individualCategory = individualCategory;
+    }
+
+    public String getIndividualStore() {
+        return individualStore;
+    }
+
+    public void setIndividualStore(String individualStore) {
+        this.individualStore = individualStore;
     }
 
     boolean editItemInInventory() {
@@ -720,6 +739,22 @@ public class Shopping extends AppCompatActivity {
 
     void setSearchInventoryViewState(Parcelable searchInventoryViewState) {
         getThis().searchInventoryViewState = searchInventoryViewState;
+    }
+
+    public Parcelable getIndividualCategoriesViewState() {
+        return individualCategoriesViewState;
+    }
+
+    public void setIndividualCategoriesViewState(Parcelable individualCategoriesViewState) {
+        this.individualCategoriesViewState = individualCategoriesViewState;
+    }
+
+    public Parcelable getIndividualStoresViewState() {
+        return individualStoresViewState;
+    }
+
+    public void setIndividualStoresViewState(Parcelable individualStoresViewState) {
+        this.individualStoresViewState = individualStoresViewState;
     }
 
     Parcelable getReorderCategoriesViewState() {

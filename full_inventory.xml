@@ -26,6 +26,7 @@
         android:layout_height="620dp"
         android:paddingBottom="6dp"
         android:clipToPadding="false"
+        android:visibility="gone"
         android:layout_below="@id/fullInventoryTitle" />
 
     <TextView
@@ -107,6 +108,136 @@
         android:visibility="gone"
         android:background="#FFFFFF"
         android:layout_below="@id/searchPopup" />
+
+    <LinearLayout
+        android:id="@+id/individualCategoriesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/searchPopup"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/categoryLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/chooseCategoryToReorder"
+            android:textSize="22sp"/>
+
+        <RelativeLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:translationX="16dp"
+            android:background="@drawable/spinner_outline"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/triangle_down"
+                android:contentDescription="@string/triangleDown" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/holo_blue_dark"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/individualCategoriesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clipToPadding="false"
+            android:visibility="gone"
+            android:background="#FFFFFF" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/individualStoresLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/searchPopup"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/storeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/chooseStoreToReorder"
+            android:textSize="22sp"/>
+
+        <RelativeLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:translationX="16dp"
+            android:background="@drawable/spinner_outline"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/storeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:spinnerMode="dialog" />
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@mipmap/triangle_down"
+                android:contentDescription="@string/triangleDown" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="@android:color/holo_blue_dark"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/individualStoresRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:clipToPadding="false"
+            android:visibility="gone"
+            android:background="#FFFFFF" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/fullInventoryOptionsBackground"
@@ -216,15 +347,6 @@
             android:textSize="16sp"
             android:text="@string/expandItems" />
 
-        <!--<TextView
-            android:id="@+id/itemsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:text="@string/itemsLabel" />-->
-
         <Button
             android:id="@+id/contractItems"
             android:layout_width="wrap_content"
@@ -251,15 +373,6 @@
             android:textSize="16sp"
             android:text="@string/expandCategories" />
 
-        <!--<TextView
-            android:id="@+id/categoriesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:text="@string/categoriesLabel" />-->
-
         <Button
             android:id="@+id/contractCategories"
             android:layout_width="wrap_content"
@@ -285,15 +398,6 @@
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandStores" />
-
-        <!--<TextView
-            android:id="@+id/storesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:text="@string/storesLabel" />-->
 
         <Button
             android:id="@+id/contractStores"

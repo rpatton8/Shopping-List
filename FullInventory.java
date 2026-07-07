@@ -52,6 +52,8 @@ public class FullInventory extends Fragment {
     private boolean menuOptionsVisible;
     private boolean searchBoxVisible;
     private boolean keyboardVisible;
+    private boolean individualCategoriesVisible;
+    private boolean individualStoresVisible;
     private boolean editControlsExpanded;
 
     private TextView fullInventoryTitle;
@@ -65,10 +67,17 @@ public class FullInventory extends Fragment {
     private TextView refreshButton;
     private TextView fullInventoryEditButton;
 
+    private LinearLayout individualCategoriesLayout;
+    private LinearLayout individualStoresLayout;
+
     private RecyclerView fullInventoryRecyclerView;
     private RecyclerView searchInventoryRecyclerView;
+    private RecyclerView individualCategoriesRecyclerView;
+    private RecyclerView individualStoresRecyclerView;
     private FullInventoryRVA fullInventoryAdapter;
     private SearchInventoryRVA searchInventoryAdapter;
+    private IndividualCategoriesRVA individualCategoriesAdapter;
+    private IndividualStoresRVA individualStoresAdapter;
 
     private Button sortAlphabetical;
     private Button sortByStore;
@@ -81,7 +90,6 @@ public class FullInventory extends Fragment {
     private Button contractItems;
     private Button expandCategories;
     private Button contractCategories;
-
     private Button expandStores;
     private Button contractStores;
     private Button individualCategories;
@@ -269,6 +277,23 @@ public class FullInventory extends Fragment {
         getThis().keyboardVisible = keyboardVisible;
     }
 
+
+    public boolean individualCategoriesVisible() {
+        return individualCategoriesVisible;
+    }
+
+    public void setIndividualCategoriesVisible(boolean individualCategoriesVisible) {
+        this.individualCategoriesVisible = individualCategoriesVisible;
+    }
+
+    public boolean individualStoresVisible() {
+        return individualStoresVisible;
+    }
+
+    public void setIndividualStoresVisible(boolean individualStoresVisible) {
+        this.individualStoresVisible = individualStoresVisible;
+    }
+
     private boolean editControlsExpanded() {
         return editControlsExpanded;
     }
@@ -357,6 +382,23 @@ public class FullInventory extends Fragment {
         getThis().fullInventoryEditButton = fullInventoryEditButton;
     }
 
+
+    public LinearLayout getIndividualCategoriesLayout() {
+        return individualCategoriesLayout;
+    }
+
+    public void setIndividualCategoriesLayout(LinearLayout individualCategoriesLayout) {
+        this.individualCategoriesLayout = individualCategoriesLayout;
+    }
+
+    public LinearLayout getIndividualStoresLayout() {
+        return individualStoresLayout;
+    }
+
+    public void setIndividualStoresLayout(LinearLayout individualStoresLayout) {
+        this.individualStoresLayout = individualStoresLayout;
+    }
+
     private RecyclerView getFullInventoryRecyclerView() {
         return fullInventoryRecyclerView;
     }
@@ -373,6 +415,22 @@ public class FullInventory extends Fragment {
         getThis().searchInventoryRecyclerView = searchInventoryRecyclerView;
     }
 
+    public RecyclerView getIndividualCategoriesRecyclerView() {
+        return individualCategoriesRecyclerView;
+    }
+
+    public void setIndividualCategoriesRecyclerView(RecyclerView individualCategoriesRecyclerView) {
+        this.individualCategoriesRecyclerView = individualCategoriesRecyclerView;
+    }
+
+    public RecyclerView getIndividualStoresRecyclerView() {
+        return individualStoresRecyclerView;
+    }
+
+    public void setIndividualStoresRecyclerView(RecyclerView individualStoresRecyclerView) {
+        this.individualStoresRecyclerView = individualStoresRecyclerView;
+    }
+
     private FullInventoryRVA getFullInventoryAdapter() {
         return fullInventoryAdapter;
     }
@@ -387,6 +445,22 @@ public class FullInventory extends Fragment {
 
     private void setSearchInventoryAdapter(SearchInventoryRVA searchInventoryAdapter) {
         getThis().searchInventoryAdapter = searchInventoryAdapter;
+    }
+
+    public IndividualCategoriesRVA getIndividualCategoriesAdapter() {
+        return individualCategoriesAdapter;
+    }
+
+    public void setIndividualCategoriesAdapter(IndividualCategoriesRVA individualCategoriesAdapter) {
+        this.individualCategoriesAdapter = individualCategoriesAdapter;
+    }
+
+    public IndividualStoresRVA getIndividualStoresAdapter() {
+        return individualStoresAdapter;
+    }
+
+    public void setIndividualStoresAdapter(IndividualStoresRVA individualStoresAdapter) {
+        this.individualStoresAdapter = individualStoresAdapter;
     }
 
     private Button getSortAlphabetical() {
@@ -561,6 +635,20 @@ public class FullInventory extends Fragment {
         getSearchInventoryRecyclerView().setAdapter(getSearchInventoryAdapter());
         getSearchInventoryRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getSearchInventoryViewState());
 
+        setIndividualCategoriesRecyclerView(getView().findViewById(R.id.individualCategoriesRecyclerView));
+        getIndividualCategoriesRecyclerView().setHasFixedSize(false);
+        getIndividualCategoriesRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        setIndividualCategoriesAdapter(new IndividualCategoriesRVA(getView(), getContext(), getShopping()));
+        getIndividualCategoriesRecyclerView().setAdapter(getSearchInventoryAdapter());
+        getIndividualCategoriesRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getIndividualCategoriesViewState());
+
+        setIndividualStoresRecyclerView(getView().findViewById(R.id.individualStoresRecyclerView));
+        getIndividualStoresRecyclerView().setHasFixedSize(false);
+        getIndividualStoresRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
+        setIndividualStoresAdapter(new IndividualStoresRVA(getView(), getContext(), getShopping()));
+        getIndividualStoresRecyclerView().setAdapter(getSearchInventoryAdapter());
+        getIndividualStoresRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getIndividualStoresViewState());
+
         setAddRemoveCategory(getView().findViewById(R.id.addRemoveCategory));
         setAddEditItem(getView().findViewById(R.id.addEditItem));
         setAddRemoveStore(getView().findViewById(R.id.addRemoveStore));
@@ -573,6 +661,8 @@ public class FullInventory extends Fragment {
         setMenuOptionsVisible(false);
         setSearchBoxVisible(false);
         setKeyboardVisible(false);
+        setIndividualCategoriesVisible(false);
+        setIndividualStoresVisible(false);
         setEditControlsExpanded(false);
         setCurrentBottomMenu(MENU_NONE);
 
@@ -592,6 +682,8 @@ public class FullInventory extends Fragment {
         setClearSearchButton(getView().findViewById(R.id.clearSearchButton));
         setRefreshButton(getView().findViewById(R.id.refreshButton));
         setFullInventoryEditButton(getView().findViewById(R.id.fullInventoryEditButton));
+        setIndividualCategoriesLayout(getView().findViewById(R.id.individualCategoriesLayout));
+        setIndividualStoresLayout(getView().findViewById(R.id.individualStoresLayout));
 
         setFullInventoryOptionsBackground(getView().findViewById(R.id.fullInventoryOptionsBackground));
         setSortAlphabetical(getView().findViewById(R.id.sortAlphabetical));
@@ -955,6 +1047,16 @@ public class FullInventory extends Fragment {
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
+                if (individualCategoriesVisible) {
+                    setIndividualCategoriesVisible(false);
+                    individualCategoriesLayout.setVisibility(View.GONE);
+
+                }
+                if (individualStoresVisible) {
+                    setIndividualStoresVisible(false);
+                    individualStoresLayout.setVisibility(View.GONE);
+                }
+                fullInventoryRecyclerView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -1138,13 +1240,41 @@ public class FullInventory extends Fragment {
 
         getIndividualCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // to do
+                if (individualStoresVisible) {
+                    setIndividualStoresVisible(false);
+                    individualStoresLayout.setVisibility(View.GONE);
+                }
+                if (individualCategoriesVisible) {
+                    hideMenuOptions();
+                    return;
+                } else {
+                    getFullInventoryTitle().setText(getString(R.string.individualCategories));
+                    getFullInventoryAdapter().notifyDataSetChanged();
+                    hideMenuOptions();
+                    setIndividualCategoriesVisible(true);
+                    individualCategoriesLayout.setVisibility(View.VISIBLE);
+                    fullInventoryRecyclerView.setVisibility(View.GONE);
+                }
             }
         });
 
         getIndividualStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // to do
+                if (individualCategoriesVisible) {
+                    setIndividualCategoriesVisible(false);
+                    individualCategoriesLayout.setVisibility(View.GONE);
+                }
+                if (individualStoresVisible) {
+                    hideMenuOptions();
+                    return;
+                } else {
+                    getFullInventoryTitle().setText(getString(R.string.individualStores));
+                    getFullInventoryAdapter().notifyDataSetChanged();
+                    hideMenuOptions();
+                    setIndividualStoresVisible(true);
+                    individualStoresLayout.setVisibility(View.VISIBLE);
+                    fullInventoryRecyclerView.setVisibility(View.GONE);
+                }
             }
         });
 
