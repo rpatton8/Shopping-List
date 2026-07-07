@@ -115,7 +115,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
 
         if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
-            if (position == 0) return R.layout.sort_by_category_rv_title;
+            if (position == 0) return R.layout.full_inventory_rv_title;
             int index = 0;
             for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
                 String category = getCategoryData().getCategoryList().get(i);
@@ -126,13 +126,13 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     numItemsInCategory = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
                 }
                 index += numItemsInCategory + 1;
-                if (position == index) return R.layout.sort_by_category_rv_title;
+                if (position == index) return R.layout.full_inventory_rv_title;
             }
-            return R.layout.sort_by_category_rv_item;
+            return R.layout.full_inventory_rv_item;
 
         } else if (Shopping.SORT_BY_STORE.equals(getShopping().getInventorySortBy())) {
 
-            if (position == 0) return R.layout.sort_by_store_rv_title;
+            if (position == 0) return R.layout.full_inventory_rv_title;
             int index = 0;
             for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
                 String store = getStoreData().getStoreList().get(i);
@@ -143,13 +143,13 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     numItemsInStore = getItemData().getStoreMap().get(store).getStoreItemsList().size();
                 }
                 index += numItemsInStore + 1;
-                if (position == index) return R.layout.sort_by_store_rv_title;
+                if (position == index) return R.layout.full_inventory_rv_title;
             }
-            return R.layout.sort_by_store_rv_item;
+            return R.layout.full_inventory_rv_item;
 
         } else if (Shopping.SORT_ALPHABETICAL.equals(getShopping().getInventorySortBy())) {
 
-            return R.layout.sort_alphabetical_rv_item;
+            return R.layout.full_inventory_rv_item;
 
         } else return -1;
 
@@ -161,23 +161,23 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
 
-            if (viewType == R.layout.sort_by_category_rv_title) {
+            if (viewType == R.layout.full_inventory_rv_title) {
                 return new SortByCategoryTitleRVH(getView(), getShopping(), getThis(), getItemData(), getCategoryData(), getDbStatusHelper(), getDbCategoryHelper());
-            } else if (viewType == R.layout.sort_by_category_rv_item) {
+            } else if (viewType == R.layout.full_inventory_rv_item) {
                 return new SortByCategoryItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getCategoryData(), getDbStatusHelper(), getDbCategoryHelper());
             } else return new RecyclerView.ViewHolder(getView()) {};
 
         } else if (Shopping.SORT_BY_STORE.equals(getShopping().getInventorySortBy())) {
 
-            if (viewType == R.layout.sort_by_store_rv_title) {
+            if (viewType == R.layout.full_inventory_rv_title) {
                 return new SortByStoreTitleRVH(getView(), getShopping(), getThis(), getItemData(), getStoreData(), getDbStatusHelper(), getDbStoreHelper());
-            } else if (viewType == R.layout.sort_by_store_rv_item) {
+            } else if (viewType == R.layout.full_inventory_rv_item) {
                 return new SortByStoreItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getStoreData(), getDbStatusHelper(), getDbStoreHelper());
             } else return new RecyclerView.ViewHolder(getView()) {};
 
         } else if (Shopping.SORT_ALPHABETICAL.equals(getShopping().getInventorySortBy())) {
 
-            if (viewType == R.layout.sort_alphabetical_rv_item) {
+            if (viewType == R.layout.full_inventory_rv_item) {
                 return new SortAlphabeticalItemRVH(getView(), getContext(), getShopping(), getThis(), getItemData(), getDbStatusHelper());
             } else return new RecyclerView.ViewHolder(getView()) {};
 
@@ -965,8 +965,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setDbStatusHelper(dbStatus);
             setDbCategoryHelper(dbCategory);
 
-            setSortByCategoryRvTitle(getView().findViewById(R.id.sortByCategoryRvTitle));
-            setCategoryTitleText(getView().findViewById(R.id.categoryTitleText));
+            setSortByCategoryRvTitle(getView().findViewById(R.id.rvTitleLayout));
+            setCategoryTitleText(getView().findViewById(R.id.titleText));
             setTriangleButtonDown1(getView().findViewById(R.id.triangleButtonDown1));
             setTriangleButtonDown2(getView().findViewById(R.id.triangleButtonDown2));
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
@@ -1854,8 +1854,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setDbStatusHelper(dbStatus);
             setDbStoreHelper(dbStore);
 
-            setSortByStoreRvTitle(getView().findViewById(R.id.sortByStoreRvTitle));
-            setStoreTitleText(getView().findViewById(R.id.storeTitleText));
+            setSortByStoreRvTitle(getView().findViewById(R.id.rvTitleLayout));
+            setStoreTitleText(getView().findViewById(R.id.titleText));
             setTriangleButtonDown1(getView().findViewById(R.id.triangleButtonDown1));
             setTriangleButtonDown2(getView().findViewById(R.id.triangleButtonDown2));
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
