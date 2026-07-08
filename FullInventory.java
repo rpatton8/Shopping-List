@@ -50,7 +50,7 @@ public class FullInventory extends Fragment {
     private Button addRemoveStore;
 
     private boolean menuOptionsVisible;
-    private boolean searchBoxVisible;
+    private boolean searchPopupVisible;
     private boolean keyboardVisible;
     private boolean individualCategoriesVisible;
     private boolean individualStoresVisible;
@@ -261,12 +261,12 @@ public class FullInventory extends Fragment {
         getThis().menuOptionsVisible = menuOptionsVisible;
     }
 
-    private boolean searchBoxVisible() {
-        return searchBoxVisible;
+    private boolean searchPopupVisible() {
+        return searchPopupVisible;
     }
 
-    private void setSearchBoxVisible(boolean searchBoxVisible) {
-        getThis().searchBoxVisible = searchBoxVisible;
+    private void setSearchPopupVisible(boolean searchPopupVisible) {
+        getThis().searchPopupVisible = searchPopupVisible;
     }
 
     private boolean keyboardVisible() {
@@ -659,7 +659,7 @@ public class FullInventory extends Fragment {
         setReorderPopup(getView().findViewById(R.id.reorderPopup));
 
         setMenuOptionsVisible(false);
-        setSearchBoxVisible(false);
+        setSearchPopupVisible(false);
         setKeyboardVisible(false);
         setIndividualCategoriesVisible(false);
         setIndividualStoresVisible(false);
@@ -716,7 +716,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
@@ -734,7 +734,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
@@ -761,7 +761,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
@@ -779,7 +779,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
@@ -806,7 +806,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
@@ -824,7 +824,7 @@ public class FullInventory extends Fragment {
 
                     ViewGroup.LayoutParams recyclerViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     int height;
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                     } else
                         height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
@@ -909,14 +909,14 @@ public class FullInventory extends Fragment {
 
         getSearchButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (searchBoxVisible()) {
+                if (searchPopupVisible()) {
                     if (keyboardVisible()) {
                        getShopping().hideKeyboard();
                     }
                     getSearchPopup().setVisibility(View.GONE);
                     getSearchInventoryRecyclerView().setVisibility(View.GONE);
                     getFullInventoryTitle().setText(getLastMainTitle());
-                    setSearchBoxVisible(false);
+                    setSearchPopupVisible(false);
                     setKeyboardVisible(false);
 
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getFullInventoryRecyclerView().getLayoutParams();
@@ -938,7 +938,7 @@ public class FullInventory extends Fragment {
                     getFullInventoryTitle().setText(getString(R.string.searchInventory));
                     getSearchBox().requestFocus();
                     getSearchBox().setSelection(getSearchBox().getText().length());
-                    setSearchBoxVisible(true);
+                    setSearchPopupVisible(true);
                     setKeyboardVisible(true);
 
                     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getFullInventoryRecyclerView().getLayoutParams();
@@ -969,14 +969,14 @@ public class FullInventory extends Fragment {
         getClearSearchButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (getSearchBox().getText().toString().equals(getString(R.string.emptyString))) {
-                    if (searchBoxVisible()) {
+                    if (searchPopupVisible()) {
                         if (keyboardVisible()) {
                             getShopping().hideKeyboard();
                         }
                         getSearchPopup().setVisibility(View.GONE);
                         getSearchInventoryRecyclerView().setVisibility(View.GONE);
                         getFullInventoryTitle().setText(getLastMainTitle());
-                        setSearchBoxVisible(false);
+                        setSearchPopupVisible(false);
                         setKeyboardVisible(false);
 
                         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getFullInventoryRecyclerView().getLayoutParams();
@@ -998,7 +998,7 @@ public class FullInventory extends Fragment {
                         getFullInventoryTitle().setText(getString(R.string.searchInventory));
                         getSearchBox().requestFocus();
                         getSearchBox().setSelection(getSearchBox().getText().length());
-                        setSearchBoxVisible(true);
+                        setSearchPopupVisible(true);
                         setKeyboardVisible(true);
 
                         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getFullInventoryRecyclerView().getLayoutParams();
@@ -1046,17 +1046,20 @@ public class FullInventory extends Fragment {
                     getFullInventoryTitle().setText(getString(R.string.alphabeticalPaused));
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
-                hideMenuOptions();
-                if (individualCategoriesVisible) {
+                if (searchPopupVisible()) {
+                    setSearchPopupVisible(false);
+                    getSearchPopup().setVisibility(View.GONE);
+                }
+                if (individualCategoriesVisible()) {
                     setIndividualCategoriesVisible(false);
-                    individualCategoriesLayout.setVisibility(View.GONE);
-
+                    getIndividualCategoriesLayout().setVisibility(View.GONE);
                 }
-                if (individualStoresVisible) {
+                if (individualStoresVisible()) {
                     setIndividualStoresVisible(false);
-                    individualStoresLayout.setVisibility(View.GONE);
+                    getIndividualStoresLayout().setVisibility(View.GONE);
                 }
-                fullInventoryRecyclerView.setVisibility(View.VISIBLE);
+                getFullInventoryRecyclerView().setVisibility(View.VISIBLE);
+                hideMenuOptions();
             }
         });
 
@@ -1073,6 +1076,19 @@ public class FullInventory extends Fragment {
                     getFullInventoryTitle().setText(getString(R.string.byCategoryPaused));
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
+                if (searchPopupVisible()) {
+                    setSearchPopupVisible(false);
+                    getSearchPopup().setVisibility(View.GONE);
+                }
+                if (individualCategoriesVisible()) {
+                    setIndividualCategoriesVisible(false);
+                    getIndividualCategoriesLayout().setVisibility(View.GONE);
+                }
+                if (individualStoresVisible()) {
+                    setIndividualStoresVisible(false);
+                    getIndividualStoresLayout().setVisibility(View.GONE);
+                }
+                getFullInventoryRecyclerView().setVisibility(View.VISIBLE);
                 hideMenuOptions();
             }
         });
@@ -1090,6 +1106,19 @@ public class FullInventory extends Fragment {
                     getFullInventoryTitle().setText(getString(R.string.byStorePaused));
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
+                if (searchPopupVisible()) {
+                    setSearchPopupVisible(false);
+                    getSearchPopup().setVisibility(View.GONE);
+                }
+                if (individualCategoriesVisible()) {
+                    setIndividualCategoriesVisible(false);
+                    getIndividualCategoriesLayout().setVisibility(View.GONE);
+                }
+                if (individualStoresVisible()) {
+                    setIndividualStoresVisible(false);
+                    getIndividualStoresLayout().setVisibility(View.GONE);
+                }
+                getFullInventoryRecyclerView().setVisibility(View.VISIBLE);
                 hideMenuOptions();
             }
         });
@@ -1240,41 +1269,33 @@ public class FullInventory extends Fragment {
 
         getIndividualCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualCategoriesVisible) return;
                 if (individualStoresVisible) {
                     setIndividualStoresVisible(false);
                     individualStoresLayout.setVisibility(View.GONE);
                 }
-                if (individualCategoriesVisible) {
-                    hideMenuOptions();
-                    return;
-                } else {
-                    getFullInventoryTitle().setText(getString(R.string.individualCategories));
-                    getFullInventoryAdapter().notifyDataSetChanged();
-                    hideMenuOptions();
-                    setIndividualCategoriesVisible(true);
-                    individualCategoriesLayout.setVisibility(View.VISIBLE);
-                    fullInventoryRecyclerView.setVisibility(View.GONE);
-                }
+                getFullInventoryTitle().setText(getString(R.string.individualCategories));
+                getFullInventoryAdapter().notifyDataSetChanged();
+                setIndividualCategoriesVisible(true);
+                individualCategoriesLayout.setVisibility(View.VISIBLE);
+                fullInventoryRecyclerView.setVisibility(View.GONE);
+                hideMenuOptions();
             }
         });
 
         getIndividualStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualStoresVisible) return;
                 if (individualCategoriesVisible) {
                     setIndividualCategoriesVisible(false);
                     individualCategoriesLayout.setVisibility(View.GONE);
                 }
-                if (individualStoresVisible) {
-                    hideMenuOptions();
-                    return;
-                } else {
-                    getFullInventoryTitle().setText(getString(R.string.individualStores));
-                    getFullInventoryAdapter().notifyDataSetChanged();
-                    hideMenuOptions();
-                    setIndividualStoresVisible(true);
-                    individualStoresLayout.setVisibility(View.VISIBLE);
-                    fullInventoryRecyclerView.setVisibility(View.GONE);
-                }
+                getFullInventoryTitle().setText(getString(R.string.individualStores));
+                getFullInventoryAdapter().notifyDataSetChanged();
+                setIndividualStoresVisible(true);
+                individualStoresLayout.setVisibility(View.VISIBLE);
+                fullInventoryRecyclerView.setVisibility(View.GONE);
+                hideMenuOptions();
             }
         });
 

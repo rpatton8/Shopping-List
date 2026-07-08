@@ -30,7 +30,7 @@
     <string name="byStoreInStock">By Store - In Stock</string>
     <string name="byStoreNeeded">By Store - Needed</string>
     <string name="byStorePaused">By Store - Paused</string>
-    <string name="camera">CAMERA</string>
+    <string name="cameraCap">CAMERA</string>
     <string name="cancel">Cancel</string>
     <string name="cancelCap">CANCEL</string>
     <string name="category">Category</string>
@@ -164,7 +164,7 @@
     <string name="swiping">Swiping</string>
     <string name="swipingOn">Swiping On</string>
     <string name="swipingOff">Swiping Off</string>
-    <string name="take">TAKE</string>
+    <string name="takeCap">TAKE</string>
     <string name="title">Title</string>
     <string name="triangleDown">Triangle Down</string>
     <string name="triangleLeft">Triangle Left</string>

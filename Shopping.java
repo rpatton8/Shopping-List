@@ -1,6 +1,14 @@
 package ryan.android.shopping;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,6 +18,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +27,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 public class Shopping extends AppCompatActivity {
 
@@ -63,6 +75,7 @@ public class Shopping extends AppCompatActivity {
     private AlertDialog pictureDialog;
     private View pictureDialogView;
     private TextView pictureDialogTitle;
+    private PreviewView cameraPreview;
     private TextView cameraButton;
     private TextView editButton;
     private TextView takeButton;
@@ -509,6 +522,14 @@ public class Shopping extends AppCompatActivity {
         getThis().pictureDialogTitle = pictureDialogTitle;
     }
 
+    public PreviewView getCameraPreview() {
+        return cameraPreview;
+    }
+
+    public void setCameraPreview(PreviewView cameraPreview) {
+        this.cameraPreview = cameraPreview;
+    }
+
     private TextView getCameraButton() {
         return cameraButton;
     }
@@ -831,6 +852,7 @@ public class Shopping extends AppCompatActivity {
         setPictureDialogTitle(getPictureDialogView().findViewById(R.id.pictureDialogTitle));
         getPictureDialogTitle().setText(item.getItemName());
 
+        setCameraPreview(getPictureDialogView().findViewById(R.id.cameraPreview));
         setCameraButton(getPictureDialogView().findViewById(R.id.cameraButton));
         setEditButton(getPictureDialogView().findViewById(R.id.editButton));
         setTakeButton(getPictureDialogView().findViewById(R.id.takeButton));
@@ -842,7 +864,7 @@ public class Shopping extends AppCompatActivity {
             public void onClick(View v) {
                 getCameraEditButtons().setVisibility(View.GONE);
                 getTakeCancelButtons().setVisibility(View.VISIBLE);
-
+                startCamera();
             }
         });
 
@@ -907,6 +929,28 @@ public class Shopping extends AppCompatActivity {
         setPictureDialog(builder.create());
         getPictureDialog().getWindow().setDimAmount(0.2f);
         getPictureDialog().show();
+    }
+
+    private void startCamera() {
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+        cameraProviderFuture.addListener(new Runnable() {
+            public void run() {
+                try {
+                    ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+                    bindPreview(cameraProvider);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }, ContextCompat.getMainExecutor(this));
+    }
+
+    private void bindPreview(ProcessCameraProvider cameraProvider) {
+        cameraProvider.unbindAll();
+        Preview preview = new Preview.Builder().build();
+        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
+        preview.setSurfaceProvider(getCameraPreview().getSurfaceProvider());
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview);
     }
 
     void showKeyboard() {
