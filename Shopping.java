@@ -1,25 +1,11 @@
 package ryan.android.shopping;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
-import androidx.camera.view.PreviewView;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -27,8 +13,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.common.util.concurrent.ListenableFuture;
+
+import java.io.File;
 
 public class Shopping extends AppCompatActivity {
 
@@ -75,6 +74,7 @@ public class Shopping extends AppCompatActivity {
     private AlertDialog pictureDialog;
     private View pictureDialogView;
     private TextView pictureDialogTitle;
+    private ImageCapture imageCapture;
     private PreviewView cameraPreview;
     private TextView cameraButton;
     private TextView editButton;
@@ -383,7 +383,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setIndividualCategory(String individualCategory) {
-        this.individualCategory = individualCategory;
+        getThis().individualCategory = individualCategory;
     }
 
     public String getIndividualStore() {
@@ -391,7 +391,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setIndividualStore(String individualStore) {
-        this.individualStore = individualStore;
+        getThis().individualStore = individualStore;
     }
 
     boolean editItemInInventory() {
@@ -522,12 +522,20 @@ public class Shopping extends AppCompatActivity {
         getThis().pictureDialogTitle = pictureDialogTitle;
     }
 
+    public ImageCapture getImageCapture() {
+        return imageCapture;
+    }
+
+    public void setImageCapture(ImageCapture imageCapture) {
+        this.imageCapture = imageCapture;
+    }
+
     public PreviewView getCameraPreview() {
         return cameraPreview;
     }
 
     public void setCameraPreview(PreviewView cameraPreview) {
-        this.cameraPreview = cameraPreview;
+        getThis().cameraPreview = cameraPreview;
     }
 
     private TextView getCameraButton() {
@@ -767,7 +775,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setIndividualCategoriesViewState(Parcelable individualCategoriesViewState) {
-        this.individualCategoriesViewState = individualCategoriesViewState;
+        getThis().individualCategoriesViewState = individualCategoriesViewState;
     }
 
     public Parcelable getIndividualStoresViewState() {
@@ -775,7 +783,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setIndividualStoresViewState(Parcelable individualStoresViewState) {
-        this.individualStoresViewState = individualStoresViewState;
+        getThis().individualStoresViewState = individualStoresViewState;
     }
 
     Parcelable getReorderCategoriesViewState() {
@@ -872,6 +880,7 @@ public class Shopping extends AppCompatActivity {
             public void onClick(View v) {
                 getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
+                takeAndSavePicture();
             }
         });
 
@@ -932,7 +941,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private void startCamera() {
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(getThis());
         cameraProviderFuture.addListener(new Runnable() {
             public void run() {
                 try {
@@ -942,7 +951,7 @@ public class Shopping extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, ContextCompat.getMainExecutor(this));
+        }, ContextCompat.getMainExecutor(getThis()));
     }
 
     private void bindPreview(ProcessCameraProvider cameraProvider) {
@@ -950,7 +959,24 @@ public class Shopping extends AppCompatActivity {
         Preview preview = new Preview.Builder().build();
         CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
         preview.setSurfaceProvider(getCameraPreview().getSurfaceProvider());
-        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview);
+        System.out.println("Bind to Lifecycle");
+        Camera camera = cameraProvider.bindToLifecycle(getThis(), cameraSelector, preview, getImageCapture());
+    }
+
+    private void takeAndSavePicture() {
+        File outputFile = new File(getThis().getFilesDir(), "image3.jpg");
+        setImageCapture(new ImageCapture.Builder().build());
+        ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
+        System.out.println("Take Picture");
+        getImageCapture().takePicture(outputOptions, ContextCompat.getMainExecutor(getThis()), new ImageCapture.OnImageSavedCallback() {
+            public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
+                System.out.println("Image Saved");
+            }
+            public void onError(ImageCaptureException exception) {
+                System.out.println("Image Error");
+                exception.printStackTrace();
+            }
+        });
     }
 
     void showKeyboard() {
@@ -962,7 +988,7 @@ public class Shopping extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getThis().getSystemService(Context.INPUT_METHOD_SERVICE);
         View view = getCurrentFocus();
         if (view == null) {
-            view = new View(this);
+            view = new View(getThis());
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
@@ -1089,10 +1115,10 @@ public class Shopping extends AppCompatActivity {
     }
 
     void initializeData() {
-        setDbItemHelper(new DBItemHelper(this));
-        setDbStatusHelper(new DBStatusHelper(this));
-        setDbCategoryHelper(new DBCategoryHelper(this));
-        setDbStoreHelper(new DBStoreHelper(this));
+        setDbItemHelper(new DBItemHelper(getThis()));
+        setDbStatusHelper(new DBStatusHelper(getThis()));
+        setDbCategoryHelper(new DBCategoryHelper(getThis()));
+        setDbStoreHelper(new DBStoreHelper(getThis()));
 
         setItemData(new ItemData(getBaseContext()));
         setStatusData(new StatusData(getBaseContext()));
