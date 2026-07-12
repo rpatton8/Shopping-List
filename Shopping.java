@@ -880,7 +880,7 @@ public class Shopping extends AppCompatActivity {
             public void onClick(View v) {
                 getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
-                takeAndSavePicture();
+                takePhoto();
             }
         });
 
@@ -963,7 +963,7 @@ public class Shopping extends AppCompatActivity {
         Camera camera = cameraProvider.bindToLifecycle(getThis(), cameraSelector, preview, getImageCapture());
     }
 
-    private void takeAndSavePicture() {
+    private void takePhoto() {
         File outputFile = new File(getThis().getFilesDir(), "image3.jpg");
         setImageCapture(new ImageCapture.Builder().build());
         ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
