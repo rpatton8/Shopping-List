@@ -8,7 +8,7 @@
     tools:context=".HomeScreen">
 
     <TextView
-        android:id="@+id/shoppingTitle"
+        android:id="@+id/homeScreenTitle"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:background="@android:color/holo_blue_dark"
@@ -77,11 +77,11 @@
         android:background="@mipmap/edit_3dots"/>
 
     <TextView
-        android:id="@+id/shoppingOptionsBackground"
+        android:id="@+id/shoppingSettingsBackground"
         android:layout_width="420dp"
         android:layout_height="614dp"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/shoppingTitle"
+        android:layout_below="@id/homeScreenTitle"
         android:visibility="gone"
         android:background="@android:color/holo_green_light" />
 

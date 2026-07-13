@@ -151,11 +151,10 @@ public class Shopping extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        initializeData();
-        loadSharedPreferences();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopping);
+        initializeData();
+        loadSharedPreferences();
 
         setSearchAlgorithm(new SearchAlgorithm(getBaseContext()));
         for (int i = 0; i < getItemData().getItemListAZ().size(); i++) {
@@ -1155,11 +1154,8 @@ public class Shopping extends AppCompatActivity {
         setPictureDialogInShoppingList(false);
 
         setInventoryView(VIEW_ALL);
-        //setDefaultSortBy(SORT_ALPHABETICAL);
         setInventorySortBy(getDefaultSortBy());
-        //setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
         setCategoryTitles(getDefaultCategoryTitles());
-        //setDefaultStoreTitles(STORE_TITLES_EXPANDED);
         setStoreTitles(getDefaultStoreTitles());
         setItemExpansion(ITEMS_CONTRACTED);
         setReorderingMethod(UP_AND_DOWN_ARROWS);

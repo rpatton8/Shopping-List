@@ -241,6 +241,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SortByCategoryTitleRVH categoryTitleHolder = (SortByCategoryTitleRVH) holder;
             categoryTitleHolder.setCategory(category);
             categoryTitleHolder.getCategoryTitleText().setText(category);
+            categoryTitleHolder.getSortByCategoryRvTitle().setVisibility(View.VISIBLE);
 
             if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && getCategoryData().getCategoryViewAllMap().get(category) == 0) {
                 categoryTitleHolder.getSortByCategoryRvTitle().setVisibility(View.GONE);
@@ -501,6 +502,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SortByStoreTitleRVH storeTitleHolder = (SortByStoreTitleRVH) holder;
             storeTitleHolder.setStore(store);
             storeTitleHolder.getStoreTitleText().setText(store);
+            storeTitleHolder.getSortByStoreRvTitle().setVisibility(View.VISIBLE);
 
             if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && getStoreData().getStoreViewAllMap().get(store) == 0) {
                 storeTitleHolder.getSortByStoreRvTitle().setVisibility(View.GONE);

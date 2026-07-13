@@ -89,11 +89,13 @@
     <string name="finishReordering">Finish Reordering</string>
     <string name="fullInventory">Full Inventory</string>
     <string name="homeButton">Home Button</string>
+    <string name="homeScreenTitle">Home Screen Title</string>
     <string name="individualCategories">Individual Categories</string>
     <string name="individualStores">Individual Stores</string>
     <string name="inStockCap">In Stock</string>
     <string name="instock">instock</string>
     <string name="instructions">Instructions</string>
+    <string name="inventoryOptions">Inventory Options</string>
     <string name="inventoryTitle">Inventory Title</string>
     <string name="item">Item</string>
     <string name="itemsLabel">Items</string>
@@ -148,6 +150,7 @@
     <string name="selectItemToEdit">Please select an item to edit.</string>
     <string name="selectItemToRemove">Please select an item to remove.</string>
     <string name="shopping">Shopping</string>
+    <string name="shoppingSettings">Settings</string>
     <string name="shoppingIconRound">Shopping Icon Round</string>
     <string name="shoppingList">Shopping List</string>
     <string name="smallName">Small Name</string>

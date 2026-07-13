@@ -21,7 +21,9 @@ public class HomeScreen extends Fragment {
     private Shopping shopping;
     private TextView homeScreenDeveloperOptionsButton;
     private TextView homeScreenEditButton;
-    private TextView shoppingOptionsBackground;
+    private TextView homeScreenTitle;
+    private String lastMainTitle;
+    private TextView shoppingSettingsBackground;
     private Button instructions;
     private boolean menuOptionsVisible;
     private boolean developerOptionsVisible;
@@ -114,12 +116,28 @@ public class HomeScreen extends Fragment {
         getThis().homeScreenEditButton = homeScreenEditButton;
     }
 
-    private TextView getShoppingOptionsBackground() {
-        return shoppingOptionsBackground;
+    public TextView getHomeScreenTitle() {
+        return homeScreenTitle;
     }
 
-    private void setShoppingOptionsBackground(TextView shoppingOptionsBackground) {
-        getThis().shoppingOptionsBackground = shoppingOptionsBackground;
+    public void setHomeScreenTitle(TextView homeScreenTitle) {
+        this.homeScreenTitle = homeScreenTitle;
+    }
+
+    public String getLastMainTitle() {
+        return lastMainTitle;
+    }
+
+    public void setLastMainTitle(String lastMainTitle) {
+        this.lastMainTitle = lastMainTitle;
+    }
+
+    private TextView getShoppingSettingsBackground() {
+        return shoppingSettingsBackground;
+    }
+
+    private void setShoppingSettingsBackground(TextView shoppingSettingsBackground) {
+        getThis().shoppingSettingsBackground = shoppingSettingsBackground;
     }
 
     private Button getInstructions() {
@@ -483,7 +501,8 @@ public class HomeScreen extends Fragment {
 
         setHomeScreenDeveloperOptionsButton(getView().findViewById(R.id.homeScreenDeveloperOptions));
         setHomeScreenEditButton(getView().findViewById(R.id.homeScreenEditButton));
-        setShoppingOptionsBackground(getView().findViewById(R.id.shoppingOptionsBackground)) ;
+        setHomeScreenTitle(getView().findViewById(R.id.homeScreenTitle));
+        setShoppingSettingsBackground(getView().findViewById(R.id.shoppingSettingsBackground)) ;
         setClearAllData(getView().findViewById(R.id.clearAllData));
         setLoadSampleData1(getView().findViewById(R.id.loadSampleData1));
         setLoadSampleData2(getView().findViewById(R.id.loadSampleData2));
@@ -556,6 +575,8 @@ public class HomeScreen extends Fragment {
         getHomeScreenEditButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (menuOptionsVisible()) {
+                    getHomeScreenTitle().setText(getLastMainTitle());
+
                     getChangeDefaultSortBy().setVisibility(View.GONE);
                     getSortAlphabetical().setVisibility(View.GONE);
                     getSortByCategory().setVisibility(View.GONE);
@@ -603,10 +624,14 @@ public class HomeScreen extends Fragment {
                     getReorderStoreEmojiLabel().setVisibility(View.GONE);
                     getReorderStoreEmojiBox().setVisibility(View.GONE);
 
-                    getShoppingOptionsBackground().setVisibility(View.GONE);
+                    getShoppingSettingsBackground().setVisibility(View.GONE);
                     setMenuOptionsVisible(false);
 
                 } else {
+
+                    setLastMainTitle(getHomeScreenTitle().getText().toString());
+                    getHomeScreenTitle().setText(getString(R.string.shoppingSettings));
+
                     if (Shopping.SORT_ALPHABETICAL.equals(getShopping().getDefaultSortBy())) {
                         getSortAlphabetical().setChecked(true);
                     } else if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getDefaultSortBy())) {
@@ -730,7 +755,7 @@ public class HomeScreen extends Fragment {
                     getReorderStoreEmojiLabel().setVisibility(View.VISIBLE);
                     getReorderStoreEmojiBox().setVisibility(View.VISIBLE);
 
-                    getShoppingOptionsBackground().setVisibility(View.VISIBLE);
+                    getShoppingSettingsBackground().setVisibility(View.VISIBLE);
                     setMenuOptionsVisible(true);
                 }
             }
