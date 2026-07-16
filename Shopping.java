@@ -56,12 +56,14 @@ public class Shopping extends AppCompatActivity {
     private int selectedItemPositionInIndividualStores;
     private int selectedItemPositionInShoppingList;
 
-    private int storeListOrderNum;
-    private Item itemInPictureDialog;
+    private int shoppingListStoreOrderNum;
     private String reorderItemsCategory;
     private String reorderItemsStore;
     private String individualCategory;
     private String individualStore;
+    private boolean searchPopupInInventory;
+    private boolean searchPopupInIndividualCategories;
+    private boolean searchPopupInIndividualStores;
     private boolean editItemInInventory;
     private boolean editItemInSearchResults;
     private boolean editItemInIndividualCategories;
@@ -83,6 +85,7 @@ public class Shopping extends AppCompatActivity {
     private AlertDialog pictureDialog;
     private View pictureDialogView;
     private TextView pictureDialogTitle;
+    private Item itemInPictureDialog;
     private ImageCapture imageCapture;
     private PreviewView cameraPreview;
     private TextView cameraButton;
@@ -410,12 +413,12 @@ public class Shopping extends AppCompatActivity {
         getThis().itemInPictureDialog = itemInPictureDialog;
     }
 
-    int getStoreListOrderNum() {
-        return storeListOrderNum;
+    public int getShoppingListStoreOrderNum() {
+        return shoppingListStoreOrderNum;
     }
 
-    void setStoreListOrderNum(int storeListOrderNum) {
-        getThis().storeListOrderNum = storeListOrderNum;
+    public void setShoppingListStoreOrderNum(int shoppingListStoreOrderNum) {
+        this.shoppingListStoreOrderNum = shoppingListStoreOrderNum;
     }
 
     String getReorderItemsCategory() {
@@ -448,6 +451,30 @@ public class Shopping extends AppCompatActivity {
 
     public void setIndividualStore(String individualStore) {
         getThis().individualStore = individualStore;
+    }
+
+    public boolean searchPopupInInventory() {
+        return searchPopupInInventory;
+    }
+
+    public void setSearchPopupInInventory(boolean searchPopupInInventory) {
+        this.searchPopupInInventory = searchPopupInInventory;
+    }
+
+    public boolean searchPopupInIndividualCategories() {
+        return searchPopupInIndividualCategories;
+    }
+
+    public void setSearchPopupInIndividualCategories(boolean searchPopupInIndividualCategories) {
+        this.searchPopupInIndividualCategories = searchPopupInIndividualCategories;
+    }
+
+    public boolean searchPopupInIndividualStores() {
+        return searchPopupInIndividualStores;
+    }
+
+    public void setSearchPopupInIndividualStores(boolean searchPopupInIndividualStores) {
+        this.searchPopupInIndividualStores = searchPopupInIndividualStores;
     }
 
     boolean editItemInInventory() {
@@ -1232,7 +1259,7 @@ public class Shopping extends AppCompatActivity {
         setSelectedItemPositionInSearchResults(0);
         setSelectedItemPositionInShoppingList(0);
 
-        setStoreListOrderNum(0);
+        setShoppingListStoreOrderNum(0);
         setItemInPictureDialog(null);
         setReorderItemsCategory(getString(R.string.emptyString));
         setReorderItemsStore(getString(R.string.emptyString));

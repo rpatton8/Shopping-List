@@ -197,8 +197,8 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
 
-            if (thisItem != null && (getShopping().getStoreListOrderNum() != 0) &&
-                    !thisItem.getStore().toString().equals(getStoreData().getStoreList().get(getShopping().getStoreListOrderNum() - 1))) {
+            if (thisItem != null && (getShopping().getShoppingListStoreOrderNum() != 0) &&
+                    !thisItem.getStore().toString().equals(getStoreData().getStoreList().get(getShopping().getShoppingListStoreOrderNum() - 1))) {
                 itemHolder.getTriangleDown().setVisibility(View.GONE);
                 itemHolder.getTriangleRight().setVisibility(View.GONE);
                 itemHolder.getItemLarge().setVisibility(View.GONE);
