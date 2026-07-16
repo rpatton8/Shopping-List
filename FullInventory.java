@@ -1159,10 +1159,9 @@ public class FullInventory extends Fragment {
                     getShopping().showKeyboard();
                     getSearchPopup().setVisibility(View.VISIBLE);
                     getSearchInventoryRecyclerView().setVisibility(View.VISIBLE);
+                    getFullInventoryRecyclerView().setVisibility(View.GONE);
                     getIndividualCategoriesLayout().setVisibility(View.GONE);
-                    //getIndividualCategoriesRecyclerView().setVisibility(View.GONE);
                     getIndividualStoresLayout().setVisibility(View.GONE);
-                    //getIndividualStoresRecyclerView().setVisibility(View.GONE);
                     setLastMainTitle(getFullInventoryTitle().getText().toString());
                     getFullInventoryTitle().setText(getString(R.string.searchInventory));
                     getSearchBox().requestFocus();
@@ -1223,6 +1222,13 @@ public class FullInventory extends Fragment {
                         getSearchPopup().setVisibility(View.GONE);
                         getSearchInventoryRecyclerView().setVisibility(View.GONE);
                         getFullInventoryTitle().setText(getLastMainTitle());
+                        if (getLastMainTitle().equals("Individual Categories")) {
+                            getIndividualCategoriesLayout().setVisibility(View.VISIBLE);
+                        } else if (getLastMainTitle().equals("Individual Stores")) {
+                            getIndividualStoresLayout().setVisibility(View.VISIBLE);
+                        } else {
+                            getFullInventoryRecyclerView().setVisibility(View.VISIBLE);
+                        }
                         setSearchPopupVisible(false);
                         setKeyboardVisible(false);
 
@@ -1254,45 +1260,6 @@ public class FullInventory extends Fragment {
                         getIndividualCategoriesRecyclerView().setLayoutParams(individualCategoriesViewParams);
                         getIndividualStoresRecyclerView().setLayoutParams(individualStoresViewParams);
 
-                    } else {
-                        // searchBox & keyboard both not visible
-                        getShopping().showKeyboard();
-                        getSearchPopup().setVisibility(View.VISIBLE);
-                        getSearchInventoryRecyclerView().setVisibility(View.VISIBLE);
-                        setLastMainTitle(getFullInventoryTitle().getText().toString());
-                        getFullInventoryTitle().setText(getString(R.string.searchInventory));
-                        getSearchBox().requestFocus();
-                        getSearchBox().setSelection(getSearchBox().getText().length());
-                        setSearchPopupVisible(true);
-                        setKeyboardVisible(true);
-
-                        ViewGroup.LayoutParams fullInventoryViewParams = getFullInventoryRecyclerView().getLayoutParams();
-                        ViewGroup.LayoutParams searchInventoryViewParams = getSearchInventoryRecyclerView().getLayoutParams();
-                        ViewGroup.LayoutParams individualCategoriesViewParams = getIndividualCategoriesRecyclerView().getLayoutParams();
-                        ViewGroup.LayoutParams individualStoresViewParams = getIndividualStoresRecyclerView().getLayoutParams();
-                        int fullInventoryHeight;
-                        int searchInventoryHeight;
-                        int individualCategoriesHeight;
-                        int individualStoresHeight;
-                        if (editControlsExpanded()) {
-                            fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                            searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                            individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                            individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 494, getResources().getDisplayMetrics());
-                        } else {
-                            fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                            searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                            individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                            individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                        }
-                        fullInventoryViewParams.height = fullInventoryHeight;
-                        searchInventoryViewParams.height = searchInventoryHeight;
-                        individualCategoriesViewParams.height = individualCategoriesHeight;
-                        individualStoresViewParams.height = individualStoresHeight;
-                        getFullInventoryRecyclerView().setLayoutParams(fullInventoryViewParams);
-                        getSearchInventoryRecyclerView().setLayoutParams(searchInventoryViewParams);
-                        getIndividualCategoriesRecyclerView().setLayoutParams(individualCategoriesViewParams);
-                        getIndividualStoresRecyclerView().setLayoutParams(individualStoresViewParams);
                     }
                 } else {
                     getSearchBox().setText(getString(R.string.emptyString));
