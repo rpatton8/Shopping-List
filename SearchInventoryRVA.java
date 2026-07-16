@@ -102,9 +102,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
         }
 
-        if (thisItem == null) {
-            return;
-        }
+        if (thisItem == null) return;
 
         SearchInventoryRVH searchResultsHolder = (SearchInventoryRVH) holder;
 
@@ -556,6 +554,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (position >= getSearchResultsList().size()) return;
 
             Item thisItem = getSearchResultsList().get(position);
+
             getShopping().setPictureDialogInInventory(false);
             getShopping().setPictureDialogInSearchResults(true);
             getShopping().setPictureDialogInShoppingList(false);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -16,17 +17,15 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private View view;
     private Context context;
     private Shopping shopping;
-    private SearchAlgorithm searchAlgorithm;
-    private String currentSearchTerm;
-    private ArrayList<Item> searchResultsList;
+    private ItemData itemData;
+    private String store;
 
-    IndividualStoresRVA(View view, Context context, Shopping shopping) {
+    IndividualStoresRVA(View view, Context context, Shopping shopping, ItemData itemData) {
         setView(view);
         setContext(context);
         setShopping(shopping);
-        setSearchAlgorithm(searchAlgorithm);
-        setCurrentSearchTerm(getContext().getString(R.string.emptyString));
-        setSearchResultsList(new ArrayList<>());
+        setItemData(itemData);
+        setStore(getShopping().getIndividualStore());
     }
 
     private IndividualStoresRVA getThis() {
@@ -57,28 +56,20 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         getThis().shopping = shopping;
     }
 
-    private SearchAlgorithm getSearchAlgorithm() {
-        return searchAlgorithm;
+    public ItemData getItemData() {
+        return itemData;
     }
 
-    private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
-        getThis().searchAlgorithm = searchAlgorithm;
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
     }
 
-    private String getCurrentSearchTerm() {
-        return currentSearchTerm;
+    public String getStore() {
+        return store;
     }
 
-    void setCurrentSearchTerm(String currentSearchTerm) {
-        getThis().currentSearchTerm = currentSearchTerm;
-    }
-
-    private ArrayList<Item> getSearchResultsList() {
-        return searchResultsList;
-    }
-
-    private void setSearchResultsList(ArrayList<Item> searchResultsList) {
-        getThis().searchResultsList = searchResultsList;
+    public void setStore(String store) {
+        getThis().store = store;
     }
 
     public int getItemViewType(int position) {
@@ -92,86 +83,78 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        Item thisItem = null;
-        String searchTerm = getCurrentSearchTerm();
-        if (searchTerm != null && !searchTerm.equals(getContext().getString(R.string.emptyString))) {
-            setSearchResultsList(getSearchAlgorithm().getSearchResults(searchTerm));
-            ArrayList<Item> results = getSearchResultsList();
-            if (results != null && position < results.size()) {
-                thisItem = results.get(position);
-            }
-        }
+        if (getItemData().getStoreMap().get(getStore()) == null) return;
+        ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
+        Item thisItem = storeList.get(position);
 
-        if (thisItem == null) {
-            return;
-        }
-
-        IndividualStoresRVH searchResultsHolder = (IndividualStoresRVH) holder;
+        IndividualStoresRVH individualStoresHolder = (IndividualStoresRVH) holder;
 
         if (thisItem.getStatus().isExpandedInInventory()) {
-            searchResultsHolder.getItemSmallName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemSmallBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemLargeBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
-            searchResultsHolder.getItemLargeStore().setText(thisItem.getStore().toString());
-            searchResultsHolder.getTriangleRight().setVisibility(View.GONE);
-            searchResultsHolder.getTriangleDown().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemSmall().setVisibility(View.GONE);
-            searchResultsHolder.getItemLarge().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmallName().setText(thisItem.getItemName());
+            individualStoresHolder.getItemLargeName().setText(thisItem.getItemName());
+            individualStoresHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+            individualStoresHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
+            individualStoresHolder.getTriangleRight().setVisibility(View.GONE);
+            individualStoresHolder.getTriangleDown().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmall().setVisibility(View.GONE);
+            individualStoresHolder.getItemLarge().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isContractedInInventory()) {
-            searchResultsHolder.getItemSmallName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemSmallBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemLargeBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
-            searchResultsHolder.getItemLargeStore().setText(thisItem.getStore().toString());
-            searchResultsHolder.getTriangleDown().setVisibility(View.GONE);
-            searchResultsHolder.getTriangleRight().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLarge().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmall().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmallName().setText(thisItem.getItemName());
+            individualStoresHolder.getItemLargeName().setText(thisItem.getItemName());
+            individualStoresHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+            individualStoresHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
+            individualStoresHolder.getTriangleDown().setVisibility(View.GONE);
+            individualStoresHolder.getTriangleRight().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemLarge().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmall().setVisibility(View.VISIBLE);
         }
 
         if (thisItem.getStatus().isInStock()) {
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmallPaused().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargePaused().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallNeeded().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargeNeeded().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallInStock().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemLargeInStock().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isNeeded()) {
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmallInStock().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargeInStock().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallPaused().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargePaused().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallNeeded().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemLargeNeeded().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isPaused()) {
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemSmallNeeded().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargeNeeded().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallInStock().setVisibility(View.GONE);
+            individualStoresHolder.getItemLargeInStock().setVisibility(View.GONE);
+            individualStoresHolder.getItemSmallPaused().setVisibility(View.VISIBLE);
+            individualStoresHolder.getItemLargePaused().setVisibility(View.VISIBLE);
         }
 
         if (thisItem.getStatus().isSelectedInInventory()) {
-            searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
-            searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
+            individualStoresHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+            individualStoresHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
         } else {
             if (getShopping().itemIsSelectedInSearchResults() && getShopping().getSelectedItemPositionInSearchResults() == position) {
-                searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
-                searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
+                individualStoresHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                individualStoresHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
             } else {
-                searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
-                searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
+                individualStoresHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
+                individualStoresHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
             }
         }
     }
 
     public int getItemCount() {
-        return getSearchAlgorithm().numSearchResults(getCurrentSearchTerm());
+        if (getItemData().getStoreMap().get(getStore()) == null) return 0;
+        return getItemData().getStoreMap().get(getStore()).getStoreItemsList().size();
+    }
+
+    void changeStore(String store) {
+        getThis().setStore(store);
+        getShopping().setIndividualStore(store);
     }
 
     private class IndividualStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -193,8 +176,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView itemSmallInStock;
         private TextView itemSmallNeeded;
         private TextView itemSmallPaused;
-        private TextView itemSmallBrand;
-        private TextView itemSmallBrandLabel;
         private TextView itemLargeInStock;
         private TextView itemLargeNeeded;
         private TextView itemLargePaused;
@@ -202,8 +183,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView itemLargeBrandLabel;
         private TextView itemLargeCategory;
         private TextView itemLargeCategoryLabel;
-        private TextView itemLargeStore;
-        private TextView itemLargeStoreLabel;
 
         private final long doubleClickTimeout = 300;
         private long lastClickTime = 0;
@@ -228,8 +207,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             setItemSmallInStock(getView().findViewById(R.id.itemSmallInStock));
             setItemSmallNeeded(getView().findViewById(R.id.itemSmallNeeded));
             setItemSmallPaused(getView().findViewById(R.id.itemSmallPaused));
-            setItemSmallBrand(getView().findViewById(R.id.itemSmallBrand));
-            setItemSmallBrandLabel(getView().findViewById(R.id.itemSmallBrandLabel));
             setItemLargeInStock(getView().findViewById(R.id.itemLargeInStock));
             setItemLargeNeeded(getView().findViewById(R.id.itemLargeNeeded));
             setItemLargePaused(getView().findViewById(R.id.itemLargePaused));
@@ -237,8 +214,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             setItemLargeBrandLabel(getView().findViewById(R.id.itemLargeBrandLabel));
             setItemLargeCategory(getView().findViewById(R.id.itemLargeCategory));
             setItemLargeCategoryLabel(getView().findViewById(R.id.itemLargeCategoryLabel));
-            setItemLargeStore(getView().findViewById(R.id.itemLargeStore));
-            setItemLargeStoreLabel(getView().findViewById(R.id.itemLargeStoreLabel));
 
             getTriangleRight().setOnClickListener(getThis());
             getTriangleDown().setOnClickListener(getThis());
@@ -249,8 +224,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getItemSmallInStock().setOnClickListener(getThis());
             getItemSmallNeeded().setOnClickListener(getThis());
             getItemSmallPaused().setOnClickListener(getThis());
-            getItemSmallBrand().setOnClickListener(getThis());
-            getItemSmallBrandLabel().setOnClickListener(getThis());
             getItemLargeInStock().setOnClickListener(getThis());
             getItemLargeNeeded().setOnClickListener(getThis());
             getItemLargePaused().setOnClickListener(getThis());
@@ -258,8 +231,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getItemLargeBrandLabel().setOnClickListener(getThis());
             getItemLargeCategory().setOnClickListener(getThis());
             getItemLargeCategoryLabel().setOnClickListener(getThis());
-            getItemLargeStore().setOnClickListener(getThis());
-            getItemLargeStoreLabel().setOnClickListener(getThis());
         }
 
         private IndividualStoresRVH getThis() {
@@ -394,22 +365,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getThis().itemSmallPaused = itemSmallPaused;
         }
 
-        private TextView getItemSmallBrand() {
-            return itemSmallBrand;
-        }
-
-        private void setItemSmallBrand(TextView itemSmallBrand) {
-            getThis().itemSmallBrand = itemSmallBrand;
-        }
-
-        private TextView getItemSmallBrandLabel() {
-            return itemSmallBrandLabel;
-        }
-
-        private void setItemSmallBrandLabel(TextView itemSmallBrandLabel) {
-            getThis().itemSmallBrandLabel = itemSmallBrandLabel;
-        }
-
         private TextView getItemLargeInStock() {
             return itemLargeInStock;
         }
@@ -466,22 +421,6 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
         }
 
-        private TextView getItemLargeStore() {
-            return itemLargeStore;
-        }
-
-        private void setItemLargeStore(TextView itemLargeStore) {
-            getThis().itemLargeStore = itemLargeStore;
-        }
-
-        private TextView getItemLargeStoreLabel() {
-            return itemLargeStoreLabel;
-        }
-
-        private void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
-            getThis().itemLargeStoreLabel = itemLargeStoreLabel;
-        }
-
         private long getDoubleClickTimeout() {
             return doubleClickTimeout;
         }
@@ -496,9 +435,9 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         private void selectOrUnselectItem(int position) {
 
-            if (position < 0 || position >= getSearchResultsList().size()) return;
-
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getStoreMap().get(getStore()) == null) return;
+            ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
+            Item thisItem = storeList.get(position);
 
             if (thisItem.getStatus().isSelectedInSearchResults() || thisItem == getShopping().getSelectedItemInSearchResults()) {
                 // selected item is this item
@@ -552,10 +491,11 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private void onDoubleClick(View v) {
 
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
-            if (position >= getSearchResultsList().size()) return;
 
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getStoreMap().get(getStore()) == null) return;
+            ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
+            Item thisItem = storeList.get(position);
+
             getShopping().setPictureDialogInInventory(false);
             getShopping().setPictureDialogInSearchResults(true);
             getShopping().setPictureDialogInShoppingList(false);
@@ -566,10 +506,10 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             int id = v.getId();
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
-            if (position >= getSearchResultsList().size()) return;
 
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getStoreMap().get(getStore()) == null) return;
+            ArrayList<Item> storeList = getItemData().getStoreMap().get(getStore()).getStoreItemsList();
+            Item thisItem = storeList.get(position);
 
             if (id == getItemSmallName().getId()) {
                 selectOrUnselectItem(position);

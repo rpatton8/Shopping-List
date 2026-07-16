@@ -219,7 +219,6 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         public void onClick(View v) {
             int id = v.getId();
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
 
             if (id == getTriangleDown().getId()) {
                 if (position == getCategoryData().getCategoryList().size() - 1) {

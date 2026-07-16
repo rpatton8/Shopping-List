@@ -570,7 +570,6 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private void onDoubleClick(View v) {
 
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
 
             String store;
             Item thisItem = null;
@@ -609,7 +608,6 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             int id = v.getId();
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
 
             String store;
             Item thisItem = null;
@@ -633,9 +631,6 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     adjustedPosition--;
                     if (index == adjustedPosition) {
                         isTitle = true;
-                        if (i + 1 < getStoreData().getStoreList().size()) {
-                            store = getStoreData().getStoreList().get(i + 1);
-                        }
                         break;
                     } else if (index >= adjustedPosition && adjustedPosition >= 0) {
                         isTitle = false;

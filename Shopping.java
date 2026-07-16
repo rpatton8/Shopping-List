@@ -526,7 +526,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setImageCapture(ImageCapture imageCapture) {
-        this.imageCapture = imageCapture;
+        getThis().imageCapture = imageCapture;
     }
 
     public PreviewView getCameraPreview() {

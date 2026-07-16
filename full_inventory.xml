@@ -26,7 +26,7 @@
         android:layout_height="620dp"
         android:paddingBottom="6dp"
         android:clipToPadding="false"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_below="@id/fullInventoryTitle" />
 
     <TextView
@@ -136,7 +136,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/categorySpinner"
+                android:id="@+id/individualCategoriesSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -201,7 +201,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/storeSpinner"
+                android:id="@+id/individualStoresSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

@@ -15,11 +15,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class FullInventory extends Fragment {
 
@@ -68,7 +72,13 @@ public class FullInventory extends Fragment {
     private TextView fullInventoryEditButton;
 
     private LinearLayout individualCategoriesLayout;
+    private Spinner individualCategoriesSpinner;
+    private ArrayList<String> individualCategoriesSpinnerData;
+    private ArrayAdapter<String> individualCategoriesSpinnerAdapter;
     private LinearLayout individualStoresLayout;
+    private Spinner individualStoresSpinner;
+    private ArrayList<String> individualStoresSpinnerData;
+    private ArrayAdapter<String> individualStoresSpinnerAdapter;
 
     private RecyclerView fullInventoryRecyclerView;
     private RecyclerView searchInventoryRecyclerView;
@@ -283,7 +293,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesVisible(boolean individualCategoriesVisible) {
-        this.individualCategoriesVisible = individualCategoriesVisible;
+        getThis().individualCategoriesVisible = individualCategoriesVisible;
     }
 
     public boolean individualStoresVisible() {
@@ -291,7 +301,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresVisible(boolean individualStoresVisible) {
-        this.individualStoresVisible = individualStoresVisible;
+        getThis().individualStoresVisible = individualStoresVisible;
     }
 
     private boolean editControlsExpanded() {
@@ -388,7 +398,31 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesLayout(LinearLayout individualCategoriesLayout) {
-        this.individualCategoriesLayout = individualCategoriesLayout;
+        getThis().individualCategoriesLayout = individualCategoriesLayout;
+    }
+
+    public Spinner getIndividualCategoriesSpinner() {
+        return individualCategoriesSpinner;
+    }
+
+    public void setIndividualCategoriesSpinner(Spinner individualCategoriesSpinner) {
+        this.individualCategoriesSpinner = individualCategoriesSpinner;
+    }
+
+    public ArrayList<String> getIndividualCategoriesSpinnerData() {
+        return individualCategoriesSpinnerData;
+    }
+
+    public void setIndividualCategoriesSpinnerData(ArrayList<String> individualCategoriesSpinnerData) {
+        this.individualCategoriesSpinnerData = individualCategoriesSpinnerData;
+    }
+
+    public ArrayAdapter<String> getIndividualCategoriesSpinnerAdapter() {
+        return individualCategoriesSpinnerAdapter;
+    }
+
+    public void setIndividualCategoriesSpinnerAdapter(ArrayAdapter<String> individualCategoriesSpinnerAdapter) {
+        this.individualCategoriesSpinnerAdapter = individualCategoriesSpinnerAdapter;
     }
 
     public LinearLayout getIndividualStoresLayout() {
@@ -396,7 +430,31 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresLayout(LinearLayout individualStoresLayout) {
-        this.individualStoresLayout = individualStoresLayout;
+        getThis().individualStoresLayout = individualStoresLayout;
+    }
+
+    public Spinner getIndividualStoresSpinner() {
+        return individualStoresSpinner;
+    }
+
+    public void setIndividualStoresSpinner(Spinner individualStoresSpinner) {
+        this.individualStoresSpinner = individualStoresSpinner;
+    }
+
+    public ArrayList<String> getIndividualStoresSpinnerData() {
+        return individualStoresSpinnerData;
+    }
+
+    public void setIndividualStoresSpinnerData(ArrayList<String> individualStoresSpinnerData) {
+        this.individualStoresSpinnerData = individualStoresSpinnerData;
+    }
+
+    public ArrayAdapter<String> getIndividualStoresSpinnerAdapter() {
+        return individualStoresSpinnerAdapter;
+    }
+
+    public void setIndividualStoresSpinnerAdapter(ArrayAdapter<String> individualStoresSpinnerAdapter) {
+        this.individualStoresSpinnerAdapter = individualStoresSpinnerAdapter;
     }
 
     private RecyclerView getFullInventoryRecyclerView() {
@@ -420,7 +478,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesRecyclerView(RecyclerView individualCategoriesRecyclerView) {
-        this.individualCategoriesRecyclerView = individualCategoriesRecyclerView;
+        getThis().individualCategoriesRecyclerView = individualCategoriesRecyclerView;
     }
 
     public RecyclerView getIndividualStoresRecyclerView() {
@@ -428,7 +486,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresRecyclerView(RecyclerView individualStoresRecyclerView) {
-        this.individualStoresRecyclerView = individualStoresRecyclerView;
+        getThis().individualStoresRecyclerView = individualStoresRecyclerView;
     }
 
     private FullInventoryRVA getFullInventoryAdapter() {
@@ -447,20 +505,20 @@ public class FullInventory extends Fragment {
         getThis().searchInventoryAdapter = searchInventoryAdapter;
     }
 
-    public IndividualCategoriesRVA getIndividualCategoriesAdapter() {
+    private IndividualCategoriesRVA getIndividualCategoriesAdapter() {
         return individualCategoriesAdapter;
     }
 
-    public void setIndividualCategoriesAdapter(IndividualCategoriesRVA individualCategoriesAdapter) {
-        this.individualCategoriesAdapter = individualCategoriesAdapter;
+    private void setIndividualCategoriesAdapter(IndividualCategoriesRVA individualCategoriesAdapter) {
+        getThis().individualCategoriesAdapter = individualCategoriesAdapter;
     }
 
-    public IndividualStoresRVA getIndividualStoresAdapter() {
+    private IndividualStoresRVA getIndividualStoresAdapter() {
         return individualStoresAdapter;
     }
 
-    public void setIndividualStoresAdapter(IndividualStoresRVA individualStoresAdapter) {
-        this.individualStoresAdapter = individualStoresAdapter;
+    private void setIndividualStoresAdapter(IndividualStoresRVA individualStoresAdapter) {
+        getThis().individualStoresAdapter = individualStoresAdapter;
     }
 
     private Button getSortAlphabetical() {
@@ -524,7 +582,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setExpandItems(Button expandItems) {
-        this.expandItems = expandItems;
+        getThis().expandItems = expandItems;
     }
 
     public Button getContractItems() {
@@ -532,7 +590,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setContractItems(Button contractItems) {
-        this.contractItems = contractItems;
+        getThis().contractItems = contractItems;
     }
 
     public Button getExpandCategories() {
@@ -540,7 +598,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setExpandCategories(Button expandCategories) {
-        this.expandCategories = expandCategories;
+        getThis().expandCategories = expandCategories;
     }
 
     public Button getContractCategories() {
@@ -548,7 +606,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setContractCategories(Button contractCategories) {
-        this.contractCategories = contractCategories;
+        getThis().contractCategories = contractCategories;
     }
 
     public Button getExpandStores() {
@@ -556,7 +614,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setExpandStores(Button expandStores) {
-        this.expandStores = expandStores;
+        getThis().expandStores = expandStores;
     }
 
     public Button getContractStores() {
@@ -564,7 +622,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setContractStores(Button contractStores) {
-        this.contractStores = contractStores;
+        getThis().contractStores = contractStores;
     }
 
     private Button getIndividualCategories() {
@@ -585,32 +643,23 @@ public class FullInventory extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        if (container != null) {
-            container.removeAllViews();
-        }
-        View inflatedView = inflater.inflate(R.layout.full_inventory, container, false);
-        setView(inflatedView);
-        setRootView(inflatedView);
-        if (getRootView() != null) {
-            getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        container.removeAllViews();
+        setView(inflater.inflate(R.layout.full_inventory, container, false));
+        setRootView(getView().getRootView());
+        getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
-                public void onGlobalLayout() {
-                    Rect r = new Rect();
-                    getRootView().getWindowVisibleDisplayFrame(r);
-                    int screenHeight = getRootView().getRootView().getHeight();
-                    int keypadHeight = screenHeight - r.bottom;
-                    if (keypadHeight > screenHeight * 0.15) {
-                        if (!keyboardVisible()) setKeyboardVisible(true);
-                    } else {
-                        if (keyboardVisible()) setKeyboardVisible(false);
-                    }
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                getRootView().getWindowVisibleDisplayFrame(r);
+                int screenHeight = getRootView().getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+                if (keypadHeight > screenHeight * 0.15) {
+                    if (!keyboardVisible()) setKeyboardVisible(true);
+                } else {
+                    if (keyboardVisible()) setKeyboardVisible(false);
                 }
-            });
-        }
-
-        setDbStatusHelper(new DBStatusHelper(getActivity()));
-        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
-        setDbStoreHelper(new DBStoreHelper(getActivity()));
+            }
+        });
 
         setShopping((Shopping) getActivity());
         setItemData(getShopping().getItemData());
@@ -618,6 +667,10 @@ public class FullInventory extends Fragment {
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
         getItemData().updateStatuses(getStatusData());
+
+        setDbStatusHelper(new DBStatusHelper(getActivity()));
+        setDbCategoryHelper(new DBCategoryHelper(getActivity()));
+        setDbStoreHelper(new DBStoreHelper(getActivity()));
 
         setFullInventoryRecyclerView(getView().findViewById(R.id.fullInventoryRecyclerView));
         getFullInventoryRecyclerView().setHasFixedSize(false);
@@ -638,15 +691,15 @@ public class FullInventory extends Fragment {
         setIndividualCategoriesRecyclerView(getView().findViewById(R.id.individualCategoriesRecyclerView));
         getIndividualCategoriesRecyclerView().setHasFixedSize(false);
         getIndividualCategoriesRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
-        setIndividualCategoriesAdapter(new IndividualCategoriesRVA(getView(), getContext(), getShopping()));
-        getIndividualCategoriesRecyclerView().setAdapter(getSearchInventoryAdapter());
+        setIndividualCategoriesAdapter(new IndividualCategoriesRVA(getView(), getContext(), getShopping(), getItemData()));
+        getIndividualCategoriesRecyclerView().setAdapter(getIndividualCategoriesAdapter());
         getIndividualCategoriesRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getIndividualCategoriesViewState());
 
         setIndividualStoresRecyclerView(getView().findViewById(R.id.individualStoresRecyclerView));
         getIndividualStoresRecyclerView().setHasFixedSize(false);
         getIndividualStoresRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
-        setIndividualStoresAdapter(new IndividualStoresRVA(getView(), getContext(), getShopping()));
-        getIndividualStoresRecyclerView().setAdapter(getSearchInventoryAdapter());
+        setIndividualStoresAdapter(new IndividualStoresRVA(getView(), getContext(), getShopping(), getItemData()));
+        getIndividualStoresRecyclerView().setAdapter(getIndividualStoresAdapter());
         getIndividualStoresRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getIndividualStoresViewState());
 
         setAddRemoveCategory(getView().findViewById(R.id.addRemoveCategory));
@@ -683,7 +736,47 @@ public class FullInventory extends Fragment {
         setRefreshButton(getView().findViewById(R.id.refreshButton));
         setFullInventoryEditButton(getView().findViewById(R.id.fullInventoryEditButton));
         setIndividualCategoriesLayout(getView().findViewById(R.id.individualCategoriesLayout));
+        setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
         setIndividualStoresLayout(getView().findViewById(R.id.individualStoresLayout));
+        setIndividualStoresSpinner(getView().findViewById(R.id.individualStoresSpinner));
+
+        setIndividualCategoriesSpinnerData(getCategoryData().getCategoryListWithBlank());
+        setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
+        setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getIndividualCategoriesSpinnerData()));
+        getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getIndividualCategoriesSpinner().setAdapter(getIndividualCategoriesSpinnerAdapter());
+        int categorySpinnerPosition = getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getReorderItemsCategory());
+        getIndividualCategoriesSpinner().setSelection(categorySpinnerPosition);
+
+        getIndividualCategoriesSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView adapter, View view, int i, long l) {
+                String selectedItem =  adapter.getItemAtPosition(i).toString();
+                getIndividualCategoriesAdapter().changeCategory(selectedItem);
+                getIndividualCategoriesAdapter().notifyDataSetChanged();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        setIndividualStoresSpinnerData(getStoreData().getStoreListWithBlank());
+        setIndividualStoresSpinner(getView().findViewById(R.id.individualStoresSpinner));
+        setIndividualStoresSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getIndividualStoresSpinnerData()));
+        getIndividualStoresSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        getIndividualStoresSpinner().setAdapter(getIndividualStoresSpinnerAdapter());
+        int storeSpinnerPosition = getIndividualStoresSpinnerAdapter().getPosition(getShopping().getReorderItemsStore());
+        getIndividualStoresSpinner().setSelection(storeSpinnerPosition);
+
+        getIndividualStoresSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView adapter, View view, int i, long l) {
+                String selectedItem =  adapter.getItemAtPosition(i).toString();
+                getIndividualStoresAdapter().changeStore(selectedItem);
+                getIndividualStoresAdapter().notifyDataSetChanged();
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
 
         setFullInventoryOptionsBackground(getView().findViewById(R.id.fullInventoryOptionsBackground));
         setSortAlphabetical(getView().findViewById(R.id.sortAlphabetical));
@@ -1286,7 +1379,9 @@ public class FullInventory extends Fragment {
                     getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                     for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
                         String category = getCategoryData().getCategoryList().get(i);
-                        getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
+                        if (getItemData().getCategoryMap().get(category) != null) {
+                            getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
+                        }
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1300,7 +1395,9 @@ public class FullInventory extends Fragment {
                     getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                     for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
                         String category = getCategoryData().getCategoryList().get(i);
-                        getItemData().getCategoryMap().get(category).setCategoryAsContracted();
+                        if (getItemData().getCategoryMap().get(category) != null) {
+                            getItemData().getCategoryMap().get(category).setCategoryAsContracted();
+                        }
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1314,7 +1411,9 @@ public class FullInventory extends Fragment {
                     getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                     for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
                         String store = getStoreData().getStoreList().get(i);
-                        getItemData().getStoreMap().get(store).setStoreAsExpanded();
+                        if (getItemData().getStoreMap().get(store) != null) {
+                            getItemData().getStoreMap().get(store).setStoreAsExpanded();
+                        }
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1328,7 +1427,9 @@ public class FullInventory extends Fragment {
                     getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                     for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
                         String store = getStoreData().getStoreList().get(i);
-                        getItemData().getStoreMap().get(store).setStoreAsContracted();
+                        if (getItemData().getStoreMap().get(store) != null) {
+                            getItemData().getStoreMap().get(store).setStoreAsContracted();
+                        }
                     }
                 }
                 getFullInventoryAdapter().notifyDataSetChanged();
@@ -1347,6 +1448,7 @@ public class FullInventory extends Fragment {
                 getFullInventoryAdapter().notifyDataSetChanged();
                 setIndividualCategoriesVisible(true);
                 individualCategoriesLayout.setVisibility(View.VISIBLE);
+                individualCategoriesRecyclerView.setVisibility(View.VISIBLE);
                 fullInventoryRecyclerView.setVisibility(View.GONE);
                 hideMenuOptions();
             }
@@ -1363,6 +1465,7 @@ public class FullInventory extends Fragment {
                 getFullInventoryAdapter().notifyDataSetChanged();
                 setIndividualStoresVisible(true);
                 individualStoresLayout.setVisibility(View.VISIBLE);
+                individualStoresRecyclerView.setVisibility(View.VISIBLE);
                 fullInventoryRecyclerView.setVisibility(View.GONE);
                 hideMenuOptions();
             }

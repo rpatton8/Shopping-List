@@ -116,7 +116,7 @@ public class ReorderCategories extends Fragment {
         getRecyclerView().setAdapter(getRvAdapter());
         getRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getReorderCategoriesViewState());
 
-        setFinishReorderingButton(getView().findViewById(R.id.finishReorderingButton));;
+        setFinishReorderingButton(getView().findViewById(R.id.finishReorderingButton));
         setCancelButton(getView().findViewById(R.id.cancelButton));
 
         getFinishReorderingButton().setOnClickListener(new View.OnClickListener() {

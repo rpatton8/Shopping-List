@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -16,17 +17,15 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
     private View view;
     private Context context;
     private Shopping shopping;
-    private SearchAlgorithm searchAlgorithm;
-    private String currentSearchTerm;
-    private ArrayList<Item> searchResultsList;
+    private ItemData itemData;
+    private String category;
 
-    IndividualCategoriesRVA(View view, Context context, Shopping shopping) {
+    IndividualCategoriesRVA(View view, Context context, Shopping shopping, ItemData itemData) {
         setView(view);
         setContext(context);
         setShopping(shopping);
-        setSearchAlgorithm(searchAlgorithm);
-        setCurrentSearchTerm(getContext().getString(R.string.emptyString));
-        setSearchResultsList(new ArrayList<>());
+        setItemData(itemData);
+        setCategory(getShopping().getIndividualCategory());
     }
 
     private IndividualCategoriesRVA getThis() {
@@ -57,28 +56,20 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
         getThis().shopping = shopping;
     }
 
-    private SearchAlgorithm getSearchAlgorithm() {
-        return searchAlgorithm;
+    public ItemData getItemData() {
+        return itemData;
     }
 
-    private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
-        getThis().searchAlgorithm = searchAlgorithm;
+    public void setItemData(ItemData itemData) {
+        getThis().itemData = itemData;
     }
 
-    private String getCurrentSearchTerm() {
-        return currentSearchTerm;
+    public String getCategory() {
+        return category;
     }
 
-    void setCurrentSearchTerm(String currentSearchTerm) {
-        getThis().currentSearchTerm = currentSearchTerm;
-    }
-
-    private ArrayList<Item> getSearchResultsList() {
-        return searchResultsList;
-    }
-
-    private void setSearchResultsList(ArrayList<Item> searchResultsList) {
-        getThis().searchResultsList = searchResultsList;
+    public void setCategory(String category) {
+        getThis().category = category;
     }
 
     public int getItemViewType(int position) {
@@ -92,86 +83,78 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        Item thisItem = null;
-        String searchTerm = getCurrentSearchTerm();
-        if (searchTerm != null && !searchTerm.equals(getContext().getString(R.string.emptyString))) {
-            setSearchResultsList(getSearchAlgorithm().getSearchResults(searchTerm));
-            ArrayList<Item> results = getSearchResultsList();
-            if (results != null && position < results.size()) {
-                thisItem = results.get(position);
-            }
-        }
+        if (getItemData().getCategoryMap().get(getCategory()) == null) return;
+        ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
+        Item thisItem = categoryList.get(position);
 
-        if (thisItem == null) {
-            return;
-        }
-
-        IndividualCategoriesRVH searchResultsHolder = (IndividualCategoriesRVH) holder;
+        IndividualCategoriesRVH individualCategoriesHolder = (IndividualCategoriesRVH) holder;
 
         if (thisItem.getStatus().isExpandedInInventory()) {
-            searchResultsHolder.getItemSmallName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemSmallBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemLargeBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
-            searchResultsHolder.getItemLargeStore().setText(thisItem.getStore().toString());
-            searchResultsHolder.getTriangleRight().setVisibility(View.GONE);
-            searchResultsHolder.getTriangleDown().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemSmall().setVisibility(View.GONE);
-            searchResultsHolder.getItemLarge().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmallName().setText(thisItem.getItemName());
+            individualCategoriesHolder.getItemLargeName().setText(thisItem.getItemName());
+            individualCategoriesHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+            individualCategoriesHolder.getItemLargeStore().setText(thisItem.getStore().toString());
+            individualCategoriesHolder.getTriangleRight().setVisibility(View.GONE);
+            individualCategoriesHolder.getTriangleDown().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmall().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLarge().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isContractedInInventory()) {
-            searchResultsHolder.getItemSmallName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemSmallBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeName().setText(thisItem.getItemName());
-            searchResultsHolder.getItemLargeBrand().setText(thisItem.getBrandType());
-            searchResultsHolder.getItemLargeCategory().setText(thisItem.getCategory().toString());
-            searchResultsHolder.getItemLargeStore().setText(thisItem.getStore().toString());
-            searchResultsHolder.getTriangleDown().setVisibility(View.GONE);
-            searchResultsHolder.getTriangleRight().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLarge().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmall().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmallName().setText(thisItem.getItemName());
+            individualCategoriesHolder.getItemLargeName().setText(thisItem.getItemName());
+            individualCategoriesHolder.getItemLargeBrand().setText(thisItem.getBrandType());
+            individualCategoriesHolder.getItemLargeStore().setText(thisItem.getStore().toString());
+            individualCategoriesHolder.getTriangleDown().setVisibility(View.GONE);
+            individualCategoriesHolder.getTriangleRight().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemLarge().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmall().setVisibility(View.VISIBLE);
         }
 
         if (thisItem.getStatus().isInStock()) {
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmallPaused().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargePaused().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallNeeded().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargeNeeded().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallInStock().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemLargeInStock().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isNeeded()) {
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmallInStock().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargeInStock().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallPaused().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargePaused().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallNeeded().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemLargeNeeded().setVisibility(View.VISIBLE);
         } else if (thisItem.getStatus().isPaused()) {
-            searchResultsHolder.getItemSmallNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeNeeded().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemLargeInStock().setVisibility(View.GONE);
-            searchResultsHolder.getItemSmallPaused().setVisibility(View.VISIBLE);
-            searchResultsHolder.getItemLargePaused().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemSmallNeeded().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargeNeeded().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallInStock().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemLargeInStock().setVisibility(View.GONE);
+            individualCategoriesHolder.getItemSmallPaused().setVisibility(View.VISIBLE);
+            individualCategoriesHolder.getItemLargePaused().setVisibility(View.VISIBLE);
         }
 
         if (thisItem.getStatus().isSelectedInInventory()) {
-            searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
-            searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
+            individualCategoriesHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+            individualCategoriesHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
 
         } else {
             if (getShopping().itemIsSelectedInSearchResults() && getShopping().getSelectedItemPositionInSearchResults() == position) {
-                searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
-                searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
+                individualCategoriesHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_selected);
+                individualCategoriesHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_selected);
             } else {
-                searchResultsHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
-                searchResultsHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
+                individualCategoriesHolder.getItemSmall().setBackgroundResource(R.drawable.list_outline_unselected);
+                individualCategoriesHolder.getItemLarge().setBackgroundResource(R.drawable.list_outline_unselected);
             }
         }
     }
 
     public int getItemCount() {
-        return getSearchAlgorithm().numSearchResults(getCurrentSearchTerm());
+        if (getItemData().getCategoryMap().get(getCategory()) == null) return 0;
+        return getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList().size();
+    }
+
+    void changeCategory(String category) {
+        getThis().setCategory(category);
+        getShopping().setIndividualCategory(category);
     }
 
     private class IndividualCategoriesRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -193,15 +176,11 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
         private TextView itemSmallInStock;
         private TextView itemSmallNeeded;
         private TextView itemSmallPaused;
-        private TextView itemSmallBrand;
-        private TextView itemSmallBrandLabel;
         private TextView itemLargeInStock;
         private TextView itemLargeNeeded;
         private TextView itemLargePaused;
         private TextView itemLargeBrand;
         private TextView itemLargeBrandLabel;
-        private TextView itemLargeCategory;
-        private TextView itemLargeCategoryLabel;
         private TextView itemLargeStore;
         private TextView itemLargeStoreLabel;
 
@@ -228,15 +207,11 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
             setItemSmallInStock(getView().findViewById(R.id.itemSmallInStock));
             setItemSmallNeeded(getView().findViewById(R.id.itemSmallNeeded));
             setItemSmallPaused(getView().findViewById(R.id.itemSmallPaused));
-            setItemSmallBrand(getView().findViewById(R.id.itemSmallBrand));
-            setItemSmallBrandLabel(getView().findViewById(R.id.itemSmallBrandLabel));
             setItemLargeInStock(getView().findViewById(R.id.itemLargeInStock));
             setItemLargeNeeded(getView().findViewById(R.id.itemLargeNeeded));
             setItemLargePaused(getView().findViewById(R.id.itemLargePaused));
             setItemLargeBrand(getView().findViewById(R.id.itemLargeBrand));
             setItemLargeBrandLabel(getView().findViewById(R.id.itemLargeBrandLabel));
-            setItemLargeCategory(getView().findViewById(R.id.itemLargeCategory));
-            setItemLargeCategoryLabel(getView().findViewById(R.id.itemLargeCategoryLabel));
             setItemLargeStore(getView().findViewById(R.id.itemLargeStore));
             setItemLargeStoreLabel(getView().findViewById(R.id.itemLargeStoreLabel));
 
@@ -249,15 +224,11 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
             getItemSmallInStock().setOnClickListener(getThis());
             getItemSmallNeeded().setOnClickListener(getThis());
             getItemSmallPaused().setOnClickListener(getThis());
-            getItemSmallBrand().setOnClickListener(getThis());
-            getItemSmallBrandLabel().setOnClickListener(getThis());
             getItemLargeInStock().setOnClickListener(getThis());
             getItemLargeNeeded().setOnClickListener(getThis());
             getItemLargePaused().setOnClickListener(getThis());
             getItemLargeBrand().setOnClickListener(getThis());
             getItemLargeBrandLabel().setOnClickListener(getThis());
-            getItemLargeCategory().setOnClickListener(getThis());
-            getItemLargeCategoryLabel().setOnClickListener(getThis());
             getItemLargeStore().setOnClickListener(getThis());
             getItemLargeStoreLabel().setOnClickListener(getThis());
         }
@@ -394,22 +365,6 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
             getThis().itemSmallPaused = itemSmallPaused;
         }
 
-        private TextView getItemSmallBrand() {
-            return itemSmallBrand;
-        }
-
-        private void setItemSmallBrand(TextView itemSmallBrand) {
-            getThis().itemSmallBrand = itemSmallBrand;
-        }
-
-        private TextView getItemSmallBrandLabel() {
-            return itemSmallBrandLabel;
-        }
-
-        private void setItemSmallBrandLabel(TextView itemSmallBrandLabel) {
-            getThis().itemSmallBrandLabel = itemSmallBrandLabel;
-        }
-
         private TextView getItemLargeInStock() {
             return itemLargeInStock;
         }
@@ -450,22 +405,6 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
             getThis().itemLargeBrandLabel = itemLargeBrandLabel;
         }
 
-        private TextView getItemLargeCategory() {
-            return itemLargeCategory;
-        }
-
-        private void setItemLargeCategory(TextView itemLargeCategory) {
-            getThis().itemLargeCategory = itemLargeCategory;
-        }
-
-        private TextView getItemLargeCategoryLabel() {
-            return itemLargeCategoryLabel;
-        }
-
-        private void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
-            getThis().itemLargeCategoryLabel = itemLargeCategoryLabel;
-        }
-
         private TextView getItemLargeStore() {
             return itemLargeStore;
         }
@@ -496,9 +435,9 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         private void selectOrUnselectItem(int position) {
 
-            if (position < 0 || position >= getSearchResultsList().size()) return;
-
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getCategoryMap().get(getCategory()) == null) return;
+            ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
+            Item thisItem = categoryList.get(position);
 
             if (thisItem.getStatus().isSelectedInSearchResults() || thisItem == getShopping().getSelectedItemInSearchResults()) {
                 // selected item is this item
@@ -552,10 +491,11 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
         private void onDoubleClick(View v) {
 
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
-            if (position >= getSearchResultsList().size()) return;
 
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getCategoryMap().get(getCategory()) == null) return;
+            ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
+            Item thisItem = categoryList.get(position);
+
             getShopping().setPictureDialogInInventory(false);
             getShopping().setPictureDialogInSearchResults(true);
             getShopping().setPictureDialogInShoppingList(false);
@@ -566,10 +506,10 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             int id = v.getId();
             int position = getBindingAdapterPosition();
-            if (position == RecyclerView.NO_POSITION) return;
-            if (position >= getSearchResultsList().size()) return;
 
-            Item thisItem = getSearchResultsList().get(position);
+            if (getItemData().getCategoryMap().get(getCategory()) == null) return;
+            ArrayList<Item> categoryList = getItemData().getCategoryMap().get(getCategory()).getCategoryItemsList();
+            Item thisItem = categoryList.get(position);
 
             if (id == getItemSmallName().getId()) {
                 selectOrUnselectItem(position);

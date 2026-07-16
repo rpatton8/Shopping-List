@@ -27,6 +27,7 @@ public class HomeScreen extends Fragment {
     private Button instructions;
     private boolean menuOptionsVisible;
     private boolean developerOptionsVisible;
+    private boolean instructionsVisible;
     private Button clearAllData;
     private Button loadSampleData1;
     private Button loadSampleData2;
@@ -121,7 +122,7 @@ public class HomeScreen extends Fragment {
     }
 
     public void setHomeScreenTitle(TextView homeScreenTitle) {
-        this.homeScreenTitle = homeScreenTitle;
+        getThis().homeScreenTitle = homeScreenTitle;
     }
 
     public String getLastMainTitle() {
@@ -129,7 +130,7 @@ public class HomeScreen extends Fragment {
     }
 
     public void setLastMainTitle(String lastMainTitle) {
-        this.lastMainTitle = lastMainTitle;
+        getThis().lastMainTitle = lastMainTitle;
     }
 
     private TextView getShoppingSettingsBackground() {
@@ -162,6 +163,14 @@ public class HomeScreen extends Fragment {
 
     private void setDeveloperOptionsVisible(boolean developerOptionsVisible) {
         getThis().developerOptionsVisible = developerOptionsVisible;
+    }
+
+    public boolean instructionsVisible() {
+        return instructionsVisible;
+    }
+
+    public void setInstructionsVisible(boolean instructionsVisible) {
+        getThis().instructionsVisible = instructionsVisible;
     }
 
     private Button getClearAllData() {
@@ -630,7 +639,7 @@ public class HomeScreen extends Fragment {
                 } else {
 
                     setLastMainTitle(getHomeScreenTitle().getText().toString());
-                    getHomeScreenTitle().setText(getString(R.string.shoppingSettings));
+                    getHomeScreenTitle().setText(getString(R.string.settings));
 
                     if (Shopping.SORT_ALPHABETICAL.equals(getShopping().getDefaultSortBy())) {
                         getSortAlphabetical().setChecked(true);
@@ -1081,7 +1090,14 @@ public class HomeScreen extends Fragment {
 
         getInstructions().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // to do
+                if (instructionsVisible()) {
+                    getHomeScreenTitle().setText(getLastMainTitle());
+                    setInstructionsVisible(false);
+                } else {
+                    setLastMainTitle(getHomeScreenTitle().getText().toString());
+                    getHomeScreenTitle().setText(getString(R.string.instructions));
+                    setInstructionsVisible(true);
+                }
             }
         });
 

@@ -206,6 +206,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         boolean isTitle = false;
         int adjustedPosition;
 
+        if (position < 0) return;
         if (position == 0) {
             isTitle = true;
             category = getCategoryData().getCategoryList().get(0);
@@ -467,6 +468,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         boolean isTitle = false;
         int adjustedPosition;
 
+        if (position < 0) return;
         if (position == 0) {
             isTitle = true;
             store = getStoreData().getStoreList().get(0);
@@ -722,6 +724,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void onBindViewHolderAlphabetical(RecyclerView.ViewHolder holder, int position) {
 
+        if (position < 0 || position >= getItemData().getItemListAZ().size()) return;
         Item thisItem = getItemData().getItemListAZ().get(position);
         SortAlphabeticalItemRVH alphabeticalItemHolder = (SortAlphabeticalItemRVH) holder;
 
@@ -1090,7 +1093,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void setCategory(String category) {
-            this.category = category;
+            getThis().category = category;
         }
 
         private boolean isExpanded() {
@@ -1470,6 +1473,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             boolean isTitle = false;
             int adjustedPosition;
 
+            if (position < 0) return;
             if (position == 0) {
                 isTitle = true;
             } else {
@@ -1578,12 +1582,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             int position = getBindingAdapterPosition();
             if (position == RecyclerView.NO_POSITION) return;
+            if (position == 0) return;
 
             String category;
             Item thisItem = null;
             int adjustedPosition;
-
-            if (position == 0) return;
 
             int index = 0;
             adjustedPosition = position;
@@ -1971,7 +1974,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void setStore(String store) {
-            this.store = store;
+            getThis().store = store;
         }
 
         private boolean isExpanded() {
@@ -2351,6 +2354,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             boolean isTitle = false;
             int adjustedPosition;
 
+            if (position < 0) return;
             if (position == 0) {
                 isTitle = true;
             } else {
@@ -2459,12 +2463,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             int position = getBindingAdapterPosition();
             if (position == RecyclerView.NO_POSITION) return;
+            if (position == 0) return;
 
             String store;
             Item thisItem = null;
             int adjustedPosition;
-
-            if (position == 0) return;
 
             int index = 0;
             adjustedPosition = position;
@@ -3039,6 +3042,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             int position = getBindingAdapterPosition();
             if (position == RecyclerView.NO_POSITION) return;
             if (position >= getItemData().getItemListAZ().size()) return;
+
             Item thisItem = getItemData().getItemListAZ().get(position);
 
             getShopping().setPictureDialogInInventory(true);
