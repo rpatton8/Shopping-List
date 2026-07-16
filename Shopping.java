@@ -298,6 +298,22 @@ public class Shopping extends AppCompatActivity {
         getThis().itemIsSelectedInSearchResults = itemIsSelectedInSearchResults;
     }
 
+    public boolean itemIsSelectedInIndividualCategories() {
+        return itemIsSelectedInIndividualCategories;
+    }
+
+    public void setItemIsSelectedInIndividualCategories(boolean itemIsSelectedInIndividualCategories) {
+        this.itemIsSelectedInIndividualCategories = itemIsSelectedInIndividualCategories;
+    }
+
+    public boolean itemIsSelectedInIndividualStores() {
+        return itemIsSelectedInIndividualStores;
+    }
+
+    public void setItemIsSelectedInIndividualStores(boolean itemIsSelectedInIndividualStores) {
+        this.itemIsSelectedInIndividualStores = itemIsSelectedInIndividualStores;
+    }
+
     boolean itemIsSelectedInShoppingList() {
         return itemIsSelectedInShoppingList;
     }
@@ -322,6 +338,22 @@ public class Shopping extends AppCompatActivity {
         getThis().selectedItemInSearchResults = selectedItemInSearchResults;
     }
 
+    public Item getSelectedItemInIndividualCategories() {
+        return selectedItemInIndividualCategories;
+    }
+
+    public void setSelectedItemInIndividualCategories(Item selectedItemInIndividualCategories) {
+        this.selectedItemInIndividualCategories = selectedItemInIndividualCategories;
+    }
+
+    public Item getSelectedItemInIndividualStores() {
+        return selectedItemInIndividualStores;
+    }
+
+    public void setSelectedItemInIndividualStores(Item selectedItemInIndividualStores) {
+        this.selectedItemInIndividualStores = selectedItemInIndividualStores;
+    }
+
     Item getSelectedItemInShoppingList() {
         return selectedItemInShoppingList;
     }
@@ -344,6 +376,22 @@ public class Shopping extends AppCompatActivity {
 
     void setSelectedItemPositionInSearchResults(int selectedItemPositionInSearchResults) {
         getThis().selectedItemPositionInSearchResults = selectedItemPositionInSearchResults;
+    }
+
+    public int getSelectedItemPositionInIndividualStores() {
+        return selectedItemPositionInIndividualStores;
+    }
+
+    public void setSelectedItemPositionInIndividualStores(int selectedItemPositionInIndividualStores) {
+        this.selectedItemPositionInIndividualStores = selectedItemPositionInIndividualStores;
+    }
+
+    public int getSelectedItemPositionInIndividualCategories() {
+        return selectedItemPositionInIndividualCategories;
+    }
+
+    public void setSelectedItemPositionInIndividualCategories(int selectedItemPositionInIndividualCategories) {
+        this.selectedItemPositionInIndividualCategories = selectedItemPositionInIndividualCategories;
     }
 
     int getSelectedItemPositionInShoppingList() {
@@ -418,6 +466,22 @@ public class Shopping extends AppCompatActivity {
         getThis().editItemInSearchResults = editItemInSearchResults;
     }
 
+    public boolean editItemInIndividualCategories() {
+        return editItemInIndividualCategories;
+    }
+
+    public void setEditItemInIndividualCategories(boolean editItemInIndividualCategories) {
+        this.editItemInIndividualCategories = editItemInIndividualCategories;
+    }
+
+    public boolean editItemInIndividualStores() {
+        return editItemInIndividualStores;
+    }
+
+    public void setEditItemInIndividualStores(boolean editItemInIndividualStores) {
+        this.editItemInIndividualStores = editItemInIndividualStores;
+    }
+
     boolean editItemInShoppingList() {
         return editItemInShoppingList;
     }
@@ -448,6 +512,22 @@ public class Shopping extends AppCompatActivity {
 
     void setPictureDialogInSearchResults(boolean pictureDialogInSearchResults) {
         getThis().pictureDialogInSearchResults = pictureDialogInSearchResults;
+    }
+
+    public boolean pictureDialogInIndividualCategories() {
+        return pictureDialogInIndividualCategories;
+    }
+
+    public void setPictureDialogInIndividualCategories(boolean pictureDialogInIndividualCategories) {
+        this.pictureDialogInIndividualCategories = pictureDialogInIndividualCategories;
+    }
+
+    public boolean pictureDialogInIndividualStores() {
+        return pictureDialogInIndividualStores;
+    }
+
+    public void setPictureDialogInIndividualStores(boolean pictureDialogInIndividualStores) {
+        this.pictureDialogInIndividualStores = pictureDialogInIndividualStores;
     }
 
     boolean pictureDialogInShoppingList() {
@@ -904,6 +984,8 @@ public class Shopping extends AppCompatActivity {
                 setEditItemInPictureDialog(true);
                 setEditItemInInventory(false);
                 setEditItemInSearchResults(false);
+                setEditItemInIndividualCategories(false);
+                setEditItemInIndividualStores(false);
                 setEditItemInShoppingList(false);
                 getPictureDialog().dismiss();
                 loadFragment(new EditItem());
@@ -1149,17 +1231,23 @@ public class Shopping extends AppCompatActivity {
         setSelectedItemPositionInInventory(0);
         setSelectedItemPositionInSearchResults(0);
         setSelectedItemPositionInShoppingList(0);
-        setItemInPictureDialog(null);
 
         setStoreListOrderNum(0);
+        setItemInPictureDialog(null);
         setReorderItemsCategory(getString(R.string.emptyString));
         setReorderItemsStore(getString(R.string.emptyString));
+        setIndividualCategory("");
+        setIndividualStore("");
         setEditItemInInventory(false);
         setEditItemInSearchResults(false);
+        setEditItemInIndividualCategories(false);
+        setEditItemInIndividualStores(false);
         setEditItemInShoppingList(false);
         setEditItemInPictureDialog(false);
         setPictureDialogInInventory(false);
         setPictureDialogInSearchResults(false);
+        setPictureDialogInIndividualCategories(false);
+        setPictureDialogInIndividualStores(false);
         setPictureDialogInShoppingList(false);
 
         setInventoryView(VIEW_ALL);
