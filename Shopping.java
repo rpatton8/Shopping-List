@@ -26,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.common.util.concurrent.ListenableFuture;
-
 import java.io.File;
 
 public class Shopping extends AppCompatActivity {
@@ -43,26 +42,36 @@ public class Shopping extends AppCompatActivity {
 
     private boolean itemIsSelectedInInventory;
     private boolean itemIsSelectedInSearchResults;
+    private boolean itemIsSelectedInIndividualCategories;
+    private boolean itemIsSelectedInIndividualStores;
     private boolean itemIsSelectedInShoppingList;
     private Item selectedItemInInventory;
     private Item selectedItemInSearchResults;
+    private Item selectedItemInIndividualCategories;
+    private Item selectedItemInIndividualStores;
     private Item selectedItemInShoppingList;
     private int selectedItemPositionInInventory;
     private int selectedItemPositionInSearchResults;
+    private int selectedItemPositionInIndividualCategories;
+    private int selectedItemPositionInIndividualStores;
     private int selectedItemPositionInShoppingList;
-    private Item itemInPictureDialog;
 
     private int storeListOrderNum;
+    private Item itemInPictureDialog;
     private String reorderItemsCategory;
     private String reorderItemsStore;
     private String individualCategory;
     private String individualStore;
     private boolean editItemInInventory;
     private boolean editItemInSearchResults;
+    private boolean editItemInIndividualCategories;
+    private boolean editItemInIndividualStores;
     private boolean editItemInShoppingList;
     private boolean editItemInPictureDialog;
     private boolean pictureDialogInInventory;
     private boolean pictureDialogInSearchResults;
+    private boolean pictureDialogInIndividualCategories;
+    private boolean pictureDialogInIndividualStores;
     private boolean pictureDialogInShoppingList;
 
     private SearchAlgorithm searchAlgorithm;
