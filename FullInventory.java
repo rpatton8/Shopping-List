@@ -1530,7 +1530,11 @@ public class FullInventory extends Fragment {
 
         getIndividualCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (individualCategoriesVisible) return;
+                if (individualCategoriesVisible) {
+                    hideMenuOptions();
+                    getFullInventoryTitle().setText(getString(R.string.individualCategories));
+                    return;
+                }
                 if (individualStoresVisible) {
                     setIndividualStoresVisible(false);
                     individualStoresLayout.setVisibility(View.GONE);
@@ -1547,7 +1551,11 @@ public class FullInventory extends Fragment {
 
         getIndividualStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (individualStoresVisible) return;
+                if (individualStoresVisible) {
+                    hideMenuOptions();
+                    getFullInventoryTitle().setText(getString(R.string.individualStores));
+                    return;
+                }
                 if (individualCategoriesVisible) {
                     setIndividualCategoriesVisible(false);
                     individualCategoriesLayout.setVisibility(View.GONE);
