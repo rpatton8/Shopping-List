@@ -35,6 +35,7 @@
     <string name="cancelCap">CANCEL</string>
     <string name="category">Category</string>
     <string name="categoriesLabel">Categories</string>
+    <string name="categoryPrompt">Category: </string>
     <string name="categoryTitlesContracted">Contracted</string>
     <string name="categoryTitlesExpanded">Expanded</string>
     <string name="categoryWithColon">Category: </string>

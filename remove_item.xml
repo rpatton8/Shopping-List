@@ -49,7 +49,7 @@
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/itemName"
-                    android:background="@drawable/spinner_outline"
+                    android:background="@drawable/spinner_outline_1dp"
                     android:inputType="text" />
 
             </LinearLayout>

@@ -47,7 +47,7 @@
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     android:translationX="16dp"
-                    android:background="@drawable/spinner_outline"
+                    android:background="@drawable/spinner_outline_1dp"
                     android:orientation="horizontal">
 
                     <Spinner
@@ -86,7 +86,7 @@
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/enterNewStoreName"
-                    android:background="@drawable/spinner_outline"
+                    android:background="@drawable/spinner_outline_1dp"
                     android:inputType="text" />
 
                 <Button

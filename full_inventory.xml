@@ -114,48 +114,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@id/searchPopup"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/categoryLabel"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/individualCategoriesSpinner"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center"
+            android:background="@drawable/spinner_outline_2dp"
             android:gravity="center_horizontal"
-            android:text="@string/chooseCategoryToReorder"
-            android:textSize="22sp"/>
-
-        <RelativeLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:translationX="16dp"
-            android:background="@drawable/spinner_outline"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/individualCategoriesSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:layout_marginStart="5dp"
-                android:spinnerMode="dialog" />
-
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@mipmap/triangle_down"
-                android:contentDescription="@string/triangleDown" />
-
-        </RelativeLayout>
+            android:spinnerMode="dialog" />
 
         <TextView
             android:layout_width="match_parent"
@@ -165,7 +137,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/individualCategoriesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="570dp"
+            android:layout_height="545dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:clipToPadding="false"
@@ -179,48 +151,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
         android:layout_gravity="center_horizontal"
         android:layout_below="@id/searchPopup"
         android:visibility="gone">
 
-        <TextView
-            android:id="@+id/storeLabel"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/individualStoresSpinner"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center"
+            android:background="@drawable/spinner_outline_2dp"
             android:gravity="center_horizontal"
-            android:text="@string/chooseStoreToReorder"
-            android:textSize="22sp"/>
-
-        <RelativeLayout
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:translationX="16dp"
-            android:background="@drawable/spinner_outline"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/individualStoresSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:layout_marginStart="5dp"
-                android:spinnerMode="dialog" />
-
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:src="@mipmap/triangle_down"
-                android:contentDescription="@string/triangleDown" />
-
-        </RelativeLayout>
+            android:spinnerMode="dialog" />
 
         <TextView
             android:layout_width="match_parent"
@@ -230,7 +174,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/individualStoresRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="570dp"
+            android:layout_height="545dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:clipToPadding="false"

@@ -57,7 +57,7 @@
         android:layout_height="54dp"
         android:translationX="16dp"
         android:hint="@string/space"
-        android:background="@drawable/spinner_outline"
+        android:background="@drawable/spinner_outline_1dp"
         android:inputType="number"
         android:visibility="gone" />
 

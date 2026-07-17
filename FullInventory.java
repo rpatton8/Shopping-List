@@ -742,8 +742,8 @@ public class FullInventory extends Fragment {
 
         setIndividualCategoriesSpinnerData(getCategoryData().getCategoryListWithBlank());
         setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
-        setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getIndividualCategoriesSpinnerData()));
-        getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.custom_spinner_item, getIndividualCategoriesSpinnerData()));
+        getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(R.layout.custom_spinner_item);
         getIndividualCategoriesSpinner().setAdapter(getIndividualCategoriesSpinnerAdapter());
         int categorySpinnerPosition = getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getReorderItemsCategory());
         getIndividualCategoriesSpinner().setSelection(categorySpinnerPosition);
@@ -761,8 +761,8 @@ public class FullInventory extends Fragment {
 
         setIndividualStoresSpinnerData(getStoreData().getStoreListWithBlank());
         setIndividualStoresSpinner(getView().findViewById(R.id.individualStoresSpinner));
-        setIndividualStoresSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getIndividualStoresSpinnerData()));
-        getIndividualStoresSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        setIndividualStoresSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.custom_spinner_item, getIndividualStoresSpinnerData()));
+        getIndividualStoresSpinnerAdapter().setDropDownViewResource(R.layout.custom_spinner_item);
         getIndividualStoresSpinner().setAdapter(getIndividualStoresSpinnerAdapter());
         int storeSpinnerPosition = getIndividualStoresSpinnerAdapter().getPosition(getShopping().getReorderItemsStore());
         getIndividualStoresSpinner().setSelection(storeSpinnerPosition);

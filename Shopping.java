@@ -936,7 +936,7 @@ public class Shopping extends AppCompatActivity {
     void showAlertDialog(String title, String message, String button) {
 
         LayoutInflater inflater = LayoutInflater.from(getThis());
-        setAlertDialogView(inflater.inflate(R.layout.alert_dialog, null));
+        setAlertDialogView(inflater.inflate(R.layout.alert_dialog_1, null));
         AlertDialog.Builder builder = new AlertDialog.Builder(getThis());
         builder.setView(getAlertDialogView());
 
