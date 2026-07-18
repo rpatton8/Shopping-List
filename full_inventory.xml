@@ -118,16 +118,40 @@
         android:layout_below="@id/searchPopup"
         android:visibility="gone">
 
-        <Spinner
-            android:id="@+id/individualCategoriesSpinner"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:layout_gravity="center"
-            android:background="@drawable/spinner_outline_2dp"
-            android:gravity="center_horizontal"
-            android:spinnerMode="dialog" />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/individualCategoriesLeftArrow"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/left_arrow_white" />
+
+            <Spinner
+                android:id="@+id/individualCategoriesSpinner"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_gravity="center"
+                android:background="@drawable/spinner_outline_2dp"
+                android:gravity="center_horizontal"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:id="@+id/individualCategoriesRightArrow"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="5dp"
+                android:background="@mipmap/right_arrow_white" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -137,7 +161,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/individualCategoriesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="545dp"
+            android:layout_height="540dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:clipToPadding="false"
@@ -155,16 +179,40 @@
         android:layout_below="@id/searchPopup"
         android:visibility="gone">
 
-        <Spinner
-            android:id="@+id/individualStoresSpinner"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
-            android:layout_gravity="center"
-            android:background="@drawable/spinner_outline_2dp"
-            android:gravity="center_horizontal"
-            android:spinnerMode="dialog" />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/individualStoresLeftArrow"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/left_arrow_white" />
+
+            <Spinner
+                android:id="@+id/individualStoresSpinner"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_gravity="center"
+                android:background="@drawable/spinner_outline_2dp"
+                android:gravity="center_horizontal"
+                android:spinnerMode="dialog" />
+
+            <TextView
+                android:id="@+id/individualStoresRightArrow"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="5dp"
+                android:background="@mipmap/right_arrow_white" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -174,7 +222,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/individualStoresRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="545dp"
+            android:layout_height="540dp"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:clipToPadding="false"
