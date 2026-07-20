@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +30,8 @@ public class ShoppingList extends Fragment {
     private TextView shoppingListTitle;
     private RecyclerView shoppingListRecyclerView;
     private ShoppingListRVA shoppingListAdapter;
-    private TextView shoppingListLeftArrow;
-    private TextView shoppingListRightArrow;
+    private ImageView shoppingListLeftArrow;
+    private ImageView shoppingListRightArrow;
     private AlertDialog alertDialog2;
     private View alertDialog2View;
     private TextView alertDialog2Title;
@@ -126,19 +127,19 @@ public class ShoppingList extends Fragment {
         getThis().shoppingListAdapter = shoppingListAdapter;
     }
 
-    private TextView getShoppingListLeftArrow() {
+    private ImageView getShoppingListLeftArrow() {
         return shoppingListLeftArrow;
     }
 
-    private void setShoppingListLeftArrow(TextView shoppingListLeftArrow) {
+    private void setShoppingListLeftArrow(ImageView shoppingListLeftArrow) {
         getThis().shoppingListLeftArrow = shoppingListLeftArrow;
     }
 
-    private TextView getShoppingListRightArrow() {
+    private ImageView getShoppingListRightArrow() {
         return shoppingListRightArrow;
     }
 
-    private void setShoppingListRightArrow(TextView shoppingListRightArrow) {
+    private void setShoppingListRightArrow(ImageView shoppingListRightArrow) {
         getThis().shoppingListRightArrow = shoppingListRightArrow;
     }
 
@@ -234,14 +235,8 @@ public class ShoppingList extends Fragment {
 
         if (getShopping().getShoppingListStoreOrderNum() == 0) {
             getShoppingListTitle().setText(getString(R.string.allStores));
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getShoppingListTitle().getLayoutParams();
-            params.bottomMargin = 0;
-            getShoppingListTitle().setLayoutParams(params);
         } else {
             getShoppingListTitle().setText(getStoreData().getStoreList().get(getShopping().getShoppingListStoreOrderNum() - 1));
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) getShoppingListTitle().getLayoutParams();
-            params.bottomMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics());
-            getShoppingListTitle().setLayoutParams(params);
         }
 
         getShoppingListLeftArrow().setOnClickListener(new View.OnClickListener() {

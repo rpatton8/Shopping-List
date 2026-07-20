@@ -254,7 +254,7 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private TextView itemLargeCategory;
         private TextView itemLargeCategoryLabel;
 
-        private final long doubleClickTimeout = 300;
+        private final long doubleClickTimeout = 350;
         private long lastClickTime = 0;
 
         private ShoppingListItemRVH(View itemView, Shopping shopping, ShoppingListRVA adapter, ItemData itemData, StoreData storeData) {
@@ -560,6 +560,11 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
             if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
+                int id = v.getId();
+                if (id == getCheckboxUncheckedSmall().getId() || id == getCheckboxUncheckedLarge().getId() ||
+                        id == getCheckboxCheckedSmall().getId() || id == getCheckboxCheckedLarge().getId()) {
+                    return;
+                }
                 onDoubleClick(v);
             } else {
                 onSingleClick(v);
@@ -599,6 +604,8 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (thisItem != null) {
                 getShopping().setPictureDialogInInventory(false);
                 getShopping().setPictureDialogInSearchResults(false);
+                getShopping().setPictureDialogInIndividualCategories(false);
+                getShopping().setPictureDialogInIndividualStores(false);
                 getShopping().setPictureDialogInShoppingList(true);
                 getShopping().showPictureDialog(thisItem);
             }

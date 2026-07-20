@@ -184,7 +184,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private TextView itemLargeCategory;
         private TextView itemLargeCategoryLabel;
 
-        private final long doubleClickTimeout = 300;
+        private final long doubleClickTimeout = 350;
         private long lastClickTime = 0;
 
         private IndividualStoresRVH(View view, Context context, Shopping shopping, IndividualStoresRVA adapter) {
@@ -481,6 +481,12 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
             if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
+                int id = v.getId();
+                if (id == getItemSmallInStock().getId() || id == getItemLargeInStock().getId() ||
+                        id == getItemSmallNeeded().getId() || id == getItemLargeNeeded().getId() ||
+                        id == getItemSmallPaused().getId() || id == getItemLargePaused().getId()) {
+                    return;
+                }
                 onDoubleClick(v);
             } else {
                 onSingleClick(v);
@@ -497,7 +503,9 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Item thisItem = storeList.get(position);
 
             getShopping().setPictureDialogInInventory(false);
-            getShopping().setPictureDialogInSearchResults(true);
+            getShopping().setPictureDialogInSearchResults(false);
+            getShopping().setPictureDialogInIndividualCategories(false);
+            getShopping().setPictureDialogInIndividualStores(true);
             getShopping().setPictureDialogInShoppingList(false);
             getShopping().showPictureDialog(thisItem);
         }

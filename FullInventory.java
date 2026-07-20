@@ -75,10 +75,16 @@ public class FullInventory extends Fragment {
     private Spinner individualCategoriesSpinner;
     private ArrayList<String> individualCategoriesSpinnerData;
     private ArrayAdapter<String> individualCategoriesSpinnerAdapter;
+    private int individualCategoriesSpinnerPosition;
+    private TextView individualCategoriesLeftArrow;
+    private TextView individualCategoriesRightArrow;
     private LinearLayout individualStoresLayout;
     private Spinner individualStoresSpinner;
     private ArrayList<String> individualStoresSpinnerData;
     private ArrayAdapter<String> individualStoresSpinnerAdapter;
+    private int individualStoresSpinnerPosition;
+    private TextView individualStoresLeftArrow;
+    private TextView individualStoresRightArrow;
 
     private RecyclerView fullInventoryRecyclerView;
     private RecyclerView searchInventoryRecyclerView;
@@ -406,7 +412,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesSpinner(Spinner individualCategoriesSpinner) {
-        this.individualCategoriesSpinner = individualCategoriesSpinner;
+        getThis().individualCategoriesSpinner = individualCategoriesSpinner;
     }
 
     public ArrayList<String> getIndividualCategoriesSpinnerData() {
@@ -414,7 +420,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesSpinnerData(ArrayList<String> individualCategoriesSpinnerData) {
-        this.individualCategoriesSpinnerData = individualCategoriesSpinnerData;
+        getThis().individualCategoriesSpinnerData = individualCategoriesSpinnerData;
     }
 
     public ArrayAdapter<String> getIndividualCategoriesSpinnerAdapter() {
@@ -422,7 +428,31 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualCategoriesSpinnerAdapter(ArrayAdapter<String> individualCategoriesSpinnerAdapter) {
-        this.individualCategoriesSpinnerAdapter = individualCategoriesSpinnerAdapter;
+        getThis().individualCategoriesSpinnerAdapter = individualCategoriesSpinnerAdapter;
+    }
+
+    public int getIndividualCategoriesSpinnerPosition() {
+        return individualCategoriesSpinnerPosition;
+    }
+
+    public void setIndividualCategoriesSpinnerPosition(int individualCategoriesSpinnerPosition) {
+        getThis().individualCategoriesSpinnerPosition = individualCategoriesSpinnerPosition;
+    }
+
+    public TextView getIndividualCategoriesLeftArrow() {
+        return individualCategoriesLeftArrow;
+    }
+
+    public void setIndividualCategoriesLeftArrow(TextView individualCategoriesLeftArrow) {
+        getThis().individualCategoriesLeftArrow = individualCategoriesLeftArrow;
+    }
+
+    public TextView getIndividualCategoriesRightArrow() {
+        return individualCategoriesRightArrow;
+    }
+
+    public void setIndividualCategoriesRightArrow(TextView individualCategoriesRightArrow) {
+        getThis().individualCategoriesRightArrow = individualCategoriesRightArrow;
     }
 
     public LinearLayout getIndividualStoresLayout() {
@@ -438,7 +468,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresSpinner(Spinner individualStoresSpinner) {
-        this.individualStoresSpinner = individualStoresSpinner;
+        getThis().individualStoresSpinner = individualStoresSpinner;
     }
 
     public ArrayList<String> getIndividualStoresSpinnerData() {
@@ -446,7 +476,7 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresSpinnerData(ArrayList<String> individualStoresSpinnerData) {
-        this.individualStoresSpinnerData = individualStoresSpinnerData;
+        getThis().individualStoresSpinnerData = individualStoresSpinnerData;
     }
 
     public ArrayAdapter<String> getIndividualStoresSpinnerAdapter() {
@@ -454,7 +484,31 @@ public class FullInventory extends Fragment {
     }
 
     public void setIndividualStoresSpinnerAdapter(ArrayAdapter<String> individualStoresSpinnerAdapter) {
-        this.individualStoresSpinnerAdapter = individualStoresSpinnerAdapter;
+        getThis().individualStoresSpinnerAdapter = individualStoresSpinnerAdapter;
+    }
+
+    public int getIndividualStoresSpinnerPosition() {
+        return individualStoresSpinnerPosition;
+    }
+
+    public void setIndividualStoresSpinnerPosition(int individualStoresSpinnerPosition) {
+        getThis().individualStoresSpinnerPosition = individualStoresSpinnerPosition;
+    }
+
+    public TextView getIndividualStoresLeftArrow() {
+        return individualStoresLeftArrow;
+    }
+
+    public void setIndividualStoresLeftArrow(TextView individualStoresLeftArrow) {
+        getThis().individualStoresLeftArrow = individualStoresLeftArrow;
+    }
+
+    public TextView getIndividualStoresRightArrow() {
+        return individualStoresRightArrow;
+    }
+
+    public void setIndividualStoresRightArrow(TextView individualStoresRightArrow) {
+        getThis().individualStoresRightArrow = individualStoresRightArrow;
     }
 
     private RecyclerView getFullInventoryRecyclerView() {
@@ -735,47 +789,96 @@ public class FullInventory extends Fragment {
         setClearSearchButton(getView().findViewById(R.id.clearSearchButton));
         setRefreshButton(getView().findViewById(R.id.refreshButton));
         setFullInventoryEditButton(getView().findViewById(R.id.fullInventoryEditButton));
+
         setIndividualCategoriesLayout(getView().findViewById(R.id.individualCategoriesLayout));
         setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
+        setIndividualCategoriesLeftArrow(getView().findViewById(R.id.individualCategoriesLeftArrow));
+        setIndividualCategoriesRightArrow(getView().findViewById(R.id.individualCategoriesRightArrow));
         setIndividualStoresLayout(getView().findViewById(R.id.individualStoresLayout));
         setIndividualStoresSpinner(getView().findViewById(R.id.individualStoresSpinner));
+        setIndividualStoresLeftArrow(getView().findViewById(R.id.individualStoresLeftArrow));
+        setIndividualStoresRightArrow(getView().findViewById(R.id.individualStoresRightArrow));
 
         setIndividualCategoriesSpinnerData(getCategoryData().getCategoryListWithBlank());
         setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
-        setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.custom_spinner_item, getIndividualCategoriesSpinnerData()));
-        getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(R.layout.custom_spinner_item);
+        setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_2, getIndividualCategoriesSpinnerData()));
+        getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_2);
         getIndividualCategoriesSpinner().setAdapter(getIndividualCategoriesSpinnerAdapter());
-        int categorySpinnerPosition = getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getReorderItemsCategory());
-        getIndividualCategoriesSpinner().setSelection(categorySpinnerPosition);
+        setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
+        getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition());
 
         getIndividualCategoriesSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 getIndividualCategoriesAdapter().changeCategory(selectedItem);
                 getIndividualCategoriesAdapter().notifyDataSetChanged();
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        getIndividualCategoriesLeftArrow().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
+                if ((getIndividualCategoriesSpinnerPosition() - 1) <= 0) {
+                    setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
+                } else if ((getIndividualCategoriesSpinnerPosition() - 1) > getIndividualCategoriesSpinnerData().size()) {
+                    setIndividualCategoriesSpinnerPosition(0);
+                }
+                getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() - 1);
+            }
+        });
+
+        getIndividualCategoriesRightArrow().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
+                if ((getIndividualCategoriesSpinnerPosition() + 1) < 0) {
+                    setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
+                } else if ((getIndividualCategoriesSpinnerPosition() + 1) >= getIndividualCategoriesSpinnerData().size()) {
+                    setIndividualCategoriesSpinnerPosition(0);
+                }
+                getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() + 1);
+            }
         });
 
         setIndividualStoresSpinnerData(getStoreData().getStoreListWithBlank());
         setIndividualStoresSpinner(getView().findViewById(R.id.individualStoresSpinner));
-        setIndividualStoresSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.custom_spinner_item, getIndividualStoresSpinnerData()));
-        getIndividualStoresSpinnerAdapter().setDropDownViewResource(R.layout.custom_spinner_item);
+        setIndividualStoresSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_2, getIndividualStoresSpinnerData()));
+        getIndividualStoresSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_2);
         getIndividualStoresSpinner().setAdapter(getIndividualStoresSpinnerAdapter());
-        int storeSpinnerPosition = getIndividualStoresSpinnerAdapter().getPosition(getShopping().getReorderItemsStore());
-        getIndividualStoresSpinner().setSelection(storeSpinnerPosition);
+        setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
+        getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition());
 
         getIndividualStoresSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
             public void onItemSelected(AdapterView adapter, View view, int i, long l) {
                 String selectedItem =  adapter.getItemAtPosition(i).toString();
                 getIndividualStoresAdapter().changeStore(selectedItem);
                 getIndividualStoresAdapter().notifyDataSetChanged();
             }
-
             public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        getIndividualStoresLeftArrow().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
+                if ((getIndividualStoresSpinnerPosition() - 1) <= 0) {
+                    setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
+                } else if ((getIndividualStoresSpinnerPosition() - 1) > getIndividualStoresSpinnerData().size()) {
+                    setIndividualStoresSpinnerPosition(0);
+                }
+                getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() - 1);
+            }
+        });
+
+        getIndividualStoresRightArrow().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
+                if ((getIndividualStoresSpinnerPosition() + 1) < 0) {
+                    setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
+                } else if ((getIndividualStoresSpinnerPosition() + 1) >= getIndividualStoresSpinnerData().size()) {
+                    setIndividualStoresSpinnerPosition(0);
+                }
+                getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() + 1);
+            }
         });
 
         setFullInventoryOptionsBackground(getView().findViewById(R.id.fullInventoryOptionsBackground));
@@ -1378,6 +1481,10 @@ public class FullInventory extends Fragment {
 
         getViewAll().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualCategoriesVisible() || individualStoresVisible()) {
+                    hideMenuOptions();
+                    return;
+                }
                getShopping().setInventoryView(Shopping.VIEW_ALL);
                if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
                    getFullInventoryTitle().setText(getString(R.string.byCategoryAll));
@@ -1393,6 +1500,10 @@ public class FullInventory extends Fragment {
 
         getViewInStock().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualCategoriesVisible() || individualStoresVisible()) {
+                    hideMenuOptions();
+                    return;
+                }
                 getShopping().setInventoryView(Shopping.VIEW_INSTOCK);
                 if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
                     getFullInventoryTitle().setText(getString(R.string.byCategoryInStock));
@@ -1408,6 +1519,10 @@ public class FullInventory extends Fragment {
 
         getViewNeeded().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualCategoriesVisible() || individualStoresVisible()) {
+                    hideMenuOptions();
+                    return;
+                }
                 getShopping().setInventoryView(Shopping.VIEW_NEEDED);
                 if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
                     getFullInventoryTitle().setText(getString(R.string.byCategoryNeeded));
@@ -1423,6 +1538,10 @@ public class FullInventory extends Fragment {
 
         getViewPaused().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (individualCategoriesVisible() || individualStoresVisible()) {
+                    hideMenuOptions();
+                    return;
+                }
                 getShopping().setInventoryView(Shopping.VIEW_PAUSED);
                 if (Shopping.SORT_BY_CATEGORY.equals(getShopping().getInventorySortBy())) {
                     getFullInventoryTitle().setText(getString(R.string.byCategoryPaused));

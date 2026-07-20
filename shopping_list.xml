@@ -18,26 +18,27 @@
         android:textAlignment="center"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        android:layout_marginBottom="6dp"
         android:textStyle="bold" />
 
-    <TextView
+    <ImageView
         android:id="@+id/shoppingListLeftArrow"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:background="@mipmap/left_arrow" />
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="-4dp"
+        android:src="@mipmap/left_arrow_blue" />
 
-    <TextView
+    <ImageView
         android:id="@+id/shoppingListRightArrow"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="10dp"
-        android:background="@mipmap/right_arrow" />
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="-4dp"
+        android:src="@mipmap/right_arrow_blue" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/shoppingListRecyclerView"
@@ -45,7 +46,8 @@
         android:layout_height="578dp"
         android:paddingBottom="6dp"
         android:clipToPadding="false"
-        android:layout_below="@id/shoppingListTitle" />
+        android:layout_below="@id/shoppingListTitle"
+        android:background="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"

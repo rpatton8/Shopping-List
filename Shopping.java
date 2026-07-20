@@ -301,20 +301,20 @@ public class Shopping extends AppCompatActivity {
         getThis().itemIsSelectedInSearchResults = itemIsSelectedInSearchResults;
     }
 
-    public boolean itemIsSelectedInIndividualCategories() {
+    boolean itemIsSelectedInIndividualCategories() {
         return itemIsSelectedInIndividualCategories;
     }
 
-    public void setItemIsSelectedInIndividualCategories(boolean itemIsSelectedInIndividualCategories) {
-        this.itemIsSelectedInIndividualCategories = itemIsSelectedInIndividualCategories;
+    void setItemIsSelectedInIndividualCategories(boolean itemIsSelectedInIndividualCategories) {
+        getThis().itemIsSelectedInIndividualCategories = itemIsSelectedInIndividualCategories;
     }
 
-    public boolean itemIsSelectedInIndividualStores() {
+    boolean itemIsSelectedInIndividualStores() {
         return itemIsSelectedInIndividualStores;
     }
 
-    public void setItemIsSelectedInIndividualStores(boolean itemIsSelectedInIndividualStores) {
-        this.itemIsSelectedInIndividualStores = itemIsSelectedInIndividualStores;
+    void setItemIsSelectedInIndividualStores(boolean itemIsSelectedInIndividualStores) {
+        getThis().itemIsSelectedInIndividualStores = itemIsSelectedInIndividualStores;
     }
 
     boolean itemIsSelectedInShoppingList() {
@@ -341,20 +341,20 @@ public class Shopping extends AppCompatActivity {
         getThis().selectedItemInSearchResults = selectedItemInSearchResults;
     }
 
-    public Item getSelectedItemInIndividualCategories() {
+    Item getSelectedItemInIndividualCategories() {
         return selectedItemInIndividualCategories;
     }
 
-    public void setSelectedItemInIndividualCategories(Item selectedItemInIndividualCategories) {
-        this.selectedItemInIndividualCategories = selectedItemInIndividualCategories;
+    void setSelectedItemInIndividualCategories(Item selectedItemInIndividualCategories) {
+        getThis().selectedItemInIndividualCategories = selectedItemInIndividualCategories;
     }
 
-    public Item getSelectedItemInIndividualStores() {
+    Item getSelectedItemInIndividualStores() {
         return selectedItemInIndividualStores;
     }
 
-    public void setSelectedItemInIndividualStores(Item selectedItemInIndividualStores) {
-        this.selectedItemInIndividualStores = selectedItemInIndividualStores;
+    void setSelectedItemInIndividualStores(Item selectedItemInIndividualStores) {
+        getThis().selectedItemInIndividualStores = selectedItemInIndividualStores;
     }
 
     Item getSelectedItemInShoppingList() {
@@ -381,20 +381,20 @@ public class Shopping extends AppCompatActivity {
         getThis().selectedItemPositionInSearchResults = selectedItemPositionInSearchResults;
     }
 
-    public int getSelectedItemPositionInIndividualStores() {
-        return selectedItemPositionInIndividualStores;
-    }
-
-    public void setSelectedItemPositionInIndividualStores(int selectedItemPositionInIndividualStores) {
-        this.selectedItemPositionInIndividualStores = selectedItemPositionInIndividualStores;
-    }
-
-    public int getSelectedItemPositionInIndividualCategories() {
+    int getSelectedItemPositionInIndividualCategories() {
         return selectedItemPositionInIndividualCategories;
     }
 
-    public void setSelectedItemPositionInIndividualCategories(int selectedItemPositionInIndividualCategories) {
-        this.selectedItemPositionInIndividualCategories = selectedItemPositionInIndividualCategories;
+    void setSelectedItemPositionInIndividualCategories(int selectedItemPositionInIndividualCategories) {
+        getThis().selectedItemPositionInIndividualCategories = selectedItemPositionInIndividualCategories;
+    }
+
+    int getSelectedItemPositionInIndividualStores() {
+        return selectedItemPositionInIndividualStores;
+    }
+
+    void setSelectedItemPositionInIndividualStores(int selectedItemPositionInIndividualStores) {
+        getThis().selectedItemPositionInIndividualStores = selectedItemPositionInIndividualStores;
     }
 
     int getSelectedItemPositionInShoppingList() {
@@ -413,12 +413,12 @@ public class Shopping extends AppCompatActivity {
         getThis().itemInPictureDialog = itemInPictureDialog;
     }
 
-    public int getShoppingListStoreOrderNum() {
+    int getShoppingListStoreOrderNum() {
         return shoppingListStoreOrderNum;
     }
 
-    public void setShoppingListStoreOrderNum(int shoppingListStoreOrderNum) {
-        this.shoppingListStoreOrderNum = shoppingListStoreOrderNum;
+    void setShoppingListStoreOrderNum(int shoppingListStoreOrderNum) {
+        getThis().shoppingListStoreOrderNum = shoppingListStoreOrderNum;
     }
 
     String getReorderItemsCategory() {
@@ -437,44 +437,44 @@ public class Shopping extends AppCompatActivity {
         getThis().reorderItemsStore = reorderItemsStore;
     }
 
-    public String getIndividualCategory() {
+    String getIndividualCategory() {
         return individualCategory;
     }
 
-    public void setIndividualCategory(String individualCategory) {
+    void setIndividualCategory(String individualCategory) {
         getThis().individualCategory = individualCategory;
     }
 
-    public String getIndividualStore() {
+    String getIndividualStore() {
         return individualStore;
     }
 
-    public void setIndividualStore(String individualStore) {
+    void setIndividualStore(String individualStore) {
         getThis().individualStore = individualStore;
     }
 
-    public boolean searchPopupInInventory() {
+    boolean searchPopupInInventory() {
         return searchPopupInInventory;
     }
 
-    public void setSearchPopupInInventory(boolean searchPopupInInventory) {
-        this.searchPopupInInventory = searchPopupInInventory;
+    void setSearchPopupInInventory(boolean searchPopupInInventory) {
+        getThis().searchPopupInInventory = searchPopupInInventory;
     }
 
-    public boolean searchPopupInIndividualCategories() {
+    boolean searchPopupInIndividualCategories() {
         return searchPopupInIndividualCategories;
     }
 
-    public void setSearchPopupInIndividualCategories(boolean searchPopupInIndividualCategories) {
-        this.searchPopupInIndividualCategories = searchPopupInIndividualCategories;
+    void setSearchPopupInIndividualCategories(boolean searchPopupInIndividualCategories) {
+        getThis().searchPopupInIndividualCategories = searchPopupInIndividualCategories;
     }
 
-    public boolean searchPopupInIndividualStores() {
+    boolean searchPopupInIndividualStores() {
         return searchPopupInIndividualStores;
     }
 
-    public void setSearchPopupInIndividualStores(boolean searchPopupInIndividualStores) {
-        this.searchPopupInIndividualStores = searchPopupInIndividualStores;
+    void setSearchPopupInIndividualStores(boolean searchPopupInIndividualStores) {
+        getThis().searchPopupInIndividualStores = searchPopupInIndividualStores;
     }
 
     boolean editItemInInventory() {
@@ -493,20 +493,20 @@ public class Shopping extends AppCompatActivity {
         getThis().editItemInSearchResults = editItemInSearchResults;
     }
 
-    public boolean editItemInIndividualCategories() {
+    boolean editItemInIndividualCategories() {
         return editItemInIndividualCategories;
     }
 
-    public void setEditItemInIndividualCategories(boolean editItemInIndividualCategories) {
-        this.editItemInIndividualCategories = editItemInIndividualCategories;
+    void setEditItemInIndividualCategories(boolean editItemInIndividualCategories) {
+        getThis().editItemInIndividualCategories = editItemInIndividualCategories;
     }
 
-    public boolean editItemInIndividualStores() {
+    boolean editItemInIndividualStores() {
         return editItemInIndividualStores;
     }
 
-    public void setEditItemInIndividualStores(boolean editItemInIndividualStores) {
-        this.editItemInIndividualStores = editItemInIndividualStores;
+    void setEditItemInIndividualStores(boolean editItemInIndividualStores) {
+        getThis().editItemInIndividualStores = editItemInIndividualStores;
     }
 
     boolean editItemInShoppingList() {
@@ -541,20 +541,20 @@ public class Shopping extends AppCompatActivity {
         getThis().pictureDialogInSearchResults = pictureDialogInSearchResults;
     }
 
-    public boolean pictureDialogInIndividualCategories() {
+    boolean pictureDialogInIndividualCategories() {
         return pictureDialogInIndividualCategories;
     }
 
-    public void setPictureDialogInIndividualCategories(boolean pictureDialogInIndividualCategories) {
-        this.pictureDialogInIndividualCategories = pictureDialogInIndividualCategories;
+    void setPictureDialogInIndividualCategories(boolean pictureDialogInIndividualCategories) {
+        getThis().pictureDialogInIndividualCategories = pictureDialogInIndividualCategories;
     }
 
-    public boolean pictureDialogInIndividualStores() {
+    boolean pictureDialogInIndividualStores() {
         return pictureDialogInIndividualStores;
     }
 
-    public void setPictureDialogInIndividualStores(boolean pictureDialogInIndividualStores) {
-        this.pictureDialogInIndividualStores = pictureDialogInIndividualStores;
+    void setPictureDialogInIndividualStores(boolean pictureDialogInIndividualStores) {
+        getThis().pictureDialogInIndividualStores = pictureDialogInIndividualStores;
     }
 
     boolean pictureDialogInShoppingList() {
@@ -885,19 +885,19 @@ public class Shopping extends AppCompatActivity {
         getThis().searchInventoryViewState = searchInventoryViewState;
     }
 
-    public Parcelable getIndividualCategoriesViewState() {
+    Parcelable getIndividualCategoriesViewState() {
         return individualCategoriesViewState;
     }
 
-    public void setIndividualCategoriesViewState(Parcelable individualCategoriesViewState) {
+    void setIndividualCategoriesViewState(Parcelable individualCategoriesViewState) {
         getThis().individualCategoriesViewState = individualCategoriesViewState;
     }
 
-    public Parcelable getIndividualStoresViewState() {
+    Parcelable getIndividualStoresViewState() {
         return individualStoresViewState;
     }
 
-    public void setIndividualStoresViewState(Parcelable individualStoresViewState) {
+    void setIndividualStoresViewState(Parcelable individualStoresViewState) {
         getThis().individualStoresViewState = individualStoresViewState;
     }
 
@@ -1021,7 +1021,7 @@ public class Shopping extends AppCompatActivity {
 
         getPictureDialogView().setOnClickListener(new View.OnClickListener() {
 
-            private final long doubleClickTimeout = 300;
+            private final long doubleClickTimeout = 350;
             private long lastClickTime = 0;
 
             public void onClick(View v) {
@@ -1035,6 +1035,8 @@ public class Shopping extends AppCompatActivity {
             private void onDoubleClick(View v) {
                 if (pictureDialogInInventory()) setPictureDialogInInventory(false);
                 if (pictureDialogInSearchResults()) setPictureDialogInSearchResults(false);
+                if (pictureDialogInIndividualCategories()) setPictureDialogInIndividualCategories(false);
+                if (pictureDialogInIndividualStores()) setPictureDialogInIndividualStores(false);
                 if (pictureDialogInShoppingList()) setPictureDialogInShoppingList(false);
                 getPictureDialog().dismiss();
             }
