@@ -107,7 +107,7 @@
         android:paddingBottom="6dp"
         android:clipToPadding="false"
         android:visibility="gone"
-        android:background="#FFFFFF"
+        android:background="#000000"
         android:layout_below="@id/searchPopup" />
 
     <LinearLayout

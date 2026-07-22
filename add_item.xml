@@ -38,46 +38,53 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="6dp"
                     android:text="@string/enterItemName"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/itemNameInput"
-                    android:layout_width="360dp"
-                    android:layout_height="54dp"
-                    android:translationX="16dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="@string/enterBrandType"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/itemBrandTypeInput"
-                    android:layout_width="360dp"
-                    android:layout_height="54dp"
-                    android:translationX="16dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="@string/selectACategory"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <RelativeLayout
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:translationX="16dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:background="@drawable/spinner_outline_1dp"
                     android:orientation="horizontal">
 
@@ -106,9 +113,8 @@
                 <EditText
                     android:id="@+id/itemCategoryInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
-                    android:translationX="6dp"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
                     android:visibility="gone"
@@ -119,12 +125,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:text="@string/selectAStore"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <RelativeLayout
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:translationX="16dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:background="@drawable/spinner_outline_1dp"
                     android:orientation="horizontal">
 
@@ -153,7 +160,7 @@
                 <EditText
                     android:id="@+id/itemStoreInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/space"
@@ -168,12 +175,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:text="@string/quantity"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
                 <EditText
                     android:id="@+id/quantityInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/space"
@@ -188,12 +196,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:text="@string/price"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
                 <EditText
                     android:id="@+id/priceInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/space"
@@ -208,12 +217,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:text="@string/location"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
                 <EditText
                     android:id="@+id/locationInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/space"
@@ -228,12 +238,13 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginStart="10dp"
                     android:text="@string/note"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:visibility="visible" />
 
                 <EditText
                     android:id="@+id/noteInput"
                     android:layout_width="360dp"
-                    android:layout_height="60dp"
+                    android:layout_height="42dp"
                     android:layout_margin="10dp"
                     android:translationX="6dp"
                     android:hint="@string/space"

@@ -356,14 +356,14 @@ public class AddItem extends Fragment {
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
         setCategorySpinner(getView().findViewById(R.id.categorySpinner));
-        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
-        getCategorySpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_1, getCategorySpinnerData()));
+        getCategorySpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
         setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
         setStoreSpinner(getView().findViewById(R.id.storeSpinner));
-        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
-        getStoreSpinnerAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_1, getStoreSpinnerData()));
+        getStoreSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 
         getCategorySpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
