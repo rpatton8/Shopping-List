@@ -963,8 +963,8 @@ public class FullInventory extends Fragment {
                     } else {
                         fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                         searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     }
                     fullInventoryViewParams.height = fullInventoryHeight;
                     searchInventoryViewParams.height = searchInventoryHeight;
@@ -1222,12 +1222,12 @@ public class FullInventory extends Fragment {
                 if (searchPopupVisible()) {
                     if (keyboardVisible()) {
                        getShopping().hideKeyboard();
+                        setKeyboardVisible(false);
                     }
                     getSearchPopup().setVisibility(View.GONE);
                     getSearchInventoryRecyclerView().setVisibility(View.GONE);
                     getFullInventoryTitle().setText(getLastMainTitle());
                     setSearchPopupVisible(false);
-                    setKeyboardVisible(false);
 
                     ViewGroup.LayoutParams fullInventoryViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     ViewGroup.LayoutParams searchInventoryViewParams = getSearchInventoryRecyclerView().getLayoutParams();
@@ -1240,13 +1240,13 @@ public class FullInventory extends Fragment {
                     if (editControlsExpanded()) {
                         fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                         searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
-                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 450, getResources().getDisplayMetrics());
+                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 450, getResources().getDisplayMetrics());
                     } else {
                         fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
                         searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
-                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 621, getResources().getDisplayMetrics());
+                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
+                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 547, getResources().getDisplayMetrics());
                     }
                     fullInventoryViewParams.height = fullInventoryHeight;
                     searchInventoryViewParams.height = searchInventoryHeight;
@@ -1260,7 +1260,9 @@ public class FullInventory extends Fragment {
                 } else {
                     // searchBox & keyboard both not visible
                     getShopping().showKeyboard();
+                    setKeyboardVisible(true);
                     getSearchPopup().setVisibility(View.VISIBLE);
+                    setSearchPopupVisible(true);
                     getSearchInventoryRecyclerView().setVisibility(View.VISIBLE);
                     getFullInventoryRecyclerView().setVisibility(View.GONE);
                     getIndividualCategoriesLayout().setVisibility(View.GONE);
@@ -1269,8 +1271,7 @@ public class FullInventory extends Fragment {
                     getFullInventoryTitle().setText(getString(R.string.searchInventory));
                     getSearchBox().requestFocus();
                     getSearchBox().setSelection(getSearchBox().getText().length());
-                    setSearchPopupVisible(true);
-                    setKeyboardVisible(true);
+
 
                     ViewGroup.LayoutParams fullInventoryViewParams = getFullInventoryRecyclerView().getLayoutParams();
                     ViewGroup.LayoutParams searchInventoryViewParams = getSearchInventoryRecyclerView().getLayoutParams();
@@ -1288,8 +1289,8 @@ public class FullInventory extends Fragment {
                     } else {
                         fullInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
                         searchInventoryHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
-                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 568, getResources().getDisplayMetrics());
+                        individualCategoriesHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 450, getResources().getDisplayMetrics());
+                        individualStoresHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 450, getResources().getDisplayMetrics());
                     }
                     fullInventoryViewParams.height = fullInventoryHeight;
                     searchInventoryViewParams.height = searchInventoryHeight;

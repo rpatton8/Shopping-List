@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/list_outline_unselected"
+    android:background="@drawable/reorder_rv_outline"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:orientation="horizontal"
@@ -14,7 +14,7 @@
         android:layout_width="275dp"
         android:layout_height="36dp"
         android:layout_marginStart="25dp"
-        android:translationY="-3dp"
+        android:translationY="6dp"
         android:text="@string/name"
         android:textSize="24sp" />
 
@@ -54,18 +54,24 @@
     <EditText
         android:id="@+id/withNumbersEditText"
         android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
         android:hint="@string/space"
-        android:background="@drawable/spinner_outline_1dp"
+        android:background="@drawable/edit_text_box_outline"
         android:inputType="number"
         android:visibility="visible" />
+
+    <TextView
+        android:layout_width="16dp"
+        android:layout_height="30dp" />
 
     <ImageView
         android:id="@+id/withNumbersRefreshButton"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:src="@mipmap/refresh_icon"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/refresh_icon_white"
         android:contentDescription="@string/refreshIcon"
         android:visibility="visible"/>
 
