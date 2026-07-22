@@ -309,13 +309,9 @@ public class AddItem extends Fragment {
         getItemCategoryInput().setText(getString(R.string.emptyString));
         getItemStoreInput().setText(getString(R.string.emptyString));
 
-        setQuantityCheckbox(getView().findViewById(R.id.quantityCheckbox));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
-        setPriceCheckbox(getView().findViewById(R.id.priceCheckbox));
         setPriceInput(getView().findViewById(R.id.priceInput));
-        setLocationCheckbox(getView().findViewById(R.id.locationCheckbox));
         setLocationInput(getView().findViewById(R.id.locationInput));
-        setNoteCheckbox(getView().findViewById(R.id.noteCheckbox));
         setNoteInput(getView().findViewById(R.id.noteInput));
 
         getQuantityInput().setText(getString(R.string.emptyString));
@@ -326,43 +322,16 @@ public class AddItem extends Fragment {
         setAddItemButton(getView().findViewById(R.id.addItemButton));
         setCancelButton(getView().findViewById(R.id.cancelButton));
 
-        getQuantityCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) getQuantityInput().setVisibility(View.VISIBLE);
-                else getQuantityInput().setVisibility(View.GONE);
-            }
-        });
-
-        getPriceCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) getPriceInput().setVisibility(View.VISIBLE);
-                else getPriceInput().setVisibility(View.GONE);
-            }
-        });
-
-        getLocationCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) getLocationInput().setVisibility(View.VISIBLE);
-                else getLocationInput().setVisibility(View.GONE);
-            }
-        });
-
-        getNoteCheckbox().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) getNoteInput().setVisibility(View.VISIBLE);
-                else getNoteInput().setVisibility(View.GONE);
-            }
-        });
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
         setCategorySpinner(getView().findViewById(R.id.categorySpinner));
-        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_1, getCategorySpinnerData()));
+        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_centered, getCategorySpinnerData()));
         getCategorySpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
         setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
         setStoreSpinner(getView().findViewById(R.id.storeSpinner));
-        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_1, getStoreSpinnerData()));
+        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_centered, getStoreSpinnerData()));
         getStoreSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 

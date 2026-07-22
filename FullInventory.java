@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -68,8 +69,8 @@ public class FullInventory extends Fragment {
     private LinearLayout searchPopup;
     private EditText searchBox;
     private TextView clearSearchButton;
-    private TextView refreshButton;
-    private TextView fullInventoryEditButton;
+    private ImageView refreshButton;
+    private ImageView fullInventoryEditButton;
 
     private LinearLayout individualCategoriesLayout;
     private Spinner individualCategoriesSpinner;
@@ -382,19 +383,19 @@ public class FullInventory extends Fragment {
         getThis().clearSearchButton = clearSearchButton;
     }
 
-    private TextView getRefreshButton() {
+    private ImageView getRefreshButton() {
         return refreshButton;
     }
 
-    private void setRefreshButton(TextView refreshButton) {
+    private void setRefreshButton(ImageView refreshButton) {
         getThis().refreshButton = refreshButton;
     }
 
-    private TextView getFullInventoryEditButton() {
+    private ImageView getFullInventoryEditButton() {
         return fullInventoryEditButton;
     }
 
-    private void setFullInventoryEditButton(TextView fullInventoryEditButton) {
+    private void setFullInventoryEditButton(ImageView fullInventoryEditButton) {
         getThis().fullInventoryEditButton = fullInventoryEditButton;
     }
 
