@@ -113,7 +113,7 @@
     <string name="no">NO</string>
     <string name="note">Note: </string>
     <string name="ok">OK</string>
-    <string name="optionalData">Optional Data</string>
+    <string name="optionalData"><u>Optional Data</u></string>
     <string name="optionalDataQuantity">Quantity</string>
     <string name="optionalDataPrice">Price</string>
     <string name="optionalDataLocation">Location</string>
@@ -159,6 +159,7 @@
     <string name="sortByCategory">Sort By Category</string>
     <string name="sortByStore">Sort By Store</string>
     <string name="space"> </string>
+    <string name="status">Status: </string>
     <string name="store">Store</string>
     <string name="storesLabel">Stores</string>
     <string name="storeItemData">Store Item Data</string>
@@ -264,13 +265,13 @@
     <string name="spOptionalDataOn">optional data on</string>
     <string name="spOptionalDataOff">optional data off</string>
     <string name="sp_reorder_category_emoji">reorder_category_emoji</string>
-    <string name="spDefaultReorderCategoryEmoji">Df</string>
+    <string name="spDefaultReorderCategoryEmoji"></string>
     <string name="sp_reorder_item_by_category_emoji">reorder_item_by_category_emoji</string>
-    <string name="spDefaultReorderItemByCategoryEmoji">Df</string>
+    <string name="spDefaultReorderItemByCategoryEmoji"></string>
     <string name="sp_reorder_item_by_store_emoji">reorder_item_by_store_emoji</string>
-    <string name="spDefaultReorderItemByStoreEmoji">Df</string>
+    <string name="spDefaultReorderItemByStoreEmoji"></string>
     <string name="sp_reorder_store_emoji">reorder_store_emoji</string>
-    <string name="spDefaultReorderStoreEmoji">Df</string>
+    <string name="spDefaultReorderStoreEmoji"></string>
 
     <!--Database Strings-->
     <string name="dbCategoriesCap">Categories</string>

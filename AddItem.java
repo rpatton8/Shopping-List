@@ -28,23 +28,29 @@ public class AddItem extends Fragment {
 
     private EditText itemNameInput;
     private EditText itemBrandTypeInput;
-    private Spinner categorySpinner;
-    private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
     private TextView inStockLabel;
     private TextView neededLabel;
     private TextView pausedLabel;
     private TextView optionalDataTitle;
+    private boolean optionalDataVisible;
+    private boolean optionalDataExpanded;
+    private TextView quantityLabel;
     private EditText quantityInput;
+    private TextView priceLabel;
     private EditText priceInput;
+    private TextView locationLabel;
     private EditText locationInput;
+    private TextView noteLabel;
     private EditText noteInput;
     private Button addItemButton;
     private Button cancelButton;
 
+    private Spinner categorySpinner;
     private ArrayList<String> categorySpinnerData;
     private ArrayAdapter<String> categorySpinnerAdapter;
+    private Spinner storeSpinner;
     private ArrayList<String> storeSpinnerData;
     private ArrayAdapter<String> storeSpinnerAdapter;
 
@@ -179,7 +185,7 @@ public class AddItem extends Fragment {
     }
 
     public void setInStockLabel(TextView inStockLabel) {
-        this.inStockLabel = inStockLabel;
+        getThis().inStockLabel = inStockLabel;
     }
 
     public TextView getNeededLabel() {
@@ -187,7 +193,7 @@ public class AddItem extends Fragment {
     }
 
     public void setNeededLabel(TextView neededLabel) {
-        this.neededLabel = neededLabel;
+        getThis().neededLabel = neededLabel;
     }
 
     public TextView getPausedLabel() {
@@ -195,7 +201,7 @@ public class AddItem extends Fragment {
     }
 
     public void setPausedLabel(TextView pausedLabel) {
-        this.pausedLabel = pausedLabel;
+        getThis().pausedLabel = pausedLabel;
     }
 
     public TextView getOptionalDataTitle() {
@@ -203,7 +209,31 @@ public class AddItem extends Fragment {
     }
 
     public void setOptionalDataTitle(TextView optionalDataTitle) {
-        this.optionalDataTitle = optionalDataTitle;
+        getThis().optionalDataTitle = optionalDataTitle;
+    }
+
+    public boolean optionalDataVisible() {
+        return optionalDataVisible;
+    }
+
+    public void setOptionalDataVisible(boolean optionalDataVisible) {
+        getThis().optionalDataVisible = optionalDataVisible;
+    }
+
+    public boolean optionalDataExpanded() {
+        return optionalDataExpanded;
+    }
+
+    public void setOptionalDataExpanded(boolean optionalDataExpanded) {
+        this.optionalDataExpanded = optionalDataExpanded;
+    }
+
+    public TextView getQuantityLabel() {
+        return quantityLabel;
+    }
+
+    public void setQuantityLabel(TextView quantityLabel) {
+        this.quantityLabel = quantityLabel;
     }
 
     private EditText getQuantityInput() {
@@ -214,6 +244,14 @@ public class AddItem extends Fragment {
         getThis().quantityInput = quantityInput;
     }
 
+    public TextView getPriceLabel() {
+        return priceLabel;
+    }
+
+    public void setPriceLabel(TextView priceLabel) {
+        this.priceLabel = priceLabel;
+    }
+
     private EditText getPriceInput() {
         return priceInput;
     }
@@ -222,12 +260,28 @@ public class AddItem extends Fragment {
         getThis().priceInput = priceInput;
     }
 
+    public TextView getLocationLabel() {
+        return locationLabel;
+    }
+
+    public void setLocationLabel(TextView locationLabel) {
+        this.locationLabel = locationLabel;
+    }
+
     private EditText getLocationInput() {
         return locationInput;
     }
 
     private void setLocationInput(EditText locationInput) {
         getThis().locationInput = locationInput;
+    }
+
+    public TextView getNoteLabel() {
+        return noteLabel;
+    }
+
+    public void setNoteLabel(TextView noteLabel) {
+        this.noteLabel = noteLabel;
     }
 
     private EditText getNoteInput() {
@@ -309,9 +363,21 @@ public class AddItem extends Fragment {
         getItemCategoryInput().setText(getString(R.string.emptyString));
         getItemStoreInput().setText(getString(R.string.emptyString));
 
+        setInStockLabel(getView().findViewById(R.id.inStockLabel));
+        setNeededLabel(getView().findViewById(R.id.neededLabel));
+        setPausedLabel(getView().findViewById(R.id.pausedLabel));
+
+        setOptionalDataTitle(getView().findViewById(R.id.optionalDataTitle));
+        setOptionalDataVisible(true);
+        setOptionalDataExpanded(false);
+
+        setQuantityLabel(getView().findViewById(R.id.quantityLabel));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
+        setPriceLabel(getView().findViewById(R.id.priceLabel));
         setPriceInput(getView().findViewById(R.id.priceInput));
+        setLocationLabel(getView().findViewById(R.id.locationLabel));
         setLocationInput(getView().findViewById(R.id.locationInput));
+        setNoteLabel(getView().findViewById(R.id.noteLabel));
         setNoteInput(getView().findViewById(R.id.noteInput));
 
         getQuantityInput().setText(getString(R.string.emptyString));
@@ -321,7 +387,6 @@ public class AddItem extends Fragment {
 
         setAddItemButton(getView().findViewById(R.id.addItemButton));
         setCancelButton(getView().findViewById(R.id.cancelButton));
-
 
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
         setCategorySpinner(getView().findViewById(R.id.categorySpinner));
@@ -357,6 +422,50 @@ public class AddItem extends Fragment {
                 }
             }
             public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        getInStockLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getNeededLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getPausedLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getOptionalDataTitle().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (optionalDataExpanded()) {
+                    setOptionalDataExpanded(false);
+                    getQuantityLabel().setVisibility(View.GONE);
+                    getQuantityInput().setVisibility(View.GONE);
+                    getPriceLabel().setVisibility(View.GONE);
+                    getPriceInput().setVisibility(View.GONE);
+                    getLocationLabel().setVisibility(View.GONE);
+                    getLocationInput().setVisibility(View.GONE);
+                    getNoteLabel().setVisibility(View.GONE);
+                    getNoteInput().setVisibility(View.GONE);
+                } else {
+                    setOptionalDataExpanded(true);
+                    getQuantityLabel().setVisibility(View.VISIBLE);
+                    getQuantityInput().setVisibility(View.VISIBLE);
+                    getPriceLabel().setVisibility(View.VISIBLE);
+                    getPriceInput().setVisibility(View.VISIBLE);
+                    getLocationLabel().setVisibility(View.VISIBLE);
+                    getLocationInput().setVisibility(View.VISIBLE);
+                    getNoteLabel().setVisibility(View.VISIBLE);
+                    getNoteInput().setVisibility(View.VISIBLE);
+                }
+            }
         });
 
         getAddItemButton().setOnClickListener(new View.OnClickListener() {

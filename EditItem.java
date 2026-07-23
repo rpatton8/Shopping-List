@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class EditItem extends Fragment {
@@ -24,17 +26,32 @@ public class EditItem extends Fragment {
     private DBStoreHelper dbStoreHelper;
 
     private EditText itemNameInput;
-    private EditText itemTypeInput;
+    private EditText itemBrandTypeInput;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
+    private TextView inStockLabel;
+    private TextView neededLabel;
+    private TextView pausedLabel;
+    private TextView optionalDataTitle;
+    private boolean optionalDataVisible;
+    private boolean optionalDataExpanded;
+    private TextView quantityLabel;
+    private EditText quantityInput;
+    private TextView priceLabel;
+    private EditText priceInput;
+    private TextView locationLabel;
+    private EditText locationInput;
+    private TextView noteLabel;
+    private EditText noteInput;
     private Button editItemButton;
     private Button cancelButton;
+
     private Spinner categorySpinner;
-    private Spinner storeSpinner;
     private ArrayList<String> categorySpinnerData;
-    private ArrayAdapter<String> categoryAdapter;
+    private ArrayAdapter<String> categorySpinnerAdapter;
+    private Spinner storeSpinner;
     private ArrayList<String> storeSpinnerData;
-    private ArrayAdapter<String> storeAdapter;
+    private ArrayAdapter<String> storeSpinnerAdapter;
 
     public EditItem() {}
 
@@ -114,12 +131,12 @@ public class EditItem extends Fragment {
         getThis().itemNameInput = itemNameInput;
     }
 
-    private EditText getItemTypeInput() {
-        return itemTypeInput;
+    private EditText getItemBrandTypeInput() {
+        return itemBrandTypeInput;
     }
 
-    private void setItemTypeInput(EditText itemTypeInput) {
-        getThis().itemTypeInput = itemTypeInput;
+    private void setItemBrandTypeInput(EditText itemBrandTypeInput) {
+        getThis().itemBrandTypeInput = itemBrandTypeInput;
     }
 
     private EditText getItemCategoryInput() {
@@ -136,6 +153,118 @@ public class EditItem extends Fragment {
 
     private void setItemStoreInput(EditText itemStoreInput) {
         getThis().itemStoreInput = itemStoreInput;
+    }
+
+    public TextView getInStockLabel() {
+        return inStockLabel;
+    }
+
+    public void setInStockLabel(TextView inStockLabel) {
+        this.inStockLabel = inStockLabel;
+    }
+
+    public TextView getNeededLabel() {
+        return neededLabel;
+    }
+
+    public void setNeededLabel(TextView neededLabel) {
+        this.neededLabel = neededLabel;
+    }
+
+    public TextView getPausedLabel() {
+        return pausedLabel;
+    }
+
+    public void setPausedLabel(TextView pausedLabel) {
+        this.pausedLabel = pausedLabel;
+    }
+
+    public TextView getOptionalDataTitle() {
+        return optionalDataTitle;
+    }
+
+    public void setOptionalDataTitle(TextView optionalDataTitle) {
+        this.optionalDataTitle = optionalDataTitle;
+    }
+
+    public boolean optionalDataVisible() {
+        return optionalDataVisible;
+    }
+
+    public void setOptionalDataVisible(boolean optionalDataVisible) {
+        this.optionalDataVisible = optionalDataVisible;
+    }
+
+    public boolean optionalDataExpanded() {
+        return optionalDataExpanded;
+    }
+
+    public void setOptionalDataExpanded(boolean optionalDataExpanded) {
+        this.optionalDataExpanded = optionalDataExpanded;
+    }
+
+    public TextView getQuantityLabel() {
+        return quantityLabel;
+    }
+
+    public void setQuantityLabel(TextView quantityLabel) {
+        this.quantityLabel = quantityLabel;
+    }
+
+    public EditText getQuantityInput() {
+        return quantityInput;
+    }
+
+    public void setQuantityInput(EditText quantityInput) {
+        this.quantityInput = quantityInput;
+    }
+
+    public TextView getPriceLabel() {
+        return priceLabel;
+    }
+
+    public void setPriceLabel(TextView priceLabel) {
+        this.priceLabel = priceLabel;
+    }
+
+    public EditText getPriceInput() {
+        return priceInput;
+    }
+
+    public void setPriceInput(EditText priceInput) {
+        this.priceInput = priceInput;
+    }
+
+    public TextView getLocationLabel() {
+        return locationLabel;
+    }
+
+    public void setLocationLabel(TextView locationLabel) {
+        this.locationLabel = locationLabel;
+    }
+
+    public EditText getLocationInput() {
+        return locationInput;
+    }
+
+    public void setLocationInput(EditText locationInput) {
+        this.locationInput = locationInput;
+    }
+
+    public TextView getNoteLabel() {
+        return noteLabel;
+    }
+
+    public void setNoteLabel(TextView noteLabel) {
+        this.noteLabel = noteLabel;
+    }
+
+    public EditText getNoteInput() {
+        return noteInput;
+    }
+
+    public void setNoteInput(EditText noteInput) {
+        this.noteInput = noteInput;
     }
 
     private Button getEditItemButton() {
@@ -178,12 +307,12 @@ public class EditItem extends Fragment {
         getThis().categorySpinnerData = categorySpinnerData;
     }
 
-    private ArrayAdapter<String> getCategoryAdapter() {
-        return categoryAdapter;
+    private ArrayAdapter<String> getCategorySpinnerAdapter() {
+        return categorySpinnerAdapter;
     }
 
-    private void setCategoryAdapter(ArrayAdapter<String> categoryAdapter) {
-        getThis().categoryAdapter = categoryAdapter;
+    private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
+        getThis().categorySpinnerAdapter = categorySpinnerAdapter;
     }
 
     private ArrayList<String> getStoreSpinnerData() {
@@ -194,12 +323,12 @@ public class EditItem extends Fragment {
         getThis().storeSpinnerData = storeSpinnerData;
     }
 
-    private ArrayAdapter<String> getStoreAdapter() {
-        return storeAdapter;
+    private ArrayAdapter<String> getStoreSpinnerAdapter() {
+        return storeSpinnerAdapter;
     }
 
-    private void setStoreAdapter(ArrayAdapter<String> storeAdapter) {
-        getThis().storeAdapter = storeAdapter;
+    private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
+        getThis().storeSpinnerAdapter = storeSpinnerAdapter;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -215,61 +344,84 @@ public class EditItem extends Fragment {
         setStoreData(getShopping().getStoreData());
 
         setItemNameInput(getView().findViewById(R.id.itemNameInput));
-        setItemTypeInput(getView().findViewById(R.id.itemTypeInput));
+        setItemBrandTypeInput(getView().findViewById(R.id.itemBrandTypeInput));
         setItemCategoryInput(getView().findViewById(R.id.itemCategoryInput));
         setItemStoreInput(getView().findViewById(R.id.itemStoreInput));
-        setEditItemButton(getView().findViewById(R.id.editItemButton));
-        setCancelButton(getView().findViewById(R.id.cancelButton));
 
         if(getShopping().editItemInInventory()) {
             getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
-            getItemTypeInput().setText(getShopping().getSelectedItemInInventory().getBrandType());
+            getItemBrandTypeInput().setText(getShopping().getSelectedItemInInventory().getBrandType());
         } else if (getShopping().editItemInSearchResults()) {
             getItemNameInput().setText(getShopping().getSelectedItemInSearchResults().getItemName());
-            getItemTypeInput().setText(getShopping().getSelectedItemInSearchResults().getBrandType());
+            getItemBrandTypeInput().setText(getShopping().getSelectedItemInSearchResults().getBrandType());
         } else if (getShopping().editItemInShoppingList()) {
             getItemNameInput().setText(getShopping().getSelectedItemInShoppingList().getItemName());
-            getItemTypeInput().setText(getShopping().getSelectedItemInShoppingList().getBrandType());
+            getItemBrandTypeInput().setText(getShopping().getSelectedItemInShoppingList().getBrandType());
         } else if (getShopping().editItemInPictureDialog()) {
             getItemNameInput().setText(getShopping().getItemInPictureDialog().getItemName());
-            getItemTypeInput().setText(getShopping().getItemInPictureDialog().getBrandType());
+            getItemBrandTypeInput().setText(getShopping().getItemInPictureDialog().getBrandType());
         }
         getItemCategoryInput().setText(getString(R.string.emptyString));
         getItemStoreInput().setText(getString(R.string.emptyString));
 
+        setInStockLabel(getView().findViewById(R.id.inStockLabel));
+        setNeededLabel(getView().findViewById(R.id.neededLabel));
+        setPausedLabel(getView().findViewById(R.id.pausedLabel));
+
+        setOptionalDataTitle(getView().findViewById(R.id.optionalDataTitle));
+        setOptionalDataVisible(true);
+        setOptionalDataExpanded(false);
+
+        setQuantityLabel(getView().findViewById(R.id.quantityLabel));
+        setQuantityInput(getView().findViewById(R.id.quantityInput));
+        setPriceLabel(getView().findViewById(R.id.priceLabel));
+        setPriceInput(getView().findViewById(R.id.priceInput));
+        setLocationLabel(getView().findViewById(R.id.locationLabel));
+        setLocationInput(getView().findViewById(R.id.locationInput));
+        setNoteLabel(getView().findViewById(R.id.noteLabel));
+        setNoteInput(getView().findViewById(R.id.noteInput));
+
+        getQuantityInput().setText(getString(R.string.emptyString));
+        getPriceInput().setText(getString(R.string.emptyString));
+        getLocationInput().setText(getString(R.string.emptyString));
+        getNoteInput().setText(getString(R.string.emptyString));
+
+        setEditItemButton(getView().findViewById(R.id.editItemButton));
+        setCancelButton(getView().findViewById(R.id.cancelButton));
+
         setCategorySpinnerData(getCategoryData().getCategoryListWithAddNew());
         setCategorySpinner(getView().findViewById(R.id.categorySpinner));
-        setCategoryAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getCategorySpinnerData()));
-        getCategoryAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getCategorySpinner().setAdapter(getCategoryAdapter());
+        setCategorySpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_centered, getCategorySpinnerData()));
+        getCategorySpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
+        getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
         int categorySpinnerPosition = 0;
         if(getShopping().editItemInInventory()) {
-            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInInventory().getCategory().toString());
+            categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getSelectedItemInInventory().getCategory().toString());
         } else if (getShopping().editItemInSearchResults()) {
-            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getCategory().toString());
+            categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getCategory().toString());
         } else if (getShopping().editItemInShoppingList()) {
-            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getCategory().toString());
+            categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getCategory().toString());
         } else if (getShopping().editItemInPictureDialog()) {
-            categorySpinnerPosition = getCategoryAdapter().getPosition(getShopping().getItemInPictureDialog().getCategory().toString());
+            categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getItemInPictureDialog().getCategory().toString());
         }
         getCategorySpinner().setSelection(categorySpinnerPosition);
 
         setStoreSpinnerData(getStoreData().getStoreListWithAddNew());
         setStoreSpinner(getView().findViewById(R.id.storeSpinner));
-        setStoreAdapter(new ArrayAdapter<>(getThis().getActivity(), android.R.layout.simple_spinner_item, getStoreSpinnerData()));
-        getStoreAdapter().setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getStoreSpinner().setAdapter(getStoreAdapter());
+        setStoreSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_centered, getStoreSpinnerData()));
+        getStoreSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_1);
+        getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 
         int storeSpinnerPosition = 0;
         if(getShopping().editItemInInventory()) {
-            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInInventory().getStore().toString());
+            storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getSelectedItemInInventory().getStore().toString());
         } else if (getShopping().editItemInSearchResults()) {
-            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getStore().toString());
+            storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getStore().toString());
         } else if (getShopping().editItemInShoppingList()) {
-            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getStore().toString());
+            storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getSelectedItemInShoppingList().getStore().toString());
         } else if (getShopping().editItemInPictureDialog()) {
-            storeSpinnerPosition = getStoreAdapter().getPosition(getShopping().getItemInPictureDialog().getStore().toString());
+            storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getItemInPictureDialog().getStore().toString());
         }
         getStoreSpinner().setSelection(storeSpinnerPosition);
 
@@ -297,6 +449,50 @@ public class EditItem extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
+        getInStockLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getNeededLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getPausedLabel().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // to do
+            }
+        });
+
+        getOptionalDataTitle().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (optionalDataExpanded()) {
+                    setOptionalDataExpanded(false);
+                    getQuantityLabel().setVisibility(View.GONE);
+                    getQuantityInput().setVisibility(View.GONE);
+                    getPriceLabel().setVisibility(View.GONE);
+                    getPriceInput().setVisibility(View.GONE);
+                    getLocationLabel().setVisibility(View.GONE);
+                    getLocationInput().setVisibility(View.GONE);
+                    getNoteLabel().setVisibility(View.GONE);
+                    getNoteInput().setVisibility(View.GONE);
+                } else {
+                    setOptionalDataExpanded(true);
+                    getQuantityLabel().setVisibility(View.VISIBLE);
+                    getQuantityInput().setVisibility(View.VISIBLE);
+                    getPriceLabel().setVisibility(View.VISIBLE);
+                    getPriceInput().setVisibility(View.VISIBLE);
+                    getLocationLabel().setVisibility(View.VISIBLE);
+                    getLocationInput().setVisibility(View.VISIBLE);
+                    getNoteLabel().setVisibility(View.VISIBLE);
+                    getNoteInput().setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         getEditItemButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -311,7 +507,7 @@ public class EditItem extends Fragment {
                     oldItemName = getShopping().getItemInPictureDialog().getItemName();
                 }
                 String newItemName = getItemNameInput().getText().toString();
-                String itemType = getItemTypeInput().getText().toString();
+                String itemType = getItemBrandTypeInput().getText().toString();
                 String itemCategory = getItemCategoryInput().getText().toString();
                 String itemStore = getItemStoreInput().getText().toString();
 

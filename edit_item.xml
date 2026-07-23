@@ -21,7 +21,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:layout_below="@id/editItemTitle">
 
         <LinearLayout
@@ -38,77 +37,64 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="6dp"
                     android:text="@string/enterItemName"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/itemNameInput"
-                    android:layout_width="360dp"
-                    android:layout_height="54dp"
-                    android:translationX="16dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="4dp"
                     android:text="@string/enterBrandType"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
                 <EditText
-                    android:id="@+id/itemTypeInput"
-                    android:layout_width="360dp"
-                    android:layout_height="54dp"
-                    android:translationX="16dp"
+                    android:id="@+id/itemBrandTypeInput"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="4dp"
                     android:text="@string/selectACategory"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
-                <RelativeLayout
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:translationX="16dp"
+                <Spinner
+                    android:id="@+id/categorySpinner"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/categorySpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:spinnerMode="dialog" />
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/triangle_down"
-                        android:contentDescription="@string/triangleDown" />
-
-                </RelativeLayout>
+                    android:spinnerMode="dialog" />
 
                 <EditText
                     android:id="@+id/itemCategoryInput"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:translationX="6dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
                     android:visibility="gone"
@@ -117,51 +103,184 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="4dp"
                     android:text="@string/selectAStore"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
 
-                <RelativeLayout
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:translationX="16dp"
+                <Spinner
+                    android:id="@+id/storeSpinner"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
                     android:background="@drawable/spinner_outline_1dp"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/storeSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:layout_marginStart="5dp"
-                        android:spinnerMode="dialog" />
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/triangle_down"
-                        android:contentDescription="@string/triangleDown" />
-
-                </RelativeLayout>
+                    android:spinnerMode="dialog" />
 
                 <EditText
                     android:id="@+id/itemStoreInput"
-                    android:layout_width="360dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="10dp"
-                    android:translationX="6dp"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_margin="4dp"
+                    android:layout_gravity="center"
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
                     android:visibility="gone"
                     android:inputType="text" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/status"
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/inStockLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/bebas_regular"
+                    android:text="@string/inStockCap"
+                    android:textAlignment="center"
+                    android:textColor="#00E432"
+                    android:textSize="30sp"
+                    android:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/neededLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/bebas_regular"
+                    android:text="@string/needed"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="30sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pausedLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/bebas_regular"
+                    android:text="@string/paused"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:textSize="30sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/holo_blue_dark"/>
+
+                <TextView
+                    android:id="@+id/optionalDataTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/optionalData"
+                    android:textSize="20sp"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/quantityLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/quantity"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/quantityInput"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline_1dp"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/priceLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/price"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/priceInput"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline_1dp"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/locationLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/location"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/locationInput"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline_1dp"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/noteLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:text="@string/note"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/noteInput"
+                    android:layout_width="330dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginBottom="12dp"
+                    android:hint="@string/space"
+                    android:background="@drawable/spinner_outline_1dp"
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:visibility="gone"/>
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@android:color/holo_blue_dark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,8 +291,10 @@
                     android:id="@+id/editItemButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/editItemData"
-                    android:layout_margin="10dp"/>
+                    android:text="@string/storeItemData"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
 
                 <Button
                     android:id="@+id/cancelButton"
@@ -183,6 +304,11 @@
                     android:layout_margin="10dp"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@android:color/holo_blue_dark"/>
 
             <TextView
                 android:layout_width="400dp"
