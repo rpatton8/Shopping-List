@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class AddItem extends Fragment {
@@ -32,13 +32,13 @@ public class AddItem extends Fragment {
     private Spinner storeSpinner;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
-    private CheckBox quantityCheckbox;
+    private TextView inStockLabel;
+    private TextView neededLabel;
+    private TextView pausedLabel;
+    private TextView optionalDataTitle;
     private EditText quantityInput;
-    private CheckBox priceCheckbox;
     private EditText priceInput;
-    private CheckBox locationCheckbox;
     private EditText locationInput;
-    private CheckBox noteCheckbox;
     private EditText noteInput;
     private Button addItemButton;
     private Button cancelButton;
@@ -174,12 +174,36 @@ public class AddItem extends Fragment {
         getThis().itemStoreInput = itemStoreInput;
     }
 
-    private CheckBox getQuantityCheckbox() {
-        return quantityCheckbox;
+    public TextView getInStockLabel() {
+        return inStockLabel;
     }
 
-    private void setQuantityCheckbox(CheckBox quantityCheckbox) {
-        getThis().quantityCheckbox = quantityCheckbox;
+    public void setInStockLabel(TextView inStockLabel) {
+        this.inStockLabel = inStockLabel;
+    }
+
+    public TextView getNeededLabel() {
+        return neededLabel;
+    }
+
+    public void setNeededLabel(TextView neededLabel) {
+        this.neededLabel = neededLabel;
+    }
+
+    public TextView getPausedLabel() {
+        return pausedLabel;
+    }
+
+    public void setPausedLabel(TextView pausedLabel) {
+        this.pausedLabel = pausedLabel;
+    }
+
+    public TextView getOptionalDataTitle() {
+        return optionalDataTitle;
+    }
+
+    public void setOptionalDataTitle(TextView optionalDataTitle) {
+        this.optionalDataTitle = optionalDataTitle;
     }
 
     private EditText getQuantityInput() {
@@ -190,14 +214,6 @@ public class AddItem extends Fragment {
         getThis().quantityInput = quantityInput;
     }
 
-    private CheckBox getPriceCheckbox() {
-        return priceCheckbox;
-    }
-
-    private void setPriceCheckbox(CheckBox priceCheckbox) {
-        getThis().priceCheckbox = priceCheckbox;
-    }
-
     private EditText getPriceInput() {
         return priceInput;
     }
@@ -206,28 +222,12 @@ public class AddItem extends Fragment {
         getThis().priceInput = priceInput;
     }
 
-    private CheckBox getLocationCheckbox() {
-        return locationCheckbox;
-    }
-
-    private void setLocationCheckbox(CheckBox locationCheckbox) {
-        getThis().locationCheckbox = locationCheckbox;
-    }
-
     private EditText getLocationInput() {
         return locationInput;
     }
 
     private void setLocationInput(EditText locationInput) {
         getThis().locationInput = locationInput;
-    }
-
-    private CheckBox getNoteCheckbox() {
-        return noteCheckbox;
-    }
-
-    private void setNoteCheckbox(CheckBox noteCheckbox) {
-        getThis().noteCheckbox = noteCheckbox;
     }
 
     private EditText getNoteInput() {

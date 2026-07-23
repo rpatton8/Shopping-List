@@ -141,7 +141,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/itemSmallInStock"
+                        android:id="@+id/inStockLabel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingStart="6dp"
@@ -154,7 +154,7 @@
                         android:visibility="gone"/>
 
                     <TextView
-                        android:id="@+id/itemSmallNeeded"
+                        android:id="@+id/neededLabel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingStart="6dp"
@@ -167,7 +167,7 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:id="@+id/itemSmallPaused"
+                        android:id="@+id/pausedLabel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/bebas_regular"
@@ -193,11 +193,6 @@
                     android:text="@string/optionalData"
                     android:textSize="20sp"
                     android:textAlignment="center" />
-
-
-
-
-
 
                 <TextView
                     android:layout_width="match_parent"
@@ -290,21 +285,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-
-
                 <Button
                     android:id="@+id/addItemButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/storeItemData"
-                    android:layout_margin="10dp" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
 
                 <Button
                     android:id="@+id/cancelButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/cancel"
-                    android:layout_margin="10dp" />
+                    android:layout_margin="10dp"/>
 
             </LinearLayout>
 
