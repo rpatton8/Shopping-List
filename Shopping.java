@@ -3,9 +3,11 @@ package ryan.android.shopping;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -1092,14 +1094,16 @@ public class Shopping extends AppCompatActivity {
     }
 
     private void takePhoto() {
-        File outputFile = new File(getThis().getFilesDir(), "image4");
+        File outputFile = new File(getThis().getFilesDir(), "image6");
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
         getCameraController().takePicture(outputFileOptions, ContextCompat.getMainExecutor(getThis()), new ImageCapture.OnImageSavedCallback() {
             public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
-                // to do
+                Uri savedUri = outputFileResults.getSavedUri();
+                if (savedUri != null) {
+                    Log.d("CameraX", "Photo capture succeeded: " + savedUri.toString());
+                }
                 System.out.println("Image Saved");
             }
-
             public void onError(ImageCaptureException exception) {
                 System.out.println("Image Error");
             }

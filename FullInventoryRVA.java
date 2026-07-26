@@ -1134,10 +1134,10 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
                 expandTitle();
                 thisCategory.setCategoryAsExpanded();
-            } else if (id == getCategoryTitleText().getId() && isExpanded()) {
+            } else if (id == getCategoryTitleText().getId() && thisCategory.categoryIsExpanded()) {
                 contractTitle();
                 thisCategory.setCategoryAsContracted();
-            } else if (id == getCategoryTitleText().getId() && isContracted()) {
+            } else if (id == getCategoryTitleText().getId() && thisCategory.categoryIsContracted()) {
                 expandTitle();
                 thisCategory.setCategoryAsExpanded();
             }
@@ -2023,10 +2023,10 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
                 expandTitle();
                 thisStore.setStoreAsExpanded();
-            } else if (id == getStoreTitleText().getId() && isExpanded()) {
+            } else if (id == getStoreTitleText().getId() && thisStore.storeIsExpanded()) {
                 contractTitle();
                 thisStore.setStoreAsContracted();
-            } else if (id == getStoreTitleText().getId() && isContracted()) {
+            } else if (id == getStoreTitleText().getId() && thisStore.storeIsContracted()) {
                 expandTitle();
                 thisStore.setStoreAsExpanded();
             }
