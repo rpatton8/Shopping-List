@@ -58,6 +58,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:hint="@string/space"
+        android:selectAllOnFocus="true"
         android:background="@drawable/edit_text_box_outline"
         android:inputType="number"
         android:visibility="visible" />

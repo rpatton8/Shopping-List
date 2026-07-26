@@ -607,7 +607,7 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 getShopping().setPictureDialogInIndividualCategories(false);
                 getShopping().setPictureDialogInIndividualStores(false);
                 getShopping().setPictureDialogInShoppingList(true);
-                getShopping().showPictureDialog(thisItem);
+                if (thisItem != null) getShopping().showPictureDialog(thisItem);
             }
         }
 

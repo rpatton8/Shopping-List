@@ -258,6 +258,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             SortByCategoryItemRVH categoryItemHolder = (SortByCategoryItemRVH) holder;
 
+            if (thisItem == null) return;
+
             if (thisItem.getCategory().categoryIsContracted()) {
                 categoryItemHolder.getTriangleRight().setVisibility(View.GONE);
                 categoryItemHolder.getTriangleDown().setVisibility(View.GONE);
@@ -520,6 +522,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             SortByStoreItemRVH storeItemHolder = (SortByStoreItemRVH) holder;
 
+            if (thisItem == null) return;
+
             if (thisItem.getStore().storeIsContracted()) {
                 storeItemHolder.getTriangleRight().setVisibility(View.GONE);
                 storeItemHolder.getTriangleDown().setVisibility(View.GONE);
@@ -726,6 +730,9 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         if (position < 0 || position >= getItemData().getItemListAZ().size()) return;
         Item thisItem = getItemData().getItemListAZ().get(position);
+
+        if (thisItem == null) return;
+
         SortAlphabeticalItemRVH alphabeticalItemHolder = (SortAlphabeticalItemRVH) holder;
 
         if (thisItem.getStatus().isExpandedInInventory()) {
@@ -1618,7 +1625,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getShopping().setPictureDialogInIndividualCategories(false);
             getShopping().setPictureDialogInIndividualStores(false);
             getShopping().setPictureDialogInShoppingList(false);
-            getShopping().showPictureDialog(thisItem);
+            if (thisItem != null) getShopping().showPictureDialog(thisItem);
         }
 
         private void onSingleClick(View v) {
@@ -2507,7 +2514,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getShopping().setPictureDialogInIndividualCategories(false);
             getShopping().setPictureDialogInIndividualStores(false);
             getShopping().setPictureDialogInShoppingList(false);
-            getShopping().showPictureDialog(thisItem);
+            if (thisItem != null) getShopping().showPictureDialog(thisItem);
         }
 
         private void onSingleClick(View v) {
@@ -3072,7 +3079,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getShopping().setPictureDialogInIndividualCategories(false);
             getShopping().setPictureDialogInIndividualStores(false);
             getShopping().setPictureDialogInShoppingList(false);
-            getShopping().showPictureDialog(thisItem);
+            if (thisItem != null) getShopping().showPictureDialog(thisItem);
 
         }
 

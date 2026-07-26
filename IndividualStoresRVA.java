@@ -507,7 +507,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getShopping().setPictureDialogInIndividualCategories(false);
             getShopping().setPictureDialogInIndividualStores(true);
             getShopping().setPictureDialogInShoppingList(false);
-            getShopping().showPictureDialog(thisItem);
+            if (thisItem != null) getShopping().showPictureDialog(thisItem);
         }
 
         private void onSingleClick(View v) {

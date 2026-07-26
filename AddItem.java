@@ -225,7 +225,7 @@ public class AddItem extends Fragment {
     }
 
     public void setOptionalDataExpanded(boolean optionalDataExpanded) {
-        this.optionalDataExpanded = optionalDataExpanded;
+        getThis().optionalDataExpanded = optionalDataExpanded;
     }
 
     public TextView getQuantityLabel() {
@@ -233,7 +233,7 @@ public class AddItem extends Fragment {
     }
 
     public void setQuantityLabel(TextView quantityLabel) {
-        this.quantityLabel = quantityLabel;
+        getThis().quantityLabel = quantityLabel;
     }
 
     private EditText getQuantityInput() {
@@ -249,7 +249,7 @@ public class AddItem extends Fragment {
     }
 
     public void setPriceLabel(TextView priceLabel) {
-        this.priceLabel = priceLabel;
+        getThis().priceLabel = priceLabel;
     }
 
     private EditText getPriceInput() {
@@ -265,7 +265,7 @@ public class AddItem extends Fragment {
     }
 
     public void setLocationLabel(TextView locationLabel) {
-        this.locationLabel = locationLabel;
+        getThis().locationLabel = locationLabel;
     }
 
     private EditText getLocationInput() {
@@ -281,7 +281,7 @@ public class AddItem extends Fragment {
     }
 
     public void setNoteLabel(TextView noteLabel) {
-        this.noteLabel = noteLabel;
+        getThis().noteLabel = noteLabel;
     }
 
     private EditText getNoteInput() {
