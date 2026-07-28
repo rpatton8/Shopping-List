@@ -1113,7 +1113,7 @@ public class Shopping extends AppCompatActivity {
                     getPictureDialogImage().setVisibility(View.VISIBLE);
                     getPreviewView().setVisibility(View.GONE);
                     Log.d("CameraX", "Photo capture succeeded: " + savedUri);
-                    Picture picture = new Picture(itemName, savedUri);
+                    Picture picture = new Picture(itemName, savedUri.toString());
                     item.setItemPicture(picture);
                 }
                 System.out.println("Image Saved");
@@ -1123,45 +1123,6 @@ public class Shopping extends AppCompatActivity {
             }
         });
     }
-
-    /*private void startCamera() {
-        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(getThis());
-        cameraProviderFuture.addListener(new Runnable() {
-            public void run() {
-                try {
-                    ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                    bindPreview(cameraProvider);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, ContextCompat.getMainExecutor(getThis()));
-    }
-
-    private void bindPreview(ProcessCameraProvider cameraProvider) {
-        cameraProvider.unbindAll();
-        Preview preview = new Preview.Builder().build();
-        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
-        preview.setSurfaceProvider(getPreviewView().getSurfaceProvider());
-        System.out.println("Bind to Lifecycle");
-        Camera camera = cameraProvider.bindToLifecycle(getThis(), cameraSelector, preview, getImageCapture());
-    }
-
-    private void takePhoto() {
-        File outputFile = new File(getThis().getFilesDir(), "image3.jpg");
-        setImageCapture(new ImageCapture.Builder().build());
-        ImageCapture.OutputFileOptions outputOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
-        System.out.println("Take Picture");
-        getImageCapture().takePicture(outputOptions, ContextCompat.getMainExecutor(getThis()), new ImageCapture.OnImageSavedCallback() {
-            public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
-                System.out.println("Image Saved");
-            }
-            public void onError(ImageCaptureException exception) {
-                System.out.println("Image Error");
-                exception.printStackTrace();
-            }
-        });
-    }*/
 
     void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) getThis().getSystemService(Context.INPUT_METHOD_SERVICE);
