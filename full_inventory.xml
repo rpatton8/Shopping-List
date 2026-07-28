@@ -60,6 +60,7 @@
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
+            android:translationY="-4dp"
             android:text="@string/searchWithColon"
             android:textSize="22sp"
             android:textStyle="bold"/>
@@ -70,13 +71,14 @@
             android:layout_height="match_parent"
             android:hint="@string/space"
             android:inputType="text"
-            android:textSize="22sp"/>
+            android:textSize="26sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/clearSearchButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:translationY="-14dp"
+            android:translationY="-18dp"
             android:background="@mipmap/clear_button" />
 
     </LinearLayout>

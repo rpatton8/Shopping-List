@@ -9,6 +9,7 @@ import java.util.ListIterator;
 class ItemData {
 
     private Context context;
+    private Shopping shopping;
 
     private LinkedList<Item> itemsAZ;
     private ArrayList<Item> itemsByCategory;
@@ -17,8 +18,9 @@ class ItemData {
     private HashMap<String, Category> categoryMap;
     private HashMap<String, Store> storeMap;
 
-    ItemData(Context context) {
+    ItemData(Context context, Shopping shopping) {
         setContext(context);
+        setShopping(shopping);
         setItemsAZ(new LinkedList<>());
         setItemsByCategory(new ArrayList<>());
         setItemsByStore(new ArrayList<>());
@@ -37,6 +39,14 @@ class ItemData {
 
     private void setContext(Context context) {
         getThis().context = context;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
     }
 
     private LinkedList<Item> getItemsAZ() {
@@ -117,7 +127,7 @@ class ItemData {
         Category newCategory;
         Store newStore;
         if (!getItemMap().containsKey(itemName)) {
-            newItem = new Item(getContext(), itemName, brandType, category, store);
+            newItem = new Item(getContext(), getShopping(), itemName, brandType, category, store);
             newItem.setCategoryOrder(itemCategoryOrder);
         } else {
             // item already exists
@@ -125,7 +135,7 @@ class ItemData {
             return;
         }
         if (!getCategoryMap().containsKey(category)) {
-            newCategory = new Category(getContext(), category, newItem);
+            newCategory = new Category(getContext(), getShopping(), category, newItem);
             getCategoryMap().put(category, newCategory);
         } else {
             // category already exists
@@ -133,7 +143,7 @@ class ItemData {
             getCategoryMap().get(category).addItem(newItem);
         }
         if (!getStoreMap().containsKey(store)) {
-            newStore = new Store(getContext(), store, newItem);
+            newStore = new Store(getContext(), getShopping(), store, newItem);
             getStoreMap().put(store, newStore);
         } else {
             // store already exists

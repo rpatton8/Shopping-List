@@ -6,18 +6,24 @@ import java.util.ArrayList;
 class Category {
 
     private Context context;
+    private Shopping shopping;
     private String categoryName;
     private ArrayList<Item> categoryItems;
     private boolean isExpanded;
     private boolean isContracted;
 
-    Category(Context context, String name, Item item) {
+    Category(Context context, Shopping shopping, String name, Item item) {
         setContext(context);
+        setShopping(shopping);
         setCategoryName(name);
         setCategoryItems(new ArrayList<>());
         getCategoryItems().add(item);
-        setExpanded(true);
-        setContracted(false);
+
+        if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getDefaultCategoryTitles())) {
+            setCategoryAsExpanded();
+        } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getDefaultCategoryTitles())) {
+            setCategoryAsContracted();
+        }
     }
 
     private Category getThis() {
@@ -26,6 +32,14 @@ class Category {
 
     private Context getContext() {
         return context;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
     }
 
     private void setContext(Context context) {

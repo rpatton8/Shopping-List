@@ -5,21 +5,24 @@ import android.content.Context;
 class Item implements Comparable<Item> {
 
     private Context context;
+    private Shopping shopping;
 
     private String itemName;
     private String brandType;
     private Category category;
     private Store store;
     private Status status;
+    private Picture picture;
     private int categoryOrder;
     private int storeOrder;
 
-    Item(Context context, String itemName, String brandType, String category, String store) {
+    Item(Context context, Shopping shopping, String itemName, String brandType, String category, String store) {
         setContext(context);
+        setShopping(shopping);
         setItemName(itemName);
         setBrandType(brandType);
-        setCategory(new Category(getContext(), category, this));
-        setStore(new Store(getContext(), store, this));
+        setCategory(new Category(getContext(), getShopping(), category, this));
+        setStore(new Store(getContext(), getShopping(), store, this));
     }
     
     private Item getThis() {
@@ -32,6 +35,14 @@ class Item implements Comparable<Item> {
 
     private void setContext(Context context) {
         getThis().context = context;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
     }
 
     String getItemName() {
@@ -75,6 +86,14 @@ class Item implements Comparable<Item> {
 
     void setStatus(Status status) {
         getThis().status = status;
+    }
+
+    public Picture getItemPicture() {
+        return picture;
+    }
+
+    public void setItemPicture(Picture picture) {
+        getThis().picture = picture;
     }
 
     int getCategoryOrder() {

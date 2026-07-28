@@ -1,13 +1,15 @@
 package ryan.android.shopping;
 
+import android.net.Uri;
+
 class Picture {
 
     private String pictureName;
-    private String pictureURL;
+    private Uri pictureURI;
 
-    Picture(String pictureName, String pictureURL) {
+    Picture(String pictureName, Uri pictureURI) {
         getThis().pictureName = pictureName;
-        getThis().pictureURL = pictureURL;
+        getThis().pictureURI = pictureURI;
     }
     
     private Picture getThis() {
@@ -22,12 +24,12 @@ class Picture {
         getThis().pictureName = pictureName;
     }
 
-    public String getURL() {
-        return pictureURL;
+    public Uri getURI() {
+        return pictureURI;
     }
 
-    public void setURL(String pictureURL) {
-        getThis().pictureURL = pictureURL;
+    public void setURI(Uri pictureURI) {
+        getThis().pictureURI = pictureURI;
     }
 
 }

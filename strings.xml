@@ -308,6 +308,10 @@
     <string name="dbPrice">price</string>
     <string name="dbLocation">location</string>
     <string name="dbNote">note</string>
+    <string name="dbPicturesCap">Pictures</string>
+    <string name="dbPictures">pictures</string>
+    <string name="dbPictureName">pictureName</string>
+    <string name="dbPictureURI">pictureURI</string>
     <string name="dbID">id</string>
     <string name="dbCreateTable">"CREATE TABLE "</string>
     <string name="dbLeftParenthesis">" ("</string>
@@ -331,6 +335,7 @@
     <string name="dbPriceQuestion">price=?</string>
     <string name="dbLocationQuestion">location=?</string>
     <string name="dbNoteQuestion">note=?</string>
+    <string name="dbPictureNameQuestion">pictureName=?</string>
     <string name="dbItemCategoryOrderQuestion">category=? AND itemCategoryOrder=?</string>
     <string name="dbItemStoreOrderQuestion">store=? AND itemStoreOrder=?</string>
 

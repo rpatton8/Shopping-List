@@ -169,10 +169,11 @@ public class Shopping extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.shopping);
         initializeData();
         loadSharedPreferences();
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.shopping);
 
         setSearchAlgorithm(new SearchAlgorithm(getBaseContext()));
         for (int i = 0; i < getItemData().getItemListAZ().size(); i++) {
@@ -648,7 +649,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setPictureDialogImage(ImageView pictureDialogImage) {
-        this.pictureDialogImage = pictureDialogImage;
+        getThis().pictureDialogImage = pictureDialogImage;
     }
 
     public ImageCapture getImageCapture() {
@@ -720,7 +721,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public void setCameraController(LifecycleCameraController cameraController) {
-        this.cameraController = cameraController;
+        getThis().cameraController = cameraController;
     }
 
     String getInventoryView() {
@@ -1000,6 +1001,12 @@ public class Shopping extends AppCompatActivity {
         getPictureDialogTitle().setText(item.getItemName());
 
         setPictureDialogImage(getPictureDialogView().findViewById(R.id.pictureDialogImage));
+        if (item.getItemPicture() != null && item.getItemPicture().getURI() != null) {
+            getPictureDialogImage().setImageURI(item.getItemPicture().getURI());
+        } else {
+            getPictureDialogImage().setImageResource(R.drawable.no_image);
+        }
+
         setPreviewView(getPictureDialogView().findViewById(R.id.previewView));
         setCameraButton(getPictureDialogView().findViewById(R.id.cameraButton));
         setEditButton(getPictureDialogView().findViewById(R.id.editButton));
@@ -1022,7 +1029,7 @@ public class Shopping extends AppCompatActivity {
             public void onClick(View v) {
                 getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
-                takePhoto();
+                takePhoto(item);
             }
         });
 
@@ -1093,14 +1100,21 @@ public class Shopping extends AppCompatActivity {
         getCameraController().bindToLifecycle(getThis());
     }
 
-    private void takePhoto() {
-        File outputFile = new File(getThis().getFilesDir(), "image6");
+    private void takePhoto(Item item) {
+        String itemName = item.getItemName();
+        System.out.println("itemName" + itemName);
+        File outputFile = new File(getThis().getFilesDir(), itemName);
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
         getCameraController().takePicture(outputFileOptions, ContextCompat.getMainExecutor(getThis()), new ImageCapture.OnImageSavedCallback() {
             public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
                 Uri savedUri = outputFileResults.getSavedUri();
                 if (savedUri != null) {
-                    Log.d("CameraX", "Photo capture succeeded: " + savedUri.toString());
+                    getPictureDialogImage().setImageURI(savedUri);
+                    getPictureDialogImage().setVisibility(View.VISIBLE);
+                    getPreviewView().setVisibility(View.GONE);
+                    Log.d("CameraX", "Photo capture succeeded: " + savedUri);
+                    Picture picture = new Picture(itemName, savedUri);
+                    item.setItemPicture(picture);
                 }
                 System.out.println("Image Saved");
             }
@@ -1290,7 +1304,7 @@ public class Shopping extends AppCompatActivity {
         setDbCategoryHelper(new DBCategoryHelper(getThis()));
         setDbStoreHelper(new DBStoreHelper(getThis()));
 
-        setItemData(new ItemData(getBaseContext()));
+        setItemData(new ItemData(getBaseContext(), getThis()));
         setStatusData(new StatusData(getBaseContext()));
         setCategoryData(new CategoryData(getBaseContext()));
         setStoreData(new StoreData(getBaseContext()));

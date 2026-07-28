@@ -6,18 +6,24 @@ import java.util.ArrayList;
 class Store {
 
     private Context context;
+    private Shopping shopping;
     private String storeName;
     private ArrayList<Item> storeItems;
     private boolean isExpanded;
     private boolean isContracted;
 
-    Store(Context context, String name, Item item) {
+    Store(Context context, Shopping shopping, String name, Item item) {
         setContext(context);
+        setShopping(shopping);
         setStoreName(name);
         setStoreItems(new ArrayList<>());
         getStoreItems().add(item);
-        setExpanded(true);
-        setContracted(false);
+
+        if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getDefaultStoreTitles())) {
+            setStoreAsExpanded();
+        } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getDefaultStoreTitles())) {
+            setStoreAsContracted();
+        }
     }
 
     private Store getThis() {
@@ -30,6 +36,14 @@ class Store {
 
     private void setContext(Context context) {
         getThis().context = context;
+    }
+
+    public Shopping getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
     }
 
     private String getStoreName() {

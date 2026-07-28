@@ -1559,13 +1559,13 @@ public class FullInventory extends Fragment {
 
         getExpandItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.ITEMS_CONTRACTED.equals(getShopping().getItemExpansion())) {
-                    getShopping().setItemExpansion(Shopping.ITEMS_EXPANDED);
+                //if (Shopping.ITEMS_CONTRACTED.equals(getShopping().getItemExpansion())) {
                     for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
                         Item item = getItemData().getItemListByCategory().get(i);
                         item.getStatus().setAsExpandedInInventory();
                     }
-                }
+                    getShopping().setItemExpansion(Shopping.ITEMS_EXPANDED);
+                //}
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1573,13 +1573,14 @@ public class FullInventory extends Fragment {
 
         getContractItems().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
+                //if (Shopping.ITEMS_EXPANDED.equals(getShopping().getItemExpansion())) {
                     getShopping().setItemExpansion(Shopping.ITEMS_CONTRACTED);
                     for (int i = 0; i < getItemData().getItemListByCategory().size(); i++) {
                         Item item = getItemData().getItemListByCategory().get(i);
                         item.getStatus().setAsContractedInInventory();
                     }
-                }
+                    getShopping().setItemExpansion(Shopping.ITEMS_CONTRACTED);
+                //}
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1587,15 +1588,14 @@ public class FullInventory extends Fragment {
 
         getExpandCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
-                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
-                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
-                        String category = getCategoryData().getCategoryList().get(i);
-                        if (getItemData().getCategoryMap().get(category) != null) {
-                            getItemData().getCategoryMap().get(category).setCategoryAsExpanded();
-                        }
+                for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
+                    String category = getCategoryData().getCategoryList().get(i);
+                    Category categoryObj = getItemData().getCategoryMap().get(category);
+                    if (categoryObj != null) {
+                        categoryObj.setCategoryAsExpanded();
                     }
                 }
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1603,15 +1603,14 @@ public class FullInventory extends Fragment {
 
         getContractCategories().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
-                    getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
-                    for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
-                        String category = getCategoryData().getCategoryList().get(i);
-                        if (getItemData().getCategoryMap().get(category) != null) {
-                            getItemData().getCategoryMap().get(category).setCategoryAsContracted();
-                        }
+                for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
+                    String category = getCategoryData().getCategoryList().get(i);
+                    Category categoryObj = getItemData().getCategoryMap().get(category);
+                    if (categoryObj != null) {
+                        categoryObj.setCategoryAsContracted();
                     }
                 }
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1619,15 +1618,14 @@ public class FullInventory extends Fragment {
 
         getExpandStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
-                    getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
-                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
-                        String store = getStoreData().getStoreList().get(i);
-                        if (getItemData().getStoreMap().get(store) != null) {
-                            getItemData().getStoreMap().get(store).setStoreAsExpanded();
-                        }
+                for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                    String store = getStoreData().getStoreList().get(i);
+                    Store storeObj = getItemData().getStoreMap().get(store);
+                    if (storeObj != null) {
+                        storeObj.setStoreAsExpanded();
                     }
                 }
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1635,15 +1633,14 @@ public class FullInventory extends Fragment {
 
         getContractStores().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
-                    getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
-                    for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
-                        String store = getStoreData().getStoreList().get(i);
-                        if (getItemData().getStoreMap().get(store) != null) {
-                            getItemData().getStoreMap().get(store).setStoreAsContracted();
-                        }
+                for (int i = 0; i < getStoreData().getStoreList().size(); i++) {
+                    String store = getStoreData().getStoreList().get(i);
+                    Store storeObj = getItemData().getStoreMap().get(store);
+                    if (storeObj != null) {
+                        storeObj.setStoreAsContracted();
                     }
                 }
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
