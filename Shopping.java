@@ -16,20 +16,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.Camera;
-import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
-import androidx.camera.core.ImageProxy;
-import androidx.camera.core.Preview;
-import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.LifecycleCameraController;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 
 public class Shopping extends AppCompatActivity {
@@ -38,11 +32,15 @@ public class Shopping extends AppCompatActivity {
     private StatusData statusData;
     private CategoryData categoryData;
     private StoreData storeData;
+    private PictureData pictureData;
+    private OptionalData optionalData;
 
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
+    private DBPictureHelper dbPictureHelper;
+    private DBOptionalDataHelper dbOptionalDataHelper;
 
     private boolean itemIsSelectedInInventory;
     private boolean itemIsSelectedInSearchResults;
@@ -101,24 +99,22 @@ public class Shopping extends AppCompatActivity {
     private LinearLayout takeCancelButtons;
     private LifecycleCameraController cameraController;
 
-    private String inventoryView;
-    static final String VIEW_ALL = ShoppingApp.getStringRes(R.string.cvViewAll);
-    static final String VIEW_INSTOCK = ShoppingApp.getStringRes(R.string.cvViewInstock);
-    static final String VIEW_NEEDED = ShoppingApp.getStringRes(R.string.cvViewNeeded);
-    static final String VIEW_PAUSED = ShoppingApp.getStringRes(R.string.cvViewPaused);
-
     private String inventorySortBy;
     private String defaultSortBy;
     static final String SORT_BY_CATEGORY = ShoppingApp.getStringRes(R.string.cvCategory);
     static final String SORT_BY_STORE = ShoppingApp.getStringRes(R.string.cvStore);
     static final String SORT_ALPHABETICAL = ShoppingApp.getStringRes(R.string.cvAlphabetical);
 
-    private String categoryTitles;
+    private String inventoryView;
+    static final String VIEW_ALL = ShoppingApp.getStringRes(R.string.cvViewAll);
+    static final String VIEW_INSTOCK = ShoppingApp.getStringRes(R.string.cvViewInstock);
+    static final String VIEW_NEEDED = ShoppingApp.getStringRes(R.string.cvViewNeeded);
+    static final String VIEW_PAUSED = ShoppingApp.getStringRes(R.string.cvViewPaused);
+
     private String defaultCategoryTitles;
     static final String CATEGORY_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesExpanded);
     static final String CATEGORY_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesContracted);
 
-    private String storeTitles;
     private String defaultStoreTitles;
     static final String STORE_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvStoreTitlesExpanded);
     static final String STORE_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvStoreTitlesContracted);
@@ -233,7 +229,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     void updateStatusData() {
-        setStatusData(getDbStatusHelper().readStatusData());
+        getDbStatusHelper().readStatusData(getStatusData());
     }
 
     CategoryData getCategoryData() {
@@ -245,7 +241,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     void updateCategoryData() {
-        setCategoryData(getDbCategoryHelper().readCategoryData());
+        getDbCategoryHelper().readCategoryData(getCategoryData());
     }
 
     StoreData getStoreData() {
@@ -257,7 +253,32 @@ public class Shopping extends AppCompatActivity {
     }
 
     void updateStoreData() {
-        setStoreData(getDbStoreHelper().readStoreData());
+        getDbStoreHelper().readStoreData(getStoreData());
+    }
+
+
+    public PictureData getPictureData() {
+        return pictureData;
+    }
+
+    public void setPictureData(PictureData pictureData) {
+        getThis().pictureData = pictureData;
+    }
+
+    void updatePictureData() {
+        getDbPictureHelper().readPictureData(getPictureData());
+    }
+
+    public OptionalData getOptionalData() {
+        return optionalData;
+    }
+
+    public void setOptionalData(OptionalData optionalData) {
+        getThis().optionalData = optionalData;
+    }
+
+    void updateOptionalData() {
+        getDbOptionalDataHelper().readOptionalData(getOptionalData());
     }
 
     private DBItemHelper getDbItemHelper() {
@@ -290,6 +311,22 @@ public class Shopping extends AppCompatActivity {
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    public DBPictureHelper getDbPictureHelper() {
+        return dbPictureHelper;
+    }
+
+    public void setDbPictureHelper(DBPictureHelper dbPictureHelper) {
+        getThis().dbPictureHelper = dbPictureHelper;
+    }
+
+    public DBOptionalDataHelper getDbOptionalDataHelper() {
+        return dbOptionalDataHelper;
+    }
+
+    public void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+        getThis().dbOptionalDataHelper = dbOptionalDataHelper;
     }
 
     boolean itemIsSelectedInInventory() {
@@ -748,28 +785,12 @@ public class Shopping extends AppCompatActivity {
         getThis().defaultSortBy = defaultSortBy;
     }
 
-    String getCategoryTitles() {
-        return categoryTitles;
-    }
-
-    void setCategoryTitles(String categoryTitles) {
-        getThis().categoryTitles = categoryTitles;
-    }
-
     String getDefaultCategoryTitles() {
         return defaultCategoryTitles;
     }
 
     void setDefaultCategoryTitles(String defaultCategoryTitles) {
         getThis().defaultCategoryTitles = defaultCategoryTitles;
-    }
-
-    String getStoreTitles() {
-        return storeTitles;
-    }
-
-    void setStoreTitles(String storeTitles) {
-        getThis().storeTitles = storeTitles;
     }
 
     String getDefaultStoreTitles() {
@@ -1002,7 +1023,7 @@ public class Shopping extends AppCompatActivity {
 
         setPictureDialogImage(getPictureDialogView().findViewById(R.id.pictureDialogImage));
         if (item.getItemPicture() != null && item.getItemPicture().getURI() != null) {
-            getPictureDialogImage().setImageURI(item.getItemPicture().getURI());
+            getPictureDialogImage().setImageURI(Uri.parse(item.getItemPicture().getURI()));
         } else {
             getPictureDialogImage().setImageResource(R.drawable.no_image);
         }
@@ -1037,6 +1058,9 @@ public class Shopping extends AppCompatActivity {
             public void onClick(View v) {
                 getTakeCancelButtons().setVisibility(View.GONE);
                 getCameraEditButtons().setVisibility(View.VISIBLE);
+                getPreviewView().setVisibility(View.GONE);
+                getPictureDialogImage().setVisibility(View.VISIBLE);
+                closeCamera();
             }
         });
 
@@ -1102,7 +1126,6 @@ public class Shopping extends AppCompatActivity {
 
     private void takePhoto(Item item) {
         String itemName = item.getItemName();
-        System.out.println("itemName" + itemName);
         File outputFile = new File(getThis().getFilesDir(), itemName);
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(outputFile).build();
         getCameraController().takePicture(outputFileOptions, ContextCompat.getMainExecutor(getThis()), new ImageCapture.OnImageSavedCallback() {
@@ -1112,9 +1135,9 @@ public class Shopping extends AppCompatActivity {
                     getPictureDialogImage().setImageURI(savedUri);
                     getPictureDialogImage().setVisibility(View.VISIBLE);
                     getPreviewView().setVisibility(View.GONE);
-                    Log.d("CameraX", "Photo capture succeeded: " + savedUri);
                     Picture picture = new Picture(itemName, savedUri.toString());
                     item.setItemPicture(picture);
+                    getDbPictureHelper().addNewPictureData(itemName, savedUri.toString());
                 }
                 System.out.println("Image Saved");
             }
@@ -1122,6 +1145,11 @@ public class Shopping extends AppCompatActivity {
                 System.out.println("Image Error");
             }
         });
+    }
+
+    private void closeCamera() {
+        getCameraController().unbind();
+        getPreviewView().setController(null);
     }
 
     void showKeyboard() {
@@ -1163,19 +1191,19 @@ public class Shopping extends AppCompatActivity {
         String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
         if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
-            getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+            //getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
         } else {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
-            getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
+            //getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
         }
 
         String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
         if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
-            getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
+            //getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
         } else {
             getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
-            getThis().setStoreTitles(STORE_TITLES_EXPANDED);
+            //getThis().setStoreTitles(STORE_TITLES_EXPANDED);
         }
 
         String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
@@ -1257,6 +1285,8 @@ public class Shopping extends AppCompatActivity {
         getDbStatusHelper().deleteDatabase();
         getDbCategoryHelper().deleteDatabase();
         getDbStoreHelper().deleteDatabase();
+        getDbPictureHelper().deleteDatabase();
+        getDbOptionalDataHelper().deleteDatabase();
     }
 
     void initializeData() {
@@ -1264,28 +1294,41 @@ public class Shopping extends AppCompatActivity {
         setDbStatusHelper(new DBStatusHelper(getThis()));
         setDbCategoryHelper(new DBCategoryHelper(getThis()));
         setDbStoreHelper(new DBStoreHelper(getThis()));
+        setDbPictureHelper(new DBPictureHelper(getThis()));
+        setDbOptionalDataHelper(new DBOptionalDataHelper(getThis()));
 
         setItemData(new ItemData(getBaseContext(), getThis()));
         setStatusData(new StatusData(getBaseContext()));
         setCategoryData(new CategoryData(getBaseContext()));
         setStoreData(new StoreData(getBaseContext()));
+        setPictureData(new PictureData(getBaseContext()));
+        setOptionalData(new OptionalData(getBaseContext()));
 
         getDbItemHelper().readItemDataByCategory(getItemData());
         getDbItemHelper().readItemDataByStore(getItemData());
-        setStatusData(getDbStatusHelper().readStatusData());
+        getDbStatusHelper().readStatusData(getStatusData());
         getItemData().updateStatuses(getStatusData());
-        setCategoryData(getDbCategoryHelper().readCategoryData());
-        setStoreData(getDbStoreHelper().readStoreData());
+        getDbCategoryHelper().readCategoryData(getCategoryData());
+        getDbStoreHelper().readStoreData(getStoreData());
+        getDbPictureHelper().readPictureData(getPictureData());
+        getItemData().updatePictures(getPictureData());
+        getDbOptionalDataHelper().readOptionalData(getOptionalData());
 
         setItemIsSelectedInInventory(false);
         setItemIsSelectedInSearchResults(false);
+        setItemIsSelectedInIndividualCategories(false);
+        setItemIsSelectedInIndividualStores(false);
         setItemIsSelectedInShoppingList(false);
         setSelectedItemInInventory(null);
         setSelectedItemInSearchResults(null);
+        setSelectedItemInIndividualCategories(null);
+        setSelectedItemInIndividualStores(null);
         setSelectedItemInShoppingList(null);
-        setSelectedItemPositionInInventory(0);
-        setSelectedItemPositionInSearchResults(0);
-        setSelectedItemPositionInShoppingList(0);
+        setSelectedItemPositionInInventory(-1);
+        setSelectedItemPositionInSearchResults(-1);
+        setSelectedItemPositionInIndividualCategories(-1);
+        setSelectedItemPositionInIndividualStores(-1);
+        setSelectedItemPositionInShoppingList(-1);
 
         setShoppingListStoreOrderNum(0);
         setItemInPictureDialog(null);
@@ -1307,8 +1350,8 @@ public class Shopping extends AppCompatActivity {
 
         setInventoryView(VIEW_ALL);
         setInventorySortBy(getDefaultSortBy());
-        setCategoryTitles(getDefaultCategoryTitles());
-        setStoreTitles(getDefaultStoreTitles());
+        setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+        setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
         setItemExpansion(ITEMS_CONTRACTED);
         setReorderingMethod(UP_AND_DOWN_ARROWS);
         setSwipingOption(SWIPING_ON);
