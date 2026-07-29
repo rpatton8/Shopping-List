@@ -1,8 +1,10 @@
 package ryan.android.shopping;
 
+import android.content.Context;
+
 class OptionalData {
 
-    OptionalData() {
+    OptionalData(Context context) {
 
     }
 

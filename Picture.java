@@ -5,9 +5,9 @@ import android.net.Uri;
 class Picture {
 
     private String pictureName;
-    private Uri pictureURI;
+    private String pictureURI;
 
-    Picture(String pictureName, Uri pictureURI) {
+    Picture(String pictureName, String pictureURI) {
         getThis().pictureName = pictureName;
         getThis().pictureURI = pictureURI;
     }
@@ -24,11 +24,11 @@ class Picture {
         getThis().pictureName = pictureName;
     }
 
-    public Uri getURI() {
+    public String getURI() {
         return pictureURI;
     }
 
-    public void setURI(Uri pictureURI) {
+    public void setURI(String pictureURI) {
         getThis().pictureURI = pictureURI;
     }
 

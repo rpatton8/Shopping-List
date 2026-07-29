@@ -56,12 +56,11 @@ class DBStoreHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    StoreData readStoreData() {
+    void readStoreData(StoreData storeData) {
 
         SQLiteDatabase db = getThis().getReadableDatabase();
         Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME
                 + getContext().getString(R.string.dbOrderBy) + STORE_ORDER, null);
-        StoreData storeData = new StoreData(getContext());
 
         if (cursor.moveToFirst()) {
             do { storeData.readStore(cursor.getString(1),
@@ -74,7 +73,6 @@ class DBStoreHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return storeData;
     }
 
     void addNewStore(String storeName, int storeOrder) {

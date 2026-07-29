@@ -16,10 +16,16 @@ class Status {
     private boolean isContractedInSearchResults;
     private boolean isExpandedInShoppingList;
     private boolean isContractedInShoppingList;
+    private boolean isExpandedInIndividualCategories;
+    private boolean isContractedInIndividualCategories;
+    private boolean isExpandedInIndividualStores;
+    private boolean isContractedInIndividualStores;
     private boolean isSelectedInInventory;
     private boolean isSelectedInSearchResults;
     private boolean isSelectedInShoppingList;
-    
+    private boolean isSelectedInIndividualCategories;
+    private boolean isSelectedInIndividualStores;
+
     Status(String itemName, String status, String checked, Context context) {
 
         setContext(context);
@@ -41,9 +47,14 @@ class Status {
         setAsContractedInInventory();
         setAsContractedInSearchResults();
         setAsContractedInShoppingList();
+        setAsContractedInIndividualCategories();
+        setAsContractedInIndividualStores();
         setAsUnselectedInInventory();
         setAsUnselectedInSearchResults();
         setAsUnselectedInShoppingList();
+        setAsUnselectedInIndividualCategories();
+        setAsUnselectedInIndividualStores();
+
     }
 
     private Status getThis() {
@@ -158,6 +169,42 @@ class Status {
         isExpandedInShoppingList = false;
     }
 
+    public boolean isExpandedInIndividualCategories() {
+        return isExpandedInIndividualCategories;
+    }
+
+    public void setAsExpandedInIndividualCategories() {
+        isExpandedInIndividualCategories = true;
+        isContractedInIndividualCategories = false;
+    }
+
+    public boolean isContractedInIndividualCategories() {
+        return isContractedInIndividualCategories;
+    }
+
+    public void setAsContractedInIndividualCategories() {
+        isContractedInIndividualCategories = true;
+        isExpandedInIndividualCategories = false;
+    }
+
+    public boolean isExpandedInIndividualStores() {
+        return isExpandedInIndividualStores;
+    }
+
+    public void setAsExpandedInIndividualStores() {
+        isExpandedInIndividualStores = true;
+        isContractedInIndividualStores = false;
+    }
+
+    public boolean isContractedInIndividualStores() {
+        return isContractedInIndividualStores;
+    }
+
+    public void setAsContractedInIndividualStores() {
+        isContractedInIndividualStores = true;
+        isExpandedInIndividualStores = false;
+    }
+
     boolean isSelectedInInventory() {
         return isSelectedInInventory;
     }
@@ -193,7 +240,31 @@ class Status {
     void setAsUnselectedInShoppingList() {
         isSelectedInShoppingList = false;
     }
-    
+
+    boolean isSelectedInIndividualCategories() {
+        return isSelectedInIndividualCategories;
+    }
+
+    void setAsSelectedInIndividualCategories() {
+        isSelectedInIndividualCategories = true;
+    }
+
+    void setAsUnselectedInIndividualCategories() {
+        isSelectedInIndividualCategories = false;
+    }
+
+    boolean isSelectedInIndividualStores() {
+        return isSelectedInIndividualStores;
+    }
+
+    void setAsSelectedInIndividualStores() {
+        isSelectedInIndividualStores = true;
+    }
+
+    void setAsUnselectedInIndividualStores() {
+        isSelectedInIndividualStores = false;
+    }
+
     public String toString() {
         if (isInStock()) return getContext().getString(R.string.inStockCap);
         if (isNeeded()) return getContext().getString(R.string.neededCap);

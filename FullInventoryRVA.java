@@ -998,13 +998,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
             setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
 
-            /*if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getDefaultCategoryTitles())) {
-                getThis().expandTitle();
-                getItemData().getCategoryMap().get(getCategory()).setCategoryAsExpanded();
+            if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getDefaultCategoryTitles())) {
+                setAsExpanded();
             } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getDefaultCategoryTitles())) {
-                getThis().contractTitle();
-                getItemData().getCategoryMap().get(getCategory()).setCategoryAsContracted();
-            }*/
+                setAsContracted();
+            }
 
             getCategoryTitleText().setOnClickListener(getThis());
             getTriangleButtonDown1().setOnClickListener(getThis());
@@ -1127,20 +1125,22 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
 
             int id = v.getId();
-            if (category == null) return;
-            Category thisCategory = getItemData().getCategoryMap().get(category);
+            if (getCategory() == null) return;
+            Category thisCategory = getItemData().getCategoryMap().get(getCategory());
             if (thisCategory == null) return;
 
-            if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
+            if (id == getCategoryTitleText().getId()) {
+                if (isExpanded()) {
+                    contractTitle();
+                    thisCategory.setCategoryAsContracted();
+                } else if (isContracted()) {
+                    expandTitle();
+                    thisCategory.setCategoryAsExpanded();
+                }
+            } else if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
                 contractTitle();
                 thisCategory.setCategoryAsContracted();
             } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
-                expandTitle();
-                thisCategory.setCategoryAsExpanded();
-            } else if (id == getCategoryTitleText().getId() && isExpanded()) {
-                contractTitle();
-                thisCategory.setCategoryAsContracted();
-            } else if (id == getCategoryTitleText().getId() && isContracted()) {
                 expandTitle();
                 thisCategory.setCategoryAsExpanded();
             }
@@ -1864,13 +1864,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
             setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
 
-            /*if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getDefaultStoreTitles())) {
-                getThis().expandTitle();
-                getItemData().getStoreMap().get(getStore()).setStoreAsExpanded();
+            if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getDefaultStoreTitles())) {
+                setAsExpanded();
             } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getDefaultStoreTitles())) {
-                getThis().contractTitle();
-                getItemData().getStoreMap().get(getStore()).setStoreAsContracted();
-            }*/
+                setAsContracted();
+            }
 
             getStoreTitleText().setOnClickListener(getThis());
             getTriangleButtonDown1().setOnClickListener(getThis());

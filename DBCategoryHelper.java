@@ -56,12 +56,11 @@ class DBCategoryHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    CategoryData readCategoryData() {
+    void readCategoryData(CategoryData categoryData) {
 
         SQLiteDatabase db = getThis().getReadableDatabase();
         Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME
                 + getContext().getString(R.string.dbOrderBy) + CATEGORY_ORDER, null);
-        CategoryData categoryData = new CategoryData(getContext());
 
         if (cursor.moveToFirst()) {
             do { categoryData.readCategory(cursor.getString(1),
@@ -74,7 +73,6 @@ class DBCategoryHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return categoryData;
     }
 
     void addNewCategory(String categoryName, int categoryOrder) {

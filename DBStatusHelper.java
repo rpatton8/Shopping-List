@@ -50,11 +50,10 @@ class DBStatusHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    StatusData readStatusData() {
+    void readStatusData(StatusData statusData) {
 
         SQLiteDatabase db = getThis().getReadableDatabase();
         Cursor cursor = db.rawQuery(getContext().getString(R.string.dbSelectFrom) + TABLE_NAME, null);
-        StatusData statusData = new StatusData(getContext());
 
         if (cursor.moveToFirst()) {
             do { statusData.readStatus(cursor.getString(1),
@@ -65,7 +64,6 @@ class DBStatusHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return statusData;
     }
 
     void addNewStatus(String itemName, String status, String checked) {

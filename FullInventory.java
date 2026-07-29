@@ -1595,7 +1595,7 @@ public class FullInventory extends Fragment {
                         categoryObj.setCategoryAsExpanded();
                     }
                 }
-                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1610,7 +1610,7 @@ public class FullInventory extends Fragment {
                         categoryObj.setCategoryAsContracted();
                     }
                 }
-                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1625,7 +1625,7 @@ public class FullInventory extends Fragment {
                         storeObj.setStoreAsExpanded();
                     }
                 }
-                getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                //getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1640,7 +1640,7 @@ public class FullInventory extends Fragment {
                         storeObj.setStoreAsContracted();
                     }
                 }
-                getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                //getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }

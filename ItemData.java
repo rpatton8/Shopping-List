@@ -1,6 +1,8 @@
 package ryan.android.shopping;
 
 import android.content.Context;
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -118,6 +120,15 @@ class ItemData {
                 status = new Status(item.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked), getContext());
             }
             item.setStatus(status);
+        }
+    }
+
+    void updatePictures(PictureData pictureData) {
+        HashMap<String, Picture> pictureMap = pictureData.getPictureMap();
+        for(int i = 0; i < getItemsAZ().size(); i++) {
+            Item item = getItemsAZ().get(i);
+            Picture picture = pictureMap.get(item.getItemName());
+            if (picture != null) item.setItemPicture(picture);
         }
     }
 

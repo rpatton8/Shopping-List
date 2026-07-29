@@ -8,7 +8,7 @@ class PictureData {
     private Context context;
     private HashMap<String, Picture> pictureMap;
 
-    PictureData() {
+    PictureData(Context context) {
         setContext(context);
         setPictureMap(new HashMap<>());
     }
@@ -34,7 +34,8 @@ class PictureData {
     }
 
     void readPictureData(String itemName, String pictureURI) {
-
+        Picture picture = new Picture(itemName, pictureURI);
+        getPictureMap().put(itemName, picture);
     }
 
 }
