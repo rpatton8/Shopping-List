@@ -233,7 +233,7 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class ShoppingListItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private Shopping shopping;
         private ShoppingListRVA adapter;
@@ -292,6 +292,19 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getItemLargeBrand().setOnClickListener(getThis());
             getItemLargeCategoryLabel().setOnClickListener(getThis());
             getItemLargeCategory().setOnClickListener(getThis());
+
+            getTriangleRight().setOnLongClickListener(getThis());
+            getTriangleDown().setOnLongClickListener(getThis());
+            getCheckboxUncheckedSmall().setOnLongClickListener(getThis());
+            getCheckboxCheckedSmall().setOnLongClickListener(getThis());
+            getCheckboxUncheckedLarge().setOnLongClickListener(getThis());
+            getCheckboxCheckedLarge().setOnLongClickListener(getThis());
+            getItemSmallName().setOnLongClickListener(getThis());
+            getItemLargeName().setOnLongClickListener(getThis());
+            getItemLargeBrandLabel().setOnLongClickListener(getThis());
+            getItemLargeBrand().setOnLongClickListener(getThis());
+            getItemLargeCategoryLabel().setOnLongClickListener(getThis());
+            getItemLargeCategory().setOnLongClickListener(getThis());
         }
 
         private ShoppingListItemRVH getThis() {
@@ -555,6 +568,11 @@ class ShoppingListRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
             return thisItem;
+        }
+
+        public boolean onLongClick(View v) {
+            onDoubleClick(v);
+            return true;
         }
 
         public void onClick(View v) {

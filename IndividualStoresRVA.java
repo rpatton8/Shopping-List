@@ -157,7 +157,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         getShopping().setIndividualStore(store);
     }
 
-    private class IndividualStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class IndividualStoresRVH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private View view;
         private Context context;
@@ -231,6 +231,23 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             getItemLargeBrandLabel().setOnClickListener(getThis());
             getItemLargeCategory().setOnClickListener(getThis());
             getItemLargeCategoryLabel().setOnClickListener(getThis());
+
+            getTriangleRight().setOnLongClickListener(getThis());
+            getTriangleDown().setOnLongClickListener(getThis());
+            getItemSmall().setOnLongClickListener(getThis());
+            getItemLarge().setOnLongClickListener(getThis());
+            getItemSmallName().setOnLongClickListener(getThis());
+            getItemLargeName().setOnLongClickListener(getThis());
+            getItemSmallInStock().setOnLongClickListener(getThis());
+            getItemSmallNeeded().setOnLongClickListener(getThis());
+            getItemSmallPaused().setOnLongClickListener(getThis());
+            getItemLargeInStock().setOnLongClickListener(getThis());
+            getItemLargeNeeded().setOnLongClickListener(getThis());
+            getItemLargePaused().setOnLongClickListener(getThis());
+            getItemLargeBrand().setOnLongClickListener(getThis());
+            getItemLargeBrandLabel().setOnLongClickListener(getThis());
+            getItemLargeCategory().setOnLongClickListener(getThis());
+            getItemLargeCategoryLabel().setOnLongClickListener(getThis());
         }
 
         private IndividualStoresRVH getThis() {
@@ -476,6 +493,11 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     getShopping().setSelectedItemInSearchResults(thisItem);
                 }
             }
+        }
+
+        public boolean onLongClick(View v) {
+            onDoubleClick(v);
+            return true;
         }
 
         public void onClick(View v) {

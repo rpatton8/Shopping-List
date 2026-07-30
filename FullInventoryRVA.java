@@ -3,6 +3,8 @@ package ryan.android.shopping;
 import android.content.Context;
 import android.os.SystemClock;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1167,7 +1169,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 //-----------------------------------------Category Items-------------------------------------------
 
-    private static class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class SortByCategoryItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private View view;
         private Context context;
@@ -1250,6 +1252,25 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getItemLargeCategoryLabel().setOnClickListener(getThis());
             getItemLargeStore().setOnClickListener(getThis());
             getItemLargeStoreLabel().setOnClickListener(getThis());
+
+            getTriangleRight().setOnLongClickListener(getThis());
+            getTriangleDown().setOnLongClickListener(getThis());
+            getItemSmall().setOnLongClickListener(getThis());
+            getItemLarge().setOnLongClickListener(getThis());
+            getItemSmallName().setOnLongClickListener(getThis());
+            getItemLargeName().setOnLongClickListener(getThis());
+            getItemSmallInStock().setOnLongClickListener(getThis());
+            getItemSmallNeeded().setOnLongClickListener(getThis());
+            getItemSmallPaused().setOnLongClickListener(getThis());
+            getItemLargeInStock().setOnLongClickListener(getThis());
+            getItemLargeNeeded().setOnLongClickListener(getThis());
+            getItemLargePaused().setOnLongClickListener(getThis());
+            getItemLargeBrand().setOnLongClickListener(getThis());
+            getItemLargeBrandLabel().setOnLongClickListener(getThis());
+            getItemLargeCategory().setOnLongClickListener(getThis());
+            getItemLargeCategoryLabel().setOnLongClickListener(getThis());
+            getItemLargeStore().setOnLongClickListener(getThis());
+            getItemLargeStoreLabel().setOnLongClickListener(getThis());
         }
 
         private SortByCategoryItemRVH getThis() {
@@ -1576,6 +1597,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
             return thisItem;
+        }
+
+        public boolean onLongClick(View v) {
+            onDoubleClick(v);
+            return true;
         }
 
         public void onClick(View v) {
@@ -2031,7 +2057,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 //-------------------------------------------Store Items--------------------------------------------
 
-    private static class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class SortByStoreItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private View view;
         private Context context;
@@ -2114,6 +2140,25 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getItemLargeCategoryLabel().setOnClickListener(getThis());
             getItemLargeStore().setOnClickListener(getThis());
             getItemLargeStoreLabel().setOnClickListener(getThis());
+
+            getTriangleRight().setOnLongClickListener(getThis());
+            getTriangleDown().setOnLongClickListener(getThis());
+            getItemSmall().setOnLongClickListener(getThis());
+            getItemLarge().setOnLongClickListener(getThis());
+            getItemSmallName().setOnLongClickListener(getThis());
+            getItemLargeName().setOnLongClickListener(getThis());
+            getItemSmallInStock().setOnLongClickListener(getThis());
+            getItemSmallNeeded().setOnLongClickListener(getThis());
+            getItemSmallPaused().setOnLongClickListener(getThis());
+            getItemLargeInStock().setOnLongClickListener(getThis());
+            getItemLargeNeeded().setOnLongClickListener(getThis());
+            getItemLargePaused().setOnLongClickListener(getThis());
+            getItemLargeBrand().setOnLongClickListener(getThis());
+            getItemLargeBrandLabel().setOnLongClickListener(getThis());
+            getItemLargeCategory().setOnLongClickListener(getThis());
+            getItemLargeCategoryLabel().setOnLongClickListener(getThis());
+            getItemLargeStore().setOnLongClickListener(getThis());
+            getItemLargeStoreLabel().setOnLongClickListener(getThis());
         }
 
         private SortByStoreItemRVH getThis() {
@@ -2442,6 +2487,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             return thisItem;
         }
 
+        public boolean onLongClick(View v) {
+            onDoubleClick(v);
+            return true;
+        }
+
         public void onClick(View v) {
             long clickTime = SystemClock.uptimeMillis();
             if (clickTime - getLastClickTime() < getDoubleClickTimeout()) {
@@ -2696,7 +2746,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 //---------------------------------------Alphabetical Items-----------------------------------------
 
-    private static class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private static class SortAlphabeticalItemRVH extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private View view;
         private Context context;
@@ -2774,6 +2824,25 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getItemLargeCategoryLabel().setOnClickListener(getThis());
             getItemLargeStore().setOnClickListener(getThis());
             getItemLargeStoreLabel().setOnClickListener(getThis());
+
+            getTriangleRight().setOnLongClickListener(getThis());
+            getTriangleDown().setOnLongClickListener(getThis());
+            getItemSmall().setOnLongClickListener(getThis());
+            getItemLarge().setOnLongClickListener(getThis());
+            getItemSmallName().setOnLongClickListener(getThis());
+            getItemLargeName().setOnLongClickListener(getThis());
+            getItemSmallInStock().setOnLongClickListener(getThis());
+            getItemSmallNeeded().setOnLongClickListener(getThis());
+            getItemSmallPaused().setOnLongClickListener(getThis());
+            getItemLargeInStock().setOnLongClickListener(getThis());
+            getItemLargeNeeded().setOnLongClickListener(getThis());
+            getItemLargePaused().setOnLongClickListener(getThis());
+            getItemLargeBrand().setOnLongClickListener(getThis());
+            getItemLargeBrandLabel().setOnLongClickListener(getThis());
+            getItemLargeCategory().setOnLongClickListener(getThis());
+            getItemLargeCategoryLabel().setOnLongClickListener(getThis());
+            getItemLargeStore().setOnLongClickListener(getThis());
+            getItemLargeStoreLabel().setOnLongClickListener(getThis());
         }
 
         private SortAlphabeticalItemRVH getThis() {
@@ -3026,6 +3095,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     getShopping().setSelectedItemInInventory(thisItem);
                 }
             }
+        }
+
+        public boolean onLongClick(View v) {
+            onDoubleClick(v);
+            return true;
         }
 
         public void onClick(View v) {
