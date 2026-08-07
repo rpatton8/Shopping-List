@@ -26,7 +26,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private DBStoreHelper dbStoreHelper;
 
     FullInventoryRVA(View view, Context context, Shopping shopping, ItemData itemData, CategoryData categoryData,
-                     StoreData storeData, DBStatusHelper dbStatus, DBStoreHelper dbStore, DBCategoryHelper dbCategory) {
+                     StoreData storeData, DBStatusHelper dbStatus, DBCategoryHelper dbCategory, DBStoreHelper dbStore) {
         setView(view);
         setContext(context);
         setShopping(shopping);
@@ -2017,20 +2017,22 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void onClick(View v) {
 
             int id = v.getId();
-            if (store == null) return;
-            Store thisStore = getItemData().getStoreMap().get(store);
+            if (getStore() == null) return;
+            Store thisStore = getItemData().getStoreMap().get(getStore());
             if (thisStore == null) return;
 
-            if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
+            if (id == getStoreTitleText().getId()) {
+                if (isExpanded()) {
+                    contractTitle();
+                    thisStore.setStoreAsContracted();
+                } else if (isContracted()) {
+                    expandTitle();
+                    thisStore.setStoreAsExpanded();
+                }
+            } else if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
                 contractTitle();
                 thisStore.setStoreAsContracted();
             } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
-                expandTitle();
-                thisStore.setStoreAsExpanded();
-            } else if (id == getStoreTitleText().getId() && isExpanded()) {
-                contractTitle();
-                thisStore.setStoreAsContracted();
-            } else if (id == getStoreTitleText().getId() && isContracted()) {
                 expandTitle();
                 thisStore.setStoreAsExpanded();
             }

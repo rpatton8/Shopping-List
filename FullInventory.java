@@ -730,7 +730,7 @@ public class FullInventory extends Fragment {
         setFullInventoryRecyclerView(getView().findViewById(R.id.fullInventoryRecyclerView));
         getFullInventoryRecyclerView().setHasFixedSize(false);
         getFullInventoryRecyclerView().setLayoutManager(new LinearLayoutManager(getView().getContext()));
-        setFullInventoryAdapter(new FullInventoryRVA(getView(), getContext(), getShopping(),  getItemData(), getCategoryData(), getStoreData(), getDbStatusHelper(), getDbStoreHelper(), getDbCategoryHelper()));
+        setFullInventoryAdapter(new FullInventoryRVA(getView(), getContext(), getShopping(),  getItemData(), getCategoryData(), getStoreData(), getDbStatusHelper(), getDbCategoryHelper(), getDbStoreHelper()));
         getFullInventoryRecyclerView().setAdapter(getFullInventoryAdapter());
         getFullInventoryRecyclerView().getLayoutManager().onRestoreInstanceState(getShopping().getFullInventoryViewState());
 
@@ -1688,6 +1688,17 @@ public class FullInventory extends Fragment {
             }
         });
 
+        getFullInventoryRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                if (parent.getChildAdapterPosition(view) == 0) {
+                    if (getShopping().getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
+                        outRect.top += getResources().getDimensionPixelSize(R.dimen.padding_standard);
+                    }
+                }
+            }
+        });
+
         getFullInventoryRecyclerView().setOnTouchListener(new OnSwipeTouchListener(getView().getContext()) {
             void onSwipeLeft() {
                 if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
@@ -1701,13 +1712,28 @@ public class FullInventory extends Fragment {
             }
         });
 
-        getFullInventoryRecyclerView().addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                if (parent.getChildAdapterPosition(view) == 0) {
-                    if (getShopping().getInventorySortBy().equals(Shopping.SORT_ALPHABETICAL)) {
-                        outRect.top += getResources().getDimensionPixelSize(R.dimen.padding_standard);
-                    }
+        getIndividualCategoriesRecyclerView().setOnTouchListener(new OnSwipeTouchListener(getView().getContext()) {
+            void onSwipeLeft() {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
+                    moveLeftInIndividualCategories();
+                }
+            }
+            void onSwipeRight() {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
+                    moveRightInIndividualCategories();
+                }
+            }
+        });
+
+        getIndividualStoresRecyclerView().setOnTouchListener(new OnSwipeTouchListener(getView().getContext()) {
+            void onSwipeLeft() {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
+                    moveLeftInIndividualStores();
+                }
+            }
+            void onSwipeRight() {
+                if (Shopping.SWIPING_ON.equals(getShopping().getSwipingOption())) {
+                    moveRightInIndividualStores();
                 }
             }
         });
@@ -1789,6 +1815,23 @@ public class FullInventory extends Fragment {
             }
         }
         getFullInventoryAdapter().notifyDataSetChanged();
+
+    }
+
+    private void moveLeftInIndividualCategories() {
+        // to do
+    }
+
+    private void moveRightInIndividualCategories() {
+        // to do
+    }
+
+    private void moveLeftInIndividualStores() {
+        // to do
+    }
+
+    private void moveRightInIndividualStores() {
+        // to do
     }
 
     private void hideMenuOptions() {

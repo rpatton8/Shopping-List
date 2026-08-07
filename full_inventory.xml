@@ -249,7 +249,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="38dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/sortAlphabetically" />
@@ -261,7 +261,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="91dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/sortByCategory" />
@@ -273,7 +273,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="146dp"
+        android:layout_marginTop="144dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/sortByStore" />
@@ -285,7 +285,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="38dp"
         android:visibility="gone"
         android:textSize="16sp"
         android:text="@string/viewAll" />
@@ -297,7 +297,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="78dp"
         android:visibility="gone"
         android:textSize="16sp"
         android:text="@string/viewInStock" />
@@ -309,7 +309,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="118dp"
         android:visibility="gone"
         android:textSize="16sp"
         android:text="@string/viewNeeded" />
@@ -321,7 +321,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="158dp"
         android:visibility="gone"
         android:textSize="16sp"
         android:text="@string/viewPaused" />
@@ -336,7 +336,7 @@
             android:id="@+id/expandItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="298dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandItems" />
@@ -345,7 +345,7 @@
             android:id="@+id/contractItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="298dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/contractItems" />
@@ -362,7 +362,7 @@
             android:id="@+id/expandCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="338dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandCategories" />
@@ -371,7 +371,7 @@
             android:id="@+id/contractCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="338dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/contractCategories" />
@@ -388,7 +388,7 @@
             android:id="@+id/expandStores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="378dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandStores" />
@@ -397,7 +397,7 @@
             android:id="@+id/contractStores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="378dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/contractStores" />
@@ -410,7 +410,7 @@
         android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="323dp"
+        android:layout_marginTop="201dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/individualCategories" />
@@ -421,7 +421,7 @@
         android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="371dp"
+        android:layout_marginTop="248dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/individualStores" />
