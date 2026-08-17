@@ -540,6 +540,9 @@
     <string name="clarifiedButter">Clarified Butter</string>
     <string name="challenge">Challenge</string>
 
+    <string name="cocoaPebbles">Cocoa Pebbles</string>
+    <string name="post">Post</string>
+
     <string name="communionWafers">Communion Wafers</string>
     <string name="cavanaghAltarBread">Cavanagh Altar Bread</string>
 
@@ -587,6 +590,9 @@
 
     <string name="deodorant">Deodorant</string>
     <string name="oldSpice">Old Spice</string>
+
+    <string name="dicedChicken">Diced Chicken</string>
+    <string name="bonelessSkinless">Boneless/Skinless</string>
 
     <string name="dishSoap">Dish Soap</string>
     <string name="dawnPlatinum">Dawn Platinum</string>
@@ -1032,6 +1038,9 @@
     <string name="tortellini">Tortellini</string>
     <string name="barilla3Cheese">Barilla 3 Cheese</string>
 
+    <string name="tortillaChips">Tortilla Chips</string>
+    <string name="missionTriangles">Mission Triangles</string>
+
     <string name="tripleOmega">Triple Omega</string>
     <string name="natureMade">Nature Made</string>
 
@@ -1049,6 +1058,9 @@
 
     <string name="vegetableOil">Vegetable Oil</string>
     <string name="crisco">Crisco</string>
+
+    <string name="wholeWheatBread">Whole Wheat Bread</string>
+    <string name="oneMightyMill">One Mighty Mill</string>
 
     <string name="vinegarChips">Vinegar Chips</string>
     <!--<string name="kettle">Kettle</string>-->
