@@ -448,7 +448,7 @@
     <string name="natrol10000mcg">Natrol 10,000mcg</string>
 
     <string name="bodyWash">Body Wash</string>
-    <string name="suaveMandarin">Suave Mandarin</string>
+    <string name="suaveMoisturizing">Suave Moisturizing</string>
 
     <string name="bottledWater">Bottled Water</string>
     <string name="refreshe40pack">Refreshe 40 pack</string>
@@ -579,6 +579,9 @@
     <string name="darkChocolateCaramelSquares">Dark Chocolate Caramel Squares</string>
     <!--<string name="ghiradelli">Ghiradelli</string>-->
 
+    <string name="darkChocPirouline">Dark Chocolate Pirouline</string>
+    <string name="cremeFilledWafers">Creme Filled Wafers</string>
+
     <string name="darkChocolatePretzels">Dark Chocolate Pretzels</string>
     <string name="flipz">Flipz</string>
 
@@ -603,6 +606,9 @@
     <string name="dogFoodDry">Dog Food (dry)</string>
     <string name="canidaeAllLifeStages">Canidae All Life Stages</string>
 
+    <string name="dogTreats">Dog Treats</string>
+    <string name="milkBoneMedium">Milk Bone (medium)</string>
+
     <string name="doritos">Doritos</string>
     <string name="coolRanch">Cool Ranch</string>
 
@@ -619,7 +625,7 @@
     <string name="gradeAAxLarge">Grade AA X-Large</string>
 
     <string name="extraVirginOliveOil">Extra Virgin Olive Oil</string>
-    <!--<string name="toDo">to do</string>-->
+    <string name="bertolliSauteing">Bertolli Sauteing</string>
 
     <string name="faceSunscreen">Face Sunscreen</string>
     <string name="aveenoProtectHydrate">Aveeno Protect + Hydrate</string>
@@ -840,6 +846,9 @@
     <string name="packagingTape">Packaging Tape</string>
     <string name="scotchHeavyDuty">Scotch Heavy Duty</string>
 
+    <string name="pancakeMix">Pancake Mix</string>
+    <string name="krusteazButtermilk">Krusteaz Buttermilk</string>
+
     <string name="paperPlates">Paper Plates</string>
     <!--<string name="toDo">to do</string>-->
 
@@ -875,6 +884,15 @@
 
     <string name="poopBags">Poop Bags</string>
     <string name="amazonBasics">Amazon Basics</string>
+
+    <string name="poopPailBagsDog">Poop Pail Bags (dog)</string>
+    <string name="choiceRefill4pack">Choice Refill 4-pack</string>
+
+    <string name="poopPailBagsCat">Poop Pail Bags (cat)</string>
+    <string name="babyfeelMiniSize">Babyfeel Mini Size</string>
+
+    <string name="popTarts">Pop Tarts</string>
+    <string name="chocolateFudge">Chocolate Fudge</string>
 
     <string name="quickSteak">Quick Steak</string>
     <string name="garys">Gary\'s</string>
@@ -969,6 +987,9 @@
     <string name="sodaCans">Soda Cans</string>
     <!--<string name="pepsiOrCoke">Pepsi or Coke</string>-->
 
+    <string name="softPretzels">Soft Pretzels</string>
+    <string name="superPretzel6pack">Super Pretzel 6-pack</string>
+
     <string name="sourCream">Sour Cream</string>
     <!--<string name="toDo">to do</string>-->
 
@@ -1022,6 +1043,9 @@
 
     <string name="thomasMuffins">Thomas Muffins</string>
     <!--<string name="original">Original</string>-->
+
+    <string name="toiletBrushRefills">Toilet Brush Refills</string>
+    <string name="cloroxToiletwand">Clorox Toiletwand</string>
 
     <string name="toiletPaper">Toilet Paper</string>
     <string name="kirklandUltraSoft">Kirkland UltraSoft</string>
