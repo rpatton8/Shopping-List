@@ -303,7 +303,7 @@
         android:text="@string/viewInStock" />
 
     <Button
-        android:id="@+id/viewNeeded"
+        android:id="@+id/viewPaused"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -312,10 +312,10 @@
         android:layout_marginTop="118dp"
         android:visibility="gone"
         android:textSize="16sp"
-        android:text="@string/viewNeeded" />
+        android:text="@string/viewPaused" />
 
     <Button
-        android:id="@+id/viewPaused"
+        android:id="@+id/viewNeeded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -324,7 +324,7 @@
         android:layout_marginTop="158dp"
         android:visibility="gone"
         android:textSize="16sp"
-        android:text="@string/viewPaused" />
+        android:text="@string/viewNeeded" />
 
     <LinearLayout
         android:layout_width="match_parent"

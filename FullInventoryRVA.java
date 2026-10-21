@@ -1000,9 +1000,9 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
             setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
 
-            if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getDefaultCategoryTitles())) {
+            if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
                 setAsExpanded();
-            } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getDefaultCategoryTitles())) {
+            } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
                 setAsContracted();
             }
 
@@ -1890,9 +1890,9 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
             setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
 
-            if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getDefaultStoreTitles())) {
+            if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
                 setAsExpanded();
-            } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getDefaultStoreTitles())) {
+            } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
                 setAsContracted();
             }
 

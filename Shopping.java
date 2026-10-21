@@ -110,10 +110,12 @@ public class Shopping extends AppCompatActivity {
     static final String VIEW_NEEDED = ShoppingApp.getStringRes(R.string.cvViewNeeded);
     static final String VIEW_PAUSED = ShoppingApp.getStringRes(R.string.cvViewPaused);
 
+    private String categoryTitles;
     private String defaultCategoryTitles;
     static final String CATEGORY_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesExpanded);
     static final String CATEGORY_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesContracted);
 
+    private String storeTitles;
     private String defaultStoreTitles;
     static final String STORE_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvStoreTitlesExpanded);
     static final String STORE_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvStoreTitlesContracted);
@@ -254,7 +256,6 @@ public class Shopping extends AppCompatActivity {
     void updateStoreData() {
         getDbStoreHelper().readStoreData(getStoreData());
     }
-
 
     public PictureData getPictureData() {
         return pictureData;
@@ -784,12 +785,28 @@ public class Shopping extends AppCompatActivity {
         getThis().defaultSortBy = defaultSortBy;
     }
 
+    public String getCategoryTitles() {
+        return categoryTitles;
+    }
+
+    public void setCategoryTitles(String categoryTitles) {
+        this.categoryTitles = categoryTitles;
+    }
+
     String getDefaultCategoryTitles() {
         return defaultCategoryTitles;
     }
 
     void setDefaultCategoryTitles(String defaultCategoryTitles) {
         getThis().defaultCategoryTitles = defaultCategoryTitles;
+    }
+
+    public String getStoreTitles() {
+        return storeTitles;
+    }
+
+    public void setStoreTitles(String storeTitles) {
+        this.storeTitles = storeTitles;
     }
 
     String getDefaultStoreTitles() {
@@ -1182,7 +1199,7 @@ public class Shopping extends AppCompatActivity {
         } else if (defaultSortBy.equals(getString(R.string.spSortByStore))) {
             getThis().setDefaultSortBy(SORT_BY_STORE);
             getThis().setInventorySortBy(SORT_BY_STORE);
-        } else {
+        } else if (defaultSortBy.equals(getString(R.string.spSortAlphabetically))) {
             getThis().setDefaultSortBy(SORT_ALPHABETICAL);
             getThis().setInventorySortBy(SORT_ALPHABETICAL);
         }
@@ -1190,19 +1207,19 @@ public class Shopping extends AppCompatActivity {
         String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
         if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
-            //getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
-        } else {
+            getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+        } else if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesExpanded))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
-            //getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
+            getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
         }
 
         String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
         if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
-            //getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
-        } else {
+            getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
+        } else if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesExpanded))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
-            //getThis().setStoreTitles(STORE_TITLES_EXPANDED);
+            getThis().setStoreTitles(STORE_TITLES_EXPANDED);
         }
 
         String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
@@ -1347,10 +1364,10 @@ public class Shopping extends AppCompatActivity {
         setPictureDialogInIndividualStores(false);
         setPictureDialogInShoppingList(false);
 
-        setInventoryView(VIEW_ALL);
         setInventorySortBy(getDefaultSortBy());
-        setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
-        setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
+        setCategoryTitles(getDefaultCategoryTitles());
+        setStoreTitles(getDefaultStoreTitles());
+        setInventoryView(VIEW_ALL);
         setItemExpansion(ITEMS_CONTRACTED);
         setReorderingMethod(UP_AND_DOWN_ARROWS);
         setSwipingOption(SWIPING_ON);
@@ -1765,7 +1782,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 4);
         getDbStatusHelper().addNewStatus(getString(R.string.vegetableOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 5);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.bertolliSauteing), getString(R.string.miscIngredients), getString(R.string.vons), 5);
         getDbStatusHelper().addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 6);
@@ -1773,20 +1790,23 @@ public class Shopping extends AppCompatActivity {
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 7);
         getDbStatusHelper().addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.paused), getString(R.string.unchecked));
-
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.miscIngredients), 8);
+        
+        getDbItemHelper().addNewItemByCategory(getString(R.string.pancakeMix), getString(R.string.krusteazButtermilk), getString(R.string.miscIngredients), getString(R.string.target), 8);
+        getDbStatusHelper().addNewStatus(getString(R.string.pancakeMix), getString(R.string.paused), getString(R.string.unchecked));
+        
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.miscIngredients), 9);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.miscIngredients), 0);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.miscIngredients), 0);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.miscIngredients), 8);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.miscIngredients), 8, 0, 0, 8);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.miscIngredients), 9);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.miscIngredients), 9, 0, 0, 9);
 
         //------------------------------------Drinks------------------------------------------------
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 0);
         getDbStatusHelper().addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
-        getDbStatusHelper().addNewStatus(getString(R.string.sodaCans), getString(R.string.paused), getString(R.string.unchecked));
+        getDbItemHelper().addNewItemByCategory(getString(R.string.sodaBottles20oz), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
+        getDbStatusHelper().addNewStatus(getString(R.string.sodaBottles20oz), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 2);
         getDbStatusHelper().addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.paused), getString(R.string.unchecked));
@@ -1874,11 +1894,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.tortillaChips), getString(R.string.missionTriangles), getString(R.string.snacks), getString(R.string.vons), 23);
         getDbStatusHelper().addNewStatus(getString(R.string.tortillaChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.snacks), 24);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.darkChocPirouline), getString(R.string.cremeFilledWafers), getString(R.string.snacks), getString(R.string.dollarTree), 24);
+        getDbStatusHelper().addNewStatus(getString(R.string.darkChocPirouline), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.softPretzels), getString(R.string.superPretzel6pack), getString(R.string.snacks), getString(R.string.vons), 25);
+        getDbStatusHelper().addNewStatus(getString(R.string.softPretzels), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.popTarts), getString(R.string.chocolateFudge), getString(R.string.snacks), getString(R.string.dollarTree), 26);
+        getDbStatusHelper().addNewStatus(getString(R.string.popTarts), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.snacks), 27);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.snacks), 0);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.snacks), 0);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.snacks), 24);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.snacks), 24, 0, 0, 24);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.snacks), 27);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.snacks), 27, 0, 0, 27);
 
         //------------------------------------Desserts----------------------------------------------
 
@@ -2042,18 +2071,27 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 11);
         getDbStatusHelper().addNewStatus(getString(R.string.nitrileGloves), getString(R.string.paused), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.petSupplies), 12);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.dogTreats), getString(R.string.milkBoneMedium), getString(R.string.petSupplies), getString(R.string.target), 12);
+        getDbStatusHelper().addNewStatus(getString(R.string.dogTreats), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.poopPailBagsDog), getString(R.string.choiceRefill4pack), getString(R.string.petSupplies), getString(R.string.amazon), 13);
+        getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsDog), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.poopPailBagsCat), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.amazon), 14);
+        getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsCat), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.petSupplies), 15);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.petSupplies), 0);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.petSupplies), 0);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.petSupplies), 12);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.petSupplies), 12, 0, 0, 12);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.petSupplies), 15);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.petSupplies), 15, 0, 0, 15);
 
         //------------------------------------Toiletries--------------------------------------------
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.handSoap), getString(R.string.aloeAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
         getDbStatusHelper().addNewStatus(getString(R.string.handSoap), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 1);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMoisturizing), getString(R.string.toiletries), getString(R.string.vons), 1);
         getDbStatusHelper().addNewStatus(getString(R.string.bodyWash), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 2);
@@ -2181,11 +2219,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 25);
         getDbStatusHelper().addNewStatus(getString(R.string.packagingTape), getString(R.string.paused), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.household), 26);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.toiletBrushRefills), getString(R.string.cloroxToiletwand), getString(R.string.household), getString(R.string.target), 26);
+        getDbStatusHelper().addNewStatus(getString(R.string.toiletBrushRefills), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.household), 27);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.household), 0);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.household), 0);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.household), 26);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.household), 26, 0, 0, 26);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.household), 27);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.household), 27, 0, 0, 27);
 
         //------------------------------------Supplements-------------------------------------------------
 
@@ -2224,7 +2265,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 226
+        // total category items = 234
 
     }
 
@@ -2530,7 +2571,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 97);
         //getDbStatusHelper().addNewStatus(getString(R.string.delectables), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 98);
+        getDbItemHelper().addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMoisturizing), getString(R.string.toiletries), getString(R.string.vons), 98);
         //getDbStatusHelper().addNewStatus(getString(R.string.bodyWash), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 99);
@@ -2623,7 +2664,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 128);
         //getDbStatusHelper().addNewStatus(getString(R.string.vegetableOil), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 129);
+        getDbItemHelper().addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.bertolliSauteing), getString(R.string.miscIngredients), getString(R.string.vons), 129);
         //getDbStatusHelper().addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 130);
@@ -2662,11 +2703,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.dicedChicken), getString(R.string.bonelessSkinless), getString(R.string.meat), getString(R.string.vons), 141);
         //getDbStatusHelper().addNewStatus(getString(R.string.dicedChicken), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.vons), 142);
+        getDbItemHelper().addNewItemByStore(getString(R.string.softPretzels), getString(R.string.superPretzel6pack), getString(R.string.snacks), getString(R.string.vons), 142);
+        //getDbStatusHelper().addNewStatus(getString(R.string.softPretzels), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.vons), 143);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.vons), 0);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.vons), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.vons), 142);
-        getDbStoreHelper().setStoreViews(getString(R.string.vons), 142, 0, 0, 142);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.vons), 143);
+        getDbStoreHelper().setStoreViews(getString(R.string.vons), 143, 0, 0, 143);
 
         //------------------------------------Smart & Final-----------------------------------------
 
@@ -2693,8 +2737,8 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Costco------------------------------------------------
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
-        //getDbStatusHelper().addNewStatus(getString(R.string.sodaCans), getString(R.string.paused), getString(R.string.unchecked));
+        getDbItemHelper().addNewItemByStore(getString(R.string.sodaBottles20oz), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
+        //getDbStatusHelper().addNewStatus(getString(R.string.sodaBottles20oz), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 1);
         //getDbStatusHelper().addNewStatus(getString(R.string.kittyLitter), getString(R.string.paused), getString(R.string.unchecked));
@@ -2746,11 +2790,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 5);
         //getDbStatusHelper().addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.walmart), 6);
+        getDbItemHelper().addNewItemByStore(getString(R.string.popTarts), getString(R.string.chocolateFudge), getString(R.string.snacks), getString(R.string.walmart), 6);
+        //getDbStatusHelper().addNewStatus(getString(R.string.popTarts), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.walmart), 7);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.walmart), 0);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.walmart), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.walmart), 6);
-        getDbStoreHelper().setStoreViews(getString(R.string.walmart), 6, 0, 0, 6);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.walmart), 7);
+        getDbStoreHelper().setStoreViews(getString(R.string.walmart), 7, 0, 0, 7);
 
         //------------------------------------Amazon------------------------------------------------
 
@@ -2838,11 +2885,17 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 27);
         //getDbStatusHelper().addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.amazon), 28);
+        getDbItemHelper().addNewItemByStore(getString(R.string.poopPailBagsDog), getString(R.string.choiceRefill4pack), getString(R.string.petSupplies), getString(R.string.amazon), 28);
+        //getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsDog), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.poopPailBagsCat), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.amazon), 29);
+        //getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsCat), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.amazon), 30);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.amazon), 0);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.amazon), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.amazon), 28);
-        getDbStoreHelper().setStoreViews(getString(R.string.amazon), 28, 0, 0, 28);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.amazon), 30);
+        getDbStoreHelper().setStoreViews(getString(R.string.amazon), 30, 0, 0, 30);
 
         //------------------------------------Stater Bros-------------------------------------------
 
@@ -2924,17 +2977,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 2);
         //getDbStatusHelper().addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
+        getDbItemHelper().addNewItemByStore(getString(R.string.handSoap), getString(R.string.aloeAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
         //getDbStatusHelper().addNewStatus(getString(R.string.handSoap), getString(R.string.paused), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 4);
         //getDbStatusHelper().addNewStatus(getString(R.string.ramenNoodles), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.dollarTree), 5);
+        getDbItemHelper().addNewItemByStore(getString(R.string.darkChocPirouline), getString(R.string.cremeFilledWafers), getString(R.string.snacks), getString(R.string.dollarTree), 5);
+        //getDbStatusHelper().addNewStatus(getString(R.string.darkChocPirouline), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.dollarTree), 6);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.dollarTree), 0);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.dollarTree), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.dollarTree), 5);
-        getDbStoreHelper().setStoreViews(getString(R.string.dollarTree), 5, 0, 0, 5);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.dollarTree), 6);
+        getDbStoreHelper().setStoreViews(getString(R.string.dollarTree), 6, 0, 0, 6);
 
         //------------------------------------Ralphs------------------------------------------------
 
@@ -2970,11 +3026,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.wholeWheatBread), getString(R.string.oneMightyMill), getString(R.string.breadGrainsCereal), getString(R.string.target), 6);
         //getDbStatusHelper().addNewStatus(getString(R.string.wholeWheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.target), 7);
+        getDbItemHelper().addNewItemByStore(getString(R.string.dogTreats), getString(R.string.milkBoneMedium), getString(R.string.petSupplies), getString(R.string.target), 7);
+        //getDbStatusHelper().addNewStatus(getString(R.string.dogTreats), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.toiletBrushRefills), getString(R.string.cloroxToiletwand), getString(R.string.household), getString(R.string.target), 8);
+        //getDbStatusHelper().addNewStatus(getString(R.string.toiletBrushRefills), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.pancakeMix), getString(R.string.krusteazButtermilk), getString(R.string.miscIngredients), getString(R.string.target), 9);
+        //getDbStatusHelper().addNewStatus(getString(R.string.pancakeMix), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.target), 10);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.target), 0);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.target), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.target), 7);
-        getDbStoreHelper().setStoreViews(getString(R.string.target), 7, 0, 0, 7);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.target), 10);
+        getDbStoreHelper().setStoreViews(getString(R.string.target), 10, 0, 0, 10);
 
         //------------------------------------Pet Supplies Plus-------------------------------------
 
@@ -3050,7 +3115,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 226
+        // total store items = 234
 
     }
 
@@ -3417,7 +3482,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 4);
         getDbStatusHelper().addNewStatus(getString(R.string.vegetableOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 5);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.extraVirginOliveOil), getString(R.string.bertolliSauteing), getString(R.string.miscIngredients), getString(R.string.vons), 5);
         getDbStatusHelper().addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.nonStickSpray), getString(R.string.pamOriginal), getString(R.string.miscIngredients), getString(R.string.vons), 6);
@@ -3426,19 +3491,22 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.movieTheaterButter), getString(R.string.kernelSeasons), getString(R.string.miscIngredients), getString(R.string.vons), 7);
         getDbStatusHelper().addNewStatus(getString(R.string.movieTheaterButter), getString(R.string.instock), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.miscIngredients), 8);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.pancakeMix), getString(R.string.krusteazButtermilk), getString(R.string.miscIngredients), getString(R.string.target), 8);
+        getDbStatusHelper().addNewStatus(getString(R.string.pancakeMix), getString(R.string.needed), getString(R.string.unchecked));
+        
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.miscIngredients), 9);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.miscIngredients), 5);
-        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.miscIngredients), 1);
+        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.miscIngredients), 2);
         getCategoryData().getCategoryViewPausedMap().put(getString(R.string.miscIngredients), 2);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.miscIngredients), 8, 5, 1, 2);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.miscIngredients), 9, 5, 2, 2);
 
         //------------------------------------Drinks------------------------------------------------
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.sodaBottles2L), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.vons), 0);
         getDbStatusHelper().addNewStatus(getString(R.string.sodaBottles2L), getString(R.string.instock), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
-        getDbStatusHelper().addNewStatus(getString(R.string.sodaCans), getString(R.string.instock), getString(R.string.unchecked));
+        getDbItemHelper().addNewItemByCategory(getString(R.string.sodaBottles20oz), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 1);
+        getDbStatusHelper().addNewStatus(getString(R.string.sodaBottles20oz), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.hotChocolateMix), getString(R.string.swissMissDark), getString(R.string.drinks), getString(R.string.vons), 2);
         getDbStatusHelper().addNewStatus(getString(R.string.hotChocolateMix), getString(R.string.instock), getString(R.string.unchecked));
@@ -3526,11 +3594,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.tortillaChips), getString(R.string.missionTriangles), getString(R.string.snacks), getString(R.string.vons), 23);
         getDbStatusHelper().addNewStatus(getString(R.string.tortillaChips), getString(R.string.paused), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.snacks), 24);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.darkChocPirouline), getString(R.string.cremeFilledWafers), getString(R.string.snacks), getString(R.string.dollarTree), 24);
+        getDbStatusHelper().addNewStatus(getString(R.string.darkChocPirouline), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.softPretzels), getString(R.string.superPretzel6pack), getString(R.string.snacks), getString(R.string.vons), 25);
+        getDbStatusHelper().addNewStatus(getString(R.string.softPretzels), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.popTarts), getString(R.string.chocolateFudge), getString(R.string.snacks), getString(R.string.walmart), 26);
+        getDbStatusHelper().addNewStatus(getString(R.string.popTarts), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.snacks), 27);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.snacks), 4);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.snacks), 4);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.snacks), 16);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.snacks), 24, 4, 4, 16);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.snacks), 19);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.snacks), 27, 4, 4, 19);
 
         //------------------------------------Desserts----------------------------------------------
 
@@ -3694,18 +3771,27 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.nitrileGloves), getString(R.string.gmg100Pack), getString(R.string.petSupplies), getString(R.string.amazon), 11);
         getDbStatusHelper().addNewStatus(getString(R.string.nitrileGloves), getString(R.string.instock), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.petSupplies), 12);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.dogTreats), getString(R.string.milkBoneMedium), getString(R.string.petSupplies), getString(R.string.target), 12);
+        getDbStatusHelper().addNewStatus(getString(R.string.dogTreats), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.poopPailBagsDog), getString(R.string.choiceRefill4pack), getString(R.string.petSupplies), getString(R.string.amazon), 13);
+        getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsDog), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByCategory(getString(R.string.poopPailBagsCat), getString(R.string.babyfeelMiniSize), getString(R.string.petSupplies), getString(R.string.amazon), 14);
+        getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsCat), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.petSupplies), 15);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.petSupplies), 9);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.petSupplies), 2);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.petSupplies), 1);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.petSupplies), 12, 9, 2, 1);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.petSupplies), 4);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.petSupplies), 15, 9, 2, 4);
 
         //------------------------------------Toiletries--------------------------------------------
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.handSoap), getString(R.string.aloeAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 0);
         getDbStatusHelper().addNewStatus(getString(R.string.handSoap), getString(R.string.instock), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 1);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.bodyWash), getString(R.string.suaveMoisturizing), getString(R.string.toiletries), getString(R.string.vons), 1);
         getDbStatusHelper().addNewStatus(getString(R.string.bodyWash), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByCategory(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 2);
@@ -3833,11 +3919,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByCategory(getString(R.string.packagingTape), getString(R.string.scotchHeavyDuty), getString(R.string.household), getString(R.string.cvs), 25);
         getDbStatusHelper().addNewStatus(getString(R.string.packagingTape), getString(R.string.instock), getString(R.string.unchecked));
 
-        getCategoryData().getCategoryViewAllMap().put(getString(R.string.household), 26);
+        getDbItemHelper().addNewItemByCategory(getString(R.string.toiletBrushRefills), getString(R.string.cloroxToiletwand), getString(R.string.household), getString(R.string.target), 26);
+        getDbStatusHelper().addNewStatus(getString(R.string.toiletBrushRefills), getString(R.string.paused), getString(R.string.unchecked));
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.household), 27);
         getCategoryData().getCategoryViewInStockMap().put(getString(R.string.household), 22);
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.household), 3);
-        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.household), 1);
-        getDbCategoryHelper().setCategoryViews(getString(R.string.household), 26, 22, 3, 1);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.household), 2);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.household), 27, 22, 3, 2);
 
         //------------------------------------Supplements-------------------------------------------------
 
@@ -3876,7 +3965,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total category items = 226
+        // total category items = 234
 
     }
 
@@ -4182,7 +4271,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.delectables), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.vons), 97);
         //getDbStatusHelper().addNewStatus(getString(R.string.delectables), getString(R.string.instock), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMandarin), getString(R.string.toiletries), getString(R.string.vons), 98);
+        getDbItemHelper().addNewItemByStore(getString(R.string.bodyWash), getString(R.string.suaveMoisturizing), getString(R.string.toiletries), getString(R.string.vons), 98);
         //getDbStatusHelper().addNewStatus(getString(R.string.bodyWash), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.shampoo), getString(R.string.suave2in1), getString(R.string.toiletries), getString(R.string.vons), 99);
@@ -4275,7 +4364,7 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.vegetableOil), getString(R.string.crisco), getString(R.string.miscIngredients), getString(R.string.vons), 128);
         //getDbStatusHelper().addNewStatus(getString(R.string.vegetableOil), getString(R.string.instock), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.toDo), getString(R.string.miscIngredients), getString(R.string.vons), 129);
+        getDbItemHelper().addNewItemByStore(getString(R.string.extraVirginOliveOil), getString(R.string.bertolliSauteing), getString(R.string.miscIngredients), getString(R.string.vons), 129);
         //getDbStatusHelper().addNewStatus(getString(R.string.extraVirginOliveOil), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.butteredPopcorn), getString(R.string.popSecretMiniBags), getString(R.string.snacks), getString(R.string.vons), 130);
@@ -4314,11 +4403,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.dicedChicken), getString(R.string.bonelessSkinless), getString(R.string.meat), getString(R.string.vons), 141);
         //getDbStatusHelper().addNewStatus(getString(R.string.dicedChicken), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.vons), 142);
+        getDbItemHelper().addNewItemByStore(getString(R.string.softPretzels), getString(R.string.superPretzel6pack), getString(R.string.snacks), getString(R.string.vons), 142);
+        //getDbStatusHelper().addNewStatus(getString(R.string.softPretzels), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.vons), 143);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.vons), 53);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.vons), 22);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.vons), 67);
-        getDbStoreHelper().setStoreViews(getString(R.string.vons), 142, 53, 22, 64);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.vons), 68);
+        getDbStoreHelper().setStoreViews(getString(R.string.vons), 143, 53, 22, 68);
 
         //------------------------------------Smart & Final-----------------------------------------
 
@@ -4345,7 +4437,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------Costco------------------------------------------------
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.sodaCans), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
+        getDbItemHelper().addNewItemByStore(getString(R.string.sodaBottles20oz), getString(R.string.pepsiOrCoke), getString(R.string.drinks), getString(R.string.costco), 0);
         //getDbStatusHelper().addNewStatus(getString(R.string.sodaCans), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.kittyLitter), getString(R.string.scoopAwayComplete), getString(R.string.petSupplies), getString(R.string.costco), 1);
@@ -4398,11 +4490,14 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.intenseDarkChocolate), getString(R.string.ghiradelli), getString(R.string.candy), getString(R.string.walmart), 5);
         //getDbStatusHelper().addNewStatus(getString(R.string.intenseDarkChocolate), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.walmart), 6);
+        getDbItemHelper().addNewItemByStore(getString(R.string.popTarts), getString(R.string.chocolateFudge), getString(R.string.snacks), getString(R.string.walmart), 6);
+        //getDbStatusHelper().addNewStatus(getString(R.string.popTarts), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.walmart), 7);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.walmart), 3);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.walmart), 2);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.walmart), 1);
-        getDbStoreHelper().setStoreViews(getString(R.string.walmart), 6, 3, 2, 1);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.walmart), 2);
+        getDbStoreHelper().setStoreViews(getString(R.string.walmart), 7, 3, 2, 2);
 
         //------------------------------------Amazon------------------------------------------------
 
@@ -4490,11 +4585,17 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.hyaluronicAcid), getString(R.string.horbaach1000mg), getString(R.string.supplements), getString(R.string.amazon), 27);
         //getDbStatusHelper().addNewStatus(getString(R.string.hyaluronicAcid), getString(R.string.instock), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.amazon), 28);
+        getDbItemHelper().addNewItemByStore(getString(R.string.poopPailBagsDog), getString(R.string.choiceRefill4pack), getString(R.string.petSupplies), getString(R.string.amazon), 28);
+        //getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsDog), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.poopPailBagsCat), getString(R.string.squeezeUp20pack), getString(R.string.petSupplies), getString(R.string.amazon), 29);
+        //getDbStatusHelper().addNewStatus(getString(R.string.poopPailBagsCat), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.amazon), 30);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.amazon), 18);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.amazon), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.amazon), 10);
-        getDbStoreHelper().setStoreViews(getString(R.string.amazon), 28, 18, 0, 10);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.amazon), 12);
+        getDbStoreHelper().setStoreViews(getString(R.string.amazon), 30, 18, 0, 12);
 
         //------------------------------------Stater Bros-------------------------------------------
 
@@ -4576,17 +4677,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.redHots), getString(R.string.na), getString(R.string.candy), getString(R.string.dollarTree), 2);
         //getDbStatusHelper().addNewStatus(getString(R.string.redHots), getString(R.string.paused), getString(R.string.unchecked));
 
-        getDbItemHelper().addNewItemByStore(getString(R.string.handSoap), getString(R.string.lavenderAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
+        getDbItemHelper().addNewItemByStore(getString(R.string.handSoap), getString(R.string.aloeAndChamomile), getString(R.string.toiletries), getString(R.string.dollarTree), 3);
         //getDbStatusHelper().addNewStatus(getString(R.string.handSoap), getString(R.string.instock), getString(R.string.unchecked));
 
         getDbItemHelper().addNewItemByStore(getString(R.string.ramenNoodles), getString(R.string.nissin), getString(R.string.soups), getString(R.string.dollarTree), 4);
         //getDbStatusHelper().addNewStatus(getString(R.string.ramenNoodles), getString(R.string.instock), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.dollarTree), 5);
+        getDbItemHelper().addNewItemByStore(getString(R.string.darkChocPirouline), getString(R.string.cremeFilledWafers), getString(R.string.snacks), getString(R.string.dollarTree), 5);
+        //getDbStatusHelper().addNewStatus(getString(R.string.darkChocPirouline), getString(R.string.paused), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.dollarTree), 6);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.dollarTree), 4);
         getStoreData().getStoreViewNeededMap().put(getString(R.string.dollarTree), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.dollarTree), 1);
-        getDbStoreHelper().setStoreViews(getString(R.string.dollarTree), 5, 4, 0, 1);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.dollarTree), 2);
+        getDbStoreHelper().setStoreViews(getString(R.string.dollarTree), 6, 4, 0, 2);
 
         //------------------------------------Ralphs------------------------------------------------
 
@@ -4622,11 +4726,20 @@ public class Shopping extends AppCompatActivity {
         getDbItemHelper().addNewItemByStore(getString(R.string.wholeWheatBread), getString(R.string.oneMightyMill), getString(R.string.breadGrainsCereal), getString(R.string.target), 6);
         //getDbStatusHelper().addNewStatus(getString(R.string.wholeWheatBread), getString(R.string.paused), getString(R.string.unchecked));
 
-        getStoreData().getStoreViewAllMap().put(getString(R.string.target), 7);
+        getDbItemHelper().addNewItemByStore(getString(R.string.dogTreats), getString(R.string.milkBoneMedium), getString(R.string.petSupplies), getString(R.string.target), 7);
+        //getDbStatusHelper().addNewStatus(getString(R.string.dogTreats), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.toiletBrushRefills), getString(R.string.cloroxToiletwand), getString(R.string.household), getString(R.string.target), 8);
+        //getDbStatusHelper().addNewStatus(getString(R.string.toiletBrushRefills), getString(R.string.paused), getString(R.string.unchecked));
+
+        getDbItemHelper().addNewItemByStore(getString(R.string.pancakeMix), getString(R.string.krusteazButtermilk), getString(R.string.miscIngredients), getString(R.string.target), 9);
+        //getDbStatusHelper().addNewStatus(getString(R.string.pancakeMix), getString(R.string.needed), getString(R.string.unchecked));
+
+        getStoreData().getStoreViewAllMap().put(getString(R.string.target), 10);
         getStoreData().getStoreViewInStockMap().put(getString(R.string.target), 4);
-        getStoreData().getStoreViewNeededMap().put(getString(R.string.target), 0);
-        getStoreData().getStoreViewPausedMap().put(getString(R.string.target), 3);
-        getDbStoreHelper().setStoreViews(getString(R.string.target), 7, 4, 0, 3);
+        getStoreData().getStoreViewNeededMap().put(getString(R.string.target), 1);
+        getStoreData().getStoreViewPausedMap().put(getString(R.string.target), 5);
+        getDbStoreHelper().setStoreViews(getString(R.string.target), 10, 4, 1, 5);
 
         //------------------------------------Pet Supplies Plus-------------------------------------
 
@@ -4702,7 +4815,7 @@ public class Shopping extends AppCompatActivity {
 
         //------------------------------------------------------------------------------------------
 
-        // total store items = 226
+        // total store items = 234
 
     }
 

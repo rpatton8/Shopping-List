@@ -891,7 +891,7 @@ public class HomeScreen extends Fragment {
         getCategoryTitlesExpanded().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getShopping().setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
-                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesExpanded));
@@ -902,7 +902,7 @@ public class HomeScreen extends Fragment {
         getCategoryTitlesContracted().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getShopping().setDefaultCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
-                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
+                getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_category_titles), getString(R.string.spCategoryTitlesContracted));
@@ -913,7 +913,7 @@ public class HomeScreen extends Fragment {
         getStoreTitlesExpanded().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getShopping().setDefaultStoreTitles(Shopping.STORE_TITLES_EXPANDED);
-                //getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesExpanded));
@@ -924,7 +924,7 @@ public class HomeScreen extends Fragment {
         getStoreTitlesContracted().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getShopping().setDefaultStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
-                //getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
+                getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.sp_default_store_titles), getString(R.string.spStoreTitlesContracted));

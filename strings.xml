@@ -700,7 +700,7 @@
     <!--<string name="toDo">to do</string>-->
 
     <string name="handSoap">Hand Soap</string>
-    <string name="lavenderAndChamomile">Lavender &amp; Chamomile</string>
+    <string name="aloeAndChamomile">Aloe &amp; Chamomile</string>
 
     <string name="hardRolls">Hard Rolls</string>
     <!--<string name="toDo">to do</string>-->
@@ -984,7 +984,7 @@
     <string name="sodaBottles2L">Soda Bottles (2L)</string>
     <string name="pepsiOrCoke">Pepsi or Coke</string>
 
-    <string name="sodaCans">Soda Cans</string>
+    <string name="sodaBottles20oz">Soda Cans</string>
     <!--<string name="pepsiOrCoke">Pepsi or Coke</string>-->
 
     <string name="softPretzels">Soft Pretzels</string>
