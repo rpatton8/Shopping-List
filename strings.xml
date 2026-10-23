@@ -93,7 +93,6 @@
     <string name="homeScreenTitle">Home Screen Title</string>
     <string name="individualCategories">Individual Categories</string>
     <string name="individualStores">Individual Stores</string>
-    <string name="inStockCap">In Stock</string>
     <string name="instock">instock</string>
     <string name="instructions">Instructions</string>
     <string name="inventoryOptions">Inventory Options</string>
@@ -108,7 +107,6 @@
     <string name="message">Message</string>
     <string name="message2">Message 2</string>
     <string name="name">Name</string>
-    <string name="neededCap">Needed</string>
     <string name="needed">needed</string>
     <string name="no">NO</string>
     <string name="note">Note: </string>
@@ -119,10 +117,10 @@
     <string name="optionalDataLocation">Location</string>
     <string name="optionalDataNote">Note</string>
     <string name="or">--- or ---</string>
-    <string name="pausedCap">Paused</string>
     <string name="paused">paused</string>
     <string name="pictureDialogTitle">Picture Dialog Title</string>
     <string name="pictures">Pictures</string>
+    <string name="picturesUL"><u>Pictures</u></string>
     <string name="picturesOn">Pictures On</string>
     <string name="picturesOff">Pictures Off</string>
     <string name="price">Price: </string>

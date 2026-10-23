@@ -11,19 +11,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class EditItem extends Fragment {
 
     private View view;
     private Shopping shopping;
+    private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
+    private DBOptionalDataHelper dbOptionalDataHelper;
 
     private EditText itemNameInput;
     private EditText itemBrandTypeInput;
@@ -32,11 +33,19 @@ public class EditItem extends Fragment {
     private TextView inStockLabel;
     private TextView neededLabel;
     private TextView pausedLabel;
+    private boolean isInStock;
+    private boolean isNeeded;
+    private boolean isPaused;
     private TextView optionalDataTitle;
     private boolean optionalDataVisible;
     private boolean optionalDataExpanded;
+    private TextView pictureDataTitle;
+    private boolean pictureDataVisible;
+    private boolean pictureDataExpanded;
     private TextView quantityLabel;
     private EditText quantityInput;
+    private TextView quantityLabel1;
+    private EditText quantityInput1;
     private TextView priceLabel;
     private EditText priceInput;
     private TextView locationLabel;
@@ -73,6 +82,14 @@ public class EditItem extends Fragment {
 
     private void setShopping(Shopping shopping) {
         getThis().shopping = shopping;
+    }
+
+    private ItemData getItemData() {
+        return itemData;
+    }
+
+    private void setItemData(ItemData itemData) {
+        this.itemData = itemData;
     }
 
     private CategoryData getCategoryData() {
@@ -123,6 +140,14 @@ public class EditItem extends Fragment {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
+    public DBOptionalDataHelper getDbOptionalDataHelper() {
+        return dbOptionalDataHelper;
+    }
+
+    public void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+        this.dbOptionalDataHelper = dbOptionalDataHelper;
+    }
+
     private EditText getItemNameInput() {
         return itemNameInput;
     }
@@ -155,115 +180,185 @@ public class EditItem extends Fragment {
         getThis().itemStoreInput = itemStoreInput;
     }
 
-    public TextView getInStockLabel() {
+    private TextView getInStockLabel() {
         return inStockLabel;
     }
 
-    public void setInStockLabel(TextView inStockLabel) {
+    private void setInStockLabel(TextView inStockLabel) {
         getThis().inStockLabel = inStockLabel;
     }
 
-    public TextView getNeededLabel() {
+    private TextView getNeededLabel() {
         return neededLabel;
     }
 
-    public void setNeededLabel(TextView neededLabel) {
+    private void setNeededLabel(TextView neededLabel) {
         getThis().neededLabel = neededLabel;
     }
 
-    public TextView getPausedLabel() {
+    private TextView getPausedLabel() {
         return pausedLabel;
     }
 
-    public void setPausedLabel(TextView pausedLabel) {
+    private void setPausedLabel(TextView pausedLabel) {
         getThis().pausedLabel = pausedLabel;
     }
 
-    public TextView getOptionalDataTitle() {
+    private boolean isInStock() {
+        return isInStock;
+    }
+
+    private boolean isNeeded() {
+        return isNeeded;
+    }
+
+    private boolean isPaused() {
+        return isPaused;
+    }
+
+    private void setAsInStock() {
+        isInStock = true;
+        isNeeded = false;
+        isPaused = false;
+    }
+
+    private void setAsNeeded() {
+        isInStock = false;
+        isNeeded = true;
+        isPaused = false;
+    }
+
+    private void setAsPaused() {
+        isInStock = false;
+        isNeeded = false;
+        isPaused = true;
+    }
+
+    private TextView getOptionalDataTitle() {
         return optionalDataTitle;
     }
 
-    public void setOptionalDataTitle(TextView optionalDataTitle) {
+    private void setOptionalDataTitle(TextView optionalDataTitle) {
         getThis().optionalDataTitle = optionalDataTitle;
     }
 
-    public boolean optionalDataVisible() {
+    private boolean optionalDataVisible() {
         return optionalDataVisible;
     }
 
-    public void setOptionalDataVisible(boolean optionalDataVisible) {
+    private void setOptionalDataVisible(boolean optionalDataVisible) {
         getThis().optionalDataVisible = optionalDataVisible;
     }
 
-    public boolean optionalDataExpanded() {
+    private boolean optionalDataExpanded() {
         return optionalDataExpanded;
     }
 
-    public void setOptionalDataExpanded(boolean optionalDataExpanded) {
+    private void setOptionalDataExpanded(boolean optionalDataExpanded) {
         getThis().optionalDataExpanded = optionalDataExpanded;
     }
 
-    public TextView getQuantityLabel() {
+    private TextView getPictureDataTitle() {
+        return pictureDataTitle;
+    }
+
+    private void setPictureDataTitle(TextView pictureDataTitle) {
+        getThis().pictureDataTitle = pictureDataTitle;
+    }
+
+    private boolean pictureDataVisible() {
+        return pictureDataVisible;
+    }
+
+    private void setPictureDataVisible(boolean pictureDataVisible) {
+        getThis().pictureDataVisible = pictureDataVisible;
+    }
+
+    private boolean pictureDataExpanded() {
+        return pictureDataExpanded;
+    }
+
+    private void setPictureDataExpanded(boolean pictureDataExpanded) {
+        getThis().pictureDataExpanded = pictureDataExpanded;
+    }
+
+    private TextView getQuantityLabel1() {
+        return quantityLabel1;
+    }
+
+    private void setQuantityLabel1(TextView quantityLabel1) {
+        getThis().quantityLabel1 = quantityLabel1;
+    }
+
+    private EditText getQuantityInput1() {
+        return quantityInput1;
+    }
+
+    private void setQuantityInput1(EditText quantityInput1) {
+        getThis().quantityInput1 = quantityInput1;
+    }
+
+    private TextView getQuantityLabel() {
         return quantityLabel;
     }
 
-    public void setQuantityLabel(TextView quantityLabel) {
+    private void setQuantityLabel(TextView quantityLabel) {
         getThis().quantityLabel = quantityLabel;
     }
 
-    public EditText getQuantityInput() {
+    private EditText getQuantityInput() {
         return quantityInput;
     }
 
-    public void setQuantityInput(EditText quantityInput) {
+    private void setQuantityInput(EditText quantityInput) {
         getThis().quantityInput = quantityInput;
     }
 
-    public TextView getPriceLabel() {
+    private TextView getPriceLabel() {
         return priceLabel;
     }
 
-    public void setPriceLabel(TextView priceLabel) {
+    private void setPriceLabel(TextView priceLabel) {
         getThis().priceLabel = priceLabel;
     }
 
-    public EditText getPriceInput() {
+    private EditText getPriceInput() {
         return priceInput;
     }
 
-    public void setPriceInput(EditText priceInput) {
+    private void setPriceInput(EditText priceInput) {
         getThis().priceInput = priceInput;
     }
 
-    public TextView getLocationLabel() {
+    private TextView getLocationLabel() {
         return locationLabel;
     }
 
-    public void setLocationLabel(TextView locationLabel) {
+    private void setLocationLabel(TextView locationLabel) {
         getThis().locationLabel = locationLabel;
     }
 
-    public EditText getLocationInput() {
+    private EditText getLocationInput() {
         return locationInput;
     }
 
-    public void setLocationInput(EditText locationInput) {
+    private void setLocationInput(EditText locationInput) {
         getThis().locationInput = locationInput;
     }
 
-    public TextView getNoteLabel() {
+    private TextView getNoteLabel() {
         return noteLabel;
     }
 
-    public void setNoteLabel(TextView noteLabel) {
+    private void setNoteLabel(TextView noteLabel) {
         getThis().noteLabel = noteLabel;
     }
 
-    public EditText getNoteInput() {
+    private EditText getNoteInput() {
         return noteInput;
     }
 
-    public void setNoteInput(EditText noteInput) {
+    private void setNoteInput(EditText noteInput) {
         getThis().noteInput = noteInput;
     }
 
@@ -340,6 +435,7 @@ public class EditItem extends Fragment {
         setDbStatusHelper(new DBStatusHelper(getActivity()));
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
+
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
 
@@ -371,6 +467,12 @@ public class EditItem extends Fragment {
         setOptionalDataTitle(getView().findViewById(R.id.optionalDataTitle));
         setOptionalDataVisible(true);
         setOptionalDataExpanded(false);
+        setPictureDataTitle(getView().findViewById(R.id.pictureDataTitle));
+        setPictureDataVisible(true);
+        setPictureDataExpanded(false);
+
+        setQuantityLabel1(getView().findViewById(R.id.quantityLabel1));
+        setQuantityInput1(getView().findViewById(R.id.quantityInput1));
 
         setQuantityLabel(getView().findViewById(R.id.quantityLabel));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
@@ -381,10 +483,10 @@ public class EditItem extends Fragment {
         setNoteLabel(getView().findViewById(R.id.noteLabel));
         setNoteInput(getView().findViewById(R.id.noteInput));
 
-        getQuantityInput().setText(getString(R.string.emptyString));
-        getPriceInput().setText(getString(R.string.emptyString));
-        getLocationInput().setText(getString(R.string.emptyString));
-        getNoteInput().setText(getString(R.string.emptyString));
+        getQuantityInput().setText("test1");
+        getPriceInput().setText("test2");
+        getLocationInput().setText("test3");
+        getNoteInput().setText("test4");
 
         setEditItemButton(getView().findViewById(R.id.editItemButton));
         setCancelButton(getView().findViewById(R.id.cancelButton));
@@ -396,7 +498,7 @@ public class EditItem extends Fragment {
         getCategorySpinner().setAdapter(getCategorySpinnerAdapter());
 
         int categorySpinnerPosition = 0;
-        if(getShopping().editItemInInventory()) {
+        if (getShopping().editItemInInventory()) {
             categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getSelectedItemInInventory().getCategory().toString());
         } else if (getShopping().editItemInSearchResults()) {
             categorySpinnerPosition = getCategorySpinnerAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getCategory().toString());
@@ -414,7 +516,7 @@ public class EditItem extends Fragment {
         getStoreSpinner().setAdapter(getStoreSpinnerAdapter());
 
         int storeSpinnerPosition = 0;
-        if(getShopping().editItemInInventory()) {
+        if (getShopping().editItemInInventory()) {
             storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getSelectedItemInInventory().getStore().toString());
         } else if (getShopping().editItemInSearchResults()) {
             storeSpinnerPosition = getStoreSpinnerAdapter().getPosition(getShopping().getSelectedItemInSearchResults().getStore().toString());
@@ -449,21 +551,58 @@ public class EditItem extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
+        Item thisItem = getItemData().getItemMap().get(getItemNameInput());
+
         getInStockLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getInStockLabel().getVisibility() == View.VISIBLE) {
+                    setAsNeeded();
+                    getNeededLabel().setVisibility(View.VISIBLE);
+                    getInStockLabel().setVisibility(View.GONE);
+                    getPausedLabel().setVisibility(View.GONE);
+                }
             }
         });
 
         getNeededLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getNeededLabel().getVisibility() == View.VISIBLE) {
+                    setAsPaused();
+                    getPausedLabel().setVisibility(View.VISIBLE);
+                    getInStockLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.GONE);
+                }
             }
         });
 
         getPausedLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getPausedLabel().getVisibility() == View.VISIBLE) {
+                    setAsInStock();
+                    getInStockLabel().setVisibility(View.VISIBLE);
+                    getPausedLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.GONE);
+
+                    thisItem.getStatus().setAsNeeded();
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    getShopping().updateStatusData();
+
+                    String thisStore = thisItem.getStore().toString();
+                    int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                    int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                    int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                    int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                    getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                    getShopping().updateStoreData();
+
+                    String thisCategory = thisItem.getCategory().toString();
+                    int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                    int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                    int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                    int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                    getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                    getShopping().updateCategoryData();
+                }
             }
         });
 
@@ -493,6 +632,20 @@ public class EditItem extends Fragment {
             }
         });
 
+        getPictureDataTitle().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (pictureDataExpanded()) {
+                    setPictureDataExpanded(false);
+                    getQuantityLabel1().setVisibility(View.GONE);
+                    getQuantityInput1().setVisibility(View.GONE);
+                } else {
+                    setPictureDataExpanded(true);
+                    getQuantityLabel1().setVisibility(View.VISIBLE);
+                    getQuantityInput1().setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         getEditItemButton().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -506,12 +659,13 @@ public class EditItem extends Fragment {
                 } else if (getShopping().editItemInPictureDialog()) {
                     oldItemName = getShopping().getItemInPictureDialog().getItemName();
                 }
-                String newItemName = getItemNameInput().getText().toString();
+
+                String itemName = getItemNameInput().getText().toString();
                 String itemType = getItemBrandTypeInput().getText().toString();
                 String itemCategory = getItemCategoryInput().getText().toString();
                 String itemStore = getItemStoreInput().getText().toString();
 
-                if (newItemName.isEmpty() || itemType.isEmpty()) {
+                if (itemName.isEmpty() || itemType.isEmpty()) {
                     getShopping().showAlertDialog(getString(R.string.editItem), getString(R.string.enterAllData), getString(R.string.ok));
                     return;
                 } else if (getCategorySpinner().getSelectedItem().toString().equals(getString(R.string.emptyString)) || getStoreSpinner().getSelectedItem().toString().equals(getString(R.string.emptyString))) {
@@ -545,19 +699,202 @@ public class EditItem extends Fragment {
                     itemStore = getStoreSpinner().getSelectedItem().toString();
                 }
 
-                getDbItemHelper().updateItem(oldItemName, newItemName, itemType, itemCategory, itemStore);
-                getDbStatusHelper().changeStatusName(oldItemName, newItemName);
-                getShopping().updateItemData();
+                if (isInStock()) {
+                    if (thisItem.getStatus().isInStock()) {
+                        return;
+
+                    } else if (thisItem.getStatus().isNeeded()) {
+
+                        // Needed to In Stock
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    } else if (thisItem.getStatus().isPaused()) {
+
+                        // Paused to In Stock
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    }
+                    thisItem.getStatus().setAsInStock();
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+
+                } else if (isNeeded()) {
+                    if (thisItem.getStatus().isInStock()) {
+
+                        // In Stock to Needed
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    } else if (thisItem.getStatus().isNeeded()) {
+
+                        return;
+
+                    } else if (thisItem.getStatus().isPaused()) {
+
+                        // Paused to Needed
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    }
+                    thisItem.getStatus().setAsNeeded();
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+
+                } else if (isPaused()) {
+                    if (thisItem.getStatus().isInStock()) {
+
+                        // In Stock to Paused
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    } else if (thisItem.getStatus().isNeeded()) {
+
+                        // Needed to Paused
+
+                        String thisCategory = thisItem.getCategory().toString();
+                        if (thisCategory != null) {
+                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateCategoryData();
+                        }
+
+                        String thisStore = thisItem.getStore().toString();
+                        if (thisStore != null) {
+                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            getShopping().updateStoreData();
+                        }
+
+                    } else if (thisItem.getStatus().isPaused()) {
+
+                        return;
+
+                    }
+                    thisItem.getStatus().setAsPaused();
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                }
                 getShopping().updateStatusData();
 
+                String newItemName = "";
+                if (!itemName.equals(oldItemName)) {
+                    newItemName = itemName;
+                    getDbItemHelper().changeItemName(oldItemName, newItemName);
+                    getDbStatusHelper().changeStatusName(oldItemName, newItemName);
+                    getDbOptionalDataHelper().changeOptionalDataName(oldItemName, newItemName);
+                }
+
+                getDbItemHelper().changeItem(itemName, itemType, itemCategory, itemStore);
+                getDbStatusHelper().changeStatus(itemName, status, checked);
+                getDbOptionalDataHelper().changeOptionalData(itemName, quantity, price, location, note);
+
+                getShopping().updateItemData();
+                getShopping().updateStatusData();
+                getShopping().updateOptionalData();
+
                 if (getShopping().editItemInInventory()) {
-                    getShopping().setSelectedItemInInventory(getShopping().getItemData().getItemMap().get(newItemName));
+                    getShopping().setSelectedItemInInventory(getShopping().getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInSearchResults()) {
-                    getShopping().setSelectedItemInSearchResults(getShopping().getItemData().getItemMap().get(newItemName));
+                    getShopping().setSelectedItemInSearchResults(getShopping().getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInShoppingList()) {
-                    getShopping().setSelectedItemInShoppingList(getShopping().getItemData().getItemMap().get(newItemName));
+                    getShopping().setSelectedItemInShoppingList(getShopping().getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInPictureDialog()) {
-                    getShopping().setItemInPictureDialog(getShopping().getItemData().getItemMap().get(newItemName));
+                    getShopping().setItemInPictureDialog(getShopping().getItemData().getItemMap().get(itemName));
                 }
 
                 closeEditItem();

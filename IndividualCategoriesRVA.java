@@ -577,7 +577,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemLargeNeeded().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
             } else if (id == getItemSmallNeeded().getId()) {
                 if (getItemSmallNeeded().getVisibility() == View.VISIBLE) {
@@ -589,7 +589,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemLargePaused().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
             } else if (id == getItemSmallPaused().getId()) {
                 if (getItemSmallPaused().getVisibility() == View.VISIBLE) {
@@ -601,7 +601,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemLargeInStock().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
             } else if (id == getItemLargeInStock().getId()) {
                 if (getItemLargeInStock().getVisibility() == View.VISIBLE) {
@@ -613,7 +613,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemSmallNeeded().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsNeeded();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
                 }
             } else if (id == getItemLargeNeeded().getId()) {
                 if (getItemLargeNeeded().getVisibility() == View.VISIBLE) {
@@ -625,7 +625,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemSmallPaused().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsPaused();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
             } else if (id == getItemLargePaused().getId()) {
                 if (getItemLargePaused().getVisibility() == View.VISIBLE) {
@@ -637,7 +637,7 @@ class IndividualCategoriesRVA extends RecyclerView.Adapter<RecyclerView.ViewHold
                     getItemSmallInStock().setVisibility(View.VISIBLE);
 
                     thisItem.getStatus().setAsInStock();
-                    getDbStatusHelper().updateStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
                 }
             }
         }

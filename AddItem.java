@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class AddItem extends Fragment {
@@ -21,10 +20,12 @@ public class AddItem extends Fragment {
     private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
+    private OptionalData optionalData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
     private DBStoreHelper dbStoreHelper;
+    private DBOptionalDataHelper dbOptionalDataHelper;
 
     private EditText itemNameInput;
     private EditText itemBrandTypeInput;
@@ -100,6 +101,14 @@ public class AddItem extends Fragment {
         getThis().storeData = storeData;
     }
 
+    private OptionalData getOptionalData() {
+        return optionalData;
+    }
+
+    private void setOptionalData(OptionalData optionalData) {
+        this.optionalData = optionalData;
+    }
+
     private DBItemHelper getDbItemHelper() {
         return dbItemHelper;
     }
@@ -130,6 +139,14 @@ public class AddItem extends Fragment {
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
+    }
+
+    private DBOptionalDataHelper getDbOptionalDataHelper() {
+        return dbOptionalDataHelper;
+    }
+
+    private void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+        this.dbOptionalDataHelper = dbOptionalDataHelper;
     }
 
     private EditText getItemNameInput() {
@@ -180,59 +197,59 @@ public class AddItem extends Fragment {
         getThis().itemStoreInput = itemStoreInput;
     }
 
-    public TextView getInStockLabel() {
+    private TextView getInStockLabel() {
         return inStockLabel;
     }
 
-    public void setInStockLabel(TextView inStockLabel) {
+    private void setInStockLabel(TextView inStockLabel) {
         getThis().inStockLabel = inStockLabel;
     }
 
-    public TextView getNeededLabel() {
+    private TextView getNeededLabel() {
         return neededLabel;
     }
 
-    public void setNeededLabel(TextView neededLabel) {
+    private void setNeededLabel(TextView neededLabel) {
         getThis().neededLabel = neededLabel;
     }
 
-    public TextView getPausedLabel() {
+    private TextView getPausedLabel() {
         return pausedLabel;
     }
 
-    public void setPausedLabel(TextView pausedLabel) {
+    private void setPausedLabel(TextView pausedLabel) {
         getThis().pausedLabel = pausedLabel;
     }
 
-    public TextView getOptionalDataTitle() {
+    private TextView getOptionalDataTitle() {
         return optionalDataTitle;
     }
 
-    public void setOptionalDataTitle(TextView optionalDataTitle) {
+    private void setOptionalDataTitle(TextView optionalDataTitle) {
         getThis().optionalDataTitle = optionalDataTitle;
     }
 
-    public boolean optionalDataVisible() {
+    private boolean optionalDataVisible() {
         return optionalDataVisible;
     }
 
-    public void setOptionalDataVisible(boolean optionalDataVisible) {
+    private void setOptionalDataVisible(boolean optionalDataVisible) {
         getThis().optionalDataVisible = optionalDataVisible;
     }
 
-    public boolean optionalDataExpanded() {
+    private boolean optionalDataExpanded() {
         return optionalDataExpanded;
     }
 
-    public void setOptionalDataExpanded(boolean optionalDataExpanded) {
+    private void setOptionalDataExpanded(boolean optionalDataExpanded) {
         getThis().optionalDataExpanded = optionalDataExpanded;
     }
 
-    public TextView getQuantityLabel() {
+    private TextView getQuantityLabel() {
         return quantityLabel;
     }
 
-    public void setQuantityLabel(TextView quantityLabel) {
+    private void setQuantityLabel(TextView quantityLabel) {
         getThis().quantityLabel = quantityLabel;
     }
 
@@ -244,11 +261,11 @@ public class AddItem extends Fragment {
         getThis().quantityInput = quantityInput;
     }
 
-    public TextView getPriceLabel() {
+    private TextView getPriceLabel() {
         return priceLabel;
     }
 
-    public void setPriceLabel(TextView priceLabel) {
+    private void setPriceLabel(TextView priceLabel) {
         getThis().priceLabel = priceLabel;
     }
 
@@ -260,11 +277,11 @@ public class AddItem extends Fragment {
         getThis().priceInput = priceInput;
     }
 
-    public TextView getLocationLabel() {
+    private TextView getLocationLabel() {
         return locationLabel;
     }
 
-    public void setLocationLabel(TextView locationLabel) {
+    private void setLocationLabel(TextView locationLabel) {
         getThis().locationLabel = locationLabel;
     }
 
@@ -276,11 +293,11 @@ public class AddItem extends Fragment {
         getThis().locationInput = locationInput;
     }
 
-    public TextView getNoteLabel() {
+    private TextView getNoteLabel() {
         return noteLabel;
     }
 
-    public void setNoteLabel(TextView noteLabel) {
+    private void setNoteLabel(TextView noteLabel) {
         getThis().noteLabel = noteLabel;
     }
 
@@ -426,19 +443,31 @@ public class AddItem extends Fragment {
 
         getInStockLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getInStockLabel().getVisibility() == View.VISIBLE) {
+                    getInStockLabel().setVisibility(View.GONE);
+                    getPausedLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.VISIBLE);
+                }
             }
         });
 
         getNeededLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getNeededLabel().getVisibility() == View.VISIBLE) {
+                    getInStockLabel().setVisibility(View.GONE);
+                    getPausedLabel().setVisibility(View.VISIBLE);
+                    getNeededLabel().setVisibility(View.GONE);
+                }
             }
         });
 
         getPausedLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // to do
+                if (getPausedLabel().getVisibility() == View.VISIBLE) {
+                    getInStockLabel().setVisibility(View.VISIBLE);
+                    getPausedLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.GONE);
+                }
             }
         });
 
@@ -520,9 +549,11 @@ public class AddItem extends Fragment {
                 getDbItemHelper().addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 getDbItemHelper().addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
                 getDbStatusHelper().addNewStatus(itemName, getString(R.string.paused), getString(R.string.unchecked));
+                getDbOptionalDataHelper().addNewOptionalData(itemName, quantity, price, location, note);
 
                 getShopping().updateItemData();
                 getShopping().updateStatusData();
+                getShopping().updateOptionalData();
 
                 getShopping().hideKeyboard();
                 getShopping().loadFragment(new FullInventory());

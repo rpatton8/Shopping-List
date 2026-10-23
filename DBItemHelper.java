@@ -126,7 +126,7 @@ class DBItemHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    void updateItem(String originalItemName, String newItemName, String brandType,
+    /*void changeItem(String originalItemName, String newItemName, String brandType,
                            String category, String store) {
 
         SQLiteDatabase db = getThis().getWritableDatabase();
@@ -138,6 +138,30 @@ class DBItemHelper extends SQLiteOpenHelper {
         values.put(STORE, store);
 
         db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{originalItemName});
+        db.close();
+    }*/
+
+    void changeItem(String itemName, String brandType, String category, String store) {
+
+        SQLiteDatabase db = getThis().getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(BRAND_TYPE, brandType);
+        values.put(CATEGORY, category);
+        values.put(STORE, store);
+
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{itemName});
+        db.close();
+    }
+
+    void changeItemName(String oldItemName, String newItemName) {
+
+        SQLiteDatabase db = getThis().getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(ITEM_NAME, newItemName);
+
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{oldItemName});
         db.close();
     }
 

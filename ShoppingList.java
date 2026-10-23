@@ -284,7 +284,7 @@ public class ShoppingList extends Fragment {
                             if (item.getStatus().isChecked()) {
                                 item.getStatus().setAsInStock();
                                 item.getStatus().setAsUnchecked();
-                                getDbStatusHelper().updateStatus(item.getItemName(), getString(R.string.instock), getString(R.string.unchecked));
+                                getDbStatusHelper().changeStatus(item.getItemName(), getString(R.string.instock), getString(R.string.unchecked));
                                 getShopping().updateStatusData();
 
                                 String store = item.getStore().toString();

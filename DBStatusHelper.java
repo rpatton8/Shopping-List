@@ -79,7 +79,7 @@ class DBStatusHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    void updateStatus(String itemName, String status, String checked) {
+    void changeStatus(String itemName, String status, String checked) {
 
         SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();

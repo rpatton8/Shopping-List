@@ -266,9 +266,9 @@ class Status {
     }
 
     public String toString() {
-        if (isInStock()) return getContext().getString(R.string.inStockCap);
-        if (isNeeded()) return getContext().getString(R.string.neededCap);
-        if (isPaused()) return getContext().getString(R.string.pausedCap);
+        if (isInStock()) return getContext().getString(R.string.instock);
+        if (isNeeded()) return getContext().getString(R.string.needed);
+        if (isPaused()) return getContext().getString(R.string.paused);
         return null;
     }
 

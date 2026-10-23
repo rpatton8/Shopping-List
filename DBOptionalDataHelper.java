@@ -73,7 +73,7 @@ class DBOptionalDataHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    void addNewOptionalData(String itemName, String quantity, String price, String location, int note) {
+    void addNewOptionalData(String itemName, String quantity, String price, String location, String note) {
 
         SQLiteDatabase db = getThis().getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -85,6 +85,31 @@ class DBOptionalDataHelper extends SQLiteOpenHelper {
         values.put(NOTE, note);
 
         db.insert(TABLE_NAME, null, values);
+        db.close();
+    }
+
+    void changeOptionalData(String itemName, String quantity, String price, String location, String note) {
+
+        SQLiteDatabase db = getThis().getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(QUANTITY, quantity);
+        values.put(PRICE, price);
+        values.put(LOCATION, location);
+        values.put(NOTE, note);
+
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{itemName});
+        db.close();
+    }
+
+    void changeOptionalDataName(String originalItemName, String newItemName) {
+
+        SQLiteDatabase db = getThis().getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(ITEM_NAME, newItemName);
+
+        db.update(TABLE_NAME, values, getContext().getString(R.string.dbItemNameQuestion), new String[]{originalItemName});
         db.close();
     }
 
