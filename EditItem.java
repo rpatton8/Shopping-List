@@ -582,26 +582,6 @@ public class EditItem extends Fragment {
                     getInStockLabel().setVisibility(View.VISIBLE);
                     getPausedLabel().setVisibility(View.GONE);
                     getNeededLabel().setVisibility(View.GONE);
-
-                    thisItem.getStatus().setAsNeeded();
-                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
-                    getShopping().updateStatusData();
-
-                    String thisStore = thisItem.getStore().toString();
-                    int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                    int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                    int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                    int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                    getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
-                    getShopping().updateStoreData();
-
-                    String thisCategory = thisItem.getCategory().toString();
-                    int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                    int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                    int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                    int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                    getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
-                    getShopping().updateCategoryData();
                 }
             }
         });
@@ -701,11 +681,16 @@ public class EditItem extends Fragment {
 
                 if (isInStock()) {
                     if (thisItem.getStatus().isInStock()) {
+
                         return;
 
                     } else if (thisItem.getStatus().isNeeded()) {
 
                         // Needed to In Stock
+
+                        thisItem.getStatus().setAsInStock();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
@@ -731,6 +716,10 @@ public class EditItem extends Fragment {
 
                         // Paused to In Stock
 
+                        thisItem.getStatus().setAsInStock();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
+
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
                             int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
@@ -750,15 +739,16 @@ public class EditItem extends Fragment {
                             getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
                             getShopping().updateStoreData();
                         }
-
                     }
-                    thisItem.getStatus().setAsInStock();
-                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked));
 
                 } else if (isNeeded()) {
                     if (thisItem.getStatus().isInStock()) {
 
                         // In Stock to Needed
+
+                        thisItem.getStatus().setAsNeeded();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
@@ -788,6 +778,10 @@ public class EditItem extends Fragment {
 
                         // Paused to Needed
 
+                        thisItem.getStatus().setAsNeeded();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
+
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
                             int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
@@ -809,13 +803,15 @@ public class EditItem extends Fragment {
                         }
 
                     }
-                    thisItem.getStatus().setAsNeeded();
-                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.needed), getContext().getString(R.string.unchecked));
 
                 } else if (isPaused()) {
                     if (thisItem.getStatus().isInStock()) {
 
                         // In Stock to Paused
+
+                        thisItem.getStatus().setAsPaused();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
@@ -840,6 +836,10 @@ public class EditItem extends Fragment {
                     } else if (thisItem.getStatus().isNeeded()) {
 
                         // Needed to Paused
+
+                        thisItem.getStatus().setAsPaused();
+                        getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
+                        getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
@@ -866,10 +866,7 @@ public class EditItem extends Fragment {
                         return;
 
                     }
-                    thisItem.getStatus().setAsPaused();
-                    getDbStatusHelper().changeStatus(thisItem.getItemName(), getContext().getString(R.string.paused), getContext().getString(R.string.unchecked));
                 }
-                getShopping().updateStatusData();
 
                 String newItemName = "";
                 if (!itemName.equals(oldItemName)) {
