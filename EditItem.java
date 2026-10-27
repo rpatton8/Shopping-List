@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class EditItem extends Fragment {
     private ItemData itemData;
     private CategoryData categoryData;
     private StoreData storeData;
+    private OptionalData optionalData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
     private DBCategoryHelper dbCategoryHelper;
@@ -42,10 +44,11 @@ public class EditItem extends Fragment {
     private TextView pictureDataTitle;
     private boolean pictureDataVisible;
     private boolean pictureDataExpanded;
+    private TextView pictureLabel1;
+    private EditText pictureInput1;
+    private ImageView pictureFrame;
     private TextView quantityLabel;
     private EditText quantityInput;
-    private TextView quantityLabel1;
-    private EditText quantityInput1;
     private TextView priceLabel;
     private EditText priceInput;
     private TextView locationLabel;
@@ -69,7 +72,7 @@ public class EditItem extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -77,7 +80,7 @@ public class EditItem extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -85,15 +88,15 @@ public class EditItem extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
-        this.itemData = itemData;
+        getThis().itemData = itemData;
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -101,15 +104,23 @@ public class EditItem extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
         getThis().storeData = storeData;
     }
 
+    private OptionalData getOptionalData() {
+        return getThis().optionalData;
+    }
+
+    private void setOptionalData(OptionalData optionalData) {
+        getThis().optionalData = optionalData;
+    }
+
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -117,7 +128,7 @@ public class EditItem extends Fragment {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -125,7 +136,7 @@ public class EditItem extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -133,23 +144,23 @@ public class EditItem extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public DBOptionalDataHelper getDbOptionalDataHelper() {
-        return dbOptionalDataHelper;
+    private DBOptionalDataHelper getDbOptionalDataHelper() {
+        return getThis().dbOptionalDataHelper;
     }
 
-    public void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
-        this.dbOptionalDataHelper = dbOptionalDataHelper;
+    private void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+        getThis().dbOptionalDataHelper = dbOptionalDataHelper;
     }
 
     private EditText getItemNameInput() {
-        return itemNameInput;
+        return getThis().itemNameInput;
     }
 
     private void setItemNameInput(EditText itemNameInput) {
@@ -157,7 +168,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getItemBrandTypeInput() {
-        return itemBrandTypeInput;
+        return getThis().itemBrandTypeInput;
     }
 
     private void setItemBrandTypeInput(EditText itemBrandTypeInput) {
@@ -165,7 +176,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getItemCategoryInput() {
-        return itemCategoryInput;
+        return getThis().itemCategoryInput;
     }
 
     private void setItemCategoryInput(EditText itemCategoryInput) {
@@ -173,7 +184,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getItemStoreInput() {
-        return itemStoreInput;
+        return getThis().itemStoreInput;
     }
 
     private void setItemStoreInput(EditText itemStoreInput) {
@@ -181,7 +192,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getInStockLabel() {
-        return inStockLabel;
+        return getThis().inStockLabel;
     }
 
     private void setInStockLabel(TextView inStockLabel) {
@@ -189,7 +200,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getNeededLabel() {
-        return neededLabel;
+        return getThis().neededLabel;
     }
 
     private void setNeededLabel(TextView neededLabel) {
@@ -197,7 +208,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getPausedLabel() {
-        return pausedLabel;
+        return getThis().pausedLabel;
     }
 
     private void setPausedLabel(TextView pausedLabel) {
@@ -205,37 +216,37 @@ public class EditItem extends Fragment {
     }
 
     private boolean isInStock() {
-        return isInStock;
+        return getThis().isInStock;
     }
 
     private boolean isNeeded() {
-        return isNeeded;
+        return getThis().isNeeded;
     }
 
     private boolean isPaused() {
-        return isPaused;
+        return getThis().isPaused;
     }
 
     private void setAsInStock() {
-        isInStock = true;
-        isNeeded = false;
-        isPaused = false;
+        getThis().isInStock = true;
+        getThis().isNeeded = false;
+        getThis().isPaused = false;
     }
 
     private void setAsNeeded() {
-        isInStock = false;
-        isNeeded = true;
-        isPaused = false;
+        getThis().isInStock = false;
+        getThis().isNeeded = true;
+        getThis().isPaused = false;
     }
 
     private void setAsPaused() {
-        isInStock = false;
-        isNeeded = false;
-        isPaused = true;
+        getThis().isInStock = false;
+        getThis().isNeeded = false;
+        getThis().isPaused = true;
     }
 
     private TextView getOptionalDataTitle() {
-        return optionalDataTitle;
+        return getThis().optionalDataTitle;
     }
 
     private void setOptionalDataTitle(TextView optionalDataTitle) {
@@ -243,7 +254,7 @@ public class EditItem extends Fragment {
     }
 
     private boolean optionalDataVisible() {
-        return optionalDataVisible;
+        return getThis().optionalDataVisible;
     }
 
     private void setOptionalDataVisible(boolean optionalDataVisible) {
@@ -251,7 +262,7 @@ public class EditItem extends Fragment {
     }
 
     private boolean optionalDataExpanded() {
-        return optionalDataExpanded;
+        return getThis().optionalDataExpanded;
     }
 
     private void setOptionalDataExpanded(boolean optionalDataExpanded) {
@@ -259,7 +270,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getPictureDataTitle() {
-        return pictureDataTitle;
+        return getThis().pictureDataTitle;
     }
 
     private void setPictureDataTitle(TextView pictureDataTitle) {
@@ -267,7 +278,7 @@ public class EditItem extends Fragment {
     }
 
     private boolean pictureDataVisible() {
-        return pictureDataVisible;
+        return getThis().pictureDataVisible;
     }
 
     private void setPictureDataVisible(boolean pictureDataVisible) {
@@ -275,31 +286,39 @@ public class EditItem extends Fragment {
     }
 
     private boolean pictureDataExpanded() {
-        return pictureDataExpanded;
+        return getThis().pictureDataExpanded;
     }
 
     private void setPictureDataExpanded(boolean pictureDataExpanded) {
         getThis().pictureDataExpanded = pictureDataExpanded;
     }
 
-    private TextView getQuantityLabel1() {
-        return quantityLabel1;
+    private TextView getPictureLabel1() {
+        return getThis().pictureLabel1;
     }
 
-    private void setQuantityLabel1(TextView quantityLabel1) {
-        getThis().quantityLabel1 = quantityLabel1;
+    private void setPictureLabel1(TextView pictureLabel1) {
+        getThis().pictureLabel1 = pictureLabel1;
     }
 
-    private EditText getQuantityInput1() {
-        return quantityInput1;
+    private EditText getPictureInput1() {
+        return getThis().pictureInput1;
     }
 
-    private void setQuantityInput1(EditText quantityInput1) {
-        getThis().quantityInput1 = quantityInput1;
+    private void setPictureInput1(EditText pictureInput1) {
+        getThis().pictureInput1 = pictureInput1;
+    }
+
+    private ImageView getPictureFrame() {
+        return getThis().pictureFrame;
+    }
+
+    private void setPictureFrame(ImageView pictureFrame) {
+        getThis().pictureFrame = pictureFrame;
     }
 
     private TextView getQuantityLabel() {
-        return quantityLabel;
+        return getThis().quantityLabel;
     }
 
     private void setQuantityLabel(TextView quantityLabel) {
@@ -307,7 +326,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getQuantityInput() {
-        return quantityInput;
+        return getThis().quantityInput;
     }
 
     private void setQuantityInput(EditText quantityInput) {
@@ -315,7 +334,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getPriceLabel() {
-        return priceLabel;
+        return getThis().priceLabel;
     }
 
     private void setPriceLabel(TextView priceLabel) {
@@ -323,7 +342,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getPriceInput() {
-        return priceInput;
+        return getThis().priceInput;
     }
 
     private void setPriceInput(EditText priceInput) {
@@ -331,7 +350,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getLocationLabel() {
-        return locationLabel;
+        return getThis().locationLabel;
     }
 
     private void setLocationLabel(TextView locationLabel) {
@@ -339,7 +358,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getLocationInput() {
-        return locationInput;
+        return getThis().locationInput;
     }
 
     private void setLocationInput(EditText locationInput) {
@@ -347,7 +366,7 @@ public class EditItem extends Fragment {
     }
 
     private TextView getNoteLabel() {
-        return noteLabel;
+        return getThis().noteLabel;
     }
 
     private void setNoteLabel(TextView noteLabel) {
@@ -355,7 +374,7 @@ public class EditItem extends Fragment {
     }
 
     private EditText getNoteInput() {
-        return noteInput;
+        return getThis().noteInput;
     }
 
     private void setNoteInput(EditText noteInput) {
@@ -363,7 +382,7 @@ public class EditItem extends Fragment {
     }
 
     private Button getEditItemButton() {
-        return editItemButton;
+        return getThis().editItemButton;
     }
 
     private void setEditItemButton(Button editItemButton) {
@@ -371,7 +390,7 @@ public class EditItem extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {
@@ -379,7 +398,7 @@ public class EditItem extends Fragment {
     }
 
     private Spinner getCategorySpinner() {
-        return categorySpinner;
+        return getThis().categorySpinner;
     }
 
     private void setCategorySpinner(Spinner categorySpinner) {
@@ -387,7 +406,7 @@ public class EditItem extends Fragment {
     }
 
     private Spinner getStoreSpinner() {
-        return storeSpinner;
+        return getThis().storeSpinner;
     }
 
     private void setStoreSpinner(Spinner storeSpinner) {
@@ -395,7 +414,7 @@ public class EditItem extends Fragment {
     }
 
     private ArrayList<String> getCategorySpinnerData() {
-        return categorySpinnerData;
+        return getThis().categorySpinnerData;
     }
 
     private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
@@ -403,7 +422,7 @@ public class EditItem extends Fragment {
     }
 
     private ArrayAdapter<String> getCategorySpinnerAdapter() {
-        return categorySpinnerAdapter;
+        return getThis().categorySpinnerAdapter;
     }
 
     private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
@@ -411,7 +430,7 @@ public class EditItem extends Fragment {
     }
 
     private ArrayList<String> getStoreSpinnerData() {
-        return storeSpinnerData;
+        return getThis().storeSpinnerData;
     }
 
     private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
@@ -419,7 +438,7 @@ public class EditItem extends Fragment {
     }
 
     private ArrayAdapter<String> getStoreSpinnerAdapter() {
-        return storeSpinnerAdapter;
+        return getThis().storeSpinnerAdapter;
     }
 
     private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
@@ -435,7 +454,7 @@ public class EditItem extends Fragment {
         setDbStatusHelper(new DBStatusHelper(getActivity()));
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
-
+        setDbOptionalDataHelper(new DBOptionalDataHelper(getActivity()));
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
 
@@ -444,7 +463,7 @@ public class EditItem extends Fragment {
         setItemCategoryInput(getView().findViewById(R.id.itemCategoryInput));
         setItemStoreInput(getView().findViewById(R.id.itemStoreInput));
 
-        if(getShopping().editItemInInventory()) {
+        if (getShopping().editItemInInventory()) {
             getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
             getItemBrandTypeInput().setText(getShopping().getSelectedItemInInventory().getBrandType());
         } else if (getShopping().editItemInSearchResults()) {
@@ -471,8 +490,9 @@ public class EditItem extends Fragment {
         setPictureDataVisible(true);
         setPictureDataExpanded(false);
 
-        setQuantityLabel1(getView().findViewById(R.id.quantityLabel1));
-        setQuantityInput1(getView().findViewById(R.id.quantityInput1));
+        setPictureLabel1(getView().findViewById(R.id.pictureLabel1));  // xxx
+        setPictureInput1(getView().findViewById(R.id.pictureInput1));  // xxx
+        setPictureFrame(getView().findViewById(R.id.pictureFrame));
 
         setQuantityLabel(getView().findViewById(R.id.quantityLabel));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
@@ -551,8 +571,6 @@ public class EditItem extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        Item thisItem = getItemData().getItemMap().get(getItemNameInput());
-
         getInStockLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (getInStockLabel().getVisibility() == View.VISIBLE) {
@@ -616,12 +634,14 @@ public class EditItem extends Fragment {
             public void onClick(View view) {
                 if (pictureDataExpanded()) {
                     setPictureDataExpanded(false);
-                    getQuantityLabel1().setVisibility(View.GONE);
-                    getQuantityInput1().setVisibility(View.GONE);
+                    getPictureLabel1().setVisibility(View.GONE);
+                    getPictureInput1().setVisibility(View.GONE);
+                    getPictureFrame().setVisibility(View.GONE);
                 } else {
                     setPictureDataExpanded(true);
-                    getQuantityLabel1().setVisibility(View.VISIBLE);
-                    getQuantityInput1().setVisibility(View.VISIBLE);
+                    getPictureLabel1().setVisibility(View.VISIBLE);
+                    getPictureInput1().setVisibility(View.VISIBLE);
+                    getPictureFrame().setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -679,6 +699,8 @@ public class EditItem extends Fragment {
                     itemStore = getStoreSpinner().getSelectedItem().toString();
                 }
 
+                Item thisItem = getItemData().getItemMap().get(getItemNameInput());
+
                 if (isInStock()) {
                     if (thisItem.getStatus().isInStock()) {
 
@@ -694,21 +716,21 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
                             getShopping().updateStoreData();
                         }
 
@@ -722,21 +744,21 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock + 1), numItemsNeeded, (numItemsPaused - 1));
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock + 1), numItemsNeeded, (numItemsPaused - 1));
                             getShopping().updateStoreData();
                         }
                     }
@@ -752,20 +774,20 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
                             getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
                             getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
                             getShopping().updateStoreData();
                         }
@@ -784,21 +806,21 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, (numItemsNeeded + 1), (numItemsPaused - 1));
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, numItemsInStock, (numItemsNeeded + 1), (numItemsPaused - 1));
                             getShopping().updateStoreData();
                         }
 
@@ -815,21 +837,21 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), numItemsNeeded, (numItemsPaused + 1));
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), numItemsNeeded, (numItemsPaused + 1));
                             getShopping().updateStoreData();
                         }
 
@@ -843,21 +865,21 @@ public class EditItem extends Fragment {
 
                         String thisCategory = thisItem.getCategory().toString();
                         if (thisCategory != null) {
-                            int numItemsInStock = getShopping().getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getShopping().getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getShopping().getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getShopping().getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, (numItemsNeeded - 1), (numItemsPaused + 1));
                             getShopping().updateCategoryData();
                         }
 
                         String thisStore = thisItem.getStore().toString();
                         if (thisStore != null) {
-                            int numItemsInStock = getShopping().getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getShopping().getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getShopping().getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getShopping().getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
+                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
+                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
+                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
+                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
+                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, numItemsInStock, (numItemsNeeded - 1), (numItemsPaused + 1));
                             getShopping().updateStoreData();
                         }
 
@@ -876,6 +898,17 @@ public class EditItem extends Fragment {
                     getDbOptionalDataHelper().changeOptionalDataName(oldItemName, newItemName);
                 }
 
+                String quantity = getQuantityInput().getText().toString();
+                String price = getPriceInput().getText().toString();
+                String location = getLocationInput().getText().toString();
+                String note = getNoteInput().getText().toString();
+
+                String status = "";
+                if (isInStock()) status = "instock";
+                if (isPaused()) status = "paused";
+                if (isNeeded()) status = "needed";
+                String checked = "unchecked";  // set as checked if item is needed and checked before editing
+
                 getDbItemHelper().changeItem(itemName, itemType, itemCategory, itemStore);
                 getDbStatusHelper().changeStatus(itemName, status, checked);
                 getDbOptionalDataHelper().changeOptionalData(itemName, quantity, price, location, note);
@@ -885,13 +918,13 @@ public class EditItem extends Fragment {
                 getShopping().updateOptionalData();
 
                 if (getShopping().editItemInInventory()) {
-                    getShopping().setSelectedItemInInventory(getShopping().getItemData().getItemMap().get(itemName));
+                    getShopping().setSelectedItemInInventory(getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInSearchResults()) {
-                    getShopping().setSelectedItemInSearchResults(getShopping().getItemData().getItemMap().get(itemName));
+                    getShopping().setSelectedItemInSearchResults(getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInShoppingList()) {
-                    getShopping().setSelectedItemInShoppingList(getShopping().getItemData().getItemMap().get(itemName));
+                    getShopping().setSelectedItemInShoppingList(getItemData().getItemMap().get(itemName));
                 } else if (getShopping().editItemInPictureDialog()) {
-                    getShopping().setItemInPictureDialog(getShopping().getItemData().getItemMap().get(itemName));
+                    getShopping().setItemInPictureDialog(getItemData().getItemMap().get(itemName));
                 }
 
                 closeEditItem();

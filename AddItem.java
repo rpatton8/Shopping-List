@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -34,9 +35,18 @@ public class AddItem extends Fragment {
     private TextView inStockLabel;
     private TextView neededLabel;
     private TextView pausedLabel;
+    private boolean isInStock;
+    private boolean isNeeded;
+    private boolean isPaused;
     private TextView optionalDataTitle;
     private boolean optionalDataVisible;
     private boolean optionalDataExpanded;
+    private TextView pictureDataTitle;
+    private boolean pictureDataVisible;
+    private boolean pictureDataExpanded;
+    private TextView pictureLabel1;
+    private EditText pictureInput1;
+    private ImageView pictureFrame;
     private TextView quantityLabel;
     private EditText quantityInput;
     private TextView priceLabel;
@@ -62,7 +72,7 @@ public class AddItem extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -70,7 +80,7 @@ public class AddItem extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -78,7 +88,7 @@ public class AddItem extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -86,7 +96,7 @@ public class AddItem extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -94,7 +104,7 @@ public class AddItem extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -102,15 +112,15 @@ public class AddItem extends Fragment {
     }
 
     private OptionalData getOptionalData() {
-        return optionalData;
+        return getThis().optionalData;
     }
 
     private void setOptionalData(OptionalData optionalData) {
-        this.optionalData = optionalData;
+        getThis().optionalData = optionalData;
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -118,7 +128,7 @@ public class AddItem extends Fragment {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -126,7 +136,7 @@ public class AddItem extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -134,7 +144,7 @@ public class AddItem extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -142,15 +152,15 @@ public class AddItem extends Fragment {
     }
 
     private DBOptionalDataHelper getDbOptionalDataHelper() {
-        return dbOptionalDataHelper;
+        return getThis().dbOptionalDataHelper;
     }
 
     private void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
-        this.dbOptionalDataHelper = dbOptionalDataHelper;
+        getThis().dbOptionalDataHelper = dbOptionalDataHelper;
     }
 
     private EditText getItemNameInput() {
-        return itemNameInput;
+        return getThis().itemNameInput;
     }
 
     private void setItemNameInput(EditText itemNameInput) {
@@ -158,7 +168,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getItemBrandTypeInput() {
-        return itemBrandTypeInput;
+        return getThis().itemBrandTypeInput;
     }
 
     private void setItemBrandTypeInput(EditText itemBrandTypeInput) {
@@ -166,7 +176,7 @@ public class AddItem extends Fragment {
     }
 
     private Spinner getCategorySpinner() {
-        return categorySpinner;
+        return getThis().categorySpinner;
     }
 
     private void setCategorySpinner(Spinner categorySpinner) {
@@ -174,7 +184,7 @@ public class AddItem extends Fragment {
     }
 
     private Spinner getStoreSpinner() {
-        return storeSpinner;
+        return getThis().storeSpinner;
     }
 
     private void setStoreSpinner(Spinner storeSpinner) {
@@ -182,7 +192,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getItemCategoryInput() {
-        return itemCategoryInput;
+        return getThis().itemCategoryInput;
     }
 
     private void setItemCategoryInput(EditText itemCategoryInput) {
@@ -190,7 +200,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getItemStoreInput() {
-        return itemStoreInput;
+        return getThis().itemStoreInput;
     }
 
     private void setItemStoreInput(EditText itemStoreInput) {
@@ -198,7 +208,7 @@ public class AddItem extends Fragment {
     }
 
     private TextView getInStockLabel() {
-        return inStockLabel;
+        return getThis().inStockLabel;
     }
 
     private void setInStockLabel(TextView inStockLabel) {
@@ -206,7 +216,7 @@ public class AddItem extends Fragment {
     }
 
     private TextView getNeededLabel() {
-        return neededLabel;
+        return getThis().neededLabel;
     }
 
     private void setNeededLabel(TextView neededLabel) {
@@ -214,15 +224,45 @@ public class AddItem extends Fragment {
     }
 
     private TextView getPausedLabel() {
-        return pausedLabel;
+        return getThis().pausedLabel;
     }
 
     private void setPausedLabel(TextView pausedLabel) {
         getThis().pausedLabel = pausedLabel;
     }
 
+    private boolean isInStock() {
+        return getThis().isInStock;
+    }
+
+    private boolean isNeeded() {
+        return getThis().isNeeded;
+    }
+
+    private boolean isPaused() {
+        return getThis().isPaused;
+    }
+
+    private void setAsInStock() {
+        getThis().isInStock = true;
+        getThis().isNeeded = false;
+        getThis().isPaused = false;
+    }
+
+    private void setAsNeeded() {
+        getThis().isInStock = false;
+        getThis().isNeeded = true;
+        getThis().isPaused = false;
+    }
+
+    private void setAsPaused() {
+        getThis().isInStock = false;
+        getThis().isNeeded = false;
+        getThis().isPaused = true;
+    }
+
     private TextView getOptionalDataTitle() {
-        return optionalDataTitle;
+        return getThis().optionalDataTitle;
     }
 
     private void setOptionalDataTitle(TextView optionalDataTitle) {
@@ -230,7 +270,7 @@ public class AddItem extends Fragment {
     }
 
     private boolean optionalDataVisible() {
-        return optionalDataVisible;
+        return getThis().optionalDataVisible;
     }
 
     private void setOptionalDataVisible(boolean optionalDataVisible) {
@@ -238,15 +278,63 @@ public class AddItem extends Fragment {
     }
 
     private boolean optionalDataExpanded() {
-        return optionalDataExpanded;
+        return getThis().optionalDataExpanded;
     }
 
     private void setOptionalDataExpanded(boolean optionalDataExpanded) {
         getThis().optionalDataExpanded = optionalDataExpanded;
     }
 
+    private TextView getPictureDataTitle() {
+        return getThis().pictureDataTitle;
+    }
+
+    private void setPictureDataTitle(TextView pictureDataTitle) {
+        getThis().pictureDataTitle = pictureDataTitle;
+    }
+
+    private boolean pictureDataVisible() {
+        return getThis().pictureDataVisible;
+    }
+
+    private void setPictureDataVisible(boolean pictureDataVisible) {
+        getThis().pictureDataVisible = pictureDataVisible;
+    }
+
+    private boolean pictureDataExpanded() {
+        return getThis().pictureDataExpanded;
+    }
+
+    private void setPictureDataExpanded(boolean pictureDataExpanded) {
+        getThis().pictureDataExpanded = pictureDataExpanded;
+    }
+
+    private TextView getPictureLabel1() {
+        return getThis().pictureLabel1;
+    }
+
+    private void setPictureLabel1(TextView pictureLabel1) {
+        getThis().pictureLabel1 = pictureLabel1;
+    }
+
+    private EditText getPictureInput1() {
+        return getThis().pictureInput1;
+    }
+
+    private void setPictureInput1(EditText pictureInput1) {
+        getThis().pictureInput1 = pictureInput1;
+    }
+
+    private ImageView getPictureFrame() {
+        return getThis().pictureFrame;
+    }
+
+    private void setPictureFrame(ImageView pictureFrame) {
+        getThis().pictureFrame = pictureFrame;
+    }
+
     private TextView getQuantityLabel() {
-        return quantityLabel;
+        return getThis().quantityLabel;
     }
 
     private void setQuantityLabel(TextView quantityLabel) {
@@ -254,7 +342,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getQuantityInput() {
-        return quantityInput;
+        return getThis().quantityInput;
     }
 
     private void setQuantityInput(EditText quantityInput) {
@@ -262,7 +350,7 @@ public class AddItem extends Fragment {
     }
 
     private TextView getPriceLabel() {
-        return priceLabel;
+        return getThis().priceLabel;
     }
 
     private void setPriceLabel(TextView priceLabel) {
@@ -270,7 +358,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getPriceInput() {
-        return priceInput;
+        return getThis().priceInput;
     }
 
     private void setPriceInput(EditText priceInput) {
@@ -278,7 +366,7 @@ public class AddItem extends Fragment {
     }
 
     private TextView getLocationLabel() {
-        return locationLabel;
+        return getThis().locationLabel;
     }
 
     private void setLocationLabel(TextView locationLabel) {
@@ -286,7 +374,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getLocationInput() {
-        return locationInput;
+        return getThis().locationInput;
     }
 
     private void setLocationInput(EditText locationInput) {
@@ -294,7 +382,7 @@ public class AddItem extends Fragment {
     }
 
     private TextView getNoteLabel() {
-        return noteLabel;
+        return getThis().noteLabel;
     }
 
     private void setNoteLabel(TextView noteLabel) {
@@ -302,7 +390,7 @@ public class AddItem extends Fragment {
     }
 
     private EditText getNoteInput() {
-        return noteInput;
+        return getThis().noteInput;
     }
 
     private void setNoteInput(EditText noteInput) {
@@ -310,7 +398,7 @@ public class AddItem extends Fragment {
     }
 
     private Button getAddItemButton() {
-        return addItemButton;
+        return getThis().addItemButton;
     }
 
     private void setAddItemButton(Button addItemButton) {
@@ -318,7 +406,7 @@ public class AddItem extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {
@@ -326,7 +414,7 @@ public class AddItem extends Fragment {
     }
 
     private ArrayList<String> getCategorySpinnerData() {
-        return categorySpinnerData;
+        return getThis().categorySpinnerData;
     }
 
     private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
@@ -334,7 +422,7 @@ public class AddItem extends Fragment {
     }
 
     private ArrayAdapter<String> getCategorySpinnerAdapter() {
-        return categorySpinnerAdapter;
+        return getThis().categorySpinnerAdapter;
     }
 
     private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
@@ -342,7 +430,7 @@ public class AddItem extends Fragment {
     }
 
     private ArrayList<String> getStoreSpinnerData() {
-        return storeSpinnerData;
+        return getThis().storeSpinnerData;
     }
 
     private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
@@ -350,7 +438,7 @@ public class AddItem extends Fragment {
     }
 
     private ArrayAdapter<String> getStoreSpinnerAdapter() {
-        return storeSpinnerAdapter;
+        return getThis().storeSpinnerAdapter;
     }
 
     private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
@@ -366,6 +454,7 @@ public class AddItem extends Fragment {
         setDbStatusHelper(new DBStatusHelper(getActivity()));
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
+        setDbOptionalDataHelper(new DBOptionalDataHelper(getActivity()));
         setItemData(getShopping().getItemData());
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
@@ -387,6 +476,13 @@ public class AddItem extends Fragment {
         setOptionalDataTitle(getView().findViewById(R.id.optionalDataTitle));
         setOptionalDataVisible(true);
         setOptionalDataExpanded(false);
+        setPictureDataTitle(getView().findViewById(R.id.pictureDataTitle));
+        setPictureDataVisible(true);
+        setPictureDataExpanded(false);
+
+        setPictureLabel1(getView().findViewById(R.id.pictureLabel1));  // xxx
+        setPictureInput1(getView().findViewById(R.id.pictureInput1));  // xxx
+        setPictureFrame(getView().findViewById(R.id.pictureFrame));
 
         setQuantityLabel(getView().findViewById(R.id.quantityLabel));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
@@ -444,9 +540,10 @@ public class AddItem extends Fragment {
         getInStockLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (getInStockLabel().getVisibility() == View.VISIBLE) {
+                    setAsNeeded();
+                    getNeededLabel().setVisibility(View.VISIBLE);
                     getInStockLabel().setVisibility(View.GONE);
                     getPausedLabel().setVisibility(View.GONE);
-                    getNeededLabel().setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -454,8 +551,9 @@ public class AddItem extends Fragment {
         getNeededLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (getNeededLabel().getVisibility() == View.VISIBLE) {
-                    getInStockLabel().setVisibility(View.GONE);
+                    setAsPaused();
                     getPausedLabel().setVisibility(View.VISIBLE);
+                    getInStockLabel().setVisibility(View.GONE);
                     getNeededLabel().setVisibility(View.GONE);
                 }
             }
@@ -464,6 +562,7 @@ public class AddItem extends Fragment {
         getPausedLabel().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (getPausedLabel().getVisibility() == View.VISIBLE) {
+                    setAsInStock();
                     getInStockLabel().setVisibility(View.VISIBLE);
                     getPausedLabel().setVisibility(View.GONE);
                     getNeededLabel().setVisibility(View.GONE);
@@ -493,6 +592,22 @@ public class AddItem extends Fragment {
                     getLocationInput().setVisibility(View.VISIBLE);
                     getNoteLabel().setVisibility(View.VISIBLE);
                     getNoteInput().setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        getPictureDataTitle().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (pictureDataExpanded()) {
+                    setPictureDataExpanded(false);
+                    getPictureLabel1().setVisibility(View.GONE);
+                    getPictureInput1().setVisibility(View.GONE);
+                    getPictureFrame().setVisibility(View.GONE);
+                } else {
+                    setPictureDataExpanded(true);
+                    getPictureLabel1().setVisibility(View.VISIBLE);
+                    getPictureInput1().setVisibility(View.VISIBLE);
+                    getPictureFrame().setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -545,6 +660,11 @@ public class AddItem extends Fragment {
                 int itemsInStore;
                 if (getItemData().getStoreMap().get(itemStore) == null) itemsInStore = 0;
                 else itemsInStore = getItemData().getStoreMap().get(itemStore).getStoreItemsList().size();
+
+                String quantity = getQuantityInput().getText().toString();
+                String price = getPriceInput().getText().toString();
+                String location = getLocationInput().getText().toString();
+                String note = getNoteInput().getText().toString();
 
                 getDbItemHelper().addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 getDbItemHelper().addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);

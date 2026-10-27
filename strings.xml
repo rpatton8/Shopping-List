@@ -94,6 +94,7 @@
     <string name="individualCategories">Individual Categories</string>
     <string name="individualStores">Individual Stores</string>
     <string name="instock">instock</string>
+    <string name="inStockCap">IN STOCK</string>
     <string name="instructions">Instructions</string>
     <string name="inventoryOptions">Inventory Options</string>
     <string name="inventoryTitle">Inventory Title</string>
@@ -108,6 +109,7 @@
     <string name="message2">Message 2</string>
     <string name="name">Name</string>
     <string name="needed">needed</string>
+    <string name="neededCap">NEEDED</string>
     <string name="no">NO</string>
     <string name="note">Note: </string>
     <string name="ok">OK</string>
@@ -118,6 +120,7 @@
     <string name="optionalDataNote">Note</string>
     <string name="or">--- or ---</string>
     <string name="paused">paused</string>
+    <string name="pausedCap">PAUSED</string>
     <string name="pictureDialogTitle">Picture Dialog Title</string>
     <string name="pictures">Pictures</string>
     <string name="picturesUL"><u>Pictures</u></string>
@@ -160,7 +163,6 @@
     <string name="status">Status: </string>
     <string name="store">Store</string>
     <string name="storesLabel">Stores</string>
-    <string name="storeItemData">Store Item Data</string>
     <string name="storeTitlesContracted">Contracted</string>
     <string name="storeTitlesExpanded">Expanded</string>
     <string name="storeWithColon">Store: </string>
