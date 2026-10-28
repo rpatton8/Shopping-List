@@ -18,7 +18,7 @@ class StatusData {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -26,7 +26,7 @@ class StatusData {
     }
 
     HashMap<String, Status> getStatusMap() {
-        return statusMap;
+        return getThis().statusMap;
     }
     
     private void setStatusMap(HashMap<String, Status> statusMap) {

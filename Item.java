@@ -30,7 +30,7 @@ class Item implements Comparable<Item> {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -38,7 +38,7 @@ class Item implements Comparable<Item> {
     }
 
     public Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     public void setShopping(Shopping shopping) {
@@ -46,7 +46,7 @@ class Item implements Comparable<Item> {
     }
 
     String getItemName() {
-        return itemName;
+        return getThis().itemName;
     }
 
     private void setItemName(String itemName) {
@@ -54,7 +54,7 @@ class Item implements Comparable<Item> {
     }
 
     String getBrandType() {
-        return brandType;
+        return getThis().brandType;
     }
 
     private void setBrandType(String brandType) {
@@ -62,7 +62,7 @@ class Item implements Comparable<Item> {
     }
 
     Category getCategory() {
-        return category;
+        return getThis().category;
     }
 
     void setCategory(Category category) {
@@ -70,7 +70,7 @@ class Item implements Comparable<Item> {
     }
 
     Store getStore() {
-        return store;
+        return getThis().store;
     }
 
     void setStore(Store store) {
@@ -78,10 +78,10 @@ class Item implements Comparable<Item> {
     }
 
     Status getStatus() {
-        if (status == null) {
+        /*if (status == null) {
             setStatus(new Status(getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked), getContext()));
-        }
-        return status;
+        }*/
+        return getThis().status;
     }
 
     void setStatus(Status status) {
@@ -89,7 +89,7 @@ class Item implements Comparable<Item> {
     }
 
     public Picture getItemPicture() {
-        return picture;
+        return getThis().picture;
     }
 
     public void setItemPicture(Picture picture) {
@@ -97,7 +97,7 @@ class Item implements Comparable<Item> {
     }
 
     int getCategoryOrder() {
-        return categoryOrder;
+        return getThis().categoryOrder;
     }
 
     void setCategoryOrder(int categoryOrder) {
@@ -105,7 +105,7 @@ class Item implements Comparable<Item> {
     }
 
     int getStoreOrder() {
-        return storeOrder;
+        return getThis().storeOrder;
     }
 
     void setStoreOrder(int storeOrder) {

@@ -15,6 +15,7 @@ public class RemoveItem extends Fragment {
     private ItemData itemData;
     private DBItemHelper dbItemHelper;
     private DBStatusHelper dbStatusHelper;
+    private DBOptionalDataHelper dbOptionalDataHelper;
 
     private EditText itemNameInput;
     private Button removeItemButton;
@@ -27,7 +28,7 @@ public class RemoveItem extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -35,7 +36,7 @@ public class RemoveItem extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -43,7 +44,7 @@ public class RemoveItem extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -51,7 +52,7 @@ public class RemoveItem extends Fragment {
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -59,15 +60,23 @@ public class RemoveItem extends Fragment {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
         getThis().dbStatusHelper = dbStatusHelper;
     }
 
+    private DBOptionalDataHelper getDbOptionalDataHelper() {
+        return getThis().dbOptionalDataHelper;
+    }
+
+    private void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+        getThis().dbOptionalDataHelper = dbOptionalDataHelper;
+    }
+
     private EditText getItemNameInput() {
-        return itemNameInput;
+        return getThis().itemNameInput;
     }
 
     private void setItemNameInput(EditText itemNameInput) {
@@ -75,7 +84,7 @@ public class RemoveItem extends Fragment {
     }
 
     private Button getRemoveItemButton() {
-        return removeItemButton;
+        return getThis().removeItemButton;
     }
 
     private void setRemoveItemButton(Button removeItemButton) {
@@ -83,7 +92,7 @@ public class RemoveItem extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {
@@ -98,6 +107,7 @@ public class RemoveItem extends Fragment {
         setItemData(getShopping().getItemData());
         setDbItemHelper(new DBItemHelper(getActivity()));
         setDbStatusHelper(new DBStatusHelper(getActivity()));
+        setDbOptionalDataHelper(new DBOptionalDataHelper(getActivity()));
 
         setItemNameInput(getView().findViewById(R.id.itemNameInput));
         setRemoveItemButton(getView().findViewById(R.id.removeItemButton));

@@ -31,23 +31,23 @@ class Category {
     }
 
     private Context getContext() {
-        return context;
-    }
-
-    public Shopping getShopping() {
-        return shopping;
-    }
-
-    public void setShopping(Shopping shopping) {
-        getThis().shopping = shopping;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
         getThis().context = context;
     }
 
+    public Shopping getShopping() {
+        return getThis().shopping;
+    }
+
+    public void setShopping(Shopping shopping) {
+        getThis().shopping = shopping;
+    }
+
     private String getCategoryName() {
-        return categoryName;
+        return getThis().categoryName;
     }
 
     private void setCategoryName(String categoryName) {
@@ -55,7 +55,7 @@ class Category {
     }
 
     private ArrayList<Item> getCategoryItems() {
-        return categoryItems;
+        return getThis().categoryItems;
     }
 
     private void setCategoryItems(ArrayList<Item> categoryItems) {
@@ -63,19 +63,19 @@ class Category {
     }
 
     private boolean isExpanded() {
-        return isExpanded;
+        return getThis().isExpanded;
     }
 
     private void setExpanded(boolean expanded) {
-        isExpanded = expanded;
+        getThis().isExpanded = expanded;
     }
 
     private boolean isContracted() {
-        return isContracted;
+        return getThis().isContracted;
     }
 
     private void setContracted(boolean contracted) {
-        isContracted = contracted;
+        getThis().isContracted = contracted;
     }
 
     void addItem(Item item) {

@@ -455,6 +455,7 @@ public class EditItem extends Fragment {
         setDbCategoryHelper(new DBCategoryHelper(getActivity()));
         setDbStoreHelper(new DBStoreHelper(getActivity()));
         setDbOptionalDataHelper(new DBOptionalDataHelper(getActivity()));
+        setItemData(getShopping().getItemData());
         setCategoryData(getShopping().getCategoryData());
         setStoreData(getShopping().getStoreData());
 

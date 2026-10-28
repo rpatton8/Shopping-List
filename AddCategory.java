@@ -26,7 +26,7 @@ public class AddCategory extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -34,7 +34,7 @@ public class AddCategory extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -42,7 +42,7 @@ public class AddCategory extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -50,7 +50,7 @@ public class AddCategory extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -58,7 +58,7 @@ public class AddCategory extends Fragment {
     }
 
     private EditText getCategoryInput() {
-        return categoryInput;
+        return getThis().categoryInput;
     }
 
     private void setCategoryInput(EditText categoryInput) {
@@ -66,7 +66,7 @@ public class AddCategory extends Fragment {
     }
 
     private Button getAddCategoryButton() {
-        return addCategoryButton;
+        return getThis().addCategoryButton;
     }
 
     private void setAddCategoryButton(Button addCategoryButton) {
@@ -74,7 +74,7 @@ public class AddCategory extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

@@ -26,7 +26,7 @@ public class AddStore extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -34,7 +34,7 @@ public class AddStore extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -42,7 +42,7 @@ public class AddStore extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -50,7 +50,7 @@ public class AddStore extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -58,7 +58,7 @@ public class AddStore extends Fragment {
     }
 
     private EditText getStoreInput() {
-        return storeInput;
+        return getThis().storeInput;
     }
 
     private void setStoreInput(EditText storeInput) {
@@ -66,7 +66,7 @@ public class AddStore extends Fragment {
     }
 
     private Button getAddStoreButton() {
-        return addStoreButton;
+        return getThis().addStoreButton;
     }
 
     private void setAddStoreButton(Button addStoreButton) {
@@ -74,7 +74,7 @@ public class AddStore extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

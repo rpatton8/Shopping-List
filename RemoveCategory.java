@@ -30,7 +30,7 @@ public class RemoveCategory extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -38,7 +38,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -46,7 +46,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -54,7 +54,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -62,7 +62,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private Spinner getRemoveCategorySpinner() {
-        return removeCategorySpinner;
+        return getThis().removeCategorySpinner;
     }
 
     private void setRemoveCategorySpinner(Spinner removeCategorySpinner) {
@@ -70,7 +70,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private ArrayList<String> getRemoveCategorySpinnerData() {
-        return removeCategorySpinnerData;
+        return getThis().removeCategorySpinnerData;
     }
 
     private void setRemoveCategorySpinnerData(ArrayList<String> removeCategorySpinnerData) {
@@ -78,7 +78,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private ArrayAdapter<String> getRemoveCategoryAdapter() {
-        return removeCategoryAdapter;
+        return getThis().removeCategoryAdapter;
     }
 
     private void setRemoveCategoryAdapter(ArrayAdapter<String> removeCategoryAdapter) {
@@ -86,7 +86,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private Button getRemoveCategoryButton() {
-        return removeCategoryButton;
+        return getThis().removeCategoryButton;
     }
 
     private void setRemoveCategoryButton(Button removeCategoryButton) {
@@ -94,7 +94,7 @@ public class RemoveCategory extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

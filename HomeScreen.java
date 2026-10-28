@@ -86,7 +86,7 @@ public class HomeScreen extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -94,7 +94,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -102,7 +102,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getHomeScreenDeveloperOptionsButton() {
-        return homeScreenDeveloperOptionsButton;
+        return getThis().homeScreenDeveloperOptionsButton;
     }
 
     private void setHomeScreenDeveloperOptionsButton(TextView homeScreenDeveloperOptionsButton) {
@@ -110,7 +110,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getHomeScreenEditButton() {
-        return homeScreenEditButton;
+        return getThis().homeScreenEditButton;
     }
 
     private void setHomeScreenEditButton(TextView homeScreenEditButton) {
@@ -118,7 +118,7 @@ public class HomeScreen extends Fragment {
     }
 
     public TextView getHomeScreenTitle() {
-        return homeScreenTitle;
+        return getThis().homeScreenTitle;
     }
 
     public void setHomeScreenTitle(TextView homeScreenTitle) {
@@ -126,7 +126,7 @@ public class HomeScreen extends Fragment {
     }
 
     public String getLastMainTitle() {
-        return lastMainTitle;
+        return getThis().lastMainTitle;
     }
 
     public void setLastMainTitle(String lastMainTitle) {
@@ -134,7 +134,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getShoppingSettingsBackground() {
-        return shoppingSettingsBackground;
+        return getThis().shoppingSettingsBackground;
     }
 
     private void setShoppingSettingsBackground(TextView shoppingSettingsBackground) {
@@ -142,7 +142,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getInstructions() {
-        return instructions;
+        return getThis().instructions;
     }
 
     private void setInstructions(Button instructions) {
@@ -150,7 +150,7 @@ public class HomeScreen extends Fragment {
     }
 
     private boolean menuOptionsVisible() {
-        return menuOptionsVisible;
+        return getThis().menuOptionsVisible;
     }
 
     private void setMenuOptionsVisible(boolean menuOptionsVisible) {
@@ -158,7 +158,7 @@ public class HomeScreen extends Fragment {
     }
 
     private boolean developerOptionsVisible() {
-        return developerOptionsVisible;
+        return getThis().developerOptionsVisible;
     }
 
     private void setDeveloperOptionsVisible(boolean developerOptionsVisible) {
@@ -166,7 +166,7 @@ public class HomeScreen extends Fragment {
     }
 
     public boolean instructionsVisible() {
-        return instructionsVisible;
+        return getThis().instructionsVisible;
     }
 
     public void setInstructionsVisible(boolean instructionsVisible) {
@@ -174,7 +174,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getClearAllData() {
-        return clearAllData;
+        return getThis().clearAllData;
     }
 
     private void setClearAllData(Button clearAllData) {
@@ -182,7 +182,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getLoadSampleData1() {
-        return loadSampleData1;
+        return getThis().loadSampleData1;
     }
 
     private void setLoadSampleData1(Button loadSampleData1) {
@@ -190,7 +190,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getLoadSampleData2() {
-        return loadSampleData2;
+        return getThis().loadSampleData2;
     }
 
     private void setLoadSampleData2(Button loadSampleData2) {
@@ -198,7 +198,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getChangeDefaultSortBy() {
-        return changeDefaultSortBy;
+        return getThis().changeDefaultSortBy;
     }
 
     private void setChangeDefaultSortBy(Button changeDefaultSortBy) {
@@ -206,7 +206,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getSortAlphabetical() {
-        return sortAlphabetical;
+        return getThis().sortAlphabetical;
     }
 
     private void setSortAlphabetical(RadioButton sortAlphabetical) {
@@ -214,7 +214,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getSortByCategory() {
-        return sortByCategory;
+        return getThis().sortByCategory;
     }
 
     private void setSortByCategory(RadioButton sortByCategory) {
@@ -222,7 +222,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getSortByStore() {
-        return sortByStore;
+        return getThis().sortByStore;
     }
 
     private void setSortByStore(RadioButton sortByStore) {
@@ -230,7 +230,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getChangeReorderingMethod() {
-        return changeReorderingMethod;
+        return getThis().changeReorderingMethod;
     }
 
     private void setChangeReorderingMethod(Button changeReorderingMethod) {
@@ -238,7 +238,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getDragAndDrop() {
-        return dragAndDrop;
+        return getThis().dragAndDrop;
     }
 
     private void setDragAndDrop(RadioButton dragAndDrop) {
@@ -246,7 +246,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getUpAndDownArrows() {
-        return upAndDownArrows;
+        return getThis().upAndDownArrows;
     }
 
     private void setUpAndDownArrows(RadioButton upAndDownArrows) {
@@ -254,7 +254,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getWithNumbers() {
-        return withNumbers;
+        return getThis().withNumbers;
     }
 
     private void setWithNumbers(RadioButton withNumbers) {
@@ -262,7 +262,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getChangeColorScheme() {
-        return changeColorScheme;
+        return getThis().changeColorScheme;
     }
 
     private void setChangeColorScheme(Button changeColorScheme) {
@@ -270,7 +270,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getColorScheme1() {
-        return colorScheme1;
+        return getThis().colorScheme1;
     }
 
     private void setColorScheme1(RadioButton colorScheme1) {
@@ -278,7 +278,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getColorScheme2() {
-        return colorScheme2;
+        return getThis().colorScheme2;
     }
 
     private void setColorScheme2(RadioButton colorScheme2) {
@@ -286,7 +286,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getColorScheme3() {
-        return colorScheme3;
+        return getThis().colorScheme3;
     }
 
     private void setColorScheme3(RadioButton colorScheme3) {
@@ -294,7 +294,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getChangeDefaultCategoryTitles() {
-        return changeDefaultCategoryTitles;
+        return getThis().changeDefaultCategoryTitles;
     }
 
     private void setChangeDefaultCategoryTitles(Button changeDefaultCategoryTitles) {
@@ -302,7 +302,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getCategoryTitlesExpanded() {
-        return categoryTitlesExpanded;
+        return getThis().categoryTitlesExpanded;
     }
 
     private void setCategoryTitlesExpanded(RadioButton categoryTitlesExpanded) {
@@ -310,7 +310,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getCategoryTitlesContracted() {
-        return categoryTitlesContracted;
+        return getThis().categoryTitlesContracted;
     }
 
     private void setCategoryTitlesContracted(RadioButton categoryTitlesContracted) {
@@ -318,7 +318,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getChangeDefaultStoreTitles() {
-        return changeDefaultStoreTitles;
+        return getThis().changeDefaultStoreTitles;
     }
 
     private void setChangeDefaultStoreTitles(Button changeDefaultStoreTitles) {
@@ -326,7 +326,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getStoreTitlesExpanded() {
-        return storeTitlesExpanded;
+        return getThis().storeTitlesExpanded;
     }
 
     private void setStoreTitlesExpanded(RadioButton storeTitlesExpanded) {
@@ -334,7 +334,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getStoreTitlesContracted() {
-        return storeTitlesContracted;
+        return getThis().storeTitlesContracted;
     }
 
     private void setStoreTitlesContracted(RadioButton storeTitlesContracted) {
@@ -342,7 +342,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getOptionalData() {
-        return optionalData;
+        return getThis().optionalData;
     }
 
     private void setOptionalData(Button optionalData) {
@@ -350,7 +350,7 @@ public class HomeScreen extends Fragment {
     }
 
     private CheckBox getOptionalDataQuantity() {
-        return optionalDataQuantity;
+        return getThis().optionalDataQuantity;
     }
 
     private void setOptionalDataQuantity(CheckBox optionalDataQuantity) {
@@ -358,7 +358,7 @@ public class HomeScreen extends Fragment {
     }
 
     private CheckBox getOptionalDataPrice() {
-        return optionalDataPrice;
+        return getThis().optionalDataPrice;
     }
 
     private void setOptionalDataPrice(CheckBox optionalDataPrice) {
@@ -366,7 +366,7 @@ public class HomeScreen extends Fragment {
     }
 
     private CheckBox getOptionalDataLocation() {
-        return optionalDataLocation;
+        return getThis().optionalDataLocation;
     }
 
     private void setOptionalDataLocation(CheckBox optionalDataLocation) {
@@ -374,7 +374,7 @@ public class HomeScreen extends Fragment {
     }
 
     private CheckBox getOptionalDataNote() {
-        return optionalDataNote;
+        return getThis().optionalDataNote;
     }
 
     private void setOptionalDataNote(CheckBox optionalDataNote) {
@@ -382,7 +382,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getSwiping() {
-        return swiping;
+        return getThis().swiping;
     }
 
     private void setSwiping(Button swiping) {
@@ -390,7 +390,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getSwipingOn() {
-        return swipingOn;
+        return getThis().swipingOn;
     }
 
     private void setSwipingOn(RadioButton swipingOn) {
@@ -398,7 +398,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getSwipingOff() {
-        return swipingOff;
+        return getThis().swipingOff;
     }
 
     private void setSwipingOff(RadioButton swipingOff) {
@@ -406,7 +406,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getPictures() {
-        return pictures;
+        return getThis().pictures;
     }
 
     private void setPictures(Button pictures) {
@@ -414,7 +414,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getPicturesOn() {
-        return picturesOn;
+        return getThis().picturesOn;
     }
 
     private void setPicturesOn(RadioButton picturesOn) {
@@ -422,7 +422,7 @@ public class HomeScreen extends Fragment {
     }
 
     private RadioButton getPicturesOff() {
-        return picturesOff;
+        return getThis().picturesOff;
     }
 
     private void setPicturesOff(RadioButton picturesOff) {
@@ -430,7 +430,7 @@ public class HomeScreen extends Fragment {
     }
 
     private Button getReorderEmojis() {
-        return reorderEmojis;
+        return getThis().reorderEmojis;
     }
 
     private void setReorderEmojis(Button reorderEmojis) {
@@ -438,7 +438,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getReorderCategoryEmojiLabel() {
-        return reorderCategoryEmojiLabel;
+        return getThis().reorderCategoryEmojiLabel;
     }
 
     private void setReorderCategoryEmojiLabel(TextView reorderCategoryEmojiLabel) {
@@ -446,7 +446,7 @@ public class HomeScreen extends Fragment {
     }
 
     private EditText getReorderCategoryEmojiBox() {
-        return reorderCategoryEmojiBox;
+        return getThis().reorderCategoryEmojiBox;
     }
 
     private void setReorderCategoryEmojiBox(EditText reorderCategoryEmojiBox) {
@@ -454,7 +454,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getReorderItemByCategoryEmojiLabel() {
-        return reorderItemByCategoryEmojiLabel;
+        return getThis().reorderItemByCategoryEmojiLabel;
     }
 
     private void setReorderItemByCategoryEmojiLabel(TextView reorderItemByCategoryEmojiLabel) {
@@ -462,7 +462,7 @@ public class HomeScreen extends Fragment {
     }
 
     private EditText getReorderItemByCategoryEmojiBox() {
-        return reorderItemByCategoryEmojiBox;
+        return getThis().reorderItemByCategoryEmojiBox;
     }
 
     private void setReorderItemByCategoryEmojiBox(EditText reorderItemByCategoryEmojiBox) {
@@ -470,7 +470,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getReorderItemByStoreEmojiLabel() {
-        return reorderItemByStoreEmojiLabel;
+        return getThis().reorderItemByStoreEmojiLabel;
     }
 
     private void setReorderItemByStoreEmojiLabel(TextView reorderItemByStoreEmojiLabel) {
@@ -478,7 +478,7 @@ public class HomeScreen extends Fragment {
     }
 
     private EditText getReorderItemByStoreEmojiBox() {
-        return reorderItemByStoreEmojiBox;
+        return getThis().reorderItemByStoreEmojiBox;
     }
 
     private void setReorderItemByStoreEmojiBox(EditText reorderItemByStoreEmojiBox) {
@@ -486,7 +486,7 @@ public class HomeScreen extends Fragment {
     }
 
     private TextView getReorderStoreEmojiLabel() {
-        return reorderStoreEmojiLabel;
+        return getThis().reorderStoreEmojiLabel;
     }
 
     private void setReorderStoreEmojiLabel(TextView reorderStoreEmojiLabel) {
@@ -494,7 +494,7 @@ public class HomeScreen extends Fragment {
     }
 
     private EditText getReorderStoreEmojiBox() {
-        return reorderStoreEmojiBox;
+        return getThis().reorderStoreEmojiBox;
     }
 
     private void setReorderStoreEmojiBox(EditText reorderStoreEmojiBox) {

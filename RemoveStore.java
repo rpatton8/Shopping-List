@@ -30,7 +30,7 @@ public class RemoveStore extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -38,7 +38,7 @@ public class RemoveStore extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -46,7 +46,7 @@ public class RemoveStore extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -54,7 +54,7 @@ public class RemoveStore extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -62,7 +62,7 @@ public class RemoveStore extends Fragment {
     }
 
     private Spinner getRemoveStoreSpinner() {
-        return removeStoreSpinner;
+        return getThis().removeStoreSpinner;
     }
 
     private void setRemoveStoreSpinner(Spinner removeStoreSpinner) {
@@ -70,7 +70,7 @@ public class RemoveStore extends Fragment {
     }
 
     private ArrayList<String> getRemoveStoreSpinnerData() {
-        return removeStoreSpinnerData;
+        return getThis().removeStoreSpinnerData;
     }
 
     private void setRemoveStoreSpinnerData(ArrayList<String> removeStoreSpinnerData) {
@@ -78,7 +78,7 @@ public class RemoveStore extends Fragment {
     }
 
     private ArrayAdapter<String> getRemoveStoreAdapter() {
-        return removeStoreAdapter;
+        return getThis().removeStoreAdapter;
     }
 
     private void setRemoveStoreAdapter(ArrayAdapter<String> removeStoreAdapter) {
@@ -86,7 +86,7 @@ public class RemoveStore extends Fragment {
     }
 
     private Button getRemoveStoreButton() {
-        return removeStoreButton;
+        return getThis().removeStoreButton;
     }
 
     private void setRemoveStoreButton(Button removeStoreButton) {
@@ -94,7 +94,7 @@ public class RemoveStore extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

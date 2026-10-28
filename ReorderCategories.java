@@ -29,7 +29,7 @@ public class ReorderCategories extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -37,7 +37,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -45,7 +45,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -53,7 +53,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -61,7 +61,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -69,7 +69,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -77,7 +77,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private ReorderCategoriesRVA getRvAdapter() {
-        return rvAdapter;
+        return getThis().rvAdapter;
     }
 
     private void setRvAdapter(ReorderCategoriesRVA rvAdapter) {
@@ -85,7 +85,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private Button getFinishReorderingButton() {
-        return finishReorderingButton;
+        return getThis().finishReorderingButton;
     }
 
     private void setFinishReorderingButton(Button finishReorderingButton) {
@@ -93,7 +93,7 @@ public class ReorderCategories extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

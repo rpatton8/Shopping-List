@@ -42,7 +42,7 @@ class CategoryData {
     }
 
     public ArrayList<String> getCategoryList() {
-        return categoryList;
+        return getThis().categoryList;
     }
 
     private void setCategoryList(ArrayList<String> categoryList) {
@@ -50,7 +50,7 @@ class CategoryData {
     }
 
     public ArrayList<String> getCategoryListWithBlank() {
-        return categoryListWithBlank;
+        return getThis().categoryListWithBlank;
     }
 
     private void setCategoryListWithBlank(ArrayList<String> categoryListWithBlank) {
@@ -58,7 +58,7 @@ class CategoryData {
     }
 
     public ArrayList<String> getCategoryListWithAddNew() {
-        return categoryListWithAddNew;
+        return getThis().categoryListWithAddNew;
     }
 
     private void setCategoryListWithAddNew(ArrayList<String> categoryListWithAddNew) {
@@ -66,7 +66,7 @@ class CategoryData {
     }
 
     public HashMap<String, Integer> getCategoryViewAllMap() {
-        return categoryViewAllMap;
+        return getThis().categoryViewAllMap;
     }
 
     private void setCategoryViewAllMap(HashMap<String, Integer> categoryViewAllMap) {
@@ -74,7 +74,7 @@ class CategoryData {
     }
 
     public HashMap<String, Integer> getCategoryViewInStockMap() {
-        return categoryViewInStockMap;
+        return getThis().categoryViewInStockMap;
     }
 
     private void setCategoryViewInStockMap(HashMap<String, Integer> categoryViewInStockMap) {
@@ -82,7 +82,7 @@ class CategoryData {
     }
 
     public HashMap<String, Integer> getCategoryViewNeededMap() {
-        return categoryViewNeededMap;
+        return getThis().categoryViewNeededMap;
     }
 
     private void setCategoryViewNeededMap(HashMap<String, Integer> categoryViewNeededMap) {
@@ -90,7 +90,7 @@ class CategoryData {
     }
 
     public HashMap<String, Integer> getCategoryViewPausedMap() {
-        return categoryViewPausedMap;
+        return getThis().categoryViewPausedMap;
     }
 
     private void setCategoryViewPausedMap(HashMap<String, Integer> categoryViewPausedMap) {

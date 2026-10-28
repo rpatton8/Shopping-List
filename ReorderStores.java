@@ -29,7 +29,7 @@ public class ReorderStores extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -37,7 +37,7 @@ public class ReorderStores extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -45,7 +45,7 @@ public class ReorderStores extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -53,7 +53,7 @@ public class ReorderStores extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -61,7 +61,7 @@ public class ReorderStores extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -69,7 +69,7 @@ public class ReorderStores extends Fragment {
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -77,7 +77,7 @@ public class ReorderStores extends Fragment {
     }
 
     private ReorderStoresRVA getRvAdapter() {
-        return rvAdapter;
+        return getThis().rvAdapter;
     }
 
     private void setRvAdapter(ReorderStoresRVA rvAdapter) {
@@ -85,7 +85,7 @@ public class ReorderStores extends Fragment {
     }
 
     private Button getFinishReorderingButton() {
-        return finishReorderingButton;
+        return getThis().finishReorderingButton;
     }
 
     private void setFinishReorderingButton(Button finishReorderingButton) {
@@ -93,7 +93,7 @@ public class ReorderStores extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

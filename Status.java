@@ -62,7 +62,7 @@ class Status {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -70,199 +70,199 @@ class Status {
     }
 
     boolean isInStock() {
-        return isInStock;
+        return getThis().isInStock;
     }
 
     boolean isNeeded() {
-        return isNeeded;
+        return getThis().isNeeded;
     }
 
     boolean isPaused() {
-        return isPaused;
+        return getThis().isPaused;
     }
 
     void setAsInStock() {
-        isInStock = true;
-        isNeeded = false;
-        isPaused = false;
+        getThis().isInStock = true;
+        getThis().isNeeded = false;
+        getThis().isPaused = false;
     }
 
     void setAsNeeded() {
-        isInStock = false;
-        isNeeded = true;
-        isPaused = false;
+        getThis().isInStock = false;
+        getThis().isNeeded = true;
+        getThis().isPaused = false;
     }
 
     void setAsPaused() {
-        isInStock = false;
-        isNeeded = false;
-        isPaused = true;
+        getThis().isInStock = false;
+        getThis().isNeeded = false;
+        getThis().isPaused = true;
     }
 
     boolean isChecked() {
-        return isChecked;
+        return getThis().isChecked;
     }
 
     void setAsChecked() {
-        isChecked = true;
+        getThis().isChecked = true;
     }
 
     boolean isUnchecked() {
-        return !isChecked;
+        return !getThis().isChecked;
     }
 
     void setAsUnchecked() {
-        isChecked = false;
+        getThis().isChecked = false;
     }
 
     boolean isExpandedInInventory() {
-        return isExpandedInInventory;
+        return getThis().isExpandedInInventory;
     }
 
     void setAsExpandedInInventory() {
-        isExpandedInInventory = true;
-        isContractedInInventory = false;
+        getThis().isExpandedInInventory = true;
+        getThis().isContractedInInventory = false;
     }
 
     boolean isContractedInInventory() {
-        return isContractedInInventory;
+        return getThis().isContractedInInventory;
     }
 
     void setAsContractedInInventory() {
-        isContractedInInventory = true;
-        isExpandedInInventory = false;
+        getThis().isContractedInInventory = true;
+        getThis().isExpandedInInventory = false;
     }
 
     boolean isExpandedInSearchResults() {
-        return isExpandedInSearchResults;
+        return getThis().isExpandedInSearchResults;
     }
 
     void setAsExpandedInSearchResults() {
-        isExpandedInSearchResults = true;
-        isContractedInSearchResults = false;
+        getThis().isExpandedInSearchResults = true;
+        getThis().isContractedInSearchResults = false;
     }
 
     boolean isContractedInSearchResults() {
-        return isContractedInSearchResults;
+        return getThis().isContractedInSearchResults;
     }
 
     void setAsContractedInSearchResults() {
-        isContractedInSearchResults = true;
-        isExpandedInSearchResults = false;
+        getThis().isContractedInSearchResults = true;
+        getThis().isExpandedInSearchResults = false;
     }
 
     boolean isExpandedInShoppingList() {
-        return isExpandedInShoppingList;
+        return getThis().isExpandedInShoppingList;
     }
 
     void setAsExpandedInShoppingList() {
-        isExpandedInShoppingList = true;
-        isContractedInShoppingList = false;
+        getThis().isExpandedInShoppingList = true;
+        getThis().isContractedInShoppingList = false;
     }
 
     boolean isContractedInShoppingList() {
-        return isContractedInShoppingList;
+        return getThis().isContractedInShoppingList;
     }
 
     void setAsContractedInShoppingList() {
-        isContractedInShoppingList = true;
-        isExpandedInShoppingList = false;
+        getThis().isContractedInShoppingList = true;
+        getThis().isExpandedInShoppingList = false;
     }
 
     public boolean isExpandedInIndividualCategories() {
-        return isExpandedInIndividualCategories;
+        return getThis().isExpandedInIndividualCategories;
     }
 
     public void setAsExpandedInIndividualCategories() {
-        isExpandedInIndividualCategories = true;
-        isContractedInIndividualCategories = false;
+        getThis().isExpandedInIndividualCategories = true;
+        getThis().isContractedInIndividualCategories = false;
     }
 
     public boolean isContractedInIndividualCategories() {
-        return isContractedInIndividualCategories;
+        return getThis().isContractedInIndividualCategories;
     }
 
     public void setAsContractedInIndividualCategories() {
-        isContractedInIndividualCategories = true;
-        isExpandedInIndividualCategories = false;
+        getThis().isContractedInIndividualCategories = true;
+        getThis().isExpandedInIndividualCategories = false;
     }
 
     public boolean isExpandedInIndividualStores() {
-        return isExpandedInIndividualStores;
+        return getThis().isExpandedInIndividualStores;
     }
 
     public void setAsExpandedInIndividualStores() {
-        isExpandedInIndividualStores = true;
-        isContractedInIndividualStores = false;
+        getThis().isExpandedInIndividualStores = true;
+        getThis().isContractedInIndividualStores = false;
     }
 
     public boolean isContractedInIndividualStores() {
-        return isContractedInIndividualStores;
+        return getThis().isContractedInIndividualStores;
     }
 
     public void setAsContractedInIndividualStores() {
-        isContractedInIndividualStores = true;
-        isExpandedInIndividualStores = false;
+        getThis().isContractedInIndividualStores = true;
+        getThis().isExpandedInIndividualStores = false;
     }
 
     boolean isSelectedInInventory() {
-        return isSelectedInInventory;
+        return getThis().isSelectedInInventory;
     }
 
     void setAsSelectedInInventory() {
-        isSelectedInInventory = true;
+        getThis().isSelectedInInventory = true;
     }
 
     void setAsUnselectedInInventory() {
-        isSelectedInInventory = false;
+        getThis().isSelectedInInventory = false;
     }
 
     boolean isSelectedInSearchResults() {
-        return isSelectedInSearchResults;
+        return getThis().isSelectedInSearchResults;
     }
 
     void setAsSelectedInSearchResults() {
-        isSelectedInSearchResults = true;
+        getThis().isSelectedInSearchResults = true;
     }
 
     void setAsUnselectedInSearchResults() {
-        isSelectedInSearchResults = false;
+        getThis().isSelectedInSearchResults = false;
     }
 
     boolean isSelectedInShoppingList() {
-        return isSelectedInShoppingList;
+        return getThis().isSelectedInShoppingList;
     }
 
     void setAsSelectedInShoppingList() {
-        isSelectedInShoppingList = true;
+        getThis().isSelectedInShoppingList = true;
     }
 
     void setAsUnselectedInShoppingList() {
-        isSelectedInShoppingList = false;
+        getThis().isSelectedInShoppingList = false;
     }
 
     boolean isSelectedInIndividualCategories() {
-        return isSelectedInIndividualCategories;
+        return getThis().isSelectedInIndividualCategories;
     }
 
     void setAsSelectedInIndividualCategories() {
-        isSelectedInIndividualCategories = true;
+        getThis().isSelectedInIndividualCategories = true;
     }
 
     void setAsUnselectedInIndividualCategories() {
-        isSelectedInIndividualCategories = false;
+        getThis().isSelectedInIndividualCategories = false;
     }
 
     boolean isSelectedInIndividualStores() {
-        return isSelectedInIndividualStores;
+        return getThis().isSelectedInIndividualStores;
     }
 
     void setAsSelectedInIndividualStores() {
-        isSelectedInIndividualStores = true;
+        getThis().isSelectedInIndividualStores = true;
     }
 
     void setAsUnselectedInIndividualStores() {
-        isSelectedInIndividualStores = false;
+        getThis().isSelectedInIndividualStores = false;
     }
 
     public String toString() {

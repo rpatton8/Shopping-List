@@ -33,7 +33,7 @@ public class EditCategory extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -41,7 +41,7 @@ public class EditCategory extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -49,7 +49,7 @@ public class EditCategory extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -57,7 +57,7 @@ public class EditCategory extends Fragment {
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -65,7 +65,7 @@ public class EditCategory extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -73,7 +73,7 @@ public class EditCategory extends Fragment {
     }
 
     private EditText getCategoryInput() {
-        return categoryInput;
+        return getThis().categoryInput;
     }
 
     private void setCategoryInput(EditText categoryInput) {
@@ -81,7 +81,7 @@ public class EditCategory extends Fragment {
     }
 
     private Spinner getCategorySpinner() {
-        return categorySpinner;
+        return getThis().categorySpinner;
     }
 
     private void setCategorySpinner(Spinner categorySpinner) {
@@ -89,7 +89,7 @@ public class EditCategory extends Fragment {
     }
 
     private ArrayList<String> getCategorySpinnerData() {
-        return categorySpinnerData;
+        return getThis().categorySpinnerData;
     }
 
     private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
@@ -97,7 +97,7 @@ public class EditCategory extends Fragment {
     }
 
     private ArrayAdapter<String> getCategorySpinnerAdapter() {
-        return categorySpinnerAdapter;
+        return getThis().categorySpinnerAdapter;
     }
 
     private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
@@ -105,7 +105,7 @@ public class EditCategory extends Fragment {
     }
 
     private Button getEditCategoryButton() {
-        return editCategoryButton;
+        return getThis().editCategoryButton;
     }
 
     private void setEditCategoryButton(Button editCategoryButton) {
@@ -113,7 +113,7 @@ public class EditCategory extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

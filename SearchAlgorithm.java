@@ -19,7 +19,7 @@ class SearchAlgorithm {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -27,7 +27,7 @@ class SearchAlgorithm {
     }
 
     private HashMap<String, ArrayList<Item>> getTermMap() {
-        return termMap;
+        return getThis().termMap;
     }
 
     private void setTermMap(HashMap<String, ArrayList<Item>> termMap) {

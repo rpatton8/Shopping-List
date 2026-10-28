@@ -48,7 +48,7 @@ public class ReorderItems extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -56,7 +56,7 @@ public class ReorderItems extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -64,7 +64,7 @@ public class ReorderItems extends Fragment {
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -72,7 +72,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -80,7 +80,7 @@ public class ReorderItems extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -88,7 +88,7 @@ public class ReorderItems extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -96,7 +96,7 @@ public class ReorderItems extends Fragment {
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -104,7 +104,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ReorderItemsRVA getRvAdapter() {
-        return rvAdapter;
+        return getThis().rvAdapter;
     }
 
     private void setRvAdapter(ReorderItemsRVA rvAdapter) {
@@ -112,7 +112,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ScrollView getScrollView() {
-        return scrollView;
+        return getThis().scrollView;
     }
 
     private void setScrollView(ScrollView scrollView) {
@@ -120,7 +120,7 @@ public class ReorderItems extends Fragment {
     }
 
     private LinearLayout getCategoryLayout() {
-        return categoryLayout;
+        return getThis().categoryLayout;
     }
 
     private void setCategoryLayout(LinearLayout categoryLayout) {
@@ -128,7 +128,7 @@ public class ReorderItems extends Fragment {
     }
 
     private RadioButton getCategoryRadioButton() {
-        return categoryRadioButton;
+        return getThis().categoryRadioButton;
     }
 
     private void setCategoryRadioButton(RadioButton categoryRadioButton) {
@@ -136,7 +136,7 @@ public class ReorderItems extends Fragment {
     }
 
     private Spinner getCategorySpinner() {
-        return categorySpinner;
+        return getThis().categorySpinner;
     }
 
     private void setCategorySpinner(Spinner categorySpinner) {
@@ -144,7 +144,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ArrayList<String> getCategorySpinnerData() {
-        return categorySpinnerData;
+        return getThis().categorySpinnerData;
     }
 
     private void setCategorySpinnerData(ArrayList<String> categorySpinnerData) {
@@ -152,7 +152,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ArrayAdapter<String> getCategorySpinnerAdapter() {
-        return categorySpinnerAdapter;
+        return getThis().categorySpinnerAdapter;
     }
 
     private void setCategorySpinnerAdapter(ArrayAdapter<String> categorySpinnerAdapter) {
@@ -160,7 +160,7 @@ public class ReorderItems extends Fragment {
     }
 
     private LinearLayout getStoreLayout() {
-        return storeLayout;
+        return getThis().storeLayout;
     }
 
     private void setStoreLayout(LinearLayout storeLayout) {
@@ -168,7 +168,7 @@ public class ReorderItems extends Fragment {
     }
 
     private RadioButton getStoreRadioButton() {
-        return storeRadioButton;
+        return getThis().storeRadioButton;
     }
 
     private void setStoreRadioButton(RadioButton storeRadioButton) {
@@ -176,7 +176,7 @@ public class ReorderItems extends Fragment {
     }
 
     private Spinner getStoreSpinner() {
-        return storeSpinner;
+        return getThis().storeSpinner;
     }
 
     private void setStoreSpinner(Spinner storeSpinner) {
@@ -184,7 +184,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ArrayList<String> getStoreSpinnerData() {
-        return storeSpinnerData;
+        return getThis().storeSpinnerData;
     }
 
     private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
@@ -192,7 +192,7 @@ public class ReorderItems extends Fragment {
     }
 
     private ArrayAdapter<String> getStoreSpinnerAdapter() {
-        return storeSpinnerAdapter;
+        return getThis().storeSpinnerAdapter;
     }
 
     private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
@@ -200,7 +200,7 @@ public class ReorderItems extends Fragment {
     }
 
     private Button getFinishReorderingButton() {
-        return finishReorderingButton;
+        return getThis().finishReorderingButton;
     }
 
     private void setFinishReorderingButton(Button finishReorderingButton) {
@@ -208,7 +208,7 @@ public class ReorderItems extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

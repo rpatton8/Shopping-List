@@ -33,7 +33,7 @@ public class EditStore extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -41,7 +41,7 @@ public class EditStore extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -49,7 +49,7 @@ public class EditStore extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -57,7 +57,7 @@ public class EditStore extends Fragment {
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -65,7 +65,7 @@ public class EditStore extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -73,7 +73,7 @@ public class EditStore extends Fragment {
     }
 
     private EditText getStoreInput() {
-        return storeInput;
+        return getThis().storeInput;
     }
 
     private void setStoreInput(EditText storeInput) {
@@ -81,7 +81,7 @@ public class EditStore extends Fragment {
     }
 
     private Spinner getStoreSpinner() {
-        return storeSpinner;
+        return getThis().storeSpinner;
     }
 
     private void setStoreSpinner(Spinner storeSpinner) {
@@ -89,7 +89,7 @@ public class EditStore extends Fragment {
     }
 
     private ArrayList<String> getStoreSpinnerData() {
-        return storeSpinnerData;
+        return getThis().storeSpinnerData;
     }
 
     private void setStoreSpinnerData(ArrayList<String> storeSpinnerData) {
@@ -97,7 +97,7 @@ public class EditStore extends Fragment {
     }
 
     private ArrayAdapter<String> getStoreSpinnerAdapter() {
-        return storeSpinnerAdapter;
+        return getThis().storeSpinnerAdapter;
     }
 
     private void setStoreSpinnerAdapter(ArrayAdapter<String> storeSpinnerAdapter) {
@@ -105,7 +105,7 @@ public class EditStore extends Fragment {
     }
 
     private Button getEditStoreButton() {
-        return editStoreButton;
+        return getThis().editStoreButton;
     }
 
     private void setEditStoreButton(Button editStoreButton) {
@@ -113,7 +113,7 @@ public class EditStore extends Fragment {
     }
 
     private Button getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(Button cancelButton) {

@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ShoppingList extends Fragment {
@@ -48,7 +47,7 @@ public class ShoppingList extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -56,7 +55,7 @@ public class ShoppingList extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -64,7 +63,7 @@ public class ShoppingList extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -72,7 +71,7 @@ public class ShoppingList extends Fragment {
     }
 
     private StatusData getStatusData() {
-        return statusData;
+        return getThis().statusData;
     }
 
     private void setStatusData(StatusData statusData) {
@@ -80,7 +79,7 @@ public class ShoppingList extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -88,7 +87,7 @@ public class ShoppingList extends Fragment {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -96,7 +95,7 @@ public class ShoppingList extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -104,7 +103,7 @@ public class ShoppingList extends Fragment {
     }
 
     private TextView getShoppingListTitle() {
-        return shoppingListTitle;
+        return getThis().shoppingListTitle;
     }
 
     private void setShoppingListTitle(TextView shoppingListTitle) {
@@ -112,7 +111,7 @@ public class ShoppingList extends Fragment {
     }
 
     private RecyclerView getShoppingListRecyclerView() {
-        return shoppingListRecyclerView;
+        return getThis().shoppingListRecyclerView;
     }
 
     private void setShoppingListRecyclerView(RecyclerView shoppingListRecyclerView) {
@@ -120,7 +119,7 @@ public class ShoppingList extends Fragment {
     }
 
     private ShoppingListRVA getShoppingListAdapter() {
-        return shoppingListAdapter;
+        return getThis().shoppingListAdapter;
     }
 
     private void setShoppingListAdapter(ShoppingListRVA shoppingListAdapter) {
@@ -128,7 +127,7 @@ public class ShoppingList extends Fragment {
     }
 
     private ImageView getShoppingListLeftArrow() {
-        return shoppingListLeftArrow;
+        return getThis().shoppingListLeftArrow;
     }
 
     private void setShoppingListLeftArrow(ImageView shoppingListLeftArrow) {
@@ -136,7 +135,7 @@ public class ShoppingList extends Fragment {
     }
 
     private ImageView getShoppingListRightArrow() {
-        return shoppingListRightArrow;
+        return getThis().shoppingListRightArrow;
     }
 
     private void setShoppingListRightArrow(ImageView shoppingListRightArrow) {
@@ -144,7 +143,7 @@ public class ShoppingList extends Fragment {
     }
 
     private AlertDialog getAlertDialog2() {
-        return alertDialog2;
+        return getThis().alertDialog2;
     }
 
     private void setAlertDialog2(AlertDialog alertDialog2) {
@@ -152,7 +151,7 @@ public class ShoppingList extends Fragment {
     }
 
     private View getAlertDialog2View() {
-        return alertDialog2View;
+        return getThis().alertDialog2View;
     }
 
     private void setAlertDialog2View(View alertDialog2View) {
@@ -160,7 +159,7 @@ public class ShoppingList extends Fragment {
     }
 
     private TextView getAlertDialog2Title() {
-        return alertDialog2Title;
+        return getThis().alertDialog2Title;
     }
 
     private void setAlertDialog2Title(TextView alertDialog2Title) {
@@ -168,7 +167,7 @@ public class ShoppingList extends Fragment {
     }
 
     private TextView getAlertDialog2Message() {
-        return alertDialog2Message;
+        return getThis().alertDialog2Message;
     }
 
     private void setAlertDialog2Message(TextView alertDialog2Message) {
@@ -176,7 +175,7 @@ public class ShoppingList extends Fragment {
     }
 
     private TextView getAlertDialog2ButtonLeft() {
-        return alertDialog2ButtonLeft;
+        return getThis().alertDialog2ButtonLeft;
     }
 
     private void setAlertDialog2ButtonLeft(TextView alertDialog2ButtonLeft) {
@@ -184,7 +183,7 @@ public class ShoppingList extends Fragment {
     }
 
     private TextView getAlertDialog2ButtonRight() {
-        return alertDialog2ButtonRight;
+        return getThis().alertDialog2ButtonRight;
     }
 
     private void setAlertDialog2ButtonRight(TextView alertDialog2ButtonRight) {
@@ -192,7 +191,7 @@ public class ShoppingList extends Fragment {
     }
 
     private Button getClearCheckedItems() {
-        return clearCheckedItems;
+        return getThis().clearCheckedItems;
     }
 
     private void setClearCheckedItems(Button clearCheckedItems) {
@@ -200,7 +199,7 @@ public class ShoppingList extends Fragment {
     }
 
     private Button getEditSelectedItem() {
-        return editSelectedItem;
+        return getThis().editSelectedItem;
     }
 
     private void setEditSelectedItem(Button editSelectedItem) {
@@ -401,7 +400,7 @@ public class ShoppingList extends Fragment {
         }
 
         private Context getContext() {
-            return context;
+            return getThis().context;
         }
 
         private void setContext(Context context) {

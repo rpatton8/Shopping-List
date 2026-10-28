@@ -119,7 +119,7 @@ public class FullInventory extends Fragment {
     }
 
     public View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -127,7 +127,7 @@ public class FullInventory extends Fragment {
     }
 
     private View getRootView() {
-        return rootView;
+        return getThis().rootView;
     }
 
     private void setRootView(View rootView) {
@@ -135,7 +135,7 @@ public class FullInventory extends Fragment {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -143,7 +143,7 @@ public class FullInventory extends Fragment {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -151,7 +151,7 @@ public class FullInventory extends Fragment {
     }
 
     private StatusData getStatusData() {
-        return statusData;
+        return getThis().statusData;
     }
 
     private void setStatusData(StatusData statusData) {
@@ -159,7 +159,7 @@ public class FullInventory extends Fragment {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -167,7 +167,7 @@ public class FullInventory extends Fragment {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -175,7 +175,7 @@ public class FullInventory extends Fragment {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -183,7 +183,7 @@ public class FullInventory extends Fragment {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -191,7 +191,7 @@ public class FullInventory extends Fragment {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -199,7 +199,7 @@ public class FullInventory extends Fragment {
     }
 
     private String getCurrentBottomMenu() {
-        return currentBottomMenu;
+        return getThis().currentBottomMenu;
     }
 
     private void setCurrentBottomMenu(String currentBottomMenu) {
@@ -207,7 +207,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getEditDataBreak() {
-        return editDataBreak;
+        return getThis().editDataBreak;
     }
 
     private void setEditDataBreak(TextView editDataBreak) {
@@ -215,7 +215,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getAddPopup() {
-        return addPopup;
+        return getThis().addPopup;
     }
 
     private void setAddPopup(Button addPopup) {
@@ -223,7 +223,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getEditPopup() {
-        return editPopup;
+        return getThis().editPopup;
     }
 
     private void setEditPopup(Button editPopup) {
@@ -231,7 +231,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getRemovePopup() {
-        return removePopup;
+        return getThis().removePopup;
     }
 
     private void setRemovePopup(Button removePopup) {
@@ -239,7 +239,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getReorderPopup() {
-        return reorderPopup;
+        return getThis().reorderPopup;
     }
 
     private void setReorderPopup(Button reorderPopup) {
@@ -247,7 +247,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getAddRemoveCategory() {
-        return addRemoveCategory;
+        return getThis().addRemoveCategory;
     }
 
     private void setAddRemoveCategory(Button addRemoveCategory) {
@@ -255,7 +255,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getAddEditItem() {
-        return addEditItem;
+        return getThis().addEditItem;
     }
 
     private void setAddEditItem(Button addEditItem) {
@@ -263,7 +263,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getAddRemoveStore() {
-        return addRemoveStore;
+        return getThis().addRemoveStore;
     }
 
     private void setAddRemoveStore(Button addRemoveStore) {
@@ -271,7 +271,7 @@ public class FullInventory extends Fragment {
     }
 
     private boolean menuOptionsVisible() {
-        return menuOptionsVisible;
+        return getThis().menuOptionsVisible;
     }
 
     private void setMenuOptionsVisible(boolean menuOptionsVisible) {
@@ -279,7 +279,7 @@ public class FullInventory extends Fragment {
     }
 
     private boolean searchPopupVisible() {
-        return searchPopupVisible;
+        return getThis().searchPopupVisible;
     }
 
     private void setSearchPopupVisible(boolean searchPopupVisible) {
@@ -287,7 +287,7 @@ public class FullInventory extends Fragment {
     }
 
     private boolean keyboardVisible() {
-        return keyboardVisible;
+        return getThis().keyboardVisible;
     }
 
     private void setKeyboardVisible(boolean keyboardVisible) {
@@ -296,7 +296,7 @@ public class FullInventory extends Fragment {
 
 
     public boolean individualCategoriesVisible() {
-        return individualCategoriesVisible;
+        return getThis().individualCategoriesVisible;
     }
 
     public void setIndividualCategoriesVisible(boolean individualCategoriesVisible) {
@@ -304,7 +304,7 @@ public class FullInventory extends Fragment {
     }
 
     public boolean individualStoresVisible() {
-        return individualStoresVisible;
+        return getThis().individualStoresVisible;
     }
 
     public void setIndividualStoresVisible(boolean individualStoresVisible) {
@@ -312,7 +312,7 @@ public class FullInventory extends Fragment {
     }
 
     private boolean editControlsExpanded() {
-        return editControlsExpanded;
+        return getThis().editControlsExpanded;
     }
 
     private void setEditControlsExpanded(boolean editControlsExpanded) {
@@ -320,7 +320,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getFullInventoryTitle() {
-        return fullInventoryTitle;
+        return getThis().fullInventoryTitle;
     }
 
     private void setFullInventoryTitle(TextView fullInventoryTitle) {
@@ -328,7 +328,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getFullInventoryOptionsBackground() {
-        return fullInventoryOptionsBackground;
+        return getThis().fullInventoryOptionsBackground;
     }
 
     private void setFullInventoryOptionsBackground(TextView fullInventoryOptionsBackground) {
@@ -336,7 +336,7 @@ public class FullInventory extends Fragment {
     }
 
     private String getLastMainTitle() {
-        return lastMainTitle;
+        return getThis().lastMainTitle;
     }
 
     private void setLastMainTitle(String lastMainTitle) {
@@ -344,7 +344,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getAddNewItemButton() {
-        return addNewItemButton;
+        return getThis().addNewItemButton;
     }
 
     private void setAddNewItemButton(TextView addNewItemButton) {
@@ -352,7 +352,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getSearchButton() {
-        return searchButton;
+        return getThis().searchButton;
     }
 
     private void setSearchButton(TextView searchButton) {
@@ -360,7 +360,7 @@ public class FullInventory extends Fragment {
     }
 
     private LinearLayout getSearchPopup() {
-        return searchPopup;
+        return getThis().searchPopup;
     }
 
     private void setSearchPopup(LinearLayout searchPopup) {
@@ -368,7 +368,7 @@ public class FullInventory extends Fragment {
     }
 
     private EditText getSearchBox() {
-        return searchBox;
+        return getThis().searchBox;
     }
 
     private void setSearchBox(EditText searchBox) {
@@ -376,7 +376,7 @@ public class FullInventory extends Fragment {
     }
 
     private TextView getClearSearchButton() {
-        return clearSearchButton;
+        return getThis().clearSearchButton;
     }
 
     private void setClearSearchButton(TextView clearSearchButton) {
@@ -384,7 +384,7 @@ public class FullInventory extends Fragment {
     }
 
     private ImageView getRefreshButton() {
-        return refreshButton;
+        return getThis().refreshButton;
     }
 
     private void setRefreshButton(ImageView refreshButton) {
@@ -392,7 +392,7 @@ public class FullInventory extends Fragment {
     }
 
     private ImageView getFullInventoryEditButton() {
-        return fullInventoryEditButton;
+        return getThis().fullInventoryEditButton;
     }
 
     private void setFullInventoryEditButton(ImageView fullInventoryEditButton) {
@@ -401,7 +401,7 @@ public class FullInventory extends Fragment {
 
 
     public LinearLayout getIndividualCategoriesLayout() {
-        return individualCategoriesLayout;
+        return getThis().individualCategoriesLayout;
     }
 
     public void setIndividualCategoriesLayout(LinearLayout individualCategoriesLayout) {
@@ -409,7 +409,7 @@ public class FullInventory extends Fragment {
     }
 
     public Spinner getIndividualCategoriesSpinner() {
-        return individualCategoriesSpinner;
+        return getThis().individualCategoriesSpinner;
     }
 
     public void setIndividualCategoriesSpinner(Spinner individualCategoriesSpinner) {
@@ -417,7 +417,7 @@ public class FullInventory extends Fragment {
     }
 
     public ArrayList<String> getIndividualCategoriesSpinnerData() {
-        return individualCategoriesSpinnerData;
+        return getThis().individualCategoriesSpinnerData;
     }
 
     public void setIndividualCategoriesSpinnerData(ArrayList<String> individualCategoriesSpinnerData) {
@@ -425,7 +425,7 @@ public class FullInventory extends Fragment {
     }
 
     public ArrayAdapter<String> getIndividualCategoriesSpinnerAdapter() {
-        return individualCategoriesSpinnerAdapter;
+        return getThis().individualCategoriesSpinnerAdapter;
     }
 
     public void setIndividualCategoriesSpinnerAdapter(ArrayAdapter<String> individualCategoriesSpinnerAdapter) {
@@ -433,7 +433,7 @@ public class FullInventory extends Fragment {
     }
 
     public int getIndividualCategoriesSpinnerPosition() {
-        return individualCategoriesSpinnerPosition;
+        return getThis().individualCategoriesSpinnerPosition;
     }
 
     public void setIndividualCategoriesSpinnerPosition(int individualCategoriesSpinnerPosition) {
@@ -441,7 +441,7 @@ public class FullInventory extends Fragment {
     }
 
     public TextView getIndividualCategoriesLeftArrow() {
-        return individualCategoriesLeftArrow;
+        return getThis().individualCategoriesLeftArrow;
     }
 
     public void setIndividualCategoriesLeftArrow(TextView individualCategoriesLeftArrow) {
@@ -449,7 +449,7 @@ public class FullInventory extends Fragment {
     }
 
     public TextView getIndividualCategoriesRightArrow() {
-        return individualCategoriesRightArrow;
+        return getThis().individualCategoriesRightArrow;
     }
 
     public void setIndividualCategoriesRightArrow(TextView individualCategoriesRightArrow) {
@@ -457,7 +457,7 @@ public class FullInventory extends Fragment {
     }
 
     public LinearLayout getIndividualStoresLayout() {
-        return individualStoresLayout;
+        return getThis().individualStoresLayout;
     }
 
     public void setIndividualStoresLayout(LinearLayout individualStoresLayout) {
@@ -465,7 +465,7 @@ public class FullInventory extends Fragment {
     }
 
     public Spinner getIndividualStoresSpinner() {
-        return individualStoresSpinner;
+        return getThis().individualStoresSpinner;
     }
 
     public void setIndividualStoresSpinner(Spinner individualStoresSpinner) {
@@ -473,7 +473,7 @@ public class FullInventory extends Fragment {
     }
 
     public ArrayList<String> getIndividualStoresSpinnerData() {
-        return individualStoresSpinnerData;
+        return getThis().individualStoresSpinnerData;
     }
 
     public void setIndividualStoresSpinnerData(ArrayList<String> individualStoresSpinnerData) {
@@ -481,7 +481,7 @@ public class FullInventory extends Fragment {
     }
 
     public ArrayAdapter<String> getIndividualStoresSpinnerAdapter() {
-        return individualStoresSpinnerAdapter;
+        return getThis().individualStoresSpinnerAdapter;
     }
 
     public void setIndividualStoresSpinnerAdapter(ArrayAdapter<String> individualStoresSpinnerAdapter) {
@@ -489,7 +489,7 @@ public class FullInventory extends Fragment {
     }
 
     public int getIndividualStoresSpinnerPosition() {
-        return individualStoresSpinnerPosition;
+        return getThis().individualStoresSpinnerPosition;
     }
 
     public void setIndividualStoresSpinnerPosition(int individualStoresSpinnerPosition) {
@@ -497,7 +497,7 @@ public class FullInventory extends Fragment {
     }
 
     public TextView getIndividualStoresLeftArrow() {
-        return individualStoresLeftArrow;
+        return getThis().individualStoresLeftArrow;
     }
 
     public void setIndividualStoresLeftArrow(TextView individualStoresLeftArrow) {
@@ -505,7 +505,7 @@ public class FullInventory extends Fragment {
     }
 
     public TextView getIndividualStoresRightArrow() {
-        return individualStoresRightArrow;
+        return getThis().individualStoresRightArrow;
     }
 
     public void setIndividualStoresRightArrow(TextView individualStoresRightArrow) {
@@ -513,7 +513,7 @@ public class FullInventory extends Fragment {
     }
 
     private RecyclerView getFullInventoryRecyclerView() {
-        return fullInventoryRecyclerView;
+        return getThis().fullInventoryRecyclerView;
     }
 
     private void setFullInventoryRecyclerView(RecyclerView fullInventoryRecyclerView) {
@@ -521,7 +521,7 @@ public class FullInventory extends Fragment {
     }
 
     private RecyclerView getSearchInventoryRecyclerView() {
-        return searchInventoryRecyclerView;
+        return getThis().searchInventoryRecyclerView;
     }
 
     private void setSearchInventoryRecyclerView(RecyclerView searchInventoryRecyclerView) {
@@ -529,7 +529,7 @@ public class FullInventory extends Fragment {
     }
 
     public RecyclerView getIndividualCategoriesRecyclerView() {
-        return individualCategoriesRecyclerView;
+        return getThis().individualCategoriesRecyclerView;
     }
 
     public void setIndividualCategoriesRecyclerView(RecyclerView individualCategoriesRecyclerView) {
@@ -537,7 +537,7 @@ public class FullInventory extends Fragment {
     }
 
     public RecyclerView getIndividualStoresRecyclerView() {
-        return individualStoresRecyclerView;
+        return getThis().individualStoresRecyclerView;
     }
 
     public void setIndividualStoresRecyclerView(RecyclerView individualStoresRecyclerView) {
@@ -545,7 +545,7 @@ public class FullInventory extends Fragment {
     }
 
     private FullInventoryRVA getFullInventoryAdapter() {
-        return fullInventoryAdapter;
+        return getThis().fullInventoryAdapter;
     }
 
     private void setFullInventoryAdapter(FullInventoryRVA fullInventoryAdapter) {
@@ -553,7 +553,7 @@ public class FullInventory extends Fragment {
     }
 
     private SearchInventoryRVA getSearchInventoryAdapter() {
-        return searchInventoryAdapter;
+        return getThis().searchInventoryAdapter;
     }
 
     private void setSearchInventoryAdapter(SearchInventoryRVA searchInventoryAdapter) {
@@ -561,7 +561,7 @@ public class FullInventory extends Fragment {
     }
 
     private IndividualCategoriesRVA getIndividualCategoriesAdapter() {
-        return individualCategoriesAdapter;
+        return getThis().individualCategoriesAdapter;
     }
 
     private void setIndividualCategoriesAdapter(IndividualCategoriesRVA individualCategoriesAdapter) {
@@ -569,7 +569,7 @@ public class FullInventory extends Fragment {
     }
 
     private IndividualStoresRVA getIndividualStoresAdapter() {
-        return individualStoresAdapter;
+        return getThis().individualStoresAdapter;
     }
 
     private void setIndividualStoresAdapter(IndividualStoresRVA individualStoresAdapter) {
@@ -577,7 +577,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getSortAlphabetical() {
-        return sortAlphabetical;
+        return getThis().sortAlphabetical;
     }
 
     private void setSortAlphabetical(Button sortAlphabetical) {
@@ -585,7 +585,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getSortByStore() {
-        return sortByStore;
+        return getThis().sortByStore;
     }
 
     private void setSortByStore(Button sortByStore) {
@@ -593,7 +593,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getSortByCategory() {
-        return sortByCategory;
+        return getThis().sortByCategory;
     }
 
     private void setSortByCategory(Button sortByCategory) {
@@ -601,7 +601,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getViewAll() {
-        return viewAll;
+        return getThis().viewAll;
     }
 
     private void setViewAll(Button viewAll) {
@@ -609,7 +609,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getViewInStock() {
-        return viewInStock;
+        return getThis().viewInStock;
     }
 
     private void setViewInStock(Button viewInStock) {
@@ -617,7 +617,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getViewNeeded() {
-        return viewNeeded;
+        return getThis().viewNeeded;
     }
 
     private void setViewNeeded(Button viewNeeded) {
@@ -625,7 +625,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getViewPaused() {
-        return viewPaused;
+        return getThis().viewPaused;
     }
 
     private void setViewPaused(Button viewPaused) {
@@ -633,7 +633,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getExpandItems() {
-        return expandItems;
+        return getThis().expandItems;
     }
 
     public void setExpandItems(Button expandItems) {
@@ -641,7 +641,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getContractItems() {
-        return contractItems;
+        return getThis().contractItems;
     }
 
     public void setContractItems(Button contractItems) {
@@ -649,7 +649,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getExpandCategories() {
-        return expandCategories;
+        return getThis().expandCategories;
     }
 
     public void setExpandCategories(Button expandCategories) {
@@ -657,7 +657,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getContractCategories() {
-        return contractCategories;
+        return getThis().contractCategories;
     }
 
     public void setContractCategories(Button contractCategories) {
@@ -665,7 +665,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getExpandStores() {
-        return expandStores;
+        return getThis().expandStores;
     }
 
     public void setExpandStores(Button expandStores) {
@@ -673,7 +673,7 @@ public class FullInventory extends Fragment {
     }
 
     public Button getContractStores() {
-        return contractStores;
+        return getThis().contractStores;
     }
 
     public void setContractStores(Button contractStores) {
@@ -681,7 +681,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getIndividualCategories() {
-        return individualCategories;
+        return getThis().individualCategories;
     }
 
     private void setIndividualCategories(Button individualCategories) {
@@ -689,7 +689,7 @@ public class FullInventory extends Fragment {
     }
 
     private Button getIndividualStores() {
-        return individualStores;
+        return getThis().individualStores;
     }
 
     private void setIndividualStores(Button individualStores) {

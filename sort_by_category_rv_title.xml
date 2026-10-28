@@ -15,22 +15,20 @@
 
     <ImageView
         android:id="@+id/triangleButtonDown1"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:src="@mipmap/triangle_down"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="6dp"
+        android:src="@mipmap/minus_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         android:contentDescription="@string/triangleDown"
         android:visibility="visible" />
 
     <ImageView
         android:id="@+id/triangleButtonRight"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:src="@mipmap/triangle_right"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="6dp"
+        android:src="@mipmap/plus_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         android:contentDescription="@string/triangleRight"
         android:visibility="gone" />
@@ -49,22 +47,20 @@
 
     <ImageView
         android:id="@+id/triangleButtonDown2"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:src="@mipmap/triangle_down"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="6dp"
+        android:src="@mipmap/minus_icon"
         app:layout_constraintRight_toRightOf="parent"
         android:contentDescription="@string/triangleDown"
         android:visibility="visible" />
 
     <ImageView
         android:id="@+id/triangleButtonLeft"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:src="@mipmap/triangle_left"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="6dp"
+        android:src="@mipmap/plus_icon"
         app:layout_constraintRight_toRightOf="parent"
         android:contentDescription="@string/triangleLeft"
         android:visibility="gone" />

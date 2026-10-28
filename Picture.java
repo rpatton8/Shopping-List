@@ -17,7 +17,7 @@ class Picture {
     }
 
     public String getPictureName() {
-        return pictureName;
+        return getThis().pictureName;
     }
 
     public void setPictureName(String pictureName) {
@@ -25,7 +25,7 @@ class Picture {
     }
 
     public String getURI() {
-        return pictureURI;
+        return getThis().pictureURI;
     }
 
     public void setURI(String pictureURI) {

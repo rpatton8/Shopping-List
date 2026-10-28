@@ -666,9 +666,15 @@ public class AddItem extends Fragment {
                 String location = getLocationInput().getText().toString();
                 String note = getNoteInput().getText().toString();
 
+                String status = "";
+                if (isInStock()) status = "instock";
+                if (isPaused()) status = "paused";
+                if (isNeeded()) status = "needed";
+                String checked = "unchecked";  // set as checked if item is needed and checked before editing
+
                 getDbItemHelper().addNewItemByCategory(itemName, itemType, itemCategory, itemStore, itemsInCategory);
                 getDbItemHelper().addNewItemByStore(itemName, itemType, itemCategory, itemStore, itemsInStore);
-                getDbStatusHelper().addNewStatus(itemName, getString(R.string.paused), getString(R.string.unchecked));
+                getDbStatusHelper().addNewStatus(itemName, status, checked);
                 getDbOptionalDataHelper().addNewOptionalData(itemName, quantity, price, location, note);
 
                 getShopping().updateItemData();

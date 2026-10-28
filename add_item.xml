@@ -98,7 +98,9 @@
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
                     android:visibility="gone"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -125,7 +127,9 @@
                     android:hint="@string/space"
                     android:background="@drawable/spinner_outline_1dp"
                     android:visibility="gone"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textSize="24sp"
+                    android:gravity="center" />
 
                 <TextView
                     android:layout_width="match_parent"

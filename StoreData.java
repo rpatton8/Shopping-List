@@ -34,7 +34,7 @@ class StoreData {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -42,7 +42,7 @@ class StoreData {
     }
 
     public ArrayList<String> getStoreList() {
-        return storeList;
+        return getThis().storeList;
     }
 
     private void setStoreList(ArrayList<String> storeList) {
@@ -50,7 +50,7 @@ class StoreData {
     }
 
     public ArrayList<String> getStoreListWithBlank() {
-        return storeListWithBlank;
+        return getThis().storeListWithBlank;
     }
 
     private void setStoreListWithBlank(ArrayList<String> storeListWithBlank) {
@@ -58,7 +58,7 @@ class StoreData {
     }
 
     public ArrayList<String> getStoreListWithAddNew() {
-        return storeListWithAddNew;
+        return getThis().storeListWithAddNew;
     }
 
     private void setStoreListWithAddNew(ArrayList<String> storeListWithAddNew) {
@@ -66,7 +66,7 @@ class StoreData {
     }
 
     public HashMap<String, Integer> getStoreViewAllMap() {
-        return storeViewAllMap;
+        return getThis().storeViewAllMap;
     }
 
     private void setStoreViewAllMap(HashMap<String, Integer> storeViewAllMap) {
@@ -74,7 +74,7 @@ class StoreData {
     }
 
     public HashMap<String, Integer> getStoreViewInStockMap() {
-        return storeViewInStockMap;
+        return getThis().storeViewInStockMap;
     }
 
     private void setStoreViewInStockMap(HashMap<String, Integer> storeViewInStockMap) {
@@ -82,7 +82,7 @@ class StoreData {
     }
 
     public HashMap<String, Integer> getStoreViewNeededMap() {
-        return storeViewNeededMap;
+        return getThis().storeViewNeededMap;
     }
 
     private void setStoreViewNeededMap(HashMap<String, Integer> storeViewNeededMap) {
@@ -90,7 +90,7 @@ class StoreData {
     }
 
     public HashMap<String, Integer> getStoreViewPausedMap() {
-        return storeViewPausedMap;
+        return getThis().storeViewPausedMap;
     }
 
     private void setStoreViewPausedMap(HashMap<String, Integer> storeViewPausedMap) {

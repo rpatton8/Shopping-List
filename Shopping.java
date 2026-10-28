@@ -209,7 +209,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -222,7 +222,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     StatusData getStatusData() {
-        return statusData;
+        return getThis().statusData;
     }
 
     private void setStatusData(StatusData statusData) {
@@ -234,7 +234,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -246,7 +246,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -258,7 +258,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public PictureData getPictureData() {
-        return pictureData;
+        return getThis().pictureData;
     }
 
     public void setPictureData(PictureData pictureData) {
@@ -270,7 +270,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public OptionalData getOptionalData() {
-        return optionalData;
+        return getThis().optionalData;
     }
 
     public void setOptionalData(OptionalData optionalData) {
@@ -282,7 +282,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -290,7 +290,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -298,7 +298,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -306,7 +306,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -314,7 +314,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public DBPictureHelper getDbPictureHelper() {
-        return dbPictureHelper;
+        return getThis().dbPictureHelper;
     }
 
     public void setDbPictureHelper(DBPictureHelper dbPictureHelper) {
@@ -322,7 +322,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public DBOptionalDataHelper getDbOptionalDataHelper() {
-        return dbOptionalDataHelper;
+        return getThis().dbOptionalDataHelper;
     }
 
     public void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
@@ -330,7 +330,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean itemIsSelectedInInventory() {
-        return itemIsSelectedInInventory;
+        return getThis().itemIsSelectedInInventory;
     }
 
     void setItemIsSelectedInInventory(boolean itemIsSelectedInInventory) {
@@ -338,7 +338,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean itemIsSelectedInSearchResults() {
-        return itemIsSelectedInSearchResults;
+        return getThis().itemIsSelectedInSearchResults;
     }
 
     void setItemIsSelectedInSearchResults(boolean itemIsSelectedInSearchResults) {
@@ -346,7 +346,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean itemIsSelectedInIndividualCategories() {
-        return itemIsSelectedInIndividualCategories;
+        return getThis().itemIsSelectedInIndividualCategories;
     }
 
     void setItemIsSelectedInIndividualCategories(boolean itemIsSelectedInIndividualCategories) {
@@ -354,7 +354,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean itemIsSelectedInIndividualStores() {
-        return itemIsSelectedInIndividualStores;
+        return getThis().itemIsSelectedInIndividualStores;
     }
 
     void setItemIsSelectedInIndividualStores(boolean itemIsSelectedInIndividualStores) {
@@ -362,7 +362,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean itemIsSelectedInShoppingList() {
-        return itemIsSelectedInShoppingList;
+        return getThis().itemIsSelectedInShoppingList;
     }
 
     void setItemIsSelectedInShoppingList(boolean itemIsSelectedInShoppingList) {
@@ -370,7 +370,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getSelectedItemInInventory() {
-        return selectedItemInInventory;
+        return getThis().selectedItemInInventory;
     }
 
     void setSelectedItemInInventory(Item selectedItemInInventory) {
@@ -378,7 +378,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getSelectedItemInSearchResults() {
-        return selectedItemInSearchResults;
+        return getThis().selectedItemInSearchResults;
     }
 
     void setSelectedItemInSearchResults(Item selectedItemInSearchResults) {
@@ -386,7 +386,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getSelectedItemInIndividualCategories() {
-        return selectedItemInIndividualCategories;
+        return getThis().selectedItemInIndividualCategories;
     }
 
     void setSelectedItemInIndividualCategories(Item selectedItemInIndividualCategories) {
@@ -394,7 +394,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getSelectedItemInIndividualStores() {
-        return selectedItemInIndividualStores;
+        return getThis().selectedItemInIndividualStores;
     }
 
     void setSelectedItemInIndividualStores(Item selectedItemInIndividualStores) {
@@ -402,7 +402,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getSelectedItemInShoppingList() {
-        return selectedItemInShoppingList;
+        return getThis().selectedItemInShoppingList;
     }
 
     void setSelectedItemInShoppingList(Item selectedItemInShoppingList) {
@@ -410,7 +410,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getSelectedItemPositionInInventory() {
-        return selectedItemPositionInInventory;
+        return getThis().selectedItemPositionInInventory;
     }
 
     void setSelectedItemPositionInInventory(int selectedItemPositionInInventory) {
@@ -418,7 +418,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getSelectedItemPositionInSearchResults() {
-        return selectedItemPositionInSearchResults;
+        return getThis().selectedItemPositionInSearchResults;
     }
 
     void setSelectedItemPositionInSearchResults(int selectedItemPositionInSearchResults) {
@@ -426,7 +426,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getSelectedItemPositionInIndividualCategories() {
-        return selectedItemPositionInIndividualCategories;
+        return getThis().selectedItemPositionInIndividualCategories;
     }
 
     void setSelectedItemPositionInIndividualCategories(int selectedItemPositionInIndividualCategories) {
@@ -434,7 +434,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getSelectedItemPositionInIndividualStores() {
-        return selectedItemPositionInIndividualStores;
+        return getThis().selectedItemPositionInIndividualStores;
     }
 
     void setSelectedItemPositionInIndividualStores(int selectedItemPositionInIndividualStores) {
@@ -442,7 +442,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getSelectedItemPositionInShoppingList() {
-        return selectedItemPositionInShoppingList;
+        return getThis().selectedItemPositionInShoppingList;
     }
 
     void setSelectedItemPositionInShoppingList(int selectedItemPositionInShoppingList) {
@@ -450,7 +450,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Item getItemInPictureDialog() {
-        return itemInPictureDialog;
+        return getThis().itemInPictureDialog;
     }
 
     void setItemInPictureDialog(Item itemInPictureDialog) {
@@ -458,7 +458,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     int getShoppingListStoreOrderNum() {
-        return shoppingListStoreOrderNum;
+        return getThis().shoppingListStoreOrderNum;
     }
 
     void setShoppingListStoreOrderNum(int shoppingListStoreOrderNum) {
@@ -466,7 +466,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderItemsCategory() {
-        return reorderItemsCategory;
+        return getThis().reorderItemsCategory;
     }
 
     void setReorderItemsCategory(String reorderItemsCategory) {
@@ -474,7 +474,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderItemsStore() {
-        return reorderItemsStore;
+        return getThis().reorderItemsStore;
     }
 
     void setReorderItemsStore(String reorderItemsStore) {
@@ -482,7 +482,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getIndividualCategory() {
-        return individualCategory;
+        return getThis().individualCategory;
     }
 
     void setIndividualCategory(String individualCategory) {
@@ -490,7 +490,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getIndividualStore() {
-        return individualStore;
+        return getThis().individualStore;
     }
 
     void setIndividualStore(String individualStore) {
@@ -498,7 +498,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean searchPopupInInventory() {
-        return searchPopupInInventory;
+        return getThis().searchPopupInInventory;
     }
 
     void setSearchPopupInInventory(boolean searchPopupInInventory) {
@@ -506,7 +506,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean searchPopupInIndividualCategories() {
-        return searchPopupInIndividualCategories;
+        return getThis().searchPopupInIndividualCategories;
     }
 
     void setSearchPopupInIndividualCategories(boolean searchPopupInIndividualCategories) {
@@ -514,7 +514,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean searchPopupInIndividualStores() {
-        return searchPopupInIndividualStores;
+        return getThis().searchPopupInIndividualStores;
     }
 
     void setSearchPopupInIndividualStores(boolean searchPopupInIndividualStores) {
@@ -522,7 +522,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInInventory() {
-        return editItemInInventory;
+        return getThis().editItemInInventory;
     }
 
     void setEditItemInInventory(boolean editItemInInventory) {
@@ -530,7 +530,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInSearchResults() {
-        return editItemInSearchResults;
+        return getThis().editItemInSearchResults;
     }
 
     void setEditItemInSearchResults(boolean editItemInSearchResults) {
@@ -538,7 +538,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInIndividualCategories() {
-        return editItemInIndividualCategories;
+        return getThis().editItemInIndividualCategories;
     }
 
     void setEditItemInIndividualCategories(boolean editItemInIndividualCategories) {
@@ -546,7 +546,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInIndividualStores() {
-        return editItemInIndividualStores;
+        return getThis().editItemInIndividualStores;
     }
 
     void setEditItemInIndividualStores(boolean editItemInIndividualStores) {
@@ -554,7 +554,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInShoppingList() {
-        return editItemInShoppingList;
+        return getThis().editItemInShoppingList;
     }
 
     void setEditItemInShoppingList(boolean editItemInShoppingList) {
@@ -562,7 +562,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean editItemInPictureDialog() {
-        return editItemInPictureDialog;
+        return getThis().editItemInPictureDialog;
     }
 
     void setEditItemInPictureDialog(boolean editItemInPictureDialog) {
@@ -570,7 +570,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean pictureDialogInInventory() {
-        return pictureDialogInInventory;
+        return getThis().pictureDialogInInventory;
     }
 
     void setPictureDialogInInventory(boolean pictureDialogInInventory) {
@@ -578,7 +578,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean pictureDialogInSearchResults() {
-        return pictureDialogInSearchResults;
+        return getThis().pictureDialogInSearchResults;
     }
 
     void setPictureDialogInSearchResults(boolean pictureDialogInSearchResults) {
@@ -586,7 +586,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean pictureDialogInIndividualCategories() {
-        return pictureDialogInIndividualCategories;
+        return getThis().pictureDialogInIndividualCategories;
     }
 
     void setPictureDialogInIndividualCategories(boolean pictureDialogInIndividualCategories) {
@@ -594,7 +594,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean pictureDialogInIndividualStores() {
-        return pictureDialogInIndividualStores;
+        return getThis().pictureDialogInIndividualStores;
     }
 
     void setPictureDialogInIndividualStores(boolean pictureDialogInIndividualStores) {
@@ -602,7 +602,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     boolean pictureDialogInShoppingList() {
-        return pictureDialogInShoppingList;
+        return getThis().pictureDialogInShoppingList;
     }
 
     void setPictureDialogInShoppingList(boolean pictureDialogInShoppingList) {
@@ -610,7 +610,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     SearchAlgorithm getSearchAlgorithm() {
-        return searchAlgorithm;
+        return getThis().searchAlgorithm;
     }
 
     private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
@@ -618,7 +618,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private AlertDialog getAlertDialog() {
-        return alertDialog;
+        return getThis().alertDialog;
     }
 
     private void setAlertDialog(AlertDialog alertDialog) {
@@ -626,7 +626,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public View getAlertDialogView() {
-        return alertDialogView;
+        return getThis().alertDialogView;
     }
 
     public void setAlertDialogView(View alertDialogView) {
@@ -634,7 +634,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public TextView getAlertDialogTitle() {
-        return alertDialogTitle;
+        return getThis().alertDialogTitle;
     }
 
     public void setAlertDialogTitle(TextView alertDialogTitle) {
@@ -642,7 +642,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public TextView getAlertDialogMessage() {
-        return alertDialogMessage;
+        return getThis().alertDialogMessage;
     }
 
     public void setAlertDialogMessage(TextView alertDialogMessage) {
@@ -650,7 +650,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private TextView getAlertDialogButton() {
-        return alertDialogButton;
+        return getThis().alertDialogButton;
     }
 
     private void setAlertDialogButton(TextView alertDialogButton) {
@@ -658,7 +658,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private AlertDialog getPictureDialog() {
-        return pictureDialog;
+        return getThis().pictureDialog;
     }
 
     private void setPictureDialog(AlertDialog pictureDialog) {
@@ -666,7 +666,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private View getPictureDialogView() {
-        return pictureDialogView;
+        return getThis().pictureDialogView;
     }
 
     private void setPictureDialogView(View pictureDialogView) {
@@ -674,7 +674,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public TextView getPictureDialogTitle() {
-        return pictureDialogTitle;
+        return getThis().pictureDialogTitle;
     }
 
     public void setPictureDialogTitle(TextView pictureDialogTitle) {
@@ -682,7 +682,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public ImageView getPictureDialogImage() {
-        return pictureDialogImage;
+        return getThis().pictureDialogImage;
     }
 
     public void setPictureDialogImage(ImageView pictureDialogImage) {
@@ -690,7 +690,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public ImageCapture getImageCapture() {
-        return imageCapture;
+        return getThis().imageCapture;
     }
 
     public void setImageCapture(ImageCapture imageCapture) {
@@ -698,7 +698,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public PreviewView getPreviewView() {
-        return previewView;
+        return getThis().previewView;
     }
 
     public void setPreviewView(PreviewView previewView) {
@@ -706,7 +706,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private TextView getCameraButton() {
-        return cameraButton;
+        return getThis().cameraButton;
     }
 
     private void setCameraButton(TextView cameraButton) {
@@ -714,7 +714,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private TextView getEditButton() {
-        return editButton;
+        return getThis().editButton;
     }
 
     private void setEditButton(TextView editButton) {
@@ -722,7 +722,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private TextView getTakeButton() {
-        return takeButton;
+        return getThis().takeButton;
     }
 
     private void setTakeButton(TextView takeButton) {
@@ -730,7 +730,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private TextView getCancelButton() {
-        return cancelButton;
+        return getThis().cancelButton;
     }
 
     private void setCancelButton(TextView cancelButton) {
@@ -738,7 +738,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private LinearLayout getCameraEditButtons() {
-        return cameraEditButtons;
+        return getThis().cameraEditButtons;
     }
 
     private void setCameraEditButtons(LinearLayout cameraEditButtons) {
@@ -746,7 +746,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     private LinearLayout getTakeCancelButtons() {
-        return takeCancelButtons;
+        return getThis().takeCancelButtons;
     }
 
     private void setTakeCancelButtons(LinearLayout takeCancelButtons) {
@@ -754,7 +754,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public LifecycleCameraController getCameraController() {
-        return cameraController;
+        return getThis().cameraController;
     }
 
     public void setCameraController(LifecycleCameraController cameraController) {
@@ -762,7 +762,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getInventoryView() {
-        return inventoryView;
+        return getThis().inventoryView;
     }
 
     void setInventoryView(String inventoryView) {
@@ -770,7 +770,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getInventorySortBy() {
-        return inventorySortBy;
+        return getThis().inventorySortBy;
     }
 
     void setInventorySortBy(String inventorySortBy) {
@@ -778,7 +778,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getDefaultSortBy() {
-        return defaultSortBy;
+        return getThis().defaultSortBy;
     }
 
     void setDefaultSortBy(String defaultSortBy) {
@@ -786,7 +786,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public String getCategoryTitles() {
-        return categoryTitles;
+        return getThis().categoryTitles;
     }
 
     public void setCategoryTitles(String categoryTitles) {
@@ -794,7 +794,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getDefaultCategoryTitles() {
-        return defaultCategoryTitles;
+        return getThis().defaultCategoryTitles;
     }
 
     void setDefaultCategoryTitles(String defaultCategoryTitles) {
@@ -802,7 +802,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     public String getStoreTitles() {
-        return storeTitles;
+        return getThis().storeTitles;
     }
 
     public void setStoreTitles(String storeTitles) {
@@ -810,7 +810,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getDefaultStoreTitles() {
-        return defaultStoreTitles;
+        return getThis().defaultStoreTitles;
     }
 
     void setDefaultStoreTitles(String defaultStoreTitles) {
@@ -818,7 +818,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getItemExpansion() {
-        return itemExpansion;
+        return getThis().itemExpansion;
     }
 
     void setItemExpansion(String itemExpansion) {
@@ -826,7 +826,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderingMethod() {
-        return reorderingMethod;
+        return getThis().reorderingMethod;
     }
 
     void setReorderingMethod(String reorderingMethod) {
@@ -834,7 +834,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getColorScheme() {
-        return colorScheme;
+        return getThis().colorScheme;
     }
 
     void setColorScheme(String colorScheme) {
@@ -842,7 +842,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getSwipingOption() {
-        return swipingOption;
+        return getThis().swipingOption;
     }
 
     void setSwipingOption(String swipingOption) {
@@ -850,7 +850,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getPicturesOption() {
-        return picturesOption;
+        return getThis().picturesOption;
     }
 
     void setPicturesOption(String picturesOption) {
@@ -858,7 +858,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getOptionalDataQuantity() {
-        return optionalDataQuantity;
+        return getThis().optionalDataQuantity;
     }
 
     void setOptionalDataQuantity(String optionalDataQuantity) {
@@ -866,7 +866,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getOptionalDataPrice() {
-        return optionalDataPrice;
+        return getThis().optionalDataPrice;
     }
 
     void setOptionalDataPrice(String optionalDataPrice) {
@@ -874,7 +874,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getOptionalDataLocation() {
-        return optionalDataLocation;
+        return getThis().optionalDataLocation;
     }
 
     void setOptionalDataLocation(String optionalDataLocation) {
@@ -882,7 +882,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getOptionalDataNote() {
-        return optionalDataNote;
+        return getThis().optionalDataNote;
     }
 
     void setOptionalDataNote(String optionalDataNote) {
@@ -890,7 +890,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderCategoryEmoji() {
-        return reorderCategoryEmoji;
+        return getThis().reorderCategoryEmoji;
     }
 
     void setReorderCategoryEmoji(String reorderCategoryEmoji) {
@@ -898,7 +898,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderItemByCategoryEmoji() {
-        return reorderItemByCategoryEmoji;
+        return getThis().reorderItemByCategoryEmoji;
     }
 
     void setReorderItemByCategoryEmoji(String reorderItemByCategoryEmoji) {
@@ -906,7 +906,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderItemByStoreEmoji() {
-        return reorderItemByStoreEmoji;
+        return getThis().reorderItemByStoreEmoji;
     }
 
     void setReorderItemByStoreEmoji(String reorderItemByStoreEmoji) {
@@ -914,7 +914,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     String getReorderStoreEmoji() {
-        return reorderStoreEmoji;
+        return getThis().reorderStoreEmoji;
     }
 
     void setReorderStoreEmoji(String reorderStoreEmoji) {
@@ -922,7 +922,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getShoppingListViewState() {
-        return shoppingListViewState;
+        return getThis().shoppingListViewState;
     }
 
     void setShoppingListViewState(Parcelable shoppingListViewState) {
@@ -930,7 +930,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getFullInventoryViewState() {
-        return fullInventoryViewState;
+        return getThis().fullInventoryViewState;
     }
 
     void setFullInventoryViewState(Parcelable fullInventoryViewState) {
@@ -938,7 +938,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getSearchInventoryViewState() {
-        return searchInventoryViewState;
+        return getThis().searchInventoryViewState;
     }
 
     void setSearchInventoryViewState(Parcelable searchInventoryViewState) {
@@ -946,7 +946,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getIndividualCategoriesViewState() {
-        return individualCategoriesViewState;
+        return getThis().individualCategoriesViewState;
     }
 
     void setIndividualCategoriesViewState(Parcelable individualCategoriesViewState) {
@@ -954,7 +954,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getIndividualStoresViewState() {
-        return individualStoresViewState;
+        return getThis().individualStoresViewState;
     }
 
     void setIndividualStoresViewState(Parcelable individualStoresViewState) {
@@ -962,7 +962,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getReorderCategoriesViewState() {
-        return reorderCategoriesViewState;
+        return getThis().reorderCategoriesViewState;
     }
 
     void setReorderCategoriesViewState(Parcelable reorderCategoriesViewState) {
@@ -970,7 +970,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getReorderStoresViewState() {
-        return reorderStoresViewState;
+        return getThis().reorderStoresViewState;
     }
 
     void setReorderStoresViewState(Parcelable reorderStoresViewState) {
@@ -978,7 +978,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getReorderItemsRecyclerViewState() {
-        return reorderItemsRecyclerViewState;
+        return getThis().reorderItemsRecyclerViewState;
     }
 
     void setReorderItemsRecyclerViewState(Parcelable reorderItemsRecyclerViewState) {
@@ -986,7 +986,7 @@ public class Shopping extends AppCompatActivity {
     }
 
     Parcelable getReorderItemsScrollViewState() {
-        return reorderItemsScrollViewState;
+        return getThis().reorderItemsScrollViewState;
     }
 
     void setReorderItemsScrollViewState(Parcelable reorderItemsScrollViewState) {
@@ -1303,6 +1303,7 @@ public class Shopping extends AppCompatActivity {
         getDbStoreHelper().deleteDatabase();
         getDbPictureHelper().deleteDatabase();
         getDbOptionalDataHelper().deleteDatabase();
+        initializeData();
     }
 
     void initializeData() {

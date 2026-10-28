@@ -36,7 +36,7 @@ class ItemData {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -44,7 +44,7 @@ class ItemData {
     }
 
     public Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     public void setShopping(Shopping shopping) {
@@ -52,7 +52,7 @@ class ItemData {
     }
 
     private LinkedList<Item> getItemsAZ() {
-        return itemsAZ;
+        return getThis().itemsAZ;
     }
 
     private void setItemsAZ(LinkedList<Item> itemsAZ) {
@@ -60,7 +60,7 @@ class ItemData {
     }
 
     private ArrayList<Item> getItemsByCategory() {
-        return itemsByCategory;
+        return getThis().itemsByCategory;
     }
 
     private void setItemsByCategory(ArrayList<Item> itemsByCategory) {
@@ -68,7 +68,7 @@ class ItemData {
     }
 
     private ArrayList<Item> getItemsByStore() {
-        return itemsByStore;
+        return getThis().itemsByStore;
     }
 
     private void setItemsByStore(ArrayList<Item> itemsByStore) {
@@ -76,7 +76,7 @@ class ItemData {
     }
 
     HashMap<String, Item> getItemMap() {
-        return itemMap;
+        return getThis().itemMap;
     }
 
     private void setItemMap(HashMap<String, Item> itemMap) {
@@ -84,7 +84,7 @@ class ItemData {
     }
 
     HashMap<String, Category> getCategoryMap() {
-        return categoryMap;
+        return getThis().categoryMap;
     }
 
     private void setCategoryMap(HashMap<String, Category> categoryMap) {
@@ -92,7 +92,7 @@ class ItemData {
     }
 
     HashMap<String, Store> getStoreMap() {
-        return storeMap;
+        return getThis().storeMap;
     }
 
     private void setStoreMap(HashMap<String, Store> storeMap) {

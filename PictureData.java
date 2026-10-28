@@ -18,7 +18,7 @@ class PictureData {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -26,7 +26,7 @@ class PictureData {
     }
 
     HashMap<String, Picture> getPictureMap() {
-        return pictureMap;
+        return getThis().pictureMap;
     }
 
     private void setPictureMap(HashMap<String, Picture> pictureMap) {
