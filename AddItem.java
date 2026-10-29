@@ -677,8 +677,31 @@ public class AddItem extends Fragment {
                 getDbStatusHelper().addNewStatus(itemName, status, checked);
                 getDbOptionalDataHelper().addNewOptionalData(itemName, quantity, price, location, note);
 
+                int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(itemCategory);
+                int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(itemCategory);
+                int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(itemCategory);
+                int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(itemCategory);
+
+                int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(itemStore);
+                int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(itemStore);
+                int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(itemStore);
+                int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(itemStore);
+
+                if (isInStock()) {
+                    getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), (numItemsInStockCategory + 1), numItemsNeededCategory, numItemsPausedCategory);
+                    getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), (numItemsInStockStore + 1), numItemsNeededStore, numItemsPausedStore);
+                } else if (isPaused()) {
+                    getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), numItemsInStockCategory, numItemsNeededCategory, (numItemsPausedCategory + 1));
+                    getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), numItemsInStockStore, numItemsNeededStore, (numItemsPausedStore + 1));
+                } else if (isNeeded()) {
+                    getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), numItemsInStockCategory, (numItemsNeededCategory + 1), numItemsPausedCategory);
+                    getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), numItemsInStockStore, (numItemsNeededStore + 1), numItemsPausedStore);
+                }
+
                 getShopping().updateItemData();
                 getShopping().updateStatusData();
+                getShopping().updateCategoryData();
+                getShopping().updateStoreData();
                 getShopping().updateOptionalData();
 
                 getShopping().hideKeyboard();
