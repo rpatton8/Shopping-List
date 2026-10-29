@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="checkbox_checked_background">#FFFFFF</color>
+
+    <color name="checkbox_unchecked_background">#FFFFFF</color>
+
+    <color name="clear_button_background">#99CC00</color>
+
+    <color name="edit_3dots_background">#4498C7</color>
+
+    <color name="home_button_background">#FFFFFF</color>
+
+    <color name="left_arrow_blue_background">#4498C7</color>
+
+    <color name="left_arrow_white_background">#FFFFFF</color>
+
+    <color name="minus_icon_background">#AAAAAA</color>
+
+    <color name="plus_button_background">#4498C7</color>
+
+    <color name="plus_icon_background">#AAAAAA</color>
+
+    <color name="refresh_icon_blue_background">#4498C7</color>
+
+    <color name="refresh_icon_white_background">#FFFFFF</color>
+
+    <color name="right_arrow_blue_background">#4498C7</color>
+
+    <color name="right_arrow_white_background">#FFFFFF</color>
+
+    <color name="search_icon_background">#4498C7</color>
+
+    <color name="shopping_icon_background">#3785E9</color>
+
+</resources>
