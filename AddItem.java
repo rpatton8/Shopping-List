@@ -687,13 +687,21 @@ public class AddItem extends Fragment {
                 int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(itemStore);
                 int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(itemStore);
 
+                getCategoryData().getCategoryViewAllMap().put(itemCategory, numItemsViewAllCategory + 1);
+                getStoreData().getStoreViewAllMap().put(itemStore, numItemsViewAllStore + 1);
                 if (isInStock()) {
+                    getCategoryData().getCategoryViewInStockMap().put(itemCategory, numItemsInStockCategory + 1);
+                    getStoreData().getStoreViewInStockMap().put(itemStore, numItemsInStockStore + 1);
                     getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), (numItemsInStockCategory + 1), numItemsNeededCategory, numItemsPausedCategory);
                     getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), (numItemsInStockStore + 1), numItemsNeededStore, numItemsPausedStore);
                 } else if (isPaused()) {
+                    getCategoryData().getCategoryViewPausedMap().put(itemCategory, numItemsPausedCategory + 1);
+                    getStoreData().getStoreViewPausedMap().put(itemStore, numItemsPausedStore + 1);
                     getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), numItemsInStockCategory, numItemsNeededCategory, (numItemsPausedCategory + 1));
                     getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), numItemsInStockStore, numItemsNeededStore, (numItemsPausedStore + 1));
                 } else if (isNeeded()) {
+                    getCategoryData().getCategoryViewNeededMap().put(itemCategory, numItemsNeededCategory + 1);
+                    getStoreData().getStoreViewNeededMap().put(itemStore, numItemsNeededStore + 1);
                     getDbCategoryHelper().setCategoryViews(itemCategory, (numItemsViewAllCategory + 1), numItemsInStockCategory, (numItemsNeededCategory + 1), numItemsPausedCategory);
                     getDbStoreHelper().setStoreViews(itemStore, (numItemsViewAllStore + 1), numItemsInStockStore, (numItemsNeededStore + 1), numItemsPausedStore);
                 }

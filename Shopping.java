@@ -257,11 +257,11 @@ public class Shopping extends AppCompatActivity {
         getDbStoreHelper().readStoreData(getStoreData());
     }
 
-    public PictureData getPictureData() {
+    private PictureData getPictureData() {
         return getThis().pictureData;
     }
 
-    public void setPictureData(PictureData pictureData) {
+    private void setPictureData(PictureData pictureData) {
         getThis().pictureData = pictureData;
     }
 
@@ -269,11 +269,11 @@ public class Shopping extends AppCompatActivity {
         getDbPictureHelper().readPictureData(getPictureData());
     }
 
-    public OptionalData getOptionalData() {
+    private OptionalData getOptionalData() {
         return getThis().optionalData;
     }
 
-    public void setOptionalData(OptionalData optionalData) {
+    private void setOptionalData(OptionalData optionalData) {
         getThis().optionalData = optionalData;
     }
 
@@ -313,19 +313,19 @@ public class Shopping extends AppCompatActivity {
         getThis().dbStoreHelper = dbStoreHelper;
     }
 
-    public DBPictureHelper getDbPictureHelper() {
+    private DBPictureHelper getDbPictureHelper() {
         return getThis().dbPictureHelper;
     }
 
-    public void setDbPictureHelper(DBPictureHelper dbPictureHelper) {
+    private void setDbPictureHelper(DBPictureHelper dbPictureHelper) {
         getThis().dbPictureHelper = dbPictureHelper;
     }
 
-    public DBOptionalDataHelper getDbOptionalDataHelper() {
+    private DBOptionalDataHelper getDbOptionalDataHelper() {
         return getThis().dbOptionalDataHelper;
     }
 
-    public void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
+    private void setDbOptionalDataHelper(DBOptionalDataHelper dbOptionalDataHelper) {
         getThis().dbOptionalDataHelper = dbOptionalDataHelper;
     }
 
