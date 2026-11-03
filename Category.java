@@ -19,9 +19,9 @@ class Category {
         setCategoryItems(new ArrayList<>());
         getCategoryItems().add(item);
 
-        if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
+        if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getDefaultCategoryTitles())) {
             setCategoryAsExpanded();
-        } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
+        } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getDefaultCategoryTitles())) {
             setCategoryAsContracted();
         }
     }

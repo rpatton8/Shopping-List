@@ -3,8 +3,6 @@ package ryan.android.shopping;
 import android.content.Context;
 import android.os.SystemClock;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -973,17 +971,13 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private Shopping shopping;
         private FullInventoryRVA adapter;
         private ItemData itemData;
-
+        private String category;
         private LinearLayout sortByCategoryRvLayout;
         private TextView categoryTitleText;
-        private ImageView triangleButtonDown1;
-        private ImageView triangleButtonDown2;
-        private ImageView triangleButtonRight;
-        private ImageView triangleButtonLeft;
-
-        private String category;
-        private boolean isExpanded;
-        private boolean isContracted;
+        private ImageView minusIconLeft;
+        private ImageView plusIconLeft;
+        private ImageView minusIconRight;
+        private ImageView plusIconRight;
 
         private SortByCategoryTitleRVH(View view, Shopping shopping, FullInventoryRVA adapter, ItemData itemData) {
 
@@ -995,22 +989,17 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             setSortByCategoryRvLayout(getView().findViewById(R.id.sortByCategoryRvLayout));
             setCategoryTitleText(getView().findViewById(R.id.categoryTitleText));
-            setTriangleButtonDown1(getView().findViewById(R.id.triangleButtonDown1));
-            setTriangleButtonDown2(getView().findViewById(R.id.triangleButtonDown2));
-            setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
-            setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
+            setMinusIconLeft(getView().findViewById(R.id.minusIconLeft));
+            setMinusIconRight(getView().findViewById(R.id.minusIconRight));
+            setPlusIconLeft(getView().findViewById(R.id.plusIconLeft));
+            setPlusIconRight(getView().findViewById(R.id.plusIconRight));
 
-            if (Shopping.CATEGORY_TITLES_EXPANDED.equals(getShopping().getCategoryTitles())) {
-                setAsExpanded();
-            } else if (Shopping.CATEGORY_TITLES_CONTRACTED.equals(getShopping().getCategoryTitles())) {
-                setAsContracted();
-            }
-
+            getSortByCategoryRvLayout().setOnClickListener(getThis());
             getCategoryTitleText().setOnClickListener(getThis());
-            getTriangleButtonDown1().setOnClickListener(getThis());
-            getTriangleButtonDown2().setOnClickListener(getThis());
-            getTriangleButtonRight().setOnClickListener(getThis());
-            getTriangleButtonLeft().setOnClickListener(getThis());
+            getMinusIconLeft().setOnClickListener(getThis());
+            getMinusIconRight().setOnClickListener(getThis());
+            getPlusIconLeft().setOnClickListener(getThis());
+            getPlusIconRight().setOnClickListener(getThis());
 
         }
 
@@ -1051,7 +1040,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private LinearLayout getSortByCategoryRvLayout() {
-            return sortByCategoryRvLayout;
+            return getThis().sortByCategoryRvLayout;
         }
 
         private void setSortByCategoryRvLayout(LinearLayout sortByCategoryRvLayout) {
@@ -1059,43 +1048,43 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getCategoryTitleText() {
-            return categoryTitleText;
+            return getThis().categoryTitleText;
         }
 
         private void setCategoryTitleText(TextView categoryTitleText) {
             getThis().categoryTitleText = categoryTitleText;
         }
 
-        private ImageView getTriangleButtonDown1() {
-            return triangleButtonDown1;
+        private ImageView getMinusIconLeft() {
+            return getThis().minusIconLeft;
         }
 
-        private void setTriangleButtonDown1(ImageView triangleButtonDown1) {
-            getThis().triangleButtonDown1 = triangleButtonDown1;
+        private void setMinusIconLeft(ImageView minusIconLeft) {
+            getThis().minusIconLeft = minusIconLeft;
         }
 
-        private ImageView getTriangleButtonDown2() {
-            return triangleButtonDown2;
+        private ImageView getPlusIconLeft() {
+            return getThis().plusIconLeft;
         }
 
-        private void setTriangleButtonDown2(ImageView triangleButtonDown2) {
-            getThis().triangleButtonDown2 = triangleButtonDown2;
+        private void setPlusIconLeft(ImageView plusIconLeft) {
+            getThis().plusIconLeft = plusIconLeft;
         }
 
-        private ImageView getTriangleButtonRight() {
-            return triangleButtonRight;
+        private ImageView getMinusIconRight() {
+            return getThis().minusIconRight;
         }
 
-        private void setTriangleButtonRight(ImageView triangleButtonRight) {
-            getThis().triangleButtonRight = triangleButtonRight;
+        private void setMinusIconRight(ImageView minusIconRight) {
+            getThis().minusIconRight = minusIconRight;
         }
 
-        private ImageView getTriangleButtonLeft() {
-            return triangleButtonLeft;
+        private ImageView getPlusIconRight() {
+            return getThis().plusIconRight;
         }
 
-        private void setTriangleButtonLeft(ImageView triangleButtonLeft) {
-            getThis().triangleButtonLeft = triangleButtonLeft;
+        private void setPlusIconRight(ImageView plusIconRight) {
+            getThis().plusIconRight = plusIconRight;
         }
 
         public String getCategory() {
@@ -1106,24 +1095,6 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getThis().category = category;
         }
 
-        private boolean isExpanded() {
-            return isExpanded;
-        }
-
-        private void setAsExpanded() {
-            isExpanded = true;
-            isContracted = false;
-        }
-
-        private boolean isContracted() {
-            return isContracted;
-        }
-
-        private void setAsContracted() {
-            isExpanded = false;
-            isContracted = true;
-        }
-
         public void onClick(View v) {
 
             int id = v.getId();
@@ -1131,18 +1102,18 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Category thisCategory = getItemData().getCategoryMap().get(getCategory());
             if (thisCategory == null) return;
 
-            if (id == getCategoryTitleText().getId()) {
-                if (isExpanded()) {
+            if (id == getCategoryTitleText().getId() || id == getSortByCategoryRvLayout().getId()) {
+                if (thisCategory.categoryIsExpanded()) {
                     contractTitle();
                     thisCategory.setCategoryAsContracted();
-                } else if (isContracted()) {
+                } else if (thisCategory.categoryIsContracted()) {
                     expandTitle();
                     thisCategory.setCategoryAsExpanded();
                 }
-            } else if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
+            } else if (id == getMinusIconLeft().getId() || id == getMinusIconRight().getId()) {
                 contractTitle();
                 thisCategory.setCategoryAsContracted();
-            } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
+            } else if (id == getPlusIconLeft().getId() || id == getPlusIconRight().getId()) {
                 expandTitle();
                 thisCategory.setCategoryAsExpanded();
             }
@@ -1151,19 +1122,17 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private void expandTitle() {
-            setAsExpanded();
-            getTriangleButtonDown1().setVisibility(View.VISIBLE);
-            getTriangleButtonDown2().setVisibility(View.VISIBLE);
-            getTriangleButtonRight().setVisibility(View.GONE);
-            getTriangleButtonLeft().setVisibility(View.GONE);
+            getMinusIconLeft().setVisibility(View.VISIBLE);
+            getMinusIconRight().setVisibility(View.VISIBLE);
+            getPlusIconLeft().setVisibility(View.GONE);
+            getPlusIconRight().setVisibility(View.GONE);
         }
 
         private void contractTitle() {
-            setAsContracted();
-            getTriangleButtonDown1().setVisibility(View.GONE);
-            getTriangleButtonDown2().setVisibility(View.GONE);
-            getTriangleButtonRight().setVisibility(View.VISIBLE);
-            getTriangleButtonLeft().setVisibility(View.VISIBLE);
+            getMinusIconLeft().setVisibility(View.GONE);
+            getMinusIconRight().setVisibility(View.GONE);
+            getPlusIconLeft().setVisibility(View.VISIBLE);
+            getPlusIconRight().setVisibility(View.VISIBLE);
         }
     }
 
@@ -1863,17 +1832,13 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private Shopping shopping;
         private FullInventoryRVA adapter;
         private ItemData itemData;
-
+        private String store;
         private LinearLayout sortByStoreRvLayout;
         private TextView storeTitleText;
-        private ImageView triangleButtonDown1;
-        private ImageView triangleButtonDown2;
-        private ImageView triangleButtonRight;
-        private ImageView triangleButtonLeft;
-
-        private String store;
-        private boolean isExpanded;
-        private boolean isContracted;
+        private ImageView minusIconLeft;
+        private ImageView plusIconLeft;
+        private ImageView minusIconRight;
+        private ImageView plusIconRight;
 
         private SortByStoreTitleRVH(View view, Shopping shopping, FullInventoryRVA adapter, ItemData itemData) {
 
@@ -1885,22 +1850,17 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             setSortByStoreRvLayout(getView().findViewById(R.id.sortByStoreRvLayout));
             setStoreTitleText(getView().findViewById(R.id.storeTitleText));
-            setTriangleButtonDown1(getView().findViewById(R.id.triangleButtonDown1));
-            setTriangleButtonDown2(getView().findViewById(R.id.triangleButtonDown2));
-            setTriangleButtonRight(getView().findViewById(R.id.triangleButtonRight));
-            setTriangleButtonLeft(getView().findViewById(R.id.triangleButtonLeft));
+            setMinusIconLeft(getView().findViewById(R.id.minusIconLeft));
+            setMinusIconRight(getView().findViewById(R.id.minusIconRight));
+            setPlusIconLeft(getView().findViewById(R.id.plusIconLeft));
+            setPlusIconRight(getView().findViewById(R.id.plusIconRight));
 
-            if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
-                setAsExpanded();
-            } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
-                setAsContracted();
-            }
-
+            getSortByStoreRvLayout().setOnClickListener(getThis());
             getStoreTitleText().setOnClickListener(getThis());
-            getTriangleButtonDown1().setOnClickListener(getThis());
-            getTriangleButtonDown2().setOnClickListener(getThis());
-            getTriangleButtonRight().setOnClickListener(getThis());
-            getTriangleButtonLeft().setOnClickListener(getThis());
+            getMinusIconLeft().setOnClickListener(getThis());
+            getMinusIconRight().setOnClickListener(getThis());
+            getPlusIconLeft().setOnClickListener(getThis());
+            getPlusIconRight().setOnClickListener(getThis());
 
         }
 
@@ -1956,36 +1916,36 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getThis().storeTitleText = storeTitleText;
         }
 
-        private ImageView getTriangleButtonDown1() {
-            return triangleButtonDown1;
+        private ImageView getMinusIconLeft() {
+            return getThis().minusIconLeft;
         }
 
-        private void setTriangleButtonDown1(ImageView triangleButtonDown1) {
-            getThis().triangleButtonDown1 = triangleButtonDown1;
+        private void setMinusIconLeft(ImageView minusIconLeft) {
+            getThis().minusIconLeft = minusIconLeft;
         }
 
-        private ImageView getTriangleButtonDown2() {
-            return triangleButtonDown2;
+        private ImageView getPlusIconLeft() {
+            return getThis().plusIconLeft;
         }
 
-        private void setTriangleButtonDown2(ImageView triangleButtonDown2) {
-            getThis().triangleButtonDown2 = triangleButtonDown2;
+        private void setPlusIconLeft(ImageView plusIconLeft) {
+            getThis().plusIconLeft = plusIconLeft;
         }
 
-        private ImageView getTriangleButtonRight() {
-            return triangleButtonRight;
+        private ImageView getMinusIconRight() {
+            return getThis().minusIconRight;
         }
 
-        private void setTriangleButtonRight(ImageView triangleButtonRight) {
-            getThis().triangleButtonRight = triangleButtonRight;
+        private void setMinusIconRight(ImageView minusIconRight) {
+            getThis().minusIconRight = minusIconRight;
         }
 
-        private ImageView getTriangleButtonLeft() {
-            return triangleButtonLeft;
+        private ImageView getPlusIconRight() {
+            return getThis().plusIconRight;
         }
 
-        private void setTriangleButtonLeft(ImageView triangleButtonLeft) {
-            getThis().triangleButtonLeft = triangleButtonLeft;
+        private void setPlusIconRight(ImageView plusIconRight) {
+            getThis().plusIconRight = plusIconRight;
         }
 
         public String getStore() {
@@ -1996,24 +1956,6 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getThis().store = store;
         }
 
-        private boolean isExpanded() {
-            return isExpanded;
-        }
-
-        private void setAsExpanded() {
-            isExpanded = true;
-            isContracted = false;
-        }
-
-        private boolean isContracted() {
-            return isContracted;
-        }
-
-        private void setAsContracted() {
-            isExpanded = false;
-            isContracted = true;
-        }
-
         public void onClick(View v) {
 
             int id = v.getId();
@@ -2021,39 +1963,37 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Store thisStore = getItemData().getStoreMap().get(getStore());
             if (thisStore == null) return;
 
-            if (id == getStoreTitleText().getId()) {
-                if (isExpanded()) {
+            if (id == getStoreTitleText().getId() || id == getSortByStoreRvLayout().getId()) {
+                if (thisStore.storeIsExpanded()) {
                     contractTitle();
                     thisStore.setStoreAsContracted();
-                } else if (isContracted()) {
+                } else if (thisStore.storeIsContracted()) {
                     expandTitle();
                     thisStore.setStoreAsExpanded();
                 }
-            } else if (id == getTriangleButtonDown1().getId() || id == getTriangleButtonDown2().getId()) {
+            } else if (id == getMinusIconLeft().getId() || id == getMinusIconRight().getId()) {
                 contractTitle();
                 thisStore.setStoreAsContracted();
-            } else if (id == getTriangleButtonRight().getId() || id == getTriangleButtonLeft().getId()) {
+            } else if (id == getPlusIconLeft().getId() || id == getPlusIconRight().getId()) {
                 expandTitle();
                 thisStore.setStoreAsExpanded();
             }
-
             getAdapter().notifyDataSetChanged();
+
         }
 
         private void expandTitle() {
-            setAsExpanded();
-            getTriangleButtonDown1().setVisibility(View.VISIBLE);
-            getTriangleButtonDown2().setVisibility(View.VISIBLE);
-            getTriangleButtonRight().setVisibility(View.GONE);
-            getTriangleButtonLeft().setVisibility(View.GONE);
+            getMinusIconLeft().setVisibility(View.VISIBLE);
+            getMinusIconRight().setVisibility(View.VISIBLE);
+            getPlusIconLeft().setVisibility(View.GONE);
+            getPlusIconRight().setVisibility(View.GONE);
         }
 
         private void contractTitle() {
-            setAsContracted();
-            getTriangleButtonDown1().setVisibility(View.GONE);
-            getTriangleButtonDown2().setVisibility(View.GONE);
-            getTriangleButtonRight().setVisibility(View.VISIBLE);
-            getTriangleButtonLeft().setVisibility(View.VISIBLE);
+            getMinusIconLeft().setVisibility(View.GONE);
+            getMinusIconRight().setVisibility(View.GONE);
+            getPlusIconLeft().setVisibility(View.VISIBLE);
+            getPlusIconRight().setVisibility(View.VISIBLE);
         }
     }
 

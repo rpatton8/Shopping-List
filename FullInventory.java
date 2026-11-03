@@ -800,7 +800,7 @@ public class FullInventory extends Fragment {
         setIndividualStoresLeftArrow(getView().findViewById(R.id.individualStoresLeftArrow));
         setIndividualStoresRightArrow(getView().findViewById(R.id.individualStoresRightArrow));
 
-        setIndividualCategoriesSpinnerData(getCategoryData().getCategoryListWithBlank());
+        setIndividualCategoriesSpinnerData(getCategoryData().getCategoryListForIndividuals());
         setIndividualCategoriesSpinner(getView().findViewById(R.id.individualCategoriesSpinner));
         setIndividualCategoriesSpinnerAdapter(new ArrayAdapter<>(getThis().getActivity(), R.layout.spinner_outer_item_2, getIndividualCategoriesSpinnerData()));
         getIndividualCategoriesSpinnerAdapter().setDropDownViewResource(R.layout.spinner_inner_items_2);

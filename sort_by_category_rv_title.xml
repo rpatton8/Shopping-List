@@ -14,7 +14,7 @@
     android:visibility="visible">
 
     <ImageView
-        android:id="@+id/triangleButtonDown1"
+        android:id="@+id/minusIconLeft"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_margin="6dp"
@@ -24,7 +24,7 @@
         android:visibility="visible" />
 
     <ImageView
-        android:id="@+id/triangleButtonRight"
+        android:id="@+id/plusIconLeft"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_margin="6dp"
@@ -46,7 +46,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/triangleButtonDown2"
+        android:id="@+id/minusIconRight"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_margin="6dp"
@@ -56,7 +56,7 @@
         android:visibility="visible" />
 
     <ImageView
-        android:id="@+id/triangleButtonLeft"
+        android:id="@+id/plusIconRight"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_margin="6dp"

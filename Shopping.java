@@ -110,12 +110,10 @@ public class Shopping extends AppCompatActivity {
     static final String VIEW_NEEDED = ShoppingApp.getStringRes(R.string.cvViewNeeded);
     static final String VIEW_PAUSED = ShoppingApp.getStringRes(R.string.cvViewPaused);
 
-    private String categoryTitles;
     private String defaultCategoryTitles;
     static final String CATEGORY_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesExpanded);
     static final String CATEGORY_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvCategoryTitlesContracted);
 
-    private String storeTitles;
     private String defaultStoreTitles;
     static final String STORE_TITLES_EXPANDED = ShoppingApp.getStringRes(R.string.cvStoreTitlesExpanded);
     static final String STORE_TITLES_CONTRACTED = ShoppingApp.getStringRes(R.string.cvStoreTitlesContracted);
@@ -162,7 +160,7 @@ public class Shopping extends AppCompatActivity {
     private Parcelable reorderCategoriesViewState;
     private Parcelable reorderStoresViewState;
     private Parcelable reorderItemsRecyclerViewState;
-    private Parcelable reorderItemsScrollViewState;  // check instances of this
+    private Parcelable reorderItemsScrollViewState;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -785,14 +783,6 @@ public class Shopping extends AppCompatActivity {
         getThis().defaultSortBy = defaultSortBy;
     }
 
-    public String getCategoryTitles() {
-        return getThis().categoryTitles;
-    }
-
-    public void setCategoryTitles(String categoryTitles) {
-        this.categoryTitles = categoryTitles;
-    }
-
     String getDefaultCategoryTitles() {
         return getThis().defaultCategoryTitles;
     }
@@ -801,13 +791,6 @@ public class Shopping extends AppCompatActivity {
         getThis().defaultCategoryTitles = defaultCategoryTitles;
     }
 
-    public String getStoreTitles() {
-        return getThis().storeTitles;
-    }
-
-    public void setStoreTitles(String storeTitles) {
-        this.storeTitles = storeTitles;
-    }
 
     String getDefaultStoreTitles() {
         return getThis().defaultStoreTitles;
@@ -1189,6 +1172,90 @@ public class Shopping extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    void clearAllData() {
+        getDbItemHelper().deleteDatabase();
+        getDbStatusHelper().deleteDatabase();
+        getDbCategoryHelper().deleteDatabase();
+        getDbStoreHelper().deleteDatabase();
+        getDbPictureHelper().deleteDatabase();
+        getDbOptionalDataHelper().deleteDatabase();
+        initializeData();
+    }
+
+    void initializeData() {
+        setDbItemHelper(new DBItemHelper(getThis()));
+        setDbStatusHelper(new DBStatusHelper(getThis()));
+        setDbCategoryHelper(new DBCategoryHelper(getThis()));
+        setDbStoreHelper(new DBStoreHelper(getThis()));
+        setDbPictureHelper(new DBPictureHelper(getThis()));
+        setDbOptionalDataHelper(new DBOptionalDataHelper(getThis()));
+
+        setItemData(new ItemData(getBaseContext(), getThis()));
+        setStatusData(new StatusData(getBaseContext()));
+        setCategoryData(new CategoryData(getBaseContext()));
+        setStoreData(new StoreData(getBaseContext()));
+        setPictureData(new PictureData(getBaseContext()));
+        setOptionalData(new OptionalData(getBaseContext()));
+
+        getDbItemHelper().readItemDataByCategory(getItemData());
+        getDbItemHelper().readItemDataByStore(getItemData());
+        getDbStatusHelper().readStatusData(getStatusData());
+        getItemData().updateStatuses(getStatusData());
+        getDbCategoryHelper().readCategoryData(getCategoryData());
+        getDbStoreHelper().readStoreData(getStoreData());
+        getDbPictureHelper().readPictureData(getPictureData());
+        getItemData().updatePictures(getPictureData());
+        getDbOptionalDataHelper().readOptionalData(getOptionalData());
+
+        setItemIsSelectedInInventory(false);
+        setItemIsSelectedInSearchResults(false);
+        setItemIsSelectedInIndividualCategories(false);
+        setItemIsSelectedInIndividualStores(false);
+        setItemIsSelectedInShoppingList(false);
+        setSelectedItemInInventory(null);
+        setSelectedItemInSearchResults(null);
+        setSelectedItemInIndividualCategories(null);
+        setSelectedItemInIndividualStores(null);
+        setSelectedItemInShoppingList(null);
+        setSelectedItemPositionInInventory(-1);
+        setSelectedItemPositionInSearchResults(-1);
+        setSelectedItemPositionInIndividualCategories(-1);
+        setSelectedItemPositionInIndividualStores(-1);
+        setSelectedItemPositionInShoppingList(-1);
+
+        setShoppingListStoreOrderNum(0);
+        setItemInPictureDialog(null);
+        setReorderItemsCategory(getString(R.string.emptyString));
+        setReorderItemsStore(getString(R.string.emptyString));
+        setIndividualCategory("");
+        setIndividualStore("");
+        setEditItemInInventory(false);
+        setEditItemInSearchResults(false);
+        setEditItemInIndividualCategories(false);
+        setEditItemInIndividualStores(false);
+        setEditItemInShoppingList(false);
+        setEditItemInPictureDialog(false);
+        setPictureDialogInInventory(false);
+        setPictureDialogInSearchResults(false);
+        setPictureDialogInIndividualCategories(false);
+        setPictureDialogInIndividualStores(false);
+        setPictureDialogInShoppingList(false);
+
+        setInventorySortBy(getDefaultSortBy());
+        setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
+        setDefaultStoreTitles(STORE_TITLES_EXPANDED);
+        setInventoryView(VIEW_ALL);
+        setItemExpansion(ITEMS_CONTRACTED);
+        setReorderingMethod(UP_AND_DOWN_ARROWS);
+        setSwipingOption(SWIPING_ON);
+        setPicturesOption(PICTURES_ON);
+        setOptionalDataQuantity(OPTIONAL_DATA_OFF);
+        setOptionalDataPrice(OPTIONAL_DATA_OFF);
+        setOptionalDataLocation(OPTIONAL_DATA_OFF);
+        setOptionalDataNote(OPTIONAL_DATA_OFF);
+
+    }
+
     void loadSharedPreferences() {
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.spPreferencesFile), Context.MODE_PRIVATE);
 
@@ -1203,23 +1270,19 @@ public class Shopping extends AppCompatActivity {
             getThis().setDefaultSortBy(SORT_ALPHABETICAL);
             getThis().setInventorySortBy(SORT_ALPHABETICAL);
         }
-        
+
         String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
         if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
-            getThis().setCategoryTitles(CATEGORY_TITLES_CONTRACTED);
         } else if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesExpanded))) {
             getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
-            getThis().setCategoryTitles(CATEGORY_TITLES_EXPANDED);
         }
 
         String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
         if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
-            getThis().setStoreTitles(STORE_TITLES_CONTRACTED);
         } else if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesExpanded))) {
             getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
-            getThis().setStoreTitles(STORE_TITLES_EXPANDED);
         }
 
         String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
@@ -1296,109 +1359,27 @@ public class Shopping extends AppCompatActivity {
 
     }
 
-    void clearAllData() {
-        getDbItemHelper().deleteDatabase();
-        getDbStatusHelper().deleteDatabase();
-        getDbCategoryHelper().deleteDatabase();
-        getDbStoreHelper().deleteDatabase();
-        getDbPictureHelper().deleteDatabase();
-        getDbOptionalDataHelper().deleteDatabase();
-        initializeData();
-    }
-
-    void initializeData() {
-        setDbItemHelper(new DBItemHelper(getThis()));
-        setDbStatusHelper(new DBStatusHelper(getThis()));
-        setDbCategoryHelper(new DBCategoryHelper(getThis()));
-        setDbStoreHelper(new DBStoreHelper(getThis()));
-        setDbPictureHelper(new DBPictureHelper(getThis()));
-        setDbOptionalDataHelper(new DBOptionalDataHelper(getThis()));
-
-        setItemData(new ItemData(getBaseContext(), getThis()));
-        setStatusData(new StatusData(getBaseContext()));
-        setCategoryData(new CategoryData(getBaseContext()));
-        setStoreData(new StoreData(getBaseContext()));
-        setPictureData(new PictureData(getBaseContext()));
-        setOptionalData(new OptionalData(getBaseContext()));
-
-        getDbItemHelper().readItemDataByCategory(getItemData());
-        getDbItemHelper().readItemDataByStore(getItemData());
-        getDbStatusHelper().readStatusData(getStatusData());
-        getItemData().updateStatuses(getStatusData());
-        getDbCategoryHelper().readCategoryData(getCategoryData());
-        getDbStoreHelper().readStoreData(getStoreData());
-        getDbPictureHelper().readPictureData(getPictureData());
-        getItemData().updatePictures(getPictureData());
-        getDbOptionalDataHelper().readOptionalData(getOptionalData());
-
-        setItemIsSelectedInInventory(false);
-        setItemIsSelectedInSearchResults(false);
-        setItemIsSelectedInIndividualCategories(false);
-        setItemIsSelectedInIndividualStores(false);
-        setItemIsSelectedInShoppingList(false);
-        setSelectedItemInInventory(null);
-        setSelectedItemInSearchResults(null);
-        setSelectedItemInIndividualCategories(null);
-        setSelectedItemInIndividualStores(null);
-        setSelectedItemInShoppingList(null);
-        setSelectedItemPositionInInventory(-1);
-        setSelectedItemPositionInSearchResults(-1);
-        setSelectedItemPositionInIndividualCategories(-1);
-        setSelectedItemPositionInIndividualStores(-1);
-        setSelectedItemPositionInShoppingList(-1);
-
-        setShoppingListStoreOrderNum(0);
-        setItemInPictureDialog(null);
-        setReorderItemsCategory(getString(R.string.emptyString));
-        setReorderItemsStore(getString(R.string.emptyString));
-        setIndividualCategory("");
-        setIndividualStore("");
-        setEditItemInInventory(false);
-        setEditItemInSearchResults(false);
-        setEditItemInIndividualCategories(false);
-        setEditItemInIndividualStores(false);
-        setEditItemInShoppingList(false);
-        setEditItemInPictureDialog(false);
-        setPictureDialogInInventory(false);
-        setPictureDialogInSearchResults(false);
-        setPictureDialogInIndividualCategories(false);
-        setPictureDialogInIndividualStores(false);
-        setPictureDialogInShoppingList(false);
-
-        setInventorySortBy(getDefaultSortBy());
-        setCategoryTitles(getDefaultCategoryTitles());
-        setStoreTitles(getDefaultStoreTitles());
-        setInventoryView(VIEW_ALL);
-        setItemExpansion(ITEMS_CONTRACTED);
-        setReorderingMethod(UP_AND_DOWN_ARROWS);
-        setSwipingOption(SWIPING_ON);
-        setPicturesOption(PICTURES_ON);
-        setOptionalDataQuantity(OPTIONAL_DATA_OFF);
-        setOptionalDataPrice(OPTIONAL_DATA_OFF);
-        setOptionalDataLocation(OPTIONAL_DATA_OFF);
-        setOptionalDataNote(OPTIONAL_DATA_OFF);
-
-    }
-
     void loadStoresAndCategories() {
 
         getDbCategoryHelper().addNewCategory(getString(R.string.meals), 0);
         getDbCategoryHelper().addNewCategory(getString(R.string.soups), 1);
         getDbCategoryHelper().addNewCategory(getString(R.string.sides), 2);
         getDbCategoryHelper().addNewCategory(getString(R.string.meat), 3);
-        getDbCategoryHelper().addNewCategory(getString(R.string.breadGrainsCereal), 4);
-        getDbCategoryHelper().addNewCategory(getString(R.string.eggsDairy), 5);
-        getDbCategoryHelper().addNewCategory(getString(R.string.condiments), 6);
-        getDbCategoryHelper().addNewCategory(getString(R.string.seasonings), 7);
-        getDbCategoryHelper().addNewCategory(getString(R.string.miscIngredients), 8);
-        getDbCategoryHelper().addNewCategory(getString(R.string.drinks), 9);
-        getDbCategoryHelper().addNewCategory(getString(R.string.snacks), 10);
-        getDbCategoryHelper().addNewCategory(getString(R.string.desserts), 11);
-        getDbCategoryHelper().addNewCategory(getString(R.string.candy), 12);
-        getDbCategoryHelper().addNewCategory(getString(R.string.petSupplies), 13);
-        getDbCategoryHelper().addNewCategory(getString(R.string.toiletries), 14);
-        getDbCategoryHelper().addNewCategory(getString(R.string.household), 15);
-        getDbCategoryHelper().addNewCategory(getString(R.string.supplements), 16);
+        getDbCategoryHelper().addNewCategory(getString(R.string.fruit), 4);
+        getDbCategoryHelper().addNewCategory(getString(R.string.vegetables), 5);
+        getDbCategoryHelper().addNewCategory(getString(R.string.breadGrainsCereal), 6);
+        getDbCategoryHelper().addNewCategory(getString(R.string.eggsDairy), 7);
+        getDbCategoryHelper().addNewCategory(getString(R.string.condiments), 8);
+        getDbCategoryHelper().addNewCategory(getString(R.string.seasonings), 9);
+        getDbCategoryHelper().addNewCategory(getString(R.string.miscIngredients), 10);
+        getDbCategoryHelper().addNewCategory(getString(R.string.drinks), 11);
+        getDbCategoryHelper().addNewCategory(getString(R.string.snacks), 12);
+        getDbCategoryHelper().addNewCategory(getString(R.string.desserts), 13);
+        getDbCategoryHelper().addNewCategory(getString(R.string.candy), 14);
+        getDbCategoryHelper().addNewCategory(getString(R.string.petSupplies), 15);
+        getDbCategoryHelper().addNewCategory(getString(R.string.toiletries), 16);
+        getDbCategoryHelper().addNewCategory(getString(R.string.household), 17);
+        getDbCategoryHelper().addNewCategory(getString(R.string.supplements), 18);
 
         getDbStoreHelper().addNewStore(getString(R.string.vons), 0);
         getDbStoreHelper().addNewStore(getString(R.string.smartFinal), 1);

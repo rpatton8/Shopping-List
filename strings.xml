@@ -46,6 +46,8 @@
     <string name="checked">checked</string>
     <string name="checkedBoxLarge">Checked Box Large</string>
     <string name="checkedBoxSmall">Checked Box Small</string>
+    <string name="chooseACategory">(choose a category)</string>
+    <string name="chooseAStore">(choose a store)</string>
     <string name="chooseCategoryToEdit">Choose category to edit: </string>
     <string name="chooseCategoryToRemove">Choose category to remove: </string>
     <string name="chooseCategoryToReorder">Choose a category to reorder items: </string>
@@ -369,6 +371,8 @@
     <string name="soups">Soups</string>
     <string name="sides">Sides</string>
     <string name="meat">Meat</string>
+    <string name="fruit">Fruit</string>
+    <string name="vegetables">Vegetables</string>
     <string name="breadGrainsCereal">Bread/Grains/Cereal</string>
     <string name="eggsDairy">Eggs/Dairy</string>
     <string name="condiments">Condiments</string>

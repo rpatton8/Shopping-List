@@ -19,9 +19,9 @@ class Store {
         setStoreItems(new ArrayList<>());
         getStoreItems().add(item);
 
-        if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getStoreTitles())) {
+        if (Shopping.STORE_TITLES_EXPANDED.equals(getShopping().getDefaultStoreTitles())) {
             setStoreAsExpanded();
-        } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getStoreTitles())) {
+        } else if (Shopping.STORE_TITLES_CONTRACTED.equals(getShopping().getDefaultStoreTitles())) {
             setStoreAsContracted();
         }
     }

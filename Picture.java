@@ -1,7 +1,5 @@
 package ryan.android.shopping;
 
-import android.net.Uri;
-
 class Picture {
 
     private String pictureName;

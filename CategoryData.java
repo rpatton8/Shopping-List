@@ -10,6 +10,7 @@ class CategoryData {
     private ArrayList<String> categoryList;
     private ArrayList<String> categoryListWithBlank;
     private ArrayList<String> categoryListWithAddNew;
+    private ArrayList<String> categoryListForIndividuals;
     private HashMap<String, Integer> categoryViewAllMap;
     private HashMap<String, Integer> categoryViewInStockMap;
     private HashMap<String, Integer> categoryViewNeededMap;
@@ -20,9 +21,11 @@ class CategoryData {
         setCategoryList(new ArrayList<>());
         setCategoryListWithBlank(new ArrayList<>());
         setCategoryListWithAddNew(new ArrayList<>());
+        setCategoryListForIndividuals(new ArrayList<>());
         getCategoryListWithBlank().add(getContext().getString(R.string.emptyString));
         getCategoryListWithAddNew().add(getContext().getString(R.string.emptyString));
         getCategoryListWithAddNew().add(getContext().getString(R.string.addNewCategory));
+        getCategoryListForIndividuals().add(getContext().getString(R.string.chooseACategory));
         setCategoryViewAllMap(new HashMap<>());
         setCategoryViewInStockMap(new HashMap<>());
         setCategoryViewNeededMap(new HashMap<>());
@@ -65,6 +68,14 @@ class CategoryData {
         getThis().categoryListWithAddNew = categoryListWithAddNew;
     }
 
+    public ArrayList<String> getCategoryListForIndividuals() {
+        return getThis().categoryListForIndividuals;
+    }
+
+    private void setCategoryListForIndividuals(ArrayList<String> categoryListForIndividuals) {
+        getThis().categoryListForIndividuals = categoryListForIndividuals;
+    }
+
     public HashMap<String, Integer> getCategoryViewAllMap() {
         return getThis().categoryViewAllMap;
     }
@@ -98,10 +109,11 @@ class CategoryData {
     }
 
     void readCategory(String categoryName, int numItemsInViewAll, int numItemsInViewInStock,
-                             int numItemsInViewNeeded, int numItemsInViewPaused) {
+                      int numItemsInViewNeeded, int numItemsInViewPaused) {
         getCategoryList().add(categoryName);
         getCategoryListWithBlank().add(categoryName);
         getCategoryListWithAddNew().add(categoryName);
+        getCategoryListForIndividuals().add(categoryName);
         getCategoryViewAllMap().put(categoryName, numItemsInViewAll);
         getCategoryViewInStockMap().put(categoryName, numItemsInViewInStock);
         getCategoryViewNeededMap().put(categoryName, numItemsInViewNeeded);

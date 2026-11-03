@@ -1,7 +1,6 @@
 package ryan.android.shopping;
 
 import android.content.Context;
-import android.net.Uri;
 
 import java.util.ArrayList;
 import java.util.HashMap;
