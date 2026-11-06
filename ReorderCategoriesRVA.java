@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -109,6 +110,9 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         private TextView categoryName;
         private ImageView triangleDown;
         private ImageView triangleUp;
+        private ImageView dragAndDropEmoji;
+        private EditText withNumbersEditText;
+        private ImageView withNumbersRefreshButton;
 
         ReorderCategoriesRVH(View itemView, Shopping shopping, RecyclerView recyclerView,
                              ItemData itemData, CategoryData categoryData, DBCategoryHelper dbCategory) {
@@ -123,10 +127,41 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
             setCategoryName(itemView.findViewById(R.id.categoryName));
             setTriangleDown(itemView.findViewById(R.id.triangleDown));
             setTriangleUp(itemView.findViewById(R.id.triangleUp));
+            setDragAndDropEmoji(itemView.findViewById(R.id.dragAndDropEmoji));
+            setWithNumbersEditText(itemView.findViewById(R.id.withNumbersEditText));
+            setWithNumbersRefreshButton(itemView.findViewById(R.id.withNumbersRefreshButton));
 
             getTriangleDown().setOnClickListener(getThis());
             getTriangleUp().setOnClickListener(getThis());
+            getDragAndDropEmoji().setOnClickListener(getThis());
+            getWithNumbersEditText().setOnClickListener(getThis());
+            getWithNumbersRefreshButton().setOnClickListener(getThis());
 
+            if (getShopping().getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {
+
+                getTriangleDown().setVisibility(View.VISIBLE);
+                getTriangleUp().setVisibility(View.VISIBLE);
+                getDragAndDropEmoji().setVisibility(View.GONE);
+                getWithNumbersEditText().setVisibility(View.GONE);
+                getWithNumbersRefreshButton().setVisibility(View.GONE);
+
+            } else if (getShopping().getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
+
+                getTriangleDown().setVisibility(View.GONE);
+                getTriangleUp().setVisibility(View.GONE);
+                getDragAndDropEmoji().setVisibility(View.VISIBLE);
+                getWithNumbersEditText().setVisibility(View.GONE);
+                getWithNumbersRefreshButton().setVisibility(View.GONE);
+
+            } else if (getShopping().getReorderingMethod().equals(Shopping.WITH_NUMBERS)) {
+
+                getTriangleDown().setVisibility(View.GONE);
+                getTriangleUp().setVisibility(View.GONE);
+                getDragAndDropEmoji().setVisibility(View.GONE);
+                getWithNumbersEditText().setVisibility(View.VISIBLE);
+                getWithNumbersRefreshButton().setVisibility(View.VISIBLE);
+
+            }
         }
 
         private ReorderCategoriesRVH getThis() {
@@ -197,6 +232,30 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
             getThis().triangleUp = triangleUp;
         }
 
+        private ImageView getDragAndDropEmoji() {
+            return getThis().dragAndDropEmoji;
+        }
+
+        private void setDragAndDropEmoji(ImageView dragAndDropEmoji) {
+            getThis().dragAndDropEmoji = dragAndDropEmoji;
+        }
+
+        private EditText getWithNumbersEditText() {
+            return getThis().withNumbersEditText;
+        }
+
+        private void setWithNumbersEditText(EditText withNumbersEditText) {
+            getThis().withNumbersEditText = withNumbersEditText;
+        }
+
+        private ImageView getWithNumbersRefreshButton() {
+            return getThis().withNumbersRefreshButton;
+        }
+
+        private void setWithNumbersRefreshButton(ImageView withNumbersRefreshButton) {
+            getThis().withNumbersRefreshButton = withNumbersRefreshButton;
+        }
+
         private boolean categoryContains(int categoryPosition, int itemPosition) {
             int index = 0;
             for (int i = 0; i < getCategoryData().getCategoryList().size(); i++) {
@@ -220,60 +279,74 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
             int id = v.getId();
             int position = getBindingAdapterPosition();
 
-            if (id == getTriangleDown().getId()) {
-                if (position == getCategoryData().getCategoryList().size() - 1) {
-                    // Down arrow on last category
-                    return;
-                }
-                getDbCategoryHelper().swapOrder(position, position + 1);
-                getShopping().updateCategoryData();
+            if (getShopping().getReorderingMethod().equals(Shopping.UP_AND_DOWN_ARROWS)) {
 
-                // Check if selected item is in one of the categories being moved and shift it
-                if (getShopping().getSelectedItemPositionInInventory() != 0) {
+                System.out.println("UP_AND_DOWN_ARROWS reordering");
 
-                    if (categoryContains(position, getShopping().getSelectedItemPositionInInventory())) {
-
-                        String category = getCategoryData().getCategoryList().get(position + 1);
-                        int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
-                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
-
-                    } else if (categoryContains(position + 1, getShopping().getSelectedItemPositionInInventory())) {
-
-                        String category = getCategoryData().getCategoryList().get(position);
-                        int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
-                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
-
+                if (id == getTriangleDown().getId()) {
+                    if (position == getCategoryData().getCategoryList().size() - 1) {
+                        // Down arrow on last category
+                        return;
                     }
-                }
-                getShopping().setReorderCategoriesViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
-                getShopping().loadFragment(new ReorderCategories());
+                    getDbCategoryHelper().swapOrder(position, position + 1);
+                    getShopping().updateCategoryData();
 
-            } else if (id == getTriangleUp().getId()) {
-                if (position == 0) {
-                    // Up arrow on first item
-                    return;
-                }
-                getDbCategoryHelper().swapOrder(position - 1, position);
-                getShopping().updateCategoryData();
+                    // Check if selected item is in one of the categories being moved and shift it
+                    if (getShopping().getSelectedItemPositionInInventory() != 0) {
 
-                // Check if selected item is in one of the categories being moved and shift it
-                if (getShopping().getSelectedItemPositionInInventory() != 0) {
+                        if (categoryContains(position, getShopping().getSelectedItemPositionInInventory())) {
 
-                    if (categoryContains(position, getShopping().getSelectedItemPositionInInventory())) {
+                            String category = getCategoryData().getCategoryList().get(position + 1);
+                            int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
+                            getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
 
-                        String category = getCategoryData().getCategoryList().get(position - 1);
-                        int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
-                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
+                        } else if (categoryContains(position + 1, getShopping().getSelectedItemPositionInInventory())) {
 
-                    } else if (categoryContains(position - 1, getShopping().getSelectedItemPositionInInventory())) {
+                            String category = getCategoryData().getCategoryList().get(position);
+                            int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
+                            getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
 
-                        String category = getCategoryData().getCategoryList().get(position);
-                        int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
-                        getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
+                        }
                     }
+                    getShopping().setReorderCategoriesViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
+                    getShopping().loadFragment(new ReorderCategories());
+
+                } else if (id == getTriangleUp().getId()) {
+                    if (position == 0) {
+                        // Up arrow on first item
+                        return;
+                    }
+                    getDbCategoryHelper().swapOrder(position - 1, position);
+                    getShopping().updateCategoryData();
+
+                    // Check if selected item is in one of the categories being moved and shift it
+                    if (getShopping().getSelectedItemPositionInInventory() != 0) {
+
+                        if (categoryContains(position, getShopping().getSelectedItemPositionInInventory())) {
+
+                            String category = getCategoryData().getCategoryList().get(position - 1);
+                            int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
+                            getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() - offset + 1);
+
+                        } else if (categoryContains(position - 1, getShopping().getSelectedItemPositionInInventory())) {
+
+                            String category = getCategoryData().getCategoryList().get(position);
+                            int offset = getItemData().getCategoryMap().get(category).getCategoryItemsList().size();
+                            getShopping().setSelectedItemPositionInInventory(getShopping().getSelectedItemPositionInInventory() + offset + 1);
+                        }
+                    }
+                    getShopping().setReorderCategoriesViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
+                    getShopping().loadFragment(new ReorderCategories());
                 }
-                getShopping().setReorderCategoriesViewState(getRecyclerView().getLayoutManager().onSaveInstanceState());
-                getShopping().loadFragment(new ReorderCategories());
+
+            } else if (getShopping().getReorderingMethod().equals(Shopping.DRAG_AND_DROP)) {
+
+                System.out.println("DRAG_AND_DROP reordering");
+
+            } else if (getShopping().getReorderingMethod().equals(Shopping.WITH_NUMBERS)) {
+
+                System.out.println("WITH_NUMBERS reordering");
+
             }
         }
     }

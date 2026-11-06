@@ -10,7 +10,6 @@ class StoreData {
     private ArrayList<String> storeList;
     private ArrayList<String> storeListWithBlank;
     private ArrayList<String> storeListWithAddNew;
-    private ArrayList<String> storeListForIndividuals;
     private HashMap<String, Integer> storeViewAllMap;
     private HashMap<String, Integer> storeViewInStockMap;
     private HashMap<String, Integer> storeViewNeededMap;
@@ -21,11 +20,9 @@ class StoreData {
         setStoreList(new ArrayList<>());
         setStoreListWithBlank(new ArrayList<>());
         setStoreListWithAddNew(new ArrayList<>());
-        setStoreListForIndividuals(new ArrayList<>());
         getStoreListWithBlank().add(getContext().getString(R.string.emptyString));
         getStoreListWithAddNew().add(getContext().getString(R.string.emptyString));
         getStoreListWithAddNew().add(getContext().getString(R.string.addNewStore));
-        getStoreListForIndividuals().add(getContext().getString(R.string.chooseACategory));
         setStoreViewAllMap(new HashMap<>());
         setStoreViewInStockMap(new HashMap<>());
         setStoreViewNeededMap(new HashMap<>());
@@ -68,14 +65,6 @@ class StoreData {
         getThis().storeListWithAddNew = storeListWithAddNew;
     }
 
-    public ArrayList<String> getStoreListForIndividuals() {
-        return getThis().storeListForIndividuals;
-    }
-
-    private void setStoreListForIndividuals(ArrayList<String> storeListForIndividuals) {
-        getThis().storeListForIndividuals = storeListForIndividuals;
-    }
-
     public HashMap<String, Integer> getStoreViewAllMap() {
         return getThis().storeViewAllMap;
     }
@@ -113,7 +102,6 @@ class StoreData {
         getStoreList().add(storeName);
         getStoreListWithBlank().add(storeName);
         getStoreListWithAddNew().add(storeName);
-        getStoreListForIndividuals().add(storeName);
         getStoreViewAllMap().put(storeName, numItemsInViewAll);
         getStoreViewInStockMap().put(storeName, numItemsInViewInStock);
         getStoreViewNeededMap().put(storeName, numItemsInViewNeeded);

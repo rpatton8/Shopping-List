@@ -46,8 +46,6 @@
     <string name="checked">checked</string>
     <string name="checkedBoxLarge">Checked Box Large</string>
     <string name="checkedBoxSmall">Checked Box Small</string>
-    <string name="chooseACategory">(choose a category)</string>
-    <string name="chooseAStore">(choose a store)</string>
     <string name="chooseCategoryToEdit">Choose category to edit: </string>
     <string name="chooseCategoryToRemove">Choose category to remove: </string>
     <string name="chooseCategoryToReorder">Choose a category to reorder items: </string>
@@ -113,6 +111,7 @@
     <string name="needed">needed</string>
     <string name="neededCap">NEEDED</string>
     <string name="no">NO</string>
+    <string name="noItems">---- no items ----</string>
     <string name="note">Note: </string>
     <string name="ok">OK</string>
     <string name="optionalData"><u>Optional Data</u></string>

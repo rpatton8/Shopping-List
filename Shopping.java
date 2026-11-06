@@ -1241,6 +1241,7 @@ public class Shopping extends AppCompatActivity {
         setPictureDialogInIndividualStores(false);
         setPictureDialogInShoppingList(false);
 
+        setDefaultSortBy(SORT_BY_CATEGORY);
         setInventorySortBy(getDefaultSortBy());
         setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
         setDefaultStoreTitles(STORE_TITLES_EXPANDED);

@@ -251,6 +251,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
             categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.VISIBLE);
+            categoryTitleHolder.getNoItems().setVisibility(View.GONE);
 
             int numViewAll = getCategoryData().getCategoryViewAllMap().get(category);
             int numViewInStock = getCategoryData().getCategoryViewInStockMap().get(category);
@@ -258,7 +259,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             int numViewPaused = getCategoryData().getCategoryViewPausedMap().get(category);
 
             if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && numViewAll == 0) {
-                categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.GONE);
+                categoryTitleHolder.getNoItems().setVisibility(View.VISIBLE);
             } else if (Shopping.VIEW_INSTOCK.equals(getShopping().getInventoryView()) && numViewInStock == 0) {
                 categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.GONE);
             } else if (Shopping.VIEW_NEEDED.equals(getShopping().getInventoryView()) && numViewNeeded == 0) {
@@ -978,6 +979,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ImageView plusIconLeft;
         private ImageView minusIconRight;
         private ImageView plusIconRight;
+        private TextView noItems;
 
         private SortByCategoryTitleRVH(View view, Shopping shopping, FullInventoryRVA adapter, ItemData itemData) {
 
@@ -993,6 +995,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setMinusIconRight(getView().findViewById(R.id.minusIconRight));
             setPlusIconLeft(getView().findViewById(R.id.plusIconLeft));
             setPlusIconRight(getView().findViewById(R.id.plusIconRight));
+            setNoItems(getView().findViewById(R.id.noItems));
 
             getSortByCategoryRvLayout().setOnClickListener(getThis());
             getCategoryTitleText().setOnClickListener(getThis());
@@ -1000,6 +1003,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getMinusIconRight().setOnClickListener(getThis());
             getPlusIconLeft().setOnClickListener(getThis());
             getPlusIconRight().setOnClickListener(getThis());
+            getNoItems().setOnClickListener(getThis());
 
         }
 
@@ -1085,6 +1089,14 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private void setPlusIconRight(ImageView plusIconRight) {
             getThis().plusIconRight = plusIconRight;
+        }
+
+        public TextView getNoItems() {
+            return getThis().noItems;
+        }
+
+        private void setNoItems(TextView noItems) {
+            getThis().noItems = noItems;
         }
 
         public String getCategory() {
