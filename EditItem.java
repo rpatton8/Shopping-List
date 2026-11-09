@@ -700,7 +700,21 @@ public class EditItem extends Fragment {
                     itemStore = getStoreSpinner().getSelectedItem().toString();
                 }
 
-                Item thisItem = getItemData().getItemMap().get(getItemNameInput());
+                Item thisItem = getItemData().getItemMap().get(getItemNameInput().getText().toString());
+
+                if (isInStock()) {
+                    getInStockLabel().setVisibility(View.VISIBLE);
+                    getPausedLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.GONE);
+                } else if (isPaused()) {
+                    getInStockLabel().setVisibility(View.GONE);
+                    getPausedLabel().setVisibility(View.VISIBLE);
+                    getNeededLabel().setVisibility(View.GONE);
+                } else if (isNeeded()) {
+                    getInStockLabel().setVisibility(View.GONE);
+                    getPausedLabel().setVisibility(View.GONE);
+                    getNeededLabel().setVisibility(View.VISIBLE);
+                }
 
                 if (isInStock()) {
                     if (thisItem.getStatus().isInStock()) {
@@ -716,24 +730,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, (numItemsInStockCategory + 1), (numItemsNeededCategory - 1), numItemsPausedCategory);
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock + 1), (numItemsNeeded - 1), numItemsPaused);
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, (numItemsInStockStore + 1), (numItemsNeededStore - 1), numItemsPausedStore);
+                        getShopping().updateStoreData();
 
                     } else if (thisItem.getStatus().isPaused()) {
 
@@ -744,24 +754,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock + 1), numItemsNeeded, (numItemsPaused - 1));
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, (numItemsInStockCategory + 1), numItemsNeededCategory, (numItemsPausedCategory - 1));
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock + 1), numItemsNeeded, (numItemsPaused - 1));
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, (numItemsInStockStore + 1), numItemsNeededStore, (numItemsPausedStore - 1));
+                        getShopping().updateStoreData();
                     }
 
                 } else if (isNeeded()) {
@@ -774,24 +780,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, (numItemsInStockCategory - 1), (numItemsNeededCategory + 1), numItemsPausedCategory);
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), (numItemsNeeded + 1), numItemsPaused);
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, (numItemsInStockStore - 1), (numItemsNeededStore + 1), numItemsPausedStore);
+                        getShopping().updateStoreData();
 
                     } else if (thisItem.getStatus().isNeeded()) {
 
@@ -806,24 +808,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, (numItemsNeeded + 1), (numItemsPaused - 1));
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, numItemsInStockCategory, (numItemsNeededCategory + 1), (numItemsPausedCategory - 1));
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, numItemsInStock, (numItemsNeeded + 1), (numItemsPaused - 1));
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, numItemsInStockStore, (numItemsNeededStore + 1), (numItemsPausedStore - 1));
+                        getShopping().updateStoreData();
 
                     }
 
@@ -837,24 +835,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, (numItemsInStock - 1), numItemsNeeded, (numItemsPaused + 1));
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, (numItemsInStockCategory - 1), numItemsNeededCategory, (numItemsPausedCategory + 1));
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, (numItemsInStock - 1), numItemsNeeded, (numItemsPaused + 1));
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, (numItemsInStockStore - 1), numItemsNeededStore, (numItemsPausedStore + 1));
+                        getShopping().updateStoreData();
 
                     } else if (thisItem.getStatus().isNeeded()) {
 
@@ -865,24 +859,20 @@ public class EditItem extends Fragment {
                         getShopping().updateStatusData();
 
                         String thisCategory = thisItem.getCategory().toString();
-                        if (thisCategory != null) {
-                            int numItemsInStock = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
-                            int numItemsNeeded = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
-                            int numItemsPaused = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
-                            int numItemsViewAll = getCategoryData().getCategoryViewAllMap().get(thisCategory);
-                            getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAll, numItemsInStock, (numItemsNeeded - 1), (numItemsPaused + 1));
-                            getShopping().updateCategoryData();
-                        }
+                        int numItemsInStockCategory = getCategoryData().getCategoryViewInStockMap().get(thisCategory);
+                        int numItemsNeededCategory = getCategoryData().getCategoryViewNeededMap().get(thisCategory);
+                        int numItemsPausedCategory = getCategoryData().getCategoryViewPausedMap().get(thisCategory);
+                        int numItemsViewAllCategory = getCategoryData().getCategoryViewAllMap().get(thisCategory);
+                        getDbCategoryHelper().setCategoryViews(thisCategory, numItemsViewAllCategory, numItemsInStockCategory, (numItemsNeededCategory - 1), (numItemsPausedCategory + 1));
+                        getShopping().updateCategoryData();
 
                         String thisStore = thisItem.getStore().toString();
-                        if (thisStore != null) {
-                            int numItemsInStock = getStoreData().getStoreViewInStockMap().get(thisStore);
-                            int numItemsNeeded = getStoreData().getStoreViewNeededMap().get(thisStore);
-                            int numItemsPaused = getStoreData().getStoreViewPausedMap().get(thisStore);
-                            int numItemsViewAll = getStoreData().getStoreViewAllMap().get(thisStore);
-                            getDbStoreHelper().setStoreViews(thisStore, numItemsViewAll, numItemsInStock, (numItemsNeeded - 1), (numItemsPaused + 1));
-                            getShopping().updateStoreData();
-                        }
+                        int numItemsInStockStore = getStoreData().getStoreViewInStockMap().get(thisStore);
+                        int numItemsNeededStore = getStoreData().getStoreViewNeededMap().get(thisStore);
+                        int numItemsPausedStore = getStoreData().getStoreViewPausedMap().get(thisStore);
+                        int numItemsViewAllStore = getStoreData().getStoreViewAllMap().get(thisStore);
+                        getDbStoreHelper().setStoreViews(thisStore, numItemsViewAllStore, numItemsInStockStore, (numItemsNeededStore - 1), (numItemsPausedStore + 1));
+                        getShopping().updateStoreData();
 
                     } else if (thisItem.getStatus().isPaused()) {
 

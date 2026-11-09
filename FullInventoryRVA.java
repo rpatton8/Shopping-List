@@ -41,7 +41,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -49,7 +49,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -57,7 +57,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -65,7 +65,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -73,7 +73,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -81,7 +81,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -89,7 +89,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private DBStatusHelper getDbStatusHelper() {
-        return dbStatusHelper;
+        return getThis().dbStatusHelper;
     }
 
     private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -97,7 +97,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -105,7 +105,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -1012,7 +1012,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private View getView() {
-            return view;
+            return getThis().view;
         }
 
         public void setView(View view) {
@@ -1020,7 +1020,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -1028,7 +1028,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private FullInventoryRVA getAdapter() {
-            return adapter;
+            return getThis().adapter;
         }
 
         private void setAdapter(FullInventoryRVA adapter) {
@@ -1036,7 +1036,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -1100,7 +1100,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public String getCategory() {
-            return category;
+            return getThis().category;
         }
 
         public void setCategory(String category) {
@@ -1114,6 +1114,14 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Category thisCategory = getItemData().getCategoryMap().get(getCategory());
             if (thisCategory == null) return;
 
+            if (thisCategory.getCategoryItemsList().size() == 0) {
+                System.out.println("Category List is Empty");
+                getNoItems().setVisibility(View.VISIBLE);
+            } else {
+                System.out.println("Category List is NOT Empty");
+                getNoItems().setVisibility(View.GONE);
+            }
+
             if (id == getCategoryTitleText().getId() || id == getSortByCategoryRvLayout().getId()) {
                 if (thisCategory.categoryIsExpanded()) {
                     contractTitle();
@@ -1121,6 +1129,9 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 } else if (thisCategory.categoryIsContracted()) {
                     expandTitle();
                     thisCategory.setCategoryAsExpanded();
+                    if (thisCategory.getCategoryItemsList().size() == 0) {
+                        getNoItems().setVisibility(View.VISIBLE);
+                    }
                 }
             } else if (id == getMinusIconLeft().getId() || id == getMinusIconRight().getId()) {
                 contractTitle();
@@ -1128,6 +1139,9 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             } else if (id == getPlusIconLeft().getId() || id == getPlusIconRight().getId()) {
                 expandTitle();
                 thisCategory.setCategoryAsExpanded();
+                if (thisCategory.getCategoryItemsList().size() == 0) {
+                    getNoItems().setVisibility(View.VISIBLE);
+                }
             }
 
             getAdapter().notifyDataSetChanged();
@@ -1138,6 +1152,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getMinusIconRight().setVisibility(View.VISIBLE);
             getPlusIconLeft().setVisibility(View.GONE);
             getPlusIconRight().setVisibility(View.GONE);
+            getNoItems().setVisibility(View.VISIBLE);
         }
 
         private void contractTitle() {
@@ -1145,6 +1160,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getMinusIconRight().setVisibility(View.GONE);
             getPlusIconLeft().setVisibility(View.VISIBLE);
             getPlusIconRight().setVisibility(View.VISIBLE);
+            getNoItems().setVisibility(View.GONE);
         }
     }
 
@@ -1259,7 +1275,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private View getView() {
-            return view;
+            return getThis().view;
         }
 
         public void setView(View view) {
@@ -1267,7 +1283,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Context getContext() {
-            return context;
+            return getThis().context;
         }
 
         private void setContext(Context context) {
@@ -1275,7 +1291,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -1283,7 +1299,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private FullInventoryRVA getAdapter() {
-            return adapter;
+            return getThis().adapter;
         }
 
         private void setAdapter(FullInventoryRVA adapter) {
@@ -1291,7 +1307,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -1299,7 +1315,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private CategoryData getCategoryData() {
-            return categoryData;
+            return getThis().categoryData;
         }
 
         private void setCategoryData(CategoryData categoryData) {
@@ -1307,7 +1323,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private DBStatusHelper getDbStatusHelper() {
-            return dbStatusHelper;
+            return getThis().dbStatusHelper;
         }
 
         private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -1315,7 +1331,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private DBCategoryHelper getDbCategoryHelper() {
-            return dbCategoryHelper;
+            return getThis().dbCategoryHelper;
         }
 
         private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -1323,7 +1339,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Button getTriangleRight() {
-            return triangleRight;
+            return getThis().triangleRight;
         }
 
         private void setTriangleRight(Button triangleRight) {
@@ -1331,7 +1347,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Button getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(Button triangleDown) {
@@ -1339,7 +1355,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private LinearLayout getItemSmall() {
-            return itemSmall;
+            return getThis().itemSmall;
         }
 
         private void setItemSmall(LinearLayout itemSmall) {
@@ -1347,7 +1363,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private LinearLayout getItemLarge() {
-            return itemLarge;
+            return getThis().itemLarge;
         }
 
         private void setItemLarge(LinearLayout itemLarge) {
@@ -1355,7 +1371,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallName() {
-            return itemSmallName;
+            return getThis().itemSmallName;
         }
 
         private void setItemSmallName(TextView itemSmallName) {
@@ -1363,7 +1379,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeName() {
-            return itemLargeName;
+            return getThis().itemLargeName;
         }
 
         private void setItemLargeName(TextView itemLargeName) {
@@ -1371,7 +1387,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallInStock() {
-            return itemSmallInStock;
+            return getThis().itemSmallInStock;
         }
 
         private void setItemSmallInStock(TextView itemSmallInStock) {
@@ -1379,7 +1395,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallNeeded() {
-            return itemSmallNeeded;
+            return getThis().itemSmallNeeded;
         }
 
         private void setItemSmallNeeded(TextView itemSmallNeeded) {
@@ -1387,7 +1403,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallPaused() {
-            return itemSmallPaused;
+            return getThis().itemSmallPaused;
         }
 
         private void setItemSmallPaused(TextView itemSmallPaused) {
@@ -1395,7 +1411,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeInStock() {
-            return itemLargeInStock;
+            return getThis().itemLargeInStock;
         }
 
         private void setItemLargeInStock(TextView itemLargeInStock) {
@@ -1403,7 +1419,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeNeeded() {
-            return itemLargeNeeded;
+            return getThis().itemLargeNeeded;
         }
 
         private void setItemLargeNeeded(TextView itemLargeNeeded) {
@@ -1411,7 +1427,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargePaused() {
-            return itemLargePaused;
+            return getThis().itemLargePaused;
         }
 
         private void setItemLargePaused(TextView itemLargePaused) {
@@ -1419,7 +1435,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeBrand() {
-            return itemLargeBrand;
+            return getThis().itemLargeBrand;
         }
 
         private void setItemLargeBrand(TextView itemLargeBrand) {
@@ -1427,7 +1443,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeBrandLabel() {
-            return itemLargeBrandLabel;
+            return getThis().itemLargeBrandLabel;
         }
 
         private void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
@@ -1435,7 +1451,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeCategory() {
-            return itemLargeCategory;
+            return getThis().itemLargeCategory;
         }
 
         private void setItemLargeCategory(TextView itemLargeCategory) {
@@ -1443,7 +1459,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeCategoryLabel() {
-            return itemLargeCategoryLabel;
+            return getThis().itemLargeCategoryLabel;
         }
 
         private void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
@@ -1451,7 +1467,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeStore() {
-            return itemLargeStore;
+            return getThis().itemLargeStore;
         }
 
         private void setItemLargeStore(TextView itemLargeStore) {
@@ -1459,7 +1475,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeStoreLabel() {
-            return itemLargeStoreLabel;
+            return getThis().itemLargeStoreLabel;
         }
 
         private void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
@@ -1467,11 +1483,11 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private long getDoubleClickTimeout() {
-            return doubleClickTimeout;
+            return getThis().doubleClickTimeout;
         }
 
         private long getLastClickTime() {
-            return lastClickTime;
+            return getThis().lastClickTime;
         }
 
         private void setLastClickTime(long lastClickTime) {
@@ -2996,7 +3012,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private long getDoubleClickTimeout() {
-            return doubleClickTimeout;
+            return getThis().doubleClickTimeout;
         }
 
         private long getLastClickTime() {

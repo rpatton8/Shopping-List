@@ -33,7 +33,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -41,7 +41,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -49,7 +49,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -57,7 +57,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     public void setItemData(ItemData itemData) {
@@ -65,7 +65,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public String getStore() {
-        return store;
+        return getThis().store;
     }
 
     public void setStore(String store) {
@@ -153,7 +153,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     void changeStore(String store) {
-        getThis().setStore(store);
+        setStore(store);
         getShopping().setIndividualStore(store);
     }
 
@@ -255,7 +255,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public View getView() {
-            return view;
+            return getThis().view;
         }
 
         public void setView(View view) {
@@ -263,7 +263,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -271,7 +271,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private Context getContext() {
-            return context;
+            return getThis().context;
         }
 
         private void setContext(Context context) {
@@ -279,7 +279,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private IndividualStoresRVA getAdapter() {
-            return adapter;
+            return getThis().adapter;
         }
 
         private void setAdapter(IndividualStoresRVA adapter) {
@@ -287,7 +287,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -295,7 +295,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private CategoryData getCategoryData() {
-            return categoryData;
+            return getThis().categoryData;
         }
 
         private void setCategoryData(CategoryData categoryData) {
@@ -303,7 +303,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private DBStatusHelper getDbStatusHelper() {
-            return dbStatusHelper;
+            return getThis().dbStatusHelper;
         }
 
         private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -311,7 +311,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private Button getTriangleRight() {
-            return triangleRight;
+            return getThis().triangleRight;
         }
 
         private void setTriangleRight(Button triangleRight) {
@@ -319,7 +319,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private Button getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(Button triangleDown) {
@@ -327,7 +327,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private LinearLayout getItemSmall() {
-            return itemSmall;
+            return getThis().itemSmall;
         }
 
         private void setItemSmall(LinearLayout itemSmall) {
@@ -335,7 +335,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private LinearLayout getItemLarge() {
-            return itemLarge;
+            return getThis().itemLarge;
         }
 
         private void setItemLarge(LinearLayout itemLarge) {
@@ -343,7 +343,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemSmallName() {
-            return itemSmallName;
+            return getThis().itemSmallName;
         }
 
         private void setItemSmallName(TextView itemSmallName) {
@@ -351,7 +351,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeName() {
-            return itemLargeName;
+            return getThis().itemLargeName;
         }
 
         private void setItemLargeName(TextView itemLargeName) {
@@ -359,7 +359,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemSmallInStock() {
-            return itemSmallInStock;
+            return getThis().itemSmallInStock;
         }
 
         private void setItemSmallInStock(TextView itemSmallInStock) {
@@ -367,7 +367,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemSmallNeeded() {
-            return itemSmallNeeded;
+            return getThis().itemSmallNeeded;
         }
 
         private void setItemSmallNeeded(TextView itemSmallNeeded) {
@@ -375,7 +375,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemSmallPaused() {
-            return itemSmallPaused;
+            return getThis().itemSmallPaused;
         }
 
         private void setItemSmallPaused(TextView itemSmallPaused) {
@@ -383,7 +383,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeInStock() {
-            return itemLargeInStock;
+            return getThis().itemLargeInStock;
         }
 
         private void setItemLargeInStock(TextView itemLargeInStock) {
@@ -391,7 +391,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeNeeded() {
-            return itemLargeNeeded;
+            return getThis().itemLargeNeeded;
         }
 
         private void setItemLargeNeeded(TextView itemLargeNeeded) {
@@ -399,7 +399,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargePaused() {
-            return itemLargePaused;
+            return getThis().itemLargePaused;
         }
 
         private void setItemLargePaused(TextView itemLargePaused) {
@@ -407,7 +407,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeBrand() {
-            return itemLargeBrand;
+            return getThis().itemLargeBrand;
         }
 
         private void setItemLargeBrand(TextView itemLargeBrand) {
@@ -415,7 +415,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeBrandLabel() {
-            return itemLargeBrandLabel;
+            return getThis().itemLargeBrandLabel;
         }
 
         private void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
@@ -423,7 +423,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeCategory() {
-            return itemLargeCategory;
+            return getThis().itemLargeCategory;
         }
 
         private void setItemLargeCategory(TextView itemLargeCategory) {
@@ -431,7 +431,7 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private TextView getItemLargeCategoryLabel() {
-            return itemLargeCategoryLabel;
+            return getThis().itemLargeCategoryLabel;
         }
 
         private void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
@@ -439,11 +439,11 @@ class IndividualStoresRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         private long getDoubleClickTimeout() {
-            return doubleClickTimeout;
+            return getThis().doubleClickTimeout;
         }
 
         private long getLastClickTime() {
-            return lastClickTime;
+            return getThis().lastClickTime;
         }
 
         private void setLastClickTime(long lastClickTime) {

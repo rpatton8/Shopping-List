@@ -32,7 +32,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -40,7 +40,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -48,7 +48,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -56,7 +56,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -64,7 +64,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private DBCategoryHelper getDbCategoryHelper() {
-        return dbCategoryHelper;
+        return getThis().dbCategoryHelper;
     }
 
     private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -72,7 +72,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -169,7 +169,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -177,7 +177,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -185,7 +185,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private CategoryData getCategoryData() {
-            return categoryData;
+            return getThis().categoryData;
         }
 
         private void setCategoryData(CategoryData categoryData) {
@@ -193,7 +193,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private DBCategoryHelper getDbCategoryHelper() {
-            return dbCategoryHelper;
+            return getThis().dbCategoryHelper;
         }
 
         private void setDbCategoryHelper(DBCategoryHelper dbCategoryHelper) {
@@ -201,7 +201,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private RecyclerView getRecyclerView() {
-            return recyclerView;
+            return getThis().recyclerView;
         }
 
         private void setRecyclerView(RecyclerView recyclerView) {
@@ -209,7 +209,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private TextView getCategoryName() {
-            return categoryName;
+            return getThis().categoryName;
         }
 
         private void setCategoryName(TextView categoryName) {
@@ -217,7 +217,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private ImageView getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(ImageView triangleDown) {
@@ -225,7 +225,7 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
         }
 
         private ImageView getTriangleUp() {
-            return triangleUp;
+            return getThis().triangleUp;
         }
 
         private void setTriangleUp(ImageView triangleUp) {

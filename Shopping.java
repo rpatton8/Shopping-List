@@ -1262,101 +1262,101 @@ public class Shopping extends AppCompatActivity {
 
         String defaultSortBy = sharedPref.getString(getString(R.string.sp_default_sort_by), getString(R.string.spDefaultSortBy));
         if (defaultSortBy.equals(getString(R.string.spSortByCategory))) {
-            getThis().setDefaultSortBy(SORT_BY_CATEGORY);
-            getThis().setInventorySortBy(SORT_BY_CATEGORY);
+            setDefaultSortBy(SORT_BY_CATEGORY);
+            setInventorySortBy(SORT_BY_CATEGORY);
         } else if (defaultSortBy.equals(getString(R.string.spSortByStore))) {
-            getThis().setDefaultSortBy(SORT_BY_STORE);
-            getThis().setInventorySortBy(SORT_BY_STORE);
+            setDefaultSortBy(SORT_BY_STORE);
+            setInventorySortBy(SORT_BY_STORE);
         } else if (defaultSortBy.equals(getString(R.string.spSortAlphabetically))) {
-            getThis().setDefaultSortBy(SORT_ALPHABETICAL);
-            getThis().setInventorySortBy(SORT_ALPHABETICAL);
+            setDefaultSortBy(SORT_ALPHABETICAL);
+            setInventorySortBy(SORT_ALPHABETICAL);
         }
 
         String defaultCategoryTitles = sharedPref.getString(getString(R.string.sp_default_category_titles), getString(R.string.spDefaultCategoryTitles));
         if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesContracted))) {
-            getThis().setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
+            setDefaultCategoryTitles(CATEGORY_TITLES_CONTRACTED);
         } else if (defaultCategoryTitles.equals(getString(R.string.spCategoryTitlesExpanded))) {
-            getThis().setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
+            setDefaultCategoryTitles(CATEGORY_TITLES_EXPANDED);
         }
 
         String defaultStoreTitles = sharedPref.getString(getString(R.string.sp_default_store_titles), getString(R.string.spDefaultStoreTitles));
         if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesContracted))) {
-            getThis().setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
+            setDefaultStoreTitles(STORE_TITLES_CONTRACTED);
         } else if (defaultStoreTitles.equals(getString(R.string.spStoreTitlesExpanded))) {
-            getThis().setDefaultStoreTitles(STORE_TITLES_EXPANDED);
+            setDefaultStoreTitles(STORE_TITLES_EXPANDED);
         }
 
         String reorderingMethod = sharedPref.getString(getString(R.string.sp_reorder_method), getString(R.string.spDefaultReordering));
         if (reorderingMethod.equals(getString(R.string.spUpAndDownArrows))) {
-            getThis().setReorderingMethod(UP_AND_DOWN_ARROWS);
+            setReorderingMethod(UP_AND_DOWN_ARROWS);
         } else if (reorderingMethod.equals(getString(R.string.spWithNumbers))) {
-            getThis().setReorderingMethod(WITH_NUMBERS);
+            setReorderingMethod(WITH_NUMBERS);
         } else {
-            getThis().setReorderingMethod(DRAG_AND_DROP);
+            setReorderingMethod(DRAG_AND_DROP);
         }
 
         String colorScheme = sharedPref.getString(getString(R.string.sp_color_scheme), getString(R.string.spDefaultColorScheme));
         if (colorScheme.equals(getString(R.string.spColorScheme2))) {
-            getThis().setColorScheme(COLOR_SCHEME_2);
+            setColorScheme(COLOR_SCHEME_2);
         } else if (colorScheme.equals(getString(R.string.spColorScheme3))) {
-            getThis().setColorScheme(COLOR_SCHEME_3);
+            setColorScheme(COLOR_SCHEME_3);
         } else {
-            getThis().setColorScheme(COLOR_SCHEME_1);
+            setColorScheme(COLOR_SCHEME_1);
         }
 
         String swipingOption = sharedPref.getString(getString(R.string.sp_swiping_option), getString(R.string.spDefaultSwipingOption));
         if (swipingOption.equals(getString(R.string.spSwipingOff))) {
-            getThis().setSwipingOption(SWIPING_OFF);
+            setSwipingOption(SWIPING_OFF);
         } else {
-            getThis().setSwipingOption(SWIPING_ON);
+            setSwipingOption(SWIPING_ON);
         }
 
         String picturesOption = sharedPref.getString(getString(R.string.sp_pictures_option), getString(R.string.spDefaultPicturesOption));
         if (picturesOption.equals(getString(R.string.spPicturesOff))) {
-            getThis().setPicturesOption(PICTURES_OFF);
+            setPicturesOption(PICTURES_OFF);
         } else {
-            getThis().setPicturesOption(PICTURES_ON);
+            setPicturesOption(PICTURES_ON);
         }
 
         String optionalDataQuantity = sharedPref.getString(getString(R.string.sp_optional_data_quantity), getString(R.string.spDefaultOptionalDataQuantity));
         if (optionalDataQuantity.equals(getString(R.string.spOptionalDataOff))) {
-            getThis().setOptionalDataQuantity(OPTIONAL_DATA_OFF);
+            setOptionalDataQuantity(OPTIONAL_DATA_OFF);
         } else {
-            getThis().setOptionalDataQuantity(OPTIONAL_DATA_ON);
+            setOptionalDataQuantity(OPTIONAL_DATA_ON);
         }
 
         String optionalDataPrice = sharedPref.getString(getString(R.string.sp_optional_data_price), getString(R.string.spDefaultOptionalDataPrice));
         if (optionalDataPrice.equals(getString(R.string.spOptionalDataOff))) {
-            getThis().setOptionalDataPrice(OPTIONAL_DATA_OFF);
+            setOptionalDataPrice(OPTIONAL_DATA_OFF);
         } else {
-            getThis().setOptionalDataPrice(OPTIONAL_DATA_ON);
+            setOptionalDataPrice(OPTIONAL_DATA_ON);
         }
 
         String optionalDataLocation = sharedPref.getString(getString(R.string.sp_optional_data_location), getString(R.string.spDefaultOptionalDataLocation));
         if (optionalDataLocation.equals(getString(R.string.spOptionalDataOff))) {
-            getThis().setOptionalDataLocation(OPTIONAL_DATA_OFF);
+            setOptionalDataLocation(OPTIONAL_DATA_OFF);
         } else {
-            getThis().setOptionalDataLocation(OPTIONAL_DATA_ON);
+            setOptionalDataLocation(OPTIONAL_DATA_ON);
         }
 
         String optionalDataNote = sharedPref.getString(getString(R.string.sp_optional_data_note), getString(R.string.spDefaultOptionalDataNote));
         if (optionalDataNote.equals(getString(R.string.spOptionalDataOff))) {
-            getThis().setOptionalDataNote(OPTIONAL_DATA_OFF);
+            setOptionalDataNote(OPTIONAL_DATA_OFF);
         } else {
-            getThis().setOptionalDataNote(OPTIONAL_DATA_ON);
+            setOptionalDataNote(OPTIONAL_DATA_ON);
         }
 
         String reorderCategoryEmoji = sharedPref.getString(getString(R.string.sp_reorder_category_emoji), getString(R.string.spDefaultReorderCategoryEmoji));
-        getThis().setReorderCategoryEmoji(reorderCategoryEmoji);
+        setReorderCategoryEmoji(reorderCategoryEmoji);
 
         String reorderItemByCategoryEmoji = sharedPref.getString(getString(R.string.sp_reorder_item_by_category_emoji), getString(R.string.spDefaultReorderItemByCategoryEmoji));
-        getThis().setReorderItemByCategoryEmoji(reorderItemByCategoryEmoji);
+        setReorderItemByCategoryEmoji(reorderItemByCategoryEmoji);
 
         String reorderItemByStoreEmoji = sharedPref.getString(getString(R.string.sp_reorder_item_by_store_emoji), getString(R.string.spDefaultReorderItemByStoreEmoji));
-        getThis().setReorderItemByStoreEmoji(reorderItemByStoreEmoji);
+        setReorderItemByStoreEmoji(reorderItemByStoreEmoji);
 
         String reorderStoreEmoji = sharedPref.getString(getString(R.string.sp_reorder_store_emoji), getString(R.string.spDefaultReorderStoreEmoji));
-        getThis().setReorderStoreEmoji(reorderStoreEmoji);
+        setReorderStoreEmoji(reorderStoreEmoji);
 
     }
 
@@ -1565,6 +1565,26 @@ public class Shopping extends AppCompatActivity {
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.meat), 0);
         getCategoryData().getCategoryViewPausedMap().put(getString(R.string.meat), 11);
         getDbCategoryHelper().setCategoryViews(getString(R.string.meat), 11, 0, 0, 11);
+
+        //------------------------------------Fruit-------------------------------------------------
+
+        // ----- no items -----
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewInStockMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.fruit), 0);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.fruit), 0, 0, 0, 0);
+
+        //------------------------------------Vegetables--------------------------------------------
+
+        // ----- no items -----
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewInStockMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.vegetables), 0);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.vegetables), 0, 0, 0, 0);
 
         //------------------------------------Bread/Grains/Cereal-----------------------------------
 
@@ -3265,6 +3285,27 @@ public class Shopping extends AppCompatActivity {
         getCategoryData().getCategoryViewNeededMap().put(getString(R.string.meat), 1);
         getCategoryData().getCategoryViewPausedMap().put(getString(R.string.meat), 7);
         getDbCategoryHelper().setCategoryViews(getString(R.string.meat), 11, 3, 1, 7);
+
+        //------------------------------------Fruit-------------------------------------------------
+
+        // ----- no items -----
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewInStockMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.fruit), 0);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.fruit), 0);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.fruit), 0, 0, 0, 0);
+
+        //------------------------------------Vegetables--------------------------------------------
+
+        // ----- no items -----
+
+        getCategoryData().getCategoryViewAllMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewInStockMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewNeededMap().put(getString(R.string.vegetables), 0);
+        getCategoryData().getCategoryViewPausedMap().put(getString(R.string.vegetables), 0);
+        getDbCategoryHelper().setCategoryViews(getString(R.string.vegetables), 0, 0, 0, 0);
+
 
         //------------------------------------Bread/Grains/Cereal-----------------------------------
 

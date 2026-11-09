@@ -78,9 +78,6 @@ class Item implements Comparable<Item> {
     }
 
     Status getStatus() {
-        /*if (status == null) {
-            setStatus(new Status(getItemName(), getContext().getString(R.string.instock), getContext().getString(R.string.unchecked), getContext()));
-        }*/
         return getThis().status;
     }
 

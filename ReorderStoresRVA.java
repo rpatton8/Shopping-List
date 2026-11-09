@@ -31,7 +31,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -39,7 +39,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -47,7 +47,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -55,7 +55,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -63,7 +63,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private DBStoreHelper getDbStoreHelper() {
-        return dbStoreHelper;
+        return getThis().dbStoreHelper;
     }
 
     private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -71,7 +71,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -134,7 +134,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -142,7 +142,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -150,7 +150,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private StoreData getStoreData() {
-            return storeData;
+            return getThis().storeData;
         }
 
         private void setStoreData(StoreData storeData) {
@@ -158,7 +158,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private DBStoreHelper getDbStoreHelper() {
-            return dbStoreHelper;
+            return getThis().dbStoreHelper;
         }
 
         private void setDbStoreHelper(DBStoreHelper dbStoreHelper) {
@@ -166,7 +166,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private RecyclerView getRecyclerView() {
-            return recyclerView;
+            return getThis().recyclerView;
         }
 
         private void setRecyclerView(RecyclerView recyclerView) {
@@ -174,7 +174,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private TextView getStoreName() {
-            return storeName;
+            return getThis().storeName;
         }
 
         private void setStoreName(TextView storeName) {
@@ -182,7 +182,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private ImageView getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(ImageView triangleDown) {
@@ -190,7 +190,7 @@ class ReorderStoresRVA extends RecyclerView.Adapter<ReorderStoresRVA.ReorderStor
         }
 
         private ImageView getTriangleUp() {
-            return triangleUp;
+            return getThis().triangleUp;
         }
 
         private void setTriangleUp(ImageView triangleUp) {

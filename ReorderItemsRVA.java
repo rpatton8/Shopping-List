@@ -52,7 +52,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -60,7 +60,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -68,7 +68,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -76,7 +76,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private ItemData getItemData() {
-        return itemData;
+        return getThis().itemData;
     }
 
     private void setItemData(ItemData itemData) {
@@ -84,7 +84,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private CategoryData getCategoryData() {
-        return categoryData;
+        return getThis().categoryData;
     }
 
     private void setCategoryData(CategoryData categoryData) {
@@ -92,7 +92,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private StoreData getStoreData() {
-        return storeData;
+        return getThis().storeData;
     }
 
     private void setStoreData(StoreData storeData) {
@@ -100,7 +100,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private DBItemHelper getDbItemHelper() {
-        return dbItemHelper;
+        return getThis().dbItemHelper;
     }
 
     private void setDbItemHelper(DBItemHelper dbItemHelper) {
@@ -108,7 +108,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private RecyclerView getRecyclerView() {
-        return recyclerView;
+        return getThis().recyclerView;
     }
 
     private void setRecyclerView(RecyclerView recyclerView) {
@@ -116,7 +116,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private ScrollView getScrollView() {
-        return scrollView;
+        return getThis().scrollView;
     }
 
     private void setScrollView(ScrollView scrollView) {
@@ -124,7 +124,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private String getReorderBy() {
-        return reorderBy;
+        return getThis().reorderBy;
     }
 
     void setReorderBy(String reorderBy) {
@@ -132,7 +132,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private String getCategory() {
-        return category;
+        return getThis().category;
     }
 
     private void setCategory(String category) {
@@ -140,7 +140,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     private String getStore() {
-        return store;
+        return getThis().store;
     }
 
     private void setStore(String store) {
@@ -197,12 +197,12 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
     }
 
     void changeCategory(String category) {
-        getThis().setCategory(category);
+        setCategory(category);
         getShopping().setReorderItemsCategory(category);
     }
 
     void changeStore(String store) {
-        getThis().setStore(store);
+        setStore(store);
         getShopping().setReorderItemsStore(store);
     }
 
@@ -261,7 +261,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private Shopping getShopping() {
-            return shopping;
+            return getThis().shopping;
         }
 
         private void setShopping(Shopping shopping) {
@@ -269,7 +269,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private ReorderItemsRVA getAdapter() {
-            return adapter;
+            return getThis().adapter;
         }
 
         private void setAdapter(ReorderItemsRVA adapter) {
@@ -277,7 +277,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private RecyclerView getRecyclerView() {
-            return recyclerView;
+            return getThis().recyclerView;
         }
 
         private void setRecyclerView(RecyclerView recyclerView) {
@@ -285,7 +285,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private ScrollView getScrollView() {
-            return scrollView;
+            return getThis().scrollView;
         }
 
         private void setScrollView(ScrollView scrollView) {
@@ -293,7 +293,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -301,7 +301,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private CategoryData getCategoryData() {
-            return categoryData;
+            return getThis().categoryData;
         }
 
         private void setCategoryData(CategoryData categoryData) {
@@ -309,7 +309,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private StoreData getStoreData() {
-            return storeData;
+            return getThis().storeData;
         }
 
         private void setStoreData(StoreData storeData) {
@@ -317,7 +317,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private TextView getItemName() {
-            return itemName;
+            return getThis().itemName;
         }
 
         private void setItemName(TextView itemName) {
@@ -325,7 +325,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private ImageView getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(ImageView triangleDown) {
@@ -333,7 +333,7 @@ class ReorderItemsRVA extends RecyclerView.Adapter<ReorderItemsRVA.ReorderItemsR
         }
 
         private ImageView getTriangleUp() {
-            return triangleUp;
+            return getThis().triangleUp;
         }
 
         private void setTriangleUp(ImageView triangleUp) {

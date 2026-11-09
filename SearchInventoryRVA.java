@@ -34,7 +34,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private View getView() {
-        return view;
+        return getThis().view;
     }
 
     private void setView(View view) {
@@ -42,7 +42,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private Context getContext() {
-        return context;
+        return getThis().context;
     }
 
     private void setContext(Context context) {
@@ -50,7 +50,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private Shopping getShopping() {
-        return shopping;
+        return getThis().shopping;
     }
 
     private void setShopping(Shopping shopping) {
@@ -58,7 +58,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private SearchAlgorithm getSearchAlgorithm() {
-        return searchAlgorithm;
+        return getThis().searchAlgorithm;
     }
 
     private void setSearchAlgorithm(SearchAlgorithm searchAlgorithm) {
@@ -66,7 +66,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private String getCurrentSearchTerm() {
-        return currentSearchTerm;
+        return getThis().currentSearchTerm;
     }
 
     void setCurrentSearchTerm(String currentSearchTerm) {
@@ -74,7 +74,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private ArrayList<Item> getSearchResultsList() {
-        return searchResultsList;
+        return getThis().searchResultsList;
     }
 
     private void setSearchResultsList(ArrayList<Item> searchResultsList) {
@@ -286,31 +286,31 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public View getView() {
-            return view;
+            return getThis().view;
         }
 
         public void setView(View view) {
             getThis().view = view;
         }
 
-        private Shopping getShopping() {
-            return shopping;
-        }
-
-        private void setShopping(Shopping shopping) {
-            getThis().shopping = shopping;
-        }
-
         private Context getContext() {
-            return context;
+            return getThis().context;
         }
 
         private void setContext(Context context) {
             getThis().context = context;
         }
 
+        private Shopping getShopping() {
+            return getThis().shopping;
+        }
+
+        private void setShopping(Shopping shopping) {
+            getThis().shopping = shopping;
+        }
+
         private SearchInventoryRVA getAdapter() {
-            return adapter;
+            return getThis().adapter;
         }
 
         private void setAdapter(SearchInventoryRVA adapter) {
@@ -318,7 +318,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private ItemData getItemData() {
-            return itemData;
+            return getThis().itemData;
         }
 
         private void setItemData(ItemData itemData) {
@@ -326,7 +326,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private CategoryData getCategoryData() {
-            return categoryData;
+            return getThis().categoryData;
         }
 
         private void setCategoryData(CategoryData categoryData) {
@@ -334,7 +334,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private DBStatusHelper getDbStatusHelper() {
-            return dbStatusHelper;
+            return getThis().dbStatusHelper;
         }
 
         private void setDbStatusHelper(DBStatusHelper dbStatusHelper) {
@@ -342,7 +342,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Button getTriangleRight() {
-            return triangleRight;
+            return getThis().triangleRight;
         }
 
         private void setTriangleRight(Button triangleRight) {
@@ -350,7 +350,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private Button getTriangleDown() {
-            return triangleDown;
+            return getThis().triangleDown;
         }
 
         private void setTriangleDown(Button triangleDown) {
@@ -358,7 +358,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private LinearLayout getItemSmall() {
-            return itemSmall;
+            return getThis().itemSmall;
         }
 
         private void setItemSmall(LinearLayout itemSmall) {
@@ -366,7 +366,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private LinearLayout getItemLarge() {
-            return itemLarge;
+            return getThis().itemLarge;
         }
 
         private void setItemLarge(LinearLayout itemLarge) {
@@ -374,7 +374,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallName() {
-            return itemSmallName;
+            return getThis().itemSmallName;
         }
 
         private void setItemSmallName(TextView itemSmallName) {
@@ -382,7 +382,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeName() {
-            return itemLargeName;
+            return getThis().itemLargeName;
         }
 
         private void setItemLargeName(TextView itemLargeName) {
@@ -390,7 +390,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallInStock() {
-            return itemSmallInStock;
+            return getThis().itemSmallInStock;
         }
 
         private void setItemSmallInStock(TextView itemSmallInStock) {
@@ -398,7 +398,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallNeeded() {
-            return itemSmallNeeded;
+            return getThis().itemSmallNeeded;
         }
 
         private void setItemSmallNeeded(TextView itemSmallNeeded) {
@@ -406,7 +406,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallPaused() {
-            return itemSmallPaused;
+            return getThis().itemSmallPaused;
         }
 
         private void setItemSmallPaused(TextView itemSmallPaused) {
@@ -414,7 +414,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallBrand() {
-            return itemSmallBrand;
+            return getThis().itemSmallBrand;
         }
 
         private void setItemSmallBrand(TextView itemSmallBrand) {
@@ -422,7 +422,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemSmallBrandLabel() {
-            return itemSmallBrandLabel;
+            return getThis().itemSmallBrandLabel;
         }
 
         private void setItemSmallBrandLabel(TextView itemSmallBrandLabel) {
@@ -430,7 +430,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeInStock() {
-            return itemLargeInStock;
+            return getThis().itemLargeInStock;
         }
 
         private void setItemLargeInStock(TextView itemLargeInStock) {
@@ -438,7 +438,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeNeeded() {
-            return itemLargeNeeded;
+            return getThis().itemLargeNeeded;
         }
 
         private void setItemLargeNeeded(TextView itemLargeNeeded) {
@@ -446,7 +446,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargePaused() {
-            return itemLargePaused;
+            return getThis().itemLargePaused;
         }
 
         private void setItemLargePaused(TextView itemLargePaused) {
@@ -454,7 +454,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeBrand() {
-            return itemLargeBrand;
+            return getThis().itemLargeBrand;
         }
 
         private void setItemLargeBrand(TextView itemLargeBrand) {
@@ -462,7 +462,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeBrandLabel() {
-            return itemLargeBrandLabel;
+            return getThis().itemLargeBrandLabel;
         }
 
         private void setItemLargeBrandLabel(TextView itemLargeBrandLabel) {
@@ -470,7 +470,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeCategory() {
-            return itemLargeCategory;
+            return getThis().itemLargeCategory;
         }
 
         private void setItemLargeCategory(TextView itemLargeCategory) {
@@ -478,7 +478,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeCategoryLabel() {
-            return itemLargeCategoryLabel;
+            return getThis().itemLargeCategoryLabel;
         }
 
         private void setItemLargeCategoryLabel(TextView itemLargeCategoryLabel) {
@@ -486,7 +486,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeStore() {
-            return itemLargeStore;
+            return getThis().itemLargeStore;
         }
 
         private void setItemLargeStore(TextView itemLargeStore) {
@@ -494,7 +494,7 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private TextView getItemLargeStoreLabel() {
-            return itemLargeStoreLabel;
+            return getThis().itemLargeStoreLabel;
         }
 
         private void setItemLargeStoreLabel(TextView itemLargeStoreLabel) {
@@ -502,11 +502,11 @@ class SearchInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         private long getDoubleClickTimeout() {
-            return doubleClickTimeout;
+            return getThis().doubleClickTimeout;
         }
 
         private long getLastClickTime() {
-            return lastClickTime;
+            return getThis().lastClickTime;
         }
 
         private void setLastClickTime(long lastClickTime) {
