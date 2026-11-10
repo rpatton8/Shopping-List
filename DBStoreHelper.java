@@ -11,7 +11,7 @@ class DBStoreHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = ShoppingApp.getStringRes(R.string.dbStoresCap);
-    private static final int DB_VERSION = 24;
+    private static final int DB_VERSION = 25;
     private static final String TABLE_NAME = ShoppingApp.getStringRes(R.string.dbStores);
     private static final String ID = ShoppingApp.getStringRes(R.string.dbID);
     private static final String STORE_NAME = ShoppingApp.getStringRes(R.string.dbStoreName);

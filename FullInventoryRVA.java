@@ -243,28 +243,28 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             categoryTitleHolder.setCategory(category);
             categoryTitleHolder.getCategoryTitleText().setText(category);
             Category thisCategory = getItemData().getCategoryMap().get(category);
-            if (thisCategory != null) {
+            /*if (thisCategory != null) {
                 if (thisCategory.categoryIsExpanded()) {
                     categoryTitleHolder.expandTitle();
                 } else if (thisCategory.categoryIsContracted()) {
                     categoryTitleHolder.contractTitle();
                 }
-            }
+            }*/
             categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.VISIBLE);
             categoryTitleHolder.getNoItems().setVisibility(View.GONE);
 
-            int numViewAll = getCategoryData().getCategoryViewAllMap().get(category);
-            int numViewInStock = getCategoryData().getCategoryViewInStockMap().get(category);
-            int numViewNeeded = getCategoryData().getCategoryViewNeededMap().get(category);
-            int numViewPaused = getCategoryData().getCategoryViewPausedMap().get(category);
+            int numViewAllCategory = getCategoryData().getCategoryViewAllMap().get(category);
+            int numViewInStockCategory = getCategoryData().getCategoryViewInStockMap().get(category);
+            int numViewNeededCategory = getCategoryData().getCategoryViewNeededMap().get(category);
+            int numViewPausedCategory = getCategoryData().getCategoryViewPausedMap().get(category);
 
-            if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && numViewAll == 0) {
+            if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && numViewAllCategory == 0) {
                 categoryTitleHolder.getNoItems().setVisibility(View.VISIBLE);
-            } else if (Shopping.VIEW_INSTOCK.equals(getShopping().getInventoryView()) && numViewInStock == 0) {
+            } else if (Shopping.VIEW_INSTOCK.equals(getShopping().getInventoryView()) && numViewInStockCategory == 0) {
                 categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.GONE);
-            } else if (Shopping.VIEW_NEEDED.equals(getShopping().getInventoryView()) && numViewNeeded == 0) {
+            } else if (Shopping.VIEW_NEEDED.equals(getShopping().getInventoryView()) && numViewNeededCategory == 0) {
                 categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.GONE);
-            } else if (Shopping.VIEW_PAUSED.equals(getShopping().getInventoryView()) && numViewPaused == 0) {
+            } else if (Shopping.VIEW_PAUSED.equals(getShopping().getInventoryView()) && numViewPausedCategory == 0) {
                 categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.GONE);
             }
 
@@ -521,27 +521,28 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             storeTitleHolder.setStore(store);
             storeTitleHolder.getStoreTitleText().setText(store);
             Store thisStore = getItemData().getStoreMap().get(store);
-            if (thisStore != null) {
+            /*if (thisStore != null) {
                 if (thisStore.storeIsExpanded()) {
                     storeTitleHolder.expandTitle();
                 } else if (thisStore.storeIsContracted()) {
                     storeTitleHolder.contractTitle();
                 }
-            }
+            }*/
             storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.VISIBLE);
+            storeTitleHolder.getNoItems().setVisibility(View.GONE);
 
-            int numViewAll = getStoreData().getStoreViewAllMap().get(store);
-            int numViewInStock = getStoreData().getStoreViewInStockMap().get(store);
-            int numViewNeeded = getStoreData().getStoreViewNeededMap().get(store);
-            int numViewPaused = getStoreData().getStoreViewPausedMap().get(store);
+            int numViewAllStore = getStoreData().getStoreViewAllMap().get(store);
+            int numViewInStockStore = getStoreData().getStoreViewInStockMap().get(store);
+            int numViewNeededStore = getStoreData().getStoreViewNeededMap().get(store);
+            int numViewPausedStore = getStoreData().getStoreViewPausedMap().get(store);
 
-            if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && numViewAll == 0) {
+            if (Shopping.VIEW_ALL.equals(getShopping().getInventoryView()) && numViewAllStore == 0) {
+                storeTitleHolder.getNoItems().setVisibility(View.VISIBLE);
+            } else if (Shopping.VIEW_INSTOCK.equals(getShopping().getInventoryView()) && numViewInStockStore == 0) {
                 storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.GONE);
-            } else if (Shopping.VIEW_INSTOCK.equals(getShopping().getInventoryView()) && numViewInStock == 0) {
+            } else if (Shopping.VIEW_NEEDED.equals(getShopping().getInventoryView()) && numViewNeededStore == 0) {
                 storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.GONE);
-            } else if (Shopping.VIEW_NEEDED.equals(getShopping().getInventoryView()) && numViewNeeded == 0) {
-                storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.GONE);
-            } else if (Shopping.VIEW_PAUSED.equals(getShopping().getInventoryView()) && numViewPaused == 0) {
+            } else if (Shopping.VIEW_PAUSED.equals(getShopping().getInventoryView()) && numViewPausedStore == 0) {
                 storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.GONE);
             }
 
@@ -1867,6 +1868,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private ImageView plusIconLeft;
         private ImageView minusIconRight;
         private ImageView plusIconRight;
+        private TextView noItems;
 
         private SortByStoreTitleRVH(View view, Shopping shopping, FullInventoryRVA adapter, ItemData itemData) {
 
@@ -1882,6 +1884,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             setMinusIconRight(getView().findViewById(R.id.minusIconRight));
             setPlusIconLeft(getView().findViewById(R.id.plusIconLeft));
             setPlusIconRight(getView().findViewById(R.id.plusIconRight));
+            setNoItems(getView().findViewById(R.id.noItems));
 
             getSortByStoreRvLayout().setOnClickListener(getThis());
             getStoreTitleText().setOnClickListener(getThis());
@@ -1889,6 +1892,7 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             getMinusIconRight().setOnClickListener(getThis());
             getPlusIconLeft().setOnClickListener(getThis());
             getPlusIconRight().setOnClickListener(getThis());
+            getNoItems().setOnClickListener(getThis());
 
         }
 
@@ -1974,6 +1978,14 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private void setPlusIconRight(ImageView plusIconRight) {
             getThis().plusIconRight = plusIconRight;
+        }
+
+        public TextView getNoItems() {
+            return getThis().noItems;
+        }
+
+        private void setNoItems(TextView noItems) {
+            getThis().noItems = noItems;
         }
 
         public String getStore() {

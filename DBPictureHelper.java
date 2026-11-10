@@ -11,7 +11,7 @@ class DBPictureHelper extends SQLiteOpenHelper {
     private Context context;
 
     private static final String DB_NAME = ShoppingApp.getStringRes(R.string.dbPicturesCap);
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 25;
     private static final String TABLE_NAME = ShoppingApp.getStringRes(R.string.dbPictures);
     private static final String ID = ShoppingApp.getStringRes(R.string.dbID);
     private static final String PICTURE_NAME = ShoppingApp.getStringRes(R.string.dbPictureName);

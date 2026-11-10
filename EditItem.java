@@ -32,6 +32,7 @@ public class EditItem extends Fragment {
     private EditText itemBrandTypeInput;
     private EditText itemCategoryInput;
     private EditText itemStoreInput;
+    private Status status;
     private TextView inStockLabel;
     private TextView neededLabel;
     private TextView pausedLabel;
@@ -189,6 +190,14 @@ public class EditItem extends Fragment {
 
     private void setItemStoreInput(EditText itemStoreInput) {
         getThis().itemStoreInput = itemStoreInput;
+    }
+
+    private Status getStatus() {
+        return status;
+    }
+
+    private void setStatus(Status status) {
+        this.status = status;
     }
 
     private TextView getInStockLabel() {
@@ -467,15 +476,19 @@ public class EditItem extends Fragment {
         if (getShopping().editItemInInventory()) {
             getItemNameInput().setText(getShopping().getSelectedItemInInventory().getItemName());
             getItemBrandTypeInput().setText(getShopping().getSelectedItemInInventory().getBrandType());
+            setStatus(getShopping().getSelectedItemInInventory().getStatus());
         } else if (getShopping().editItemInSearchResults()) {
             getItemNameInput().setText(getShopping().getSelectedItemInSearchResults().getItemName());
             getItemBrandTypeInput().setText(getShopping().getSelectedItemInSearchResults().getBrandType());
+            setStatus(getShopping().getSelectedItemInSearchResults().getStatus());
         } else if (getShopping().editItemInShoppingList()) {
             getItemNameInput().setText(getShopping().getSelectedItemInShoppingList().getItemName());
             getItemBrandTypeInput().setText(getShopping().getSelectedItemInShoppingList().getBrandType());
+            setStatus(getShopping().getSelectedItemInShoppingList().getStatus());
         } else if (getShopping().editItemInPictureDialog()) {
             getItemNameInput().setText(getShopping().getItemInPictureDialog().getItemName());
             getItemBrandTypeInput().setText(getShopping().getItemInPictureDialog().getBrandType());
+            setStatus(getShopping().getItemInPictureDialog().getStatus());
         }
         getItemCategoryInput().setText(getString(R.string.emptyString));
         getItemStoreInput().setText(getString(R.string.emptyString));
@@ -483,6 +496,20 @@ public class EditItem extends Fragment {
         setInStockLabel(getView().findViewById(R.id.inStockLabel));
         setNeededLabel(getView().findViewById(R.id.neededLabel));
         setPausedLabel(getView().findViewById(R.id.pausedLabel));
+
+        if (status.isInStock()) {
+            getInStockLabel().setVisibility(View.VISIBLE);
+            getPausedLabel().setVisibility(View.GONE);
+            getNeededLabel().setVisibility(View.GONE);
+        } else if (status.isPaused()) {
+            getInStockLabel().setVisibility(View.GONE);
+            getPausedLabel().setVisibility(View.VISIBLE);
+            getNeededLabel().setVisibility(View.GONE);
+        } else if (status.isNeeded()) {
+            getInStockLabel().setVisibility(View.GONE);
+            getPausedLabel().setVisibility(View.GONE);
+            getNeededLabel().setVisibility(View.VISIBLE);
+        }
 
         setOptionalDataTitle(getView().findViewById(R.id.optionalDataTitle));
         setOptionalDataVisible(true);
@@ -701,20 +728,6 @@ public class EditItem extends Fragment {
                 }
 
                 Item thisItem = getItemData().getItemMap().get(getItemNameInput().getText().toString());
-
-                if (isInStock()) {
-                    getInStockLabel().setVisibility(View.VISIBLE);
-                    getPausedLabel().setVisibility(View.GONE);
-                    getNeededLabel().setVisibility(View.GONE);
-                } else if (isPaused()) {
-                    getInStockLabel().setVisibility(View.GONE);
-                    getPausedLabel().setVisibility(View.VISIBLE);
-                    getNeededLabel().setVisibility(View.GONE);
-                } else if (isNeeded()) {
-                    getInStockLabel().setVisibility(View.GONE);
-                    getPausedLabel().setVisibility(View.GONE);
-                    getNeededLabel().setVisibility(View.VISIBLE);
-                }
 
                 if (isInStock()) {
                     if (thisItem.getStatus().isInStock()) {
