@@ -243,114 +243,14 @@
         android:background="@android:color/white" />
 
     <Button
-        android:id="@+id/sortAlphabetical"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="38dp"
-        android:visibility="gone"
-        android:textSize="18sp"
-        android:text="@string/sortAlphabetically" />
-
-    <Button
         android:id="@+id/sortByCategory"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="91dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/sortByCategory" />
-
-    <Button
-        android:id="@+id/sortByStore"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="144dp"
-        android:visibility="gone"
-        android:textSize="18sp"
-        android:text="@string/sortByStore" />
-
-    <Button
-        android:id="@+id/viewAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="38dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/viewAll" />
-
-    <Button
-        android:id="@+id/viewInStock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="78dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/viewInStock" />
-
-    <Button
-        android:id="@+id/viewPaused"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="118dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/viewPaused" />
-
-    <Button
-        android:id="@+id/viewNeeded"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="158dp"
-        android:visibility="gone"
-        android:textSize="16sp"
-        android:text="@string/viewNeeded" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/expandItems"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="298dp"
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:text="@string/expandItems" />
-
-        <Button
-            android:id="@+id/contractItems"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="298dp"
-            android:visibility="gone"
-            android:textSize="16sp"
-            android:text="@string/contractItems" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -362,7 +262,7 @@
             android:id="@+id/expandCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="338dp"
+            android:layout_marginTop="91dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandCategories" />
@@ -371,12 +271,22 @@
             android:id="@+id/contractCategories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="338dp"
+            android:layout_marginTop="91dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/contractCategories" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/sortByStore"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="141dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:text="@string/sortByStore" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -388,7 +298,7 @@
             android:id="@+id/expandStores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="378dp"
+            android:layout_marginTop="194dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/expandStores" />
@@ -397,7 +307,7 @@
             android:id="@+id/contractStores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="378dp"
+            android:layout_marginTop="194dp"
             android:visibility="gone"
             android:textSize="16sp"
             android:text="@string/contractStores" />
@@ -405,12 +315,61 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/sortAlphabetical"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="244dp"
+        android:visibility="gone"
+        android:textSize="18sp"
+        android:text="@string/sortAlphabetically" />
+
+    <Button
+        android:id="@+id/viewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="305dp"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="@string/viewAll" />
+
+    <Button
+        android:id="@+id/viewInStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="347dp"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="@string/viewInStock" />
+
+    <Button
+        android:id="@+id/viewPaused"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="389dp"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="@string/viewPaused" />
+
+    <Button
+        android:id="@+id/viewNeeded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="431dp"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:text="@string/viewNeeded" />
+
+    <Button
         android:id="@+id/individualCategories"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="201dp"
+        android:layout_marginTop="480dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/individualCategories" />
@@ -419,12 +378,37 @@
         android:id="@+id/individualStores"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="248dp"
+        android:layout_marginTop="532dp"
         android:visibility="gone"
         android:textSize="18sp"
         android:text="@string/individualStores" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/expandItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="594dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/expandItems" />
+
+        <Button
+            android:id="@+id/contractItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="594dp"
+            android:visibility="gone"
+            android:textSize="16sp"
+            android:text="@string/contractItems" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

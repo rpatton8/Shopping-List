@@ -32,6 +32,8 @@
 
     <color name="search_icon_background">#4498C7</color>
 
+    <color name="settings_icon_background">#4498C7</color>
+
     <color name="shopping_icon_background">#3785E9</color>
 
 </resources>

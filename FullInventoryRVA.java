@@ -242,14 +242,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SortByCategoryTitleRVH categoryTitleHolder = (SortByCategoryTitleRVH) holder;
             categoryTitleHolder.setCategory(category);
             categoryTitleHolder.getCategoryTitleText().setText(category);
-            Category thisCategory = getItemData().getCategoryMap().get(category);
-            /*if (thisCategory != null) {
-                if (thisCategory.categoryIsExpanded()) {
-                    categoryTitleHolder.expandTitle();
-                } else if (thisCategory.categoryIsContracted()) {
-                    categoryTitleHolder.contractTitle();
-                }
-            }*/
+            //Category thisCategory = getItemData().getCategoryMap().get(category);
+
             categoryTitleHolder.getSortByCategoryRvLayout().setVisibility(View.VISIBLE);
             categoryTitleHolder.getNoItems().setVisibility(View.GONE);
 
@@ -520,14 +514,8 @@ class FullInventoryRVA extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             SortByStoreTitleRVH storeTitleHolder = (SortByStoreTitleRVH) holder;
             storeTitleHolder.setStore(store);
             storeTitleHolder.getStoreTitleText().setText(store);
-            Store thisStore = getItemData().getStoreMap().get(store);
-            /*if (thisStore != null) {
-                if (thisStore.storeIsExpanded()) {
-                    storeTitleHolder.expandTitle();
-                } else if (thisStore.storeIsContracted()) {
-                    storeTitleHolder.contractTitle();
-                }
-            }*/
+            //Store thisStore = getItemData().getStoreMap().get(store);
+
             storeTitleHolder.getSortByStoreRvLayout().setVisibility(View.VISIBLE);
             storeTitleHolder.getNoItems().setVisibility(View.GONE);
 
