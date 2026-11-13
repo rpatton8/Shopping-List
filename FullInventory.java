@@ -819,25 +819,13 @@ public class FullInventory extends Fragment {
 
         getIndividualCategoriesLeftArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
-                if ((getIndividualCategoriesSpinnerPosition() - 1) <= 0) {
-                    setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
-                } else if ((getIndividualCategoriesSpinnerPosition() - 1) > getIndividualCategoriesSpinnerData().size()) {
-                    setIndividualCategoriesSpinnerPosition(0);
-                }
-                getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() - 1);
+                moveLeftInIndividualCategories();
             }
         });
 
         getIndividualCategoriesRightArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
-                if ((getIndividualCategoriesSpinnerPosition() + 1) < 0) {
-                    setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
-                } else if ((getIndividualCategoriesSpinnerPosition() + 1) >= getIndividualCategoriesSpinnerData().size()) {
-                    setIndividualCategoriesSpinnerPosition(0);
-                }
-                getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() + 1);
+                moveRightInIndividualCategories();
             }
         });
 
@@ -860,25 +848,13 @@ public class FullInventory extends Fragment {
 
         getIndividualStoresLeftArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
-                if ((getIndividualStoresSpinnerPosition() - 1) <= 0) {
-                    setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
-                } else if ((getIndividualStoresSpinnerPosition() - 1) > getIndividualStoresSpinnerData().size()) {
-                    setIndividualStoresSpinnerPosition(0);
-                }
-                getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() - 1);
+                moveLeftInIndividualStores();
             }
         });
 
         getIndividualStoresRightArrow().setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
-                if ((getIndividualStoresSpinnerPosition() + 1) < 0) {
-                    setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
-                } else if ((getIndividualStoresSpinnerPosition() + 1) >= getIndividualStoresSpinnerData().size()) {
-                    setIndividualStoresSpinnerPosition(0);
-                }
-                getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() + 1);
+                moveRightInIndividualStores();
             }
         });
 
@@ -1595,7 +1571,6 @@ public class FullInventory extends Fragment {
                         categoryObj.setCategoryAsExpanded();
                     }
                 }
-                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1610,7 +1585,6 @@ public class FullInventory extends Fragment {
                         categoryObj.setCategoryAsContracted();
                     }
                 }
-                //getShopping().setCategoryTitles(Shopping.CATEGORY_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1625,7 +1599,6 @@ public class FullInventory extends Fragment {
                         storeObj.setStoreAsExpanded();
                     }
                 }
-                //getShopping().setStoreTitles(Shopping.STORE_TITLES_EXPANDED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1640,7 +1613,6 @@ public class FullInventory extends Fragment {
                         storeObj.setStoreAsContracted();
                     }
                 }
-                //getShopping().setStoreTitles(Shopping.STORE_TITLES_CONTRACTED);
                 getFullInventoryAdapter().notifyDataSetChanged();
                 hideMenuOptions();
             }
@@ -1819,19 +1791,43 @@ public class FullInventory extends Fragment {
     }
 
     private void moveLeftInIndividualCategories() {
-        // to do
+        setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
+        if ((getIndividualCategoriesSpinnerPosition() - 1) < 0) {
+            setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
+        } else if ((getIndividualCategoriesSpinnerPosition() - 1) >= getIndividualCategoriesSpinnerData().size()) {
+            setIndividualCategoriesSpinnerPosition(0);
+        }
+        getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() - 1);
     }
 
     private void moveRightInIndividualCategories() {
-        // to do
+        setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
+        if ((getIndividualCategoriesSpinnerPosition() + 1) <= 0) {
+            setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
+        } else if ((getIndividualCategoriesSpinnerPosition() + 1) > getIndividualCategoriesSpinnerData().size()) {
+            setIndividualCategoriesSpinnerPosition(0);
+        }
+        getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() + 1);
     }
 
     private void moveLeftInIndividualStores() {
-        // to do
+        setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
+        if ((getIndividualStoresSpinnerPosition() - 1) <= 0) {
+            setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
+        } else if ((getIndividualStoresSpinnerPosition() - 1) > getIndividualStoresSpinnerData().size()) {
+            setIndividualStoresSpinnerPosition(0);
+        }
+        getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() - 1);
     }
 
     private void moveRightInIndividualStores() {
-        // to do
+        setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
+        if ((getIndividualStoresSpinnerPosition() + 1) < 0) {
+            setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
+        } else if ((getIndividualStoresSpinnerPosition() + 1) >= getIndividualStoresSpinnerData().size()) {
+            setIndividualStoresSpinnerPosition(0);
+        }
+        getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() + 1);
     }
 
     private void hideMenuOptions() {
