@@ -1791,43 +1791,43 @@ public class FullInventory extends Fragment {
     }
 
     private void moveLeftInIndividualCategories() {
-        setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
-        if ((getIndividualCategoriesSpinnerPosition() - 1) < 0) {
-            setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
-        } else if ((getIndividualCategoriesSpinnerPosition() - 1) >= getIndividualCategoriesSpinnerData().size()) {
-            setIndividualCategoriesSpinnerPosition(0);
-        }
-        getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() - 1);
+        int size = getIndividualCategoriesSpinnerData() != null ? getIndividualCategoriesSpinnerData().size() : 0;
+        if (size == 0) return;
+        int currentPosition = getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory());
+        if (currentPosition < 0) currentPosition = 0;
+        int newPosition = (currentPosition - 1 + size) % size;
+        setIndividualCategoriesSpinnerPosition(newPosition);
+        getIndividualCategoriesSpinner().setSelection(newPosition);
     }
 
     private void moveRightInIndividualCategories() {
-        setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory()));
-        if ((getIndividualCategoriesSpinnerPosition() + 1) <= 0) {
-            setIndividualCategoriesSpinnerPosition(getIndividualCategoriesSpinnerData().size());
-        } else if ((getIndividualCategoriesSpinnerPosition() + 1) > getIndividualCategoriesSpinnerData().size()) {
-            setIndividualCategoriesSpinnerPosition(0);
-        }
-        getIndividualCategoriesSpinner().setSelection(getIndividualCategoriesSpinnerPosition() + 1);
+        int size = getIndividualCategoriesSpinnerData() != null ? getIndividualCategoriesSpinnerData().size() : 0;
+        if (size == 0) return;
+        int currentPosition = getIndividualCategoriesSpinnerAdapter().getPosition(getShopping().getIndividualCategory());
+        if (currentPosition < 0) currentPosition = 0;
+        int newPosition = (currentPosition + 1) % size;
+        setIndividualCategoriesSpinnerPosition(newPosition);
+        getIndividualCategoriesSpinner().setSelection(newPosition);
     }
 
     private void moveLeftInIndividualStores() {
-        setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
-        if ((getIndividualStoresSpinnerPosition() - 1) <= 0) {
-            setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
-        } else if ((getIndividualStoresSpinnerPosition() - 1) > getIndividualStoresSpinnerData().size()) {
-            setIndividualStoresSpinnerPosition(0);
-        }
-        getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() - 1);
+        int size = getIndividualStoresSpinnerData() != null ? getIndividualStoresSpinnerData().size() : 0;
+        if (size == 0) return;
+        int currentPosition = getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore());
+        if (currentPosition < 0) currentPosition = 0;
+        int newPosition = (currentPosition - 1 + size) % size;
+        setIndividualStoresSpinnerPosition(newPosition);
+        getIndividualStoresSpinner().setSelection(newPosition);
     }
 
     private void moveRightInIndividualStores() {
-        setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore()));
-        if ((getIndividualStoresSpinnerPosition() + 1) < 0) {
-            setIndividualStoresSpinnerPosition(getIndividualStoresSpinnerData().size());
-        } else if ((getIndividualStoresSpinnerPosition() + 1) >= getIndividualStoresSpinnerData().size()) {
-            setIndividualStoresSpinnerPosition(0);
-        }
-        getIndividualStoresSpinner().setSelection(getIndividualStoresSpinnerPosition() + 1);
+        int size = getIndividualStoresSpinnerData() != null ? getIndividualStoresSpinnerData().size() : 0;
+        if (size == 0) return;
+        int currentPosition = getIndividualStoresSpinnerAdapter().getPosition(getShopping().getIndividualStore());
+        if (currentPosition < 0) currentPosition = 0;
+        int newPosition = (currentPosition + 1) % size;
+        setIndividualStoresSpinnerPosition(newPosition);
+        getIndividualStoresSpinner().setSelection(newPosition);
     }
 
     private void hideMenuOptions() {
