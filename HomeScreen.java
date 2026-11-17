@@ -774,6 +774,7 @@ public class HomeScreen extends Fragment {
             public void onClick(View v) {
                 getShopping().clearAllData();
                 getShopping().initializeData();
+                getShopping().loadSharedPreferences();
             }
         });
 
@@ -783,6 +784,7 @@ public class HomeScreen extends Fragment {
                 getShopping().loadCategoryData1();
                 getShopping().loadStoreData1();
                 getShopping().initializeData();
+                getShopping().loadSharedPreferences();
             }
         });
 
@@ -792,6 +794,7 @@ public class HomeScreen extends Fragment {
                 getShopping().loadCategoryData2();
                 getShopping().loadStoreData2();
                 getShopping().initializeData();
+                getShopping().loadSharedPreferences();
             }
         });
 

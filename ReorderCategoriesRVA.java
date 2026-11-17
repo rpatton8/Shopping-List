@@ -347,6 +347,12 @@ class ReorderCategoriesRVA extends RecyclerView.Adapter<ReorderCategoriesRVA.Reo
 
                 System.out.println("WITH_NUMBERS reordering");
 
+                if (id == getWithNumbersEditText().getId()) {
+
+                } else if (id == getWithNumbersRefreshButton().getId()) {
+
+                }
+
             }
         }
     }
