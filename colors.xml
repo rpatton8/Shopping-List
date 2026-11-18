@@ -2,6 +2,8 @@
 
 <resources>
 
+    <color name="add_new_button_background">#4498C7</color>
+
     <color name="checkbox_checked_background">#FFFFFF</color>
 
     <color name="checkbox_unchecked_background">#FFFFFF</color>
@@ -17,8 +19,6 @@
     <color name="left_arrow_white_background">#FFFFFF</color>
 
     <color name="minus_icon_background">#AAAAAA</color>
-
-    <color name="plus_button_background">#4498C7</color>
 
     <color name="plus_icon_background">#AAAAAA</color>
 
