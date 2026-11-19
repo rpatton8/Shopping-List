@@ -44,8 +44,8 @@ public class AddItem extends Fragment {
     private TextView pictureDataTitle;
     private boolean pictureDataVisible;
     private boolean pictureDataExpanded;
-    private TextView pictureLabel1;
-    private EditText pictureInput1;
+    //private TextView pictureLabel1;
+    //private EditText pictureInput1;
     private ImageView pictureFrame;
     private TextView quantityLabel;
     private EditText quantityInput;
@@ -309,22 +309,6 @@ public class AddItem extends Fragment {
         getThis().pictureDataExpanded = pictureDataExpanded;
     }
 
-    private TextView getPictureLabel1() {
-        return getThis().pictureLabel1;
-    }
-
-    private void setPictureLabel1(TextView pictureLabel1) {
-        getThis().pictureLabel1 = pictureLabel1;
-    }
-
-    private EditText getPictureInput1() {
-        return getThis().pictureInput1;
-    }
-
-    private void setPictureInput1(EditText pictureInput1) {
-        getThis().pictureInput1 = pictureInput1;
-    }
-
     private ImageView getPictureFrame() {
         return getThis().pictureFrame;
     }
@@ -480,9 +464,9 @@ public class AddItem extends Fragment {
         setPictureDataVisible(true);
         setPictureDataExpanded(false);
 
-        setPictureLabel1(getView().findViewById(R.id.pictureLabel1));  // xxx
-        setPictureInput1(getView().findViewById(R.id.pictureInput1));  // xxx
         setPictureFrame(getView().findViewById(R.id.pictureFrame));
+        // left/right arrows to go through pictues
+        // camera/take/delete
 
         setQuantityLabel(getView().findViewById(R.id.quantityLabel));
         setQuantityInput(getView().findViewById(R.id.quantityInput));
@@ -600,13 +584,9 @@ public class AddItem extends Fragment {
             public void onClick(View view) {
                 if (pictureDataExpanded()) {
                     setPictureDataExpanded(false);
-                    getPictureLabel1().setVisibility(View.GONE);
-                    getPictureInput1().setVisibility(View.GONE);
                     getPictureFrame().setVisibility(View.GONE);
                 } else {
                     setPictureDataExpanded(true);
-                    getPictureLabel1().setVisibility(View.VISIBLE);
-                    getPictureInput1().setVisibility(View.VISIBLE);
                     getPictureFrame().setVisibility(View.VISIBLE);
                 }
             }
